@@ -2,11 +2,11 @@ import 'package:cafein_flutter/data/model/store/address_info.dart';
 import 'package:cafein_flutter/data/model/store/total_business_info.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'registered_cafe_request.freezed.dart';
+part 'registered_store_request.freezed.dart';
 
 @freezed
-class RegisteredCafeRequest with _$RegisteredCafeRequest {
-  factory RegisteredCafeRequest({
+class RegisteredStoreRequest with _$RegisteredStoreRequest {
+  factory RegisteredStoreRequest({
     required String storeName,
     required AddressInfo addressInfo,
     required String phoneNumber,
@@ -21,8 +21,5 @@ class RegisteredCafeRequest with _$RegisteredCafeRequest {
     required String wifi,
     required String restroom,
     required String tableSize,
-  }) = _RegisteredCafeRequest;
-
-  factory RegisteredCafeRequest.fromJson(Map<String, dynamic> json) =>
-      _$RegisteredCafeRequestFromJson(json);
+  }) = _RegisteredStoreRequest;
 }

@@ -4,12 +4,12 @@ import 'package:cafein_flutter/data/model/store/store_image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/total_business_info.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'cafe_detail.g.dart';
-part 'cafe_detail.freezed.dart';
+part 'store_detail.g.dart';
+part 'store_detail.freezed.dart';
 
 @freezed
-class CafeDetail with _$CafeDetail {
-  factory CafeDetail({
+class StoreDetail with _$StoreDetail {
+  factory StoreDetail({
     required int storeId,
     required String storeName,
     required String nicknameOfModMember,
@@ -24,7 +24,7 @@ class CafeDetail with _$CafeDetail {
     required List<StoreImageIdPair> reviewImageList,
     required List<StoreImageIdPair> storeImageList,
     @JsonKey(name: 'totalBusinessHoursResDto') required TotalBusinessInfo totalBusinessInfo,
-  }) = _CafeDetail;
+  }) = _StoreDetail;
 
-  factory CafeDetail.fromJson(Map<String, dynamic> json) => _$CafeDetailFromJson(json);
+  factory StoreDetail.fromJson(Map<String, dynamic> json) => _$StoreDetailFromJson(json);
 }

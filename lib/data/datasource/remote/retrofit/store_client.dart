@@ -1,6 +1,6 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
-import 'package:cafein_flutter/data/model/store/cafe.dart';
+import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -14,5 +14,5 @@ abstract class StoreClient {
   }) = _StoreClient;
 
   @GET('/test')
-  Future<BaseResponse<List<Cafe>>> getCafes();
+  Future<BaseResponse<List<Store>>> getCafes();
 }
