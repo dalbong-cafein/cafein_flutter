@@ -1,5 +1,5 @@
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/business_info.dart';
-import 'package:cafein_flutter/data/model/store/store_image_id_pair.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'registered_store.g.dart';
@@ -29,7 +29,7 @@ class RegisteredCafe with _$RegisteredCafe {
     required String storeName,
     @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
     double? congestionScoreAvg,
-    @JsonKey(name: 'storeImageDto') required StoreImageIdPair storeImageIdPair,
+    @JsonKey(name: 'storeImageDto') required ImageIdPair storeImageIdPair,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _RegisteredCafe;
 

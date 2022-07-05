@@ -1,6 +1,6 @@
 import 'package:cafein_flutter/data/model/store/address_info.dart';
 import 'package:cafein_flutter/data/model/store/business_info.dart';
-import 'package:cafein_flutter/data/model/store/store_image_id_pair.dart';
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/total_business_info.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,7 +13,7 @@ class StoreDetail with _$StoreDetail {
     required int storeId,
     required String storeName,
     required String nicknameOfModMember,
-    @JsonKey(name: 'memberImageDto') required StoreImageIdPair storeImageIdPair,
+    @JsonKey(name: 'memberImageDto') required ImageIdPair storeImageIdPair,
     @JsonKey(name: 'address') required AddressInfo addressInfo,
     required String wifiPassword,
     required int heartCnt,
@@ -21,8 +21,8 @@ class StoreDetail with _$StoreDetail {
     @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
     required double lngX,
     required double latY,
-    required List<StoreImageIdPair> reviewImageList,
-    required List<StoreImageIdPair> storeImageList,
+    required List<ImageIdPair> reviewImageList,
+    required List<ImageIdPair> storeImageList,
     @JsonKey(name: 'totalBusinessHoursResDto') required TotalBusinessInfo totalBusinessInfo,
   }) = _StoreDetail;
 
