@@ -9,28 +9,28 @@ import 'package:retrofit/retrofit.dart';
 
 part 'store_client.g.dart';
 
-@RestApi(baseUrl: '${CafeinConfig.baseUrl}/stores')
+@RestApi(baseUrl: CafeinConfig.baseUrl)
 abstract class StoreClient {
   factory StoreClient(
     Dio dio, {
     String? baseUrl,
   }) = _StoreClient;
 
-  @GET('')
+  @GET('/stores')
   Future<BaseResponse<List<Store>>> getStores(
     @Query('keyword') String keyword,
   );
 
-  @GET('/recommend-search')
+  @GET('/stores/recommend-search')
   Future<BaseResponse<List<RecommendedStore>>> getRecommendedStores(
     @Query('keyword') String keyword,
   );
 
-  @GET('/{storeId}')
+  @GET('/stores/{storeId}')
   Future<BaseResponse<StoreDetail>> getStoreDetail(
     @Path() int storeId,
   );
 
-  @GET('/my-registered')
+  @GET('/stores/my-registered')
   Future<BaseResponse<RegisteredStoreResponse>> getMyRegisteredStores();
 }
