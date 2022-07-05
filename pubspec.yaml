@@ -1,0 +1,71 @@
+name: cafein_flutter
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  flutter_bloc: ^8.0.1 
+  equatable: ^2.0.3
+  freezed_annotation: ^2.0.3
+  flutter_svg: ^1.1.1
+  json_annotation: ^4.5.0
+  retrofit: ^3.0.1
+  dio: ^4.0.6
+  intl: ^0.17.0
+  infinite_scroll_pagination: ^3.2.0
+  permission_handler: ^10.0.0
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  retrofit_generator: ^4.0.1
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
+  flutter_native_splash: ^2.2.4
+  freezed: ^2.0.3
+  
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+  
+  fonts:
+    - family: SpoqaHanSansNeo
+      fonts:
+        - asset : fonts/SpoqaHanSansNeo-Light.ttf
+          weight: 200
+        - asset: fonts/SpoqaHanSansNeo-Thin.ttf
+          weight: 300
+        - asset: fonts/SpoqaHanSansNeo-Regular.ttf
+          weight: 400
+        - asset: fonts/SpoqaHanSansNeo-Medium.ttf
+          weight: 500
+        - asset: fonts/SpoqaHanSansNeo-Bold.ttf
+          weight: 700
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: fonts/Montserrat-Medium.ttf
+          weight: 500
+        - asset : fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: fonts/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Montserrat-Black.ttf
+          weight: 900
