@@ -10,7 +10,7 @@ class Board with _$Board {
     required int boardId,
     required String title,
     required String content,
-    List<ImageIdPair>? imageIdPairs,
+    @JsonKey(name: 'boardImageDtoList') List<ImageIdPair>? imageIdPairs,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _Board;
 
