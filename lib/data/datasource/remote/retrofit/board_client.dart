@@ -1,8 +1,6 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/board/board.dart';
-import 'package:cafein_flutter/data/model/congestion/congestion_request.dart';
-import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
