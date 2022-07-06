@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/model/store/recommended_store.dart';
 import 'package:cafein_flutter/data/model/store/registered_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/data/model/store/store_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -32,5 +33,5 @@ abstract class StoreClient {
   );
 
   @GET('/stores/my-registered')
-  Future<BaseResponse<RegisteredStoreResponse>> getMyRegisteredStores();
+  Future<BaseResponse<StoreResponse<RegisteredStore>>> getMyRegisteredStores();
 }

@@ -5,33 +5,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'registered_store.g.dart';
 part 'registered_store.freezed.dart';
 
-@JsonSerializable()
-class RegisteredStoreResponse {
-  final int storeCnt;
-  @JsonKey(name: 'resDtoList')
-  final List<RegisteredCafe> storeList;
-
-  RegisteredStoreResponse({
-    required this.storeCnt,
-    required this.storeList,
-  });
-
-  factory RegisteredStoreResponse.fromJson(Map<String, dynamic> json) =>
-      _$RegisteredStoreResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$RegisteredStoreResponseToJson(this);
-}
-
 @freezed
-class RegisteredCafe with _$RegisteredCafe {
-  factory RegisteredCafe({
+class RegisteredStore with _$RegisteredStore {
+  factory RegisteredStore({
     required int storeId,
     required String storeName,
     @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
     double? congestionScoreAvg,
     @JsonKey(name: 'storeImageDto') required ImageIdPair imageIdPair,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
-  }) = _RegisteredCafe;
+  }) = _RegisteredStore;
 
-  factory RegisteredCafe.fromJson(Map<String, dynamic> json) => _$RegisteredCafeFromJson(json);
+  factory RegisteredStore.fromJson(Map<String, dynamic> json) => _$RegisteredStoreFromJson(json);
 }
