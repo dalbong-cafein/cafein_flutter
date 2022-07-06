@@ -57,17 +57,12 @@ class StoreFormDataClient {
           .toList(),
     );
 
-    final response = await dio.post<BaseResponse<int>>(
+    final response = await dio.post(
       '${CafeinConfig.baseUrl}/stores',
       data: formData,
     );
 
-    return response.data ??
-        BaseResponse(
-          message: '',
-          data: -1,
-          code: -1,
-        );
+    return response.data;
   }
 
   Future<BaseResponse<dynamic>> updateStore(UpdateStoreRequest updateStoreRequest) async {
@@ -107,16 +102,11 @@ class StoreFormDataClient {
           .toList(),
     );
 
-    final response = await dio.put<BaseResponse<dynamic>>(
+    final response = await dio.put(
       '${CafeinConfig.baseUrl}/stores',
       data: formData,
     );
 
-    return response.data ??
-        BaseResponse(
-          message: '',
-          data: null,
-          code: -1,
-        );
+    return response.data;
   }
 }

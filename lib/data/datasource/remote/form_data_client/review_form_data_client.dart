@@ -32,17 +32,12 @@ class ReviewFormDataClient {
           )
           .toList(),
     );
-    final response = await dio.post<BaseResponse<int>>(
+    final response = await dio.post(
       '${CafeinConfig.baseUrl}/reviews',
       data: formData,
     );
 
-    return response.data ??
-        BaseResponse(
-          message: '',
-          data: -1,
-          code: -1,
-        );
+    return response.data;
   }
 
   Future<BaseResponse<dynamic>> updateReview(UpdateReviewRequest updateReviewRequest) async {
@@ -69,16 +64,11 @@ class ReviewFormDataClient {
           )
           .toList(),
     );
-    final response = await dio.post<BaseResponse<int>>(
+    final response = await dio.post(
       '${CafeinConfig.baseUrl}/reviews/${updateReviewRequest.reviewId}',
       data: formData,
     );
 
-    return response.data ??
-        BaseResponse(
-          message: '',
-          data: null,
-          code: -1,
-        );
+    return response.data;
   }
 }
