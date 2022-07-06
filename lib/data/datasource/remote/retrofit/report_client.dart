@@ -14,7 +14,9 @@ abstract class ReportClient {
   }) = _ReportClient;
 
   @POST('/reviews/{reviewId}/reports')
-  Future<BaseResponse<dynamic>> createReportReview();
+  Future<BaseResponse<dynamic>> createReportReview(
+    @Path() int reviewId,
+  );
 
   @GET('/reportCategorys')
   Future<BaseResponse<List<ReportCategory>>> getReportCategories();
