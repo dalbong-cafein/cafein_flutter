@@ -15,7 +15,7 @@ class Store with _$Store {
     required double latY,
     required int heartCnt,
     double? congestionScoreAvg,
-    @JsonKey(name: 'storeImageDto') required ImageIdPair storeImageIdPair,
+    @JsonKey(name: 'storeImageDto') required ImageIdPair imageIdPair,
     @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
   }) = _Store;
 

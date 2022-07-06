@@ -29,7 +29,7 @@ class RegisteredCafe with _$RegisteredCafe {
     required String storeName,
     @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
     double? congestionScoreAvg,
-    @JsonKey(name: 'storeImageDto') required ImageIdPair storeImageIdPair,
+    @JsonKey(name: 'storeImageDto') required ImageIdPair imageIdPair,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _RegisteredCafe;
 

@@ -13,7 +13,7 @@ class Review with _$Review {
     String? profileImageUrl,
     required int visitCnt,
     required String content,
-    @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? reviewImages,
+    @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? imageIdPairs,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _Review;
 

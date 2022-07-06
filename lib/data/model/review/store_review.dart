@@ -16,7 +16,7 @@ class StoreReview with _$StoreReview {
     required int visitCnt,
     required String recommendation,
     required DetailEvaluation detailEvaluation,
-    @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? reviewImages,
+    @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? imageIdPairs,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _StoreReview;
 
