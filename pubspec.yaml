@@ -61,3 +61,12 @@ flutter:
           weight: 500
         - asset : fonts/Montserrat-Bold.ttf
           weight: 700
+
+    - family: GmarketSans
+      fonts:
+          - asset : fonts/GmarketSansTTFLight.ttf
+          - weight : 200
+          - asset : fonts/GmarketSansTTFMedium.ttf
+          - weight : 500
+          - asset : fonts/GmarketSansTTFBold.ttf
+          - weight : 600
