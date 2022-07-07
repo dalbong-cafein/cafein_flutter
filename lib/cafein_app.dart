@@ -11,7 +11,7 @@ class CafeinApp extends StatelessWidget {
         body: Center(
           child: ElevatedButton(
             onPressed: () {},
-            child: const Text('Button'),
+            child: const Text('Cafein Button'),
           ),
         ),
       ),
