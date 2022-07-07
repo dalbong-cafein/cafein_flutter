@@ -41,33 +41,33 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - asset/image/
+    - asset/icon/
   
   fonts:
     - family: SpoqaHanSansNeo
       fonts:
-        - asset: fonts/SpoqaHanSansNeo-Regular.ttf
+        - asset: font/spoqa_han_sans_neo/SpoqaHanSansNeo-Regular.ttf
           weight: 400
-        - asset: fonts/SpoqaHanSansNeo-Medium.ttf
+        - asset: font/spoqa_han_sans_neo/SpoqaHanSansNeo-Medium.ttf
           weight: 500
-        - asset: fonts/SpoqaHanSansNeo-Bold.ttf
+        - asset: font/spoqa_han_sans_neo/SpoqaHanSansNeo-Bold.ttf
           weight: 700
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat-Regular.ttf
+        - asset: font/montserrat/Montserrat-Regular.ttf
           weight: 400
-        - asset: fonts/Montserrat-Medium.ttf
+        - asset: font/montserrat/Montserrat-Medium.ttf
           weight: 500
-        - asset : fonts/Montserrat-Bold.ttf
+        - asset : font/montserrat/Montserrat-Bold.ttf
           weight: 700
 
     - family: GmarketSans
       fonts:
-          - asset : fonts/GmarketSansTTFLight.ttf
-          - weight : 200
-          - asset : fonts/GmarketSansTTFMedium.ttf
-          - weight : 500
-          - asset : fonts/GmarketSansTTFBold.ttf
-          - weight : 600
+        - asset : font/gmarket_sans/GmarketSansTTFLight.ttf
+          weight : 200
+        - asset : font/gmarket_sans/GmarketSansTTFMedium.ttf
+          weight : 500
+        - asset : font/gmarket_sans/GmarketSansTTFBold.ttf
+          weight : 600
