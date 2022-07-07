@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
-class DioLogger extends Interceptor {
+class CustomDioLogger extends Interceptor {
   final bool request;
   final bool requestHeader;
   final bool requestBody;
@@ -16,7 +16,7 @@ class DioLogger extends Interceptor {
   final int maxWidth;
   final String dioName;
 
-  DioLogger(
+  CustomDioLogger(
     this.dioName, {
     this.request = true,
     this.requestHeader = true,
