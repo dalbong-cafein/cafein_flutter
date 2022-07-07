@@ -47,10 +47,6 @@ flutter:
   fonts:
     - family: SpoqaHanSansNeo
       fonts:
-        - asset : fonts/SpoqaHanSansNeo-Light.ttf
-          weight: 200
-        - asset: fonts/SpoqaHanSansNeo-Thin.ttf
-          weight: 300
         - asset: fonts/SpoqaHanSansNeo-Regular.ttf
           weight: 400
         - asset: fonts/SpoqaHanSansNeo-Medium.ttf
@@ -65,7 +61,3 @@ flutter:
           weight: 500
         - asset : fonts/Montserrat-Bold.ttf
           weight: 700
-        - asset: fonts/Montserrat-ExtraBold.ttf
-          weight: 800
-        - asset: fonts/Montserrat-Black.ttf
-          weight: 900
