@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cafein.dalbong">
+    package="com.dalbong.cafein">
    <application
-        android:label="Cafein"
+        android:label="카페인"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
