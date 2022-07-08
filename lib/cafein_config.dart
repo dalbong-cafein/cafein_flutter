@@ -1,3 +1,3 @@
 abstract class CafeinConfig {
-  static const baseUrl = '';
+  static const baseUrl = 'https://api.cafeinofficial.com';
 }
