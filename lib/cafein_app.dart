@@ -12,7 +12,10 @@ class CafeinApp extends StatelessWidget {
         return MediaQuery(
           data: MediaQueryData.fromWindow(
             WidgetsBinding.instance.window,
-          ).copyWith(boldText: false),
+          ).copyWith(
+            boldText: false,
+            textScaleFactor: 1.0,
+          ),
           child: child!,
         );
       },
