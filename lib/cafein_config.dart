@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:flutter/services.dart';
 
 abstract class CafeinConfig {
@@ -5,5 +6,6 @@ abstract class CafeinConfig {
 
   static Future<void> initializeApp() async {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    await AppDatabase().initDatabase();
   }
 }

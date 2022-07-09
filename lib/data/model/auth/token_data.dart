@@ -13,6 +13,6 @@ class TokenData with _$TokenData {
   factory TokenData({
     @HiveField(0) required String accessToken,
     @HiveField(1) required String refreshToken,
-    @HiveField(2) required String accessTokenType,
+    @HiveField(2) @Default('Bearer') String accessTokenType,
   }) = _TokenData;
 }
