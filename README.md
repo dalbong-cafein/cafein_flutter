@@ -1,16 +1,9 @@
-# cafein_flutter
+# 카페인 - 카공인을 위한 지도
 
-A new Flutter project.
+카페인 Flutter 프로젝트 레포입니다.
 
-## Getting Started
+## 🏠 Members
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+|            [leeeeeoy](https://github.com/leeeeeoy)             |            [여정화](https://github.com/22sonamu)             | 
+| :----------------------------------------------------------: | :----------------------------------------------------------: | 
+| <img src="https://avatars.githubusercontent.com/u/63850050?v=4" width=200px alt="_"/> | <img src="https://avatars.githubusercontent.com/u/73538957?v=4" width=200px alt="_"/>  |
