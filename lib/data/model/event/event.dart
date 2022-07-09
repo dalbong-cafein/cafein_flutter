@@ -1,4 +1,3 @@
-import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
