@@ -4,6 +4,6 @@
 
 ## 🏠 Members
 
-|            [leeeeeoy](https://github.com/leeeeeoy)             |            [여정화](https://github.com/22sonamu)             | 
+|            [leeeeeoy](https://github.com/leeeeeoy)             |            [여정화1](https://github.com/22sonamu)             |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | 
 | <img src="https://avatars.githubusercontent.com/u/63850050?v=4" width=200px alt="_"/> | <img src="https://avatars.githubusercontent.com/u/73538957?v=4" width=200px alt="_"/>  |
