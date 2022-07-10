@@ -8,9 +8,11 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart'
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
+import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -49,6 +51,11 @@ class CafeinApp extends StatelessWidget {
             reportClient: ReportClient(DioUtil().dio),
             reviewClient: ReviewClient(DioUtil().dio),
             reviewFormDataClient: ReviewFormDataClient(dio: DioUtil().dio),
+          ),
+        ),
+        RepositoryProvider<StickerRepository>(
+          create: (context) => StickerRepositoryImpl(
+            stickerClient: StickerClient(DioUtil().dio),
           ),
         ),
       ],
