@@ -7,12 +7,14 @@ import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_for
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/heart_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/notice_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
+import 'package:cafein_flutter/data/repository/notice_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -63,6 +65,11 @@ class CafeinApp extends StatelessWidget {
         RepositoryProvider<HeartRepository>(
           create: (context) => HeartRepositoryImpl(
             heartClient: HeartClient(DioUtil().dio),
+          ),
+        ),
+        RepositoryProvider<NoticeRepository>(
+          create: (context) => NoticeRepositoryImpl(
+            noticeClient: NoticeClient(DioUtil().dio),
           ),
         ),
       ],
