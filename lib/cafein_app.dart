@@ -2,11 +2,13 @@ import 'package:cafein_flutter/cafein_route.dart';
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/remote/dio_util.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_form_data_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +34,14 @@ class CafeinApp extends StatelessWidget {
             memberFormDataClient: MemberFormDataClient(dio: DioUtil().dio),
           ),
         ),
+        RepositoryProvider<StoreRepository>(
+          create: (context) => StoreRepositoryImpl(
+            storeFormDataClient: StoreFormDataClient(dio: DioUtil().dio),
+            storeClient: StoreClient(
+              DioUtil().dio,
+            ),
+          ),
+        ),
       ],
       child: MaterialApp(
         builder: (context, child) => MediaQuery(
@@ -45,7 +55,7 @@ class CafeinApp extends StatelessWidget {
         ),
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        initialRoute: LoginPage.routeName,
+        initialRoute: SplashPage.routeName,
         onGenerateRoute: CafeinRoute.onGenerateRoute,
       ),
     );
