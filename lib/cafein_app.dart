@@ -7,6 +7,7 @@ import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_for
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/board_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/congestion_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/coupon_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/event_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/heart_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
@@ -18,6 +19,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
+import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/notice_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
@@ -86,6 +88,11 @@ class CafeinApp extends StatelessWidget {
         RepositoryProvider<CongestionRepository>(
           create: (context) => CongestionRepositoryImpl(
             congestionClient: CongestionClient(DioUtil().dio),
+          ),
+        ),
+        RepositoryProvider<CouponRepository>(
+          create: (context) => CouponRepositoryImpl(
+            couponClient: CouponClient(DioUtil().dio),
           ),
         ),
       ],
