@@ -5,6 +5,8 @@ import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_fo
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/review_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/board_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/event_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/heart_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/notice_client.dart';
@@ -13,6 +15,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dar
 import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/notice_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
@@ -70,6 +73,12 @@ class CafeinApp extends StatelessWidget {
         RepositoryProvider<NoticeRepository>(
           create: (context) => NoticeRepositoryImpl(
             noticeClient: NoticeClient(DioUtil().dio),
+          ),
+        ),
+        RepositoryProvider<BoardRepository>(
+          create: (context) => BoardRepositoryImpl(
+            boardClient: BoardClient(DioUtil().dio),
+            eventClient: EventClient(DioUtil().dio),
           ),
         ),
       ],
