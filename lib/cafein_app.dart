@@ -6,6 +6,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart'
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,7 @@ class CafeinApp extends StatelessWidget {
         ),
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        initialRoute: SplashPage.routeName,
+        initialRoute: LoginPage.routeName,
         onGenerateRoute: CafeinRoute.onGenerateRoute,
       ),
     );

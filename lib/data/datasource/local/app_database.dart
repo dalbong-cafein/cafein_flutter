@@ -22,10 +22,10 @@ class AppDatabase {
   Future<void> initDatabase() async {
     await Hive.initFlutter();
     Hive.registerAdapter(TokenDataAdapter());
-    Hive.openBox<TokenData>(authBoxKey).then(
+    await Hive.openBox<TokenData>(authBoxKey).then(
       (value) => _authPreference = AuthPreference(box: value),
     );
-    Hive.openBox<List<String>>(appBoxKey).then(
+    await Hive.openBox<List<String>>(appBoxKey).then(
       (value) => _appPreference = AppPreference(box: value),
     );
   }
