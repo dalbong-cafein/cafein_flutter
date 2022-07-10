@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -11,12 +12,14 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required this.authRepository,
+    required this.userRepository,
   }) : super(const LoginInitial()) {
     on<LoginSocialTokenRequested>(_onLoginSocialTokenRequested);
     on<LoginRequested>(_onLoginRequested);
   }
 
   final AuthRepository authRepository;
+  final UserRepository userRepository;
 
   FutureOr<void> _onLoginSocialTokenRequested(
     LoginSocialTokenRequested event,
@@ -53,6 +56,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         authProvider: event.oAuthProvider,
         oAuthAccessToken: event.oAuthAccessToken,
       );
+      userRepository.setMemberData = response.data;
       emit(const LoginSucceed());
     } catch (e) {
       emit(const LoginError());

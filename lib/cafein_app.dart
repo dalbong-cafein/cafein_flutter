@@ -11,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CafeinApp extends StatelessWidget {
-  const CafeinApp({Key? key}) : super(key: key);
+  const CafeinApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +33,15 @@ class CafeinApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQueryData.fromWindow(
-              WidgetsBinding.instance.window,
-            ).copyWith(
-              boldText: false,
-              textScaleFactor: 1.0,
-            ),
-            child: child!,
-          );
-        },
+        builder: (context, child) => MediaQuery(
+          data: MediaQueryData.fromWindow(
+            WidgetsBinding.instance.window,
+          ).copyWith(
+            boldText: false,
+            textScaleFactor: 1.0,
+          ),
+          child: child!,
+        ),
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
         initialRoute: SplashPage.routeName,
