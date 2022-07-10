@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/phone_certification/phone_certification_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,9 @@ abstract class CafeinRoute {
         break;
       case LoginPage.routeName:
         page = const LoginPage();
+        break;
+      case PhoneCertificationPage.routeName:
+        page = const PhoneCertificationPage();
         break;
     }
 
