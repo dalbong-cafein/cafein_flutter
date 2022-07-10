@@ -2,11 +2,15 @@ import 'package:cafein_flutter/cafein_route.dart';
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/remote/dio_util.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_form_data_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/form_data_client/review_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -37,9 +41,14 @@ class CafeinApp extends StatelessWidget {
         RepositoryProvider<StoreRepository>(
           create: (context) => StoreRepositoryImpl(
             storeFormDataClient: StoreFormDataClient(dio: DioUtil().dio),
-            storeClient: StoreClient(
-              DioUtil().dio,
-            ),
+            storeClient: StoreClient(DioUtil().dio),
+          ),
+        ),
+        RepositoryProvider<ReviewRepository>(
+          create: (context) => ReviewRepositoryImpl(
+            reportClient: ReportClient(DioUtil().dio),
+            reviewClient: ReviewClient(DioUtil().dio),
+            reviewFormDataClient: ReviewFormDataClient(dio: DioUtil().dio),
           ),
         ),
       ],

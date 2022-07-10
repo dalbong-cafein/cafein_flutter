@@ -31,7 +31,7 @@ abstract class ReviewClient {
   Future<BaseResponse<ReviewResponse<List<UserReview>>>> getUserReviews();
 
   @GET('/stores/{storeId}/reviews/limit')
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredStores(
+  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews(
     @Query('limit') int limit,
   );
 
