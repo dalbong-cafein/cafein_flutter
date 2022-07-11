@@ -5,6 +5,7 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -26,20 +27,36 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(const LoginLoading());
-    OAuthToken? oAuthToken;
-    try {
-      final check = await isKakaoTalkInstalled();
-      oAuthToken = check
-          ? await UserApi.instance.loginWithKakaoTalk()
-          : await UserApi.instance.loginWithKakaoAccount();
-    } catch (e) {
-      emit(const LoginError());
-      return;
+    String? oAuthAccessToken;
+
+    if (event.oAuthProvider == 'KAKAO') {
+      OAuthToken? oAuthToken;
+
+      try {
+        final check = await isKakaoTalkInstalled();
+        oAuthToken = check
+            ? await UserApi.instance.loginWithKakaoTalk()
+            : await UserApi.instance.loginWithKakaoAccount();
+        oAuthAccessToken = oAuthToken.accessToken;
+      } catch (e) {
+        emit(const LoginError());
+        return;
+      }
+    } else if (event.oAuthProvider == 'APPLE') {
+      try {
+        final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [AppleIDAuthorizationScopes.fullName],
+        );
+        oAuthAccessToken = credential.identityToken;
+      } catch (e) {
+        emit(const LoginError());
+        return;
+      }
     }
 
     emit(
       LoginSocialTokenConfirmed(
-        oAuthAccessToken: oAuthToken.accessToken,
+        oAuthAccessToken: oAuthAccessToken ?? 'noToken',
         oAuthProvider: event.oAuthProvider,
       ),
     );

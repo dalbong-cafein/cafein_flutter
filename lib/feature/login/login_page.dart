@@ -1,7 +1,11 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -58,6 +62,20 @@ class LoginPage extends StatelessWidget {
                   child: const Text('카카오로 로그인'),
                 ),
               ),
+              if (Platform.isIOS)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    width: width - 40,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () => context.read<LoginBloc>().add(
+                            const LoginSocialTokenRequested(oAuthProvider: 'APPLE'),
+                          ),
+                      child: const Text('Apple 계정으로 로그인'),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
