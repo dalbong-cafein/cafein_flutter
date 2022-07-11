@@ -2,6 +2,8 @@ import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
+import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/phone_certification/phone_certification_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,12 @@ abstract class CafeinRoute {
         break;
       case PhoneCertificationPage.routeName:
         page = const PhoneCertificationPage();
+        break;
+      case MainPage.routeName:
+        page = BlocProvider(
+          create: (context) => MainBloc(),
+          child: const MainPage(),
+        );
         break;
     }
 

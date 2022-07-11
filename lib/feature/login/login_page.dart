@@ -1,5 +1,5 @@
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
-import 'package:cafein_flutter/feature/phone_certification/phone_certification_page.dart';
+import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
               );
         } else if (state is LoginSucceed) {
           Navigator.of(context).pushNamedAndRemoveUntil(
-            PhoneCertificationPage.routeName,
+            MainPage.routeName,
             (route) => false,
           );
         }
