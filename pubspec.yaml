@@ -82,3 +82,6 @@ flutter_icons:
   ios: true
   image_path: 'asset/icon.png'
   adaptive_icon_background: '#ffffff'
+
+flutter_native_splash:
+  color: '#ffffff'
