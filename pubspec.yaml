@@ -25,6 +25,10 @@ dependencies:
   infinite_scroll_pagination: ^3.2.0
   permission_handler: ^10.0.0
   cupertino_icons: ^1.0.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  kakao_flutter_sdk: ^1.2.1
+  sign_in_with_apple: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +39,7 @@ dev_dependencies:
   flutter_native_splash: ^2.2.4
   freezed: ^2.0.3
   flutter_launcher_icons: ^0.9.3
+  hive_generator: ^1.1.3
   
   flutter_lints: ^2.0.0
 
@@ -71,3 +76,12 @@ flutter:
           weight : 500
         - asset : font/gmarket_sans/GmarketSansTTFBold.ttf
           weight : 600
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'asset/icon.png'
+  adaptive_icon_background: '#ffffff'
+
+flutter_native_splash:
+  color: '#ffffff'

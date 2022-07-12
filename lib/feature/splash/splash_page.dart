@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({
@@ -18,14 +18,21 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   late final Timer timer;
-  bool isFirst = true;
+
+  final images = [
+    'asset/image/splash_image1.png',
+    'asset/image/splash_image2.png',
+  ]..shuffle();
 
   @override
   void initState() {
     super.initState();
     timer = Timer(
       const Duration(seconds: 2),
-      () => setState(() => isFirst = false),
+      () => Navigator.of(context).pushNamedAndRemoveUntil(
+        LoginPage.routeName,
+        (route) => false,
+      ),
     );
   }
 
@@ -49,10 +56,8 @@ class _SplashPageState extends State<SplashPage> {
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              isFirst ? 'asset/image/splash_image1.png' : 'asset/image/splash_image2.png',
-            ),
-          )
+            image: AssetImage(images.first),
+          ),
         ),
         padding: const EdgeInsets.only(top: 44, left: 28),
         width: MediaQuery.of(context).size.width,
@@ -89,7 +94,6 @@ class _SplashPageState extends State<SplashPage> {
                 color: AppColor.grey900,
               ),
             ),
-
           ],
         ),
       ),
