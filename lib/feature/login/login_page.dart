@@ -50,6 +50,7 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text('Cafein'),
+              const Spacer(),
               SizedBox(
                 width: width - 40,
                 height: 56,
