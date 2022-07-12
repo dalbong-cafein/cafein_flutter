@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({
@@ -45,16 +46,16 @@ class _SplashPageState extends State<SplashPage> {
       ),
       backgroundColor: AppColor.white,
       body: Container(
-        padding: const EdgeInsets.only(top: 44, left: 28),
-        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
               isFirst ? 'asset/image/splash_image1.png' : 'asset/image/splash_image2.png',
             ),
-          ),
+          )
         ),
+        padding: const EdgeInsets.only(top: 44, left: 28),
+        width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
@@ -87,7 +88,8 @@ class _SplashPageState extends State<SplashPage> {
                 fontFamily: 'GmarketSans',
                 color: AppColor.grey900,
               ),
-            )
+            ),
+
           ],
         ),
       ),
