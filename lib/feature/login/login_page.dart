@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/phone_certification/phone_certification_page.dart';
+import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +30,22 @@ class LoginPage extends StatelessWidget {
                 ),
               );
         } else if (state is LoginSucceed) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            MainPage.routeName,
-            (route) => false,
-          );
+          if (!state.isCertifiedPhone) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              PhoneCertificationPage.routeName,
+              (route) => false,
+            );
+          } else if (!state.isRegisteredNickname) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              ProfilePage.routeName,
+              (route) => false,
+            );
+          } else {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              MainPage.routeName,
+              (route) => false,
+            );
+          }
         }
       },
       child: Scaffold(

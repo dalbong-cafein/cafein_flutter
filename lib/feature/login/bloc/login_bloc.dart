@@ -74,7 +74,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         oAuthAccessToken: event.oAuthAccessToken,
       );
       userRepository.setMemberData = response.data;
-      emit(const LoginSucceed());
+      emit(LoginSucceed(
+        isCertifiedPhone: response.data.phoneNumber != null,
+        isRegisteredNickname: response.data.nickName != null,
+      ));
     } catch (e) {
       emit(const LoginError());
     }

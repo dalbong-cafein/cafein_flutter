@@ -5,6 +5,7 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/phone_certification/phone_certification_page.dart';
+import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,9 @@ abstract class CafeinRoute {
           create: (context) => MainBloc(),
           child: const MainPage(),
         );
+        break;
+      case ProfilePage.routeName:
+        page = const ProfilePage();
         break;
     }
 

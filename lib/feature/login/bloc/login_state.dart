@@ -35,10 +35,19 @@ class LoginSocialTokenConfirmed extends LoginState {
 }
 
 class LoginSucceed extends LoginState {
-  const LoginSucceed();
+  const LoginSucceed({
+    required this.isCertifiedPhone,
+    required this.isRegisteredNickname,
+  });
+
+  final bool isCertifiedPhone;
+  final bool isRegisteredNickname;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        isCertifiedPhone,
+        isRegisteredNickname,
+      ];
 }
 
 class LoginError extends LoginState {
