@@ -19,10 +19,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   late final Timer timer;
 
-  final images = [
-    'asset/image/splash_image1.png',
-    'asset/image/splash_image2.png',
-  ]..shuffle();
+  final images = [AppImage.splash1, AppImage.spalsh2]..shuffle();
 
   @override
   void initState() {

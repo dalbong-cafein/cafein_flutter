@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,50 +35,66 @@ class LoginPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        body: Container(
-          padding: const EdgeInsets.only(top: 130, bottom: 40),
-          width: width,
-          height: height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                'asset/image/login_image.png',
-              ),
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text('Cafein'),
-              const Spacer(),
-              SizedBox(
-                width: width - 40,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () => context.read<LoginBloc>().add(
-                        const LoginSocialTokenRequested(oAuthProvider: 'KAKAO'),
-                      ),
-                  child: const Text('카카오로 로그인'),
-                ),
-              ),
-              if (Platform.isIOS)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SizedBox(
-                    width: width - 40,
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: () => context.read<LoginBloc>().add(
-                            const LoginSocialTokenRequested(oAuthProvider: 'APPLE'),
-                          ),
-                      child: const Text('Apple 계정으로 로그인'),
-                    ),
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    AppImage.login,
                   ),
                 ),
-            ],
-          ),
+              ),
+            ),
+            Opacity(
+              opacity: 0.38,
+              child: Container(
+                color: AppColor.black,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                top: 130,
+                bottom: 40,
+                right: 20,
+                left: 20,
+              ),
+              width: width,
+              height: height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  loadAsset(
+                    AppImage.cafeinLogo,
+                    color: AppColor.white,
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () => context.read<LoginBloc>().add(
+                          const LoginSocialTokenRequested(oAuthProvider: 'KAKAO'),
+                        ),
+                    child: loadAsset(
+                      AppImage.kakaoLogin,
+                    ),
+                  ),
+                  if (Platform.isIOS)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: InkWell(
+                        onTap: () => context.read<LoginBloc>().add(
+                              const LoginSocialTokenRequested(oAuthProvider: 'APPLE'),
+                            ),
+                        child: loadAsset(
+                          AppImage.appleLogin,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

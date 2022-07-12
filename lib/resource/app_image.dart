@@ -1,6 +1,14 @@
 part of 'resource.dart';
 
 abstract class AppImage {
+  static const splash1 = 'asset/image/splash_image1.png';
+  static const spalsh2 = 'asset/image/splash_image2.png';
+  static const login = 'asset/image/login_image.png';
+
+  static const cafeinLogo = 'asset/image/cafein_logo.svg';
+  static const appleLogin = 'asset/image/apple_login.png';
+  static const kakaoLogin = 'asset/image/kakao_login.png';
+
   static const profile1 = "asset/image/profile_image.svg";
   static const profile2 = "asset/image/profile_image2.svg";
   static const profile3 = "asset/image/profile_image3.svg";
@@ -39,10 +47,7 @@ abstract class AppImage {
   static const recGood = "asset/image/rec_good_image.svg";
   static const recNormal = "asset/image/rec_normal_image.svg";
   static const recBad = "asset/image/rec_bad_image.svg";
-  static const recGoodGrey= "asset/image/rec_good_grey_image.svg";
+  static const recGoodGrey = "asset/image/rec_good_grey_image.svg";
   static const recNormalGrey = "asset/image/rec_normal_grey_image.svg";
   static const recBadGrey = "asset/image/rec_bad_grey_image.svg";
-
-
-
 }
