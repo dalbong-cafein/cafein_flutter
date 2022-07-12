@@ -4,6 +4,8 @@ abstract class AppStyle {
   static const title1 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
+    height: 36 / 24,
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const title2 = TextStyle(
@@ -64,6 +66,7 @@ abstract class AppStyle {
   static const body3 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
+    height: 20 / 14,
   );
 
   static const body4 = TextStyle(

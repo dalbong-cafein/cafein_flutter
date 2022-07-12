@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
-import 'package:cafein_flutter/feature/phone_certification/phone_certification_page.dart';
+import 'package:cafein_flutter/feature/phone_certification/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
         } else if (state is LoginSucceed) {
           if (!state.isCertifiedPhone) {
             Navigator.of(context).pushNamedAndRemoveUntil(
-              PhoneCertificationPage.routeName,
+              InputPhoneNumberPage.routeName,
               (route) => false,
             );
           } else if (!state.isRegisteredNickname) {

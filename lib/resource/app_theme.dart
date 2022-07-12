@@ -33,6 +33,9 @@ abstract class AppTheme {
         borderRadius: BorderRadius.circular(AppDimen.bottomSheetBoderRadius),
       ),
     ),
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: AppColor.orange500,
+    ),
     scaffoldBackgroundColor: AppColor.white,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
