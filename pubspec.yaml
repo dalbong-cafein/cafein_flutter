@@ -76,3 +76,9 @@ flutter:
           weight : 500
         - asset : font/gmarket_sans/GmarketSansTTFBold.ttf
           weight : 600
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'asset/icon.png'
+  adaptive_icon_background: '#ffffff'
