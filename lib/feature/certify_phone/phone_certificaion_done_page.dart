@@ -1,3 +1,5 @@
+import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +19,15 @@ class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage>
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      // TODO: 다음 페이지 이동
-    });
+    Future.delayed(
+      const Duration(seconds: 1),
+      () => Navigator.of(context).pushNamedAndRemoveUntil(
+        ProfilePage.routeName,
+        ModalRoute.withName(
+          LoginPage.routeName,
+        ),
+      ),
+    );
   }
 
   @override

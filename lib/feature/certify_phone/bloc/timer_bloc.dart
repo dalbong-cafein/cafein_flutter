@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cafein_flutter/feature/phone_certification/bloc/phone_certification_bloc.dart';
+import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,29 +10,29 @@ part 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> with WidgetsBindingObserver {
   TimerBloc({
-    required this.phoneCertificationBloc,
+    required this.certifyCodeBloc,
   }) : super(const TimerInitial()) {
     WidgetsBinding.instance.addObserver(this);
     on<TimerTicked>(_onTimerTicked);
     on<TimerCanceled>(_onTimerCanceled);
     on<TimerStarted>(_onTimerStarted);
 
-    phoneCertificationBlocStream = phoneCertificationBloc.stream.listen(
+    certifyCodeBlocStream = certifyCodeBloc.stream.listen(
       (state) {
-        if (state is PhoneCertificationLoaded) {
+        if (state is CertifyCodeLoaded) {
           add(const TimerStarted(startDuration: 180));
         }
       },
     );
   }
 
-  final PhoneCertificationBloc phoneCertificationBloc;
-  late final StreamSubscription<PhoneCertificationState> phoneCertificationBlocStream;
+  final CertifyCodeBloc certifyCodeBloc;
+  late final StreamSubscription<CertifyCodeState> certifyCodeBlocStream;
 
   StreamSubscription<int>? timerStream;
 
   DateTime outDateTime = DateTime.now().add(
-    const Duration(seconds: 300),
+    const Duration(seconds: 180),
   );
 
   @override
@@ -65,7 +65,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> with WidgetsBindingObserver
 
   @override
   Future<void> close() {
-    phoneCertificationBlocStream.cancel();
+    certifyCodeBlocStream.cancel();
     timerStream?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     return super.close();

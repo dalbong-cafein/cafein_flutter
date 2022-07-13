@@ -1,12 +1,14 @@
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
+import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
+import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
+import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
+import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
-import 'package:cafein_flutter/feature/phone_certification/input_certification_code_page.dart';
-import 'package:cafein_flutter/feature/phone_certification/input_phone_number_page.dart';
-import 'package:cafein_flutter/feature/phone_certification/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +32,23 @@ abstract class CafeinRoute {
         );
         break;
       case InputPhoneNumberPage.routeName:
-        page = const InputPhoneNumberPage();
+        page = BlocProvider(
+          create: (context) => InputPhoneNumberBloc(
+            authRepository: context.read<AuthRepository>(),
+          ),
+          child: const InputPhoneNumberPage(),
+        );
         break;
       case InputCertificationCodePage.routeName:
-        page = const InputCertificationCodePage();
+        final phoneNumber = settings.arguments as String;
+
+        page = BlocProvider(
+          create: (context) => CertifyCodeBloc(
+            authRepository: context.read<AuthRepository>(),
+            phoneNumber: phoneNumber,
+          ),
+          child: const InputCertificationCodePage(),
+        );
         break;
       case MainPage.routeName:
         page = BlocProvider(
