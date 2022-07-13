@@ -56,6 +56,7 @@ abstract class AppStyle {
   static const body1 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const body2 = TextStyle(

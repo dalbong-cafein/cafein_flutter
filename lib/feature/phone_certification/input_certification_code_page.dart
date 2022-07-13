@@ -1,20 +1,20 @@
-import 'package:cafein_flutter/feature/phone_certification/input_certification_code_page.dart';
+import 'package:cafein_flutter/feature/phone_certification/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class InputPhoneNumberPage extends StatefulWidget {
-  const InputPhoneNumberPage({
+class InputCertificationCodePage extends StatefulWidget {
+  const InputCertificationCodePage({
     super.key,
   });
 
-  static const routeName = 'InputPhoneNumberPage';
+  static const routeName = 'InputCertificationCodePage';
 
   @override
-  State<InputPhoneNumberPage> createState() => _InputPhoneNumberPageState();
+  State<InputCertificationCodePage> createState() => _InputCertificationCodePageState();
 }
 
-class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
+class _InputCertificationCodePageState extends State<InputCertificationCodePage> {
   final controller = TextEditingController();
 
   @override
@@ -40,22 +40,13 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
             const Padding(
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                '본인 확인을 위해 \n휴대폰 번호 인증을 해주세요',
+                '인증번호 6자리를\n입력해 주세요',
                 style: AppStyle.title1,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 20),
-              child: Text(
-                '휴대폰 번호는 카페인 서비스 이용을 위해 저장되며\n서비스 이용 기간 동안 안전하게 보관됩니다.',
-                style: AppStyle.body3.copyWith(
-                  color: AppColor.grey600,
-                ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(
-                top: 24,
+                top: 28,
                 left: 20,
               ),
               padding: const EdgeInsets.symmetric(
@@ -73,16 +64,35 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
               ),
               child: Center(
                 child: TextField(
-                  controller: controller,
                   maxLength: 11,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   autofocus: true,
-                  textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     counterText: '',
-                    hintText: '휴대폰 번호를 입력해 주세요',
+                    hintText: '인증번호를 입력해 주세요',
                   ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: SizedBox(
+                width: 118,
+                height: 34,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    primary: AppColor.grey100,
+                    onPrimary: AppColor.grey600,
+                    textStyle: AppStyle.subTitle3Medium,
+                    padding: EdgeInsets.zero,
+                  ),
+                  onPressed: () {},
+                  child: const Text('인증번호 재전송'),
                 ),
               ),
             ),
@@ -93,10 +103,10 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    InputCertificationCodePage.routeName,
+                    PhoneCertificationDonePage.routeName,
                   );
                 },
-                child: const Text('인증번호 받기'),
+                child: const Text('확인'),
               ),
             ),
           ],

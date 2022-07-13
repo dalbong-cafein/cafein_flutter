@@ -13,6 +13,7 @@ abstract class AppTheme {
       iconTheme: IconThemeData(
         color: AppColor.grey800,
       ),
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     textTheme: const TextTheme(
       subtitle1: AppStyle.body1,
@@ -51,6 +52,11 @@ abstract class AppTheme {
           }
           return AppColor.white;
         }),
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+        ),
         elevation: MaterialStateProperty.all(0),
         textStyle: MaterialStateProperty.all(
           AppStyle.subTitle2Medium,
