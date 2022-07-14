@@ -9,7 +9,7 @@ abstract class UserRepository {
   Member? _member;
 
   set setMemberData(Member member);
-  get getMemberData => _member;
+  Member? get getMemberData => _member;
 
   Future<BaseResponse<dynamic>> updatePhoneNumber({
     required int memberId,

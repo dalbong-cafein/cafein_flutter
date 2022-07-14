@@ -34,6 +34,10 @@ class CertifyCodeSucceed extends CertifyCodeState {
   const CertifyCodeSucceed();
 }
 
+class CertifyCodeFailed extends CertifyCodeState {
+  const CertifyCodeFailed();
+}
+
 class CertifyCodeError extends CertifyCodeState {
   const CertifyCodeError();
 }

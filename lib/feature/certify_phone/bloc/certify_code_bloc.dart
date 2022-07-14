@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:cafein_flutter/data/model/member/phone_number_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +12,7 @@ part 'certify_code_state.dart';
 class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
   CertifyCodeBloc({
     required this.authRepository,
+    required this.userRepository,
     required this.phoneNumber,
   }) : super(const CertifyCodeInitial()) {
     on<CertifyCodeSubmitted>(_onCerfifyCodeSubmitted);
@@ -19,6 +22,7 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
   }
 
   final AuthRepository authRepository;
+  final UserRepository userRepository;
   final String phoneNumber;
 
   String accessCode = '';
@@ -37,12 +41,31 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
   FutureOr<void> _onCerfifyCodeSubmitted(
     CertifyCodeSubmitted event,
     Emitter<CertifyCodeState> emit,
-  ) {
-    if (accessCode == event.code) {
-      emit(const CertifyCodeSucceed());
-    } else {
-      emit(const CertifyCodeError());
+  ) async {
+    if (accessCode != event.code) {
+      emit(const CertifyCodeFailed());
+
+      return;
     }
+
+    final response = await userRepository.updatePhoneNumber(
+      memberId: userRepository.getMemberData?.memberId ?? -1,
+      phoneNumberRequest: PhoneNumberRequest(
+        phoneNumber: phoneNumber,
+      ),
+    );
+
+    if (response.code == -1) {
+      emit(const CertifyCodeError());
+
+      return;
+    }
+
+    userRepository.setMemberData = userRepository.getMemberData!.copyWith(
+      phoneNumber: phoneNumber,
+    );
+
+    emit(const CertifyCodeSucceed());
   }
 
   FutureOr<void> _onCertifyCodeRequested(
@@ -52,12 +75,14 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
     emit(const CertifyCodeLoading());
     try {
       final response = await authRepository.getSmsNumber(phoneNumber);
-      if (response.code != -1) {
-        accessCode = response.data;
-        emit(const CertifyCodeLoaded());
+      if (response.code == -1) {
+        emit(const CertifyCodeError());
+
         return;
       }
-      emit(const CertifyCodeError());
+
+      accessCode = response.data;
+      emit(const CertifyCodeLoaded());
     } catch (e) {
       emit(const CertifyCodeError());
     }

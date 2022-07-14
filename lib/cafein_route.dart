@@ -45,6 +45,7 @@ abstract class CafeinRoute {
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
             authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
             phoneNumber: phoneNumber,
           ),
           child: const InputCertificationCodePage(),
