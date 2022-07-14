@@ -2,15 +2,17 @@ part of 'resource.dart';
 
 abstract class AppTheme {
   static final light = ThemeData(
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       toolbarHeight: 56,
       elevation: 0,
       backgroundColor: Colors.transparent,
       foregroundColor: AppColor.grey800,
       centerTitle: true,
-      titleTextStyle: AppStyle.subTitle2Medium,
+      titleTextStyle: AppStyle.subTitle2Medium.copyWith(
+        color: AppColor.grey800,
+      ),
       titleSpacing: 0,
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: AppColor.grey800,
       ),
       systemOverlayStyle: SystemUiOverlayStyle.dark,
