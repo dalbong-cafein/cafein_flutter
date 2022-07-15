@@ -20,6 +20,8 @@ abstract class AuthRepository {
     required String authProvider,
     required String oAuthAccessToken,
   });
+
+  Future<BaseResponse<bool>> duplicateNickname(String nickname);
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -73,4 +75,8 @@ class AuthRepositoryImpl implements AuthRepository {
           return value.data;
         },
       );
+
+  @override
+  Future<BaseResponse<bool>> duplicateNickname(String nickname) =>
+      authClient.duplicateNickname(nickname);
 }

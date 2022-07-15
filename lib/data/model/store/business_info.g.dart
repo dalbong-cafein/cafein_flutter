@@ -1,0 +1,21 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'business_info.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_BusinessInfo _$$_BusinessInfoFromJson(Map<String, dynamic> json) =>
+    _$_BusinessInfo(
+      isOpen: json['isOpen'] as bool,
+      closed: json['closed'] as String,
+      tmrOpen: json['tmrOpen'] as String? ?? '10:00',
+    );
+
+Map<String, dynamic> _$$_BusinessInfoToJson(_$_BusinessInfo instance) =>
+    <String, dynamic>{
+      'isOpen': instance.isOpen,
+      'closed': instance.closed,
+      'tmrOpen': instance.tmrOpen,
+    };
