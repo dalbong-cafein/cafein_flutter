@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/timer_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
+import 'package:cafein_flutter/feature/certify_phone/widget/time_out_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/timer_text.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -58,7 +59,10 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
     return MultiBlocListener(
       listeners: [
         BlocListener<CertifyCodeBloc, CertifyCodeState>(
-          listener: (context, state) {
+          listener: (context, state) async {
+            final navigator = Navigator.of(context);
+            final bloc = context.read<CertifyCodeBloc>();
+
             if (state is CertifyCodeSucceed) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -66,13 +70,22 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                 ModalRoute.withName(LoginPage.routeName),
               );
             } else if (state is CertifyCodeTimeOuted) {
+              final result = await TimeOutDialog.show(context);
+              if (result == null) {
+                return;
+              }
+              if (result) {
+                bloc.add(const CertifyCodeRequested());
+              } else {
+                navigator.pop();
+              }
             } else if (state is CertifyCodeError) {
               ErrorDialog.show(
                 context,
                 isNetworkError: state.isNetworkError,
                 refresh: state.event,
               );
-            }
+            } else if (state is CertifyCodeFailed) {}
           },
         ),
         BlocListener<TimerBloc, TimerState>(

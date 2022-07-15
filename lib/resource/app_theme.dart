@@ -48,12 +48,9 @@ abstract class AppTheme {
           }
           return AppColor.orange400;
         }),
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColor.grey400;
-          }
-          return AppColor.white;
-        }),
+        foregroundColor: MaterialStateProperty.all(
+          AppColor.white,
+        ),
         shape: MaterialStateProperty.all(
           const RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
