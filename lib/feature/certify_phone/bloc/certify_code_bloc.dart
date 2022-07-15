@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cafein_flutter/data/model/member/phone_number_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,24 +49,51 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
       return;
     }
 
-    final response = await userRepository.updatePhoneNumber(
-      memberId: userRepository.getMemberData?.memberId ?? -1,
-      phoneNumberRequest: PhoneNumberRequest(
+    try {
+      final response = await userRepository.updatePhoneNumber(
+        memberId: userRepository.getMemberData?.memberId ?? -1,
+        phoneNumberRequest: PhoneNumberRequest(
+          phoneNumber: phoneNumber,
+        ),
+      );
+
+      if (response.code == -1) {
+        emit(
+          CertifyCodeError(
+            event: () => add(event),
+          ),
+        );
+
+        return;
+      }
+
+      userRepository.setMemberData = userRepository.getMemberData!.copyWith(
         phoneNumber: phoneNumber,
-      ),
-    );
+      );
 
-    if (response.code == -1) {
-      emit(const CertifyCodeError());
+      emit(const CertifyCodeSucceed());
+    } catch (e) {
+      if (e is! DioError) {
+        emit(
+          CertifyCodeError(
+            event: () => add(event),
+          ),
+        );
 
-      return;
+        return;
+      }
+
+      bool isNetworkError = false;
+      if (e.type == DioErrorType.other) {
+        isNetworkError = true;
+      }
+      emit(
+        CertifyCodeError(
+          isNetworkError: isNetworkError,
+          event: () => add(event),
+        ),
+      );
     }
-
-    userRepository.setMemberData = userRepository.getMemberData!.copyWith(
-      phoneNumber: phoneNumber,
-    );
-
-    emit(const CertifyCodeSucceed());
   }
 
   FutureOr<void> _onCertifyCodeRequested(
@@ -76,15 +104,37 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
     try {
       final response = await authRepository.getSmsNumber(phoneNumber);
       if (response.code == -1) {
-        emit(const CertifyCodeError());
-
+        emit(
+          CertifyCodeError(
+            event: () => add(event),
+          ),
+        );
         return;
       }
 
       accessCode = response.data;
       emit(const CertifyCodeLoaded());
     } catch (e) {
-      emit(const CertifyCodeError());
+      if (e is! DioError) {
+        emit(
+          CertifyCodeError(
+            event: () => add(event),
+          ),
+        );
+
+        return;
+      }
+
+      bool isNetworkError = false;
+      if (e.type == DioErrorType.other) {
+        isNetworkError = true;
+      }
+      emit(
+        CertifyCodeError(
+          isNetworkError: isNetworkError,
+          event: () => add(event),
+        ),
+      );
     }
   }
 

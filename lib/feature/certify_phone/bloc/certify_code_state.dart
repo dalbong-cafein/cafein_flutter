@@ -39,7 +39,16 @@ class CertifyCodeFailed extends CertifyCodeState {
 }
 
 class CertifyCodeError extends CertifyCodeState {
-  const CertifyCodeError();
+  const CertifyCodeError({
+    required this.event,
+    this.isNetworkError = false,
+  });
+
+  final bool isNetworkError;
+  final Function event;
+
+  @override
+  List<Object?> get props => [isNetworkError];
 }
 
 class CertifyCodeTimeOuted extends CertifyCodeState {

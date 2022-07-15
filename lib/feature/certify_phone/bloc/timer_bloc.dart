@@ -20,6 +20,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> with WidgetsBindingObserver
     certifyCodeBlocStream = certifyCodeBloc.stream.listen(
       (state) {
         if (state is CertifyCodeLoaded) {
+          isLoaded = true;
           add(const TimerStarted(startDuration: 180));
         }
       },
@@ -28,6 +29,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> with WidgetsBindingObserver
 
   final CertifyCodeBloc certifyCodeBloc;
   late final StreamSubscription<CertifyCodeState> certifyCodeBlocStream;
+  bool isLoaded = false;
 
   StreamSubscription<int>? timerStream;
 
@@ -40,6 +42,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> with WidgetsBindingObserver
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
+        if (!isLoaded) {
+          break;
+        }
         final currentTime = outDateTime
             .difference(
               DateTime.now(),
@@ -100,6 +105,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> with WidgetsBindingObserver
     TimerCanceled event,
     Emitter<TimerState> emit,
   ) {
+    isLoaded = false;
     emit(const TimerEnded());
   }
 }

@@ -51,8 +51,14 @@ class LoginSucceed extends LoginState {
 }
 
 class LoginError extends LoginState {
-  const LoginError();
+  const LoginError({
+    required this.event,
+    this.isNetworkError = false,
+  });
+
+  final bool isNetworkError;
+  final Function event;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [isNetworkError];
 }

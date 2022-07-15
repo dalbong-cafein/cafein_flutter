@@ -5,6 +5,7 @@ import 'package:cafein_flutter/feature/certify_phone/widget/timer_text.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,7 +66,13 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                 ModalRoute.withName(LoginPage.routeName),
               );
             } else if (state is CertifyCodeTimeOuted) {
-            } else if (state is CertifyCodeError) {}
+            } else if (state is CertifyCodeError) {
+              ErrorDialog.show(
+                context,
+                isNetworkError: state.isNetworkError,
+                refresh: state.event,
+              );
+            }
           },
         ),
         BlocListener<TimerBloc, TimerState>(

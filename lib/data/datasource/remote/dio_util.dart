@@ -17,14 +17,22 @@ class DioUtil {
   }
 
   Dio get authDio {
-    final dio = Dio();
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: 5000,
+      ),
+    );
 
     dio.interceptors.add(CustomDioLogger('authDio'));
     return dio;
   }
 
   Dio get dio {
-    final dio = Dio();
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: 5000,
+      ),
+    );
     dio.interceptors.add(CustomDioLogger('dio'));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(
@@ -71,7 +79,7 @@ class DioUtil {
               options.headers['Authorization'] = 'newToken';
               return dio.fetch(options).then((r) => handler.resolve(r));
             },
-          );
+          ).onError((_, stackTrace) => handler.next(error));
         },
       ),
     );
