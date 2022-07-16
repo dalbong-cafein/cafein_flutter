@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,14 @@ class NoticePage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        actions: const [
 
+        centerTitle: false,
+        title: const Text("알림", style: AppStyle.title3,),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right : 16),
+            child: Icon(Icons.event),
+          )
         ],
       ),
 
