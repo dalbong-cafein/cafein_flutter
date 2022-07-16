@@ -9,6 +9,7 @@ import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,13 @@ abstract class CafeinRoute {
         );
         break;
       case ProfilePage.routeName:
-        page = const ProfilePage();
+        page = BlocProvider(
+          create: (context) => ProfileBloc(
+            authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
+          ),
+          child: const ProfilePage(),
+        );
         break;
       case PhoneCertificationDonePage.routeName:
         page = const PhoneCertificationDonePage();

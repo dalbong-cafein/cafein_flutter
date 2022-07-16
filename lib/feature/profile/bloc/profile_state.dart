@@ -14,12 +14,17 @@ class ProfileInitial extends ProfileState {
 class ProfileNicknameValidationChecked extends ProfileState {
   const ProfileNicknameValidationChecked({
     required this.isValid,
+    required this.nicknameLength,
   });
 
   final bool isValid;
+  final int nicknameLength;
 
   @override
-  List<Object> get props => [isValid];
+  List<Object> get props => [
+        isValid,
+        nicknameLength,
+      ];
 }
 
 class ProfileLoading extends ProfileState {

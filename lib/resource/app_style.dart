@@ -99,4 +99,19 @@ abstract class AppStyle {
     fontSize: 13,
     fontWeight: FontWeight.w500,
   );
+
+  static const caption12Medium = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const caption12Regular = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
+
+  static const caption11Regular = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+  );
 }

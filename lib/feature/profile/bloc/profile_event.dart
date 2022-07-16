@@ -46,11 +46,11 @@ class ProfilePermissionRequested extends ProfileEvent {
 
 class ProfileImageChanged extends ProfileEvent {
   const ProfileImageChanged({
-    required this.imagePath,
+    required this.permission,
   });
 
-  final String imagePath;
+  final Permission permission;
 
   @override
-  List<Object> get props => [imagePath];
+  List<Object> get props => [permission];
 }

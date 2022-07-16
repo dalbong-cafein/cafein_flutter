@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
@@ -8,6 +7,7 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 part 'profile_event.dart';
@@ -19,7 +19,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.authRepository,
   }) : super(const ProfileInitial()) {
     on<ProfileUpdateRequested>(_onProfileUpdateRequested);
-    on<ProfileNicknameDuplicationRequested>(_onProfileNicknameDuplicationRequested);
+    on<ProfileNicknameDuplicationRequested>(
+        _onProfileNicknameDuplicationRequested);
     on<ProfileImageChanged>(_onProfileImageChanged);
     on<ProfilePermissionRequested>(_onProfilePermissionRequested);
     on<ProfileNicknameChanged>(_onProfileNicknameChanged);
@@ -28,8 +29,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UserRepository userRepository;
   final AuthRepository authRepository;
 
-  String? imagePath;
+  String? profileImagePath;
   String nickname = '';
+
+  bool isDuplicated = true;
 
   FutureOr<void> _onProfilePermissionRequested(
     ProfilePermissionRequested event,
@@ -37,62 +40,69 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     if (Platform.isIOS) {
       final status = await event.permission.request();
-      log('$status');
+      emit(
+        ProfilePermissionChecked(
+          permission: event.permission,
+          permissionStatus: status,
+        ),
+      );
     } else if (Platform.isAndroid) {}
   }
 
   FutureOr<void> _onProfileImageChanged(
     ProfileImageChanged event,
     Emitter<ProfileState> emit,
-  ) {
-    imagePath = event.imagePath;
-    emit(
-      ProfileImageSelected(
-        imagePath: event.imagePath,
-      ),
-    );
+  ) async {
+    final imagePicker = ImagePicker();
+    XFile? imageFile;
+    if (event.permission == Permission.camera) {
+      imageFile = await imagePicker.pickImage(
+        source: ImageSource.camera,
+        maxHeight: 480,
+        maxWidth: 480,
+      );
+    } else if (event.permission == Permission.photos) {
+      imageFile = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 480,
+        maxWidth: 480,
+      );
+    }
+
+    if (imageFile != null) {
+      profileImagePath = imageFile.path;
+      emit(
+        ProfileImageSelected(
+          imagePath: profileImagePath!,
+        ),
+      );
+    }
   }
 
   FutureOr<void> _onProfileNicknameDuplicationRequested(
     ProfileNicknameDuplicationRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(const ProfileLoading());
-
     try {
       final response = await authRepository.duplicateNickname(event.nickname);
       if (response.code == -1) {
         emit(
-          ProfileError(
-            event: () => add(event),
+          const ProfileNicknameDuplicationChecked(
+            isDuplicated: false,
           ),
         );
         return;
       }
+      isDuplicated = response.data;
       emit(
         ProfileNicknameDuplicationChecked(
-          isDuplicated: response.data,
+          isDuplicated: isDuplicated,
         ),
       );
     } catch (e) {
-      if (e is! DioError) {
-        emit(
-          ProfileError(
-            event: () => add(event),
-          ),
-        );
-        return;
-      }
-
-      bool isNetworkError = false;
-      if (e.type == DioErrorType.other) {
-        isNetworkError = true;
-      }
-
       emit(
-        ProfileError(
-          event: () => add(event),
-          isNetworkError: isNetworkError,
+        const ProfileNicknameDuplicationChecked(
+          isDuplicated: false,
         ),
       );
     }
@@ -104,12 +114,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(const ProfileLoading());
 
+    if (!isDuplicated) {
+      emit(
+        const ProfileNicknameDuplicationChecked(isDuplicated: false),
+      );
+
+      return;
+    }
+
     try {
       final response = await userRepository.updateMember(
         UpdateMemberRequest(
           memberId: userRepository.getMemberData?.memberId ?? -1,
           nickName: nickname,
-          imageFile: imagePath,
+          imageFile: profileImagePath,
         ),
       );
 
@@ -119,6 +137,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             event: () => add(event),
           ),
         );
+
         return;
       }
       emit(const ProfileUpdateSucceed());
@@ -152,7 +171,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) {
     emit(
       ProfileNicknameValidationChecked(
-        isValid: event.nickname.length >= 2,
+        isValid: event.nickname.isNotEmpty,
+        nicknameLength: event.nickname.length,
       ),
     );
   }
