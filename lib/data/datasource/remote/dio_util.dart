@@ -43,10 +43,10 @@ class DioUtil {
             return handler.next(options);
           }
 
-          final authorizationData = '${tokenData.accessTokenType} ${tokenData.accessToken}';
+          final authorizationData = 'accessToken=${tokenData.accessToken}';
 
-          if (options.headers['Authorization'] != authorizationData) {
-            options.headers['Authorization'] = authorizationData;
+          if (options.headers['cookie'] != authorizationData) {
+            options.headers['cookie'] = authorizationData;
           }
 
           return handler.next(options);
@@ -63,19 +63,21 @@ class DioUtil {
           }
 
           RequestOptions options = error.response!.requestOptions;
-          final authorizationData = '${tokenData.accessTokenType} ${tokenData.accessToken}';
+          final authorizationData =
+              '${tokenData.accessTokenType} ${tokenData.accessToken}';
 
           if (options.headers['Authorization'] != authorizationData) {
             options.headers['Authorization'] = authorizationData;
             return dio.fetch(options).then((r) => handler.resolve(r));
           }
 
-          return AuthClient(Dio()..interceptors.add(CustomDioLogger('refreshDio')))
+          return AuthClient(
+                  Dio()..interceptors.add(CustomDioLogger('refreshDio')))
               .refreshAccessToken()
               .then(
             (value) async {
-              await authPreference.setTokenData(
-                  TokenData(accessToken: 'accessToken', refreshToken: 'refreshToken'));
+              await authPreference.setTokenData(TokenData(
+                  accessToken: 'accessToken', refreshToken: 'refreshToken'));
               options.headers['Authorization'] = 'newToken';
               return dio.fetch(options).then((r) => handler.resolve(r));
             },
