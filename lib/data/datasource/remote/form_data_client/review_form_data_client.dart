@@ -9,7 +9,8 @@ class ReviewFormDataClient {
 
   const ReviewFormDataClient({required this.dio});
 
-  Future<BaseResponse<int>> createReview(CreateReivewRequest createReivewRequest) async {
+  Future<BaseResponse<int>> createReview(
+      CreateReivewRequest createReivewRequest) async {
     final formData = FormData.fromMap(
       {
         'storeId': createReivewRequest.storeId,
@@ -37,10 +38,11 @@ class ReviewFormDataClient {
       data: formData,
     );
 
-    return response.data;
+    return BaseResponse.fromJson(response.data, (json) => response.data);
   }
 
-  Future<BaseResponse<dynamic>> updateReview(UpdateReviewRequest updateReviewRequest) async {
+  Future<BaseResponse<dynamic>> updateReview(
+      UpdateReviewRequest updateReviewRequest) async {
     final formData = FormData.fromMap(
       {
         'reviewId': updateReviewRequest.reviewId,
@@ -69,6 +71,9 @@ class ReviewFormDataClient {
       data: formData,
     );
 
-    return response.data;
+    return BaseResponse.fromJson(
+      response.data,
+      (json) => null,
+    );
   }
 }

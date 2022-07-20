@@ -50,7 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else if (event.oAuthProvider == 'APPLE') {
       try {
         final credential = await SignInWithApple.getAppleIDCredential(
-          scopes: [AppleIDAuthorizationScopes.fullName],
+          scopes: AppleIDAuthorizationScopes.values,
         );
         oAuthAccessToken = credential.identityToken;
       } catch (e) {
@@ -86,7 +86,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(
         LoginSucceed(
           isCertifiedPhone: response.data.phoneNumber != null,
-          isRegisteredNickname: response.data.nickName != null,
+          isRegisteredNickname: response.data.nickname != null,
         ),
       );
     } catch (e) {

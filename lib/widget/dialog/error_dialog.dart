@@ -9,7 +9,7 @@ class ErrorDialog extends StatelessWidget {
   final bool isNetworkError;
 
   static Future<void> show(
-    context, {
+    BuildContext context, {
     required bool isNetworkError,
     required Function refresh,
   }) async {

@@ -21,7 +21,7 @@ Member _$MemberFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Member {
   int get memberId => throw _privateConstructorUsedError;
-  String? get nickName => throw _privateConstructorUsedError;
+  String? get nickname => throw _privateConstructorUsedError;
   @JsonKey(name: 'imageDto')
   ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone')
@@ -42,7 +42,7 @@ abstract class $MemberCopyWith<$Res> {
       _$MemberCopyWithImpl<$Res>;
   $Res call(
       {int memberId,
-      String? nickName,
+      String? nickname,
       @JsonKey(name: 'imageDto') ImageIdPair? imageIdPair,
       @JsonKey(name: 'phone') String? phoneNumber,
       String email,
@@ -63,7 +63,7 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
   @override
   $Res call({
     Object? memberId = freezed,
-    Object? nickName = freezed,
+    Object? nickname = freezed,
     Object? imageIdPair = freezed,
     Object? phoneNumber = freezed,
     Object? email = freezed,
@@ -75,9 +75,9 @@ class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickName: nickName == freezed
-          ? _value.nickName
-          : nickName // ignore: cast_nullable_to_non_nullable
+      nickname: nickname == freezed
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String?,
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
@@ -121,7 +121,7 @@ abstract class _$$_MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
   @override
   $Res call(
       {int memberId,
-      String? nickName,
+      String? nickname,
       @JsonKey(name: 'imageDto') ImageIdPair? imageIdPair,
       @JsonKey(name: 'phone') String? phoneNumber,
       String email,
@@ -144,7 +144,7 @@ class __$$_MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
   @override
   $Res call({
     Object? memberId = freezed,
-    Object? nickName = freezed,
+    Object? nickname = freezed,
     Object? imageIdPair = freezed,
     Object? phoneNumber = freezed,
     Object? email = freezed,
@@ -156,9 +156,9 @@ class __$$_MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickName: nickName == freezed
-          ? _value.nickName
-          : nickName // ignore: cast_nullable_to_non_nullable
+      nickname: nickname == freezed
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String?,
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
@@ -189,7 +189,7 @@ class __$$_MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
 class _$_Member implements _Member {
   _$_Member(
       {required this.memberId,
-      this.nickName,
+      this.nickname,
       @JsonKey(name: 'imageDto') this.imageIdPair,
       @JsonKey(name: 'phone') this.phoneNumber,
       required this.email,
@@ -202,7 +202,7 @@ class _$_Member implements _Member {
   @override
   final int memberId;
   @override
-  final String? nickName;
+  final String? nickname;
   @override
   @JsonKey(name: 'imageDto')
   final ImageIdPair? imageIdPair;
@@ -219,7 +219,7 @@ class _$_Member implements _Member {
 
   @override
   String toString() {
-    return 'Member(memberId: $memberId, nickName: $nickName, imageIdPair: $imageIdPair, phoneNumber: $phoneNumber, email: $email, birthDay: $birthDay, joinDateTime: $joinDateTime)';
+    return 'Member(memberId: $memberId, nickname: $nickname, imageIdPair: $imageIdPair, phoneNumber: $phoneNumber, email: $email, birthDay: $birthDay, joinDateTime: $joinDateTime)';
   }
 
   @override
@@ -228,7 +228,7 @@ class _$_Member implements _Member {
         (other.runtimeType == runtimeType &&
             other is _$_Member &&
             const DeepCollectionEquality().equals(other.memberId, memberId) &&
-            const DeepCollectionEquality().equals(other.nickName, nickName) &&
+            const DeepCollectionEquality().equals(other.nickname, nickname) &&
             const DeepCollectionEquality()
                 .equals(other.imageIdPair, imageIdPair) &&
             const DeepCollectionEquality()
@@ -244,7 +244,7 @@ class _$_Member implements _Member {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(memberId),
-      const DeepCollectionEquality().hash(nickName),
+      const DeepCollectionEquality().hash(nickname),
       const DeepCollectionEquality().hash(imageIdPair),
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(email),
@@ -265,7 +265,7 @@ class _$_Member implements _Member {
 abstract class _Member implements Member {
   factory _Member(
       {required final int memberId,
-      final String? nickName,
+      final String? nickname,
       @JsonKey(name: 'imageDto') final ImageIdPair? imageIdPair,
       @JsonKey(name: 'phone') final String? phoneNumber,
       required final String email,
@@ -277,7 +277,7 @@ abstract class _Member implements Member {
   @override
   int get memberId => throw _privateConstructorUsedError;
   @override
-  String? get nickName => throw _privateConstructorUsedError;
+  String? get nickname => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'imageDto')
   ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;

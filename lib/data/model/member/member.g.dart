@@ -8,7 +8,7 @@ part of 'member.dart';
 
 _$_Member _$$_MemberFromJson(Map<String, dynamic> json) => _$_Member(
       memberId: json['memberId'] as int,
-      nickName: json['nickName'] as String?,
+      nickname: json['nickname'] as String?,
       imageIdPair: json['imageDto'] == null
           ? null
           : ImageIdPair.fromJson(json['imageDto'] as Map<String, dynamic>),
@@ -20,7 +20,7 @@ _$_Member _$$_MemberFromJson(Map<String, dynamic> json) => _$_Member(
 
 Map<String, dynamic> _$$_MemberToJson(_$_Member instance) => <String, dynamic>{
       'memberId': instance.memberId,
-      'nickName': instance.nickName,
+      'nickname': instance.nickname,
       'imageDto': instance.imageIdPair,
       'phone': instance.phoneNumber,
       'email': instance.email,

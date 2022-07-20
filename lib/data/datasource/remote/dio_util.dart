@@ -63,11 +63,11 @@ class DioUtil {
           }
 
           RequestOptions options = error.response!.requestOptions;
-          final authorizationData =
-              '${tokenData.accessTokenType} ${tokenData.accessToken}';
 
-          if (options.headers['Authorization'] != authorizationData) {
-            options.headers['Authorization'] = authorizationData;
+          final authorizationData = 'accessToken=${tokenData.accessToken}';
+
+          if (options.headers['cookie'] != authorizationData) {
+            options.headers['cookie'] = authorizationData;
             return dio.fetch(options).then((r) => handler.resolve(r));
           }
 
@@ -76,9 +76,17 @@ class DioUtil {
               .refreshAccessToken()
               .then(
             (value) async {
-              await authPreference.setTokenData(TokenData(
-                  accessToken: 'accessToken', refreshToken: 'refreshToken'));
-              options.headers['Authorization'] = 'newToken';
+              final List<String> tokenDatas =
+                  value.response.headers['set-cookie'] ?? [];
+              if (tokenDatas.isNotEmpty) {
+                final accessToken =
+                    tokenDatas.first.substring(12).split(';').first;
+
+                await authPreference.setTokenData(
+                    TokenData(accessToken: accessToken, refreshToken: ''));
+
+                options.headers['cookie'] = 'accessToken=$accessToken';
+              }
               return dio.fetch(options).then((r) => handler.resolve(r));
             },
           ).onError((_, stackTrace) => handler.next(error));

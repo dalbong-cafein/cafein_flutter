@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
@@ -38,15 +37,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ProfilePermissionRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    if (Platform.isIOS) {
-      final status = await event.permission.request();
-      emit(
-        ProfilePermissionChecked(
-          permission: event.permission,
-          permissionStatus: status,
-        ),
-      );
-    } else if (Platform.isAndroid) {}
+    final status = await event.permission.request();
+    emit(
+      ProfilePermissionChecked(
+        permission: event.permission,
+        permissionStatus: status,
+      ),
+    );
   }
 
   FutureOr<void> _onProfileImageChanged(
@@ -69,14 +66,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       );
     }
 
-    if (imageFile != null) {
-      profileImagePath = imageFile.path;
-      emit(
-        ProfileImageSelected(
-          imagePath: profileImagePath!,
-        ),
-      );
-    }
+    profileImagePath = imageFile?.path;
+    emit(
+      ProfileImageSelected(
+        imagePath: profileImagePath ?? '',
+      ),
+    );
   }
 
   FutureOr<void> _onProfileNicknameDuplicationRequested(
@@ -94,6 +89,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         return;
       }
       isDuplicated = response.data;
+      nickname = event.nickname;
       emit(
         ProfileNicknameDuplicationChecked(
           isDuplicated: isDuplicated,
@@ -128,26 +124,25 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           memberId: userRepository.getMemberData?.memberId ?? -1,
           nickName: nickname,
           imageFile: profileImagePath,
+          deleteImageId: 1457,
         ),
       );
 
       if (response.code == -1) {
-        emit(
-          ProfileError(
-            event: () => add(event),
-          ),
-        );
+        emit(ProfileError(event: () => add(event)));
 
         return;
       }
+      userRepository.setMemberData = userRepository.getMemberData!.copyWith(
+        nickname: nickname,
+      );
       emit(const ProfileUpdateSucceed());
     } catch (e) {
       if (e is! DioError) {
         emit(
-          ProfileError(
-            event: () => add(event),
-          ),
+          ProfileError(event: () => add(event)),
         );
+
         return;
       }
 

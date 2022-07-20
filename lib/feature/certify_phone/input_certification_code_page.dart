@@ -19,10 +19,12 @@ class InputCertificationCodePage extends StatefulWidget {
   static const routeName = 'InputCertificationCodePage';
 
   @override
-  State<InputCertificationCodePage> createState() => _InputCertificationCodePageState();
+  State<InputCertificationCodePage> createState() =>
+      _InputCertificationCodePageState();
 }
 
-class _InputCertificationCodePageState extends State<InputCertificationCodePage> {
+class _InputCertificationCodePageState
+    extends State<InputCertificationCodePage> {
   final controller = TextEditingController();
   late final timerBloc = TimerBloc(
     certifyCodeBloc: context.read<CertifyCodeBloc>(),
@@ -139,7 +141,9 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                         maxLength: 6,
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         autofocus: true,
                         textInputAction: TextInputAction.next,
                         decoration: const InputDecoration(
@@ -198,19 +202,20 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
               const Spacer(),
               BlocBuilder<CertifyCodeBloc, CertifyCodeState>(
                 buildWhen: (pre, next) =>
-                    next is CertifyCodeValidationChecked || next is CertifyCodeTimeOuted,
+                    next is CertifyCodeValidationChecked ||
+                    next is CertifyCodeTimeOuted,
                 builder: (context, state) {
-                  bool isVaild = false;
+                  bool isValid = false;
                   if (state is CertifyCodeValidationChecked) {
-                    isVaild = state.isVaild;
+                    isValid = state.isVaild;
                   } else if (state is CertifyCodeTimeOuted) {
-                    isVaild = false;
+                    isValid = false;
                   }
                   return SizedBox(
                     height: 56,
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
-                      onPressed: isVaild
+                      onPressed: isValid
                           ? () => context.read<CertifyCodeBloc>().add(
                                 CertifyCodeSubmitted(
                                   code: controller.text,

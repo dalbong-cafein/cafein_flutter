@@ -1,10 +1,11 @@
-import 'dart:io';
-
+import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/widget/image_choice_dialog.dart';
+import 'package:cafein_flutter/feature/profile/widget/profile_image.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/debouncer.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+
     final debouncer = Debouncer(milliseconds: 1000);
     controller.addListener(
       () {
@@ -54,13 +56,21 @@ class _ProfilePageState extends State<ProfilePage> {
         final bloc = context.read<ProfileBloc>();
         if (state is ProfilePermissionChecked) {
           if (!state.permissionStatus.isGranted) {
-            // TODO: 권한 동의 요청 팝업
+            final result = await PermissionDialog.show(context);
+            if (result) {
+              openAppSettings();
+            }
             return;
           }
           bloc.add(
             ProfileImageChanged(
               permission: state.permission,
             ),
+          );
+        } else if (state is ProfileUpdateSucceed) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            MainPage.routeName,
+            (route) => false,
           );
         }
       },
@@ -70,9 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: () => Navigator.of(context).pop(),
             child: const Icon(CupertinoIcons.back),
           ),
-          title: const Text(
-            '프로필 설정',
-          ),
+          title: const Text('프로필 설정'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,29 +94,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   BlocBuilder<ProfileBloc, ProfileState>(
                     buildWhen: (pre, next) => next is ProfileImageSelected,
                     builder: (context, state) {
-                      String? fileImagePath;
+                      String fileImagePath = '';
 
                       if (state is ProfileImageSelected) {
                         fileImagePath = state.imagePath;
                       }
 
-                      if (fileImagePath != null) {
-                        return CircleAvatar(
-                          radius: 44,
-                          backgroundColor: AppColor.white,
-                          foregroundImage: FileImage(
-                            File(fileImagePath),
-                          ),
-                        );
-                      }
-                      return CircleAvatar(
-                        radius: 44,
-                        backgroundColor: AppColor.white,
-                        child: loadAsset(
-                          AppImage.profile1,
-                          width: 88,
-                          height: 88,
-                        ),
+                      return ProfileImage(
+                        fileImagePath: fileImagePath,
                       );
                     },
                   ),
@@ -119,9 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       onTap: () async {
                         final bloc = context.read<ProfileBloc>();
                         final result = await ImageChoiceDialog.show(context);
-                        if (result.isDefault) {
-                          // TODO: 기본 이미지 설정
-                        } else if (result.isCamera) {
+                        if (result.isCamera) {
                           bloc.add(
                             const ProfilePermissionRequested(
                               permission: Permission.camera,
@@ -135,9 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         }
                       },
-                      child: loadAsset(
-                        AppIcon.camera,
-                      ),
+                      child: loadAsset(AppIcon.camera),
                     ),
                   ),
                 ],
@@ -181,14 +170,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   InkWell(
                     onTap: () => controller.clear(),
-                    child: loadAsset(
-                      AppIcon.circleDeleteGrey,
-                    ),
+                    child: loadAsset(AppIcon.circleDeleteGrey),
                   ),
                   const SizedBox(width: 4),
                   BlocBuilder<ProfileBloc, ProfileState>(
-                    buildWhen: (pre, next) =>
-                        next is ProfileNicknameValidationChecked,
+                    buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
                     builder: (context, state) {
                       int nicknameLength = 0;
                       if (state is ProfileNicknameValidationChecked) {
@@ -216,15 +202,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) =>
-                  next is ProfileNicknameDuplicationChecked,
+              buildWhen: (pre, next) => next is ProfileNicknameDuplicationChecked,
               builder: (context, state) {
                 bool isDuplicated = false;
                 String text = '한글, 영문, 숫자만 입력 가능합니다.';
                 if (state is ProfileNicknameDuplicationChecked) {
                   isDuplicated = state.isDuplicated;
-                  text =
-                      !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
+                  text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
                 }
                 return Align(
                   alignment: Alignment.centerLeft,
@@ -245,8 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const Spacer(),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) =>
-                  next is ProfileNicknameValidationChecked,
+              buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
               builder: (context, state) {
                 bool isValid = false;
                 if (state is ProfileNicknameValidationChecked) {

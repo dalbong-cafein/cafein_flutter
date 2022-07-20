@@ -8,20 +8,24 @@ class MemberFormDataClient {
 
   const MemberFormDataClient({required this.dio});
 
-  Future<BaseResponse<dynamic>> updateMember(UpdateMemberRequest updateMemberRequest) async {
+  Future<BaseResponse<dynamic>> updateMember(
+      UpdateMemberRequest updateMemberRequest) async {
     final response = await dio.patch(
       '${CafeinConfig.baseUrl}/members/${updateMemberRequest.memberId}/ImageAndNickname',
-      data: FormData.fromMap(
-        {
-          'nickname': updateMemberRequest.nickName,
-          'imageFile': updateMemberRequest.imageFile != null
-              ? await MultipartFile.fromFile(updateMemberRequest.imageFile!)
-              : null,
-          'deleteImageId': updateMemberRequest.deleteImageId,
-        },
-      ),
+      data: FormData.fromMap({
+        'nickname': updateMemberRequest.nickName,
+        'imageFile': updateMemberRequest.imageFile != null
+            ? await MultipartFile.fromFile(
+                updateMemberRequest.imageFile!,
+              )
+            : null,
+        'deleteImageId': updateMemberRequest.deleteImageId,
+      }),
     );
 
-    return response.data;
+    return BaseResponse.fromJson(
+      response.data,
+      (json) => null,
+    );
   }
 }

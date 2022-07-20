@@ -26,7 +26,6 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
@@ -110,8 +109,8 @@ class CafeinApp extends StatelessWidget {
         ),
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        // initialRoute: SplashPage.routeName,
-        initialRoute: ProfilePage.routeName,
+        initialRoute: SplashPage.routeName,
+        // initialRoute: ProfilePage.routeName,
         theme: AppTheme.light,
         darkTheme: AppTheme.light,
         onGenerateRoute: CafeinRoute.onGenerateRoute,
