@@ -1,103 +1,103 @@
 part of 'resource.dart';
 
 abstract class AppStyle {
-  static const title1 = TextStyle(
-    fontSize: 24,
+  static const title25Bold = TextStyle(
+    fontSize: 25,
     fontWeight: FontWeight.w700,
     height: 36 / 24,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  static const title2 = TextStyle(
-    fontSize: 20,
+  static const title21Bold = TextStyle(
+    fontSize: 21,
     fontWeight: FontWeight.w700,
   );
 
-  static const title3Bold = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const title3Medium = TextStyle(
-    fontSize: 24,
+  static const title21Regular = TextStyle(
+    fontSize: 21,
     fontWeight: FontWeight.w500,
   );
 
-  static const subTitle1Bold = TextStyle(
-    fontSize: 16,
+  static const title19Bold = TextStyle(
+    fontSize: 19,
     fontWeight: FontWeight.w700,
   );
 
-  static const subTitle1Medium = TextStyle(
+  static const title19SemiBold = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const subTitle17Bold = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
+  );
+
+  static const subTitle17SemiBold = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const subTitle16SemiBold = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const subTitle16Medium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
 
-  static const subTitle2Bold = TextStyle(
+  static const subTitle15Bold = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,
   );
 
-  static const subTitle2Medium = TextStyle(
+  static const subTitle15SemiBold = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const subTitle15Medium = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w500,
   );
 
-  static const subTitle3Bold = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const subTitle3Medium = TextStyle(
+  static const subTitle14Medium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 
-  static const body1 = TextStyle(
+  static const body16Regular = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     leadingDistribution: TextLeadingDistribution.even,
   );
 
-  static const body2 = TextStyle(
+  static const body15Regular = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w400,
   );
 
-  static const body3 = TextStyle(
+  static const body14Regular = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 20 / 14,
   );
 
-  static const body4 = TextStyle(
-    fontSize: 13,
-    fontWeight: FontWeight.w400,
-  );
-
-  static const body5 = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-  );
-
-  static const caption1Bold = TextStyle(
+  static const caption13SemiBold = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w700,
   );
 
-  static const caption1Medium = TextStyle(
+  static const caption13Medium = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w500,
   );
 
-  static const caption2Bold = TextStyle(
+  static const caption13Regular = TextStyle(
     fontSize: 13,
-    fontWeight: FontWeight.w700,
-  );
-
-  static const caption2Medium = TextStyle(
-    fontSize: 13,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400,
   );
 
   static const caption12Medium = TextStyle(

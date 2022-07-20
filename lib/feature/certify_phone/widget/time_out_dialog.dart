@@ -30,11 +30,11 @@ class TimeOutDialog extends StatelessWidget {
             children: [
               const Text(
                 '인증번호 입력 시간이 지났습니다',
-                style: AppStyle.subTitle1Bold,
+                style: AppStyle.subTitle17Bold,
               ),
               Text(
                 '인증번호를 다시 받아주세요.\n문자로 인증번호가 오지 않는다면\n내 정보가 맞는지 확인해 주세요.',
-                style: AppStyle.body3.copyWith(
+                style: AppStyle.body14Regular.copyWith(
                   color: AppColor.grey600,
                 ),
                 textAlign: TextAlign.center,
@@ -58,7 +58,7 @@ class TimeOutDialog extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            textStyle: AppStyle.subTitle2Medium,
+                            textStyle: AppStyle.subTitle16Medium,
                           ),
                           child: const Text('정보 확인하기'),
                         ),
@@ -76,7 +76,7 @@ class TimeOutDialog extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            textStyle: AppStyle.subTitle2Medium,
+                            textStyle: AppStyle.subTitle16Medium,
                           ),
                           child: const Text('인증번호 재전송'),
                         ),

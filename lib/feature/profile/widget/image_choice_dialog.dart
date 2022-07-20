@@ -42,13 +42,14 @@ class ImageChoiceDialog extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) => InkWell(
-            onTap: () => Navigator.of(context).pop(ImageChoiceType.values[index]),
+            onTap: () =>
+                Navigator.of(context).pop(ImageChoiceType.values[index]),
             child: SizedBox(
               height: 52,
               child: Center(
                 child: Text(
                   ImageChoiceType.values[index].title,
-                  style: AppStyle.subTitle2Medium,
+                  style: AppStyle.subTitle16Medium,
                 ),
               ),
             ),

@@ -113,7 +113,7 @@ class _InputCertificationCodePageState
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   '인증번호 6자리를\n입력해 주세요',
-                  style: AppStyle.title1,
+                  style: AppStyle.title25Bold,
                 ),
               ),
               Container(
@@ -189,7 +189,7 @@ class _InputCertificationCodePageState
                       ),
                       primary: AppColor.grey100,
                       onPrimary: AppColor.grey600,
-                      textStyle: AppStyle.subTitle3Medium,
+                      textStyle: AppStyle.subTitle15Medium,
                       padding: EdgeInsets.zero,
                     ),
                     onPressed: () => context.read<CertifyCodeBloc>().add(

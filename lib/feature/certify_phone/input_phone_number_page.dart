@@ -51,14 +51,14 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
               padding: EdgeInsets.only(left: 20),
               child: Text(
                 '본인 확인을 위해 \n휴대폰 번호 인증을 해주세요',
-                style: AppStyle.title1,
+                style: AppStyle.title25Bold,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 20),
               child: Text(
                 '휴대폰 번호는 카페인 서비스 이용을 위해 저장되며\n서비스 이용 기간 동안 안전하게 보관됩니다.',
-                style: AppStyle.body3.copyWith(
+                style: AppStyle.body14Regular.copyWith(
                   color: AppColor.grey600,
                 ),
               ),
@@ -108,7 +108,8 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
             ),
             const Spacer(),
             BlocBuilder<InputPhoneNumberBloc, InputPhoneNumberState>(
-              buildWhen: (pre, next) => next is PhoneCertificationPhoneNumberValidationChecked,
+              buildWhen: (pre, next) =>
+                  next is PhoneCertificationPhoneNumberValidationChecked,
               builder: (context, state) {
                 bool isValid = false;
                 if (state is PhoneCertificationPhoneNumberValidationChecked) {

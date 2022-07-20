@@ -11,11 +11,12 @@ class TimerText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final minutesStr = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+    final minutesStr =
+        ((duration / 60) % 60).floor().toString().padLeft(2, '0');
     final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
     return Text(
       '$minutesStr:$secondsStr',
-      style: AppStyle.subTitle3Medium.copyWith(
+      style: AppStyle.subTitle15Medium.copyWith(
         color: AppColor.grey400,
       ),
     );

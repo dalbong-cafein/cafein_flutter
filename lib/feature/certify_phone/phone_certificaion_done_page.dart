@@ -12,10 +12,12 @@ class PhoneCertificationDonePage extends StatefulWidget {
   static const routeName = 'PhoneCertificationDonePage';
 
   @override
-  State<PhoneCertificationDonePage> createState() => _PhoneCertificationDonePageState();
+  State<PhoneCertificationDonePage> createState() =>
+      _PhoneCertificationDonePageState();
 }
 
-class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage> {
+class _PhoneCertificationDonePageState
+    extends State<PhoneCertificationDonePage> {
   @override
   void initState() {
     super.initState();
@@ -44,7 +46,7 @@ class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage>
           children: [
             const Text(
               '본인 인증이\n완료되었습니다.',
-              style: AppStyle.title1,
+              style: AppStyle.title25Bold,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 72),

@@ -110,9 +110,18 @@ class CafeinApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
         initialRoute: SplashPage.routeName,
-        // initialRoute: ProfilePage.routeName,
-        theme: AppTheme.light,
-        darkTheme: AppTheme.light,
+        theme: AppTheme.light.copyWith(
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: AppColor.grey800,
+                displayColor: AppColor.grey800,
+              ),
+        ),
+        darkTheme: AppTheme.light.copyWith(
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: AppColor.grey800,
+                displayColor: AppColor.grey800,
+              ),
+        ),
         onGenerateRoute: CafeinRoute.onGenerateRoute,
       ),
     );
