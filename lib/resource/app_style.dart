@@ -11,6 +11,11 @@ abstract class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static const title3 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+  );
+
   static const title3Bold = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
