@@ -8,7 +8,7 @@ part 'member.freezed.dart';
 class Member with _$Member {
   factory Member({
     required int memberId,
-    String? nickName,
+    String? nickname,
     @JsonKey(name: 'imageDto') ImageIdPair? imageIdPair,
     @JsonKey(name: 'phone') String? phoneNumber,
     required String email,

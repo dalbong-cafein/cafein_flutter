@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -39,17 +40,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             : await UserApi.instance.loginWithKakaoAccount();
         oAuthAccessToken = oAuthToken.accessToken;
       } catch (e) {
-        emit(const LoginError());
+        emit(
+          LoginError(
+            event: () => add(event),
+          ),
+        );
         return;
       }
     } else if (event.oAuthProvider == 'APPLE') {
       try {
         final credential = await SignInWithApple.getAppleIDCredential(
-          scopes: [AppleIDAuthorizationScopes.fullName],
+          scopes: AppleIDAuthorizationScopes.values,
         );
         oAuthAccessToken = credential.identityToken;
       } catch (e) {
-        emit(const LoginError());
+        emit(
+          LoginError(
+            event: () => add(event),
+          ),
+        );
         return;
       }
     }
@@ -74,9 +83,34 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         oAuthAccessToken: event.oAuthAccessToken,
       );
       userRepository.setMemberData = response.data;
-      emit(const LoginSucceed());
+      emit(
+        LoginSucceed(
+          isCertifiedPhone: response.data.phoneNumber != null,
+          isRegisteredNickname: response.data.nickname != null,
+        ),
+      );
     } catch (e) {
-      emit(const LoginError());
+      if (e is! DioError) {
+        emit(
+          LoginError(
+            event: () => add(event),
+          ),
+        );
+        return;
+      }
+
+      bool isNetworkError = false;
+
+      if (e.type == DioErrorType.other) {
+        isNetworkError = true;
+      }
+
+      emit(
+        LoginError(
+          isNetworkError: isNetworkError,
+          event: () => add(event),
+        ),
+      );
     }
   }
 }

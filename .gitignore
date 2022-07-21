@@ -48,5 +48,5 @@ app.*.map.json
 /android/key.json
 
 # Generated file
-**.g.dart
-**.freezed.dart
+# **.g.dart
+# **.freezed.dart

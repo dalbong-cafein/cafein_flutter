@@ -25,6 +25,8 @@ abstract class AppIcon {
   static const news = "asset/icon/news_icon.svg";
 
   static const camera = "asset/icon/camera_icon.svg";
+  static const circleDelete = 'asset/icon/ic_close_circle.svg';
+  static const circleDeleteGrey = 'asset/icon/ic_close_circle_grey300.svg';
 
   static const trash = "asset/icon/trash_icon.svg";
 }

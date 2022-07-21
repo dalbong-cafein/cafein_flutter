@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 class ErrorDialog extends StatelessWidget {
   const ErrorDialog({
-  super.key,
-  required this.isNetworkError,
+    super.key,
+    required this.isNetworkError,
   });
 
   final bool isNetworkError;
 
   static Future<void> show(
-      BuildContext context, {
-        required bool isNetworkError,
-        required Function refresh,
-      }) async {
+    BuildContext context, {
+    required bool isNetworkError,
+    required Function refresh,
+  }) async {
     final result = await showDialog(
       context: context,
       builder: (context) => ErrorDialog(

@@ -17,14 +17,22 @@ class DioUtil {
   }
 
   Dio get authDio {
-    final dio = Dio();
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: 5000,
+      ),
+    );
 
     dio.interceptors.add(CustomDioLogger('authDio'));
     return dio;
   }
 
   Dio get dio {
-    final dio = Dio();
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: 5000,
+      ),
+    );
     dio.interceptors.add(CustomDioLogger('dio'));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(
@@ -55,23 +63,33 @@ class DioUtil {
           }
 
           RequestOptions options = error.response!.requestOptions;
-          final authorizationData = '${tokenData.accessTokenType} ${tokenData.accessToken}';
 
-          if (options.headers['Authorization'] != authorizationData) {
-            options.headers['Authorization'] = authorizationData;
+          final authorizationData = 'accessToken=${tokenData.accessToken}';
+
+          if (options.headers['cookie'] != authorizationData) {
+            options.headers['cookie'] = authorizationData;
             return dio.fetch(options).then((r) => handler.resolve(r));
           }
 
-          return AuthClient(Dio()..interceptors.add(CustomDioLogger('refreshDio')))
+          return AuthClient(
+                  Dio()..interceptors.add(CustomDioLogger('refreshDio')))
               .refreshAccessToken()
               .then(
             (value) async {
-              await authPreference.setTokenData(
-                  TokenData(accessToken: 'accessToken', refreshToken: 'refreshToken'));
-              options.headers['Authorization'] = 'newToken';
+              final List<String> tokenDatas =
+                  value.response.headers['set-cookie'] ?? [];
+              if (tokenDatas.isNotEmpty) {
+                final accessToken =
+                    tokenDatas.first.substring(12).split(';').first;
+
+                await authPreference.setTokenData(
+                    TokenData(accessToken: accessToken, refreshToken: ''));
+
+                options.headers['cookie'] = 'accessToken=$accessToken';
+              }
               return dio.fetch(options).then((r) => handler.resolve(r));
             },
-          );
+          ).onError((_, stackTrace) => handler.next(error));
         },
       ),
     );

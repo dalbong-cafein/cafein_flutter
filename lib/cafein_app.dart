@@ -27,6 +27,7 @@ import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
+import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -109,6 +110,18 @@ class CafeinApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
         initialRoute: SplashPage.routeName,
+        theme: AppTheme.light.copyWith(
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: AppColor.grey800,
+                displayColor: AppColor.grey800,
+              ),
+        ),
+        darkTheme: AppTheme.light.copyWith(
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: AppColor.grey800,
+                displayColor: AppColor.grey800,
+              ),
+        ),
         onGenerateRoute: CafeinRoute.onGenerateRoute,
       ),
     );

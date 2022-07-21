@@ -32,4 +32,9 @@ abstract class AuthClient {
     @Header('authProvider') String authProvider,
     @Header('oAuthAccessToken') String oAuthAccessToken,
   );
+
+  @GET('/auth/duplicate-nickname')
+  Future<BaseResponse<bool>> duplicateNickname(
+    @Query('nickname') String nickname,
+  );
 }

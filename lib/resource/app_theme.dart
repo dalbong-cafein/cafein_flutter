@@ -8,7 +8,7 @@ abstract class AppTheme {
       backgroundColor: Colors.transparent,
       foregroundColor: AppColor.grey800,
       centerTitle: true,
-      titleTextStyle: AppStyle.subTitle2Medium.copyWith(
+      titleTextStyle: AppStyle.subTitle16Medium.copyWith(
         color: AppColor.grey800,
       ),
       titleSpacing: 0,
@@ -18,11 +18,11 @@ abstract class AppTheme {
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     textTheme: const TextTheme(
-      subtitle1: AppStyle.body1,
+      subtitle1: AppStyle.body16Regular,
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: InputBorder.none,
-      hintStyle: AppStyle.body1.copyWith(
+      hintStyle: AppStyle.body16Regular.copyWith(
         color: AppColor.grey400,
       ),
     ),
@@ -58,7 +58,7 @@ abstract class AppTheme {
         ),
         elevation: MaterialStateProperty.all(0),
         textStyle: MaterialStateProperty.all(
-          AppStyle.subTitle2Medium,
+          AppStyle.subTitle16Medium,
         ),
       ),
     ),

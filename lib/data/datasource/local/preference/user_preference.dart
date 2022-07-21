@@ -1,10 +1,10 @@
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class AppPreference {
+class UserPreference {
   final Box<List<String>> box;
 
-  AppPreference({
+  UserPreference({
     required this.box,
   });
 

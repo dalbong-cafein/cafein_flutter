@@ -2,6 +2,7 @@
     package="com.dalbong.cafein">
     <uses-permission
         android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:label="카페인"
         android:name="${applicationName}"
