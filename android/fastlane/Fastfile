@@ -16,39 +16,12 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
-
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
-  end
-
-  desc "Upload AppBundle"
-  lane :upload_aab do
-    
-    Dir.chdir("..") do
-      Dir.chdir("..") do
-        sh "pwd"
-        sh "flutter build appbundle"
-      end
+  desc "Firebase App Distribution"
+    lane :firebase_deploy do
+        firebase_app_distribution(
+            app: "1:594450001835:android:4e71aa594fe566fd2decee",
+            groups: "android-테스터",
+            apk_path: "../build/app/outputs/apk/debug/app-debug.apk"
+        )
     end
-    # supply(
-    #   track: "internal",
-    #   package_name: "com.dalbong.cafein",
-    #   apk: "../build/app/outputs/bundle/release/app-release.aab "
-    # )
-  end
 end
