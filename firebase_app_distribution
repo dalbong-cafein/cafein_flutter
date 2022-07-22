@@ -1,0 +1,5 @@
+#!/bin/bash
+
+flutter build apk
+cd android
+bundle exec fastlane firebase_deploy
