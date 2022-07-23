@@ -11,9 +11,11 @@ class MemberStore with _$MemberStore {
     required String storeName,
     required double lngX,
     required double latY,
+    required bool isOpen,
     double? congestionScoreAvg,
     @JsonKey(name: 'storeImageDto') required ImageIdPair imageIdPair,
   }) = _MemberStore;
 
-  factory MemberStore.fromJson(Map<String, dynamic> json) => _$MemberStoreFromJson(json);
+  factory MemberStore.fromJson(Map<String, dynamic> json) =>
+      _$MemberStoreFromJson(json);
 }

@@ -24,6 +24,7 @@ mixin _$MemberStore {
   String get storeName => throw _privateConstructorUsedError;
   double get lngX => throw _privateConstructorUsedError;
   double get latY => throw _privateConstructorUsedError;
+  bool get isOpen => throw _privateConstructorUsedError;
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @JsonKey(name: 'storeImageDto')
   ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $MemberStoreCopyWith<$Res> {
       String storeName,
       double lngX,
       double latY,
+      bool isOpen,
       double? congestionScoreAvg,
       @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair});
 
@@ -64,6 +66,7 @@ class _$MemberStoreCopyWithImpl<$Res> implements $MemberStoreCopyWith<$Res> {
     Object? storeName = freezed,
     Object? lngX = freezed,
     Object? latY = freezed,
+    Object? isOpen = freezed,
     Object? congestionScoreAvg = freezed,
     Object? imageIdPair = freezed,
   }) {
@@ -84,6 +87,10 @@ class _$MemberStoreCopyWithImpl<$Res> implements $MemberStoreCopyWith<$Res> {
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
+      isOpen: isOpen == freezed
+          ? _value.isOpen
+          : isOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
       congestionScoreAvg: congestionScoreAvg == freezed
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
@@ -115,6 +122,7 @@ abstract class _$$_MemberStoreCopyWith<$Res>
       String storeName,
       double lngX,
       double latY,
+      bool isOpen,
       double? congestionScoreAvg,
       @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair});
 
@@ -138,6 +146,7 @@ class __$$_MemberStoreCopyWithImpl<$Res> extends _$MemberStoreCopyWithImpl<$Res>
     Object? storeName = freezed,
     Object? lngX = freezed,
     Object? latY = freezed,
+    Object? isOpen = freezed,
     Object? congestionScoreAvg = freezed,
     Object? imageIdPair = freezed,
   }) {
@@ -158,6 +167,10 @@ class __$$_MemberStoreCopyWithImpl<$Res> extends _$MemberStoreCopyWithImpl<$Res>
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
+      isOpen: isOpen == freezed
+          ? _value.isOpen
+          : isOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
       congestionScoreAvg: congestionScoreAvg == freezed
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
@@ -178,6 +191,7 @@ class _$_MemberStore implements _MemberStore {
       required this.storeName,
       required this.lngX,
       required this.latY,
+      required this.isOpen,
       this.congestionScoreAvg,
       @JsonKey(name: 'storeImageDto') required this.imageIdPair});
 
@@ -193,6 +207,8 @@ class _$_MemberStore implements _MemberStore {
   @override
   final double latY;
   @override
+  final bool isOpen;
+  @override
   final double? congestionScoreAvg;
   @override
   @JsonKey(name: 'storeImageDto')
@@ -200,7 +216,7 @@ class _$_MemberStore implements _MemberStore {
 
   @override
   String toString() {
-    return 'MemberStore(storeId: $storeId, storeName: $storeName, lngX: $lngX, latY: $latY, congestionScoreAvg: $congestionScoreAvg, imageIdPair: $imageIdPair)';
+    return 'MemberStore(storeId: $storeId, storeName: $storeName, lngX: $lngX, latY: $latY, isOpen: $isOpen, congestionScoreAvg: $congestionScoreAvg, imageIdPair: $imageIdPair)';
   }
 
   @override
@@ -212,6 +228,7 @@ class _$_MemberStore implements _MemberStore {
             const DeepCollectionEquality().equals(other.storeName, storeName) &&
             const DeepCollectionEquality().equals(other.lngX, lngX) &&
             const DeepCollectionEquality().equals(other.latY, latY) &&
+            const DeepCollectionEquality().equals(other.isOpen, isOpen) &&
             const DeepCollectionEquality()
                 .equals(other.congestionScoreAvg, congestionScoreAvg) &&
             const DeepCollectionEquality()
@@ -226,6 +243,7 @@ class _$_MemberStore implements _MemberStore {
       const DeepCollectionEquality().hash(storeName),
       const DeepCollectionEquality().hash(lngX),
       const DeepCollectionEquality().hash(latY),
+      const DeepCollectionEquality().hash(isOpen),
       const DeepCollectionEquality().hash(congestionScoreAvg),
       const DeepCollectionEquality().hash(imageIdPair));
 
@@ -246,6 +264,7 @@ abstract class _MemberStore implements MemberStore {
       required final String storeName,
       required final double lngX,
       required final double latY,
+      required final bool isOpen,
       final double? congestionScoreAvg,
       @JsonKey(name: 'storeImageDto')
           required final ImageIdPair imageIdPair}) = _$_MemberStore;
@@ -261,6 +280,8 @@ abstract class _MemberStore implements MemberStore {
   double get lngX => throw _privateConstructorUsedError;
   @override
   double get latY => throw _privateConstructorUsedError;
+  @override
+  bool get isOpen => throw _privateConstructorUsedError;
   @override
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @override
