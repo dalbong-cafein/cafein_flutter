@@ -57,6 +57,12 @@
     <string>위치 권한 필요해요2</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>위치 권한 필요해요3</string>
+    <key>NMFClientId</key>
+    <string>4zky5l98tl</string>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
