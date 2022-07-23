@@ -15,9 +15,8 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({required this.stickerRepository , required this.heartRepository}) : super(HomeInitial()) {
-    on<HomeRequested>((event, emit) {
-
-    });
+    on<HomeRequested>(_onHomeRequested);
+    on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
   }
 
   final HeartRepository heartRepository;
@@ -26,9 +25,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _onHomeRequested(HomeRequested event, Emitter<HomeState> emit) async{
     emit(HomeLoading());
     try{
-
+      final heartResponse = await heartRepository.getMyStores();
+      final memberstoreList = heartResponse.data.storeData<List<MemberStore>>;
+      final stickerResponse = await stickerRepository.getStickerCount();
+      final stickerCnt = stickerResponse.data;
+      emit(HomeLoaded(stickerCnt: stickerCnt, memberStores: [...memberstoreList]));
     }catch(e){
       emit(HomeError());
+    }
+  }
+
+  FutureOr<void> _onHomeRecommendStoreRequested(HomeRecommendStoreRequested event, Emitter<HomeState> emit) async{
+    emit(HomeRecommendStoreLoading());
+    try{
+
+    }catch(e){
+      emit(HomeRecommendStoreError());
     }
   }
 
