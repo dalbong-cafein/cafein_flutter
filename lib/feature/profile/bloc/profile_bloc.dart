@@ -124,7 +124,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           memberId: userRepository.getMemberData?.memberId ?? -1,
           nickName: nickname,
           imageFile: profileImagePath,
-          deleteImageId: 1457,
+          deleteImageId: profileImagePath != null
+              ? userRepository.getMemberData?.imageIdPair?.imageId
+              : null,
         ),
       );
 
@@ -135,6 +137,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
       userRepository.setMemberData = userRepository.getMemberData!.copyWith(
         nickname: nickname,
+        imageIdPair: response.data,
       );
       emit(const ProfileUpdateSucceed());
     } catch (e) {

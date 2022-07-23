@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/notice/bloc/notice_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class NoticePage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<NoticeBloc>().add(NoticeRequested());
     return Scaffold(
+      bottomNavigationBar: const MainBottomNavigationBar(),
       appBar: AppBar(
         centerTitle: false,
         title: const Text("알림"),

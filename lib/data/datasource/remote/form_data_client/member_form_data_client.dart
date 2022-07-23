@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:dio/dio.dart';
 
@@ -8,7 +9,7 @@ class MemberFormDataClient {
 
   const MemberFormDataClient({required this.dio});
 
-  Future<BaseResponse<dynamic>> updateMember(
+  Future<BaseResponse<ImageIdPair>> updateMember(
       UpdateMemberRequest updateMemberRequest) async {
     final response = await dio.patch(
       '${CafeinConfig.baseUrl}/members/${updateMemberRequest.memberId}/ImageAndNickname',
@@ -25,7 +26,7 @@ class MemberFormDataClient {
 
     return BaseResponse.fromJson(
       response.data,
-      (json) => null,
+      (json) => ImageIdPair.fromJson(response.data),
     );
   }
 }
