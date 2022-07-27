@@ -19,12 +19,10 @@ class InputCertificationCodePage extends StatefulWidget {
   static const routeName = 'InputCertificationCodePage';
 
   @override
-  State<InputCertificationCodePage> createState() =>
-      _InputCertificationCodePageState();
+  State<InputCertificationCodePage> createState() => _InputCertificationCodePageState();
 }
 
-class _InputCertificationCodePageState
-    extends State<InputCertificationCodePage> {
+class _InputCertificationCodePageState extends State<InputCertificationCodePage> {
   final controller = TextEditingController();
   late final timerBloc = TimerBloc(
     certifyCodeBloc: context.read<CertifyCodeBloc>(),
@@ -82,11 +80,11 @@ class _InputCertificationCodePageState
                 navigator.pop();
               }
             } else if (state is CertifyCodeError) {
-              ErrorDialog.show(
-                context,
-                isNetworkError: state.isNetworkError,
-                refresh: state.event,
-              );
+              // ErrorDialog.show(
+              //   context,
+              //   isNetworkError: state.isNetworkError,
+              //   refresh: state.event,
+              // );
             } else if (state is CertifyCodeFailed) {}
           },
         ),
@@ -141,9 +139,7 @@ class _InputCertificationCodePageState
                         maxLength: 6,
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         autofocus: true,
                         textInputAction: TextInputAction.next,
                         decoration: const InputDecoration(
@@ -202,8 +198,7 @@ class _InputCertificationCodePageState
               const Spacer(),
               BlocBuilder<CertifyCodeBloc, CertifyCodeState>(
                 buildWhen: (pre, next) =>
-                    next is CertifyCodeValidationChecked ||
-                    next is CertifyCodeTimeOuted,
+                    next is CertifyCodeValidationChecked || next is CertifyCodeTimeOuted,
                 builder: (context, state) {
                   bool isValid = false;
                   if (state is CertifyCodeValidationChecked) {

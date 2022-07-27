@@ -7,6 +7,7 @@ import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,6 +43,12 @@ class LoginPage extends StatelessWidget {
               (route) => false,
             );
           }
+        } else if (state is LoginError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
         }
       },
       child: Scaffold(
@@ -83,8 +90,7 @@ class LoginPage extends StatelessWidget {
                   const Spacer(),
                   InkWell(
                     onTap: () => context.read<LoginBloc>().add(
-                          const LoginSocialTokenRequested(
-                              authProvider: AuthProvider.kakao),
+                          const LoginSocialTokenRequested(authProvider: AuthProvider.kakao),
                         ),
                     child: loadAsset(
                       AppImage.kakaoLogin,
@@ -95,8 +101,7 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 12),
                       child: InkWell(
                         onTap: () => context.read<LoginBloc>().add(
-                              const LoginSocialTokenRequested(
-                                  authProvider: AuthProvider.apple),
+                              const LoginSocialTokenRequested(authProvider: AuthProvider.apple),
                             ),
                         child: loadAsset(
                           AppImage.appleLogin,

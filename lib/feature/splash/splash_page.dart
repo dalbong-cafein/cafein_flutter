@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
