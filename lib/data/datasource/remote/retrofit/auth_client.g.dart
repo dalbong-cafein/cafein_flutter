@@ -79,16 +79,12 @@ class _AuthClient implements AuthClient {
   }
 
   @override
-  Future<HttpResponse<BaseResponse<Member>>> login(
-      authProvider, oAuthAccessToken) async {
+  Future<HttpResponse<BaseResponse<Member>>> login(socialRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'authProvider': authProvider,
-      r'oAuthAccessToken': oAuthAccessToken
-    };
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(socialRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<BaseResponse<Member>>>(
             Options(method: 'POST', headers: _headers, extra: _extra)

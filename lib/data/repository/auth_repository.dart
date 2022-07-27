@@ -2,6 +2,7 @@ import 'package:cafein_flutter/data/datasource/local/preference/auth_preference.
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
 import 'package:cafein_flutter/data/model/auth/account_unite_request.dart';
+import 'package:cafein_flutter/data/model/auth/social_login_request.dart';
 import 'package:cafein_flutter/data/model/auth/token_data.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
 
@@ -17,8 +18,7 @@ abstract class AuthRepository {
   );
 
   Future<BaseResponse<Member>> login({
-    required String authProvider,
-    required String oAuthAccessToken,
+    required SocialLoginRequest socialLoginRequest,
   });
 
   Future<BaseResponse<bool>> duplicateNickname(String nickname);
@@ -49,12 +49,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<BaseResponse<Member>> login({
-    required String authProvider,
-    required String oAuthAccessToken,
+    required SocialLoginRequest socialLoginRequest,
   }) =>
-      authClient.login(authProvider, oAuthAccessToken).then(
+      authClient.login(socialLoginRequest).then(
         (value) {
-          final List<String> tokenDatas = value.response.headers['set-cookie'] ?? [];
+          final List<String> tokenDatas =
+              value.response.headers['set-cookie'] ?? [];
           if (tokenDatas.isNotEmpty) {
             final accessToken = tokenDatas.first.substring(12).split(';').first;
             final refreshToken = tokenDatas.last.substring(13).split(';').first;
@@ -70,7 +70,8 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
   @override
-  Future<BaseResponse> refreshAccessToken() => authClient.refreshAccessToken().then(
+  Future<BaseResponse> refreshAccessToken() =>
+      authClient.refreshAccessToken().then(
         (value) {
           return value.data;
         },

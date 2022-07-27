@@ -20,17 +20,14 @@ class LoginLoading extends LoginState {
 
 class LoginSocialTokenConfirmed extends LoginState {
   const LoginSocialTokenConfirmed({
-    required this.oAuthAccessToken,
-    required this.oAuthProvider,
+    required this.socialLoginRequest,
   });
 
-  final String oAuthAccessToken;
-  final String oAuthProvider;
+  final SocialLoginRequest socialLoginRequest;
 
   @override
   List<Object?> get props => [
-        oAuthAccessToken,
-        oAuthProvider,
+        socialLoginRequest,
       ];
 }
 
