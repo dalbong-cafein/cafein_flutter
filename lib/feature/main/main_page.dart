@@ -1,5 +1,8 @@
+import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/notice_repository.dart';
+import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
+import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/home_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_page.dart';
@@ -16,6 +19,12 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pages = [
+      BlocProvider(
+          create: (context) => HomeBloc(
+              stickerRepository: context.read<StickerRepository>(),
+              heartRepository: context.read<HeartRepository>()
+          )
+      ),
       const HomePage(),
       const SearchPage(),
       BlocProvider(
