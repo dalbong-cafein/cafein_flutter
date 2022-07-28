@@ -2,6 +2,7 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 enum ErrorCallBack {
   login,
@@ -49,7 +50,7 @@ class ErrorDialog extends StatelessWidget {
         refresh();
         return;
       case ErrorCallBack.inquiry:
-        // 문의하기
+        await launchUrl(Uri.parse('mailto:dalbong.cafein@gmail.com'));
         return;
     }
   }

@@ -26,11 +26,18 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    timer = Timer(
-      const Duration(seconds: 2),
-      () => Navigator.of(context).pushNamedAndRemoveUntil(
-        LoginPage.routeName,
-        (route) => false,
+    // timer = Timer(
+    //   const Duration(seconds: 2),
+    //   () => Navigator.of(context).pushNamedAndRemoveUntil(
+    //     LoginPage.routeName,
+    //     (route) => false,
+    //   ),
+    // );
+    Future.microtask(
+      () => ErrorDialog.show(
+        context,
+        error: Exception(),
+        refresh: () {},
       ),
     );
   }
