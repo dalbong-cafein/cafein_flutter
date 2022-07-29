@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,8 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.authRepository,
   }) : super(const ProfileInitial()) {
     on<ProfileUpdateRequested>(_onProfileUpdateRequested);
-    on<ProfileNicknameDuplicationRequested>(
-        _onProfileNicknameDuplicationRequested);
+    on<ProfileNicknameDuplicationRequested>(_onProfileNicknameDuplicationRequested);
     on<ProfileImageChanged>(_onProfileImageChanged);
     on<ProfilePermissionRequested>(_onProfilePermissionRequested);
     on<ProfileNicknameChanged>(_onProfileNicknameChanged);
@@ -86,6 +84,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             isDuplicated: false,
           ),
         );
+
         return;
       }
       isDuplicated = response.data;
@@ -124,14 +123,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           memberId: userRepository.getMemberData?.memberId ?? -1,
           nickName: nickname,
           imageFile: profileImagePath,
-          deleteImageId: profileImagePath != null
-              ? userRepository.getMemberData?.imageIdPair?.imageId
-              : null,
+          deleteImageId:
+              profileImagePath != null ? userRepository.getMemberData?.imageIdPair?.imageId : null,
         ),
       );
 
       if (response.code == -1) {
-        emit(ProfileError(event: () => add(event)));
+        emit(ProfileError(
+          error: Error(),
+          event: () => add(event),
+        ));
 
         return;
       }
@@ -141,25 +142,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       );
       emit(const ProfileUpdateSucceed());
     } catch (e) {
-      if (e is! DioError) {
-        emit(
-          ProfileError(event: () => add(event)),
-        );
-
-        return;
-      }
-
-      bool isNetworkError = false;
-      if (e.type == DioErrorType.other) {
-        isNetworkError = true;
-      }
-
-      emit(
-        ProfileError(
-          event: () => add(event),
-          isNetworkError: isNetworkError,
-        ),
-      );
+      emit(ProfileError(
+        event: () => add(event),
+        error: e,
+      ));
     }
   }
 

@@ -12,12 +12,10 @@ class PhoneCertificationDonePage extends StatefulWidget {
   static const routeName = 'PhoneCertificationDonePage';
 
   @override
-  State<PhoneCertificationDonePage> createState() =>
-      _PhoneCertificationDonePageState();
+  State<PhoneCertificationDonePage> createState() => _PhoneCertificationDonePageState();
 }
 
-class _PhoneCertificationDonePageState
-    extends State<PhoneCertificationDonePage> {
+class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage> {
   @override
   void initState() {
     super.initState();
@@ -25,9 +23,7 @@ class _PhoneCertificationDonePageState
       const Duration(seconds: 1),
       () => Navigator.of(context).pushNamedAndRemoveUntil(
         ProfilePage.routeName,
-        ModalRoute.withName(
-          LoginPage.routeName,
-        ),
+        ModalRoute.withName(LoginPage.routeName),
       ),
     );
   }

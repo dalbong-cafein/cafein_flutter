@@ -6,27 +6,24 @@ abstract class LoginEvent extends Equatable {
 
 class LoginSocialTokenRequested extends LoginEvent {
   const LoginSocialTokenRequested({
-    required this.oAuthProvider,
+    required this.authProvider,
   });
 
-  final String oAuthProvider;
+  final AuthProvider authProvider;
 
   @override
-  List<Object?> get props => [oAuthProvider];
+  List<Object?> get props => [authProvider];
 }
 
 class LoginRequested extends LoginEvent {
   const LoginRequested({
-    required this.oAuthAccessToken,
-    required this.oAuthProvider,
+    required this.socialLoginRequest,
   });
 
-  final String oAuthProvider;
-  final String oAuthAccessToken;
+  final SocialLoginRequest socialLoginRequest;
 
   @override
   List<Object?> get props => [
-        oAuthAccessToken,
-        oAuthProvider,
+        socialLoginRequest,
       ];
 }

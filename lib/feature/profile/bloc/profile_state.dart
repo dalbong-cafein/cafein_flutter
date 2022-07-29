@@ -38,14 +38,14 @@ class ProfileUpdateSucceed extends ProfileState {
 class ProfileError extends ProfileState {
   const ProfileError({
     required this.event,
-    this.isNetworkError = false,
+    required this.error,
   });
 
-  final bool isNetworkError;
   final Function event;
+  final dynamic error;
 
   @override
-  List<Object> get props => [isNetworkError];
+  List<Object> get props => [error];
 }
 
 class ProfileNicknameDuplicationChecked extends ProfileState {
