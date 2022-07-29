@@ -40,15 +40,15 @@ class CertifyCodeFailed extends CertifyCodeState {
 
 class CertifyCodeError extends CertifyCodeState {
   const CertifyCodeError({
+    required this.error,
     required this.event,
-    this.isNetworkError = false,
   });
 
-  final bool isNetworkError;
   final Function event;
+  final dynamic error;
 
   @override
-  List<Object?> get props => [isNetworkError];
+  List<Object?> get props => [error];
 }
 
 class CertifyCodeTimeOuted extends CertifyCodeState {

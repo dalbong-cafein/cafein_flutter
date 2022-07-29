@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -26,18 +24,11 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    // timer = Timer(
-    //   const Duration(seconds: 2),
-    //   () => Navigator.of(context).pushNamedAndRemoveUntil(
-    //     LoginPage.routeName,
-    //     (route) => false,
-    //   ),
-    // );
-    Future.microtask(
-      () => ErrorDialog.show(
-        context,
-        error: Exception(),
-        refresh: () {},
+    timer = Timer(
+      const Duration(seconds: 2),
+      () => Navigator.of(context).pushNamedAndRemoveUntil(
+        LoginPage.routeName,
+        (route) => false,
       ),
     );
   }

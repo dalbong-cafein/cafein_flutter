@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/timer_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
+import 'package:cafein_flutter/feature/certify_phone/widget/certify_failed_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/time_out_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/timer_text.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
@@ -71,6 +72,7 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
               );
             } else if (state is CertifyCodeTimeOuted) {
               final result = await TimeOutDialog.show(context);
+
               if (result == null) {
                 return;
               }
@@ -80,12 +82,14 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                 navigator.pop();
               }
             } else if (state is CertifyCodeError) {
-              // ErrorDialog.show(
-              //   context,
-              //   isNetworkError: state.isNetworkError,
-              //   refresh: state.event,
-              // );
-            } else if (state is CertifyCodeFailed) {}
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            } else if (state is CertifyCodeFailed) {
+              CertifyFailedDialog.show(context);
+            }
           },
         ),
         BlocListener<TimerBloc, TimerState>(
