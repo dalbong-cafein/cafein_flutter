@@ -14,7 +14,9 @@ class HomePage extends StatelessWidget {
     final widthPercent = width / 360;
     final heightPercent = height / 800;
     return Scaffold(
+      backgroundColor: const Color(0xffF6F6F6),
       appBar: AppBar(
+        backgroundColor: const Color(0xffF6F6F6),
         title: Padding(
           padding: EdgeInsets.only(left : 20 * widthPercent),
           child: const Text("나의 카페",style: AppStyle.title18Bold,),
@@ -57,7 +59,10 @@ class HomePage extends StatelessWidget {
 
               ),
             ),
-            const HomeSticker(),
+            const Padding(
+              padding: EdgeInsets.only(top : 16),
+              child: HomeSticker(),
+            ),
 
           ],
         ),
