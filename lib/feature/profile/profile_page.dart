@@ -54,6 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) async {
         final bloc = context.read<ProfileBloc>();
+
         if (state is ProfilePermissionChecked) {
           if (!state.permissionStatus.isGranted) {
             final result = await PermissionDialog.show(context);
@@ -112,6 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       onTap: () async {
                         final bloc = context.read<ProfileBloc>();
                         final result = await ImageChoiceDialog.show(context);
+
                         if (result.isCamera) {
                           bloc.add(
                             const ProfilePermissionRequested(
@@ -174,8 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(width: 4),
                   BlocBuilder<ProfileBloc, ProfileState>(
-                    buildWhen: (pre, next) =>
-                        next is ProfileNicknameValidationChecked,
+                    buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
                     builder: (context, state) {
                       int nicknameLength = 0;
                       if (state is ProfileNicknameValidationChecked) {
@@ -203,15 +204,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) =>
-                  next is ProfileNicknameDuplicationChecked,
+              buildWhen: (pre, next) => next is ProfileNicknameDuplicationChecked,
               builder: (context, state) {
                 bool isDuplicated = false;
                 String text = '한글, 영문, 숫자만 입력 가능합니다.';
                 if (state is ProfileNicknameDuplicationChecked) {
                   isDuplicated = state.isDuplicated;
-                  text =
-                      !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
+                  text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
                 }
                 return Align(
                   alignment: Alignment.centerLeft,
@@ -232,8 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const Spacer(),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) =>
-                  next is ProfileNicknameValidationChecked,
+              buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
               builder: (context, state) {
                 bool isValid = false;
                 if (state is ProfileNicknameValidationChecked) {
