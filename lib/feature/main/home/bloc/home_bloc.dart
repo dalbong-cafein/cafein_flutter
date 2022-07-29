@@ -26,7 +26,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeLoading());
     try{
       final heartResponse = await heartRepository.getMyStores();
-      final memberstoreList = heartResponse.data.storeData<List<MemberStore>>;
+      //final memberstoreList = heartResponse.data.storeData<List<MemberStore>>;
+      final memberstoreList = [];
       final stickerResponse = await stickerRepository.getStickerCount();
       final stickerCnt = stickerResponse.data;
       emit(HomeLoaded(stickerCnt: stickerCnt, memberStores: [...memberstoreList]));
