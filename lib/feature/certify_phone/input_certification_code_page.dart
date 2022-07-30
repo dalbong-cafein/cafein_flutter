@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/timer_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
+import 'package:cafein_flutter/feature/certify_phone/widget/certify_failed_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/time_out_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/timer_text.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
@@ -19,12 +20,10 @@ class InputCertificationCodePage extends StatefulWidget {
   static const routeName = 'InputCertificationCodePage';
 
   @override
-  State<InputCertificationCodePage> createState() =>
-      _InputCertificationCodePageState();
+  State<InputCertificationCodePage> createState() => _InputCertificationCodePageState();
 }
 
-class _InputCertificationCodePageState
-    extends State<InputCertificationCodePage> {
+class _InputCertificationCodePageState extends State<InputCertificationCodePage> {
   final controller = TextEditingController();
   late final timerBloc = TimerBloc(
     certifyCodeBloc: context.read<CertifyCodeBloc>(),
@@ -73,6 +72,7 @@ class _InputCertificationCodePageState
               );
             } else if (state is CertifyCodeTimeOuted) {
               final result = await TimeOutDialog.show(context);
+
               if (result == null) {
                 return;
               }
@@ -84,10 +84,12 @@ class _InputCertificationCodePageState
             } else if (state is CertifyCodeError) {
               ErrorDialog.show(
                 context,
-                isNetworkError: state.isNetworkError,
+                error: state.error,
                 refresh: state.event,
               );
-            } else if (state is CertifyCodeFailed) {}
+            } else if (state is CertifyCodeFailed) {
+              CertifyFailedDialog.show(context);
+            }
           },
         ),
         BlocListener<TimerBloc, TimerState>(
@@ -141,9 +143,7 @@ class _InputCertificationCodePageState
                         maxLength: 6,
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         autofocus: true,
                         textInputAction: TextInputAction.next,
                         decoration: const InputDecoration(
@@ -202,8 +202,7 @@ class _InputCertificationCodePageState
               const Spacer(),
               BlocBuilder<CertifyCodeBloc, CertifyCodeState>(
                 buildWhen: (pre, next) =>
-                    next is CertifyCodeValidationChecked ||
-                    next is CertifyCodeTimeOuted,
+                    next is CertifyCodeValidationChecked || next is CertifyCodeTimeOuted,
                 builder: (context, state) {
                   bool isValid = false;
                   if (state is CertifyCodeValidationChecked) {

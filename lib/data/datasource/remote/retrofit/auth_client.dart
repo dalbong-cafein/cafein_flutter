@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/auth/account_unite_request.dart';
+import 'package:cafein_flutter/data/model/auth/social_login_request.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -29,8 +30,7 @@ abstract class AuthClient {
 
   @POST('/auth/social-login')
   Future<HttpResponse<BaseResponse<Member>>> login(
-    @Header('authProvider') String authProvider,
-    @Header('oAuthAccessToken') String oAuthAccessToken,
+    @Body() SocialLoginRequest socialRequest,
   );
 
   @GET('/auth/duplicate-nickname')

@@ -22,7 +22,7 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
                 android:name="com.naver.maps.map.CLIENT_ID"
-                android:value="iuwr9cm95r"/>
+                android:value="4zky5l98tl"/>
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme"/>

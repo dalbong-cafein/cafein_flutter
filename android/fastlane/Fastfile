@@ -21,7 +21,7 @@ platform :android do
         firebase_app_distribution(
             app: "1:594450001835:android:4e71aa594fe566fd2decee",
             groups: "android-테스터",
-            apk_path: "../build/app/outputs/apk/debug/app-debug.apk"
+            apk_path: "../build/app/outputs/apk/release/app-release.apk"
         )
     end
 end

@@ -25,11 +25,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> _onHomeRequested(HomeRequested event, Emitter<HomeState> emit) async{
     emit(HomeLoading());
     try{
-      final heartResponse = await heartRepository.getMyStores();
-      //final memberstoreList = heartResponse.data.storeData<List<MemberStore>>;
-      final memberstoreList = [];
       final stickerResponse = await stickerRepository.getStickerCount();
       final stickerCnt = stickerResponse.data;
+      final heartResponse = await heartRepository.getMyStores();
+      final memberstoreList = heartResponse.data.storeData;
       emit(HomeLoaded(stickerCnt: stickerCnt, memberStores: [...memberstoreList]));
     }catch(e){
       emit(HomeError());

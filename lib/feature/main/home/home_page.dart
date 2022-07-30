@@ -3,6 +3,9 @@ import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/home_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +16,7 @@ class HomePage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final widthPercent = width / 360;
     final heightPercent = height / 800;
+
     return Scaffold(
       backgroundColor: const Color(0xffF6F6F6),
       appBar: AppBar(
@@ -50,9 +54,9 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.only(left : 32, top : 12, bottom: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text("친구 초대하고",), //TODO 흰색 글꼴
-                      Text("무료 아메리카노 받자")
+                    children: [
+                      Text("친구 초대하고",style: AppStyle.subTitle14Medium.copyWith(color : Colors.white),), //TODO 흰색 글꼴
+                      Text("무료 아메리카노 받자", style:AppStyle.subTitle14Medium.copyWith(color : Colors.white))
                     ],
                   ),
                 ),

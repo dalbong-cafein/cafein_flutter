@@ -12,7 +12,7 @@ abstract class HeartRepository {
     int storeId,
   );
 
-  Future<BaseResponse<StoreResponse<MemberStore>>> getMyStores();
+  Future<BaseResponse<StoreResponse<List<MemberStore>>>> getMyStores();
 
   Future<BaseResponse<StoreResponse<MemberStore>>> getMyStoresLimit();
 }
@@ -37,7 +37,7 @@ class HeartRepositoryImpl implements HeartRepository {
       heartClient.deleteHeart(storeId);
 
   @override
-  Future<BaseResponse<StoreResponse<MemberStore>>> getMyStores() => heartClient.getMyStores();
+  Future<BaseResponse<StoreResponse<List<MemberStore>>>> getMyStores() => heartClient.getMyStores();
 
   @override
   Future<BaseResponse<StoreResponse<MemberStore>>> getMyStoresLimit() =>

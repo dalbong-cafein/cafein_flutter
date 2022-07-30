@@ -17,8 +17,8 @@ class MainBottomNavigationBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
       ),
       child: Row(
@@ -70,7 +70,9 @@ class _BottomTab extends StatelessWidget {
         builder: (context, state) {
           if (state is MainNavigationSelected) {
             return InkWell(
-              onTap: () => context.read<MainBloc>().add(MainTabChanged(index: currentIndex)),
+              onTap: () => context
+                  .read<MainBloc>()
+                  .add(MainTabChanged(index: currentIndex)),
               child: Icon(
                 currentIndex == state.index ? onIcon : offIcon,
               ),

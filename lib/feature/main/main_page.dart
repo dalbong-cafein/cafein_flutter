@@ -23,9 +23,9 @@ class MainPage extends StatelessWidget {
           create: (context) => HomeBloc(
               stickerRepository: context.read<StickerRepository>(),
               heartRepository: context.read<HeartRepository>()
-          )
+          ),
+        child: const HomePage(),
       ),
-      const HomePage(),
       const SearchPage(),
       BlocProvider(
         create: (context) => NoticeBloc(
