@@ -1,10 +1,167 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../resource/resource.dart';
 
 class HomeMyCafe extends StatelessWidget {
   const HomeMyCafe({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final widthPercent = width / 360;
+    final heightPercent = height / 800;
+    return Padding(
+      padding: const EdgeInsets.only(left : 16, right : 16),
+      child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+              Radius.circular(16.0)
+          ),
+          color: Colors.white
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom : 20),
+              child: ListView.builder(
+                  itemCount: 1,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context , int index){
+                return Padding(
+                  padding: const EdgeInsets.only(left : 16, right: 16, top : 20),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width : (width - 64) * 0.8,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width : widthPercent * 48,
+                              height: heightPercent * 48,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8), // Image border
+                                child: SizedBox.fromSize(
+                                  size: const Size.fromRadius(48), // Image radius
+                                  child: Image.network('imageUrl', fit: BoxFit.cover),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left : 12),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("망원 타운", style: AppStyle.subTitle15Medium,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top : 5),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color : false? AppColor.orange500 : AppColor.grey300
+                                              ),
+                                              borderRadius: const BorderRadius.all(
+                                                  Radius.circular(4.0)
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
+                                              child: false? Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),) : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
+                                            )
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 6.0),
+                                          child: Text("오후 11:30에 영업 종료", style: AppStyle.caption12Regular.copyWith(color : AppColor.grey600),),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width : (width - 64) * 0.2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            _confuse(1)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }),
+            ),
+            Container( height:1.0,
+              width:width - 32,
+              color:AppColor.grey100),
+            Padding(
+              padding: const EdgeInsets.only(top : 10, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text("나의 카페 16개 모두 보기", style: AppStyle.body14Regular,),
+                  Padding(
+                    padding: EdgeInsets.only(left : 3),
+                    child: Icon(Icons.arrow_forward_ios_rounded, color : AppColor.grey400, size : 16),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _confuse(int conf){
+    if(conf==1){
+      return Container(
+          decoration: const BoxDecoration(
+            color : AppColor.green50,
+            borderRadius: BorderRadius.all(
+                Radius.circular(4.0)
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top : 4, bottom: 4 , left : 8 , right : 8),
+            child: Text("여유", style: AppStyle.subTitle15Medium.copyWith(color : AppColor.green500),)
+          )
+      );
+    }if(conf==2){
+      return Container(
+          decoration: const BoxDecoration(
+            color : AppColor.amber50,
+            borderRadius: BorderRadius.all(
+                Radius.circular(4.0)
+            ),
+          ),
+          child: Padding(
+              padding: const EdgeInsets.only(top : 4, bottom: 4 , left : 8 , right : 8),
+              child: Text("보통", style: AppStyle.subTitle15Medium.copyWith(color : AppColor.amber500),)
+          )
+      );
+    }else{
+       return Container(
+           decoration: const BoxDecoration(
+             color : AppColor.scarlet50,
+             borderRadius: BorderRadius.all(
+                 Radius.circular(4.0)
+             ),
+           ),
+           child: Padding(
+               padding: const EdgeInsets.only(top : 4, bottom: 4 , left : 8 , right : 8),
+               child: Text("혼잡", style: AppStyle.subTitle15Medium.copyWith(color : AppColor.scarlet500),)
+           )
+       );
+    }
   }
 }
