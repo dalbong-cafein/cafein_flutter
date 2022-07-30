@@ -37,15 +37,7 @@ class HomeSticker extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left : 16),
-                      child: Container(
-                        width: 44 * widthPercent,
-                        height: 44 * heightPercent,
-                        decoration: const BoxDecoration(
-                          color: AppColor.orange100,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(child: loadAsset(AppImage.sticker, width : 40 * widthPercent, height : 26 * heightPercent )),
-                      ),
+                      child: Center(child: loadAsset(AppImage.profile1, width : 44 * widthPercent, height : 44 * heightPercent )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12, top : 4 , bottom: 4),
@@ -54,36 +46,39 @@ class HomeSticker extends StatelessWidget {
                           if(state is HomeLoaded){
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Row(
                                   children: [
-                                    const Text("내가 모은 스티커", style: AppStyle.subTitle14Medium),
+                                    const Text("내가 모은 스티커", style: AppStyle.subTitle15SemiBold),
                                     Padding(
-                                        padding: const EdgeInsets.only(left : 6.0),
-                                        child: Text(state.stickerCnt.toString(), style: AppStyle.subTitle14Medium.copyWith(color : AppColor.orange500, fontWeight: FontWeight.w800,),)
+                                        padding: const EdgeInsets.only(left : 6),
+                                        child: Text(state.stickerCnt.toString(), style: AppStyle.subTitle15SemiBold.copyWith(color : AppColor.orange500, fontWeight: FontWeight.w800,),)
                                     )
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    LinearPercentIndicator(
-                                      padding: const EdgeInsets.all(0),
-                                      animation: true,
-                                      animationDuration: 2000,
-                                      barRadius: const Radius.elliptical(20, 20),
-                                      percent: state.stickerCnt / 20,
-                                      lineHeight: 6 * heightPercent,
-                                      width: 120 * widthPercent,
-                                      backgroundColor: AppColor.orange50 ,
-                                      linearStrokeCap: LinearStrokeCap.roundAll,
-                                      progressColor: AppColor.orange400,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(left : 8),
-                                      child: Text("20개"),
-                                    )
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top : 8),
+                                  child: Row(
+                                    children: [
+                                      LinearPercentIndicator(
+                                        padding: const EdgeInsets.all(0),
+                                        animation: true,
+                                        animationDuration: 2000,
+                                        barRadius: const Radius.elliptical(20, 20),
+                                        percent: state.stickerCnt / 20,
+                                        lineHeight: 6 * heightPercent,
+                                        width: 160 * widthPercent,
+                                        backgroundColor: AppColor.orange50 ,
+                                        linearStrokeCap: LinearStrokeCap.roundAll,
+                                        progressColor: AppColor.orange400,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left : 8),
+                                        child: Text("20개",style: AppStyle.caption12Regular.copyWith(color : AppColor.grey300),),
+                                      )
+                                    ],
+                                  ),
                                 )
 
                               ],

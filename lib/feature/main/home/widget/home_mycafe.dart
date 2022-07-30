@@ -1,7 +1,10 @@
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../resource/resource.dart';
+import '../bloc/home_bloc.dart';
 
 class HomeMyCafe extends StatelessWidget {
   const HomeMyCafe({Key? key}) : super(key: key);
@@ -14,111 +17,166 @@ class HomeMyCafe extends StatelessWidget {
     final heightPercent = height / 800;
     return Padding(
       padding: const EdgeInsets.only(left : 16, right : 16),
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-              Radius.circular(16.0)
-          ),
-          color: Colors.white
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom : 20),
-              child: ListView.builder(
-                  itemCount: 1,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context , int index){
-                return Padding(
-                  padding: const EdgeInsets.only(left : 16, right: 16, top : 20),
-                  child: Row(
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if(state is HomeLoaded){
+            if(state.memberStores.isEmpty){
+              return Container(
+                width: width - 32,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(16.0)
+                    ),
+                    color: Colors.white
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top : 31, bottom : 31),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width : (width - 64) * 0.8,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width : widthPercent * 48,
-                              height: heightPercent * 48,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8), // Image border
-                                child: SizedBox.fromSize(
-                                  size: const Size.fromRadius(48), // Image radius
-                                  child: Image.network('imageUrl', fit: BoxFit.cover),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left : 12),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("망원 타운", style: AppStyle.subTitle15Medium,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top : 5),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color : false? AppColor.orange500 : AppColor.grey300
-                                              ),
-                                              borderRadius: const BorderRadius.all(
-                                                  Radius.circular(4.0)
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
-                                              child: false? Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),) : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
-                                            )
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 6.0),
-                                          child: Text("오후 11:30에 영업 종료", style: AppStyle.caption12Regular.copyWith(color : AppColor.grey600),),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                      loadAsset(AppImage.noCafe, height: 42 *heightPercent, width: 32 * widthPercent),
+                      const Padding(
+                        padding: EdgeInsets.only(top : 10),
+                        child: Text("등록된 나의 카페가 없어요"),
                       ),
-                      SizedBox(
-                        width : (width - 64) * 0.2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            _confuse(1)
-                          ],
+                      const Padding(
+                        padding: EdgeInsets.only(top : 10),
+                        child: Text("카페의 하트를 눌러 나의 카페로 등록해 보세요"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top : 12),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1,
+                                color : AppColor.orange500
+                            ),
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0)
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left : 12, right : 12, top : 10, bottom: 10),
+                            child: Text("카페 찾아보기", style: AppStyle.subTitle14Medium.copyWith( color : AppColor.orange500),),
+                          ),
                         ),
                       )
                     ],
                   ),
-                );
-              }),
-            ),
-            Container( height:1.0,
-              width:width - 32,
-              color:AppColor.grey100),
-            Padding(
-              padding: const EdgeInsets.only(top : 10, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text("나의 카페 16개 모두 보기", style: AppStyle.body14Regular,),
+                ),
+              );
+            }
+            return Container(
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(16.0)
+                  ),
+                  color: Colors.white
+              ),
+              child: Column(
+                children: [
                   Padding(
-                    padding: EdgeInsets.only(left : 3),
-                    child: Icon(Icons.arrow_forward_ios_rounded, color : AppColor.grey400, size : 16),
+                    padding: const EdgeInsets.only(bottom : 20),
+                    child: ListView.builder(
+                        itemCount: 1,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context , int index){
+                          return Padding(
+                            padding: const EdgeInsets.only(left : 16, right: 16, top : 20),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width : (width - 64) * 0.8,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width : widthPercent * 48,
+                                        height: heightPercent * 48,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(8), // Image border
+                                          child: SizedBox.fromSize(
+                                            size: const Size.fromRadius(48), // Image radius
+                                            child: Image.network('imageUrl', fit: BoxFit.cover),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left : 12),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("망원 타운", style: AppStyle.subTitle15Medium,),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top : 5),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color : false? AppColor.orange500 : AppColor.grey300
+                                                        ),
+                                                        borderRadius: const BorderRadius.all(
+                                                            Radius.circular(4.0)
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
+                                                        child: false? Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),) : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
+                                                      )
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 6.0),
+                                                    child: Text("오후 11:30에 영업 종료", style: AppStyle.caption12Regular.copyWith(color : AppColor.grey600),),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width : (width - 64) * 0.2,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      _confuse(1)
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                  Container( height:1.0,
+                      width:width - 32,
+                      color:AppColor.grey100),
+                  Padding(
+                    padding: const EdgeInsets.only(top : 10, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text("나의 카페 16개 모두 보기", style: AppStyle.body14Regular,),
+                        Padding(
+                          padding: EdgeInsets.only(left : 3),
+                          child: Icon(Icons.arrow_forward_ios_rounded, color : AppColor.grey400, size : 16),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
-            )
-          ],
-        ),
+            );
+          }else{
+            return Container();
+          }
+
+        },
       ),
     );
   }
