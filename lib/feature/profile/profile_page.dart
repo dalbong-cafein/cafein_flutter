@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/widget/image_choice_dialog.dart';
@@ -5,7 +8,9 @@ import 'package:cafein_flutter/feature/profile/widget/profile_image.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/debouncer.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
+import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +28,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final controller = TextEditingController();
+  final randomProfile = CafeinConst.defaultProfiles[Random().nextInt(2)];
 
   @override
   void initState() {
@@ -73,6 +79,12 @@ class _ProfilePageState extends State<ProfilePage> {
             MainPage.routeName,
             (route) => false,
           );
+        } else if (state is ProfileError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
         }
       },
       child: Scaffold(
@@ -95,14 +107,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   BlocBuilder<ProfileBloc, ProfileState>(
                     buildWhen: (pre, next) => next is ProfileImageSelected,
                     builder: (context, state) {
-                      String fileImagePath = '';
+                      String? filePath;
 
                       if (state is ProfileImageSelected) {
-                        fileImagePath = state.imagePath;
+                        filePath = state.imagePath;
                       }
 
                       return ProfileImage(
-                        fileImagePath: fileImagePath,
+                        filePath: filePath,
+                        imagePath: randomProfile,
                       );
                     },
                   ),
@@ -176,7 +189,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(width: 4),
                   BlocBuilder<ProfileBloc, ProfileState>(
-                    buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
+                    buildWhen: (pre, next) =>
+                        next is ProfileNicknameValidationChecked,
                     builder: (context, state) {
                       int nicknameLength = 0;
                       if (state is ProfileNicknameValidationChecked) {
@@ -204,13 +218,15 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) => next is ProfileNicknameDuplicationChecked,
+              buildWhen: (pre, next) =>
+                  next is ProfileNicknameDuplicationChecked,
               builder: (context, state) {
                 bool isDuplicated = false;
                 String text = '한글, 영문, 숫자만 입력 가능합니다.';
                 if (state is ProfileNicknameDuplicationChecked) {
                   isDuplicated = state.isDuplicated;
-                  text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
+                  text =
+                      !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
                 }
                 return Align(
                   alignment: Alignment.centerLeft,
@@ -231,12 +247,21 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const Spacer(),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
+              buildWhen: (pre, next) =>
+                  pre is ProfileLoading ||
+                  next is ProfileLoading ||
+                  next is ProfileNicknameValidationChecked,
               builder: (context, state) {
+                bool isLoading = false;
                 bool isValid = false;
+
                 if (state is ProfileNicknameValidationChecked) {
                   isValid = state.isValid;
+                } else if (state is ProfileLoading) {
+                  isLoading = true;
+                  isValid = false;
                 }
+
                 return SizedBox(
                   height: 56,
                   width: MediaQuery.of(context).size.width,
@@ -246,9 +271,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               const ProfileUpdateRequested(),
                             )
                         : null,
-                    child: const Text(
-                      '시작하기',
-                    ),
+                    child: isLoading
+                        ? const DotsLoadingIndicator()
+                        : const Text(
+                            '시작하기',
+                          ),
                   ),
                 );
               },

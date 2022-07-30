@@ -4,7 +4,7 @@ abstract class ProfileState extends Equatable {
   const ProfileState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ProfileInitial extends ProfileState {
@@ -45,7 +45,7 @@ class ProfileError extends ProfileState {
   final dynamic error;
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }
 
 class ProfileNicknameDuplicationChecked extends ProfileState {
@@ -56,7 +56,7 @@ class ProfileNicknameDuplicationChecked extends ProfileState {
   final bool isDuplicated;
 
   @override
-  List<Object> get props => [isDuplicated];
+  List<Object?> get props => [isDuplicated];
 }
 
 class ProfilePermissionChecked extends ProfileState {
@@ -69,7 +69,7 @@ class ProfilePermissionChecked extends ProfileState {
   final Permission permission;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         permission,
         permissionStatus,
       ];
@@ -77,11 +77,11 @@ class ProfilePermissionChecked extends ProfileState {
 
 class ProfileImageSelected extends ProfileState {
   const ProfileImageSelected({
-    required this.imagePath,
+    this.imagePath,
   });
 
-  final String imagePath;
+  final String? imagePath;
 
   @override
-  List<Object> get props => [imagePath];
+  List<Object?> get props => [imagePath];
 }

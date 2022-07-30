@@ -90,7 +90,8 @@ class LoginPage extends StatelessWidget {
                   const Spacer(),
                   InkWell(
                     onTap: () => context.read<LoginBloc>().add(
-                          const LoginSocialTokenRequested(authProvider: AuthProvider.kakao),
+                          const LoginSocialTokenRequested(
+                              authProvider: AuthProvider.kakao),
                         ),
                     child: loadAsset(
                       AppImage.kakaoLogin,
@@ -101,7 +102,8 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 12),
                       child: InkWell(
                         onTap: () => context.read<LoginBloc>().add(
-                              const LoginSocialTokenRequested(authProvider: AuthProvider.apple),
+                              const LoginSocialTokenRequested(
+                                  authProvider: AuthProvider.apple),
                             ),
                         child: loadAsset(
                           AppImage.appleLogin,

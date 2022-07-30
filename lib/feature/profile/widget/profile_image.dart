@@ -9,28 +9,30 @@ import 'package:flutter/material.dart';
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
     super.key,
-    required this.fileImagePath,
+    required this.imagePath,
+    required this.filePath,
   });
 
-  final String fileImagePath;
+  final String imagePath;
+  final String? filePath;
 
   @override
   Widget build(BuildContext context) {
-    if (fileImagePath.isNotEmpty) {
+    if (filePath != null) {
       return CircleAvatar(
         radius: 44,
         backgroundColor: AppColor.white,
         foregroundImage: FileImage(
-          File(fileImagePath),
+          File(filePath!),
         ),
       );
     }
-    final randomIndex = Random().nextInt(2);
+
     return CircleAvatar(
       radius: 44,
       backgroundColor: AppColor.white,
       child: loadAsset(
-        CafeinConst.defaultProfiles[randomIndex],
+        imagePath,
         width: 88,
         height: 88,
       ),

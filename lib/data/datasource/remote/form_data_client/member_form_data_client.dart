@@ -26,7 +26,7 @@ class MemberFormDataClient {
 
     return BaseResponse.fromJson(
       response.data,
-      (json) => ImageIdPair.fromJson(response.data),
+      (json) => ImageIdPair.fromJson(response.data['data']),
     );
   }
 }
