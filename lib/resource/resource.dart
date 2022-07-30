@@ -8,3 +8,4 @@ part './app_style.dart';
 part './app_theme.dart';
 part './app_color.dart';
 part './app_dimen.dart';
+part './app_lottie.dart';

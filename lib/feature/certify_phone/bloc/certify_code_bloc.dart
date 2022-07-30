@@ -15,7 +15,7 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
     required this.userRepository,
     required this.phoneNumber,
   }) : super(const CertifyCodeInitial()) {
-    on<CertifyCodeSubmitted>(_onCerfifyCodeSubmitted);
+    on<CertifyCodeSubmitted>(_onCertifyCodeSubmitted);
     on<CertifyCodeRequested>(_onCertifyCodeRequested);
     on<CertifyCodeTimeOvered>(_onCertifyCodeTimeOvered);
     on<CertifyCodeChanged>(_onCertifyCodeChanged);
@@ -38,7 +38,7 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
     );
   }
 
-  FutureOr<void> _onCerfifyCodeSubmitted(
+  FutureOr<void> _onCertifyCodeSubmitted(
     CertifyCodeSubmitted event,
     Emitter<CertifyCodeState> emit,
   ) async {
@@ -47,6 +47,8 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
 
       return;
     }
+
+    emit(const CertifyCodeLoading());
 
     try {
       final response = await userRepository.updatePhoneNumber(
@@ -90,6 +92,7 @@ class CertifyCodeBloc extends Bloc<CertifyCodeEvent, CertifyCodeState> {
           error: Error(),
           event: () => add(event),
         ));
+
         return;
       }
 
