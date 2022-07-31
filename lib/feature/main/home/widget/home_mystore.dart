@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class HomeMyCafe extends StatelessWidget {
-  const HomeMyCafe({Key? key}) : super(key: key);
+class HomeMyStore extends StatelessWidget {
+  const HomeMyStore({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
