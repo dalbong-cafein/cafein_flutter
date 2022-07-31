@@ -9,8 +9,7 @@ class StoreFormDataClient {
 
   const StoreFormDataClient({required this.dio});
 
-  Future<BaseResponse<int>> createStore(
-      RegisteredStoreRequest registeredStoreRequest) async {
+  Future<BaseResponse<int>> createStore(RegisteredStoreRequest registeredStoreRequest) async {
     final formData = FormData.fromMap(
       {
         'storeName': registeredStoreRequest.storeName,
@@ -29,8 +28,7 @@ class StoreFormDataClient {
         'tueOpen': registeredStoreRequest.totalBusinessInfo.onTuesday.isOpen,
         'tueClosed': registeredStoreRequest.totalBusinessInfo.onTuesday.closed,
         'wedOpen': registeredStoreRequest.totalBusinessInfo.onWednesday.isOpen,
-        'wedClosed':
-            registeredStoreRequest.totalBusinessInfo.onWednesday.closed,
+        'wedClosed': registeredStoreRequest.totalBusinessInfo.onWednesday.closed,
         'thuOpen': registeredStoreRequest.totalBusinessInfo.onThursday.isOpen,
         'thuClosed': registeredStoreRequest.totalBusinessInfo.onThursday.closed,
         'friOpen': registeredStoreRequest.totalBusinessInfo.onFriday.isOpen,
@@ -66,12 +64,11 @@ class StoreFormDataClient {
 
     return BaseResponse.fromJson(
       response.data,
-      (json) => response.data,
+      (json) => response.data['data'],
     );
   }
 
-  Future<BaseResponse<dynamic>> updateStore(
-      UpdateStoreRequest updateStoreRequest) async {
+  Future<BaseResponse<dynamic>> updateStore(UpdateStoreRequest updateStoreRequest) async {
     final formData = FormData.fromMap(
       {
         'storeId': updateStoreRequest.storeId,
