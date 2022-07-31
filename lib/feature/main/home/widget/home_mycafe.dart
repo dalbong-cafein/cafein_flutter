@@ -34,7 +34,11 @@ class HomeMyCafe extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      loadAsset(AppImage.noCafe, height: 42 *heightPercent, width: 32 * widthPercent),
+                      loadAsset(
+                          AppImage.noCafe,
+                          height: 42 *heightPercent,
+                          width: 32 * widthPercent
+                      ),
                       const Padding(
                         padding: EdgeInsets.only(top : 10),
                         child: Text("등록된 나의 카페가 없어요"),
@@ -57,7 +61,12 @@ class HomeMyCafe extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.only(left : 12, right : 12, top : 10, bottom: 10),
-                            child: Text("카페 찾아보기", style: AppStyle.subTitle14Medium.copyWith( color : AppColor.orange500),),
+                            child: Text(
+                              "카페 찾아보기",
+                              style: AppStyle.subTitle14Medium.copyWith(
+                                  color : AppColor.orange500
+                              ),
+                            ),
                           ),
                         ),
                       )
@@ -125,8 +134,19 @@ class HomeMyCafe extends StatelessWidget {
                                                       child: Padding(
                                                         padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
                                                         child: state.memberStores[index].isOpen?
-                                                        Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),)
-                                                            : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
+                                                        Text(
+                                                          "영업중",
+                                                          style: AppStyle.caption11Regular.copyWith(
+                                                              color : AppColor.orange500
+                                                          ),
+                                                        )
+                                                            :
+                                                        Text(
+                                                            "영업종료",
+                                                            style : AppStyle.caption11Regular.copyWith(
+                                                                color : AppColor.grey500
+                                                            )
+                                                        ),
                                                       )
                                                   ),
                                                   Padding(
@@ -151,7 +171,9 @@ class HomeMyCafe extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       _confuse(state.memberStores[index].congestionScoreAvg == null?
-                                      0:state.memberStores[index].congestionScoreAvg!.toInt())
+                                      0
+                                          :
+                                      state.memberStores[index].congestionScoreAvg!.toInt())
                                     ],
                                   ),
                                 )
@@ -168,12 +190,16 @@ class HomeMyCafe extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("나의 카페${state.memberStores.length}개 모두 보기",
-                          style: AppStyle.body14Regular,),
+                        Text(
+                          "나의 카페${state.memberStores.length}개 모두 보기",
+                          style: AppStyle.body14Regular,
+                        ),
                         const Padding(
                           padding: EdgeInsets.only(left : 3),
-                          child: Icon(Icons.arrow_forward_ios_rounded,
-                              color : AppColor.grey400, size : 16),
+                          child: Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color : AppColor.grey400, size : 16
+                          ),
                         )
                       ],
                     ),
@@ -191,7 +217,9 @@ class HomeMyCafe extends StatelessWidget {
   }
   Widget _confuse(int conf){
     if(conf==0){
-      return const Text("혼잡도 정보가 없습니다.");
+      return const Text(
+          "혼잡도 정보가 없습니다."
+      );
     }
     if(conf==1){
       return Container(
@@ -203,7 +231,12 @@ class HomeMyCafe extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.only(top : 4, bottom: 4 , left : 8 , right : 8),
-            child: Text("여유", style: AppStyle.subTitle15Medium.copyWith(color : AppColor.green500),)
+            child: Text(
+              "여유",
+              style: AppStyle.subTitle15Medium.copyWith(
+                  color : AppColor.green500
+              ),
+            )
           )
       );
     }if(conf==2){
@@ -216,7 +249,12 @@ class HomeMyCafe extends StatelessWidget {
           ),
           child: Padding(
               padding: const EdgeInsets.only(top : 4, bottom: 4 , left : 8 , right : 8),
-              child: Text("보통", style: AppStyle.subTitle15Medium.copyWith(color : AppColor.amber500),)
+              child: Text(
+                "보통",
+                style: AppStyle.subTitle15Medium.copyWith(
+                    color : AppColor.amber500
+                ),
+              )
           )
       );
     }else{
@@ -229,7 +267,12 @@ class HomeMyCafe extends StatelessWidget {
            ),
            child: Padding(
                padding: const EdgeInsets.only(top : 4, bottom: 4 , left : 8 , right : 8),
-               child: Text("혼잡", style: AppStyle.subTitle15Medium.copyWith(color : AppColor.scarlet500),)
+               child: Text(
+                 "혼잡",
+                 style: AppStyle.subTitle15Medium.copyWith(
+                     color : AppColor.scarlet500
+                 ),
+               )
            )
        );
     }
