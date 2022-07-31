@@ -1,5 +1,4 @@
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeRecomCafe extends StatelessWidget {
@@ -83,8 +82,8 @@ class HomeRecomCafe extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top : 10),
+                              const Padding(
+                                padding: EdgeInsets.only(top : 10),
                                 child: Text("엔제리너스 L7홍대점", style: AppStyle.subTitle15Medium,),
                               ),
                               Padding(

@@ -1,14 +1,10 @@
 import 'dart:async';
-
-import 'package:bloc/bloc.dart';
 import 'package:cafein_flutter/data/model/store/member_store.dart';
+import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
-import 'package:cafein_flutter/feature/notice/bloc/notice_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-import '../../../../data/model/store/store.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

@@ -1,14 +1,10 @@
 import 'package:cafein_flutter/feature/main/home/widget/home_mycafe.dart';
 import 'package:cafein_flutter/feature/main/home/widget/home_noauth.dart';
-import 'package:cafein_flutter/feature/main/home/widget/home_recomcafe.dart';
 import 'package:cafein_flutter/feature/main/home/widget/home_sticker.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/home_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

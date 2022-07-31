@@ -1,11 +1,9 @@
+import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-
-import '../bloc/home_bloc.dart';
+import "package:percent_indicator/linear_percent_indicator.dart";
 
 class HomeSticker extends StatelessWidget {
   const HomeSticker ({Key? key}) : super(key: key);

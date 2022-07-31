@@ -1,10 +1,9 @@
+import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
+import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../resource/resource.dart';
-import '../bloc/home_bloc.dart';
 
 class HomeMyCafe extends StatelessWidget {
   const HomeMyCafe({Key? key}) : super(key: key);
@@ -105,7 +104,7 @@ class HomeMyCafe extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(8), // Image border
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(48), // Image radius
-                                            child: Image.network('imageurl', fit: BoxFit.cover),
+                                            child: Image.network(state.memberStores[index].imageIdPair.imageUrl!, fit: BoxFit.cover),
                                           ),
                                         ),
                                       ),
