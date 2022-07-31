@@ -96,7 +96,7 @@ class HomeMyCafe extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(8), // Image border
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(48), // Image radius
-                                            child: Image.network('imageUrl', fit: BoxFit.cover),
+                                            child: Image.network('imageurl', fit: BoxFit.cover),
                                           ),
                                         ),
                                       ),
@@ -106,7 +106,7 @@ class HomeMyCafe extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("망원 타운", style: AppStyle.subTitle15Medium,),
+                                            Text(state.memberStores[index].storeName, style: AppStyle.subTitle15Medium,),
                                             Padding(
                                               padding: const EdgeInsets.only(top : 5),
                                               child: Row(
@@ -115,7 +115,8 @@ class HomeMyCafe extends StatelessWidget {
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
                                                             width: 1,
-                                                            color : false? AppColor.orange500 : AppColor.grey300
+                                                            color : state.memberStores[index].isOpen?
+                                                            AppColor.orange500 : AppColor.grey300
                                                         ),
                                                         borderRadius: const BorderRadius.all(
                                                             Radius.circular(4.0)
@@ -123,12 +124,17 @@ class HomeMyCafe extends StatelessWidget {
                                                       ),
                                                       child: Padding(
                                                         padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
-                                                        child: false? Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),) : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
+                                                        child: state.memberStores[index].isOpen?
+                                                        Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),)
+                                                            : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
                                                       )
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 6.0),
-                                                    child: Text("오후 11:30에 영업 종료", style: AppStyle.caption12Regular.copyWith(color : AppColor.grey600),),
+                                                    child: Text("오후 11:30에 영업 종료",
+                                                      style: AppStyle.caption12Regular.copyWith(
+                                                          color : AppColor.grey600
+                                                      ),),
                                                   )
                                                 ],
                                               ),
@@ -144,7 +150,8 @@ class HomeMyCafe extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      _confuse(1)
+                                      _confuse(state.memberStores[index].congestionScoreAvg == null?
+                                      0:state.memberStores[index].congestionScoreAvg!.toInt())
                                     ],
                                   ),
                                 )
@@ -160,11 +167,13 @@ class HomeMyCafe extends StatelessWidget {
                     padding: const EdgeInsets.only(top : 10, bottom: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("나의 카페 16개 모두 보기", style: AppStyle.body14Regular,),
-                        Padding(
+                      children: [
+                        Text("나의 카페${state.memberStores.length}개 모두 보기",
+                          style: AppStyle.body14Regular,),
+                        const Padding(
                           padding: EdgeInsets.only(left : 3),
-                          child: Icon(Icons.arrow_forward_ios_rounded, color : AppColor.grey400, size : 16),
+                          child: Icon(Icons.arrow_forward_ios_rounded,
+                              color : AppColor.grey400, size : 16),
                         )
                       ],
                     ),
@@ -181,6 +190,9 @@ class HomeMyCafe extends StatelessWidget {
     );
   }
   Widget _confuse(int conf){
+    if(conf==0){
+      return const Text("혼잡도 정보가 없습니다.");
+    }
     if(conf==1){
       return Container(
           decoration: const BoxDecoration(

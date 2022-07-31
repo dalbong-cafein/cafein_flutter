@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/feature/main/home/widget/home_mycafe.dart';
+import 'package:cafein_flutter/feature/main/home/widget/home_recomcafe.dart';
 import 'package:cafein_flutter/feature/main/home/widget/home_sticker.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -71,7 +72,8 @@ class HomePage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top : 16),
               child: HomeMyCafe(),
-            )
+            ),
+            const HomeRecomCafe(),
 
           ],
         ),
