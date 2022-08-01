@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "package:percent_indicator/linear_percent_indicator.dart";
 
-class HomeSticker extends StatelessWidget {
-  const HomeSticker ({Key? key}) : super(key: key);
+class StickerCard extends StatelessWidget {
+  const StickerCard ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

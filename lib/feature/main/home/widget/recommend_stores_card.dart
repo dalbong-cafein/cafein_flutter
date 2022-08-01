@@ -1,8 +1,8 @@
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 
-class HomeRecomCafe extends StatelessWidget {
-  const HomeRecomCafe({Key? key}) : super(key: key);
+class RecommendStoresCard extends StatelessWidget {
+  const RecommendStoresCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class HomeRecomCafe extends StatelessWidget {
             padding: const EdgeInsets.only(top : 16 , left : 4),
             child: SizedBox(
               width : width,
-              height: 170 * heightPercent,
+              height: 180 ,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -32,7 +32,12 @@ class HomeRecomCafe extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(left : 12),
                       child: Container(
-                        color : Colors.white,
+                        decoration: const BoxDecoration(
+                          color : Colors.white,
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(16)
+                          ),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(12),
                           child: Column(
@@ -42,8 +47,8 @@ class HomeRecomCafe extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    width : widthPercent * 70,
-                                    height: heightPercent * 70,
+                                    width : 70,
+                                    height: 70,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8), // Image border
                                       child: SizedBox.fromSize(
@@ -55,8 +60,8 @@ class HomeRecomCafe extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left : 6),
                                     child: SizedBox(
-                                      width : widthPercent * 70,
-                                      height: heightPercent * 70,
+                                      width : 70,
+                                      height: 70,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(8), // Image border
                                         child: SizedBox.fromSize(
@@ -69,8 +74,8 @@ class HomeRecomCafe extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left : 6),
                                     child: SizedBox(
-                                      width : widthPercent * 70,
-                                      height: heightPercent * 70,
+                                      width : 70,
+                                      height: 70,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(8), // Image border
                                         child: SizedBox.fromSize(
@@ -141,8 +146,8 @@ class HomeRecomCafe extends StatelessWidget {
                                       child: Text("12", style: AppStyle.caption12Regular,),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left :77 ),
-                                      child: Icon(Icons.favorite_border_rounded, size : 16),
+                                      padding: const EdgeInsets.only(left :50 ),
+                                      child: Icon(Icons.favorite_border_rounded, size : 20),
                                     )
                                   ],
                                 ),

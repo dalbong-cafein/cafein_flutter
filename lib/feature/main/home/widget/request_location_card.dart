@@ -2,8 +2,8 @@ import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
-class HomeNoAuth extends StatelessWidget {
-  const HomeNoAuth({Key? key}) : super(key: key);
+class RequestLocationCard extends StatelessWidget {
+  const RequestLocationCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

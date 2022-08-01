@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class HomeMyStore extends StatelessWidget {
-  const HomeMyStore({Key? key}) : super(key: key);
+class MyStoresCard extends StatelessWidget {
+  const MyStoresCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final widthPercent = width / 360;
-    final heightPercent = height / 800;
     return Padding(
       padding: const EdgeInsets.only(left : 16, right : 16),
       child: BlocBuilder<HomeBloc, HomeState>(
@@ -35,8 +33,8 @@ class HomeMyStore extends StatelessWidget {
                     children: [
                       loadAsset(
                           AppImage.noCafe,
-                          height: 42 *heightPercent,
-                          width: 32 * widthPercent
+                          height: 42 ,
+                          width: 32
                       ),
                       const Padding(
                         padding: EdgeInsets.only(top : 10),
@@ -98,13 +96,16 @@ class HomeMyStore extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width : widthPercent * 48,
-                                        height: heightPercent * 48,
+                                        width : 48,
+                                        height: 48,
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(8), // Image border
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(48), // Image radius
-                                            child: Image.network(state.memberStores[index].imageIdPair.imageUrl!, fit: BoxFit.cover),
+                                            child: Image.network(
+                                                state.memberStores[index].imageIdPair.imageUrl!,
+                                                fit: BoxFit.cover
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -114,7 +115,10 @@ class HomeMyStore extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(state.memberStores[index].storeName, style: AppStyle.subTitle15Medium,),
+                                            Text(
+                                              state.memberStores[index].storeName,
+                                              style: AppStyle.subTitle15Medium,
+                                            ),
                                             Padding(
                                               padding: const EdgeInsets.only(top : 5),
                                               child: Row(
