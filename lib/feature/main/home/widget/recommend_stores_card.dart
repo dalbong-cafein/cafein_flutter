@@ -129,26 +129,26 @@ class RecommendStoresCard extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.only( top : 8),
                                         child: Row(
-                                          children: [
-                                            const Icon(Icons.near_me_rounded, color : AppColor.grey500, size : 16),
+                                          children: const [
+                                            Icon(Icons.near_me_rounded, color : AppColor.grey500, size : 16),
                                             Padding(
-                                              padding: const EdgeInsets.only(left : 2),
+                                              padding: EdgeInsets.only(left : 2),
                                               child: Text("150m", style: AppStyle.caption12Regular,),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left : 4),
-                                              child: const Icon(Icons.thumb_up_alt_rounded, color : AppColor.orange400 , size : 16),
+                                              padding: EdgeInsets.only(left : 4),
+                                              child: Icon(Icons.thumb_up_alt_rounded, color : AppColor.orange400 , size : 16),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left : 2),
+                                              padding: EdgeInsets.only(left : 2),
                                               child: Text("79%", style: AppStyle.caption12Regular,),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left : 4),
-                                              child: const Icon(Icons.favorite_rounded, color : AppColor.orange400, size : 16),
+                                              padding: EdgeInsets.only(left : 4),
+                                              child: Icon(Icons.favorite_rounded, color : AppColor.orange400, size : 16),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left : 2),
+                                              padding: EdgeInsets.only(left : 2),
                                               child: Text("12", style: AppStyle.caption12Regular,),
                                             ),
 
@@ -160,10 +160,12 @@ class RecommendStoresCard extends StatelessWidget {
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      IconButton(
-                                          onPressed: (){},
-                                          icon: const Icon(Icons.favorite_border_rounded)
-                                      ),
+                                      InkWell(
+                                        child: const Icon(Icons.favorite_border_rounded),
+                                        onTap: (){
+
+                                        },
+                                      )
                                     ],
                                   )
                                 ],
