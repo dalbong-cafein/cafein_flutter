@@ -1,11 +1,14 @@
 import 'package:cafein_flutter/data/model/sticker/sticker.dart';
+import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/request_location_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -17,7 +20,7 @@ class HomePage extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final widthPercent = width / 360;
     final heightPercent = height / 800;
-
+    context.read<HomeBloc>().add(HomeMemberProfileRequested());
     return Scaffold(
       backgroundColor: AppColor.grey50,
       appBar: AppBar(
@@ -33,9 +36,28 @@ class HomePage extends StatelessWidget {
         actions: [
           Padding(
             padding: EdgeInsets.only(left : 221 * widthPercent, right: 20 * widthPercent),
-            child: const CircleAvatar(
-              radius: 20, // Image radius
-              backgroundImage: NetworkImage('https://googleflutter.com/sample_image.jpg'),
+            child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if(state is HomeMemberProfileLoaded){
+                if(state.member.imageIdPair == null){
+                  return const CircleAvatar(
+                    radius: 20, // Image radius
+                    backgroundImage: AssetImage(AppImage.profile1),
+                  );
+                }
+                else{
+                  return CircleAvatar(
+                    radius: 20, // Image radius
+                    backgroundImage: NetworkImage(state.member.imageIdPair!.imageUrl!),
+                  );
+                }
+              }else{
+                return const CircleAvatar(
+                  radius: 20, // Image radius
+                  backgroundImage: AssetImage(AppImage.profile1),
+                  );
+                }
+              },
             )
           )
         ],
