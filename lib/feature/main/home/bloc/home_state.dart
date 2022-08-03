@@ -15,14 +15,11 @@ class HomeLoading extends HomeState{
 }
 
 class HomeLoaded extends HomeState{
-
   final int stickerCnt;
   final List<MemberStore> memberStores;
   const HomeLoaded({required this.stickerCnt, required this.memberStores});
-
   @override
   List<Object?> get props => [stickerCnt, memberStores];
-
 }
 
 class HomeError extends HomeState{
@@ -36,17 +33,33 @@ class HomeRecommendStoreLoading extends HomeState{
 }
 
 class HomeRecommendStoreLoaded extends HomeState{
-
   final List<Store> recommendStores;
   const HomeRecommendStoreLoaded({required this.recommendStores});
-
   @override
   List<Object?> get props => [recommendStores];
-
 }
 
 class HomeRecommendStoreError extends HomeState{
   @override
   List<Object?> get props => [];
 }
+
+
+class HomeMemberProfileLoaded extends HomeState{
+  final Member member;
+  const HomeMemberProfileLoaded({required this.member});
+  @override
+  List<Object?> get props => [member];
+}
+
+class HomeMemberProfileLoading extends HomeState{
+  @override
+  List<Object?> get props =>[];
+}
+
+class HomeMemberProfileError extends HomeState{
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
 

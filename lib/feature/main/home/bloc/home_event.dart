@@ -15,3 +15,9 @@ class HomeRecommendStoreRequested extends HomeEvent{
   @override
   List<Object?> get props => [];
 }
+
+class HomeMemberProfileRequested extends HomeEvent{
+  @override
+  List<Object?> get props => [];
+
+}
