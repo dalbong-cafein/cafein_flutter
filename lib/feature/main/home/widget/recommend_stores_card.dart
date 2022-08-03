@@ -94,79 +94,92 @@ class RecommendStoresCard extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top : 8),
-                                        child: Row(
+                                  SizedBox(
+                                    width: 150,
+                                    child: Row(
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color : true?
-                                                      AppColor.orange500 : AppColor.grey300
+                                            Padding(
+                                              padding: const EdgeInsets.only(top : 8),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color : true?
+                                                            AppColor.orange500 : AppColor.grey300
+                                                        ),
+                                                        borderRadius: const BorderRadius.all(
+                                                            Radius.circular(4.0)
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
+                                                        child: true?
+                                                        Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),)
+                                                            : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
+                                                      )
                                                   ),
-                                                  borderRadius: const BorderRadius.all(
-                                                      Radius.circular(4.0)
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(top : 3, bottom: 3 , left : 4 , right : 4),
-                                                  child: true?
-                                                  Text("영업중", style: AppStyle.caption11Regular.copyWith(color : AppColor.orange500),)
-                                                      : Text("영업종료", style : AppStyle.caption11Regular.copyWith(color : AppColor.grey500)),
-                                                )
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left : 4),
+                                                    child: _confuse(1),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left : 4),
-                                              child: _confuse(1),
+                                              padding: const EdgeInsets.only( top : 8),
+                                              child: Row(
+                                                children: const [
+                                                  Icon(Icons.near_me_rounded, color : AppColor.grey500, size : 16),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left : 2),
+                                                    child: Text("150m", style: AppStyle.caption12Regular,),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left : 4),
+                                                    child: Icon(Icons.thumb_up_alt_rounded, color : AppColor.orange400 , size : 16),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left : 2),
+                                                    child: Text("79%", style: AppStyle.caption12Regular,),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left : 4),
+                                                    child: Icon(Icons.favorite_rounded, color : AppColor.orange400, size : 16),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left : 2),
+                                                    child: Text("12", style: AppStyle.caption12Regular,),
+                                                  ),
+
+                                                ],
+                                              ),
                                             )
                                           ],
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only( top : 8),
-                                        child: Row(
-                                          children: const [
-                                            Icon(Icons.near_me_rounded, color : AppColor.grey500, size : 16),
-                                            Padding(
-                                              padding: EdgeInsets.only(left : 2),
-                                              child: Text("150m", style: AppStyle.caption12Regular,),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(left : 4),
-                                              child: Icon(Icons.thumb_up_alt_rounded, color : AppColor.orange400 , size : 16),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(left : 2),
-                                              child: Text("79%", style: AppStyle.caption12Regular,),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(left : 4),
-                                              child: Icon(Icons.favorite_rounded, color : AppColor.orange400, size : 16),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(left : 2),
-                                              child: Text("12", style: AppStyle.caption12Regular,),
-                                            ),
 
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      InkWell(
-                                        child: const Icon(Icons.favorite_border_rounded),
-                                        onTap: (){
+                                  SizedBox(
+                                    width: 72,
+                                    height: 50,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                          child: const Icon(Icons.favorite_border_rounded, color : AppColor.grey200),
+                                          onTap: (){
 
-                                        },
-                                      )
-                                    ],
+                                          },
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               )
