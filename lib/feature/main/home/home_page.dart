@@ -46,9 +46,11 @@ class HomePage extends StatelessWidget {
                   );
                 }
                 else{
+
                   return CircleAvatar(
                     radius: 20, // Image radius
-                    backgroundImage: NetworkImage(state.member.imageIdPair!.imageUrl!),
+                    //TODO 이미지 연결이 안됨ㅠ
+                    backgroundImage: NetworkImage(state.member.imageIdPair!.imageUrl!.substring(7, state.member.imageIdPair!.imageUrl!.length)),
                   );
                 }
               }else{

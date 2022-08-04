@@ -59,7 +59,7 @@ class HomeMemberProfileLoading extends HomeState{
 
 class HomeMemberProfileError extends HomeState{
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 
