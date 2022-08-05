@@ -53,8 +53,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try{
       final response = await storeRepository.getStores("노원구");
       final storeList = response.data;
-      emit(HomeRecommendStoreLoaded(recommendStores: storeList));
+      emit(HomeRecommendStoreLoaded(recommendStores: [...storeList]));
     }catch(e){
+      print("error : $e");
       emit(HomeRecommendStoreError());
     }
   }

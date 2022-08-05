@@ -37,6 +37,7 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left : 221 * widthPercent, right: 20 * widthPercent),
             child: BlocBuilder<HomeBloc, HomeState>(
+              buildWhen: (previous, current) => current is HomeMemberProfileLoaded,
             builder: (context, state) {
               if(state is HomeMemberProfileLoaded){
                 if(state.member.imageIdPair == null){
@@ -46,11 +47,14 @@ class HomePage extends StatelessWidget {
                   );
                 }
                 else{
-
                   return CircleAvatar(
                     radius: 20, // Image radius
-                    //TODO 이미지 연결이 안됨ㅠ
-                    backgroundImage: NetworkImage(state.member.imageIdPair!.imageUrl!.substring(7, state.member.imageIdPair!.imageUrl!.length)),
+                    // TODO 이미지 연결이 안됨ㅠ
+                    backgroundImage: NetworkImage(
+                        state.member.imageIdPair!.imageUrl!.substring(
+                            7, state.member.imageIdPair!.imageUrl!.length
+                        )
+                    ),
                   );
                 }
               }else{
@@ -109,7 +113,6 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.only(top : 16),
               child: MyStoresCard(),
             ),
-            const RequestLocationCard(),
             const RecommendStoresCard()
 
           ],

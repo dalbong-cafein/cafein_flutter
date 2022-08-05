@@ -35,11 +35,19 @@ class StickerCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left : 16),
-                      child: Center(child: loadAsset(AppImage.profile1, width : 44 * widthPercent, height : 44 * heightPercent )),
+                      child:
+                        Center(
+                            child: loadAsset(
+                                AppImage.profile1,
+                                width : 44 * widthPercent,
+                                height : 44 * heightPercent
+                            )
+                        ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12, top : 4 , bottom: 4),
                       child: BlocBuilder<HomeBloc, HomeState>(
+                        buildWhen: (previous, current) => current is HomeLoaded,
                         builder: (context, state) {
                           if(state is HomeLoaded){
                             return Column(
@@ -48,10 +56,19 @@ class StickerCard extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    const Text("내가 모은 스티커", style: AppStyle.subTitle15SemiBold),
+                                    const Text(
+                                        "내가 모은 스티커",
+                                        style: AppStyle.subTitle15SemiBold
+                                    ),
                                     Padding(
                                         padding: const EdgeInsets.only(left : 6),
-                                        child: Text(state.stickerCnt.toString(), style: AppStyle.subTitle15SemiBold.copyWith(color : AppColor.orange500, fontWeight: FontWeight.w800,),)
+                                        child: Text(
+                                          state.stickerCnt.toString(),
+                                          style: AppStyle.subTitle15SemiBold.copyWith(
+                                            color : AppColor.orange500,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        )
                                     )
                                   ],
                                 ),
@@ -73,7 +90,13 @@ class StickerCard extends StatelessWidget {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(left : 8),
-                                        child: Text("20개",style: AppStyle.caption12Regular.copyWith(color : AppColor.grey300),),
+                                        child: Text(
+                                          "20개",
+                                          style: AppStyle.caption12Regular.copyWith(
+                                              color : AppColor.grey300
+                                          ),
+                                        ),
+
                                       )
                                     ],
                                   ),
@@ -98,7 +121,13 @@ class StickerCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_forward_ios_rounded, color : AppColor.grey400)),
+                      IconButton(
+                          onPressed: (){},
+                          icon: const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color : AppColor.grey400
+                          )
+                      ),
                     ],
                   ),
                 ),

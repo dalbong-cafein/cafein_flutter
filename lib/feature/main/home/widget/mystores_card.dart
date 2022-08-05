@@ -15,6 +15,7 @@ class MyStoresCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left : 16, right : 16),
       child: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) => current is HomeLoaded,
         builder: (context, state) {
           if(state is HomeLoaded){
             if(state.memberStores.isEmpty){
