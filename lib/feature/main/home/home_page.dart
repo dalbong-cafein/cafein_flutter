@@ -47,9 +47,8 @@ class HomePage extends StatelessWidget {
             centerTitle: false,
             actions: [
               Padding(
-                padding: EdgeInsets.only(
-                  left: 221 * widthPercent,
-                  right: 20 * widthPercent,
+                padding: const EdgeInsets.only(
+                  right: 24,
                 ),
                 child: CircleAvatar(
                   radius: 32,
@@ -73,7 +72,11 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                  ),
                   child: Container(
                     width: 328 * widthPercent,
                     decoration: const BoxDecoration(

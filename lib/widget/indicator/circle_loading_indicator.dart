@@ -8,7 +8,11 @@ class CircleLoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: loadAsset(AppLottie.circleLoading),
+      child: loadAsset(
+        AppLottie.circleLoading,
+        width: 100,
+        height: 100,
+      ),
     );
   }
 }

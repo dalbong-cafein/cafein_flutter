@@ -33,10 +33,7 @@ class DioUtil {
         connectTimeout: 5000,
       ),
     );
-    dio.interceptors.add(CustomDioLogger(
-      'dio',
-      responseBody: false,
-    ));
+    dio.interceptors.add(CustomDioLogger('dio'));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(
         onRequest: (options, handler) {
