@@ -88,10 +88,10 @@ class RecommendStoresCard extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(top: 10),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
                                     child: Text(
-                                      "엔제리너스 L7홍대점",
+                                      state.recommendStores[index].storeName,
                                       style: AppStyle.subTitle15Medium,
                                     ),
                                   ),
@@ -134,7 +134,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                                   bottom: 3,
                                                                   left: 4,
                                                                   right: 4),
-                                                          child: Text(
+                                                          child: state.recommendStores[index].businessInfo!.isOpen! ? Text(
                                                             "영업중",
                                                             style: AppStyle
                                                                 .caption11Regular
@@ -142,7 +142,15 @@ class RecommendStoresCard extends StatelessWidget {
                                                               color: AppColor
                                                                   .orange500,
                                                             ),
-                                                          ),
+                                                          )  : Text(
+                                                            "영업종료",
+                                                            style: AppStyle
+                                                                .caption11Regular
+                                                                .copyWith(
+                                                              color: AppColor
+                                                                  .orange500,
+                                                            ),
+                                                          )
                                                         ),
                                                       ),
                                                       Padding(
@@ -151,7 +159,10 @@ class RecommendStoresCard extends StatelessWidget {
                                                                 .only(
                                                           left: 4,
                                                         ),
-                                                        child: _confuse(1),
+                                                        child: _confuse(
+                                                          state.recommendStores[index].congestionScoreAvg == null ?  1 :
+                                                            state.recommendStores[index].congestionScoreAvg! / 1
+                                                        ),
                                                       )
                                                     ],
                                                   ),
@@ -161,23 +172,23 @@ class RecommendStoresCard extends StatelessWidget {
                                                       const EdgeInsets.only(
                                                           top: 8),
                                                   child: Row(
-                                                    children: const [
-                                                      Icon(
+                                                    children: [
+                                                      const Icon(
                                                           Icons.near_me_rounded,
                                                           color:
                                                               AppColor.grey500,
                                                           size: 16),
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
                                                             EdgeInsets.only(
                                                                 left: 2),
                                                         child: Text(
-                                                          "150m",
+                                                          "150m", //TODO 위치관련 , 수정필요
                                                           style: AppStyle
                                                               .caption12Regular,
                                                         ),
                                                       ),
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
                                                             EdgeInsets.only(
                                                                 left: 4),
@@ -190,15 +201,16 @@ class RecommendStoresCard extends StatelessWidget {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
+                                                            const EdgeInsets.only(
                                                                 left: 2),
                                                         child: Text(
-                                                          "79%",
+                                                          state.recommendStores[index].recommendPercent == null ?  "0%"
+                                                              : "${state.recommendStores[index].recommendPercent!.floor()}%",
                                                           style: AppStyle
                                                               .caption12Regular,
                                                         ),
                                                       ),
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
                                                             EdgeInsets.only(
                                                                 left: 4),
@@ -211,10 +223,10 @@ class RecommendStoresCard extends StatelessWidget {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
+                                                            const EdgeInsets.only(
                                                                 left: 2),
                                                         child: Text(
-                                                          "12",
+                                                          state.recommendStores[index].heartCnt.toString(),
                                                           style: AppStyle
                                                               .caption12Regular,
                                                         ),
@@ -265,11 +277,11 @@ class RecommendStoresCard extends StatelessWidget {
     );
   }
 
-  Widget _confuse(int conf) {
-    if (conf == 0) {
+  Widget _confuse(double conf) {
+    if (conf/1 == 0) {
       return const Text("혼잡도 정보가 없습니다.");
     }
-    if (conf == 1) {
+    if (conf/1 == 1) {
       return Container(
           decoration: const BoxDecoration(
             color: AppColor.green50,
@@ -284,7 +296,7 @@ class RecommendStoresCard extends StatelessWidget {
                     AppStyle.caption12Medium.copyWith(color: AppColor.green500),
               )));
     }
-    if (conf == 2) {
+    if (conf/1 == 2) {
       return Container(
           decoration: const BoxDecoration(
             color: AppColor.amber50,
@@ -292,10 +304,10 @@ class RecommendStoresCard extends StatelessWidget {
           ),
           child: Padding(
               padding:
-                  const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
+                  const EdgeInsets.only(top: 3, bottom: 3, left: 4, right: 4),
               child: Text(
                 "보통",
-                style: AppStyle.subTitle15Medium
+                style: AppStyle.caption12Medium
                     .copyWith(color: AppColor.amber500),
               )));
     } else {
@@ -306,10 +318,10 @@ class RecommendStoresCard extends StatelessWidget {
           ),
           child: Padding(
               padding:
-                  const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
+                  const EdgeInsets.only(top: 3, bottom: 3, left: 4, right: 4),
               child: Text(
                 "혼잡",
-                style: AppStyle.subTitle15Medium
+                style: AppStyle.caption12Medium
                     .copyWith(color: AppColor.scarlet500),
               )));
     }

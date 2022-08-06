@@ -39,6 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final stickerCnt = stickerResponse.data;
       final memberStoreList = heartResponse.data.storeData;
 
+
       emit(HomeLoaded(
         stickerCnt: stickerCnt,
         memberStores: [...memberStoreList],
