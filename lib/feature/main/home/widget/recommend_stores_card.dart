@@ -116,8 +116,8 @@ class RecommendStoresCard extends StatelessWidget {
                                                             BoxDecoration(
                                                           border: Border.all(
                                                             width: 1,
-                                                            color: AppColor
-                                                                .orange500,
+                                                            color: state.recommendStores[index].businessInfo?.isOpen ?? false ?
+                                                            AppColor.orange500 : AppColor.grey500,
                                                           ),
                                                           borderRadius:
                                                               const BorderRadius
@@ -134,7 +134,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                                   bottom: 3,
                                                                   left: 4,
                                                                   right: 4),
-                                                          child: state.recommendStores[index].businessInfo!.isOpen! ? Text(
+                                                          child: state.recommendStores[index].businessInfo?.isOpen ?? false ? Text(
                                                             "영업중",
                                                             style: AppStyle
                                                                 .caption11Regular
@@ -161,7 +161,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                         ),
                                                         child: _confuse(
                                                           state.recommendStores[index].congestionScoreAvg == null ?  1 :
-                                                            state.recommendStores[index].congestionScoreAvg! / 1
+                                                            state.recommendStores[index].congestionScoreAvg!
                                                         ),
                                                       )
                                                     ],
