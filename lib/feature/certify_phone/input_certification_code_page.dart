@@ -8,6 +8,7 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +21,12 @@ class InputCertificationCodePage extends StatefulWidget {
   static const routeName = 'InputCertificationCodePage';
 
   @override
-  State<InputCertificationCodePage> createState() => _InputCertificationCodePageState();
+  State<InputCertificationCodePage> createState() =>
+      _InputCertificationCodePageState();
 }
 
-class _InputCertificationCodePageState extends State<InputCertificationCodePage> {
+class _InputCertificationCodePageState
+    extends State<InputCertificationCodePage> {
   final controller = TextEditingController();
   late final timerBloc = TimerBloc(
     certifyCodeBloc: context.read<CertifyCodeBloc>(),
@@ -143,7 +146,9 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                         maxLength: 6,
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         autofocus: true,
                         textInputAction: TextInputAction.next,
                         decoration: const InputDecoration(
@@ -201,15 +206,18 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
               ),
               const Spacer(),
               BlocBuilder<CertifyCodeBloc, CertifyCodeState>(
-                buildWhen: (pre, next) =>
-                    next is CertifyCodeValidationChecked || next is CertifyCodeTimeOuted,
                 builder: (context, state) {
                   bool isValid = false;
+                  bool isLoading = false;
                   if (state is CertifyCodeValidationChecked) {
                     isValid = state.isVaild;
                   } else if (state is CertifyCodeTimeOuted) {
                     isValid = false;
+                  } else if (state is CertifyCodeLoading) {
+                    isLoading = true;
+                    isValid = false;
                   }
+
                   return SizedBox(
                     height: 56,
                     width: MediaQuery.of(context).size.width,
@@ -221,7 +229,9 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                                 ),
                               )
                           : null,
-                      child: const Text('확인'),
+                      child: isLoading
+                          ? const DotsLoadingIndicator()
+                          : const Text('확인'),
                     ),
                   );
                 },

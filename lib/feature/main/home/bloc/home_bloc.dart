@@ -13,7 +13,12 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required this.stickerRepository , required this.heartRepository, required this.userRepository, required this.storeRepository}) : super(HomeInitial()) {
+  HomeBloc(
+      {required this.stickerRepository,
+      required this.heartRepository,
+      required this.userRepository,
+      required this.storeRepository})
+      : super(HomeInitial()) {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
     on<HomeMemberProfileRequested>(_onHomeMemberProfileRequested);
@@ -24,42 +29,42 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final UserRepository userRepository;
   final StoreRepository storeRepository;
 
-  FutureOr<void> _onHomeRequested(HomeRequested event, Emitter<HomeState> emit) async{
+  FutureOr<void> _onHomeRequested(
+      HomeRequested event, Emitter<HomeState> emit) async {
     emit(HomeLoading());
-    try{
+    try {
       final stickerResponse = await stickerRepository.getStickerCount();
       final stickerCnt = stickerResponse.data;
       final heartResponse = await heartRepository.getMyStores();
       final memberstoreList = heartResponse.data.storeData;
-      emit(HomeLoaded(stickerCnt: stickerCnt, memberStores: [...memberstoreList]));
-    }catch(e){
+      emit(HomeLoaded(
+          stickerCnt: stickerCnt, memberStores: [...memberstoreList]));
+    } catch (e) {
       emit(HomeError());
     }
   }
 
-  FutureOr<void> _onHomeMemberProfileRequested(HomeMemberProfileRequested event , Emitter<HomeState> emit) async{
+  FutureOr<void> _onHomeMemberProfileRequested(
+      HomeMemberProfileRequested event, Emitter<HomeState> emit) async {
     emit(HomeMemberProfileLoading());
-    try{
+    try {
       final member = await userRepository.getMember();
       final memberProfile = member.data;
       emit(HomeMemberProfileLoaded(member: memberProfile));
-    }catch(e){
+    } catch (e) {
       emit(HomeMemberProfileError());
     }
   }
 
-  FutureOr<void> _onHomeRecommendStoreRequested(HomeRecommendStoreRequested event, Emitter<HomeState> emit) async{
+  FutureOr<void> _onHomeRecommendStoreRequested(
+      HomeRecommendStoreRequested event, Emitter<HomeState> emit) async {
     emit(HomeRecommendStoreLoading());
-    try{
+    try {
       final response = await storeRepository.getStores("노원구");
       final storeList = response.data;
       emit(HomeRecommendStoreLoaded(recommendStores: [...storeList]));
-    }catch(e){
-      print("HomeRecommendStoreBlocerror : $e");
+    } catch (e) {
       emit(HomeRecommendStoreError());
     }
   }
-
-
-
 }

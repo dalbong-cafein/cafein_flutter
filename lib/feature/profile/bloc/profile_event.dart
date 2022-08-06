@@ -47,10 +47,12 @@ class ProfilePermissionRequested extends ProfileEvent {
 class ProfileImageChanged extends ProfileEvent {
   const ProfileImageChanged({
     required this.permission,
+    this.isDefault = false,
   });
 
   final Permission permission;
+  final bool isDefault;
 
   @override
-  List<Object> get props => [permission];
+  List<Object> get props => [permission, false];
 }

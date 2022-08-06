@@ -5,6 +5,8 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 abstract class CafeinConfig {
   static const baseUrl = 'https://api.cafeinofficial.com';
 
+  static const kakaoRestApiKey = '8898a6b3df99b2f5e57b1c3ac85e6777';
+
   static Future<void> initializeApp() async {
     KakaoSdk.init(
       nativeAppKey: 'a3f337698f260e21e527e06bf3e5d9a4',

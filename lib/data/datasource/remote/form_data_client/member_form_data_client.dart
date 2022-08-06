@@ -10,7 +10,8 @@ class MemberFormDataClient {
   const MemberFormDataClient({required this.dio});
 
   Future<BaseResponse<ImageIdPair>> updateMember(
-      UpdateMemberRequest updateMemberRequest) async {
+    UpdateMemberRequest updateMemberRequest,
+  ) async {
     final response = await dio.patch(
       '${CafeinConfig.baseUrl}/members/${updateMemberRequest.memberId}/ImageAndNickname',
       data: FormData.fromMap({
@@ -26,7 +27,7 @@ class MemberFormDataClient {
 
     return BaseResponse.fromJson(
       response.data,
-      (json) => ImageIdPair.fromJson(response.data),
+      (json) => ImageIdPair.fromJson(response.data['data']),
     );
   }
 }

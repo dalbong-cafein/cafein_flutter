@@ -10,13 +10,13 @@ class Store with _$Store {
   factory Store({
     required int storeId,
     required String storeName,
-    required int recommendPercent,
+    double? recommendPercent,
     required double lngX,
     required double latY,
     required int heartCnt,
     double? congestionScoreAvg,
-    @JsonKey(name: 'storeImageDto') required ImageIdPair imageIdPair,
-    @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
+    @JsonKey(name: 'storeImageDtoList') required List<ImageIdPair> imageIdPair,
+    @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo,
   }) = _Store;
 
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);

@@ -22,15 +22,15 @@ Store _$StoreFromJson(Map<String, dynamic> json) {
 mixin _$Store {
   int get storeId => throw _privateConstructorUsedError;
   String get storeName => throw _privateConstructorUsedError;
-  int get recommendPercent => throw _privateConstructorUsedError;
+  double? get recommendPercent => throw _privateConstructorUsedError;
   double get lngX => throw _privateConstructorUsedError;
   double get latY => throw _privateConstructorUsedError;
   int get heartCnt => throw _privateConstructorUsedError;
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
-  @JsonKey(name: 'storeImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  @JsonKey(name: 'storeImageDtoList')
+  List<ImageIdPair> get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'businessHoursInfoDto')
-  BusinessInfo get businessInfo => throw _privateConstructorUsedError;
+  BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,16 +44,15 @@ abstract class $StoreCopyWith<$Res> {
   $Res call(
       {int storeId,
       String storeName,
-      int recommendPercent,
+      double? recommendPercent,
       double lngX,
       double latY,
       int heartCnt,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair,
-      @JsonKey(name: 'businessHoursInfoDto') BusinessInfo businessInfo});
+      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair> imageIdPair,
+      @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo});
 
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
-  $BusinessInfoCopyWith<$Res> get businessInfo;
+  $BusinessInfoCopyWith<$Res>? get businessInfo;
 }
 
 /// @nodoc
@@ -88,7 +87,7 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
       recommendPercent: recommendPercent == freezed
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double?,
       lngX: lngX == freezed
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
@@ -108,24 +107,21 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as List<ImageIdPair>,
       businessInfo: businessInfo == freezed
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
     ));
   }
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair {
-    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair, (value) {
-      return _then(_value.copyWith(imageIdPair: value));
-    });
-  }
+  $BusinessInfoCopyWith<$Res>? get businessInfo {
+    if (_value.businessInfo == null) {
+      return null;
+    }
 
-  @override
-  $BusinessInfoCopyWith<$Res> get businessInfo {
-    return $BusinessInfoCopyWith<$Res>(_value.businessInfo, (value) {
+    return $BusinessInfoCopyWith<$Res>(_value.businessInfo!, (value) {
       return _then(_value.copyWith(businessInfo: value));
     });
   }
@@ -139,18 +135,16 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
   $Res call(
       {int storeId,
       String storeName,
-      int recommendPercent,
+      double? recommendPercent,
       double lngX,
       double latY,
       int heartCnt,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair,
-      @JsonKey(name: 'businessHoursInfoDto') BusinessInfo businessInfo});
+      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair> imageIdPair,
+      @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo});
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
-  @override
-  $BusinessInfoCopyWith<$Res> get businessInfo;
+  $BusinessInfoCopyWith<$Res>? get businessInfo;
 }
 
 /// @nodoc
@@ -186,7 +180,7 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
       recommendPercent: recommendPercent == freezed
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double?,
       lngX: lngX == freezed
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
@@ -204,13 +198,13 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
       imageIdPair: imageIdPair == freezed
-          ? _value.imageIdPair
+          ? _value._imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as List<ImageIdPair>,
       businessInfo: businessInfo == freezed
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
     ));
   }
 }
@@ -221,13 +215,16 @@ class _$_Store implements _Store {
   _$_Store(
       {required this.storeId,
       required this.storeName,
-      required this.recommendPercent,
+      this.recommendPercent,
       required this.lngX,
       required this.latY,
       required this.heartCnt,
       this.congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') required this.imageIdPair,
-      @JsonKey(name: 'businessHoursInfoDto') required this.businessInfo});
+      @JsonKey(name: 'storeImageDtoList')
+          required final List<ImageIdPair> imageIdPair,
+      @JsonKey(name: 'businessHoursInfoDto')
+          this.businessInfo})
+      : _imageIdPair = imageIdPair;
 
   factory _$_Store.fromJson(Map<String, dynamic> json) =>
       _$$_StoreFromJson(json);
@@ -237,7 +234,7 @@ class _$_Store implements _Store {
   @override
   final String storeName;
   @override
-  final int recommendPercent;
+  final double? recommendPercent;
   @override
   final double lngX;
   @override
@@ -246,12 +243,17 @@ class _$_Store implements _Store {
   final int heartCnt;
   @override
   final double? congestionScoreAvg;
+  final List<ImageIdPair> _imageIdPair;
   @override
-  @JsonKey(name: 'storeImageDto')
-  final ImageIdPair imageIdPair;
+  @JsonKey(name: 'storeImageDtoList')
+  List<ImageIdPair> get imageIdPair {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageIdPair);
+  }
+
   @override
   @JsonKey(name: 'businessHoursInfoDto')
-  final BusinessInfo businessInfo;
+  final BusinessInfo? businessInfo;
 
   @override
   String toString() {
@@ -273,7 +275,7 @@ class _$_Store implements _Store {
             const DeepCollectionEquality()
                 .equals(other.congestionScoreAvg, congestionScoreAvg) &&
             const DeepCollectionEquality()
-                .equals(other.imageIdPair, imageIdPair) &&
+                .equals(other._imageIdPair, _imageIdPair) &&
             const DeepCollectionEquality()
                 .equals(other.businessInfo, businessInfo));
   }
@@ -289,7 +291,7 @@ class _$_Store implements _Store {
       const DeepCollectionEquality().hash(latY),
       const DeepCollectionEquality().hash(heartCnt),
       const DeepCollectionEquality().hash(congestionScoreAvg),
-      const DeepCollectionEquality().hash(imageIdPair),
+      const DeepCollectionEquality().hash(_imageIdPair),
       const DeepCollectionEquality().hash(businessInfo));
 
   @JsonKey(ignore: true)
@@ -307,15 +309,15 @@ abstract class _Store implements Store {
   factory _Store(
       {required final int storeId,
       required final String storeName,
-      required final int recommendPercent,
+      final double? recommendPercent,
       required final double lngX,
       required final double latY,
       required final int heartCnt,
       final double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto')
-          required final ImageIdPair imageIdPair,
+      @JsonKey(name: 'storeImageDtoList')
+          required final List<ImageIdPair> imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto')
-          required final BusinessInfo businessInfo}) = _$_Store;
+          final BusinessInfo? businessInfo}) = _$_Store;
 
   factory _Store.fromJson(Map<String, dynamic> json) = _$_Store.fromJson;
 
@@ -324,7 +326,7 @@ abstract class _Store implements Store {
   @override
   String get storeName => throw _privateConstructorUsedError;
   @override
-  int get recommendPercent => throw _privateConstructorUsedError;
+  double? get recommendPercent => throw _privateConstructorUsedError;
   @override
   double get lngX => throw _privateConstructorUsedError;
   @override
@@ -334,11 +336,11 @@ abstract class _Store implements Store {
   @override
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'storeImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  @JsonKey(name: 'storeImageDtoList')
+  List<ImageIdPair> get imageIdPair => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'businessHoursInfoDto')
-  BusinessInfo get businessInfo => throw _privateConstructorUsedError;
+  BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_StoreCopyWith<_$_Store> get copyWith =>

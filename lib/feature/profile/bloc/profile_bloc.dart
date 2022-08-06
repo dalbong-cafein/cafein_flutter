@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
@@ -17,7 +18,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.authRepository,
   }) : super(const ProfileInitial()) {
     on<ProfileUpdateRequested>(_onProfileUpdateRequested);
-    on<ProfileNicknameDuplicationRequested>(_onProfileNicknameDuplicationRequested);
+    on<ProfileNicknameDuplicationRequested>(
+        _onProfileNicknameDuplicationRequested);
     on<ProfileImageChanged>(_onProfileImageChanged);
     on<ProfilePermissionRequested>(_onProfilePermissionRequested);
     on<ProfileNicknameChanged>(_onProfileNicknameChanged);
@@ -48,26 +50,31 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ProfileImageChanged event,
     Emitter<ProfileState> emit,
   ) async {
-    final imagePicker = ImagePicker();
-    XFile? imageFile;
-    if (event.permission == Permission.camera) {
-      imageFile = await imagePicker.pickImage(
-        source: ImageSource.camera,
-        maxHeight: 480,
-        maxWidth: 480,
-      );
-    } else if (event.permission == Permission.photos) {
-      imageFile = await imagePicker.pickImage(
-        source: ImageSource.gallery,
-        maxHeight: 480,
-        maxWidth: 480,
-      );
+    if (event.isDefault) {
+      profileImagePath = null;
+    } else {
+      final imagePicker = ImagePicker();
+      XFile? imageFile;
+      if (event.permission == Permission.camera) {
+        imageFile = await imagePicker.pickImage(
+          source: ImageSource.camera,
+          maxHeight: 480,
+          maxWidth: 480,
+        );
+      } else if (event.permission == Permission.photos) {
+        imageFile = await imagePicker.pickImage(
+          source: ImageSource.gallery,
+          maxHeight: 480,
+          maxWidth: 480,
+        );
+      }
+
+      profileImagePath = imageFile?.path;
     }
 
-    profileImagePath = imageFile?.path;
     emit(
       ProfileImageSelected(
-        imagePath: profileImagePath ?? '',
+        imagePath: profileImagePath,
       ),
     );
   }
@@ -107,8 +114,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ProfileUpdateRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(const ProfileLoading());
-
     if (!isDuplicated) {
       emit(
         const ProfileNicknameDuplicationChecked(isDuplicated: false),
@@ -117,14 +122,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       return;
     }
 
+    emit(const ProfileLoading());
+
     try {
       final response = await userRepository.updateMember(
         UpdateMemberRequest(
           memberId: userRepository.getMemberData?.memberId ?? -1,
           nickName: nickname,
           imageFile: profileImagePath,
-          deleteImageId:
-              profileImagePath != null ? userRepository.getMemberData?.imageIdPair?.imageId : null,
+          deleteImageId: profileImagePath != null
+              ? userRepository.getMemberData?.imageIdPair?.imageId
+              : null,
         ),
       );
 
