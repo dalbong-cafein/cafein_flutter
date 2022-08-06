@@ -34,251 +34,221 @@ class RecommendStoresCard extends StatelessWidget {
                     width: width,
                     height: 180,
                     child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: 2,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 12),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 70,
-                                          height: 70,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                8), // Image border
-                                            child: SizedBox.fromSize(
-                                              size: const Size.fromRadius(
-                                                  48), // Image radius
-                                              child: Image.network(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ...List.generate(
+                                        3,
+                                        (imageIndex) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 4,
+                                          ),
+                                          child: SizedBox(
+                                            width: 70,
+                                            height: 70,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: SizedBox.fromSize(
+                                                size: const Size.fromRadius(48),
+                                                child: Image.network(
                                                   state
                                                       .recommendStores[index]
-                                                      .imageIdPair
-                                                      .first
+                                                      .imageIdPair[imageIndex]
                                                       .imageUrl!,
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 6),
-                                          child: SizedBox(
-                                            width: 70,
-                                            height: 70,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: SizedBox.fromSize(
-                                                size: const Size.fromRadius(48),
-                                                child: Image.network(
-                                                  'https://avatars.githubusercontent.com/u/73538957?v=4',
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 6),
-                                          child: SizedBox(
-                                            width: 70,
-                                            height: 70,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: SizedBox.fromSize(
-                                                size: const Size.fromRadius(48),
-                                                child: Image.network(
-                                                  'https://avatars.githubusercontent.com/u/63850050?v=4',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        "엔제리너스 L7홍대점",
-                                        style: AppStyle.subTitle15Medium,
                                       ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "엔제리너스 L7홍대점",
+                                      style: AppStyle.subTitle15Medium,
                                     ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 150,
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              width: 1,
-                                                              color: AppColor
-                                                                  .orange500,
-                                                            ),
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                        .all(
-                                                                    Radius.circular(
-                                                                        4.0)),
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 150,
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            width: 1,
+                                                            color: AppColor
+                                                                .orange500,
                                                           ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    top: 3,
-                                                                    bottom: 3,
-                                                                    left: 4,
-                                                                    right: 4),
-                                                            child: Text(
-                                                              "영업중",
-                                                              style: AppStyle
-                                                                  .caption11Regular
-                                                                  .copyWith(
-                                                                color: AppColor
-                                                                    .orange500,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          4.0)),
                                                         ),
-                                                        Padding(
+                                                        child: Padding(
                                                           padding:
                                                               const EdgeInsets
                                                                       .only(
-                                                                  left: 4),
-                                                          child: _confuse(1),
-                                                        )
-                                                      ],
-                                                    ),
+                                                                  top: 3,
+                                                                  bottom: 3,
+                                                                  left: 4,
+                                                                  right: 4),
+                                                          child: Text(
+                                                            "영업중",
+                                                            style: AppStyle
+                                                                .caption11Regular
+                                                                .copyWith(
+                                                              color: AppColor
+                                                                  .orange500,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 4,
+                                                        ),
+                                                        child: _confuse(1),
+                                                      )
+                                                    ],
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8),
-                                                    child: Row(
-                                                      children: const [
-                                                        Icon(
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8),
+                                                  child: Row(
+                                                    children: const [
+                                                      Icon(
+                                                          Icons.near_me_rounded,
+                                                          color:
+                                                              AppColor.grey500,
+                                                          size: 16),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2),
+                                                        child: Text(
+                                                          "150m",
+                                                          style: AppStyle
+                                                              .caption12Regular,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 4),
+                                                        child: Icon(
                                                             Icons
-                                                                .near_me_rounded,
+                                                                .thumb_up_alt_rounded,
                                                             color: AppColor
-                                                                .grey500,
+                                                                .orange400,
                                                             size: 16),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 2),
-                                                          child: Text(
-                                                            "150m",
-                                                            style: AppStyle
-                                                                .caption12Regular,
-                                                          ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2),
+                                                        child: Text(
+                                                          "79%",
+                                                          style: AppStyle
+                                                              .caption12Regular,
                                                         ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 4),
-                                                          child: Icon(
-                                                              Icons
-                                                                  .thumb_up_alt_rounded,
-                                                              color: AppColor
-                                                                  .orange400,
-                                                              size: 16),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 4),
+                                                        child: Icon(
+                                                            Icons
+                                                                .favorite_rounded,
+                                                            color: AppColor
+                                                                .orange400,
+                                                            size: 16),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2),
+                                                        child: Text(
+                                                          "12",
+                                                          style: AppStyle
+                                                              .caption12Regular,
                                                         ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 2),
-                                                          child: Text(
-                                                            "79%",
-                                                            style: AppStyle
-                                                                .caption12Regular,
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 4),
-                                                          child: Icon(
-                                                              Icons
-                                                                  .favorite_rounded,
-                                                              color: AppColor
-                                                                  .orange400,
-                                                              size: 16),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 2),
-                                                          child: Text(
-                                                            "12",
-                                                            style: AppStyle
-                                                                .caption12Regular,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 72,
-                                          height: 50,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              InkWell(
-                                                child: const Icon(
-                                                    Icons
-                                                        .favorite_border_rounded,
-                                                    color: AppColor.grey200),
-                                                onTap: () {},
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                      ),
+                                      SizedBox(
+                                        width: 72,
+                                        height: 50,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            InkWell(
+                                              child: const Icon(
+                                                  Icons.favorite_border_rounded,
+                                                  color: AppColor.grey200),
+                                              onTap: () {},
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 )
               ],
