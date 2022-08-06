@@ -7,14 +7,14 @@ import 'package:retrofit/retrofit.dart';
 part 'notice_client.g.dart';
 
 @RestApi(baseUrl: CafeinConfig.baseUrl)
-abstract class NoticeClient {
-  factory NoticeClient(
+abstract class NotificationClient {
+  factory NotificationClient(
     Dio dio, {
     String? baseUrl,
-  }) = _NoticeClient;
+  }) = _NotificationClient;
 
   @GET('/notices')
-  Future<BaseResponse<List<Notice>>> getNotices();
+  Future<BaseResponse<List<Notification>>> getNotices();
 
   @PATCH('/notices/{noticeId}/read')
   Future<BaseResponse<dynamic>> readNotice(

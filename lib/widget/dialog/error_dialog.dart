@@ -59,6 +59,7 @@ class ErrorDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = '일시적인 오류입니다';
     String subTitle = '잠시 후 다시 시도해 주세요\n같은 문제가 반복되면 문의하기를 눌러주세요';
+
     Widget button = Row(
       children: [
         Expanded(

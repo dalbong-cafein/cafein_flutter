@@ -759,7 +759,7 @@ packages:
     source: hosted
     version: "2.0.7"
   percent_indicator:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: percent_indicator
       url: "https://pub.dartlang.org"

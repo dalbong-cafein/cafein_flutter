@@ -4,9 +4,9 @@ part 'notice.g.dart';
 part 'notice.freezed.dart';
 
 @freezed
-class Notice with _$Notice {
-  factory Notice({
-    required int noticeId,
+class Notification with _$Notification {
+  factory Notification({
+    required int notificationId,
     required String noticeType,
     required String content,
     required bool isRead,
@@ -14,7 +14,8 @@ class Notice with _$Notice {
     int? couponId,
     int? boardId,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
-  }) = _Notice;
+  }) = _Notification;
 
-  factory Notice.fromJson(Map<String, dynamic> json) => _$NoticeFromJson(json);
+  factory Notification.fromJson(Map<String, dynamic> json) =>
+      _$NotificationFromJson(json);
 }

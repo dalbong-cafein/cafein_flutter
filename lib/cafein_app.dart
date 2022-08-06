@@ -21,7 +21,7 @@ import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
-import 'package:cafein_flutter/data/repository/notice_repository.dart';
+import 'package:cafein_flutter/data/repository/notification_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -75,9 +75,9 @@ class CafeinApp extends StatelessWidget {
             heartClient: HeartClient(DioUtil().dio),
           ),
         ),
-        RepositoryProvider<NoticeRepository>(
-          create: (context) => NoticeRepositoryImpl(
-            noticeClient: NoticeClient(DioUtil().dio),
+        RepositoryProvider<NotificationRepository>(
+          create: (context) => NotificationRepositoryImpl(
+            notificationClient: NotificationClient(DioUtil().dio),
           ),
         ),
         RepositoryProvider<BoardRepository>(

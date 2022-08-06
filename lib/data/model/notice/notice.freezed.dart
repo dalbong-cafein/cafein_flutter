@@ -14,13 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Notice _$NoticeFromJson(Map<String, dynamic> json) {
-  return _Notice.fromJson(json);
+Notification _$NotificationFromJson(Map<String, dynamic> json) {
+  return _Notification.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Notice {
-  int get noticeId => throw _privateConstructorUsedError;
+mixin _$Notification {
+  int get notificationId => throw _privateConstructorUsedError;
   String get noticeType => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   bool get isRead => throw _privateConstructorUsedError;
@@ -32,15 +32,17 @@ mixin _$Notice {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NoticeCopyWith<Notice> get copyWith => throw _privateConstructorUsedError;
+  $NotificationCopyWith<Notification> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NoticeCopyWith<$Res> {
-  factory $NoticeCopyWith(Notice value, $Res Function(Notice) then) =
-      _$NoticeCopyWithImpl<$Res>;
+abstract class $NotificationCopyWith<$Res> {
+  factory $NotificationCopyWith(
+          Notification value, $Res Function(Notification) then) =
+      _$NotificationCopyWithImpl<$Res>;
   $Res call(
-      {int noticeId,
+      {int notificationId,
       String noticeType,
       String content,
       bool isRead,
@@ -51,16 +53,16 @@ abstract class $NoticeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NoticeCopyWithImpl<$Res> implements $NoticeCopyWith<$Res> {
-  _$NoticeCopyWithImpl(this._value, this._then);
+class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
+  _$NotificationCopyWithImpl(this._value, this._then);
 
-  final Notice _value;
+  final Notification _value;
   // ignore: unused_field
-  final $Res Function(Notice) _then;
+  final $Res Function(Notification) _then;
 
   @override
   $Res call({
-    Object? noticeId = freezed,
+    Object? notificationId = freezed,
     Object? noticeType = freezed,
     Object? content = freezed,
     Object? isRead = freezed,
@@ -70,9 +72,9 @@ class _$NoticeCopyWithImpl<$Res> implements $NoticeCopyWith<$Res> {
     Object? registeredDateTime = freezed,
   }) {
     return _then(_value.copyWith(
-      noticeId: noticeId == freezed
-          ? _value.noticeId
-          : noticeId // ignore: cast_nullable_to_non_nullable
+      notificationId: notificationId == freezed
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
               as int,
       noticeType: noticeType == freezed
           ? _value.noticeType
@@ -107,12 +109,14 @@ class _$NoticeCopyWithImpl<$Res> implements $NoticeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_NoticeCopyWith<$Res> implements $NoticeCopyWith<$Res> {
-  factory _$$_NoticeCopyWith(_$_Notice value, $Res Function(_$_Notice) then) =
-      __$$_NoticeCopyWithImpl<$Res>;
+abstract class _$$_NotificationCopyWith<$Res>
+    implements $NotificationCopyWith<$Res> {
+  factory _$$_NotificationCopyWith(
+          _$_Notification value, $Res Function(_$_Notification) then) =
+      __$$_NotificationCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int noticeId,
+      {int notificationId,
       String noticeType,
       String content,
       bool isRead,
@@ -123,17 +127,19 @@ abstract class _$$_NoticeCopyWith<$Res> implements $NoticeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_NoticeCopyWithImpl<$Res> extends _$NoticeCopyWithImpl<$Res>
-    implements _$$_NoticeCopyWith<$Res> {
-  __$$_NoticeCopyWithImpl(_$_Notice _value, $Res Function(_$_Notice) _then)
-      : super(_value, (v) => _then(v as _$_Notice));
+class __$$_NotificationCopyWithImpl<$Res>
+    extends _$NotificationCopyWithImpl<$Res>
+    implements _$$_NotificationCopyWith<$Res> {
+  __$$_NotificationCopyWithImpl(
+      _$_Notification _value, $Res Function(_$_Notification) _then)
+      : super(_value, (v) => _then(v as _$_Notification));
 
   @override
-  _$_Notice get _value => super._value as _$_Notice;
+  _$_Notification get _value => super._value as _$_Notification;
 
   @override
   $Res call({
-    Object? noticeId = freezed,
+    Object? notificationId = freezed,
     Object? noticeType = freezed,
     Object? content = freezed,
     Object? isRead = freezed,
@@ -142,10 +148,10 @@ class __$$_NoticeCopyWithImpl<$Res> extends _$NoticeCopyWithImpl<$Res>
     Object? boardId = freezed,
     Object? registeredDateTime = freezed,
   }) {
-    return _then(_$_Notice(
-      noticeId: noticeId == freezed
-          ? _value.noticeId
-          : noticeId // ignore: cast_nullable_to_non_nullable
+    return _then(_$_Notification(
+      notificationId: notificationId == freezed
+          ? _value.notificationId
+          : notificationId // ignore: cast_nullable_to_non_nullable
               as int,
       noticeType: noticeType == freezed
           ? _value.noticeType
@@ -181,9 +187,9 @@ class __$$_NoticeCopyWithImpl<$Res> extends _$NoticeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Notice implements _Notice {
-  _$_Notice(
-      {required this.noticeId,
+class _$_Notification implements _Notification {
+  _$_Notification(
+      {required this.notificationId,
       required this.noticeType,
       required this.content,
       required this.isRead,
@@ -192,11 +198,11 @@ class _$_Notice implements _Notice {
       this.boardId,
       @JsonKey(name: 'regDateTime') required this.registeredDateTime});
 
-  factory _$_Notice.fromJson(Map<String, dynamic> json) =>
-      _$$_NoticeFromJson(json);
+  factory _$_Notification.fromJson(Map<String, dynamic> json) =>
+      _$$_NotificationFromJson(json);
 
   @override
-  final int noticeId;
+  final int notificationId;
   @override
   final String noticeType;
   @override
@@ -215,15 +221,16 @@ class _$_Notice implements _Notice {
 
   @override
   String toString() {
-    return 'Notice(noticeId: $noticeId, noticeType: $noticeType, content: $content, isRead: $isRead, stickerId: $stickerId, couponId: $couponId, boardId: $boardId, registeredDateTime: $registeredDateTime)';
+    return 'Notification(notificationId: $notificationId, noticeType: $noticeType, content: $content, isRead: $isRead, stickerId: $stickerId, couponId: $couponId, boardId: $boardId, registeredDateTime: $registeredDateTime)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Notice &&
-            const DeepCollectionEquality().equals(other.noticeId, noticeId) &&
+            other is _$_Notification &&
+            const DeepCollectionEquality()
+                .equals(other.notificationId, notificationId) &&
             const DeepCollectionEquality()
                 .equals(other.noticeType, noticeType) &&
             const DeepCollectionEquality().equals(other.content, content) &&
@@ -239,7 +246,7 @@ class _$_Notice implements _Notice {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(noticeId),
+      const DeepCollectionEquality().hash(notificationId),
       const DeepCollectionEquality().hash(noticeType),
       const DeepCollectionEquality().hash(content),
       const DeepCollectionEquality().hash(isRead),
@@ -250,18 +257,18 @@ class _$_Notice implements _Notice {
 
   @JsonKey(ignore: true)
   @override
-  _$$_NoticeCopyWith<_$_Notice> get copyWith =>
-      __$$_NoticeCopyWithImpl<_$_Notice>(this, _$identity);
+  _$$_NotificationCopyWith<_$_Notification> get copyWith =>
+      __$$_NotificationCopyWithImpl<_$_Notification>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NoticeToJson(this);
+    return _$$_NotificationToJson(this);
   }
 }
 
-abstract class _Notice implements Notice {
-  factory _Notice(
-      {required final int noticeId,
+abstract class _Notification implements Notification {
+  factory _Notification(
+      {required final int notificationId,
       required final String noticeType,
       required final String content,
       required final bool isRead,
@@ -269,12 +276,13 @@ abstract class _Notice implements Notice {
       final int? couponId,
       final int? boardId,
       @JsonKey(name: 'regDateTime')
-          required final String registeredDateTime}) = _$_Notice;
+          required final String registeredDateTime}) = _$_Notification;
 
-  factory _Notice.fromJson(Map<String, dynamic> json) = _$_Notice.fromJson;
+  factory _Notification.fromJson(Map<String, dynamic> json) =
+      _$_Notification.fromJson;
 
   @override
-  int get noticeId => throw _privateConstructorUsedError;
+  int get notificationId => throw _privateConstructorUsedError;
   @override
   String get noticeType => throw _privateConstructorUsedError;
   @override
@@ -292,6 +300,6 @@ abstract class _Notice implements Notice {
   String get registeredDateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_NoticeCopyWith<_$_Notice> get copyWith =>
+  _$$_NotificationCopyWith<_$_Notification> get copyWith =>
       throw _privateConstructorUsedError;
 }

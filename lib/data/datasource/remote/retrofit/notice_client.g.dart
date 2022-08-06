@@ -8,8 +8,8 @@ part of 'notice_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-class _NoticeClient implements NoticeClient {
-  _NoticeClient(this._dio, {this.baseUrl}) {
+class _NotificationClient implements NotificationClient {
+  _NotificationClient(this._dio, {this.baseUrl}) {
     baseUrl ??= 'https://api.cafeinofficial.com';
   }
 
@@ -18,21 +18,22 @@ class _NoticeClient implements NoticeClient {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<List<Notice>>> getNotices() async {
+  Future<BaseResponse<List<Notification>>> getNotices() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<Notice>>>(
+        _setStreamType<BaseResponse<List<Notification>>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/notices',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<Notice>>.fromJson(
+    final value = BaseResponse<List<Notification>>.fromJson(
       _result.data!,
       (json) => (json as List<dynamic>)
-          .map<Notice>((i) => Notice.fromJson(i as Map<String, dynamic>))
+          .map<Notification>(
+              (i) => Notification.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;

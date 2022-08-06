@@ -16,7 +16,7 @@ class SearchStorePanelCard extends StatelessWidget {
           loadAsset(AppImage.passcucci, width: 64, height: 64),
           Expanded(
             child: Column(
-              children: [
+              children: const [
                 Text(
                   '투썸플레이스 합정역점',
                   style: AppStyle.subTitle15Medium,

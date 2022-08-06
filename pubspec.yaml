@@ -36,6 +36,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   url_launcher: ^6.1.5
   geolocator: ^9.0.1
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
@@ -47,7 +48,7 @@ dev_dependencies:
   freezed: ^2.0.3
   flutter_launcher_icons: ^0.9.3
   hive_generator: ^1.1.3
-  percent_indicator: ^4.2.2
+  
   
   flutter_lints: ^2.0.0
 

@@ -14,9 +14,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     final widthPercent = width / 360;
-    final heightPercent = height / 800;
+
     context.read<HomeBloc>().add(HomeMemberProfileRequested());
     return Scaffold(
         backgroundColor: AppColor.grey50,
@@ -32,11 +31,9 @@ class HomePage extends StatelessWidget {
           centerTitle: false,
           actions: [
             Padding(
-                padding: EdgeInsets.only(
-                    left: 221 * widthPercent, right: 20 * widthPercent),
+                padding: EdgeInsets.only(left: 221 * widthPercent, right: 20 * widthPercent),
                 child: BlocBuilder<HomeBloc, HomeState>(
-                  buildWhen: (previous, current) =>
-                      current is HomeMemberProfileLoaded,
+                  buildWhen: (previous, current) => current is HomeMemberProfileLoaded,
                   builder: (context, state) {
                     if (state is HomeMemberProfileLoaded) {
                       if (state.member.imageIdPair == null) {
@@ -47,8 +44,7 @@ class HomePage extends StatelessWidget {
                       } else {
                         return CircleAvatar(
                           radius: 20,
-                          backgroundImage:
-                              NetworkImage(state.member.imageIdPair!.imageUrl!),
+                          backgroundImage: NetworkImage(state.member.imageIdPair!.imageUrl!),
                         );
                       }
                     } else {
@@ -61,7 +57,7 @@ class HomePage extends StatelessWidget {
                 ))
           ],
         ),
-        bottomNavigationBar: MainBottomNavigationBar(),
+        bottomNavigationBar: const MainBottomNavigationBar(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -74,19 +70,16 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16.0)),
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 32, top: 12, bottom: 12),
+                    padding: const EdgeInsets.only(left: 32, top: 12, bottom: 12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "친구 초대하고",
-                          style: AppStyle.subTitle14Medium
-                              .copyWith(color: Colors.white),
+                          style: AppStyle.subTitle14Medium.copyWith(color: Colors.white),
                         ),
                         Text("무료 아메리카노 받자",
-                            style: AppStyle.subTitle14Medium
-                                .copyWith(color: Colors.white))
+                            style: AppStyle.subTitle14Medium.copyWith(color: Colors.white))
                       ],
                     ),
                   ),

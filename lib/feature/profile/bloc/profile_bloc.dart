@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
@@ -18,8 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.authRepository,
   }) : super(const ProfileInitial()) {
     on<ProfileUpdateRequested>(_onProfileUpdateRequested);
-    on<ProfileNicknameDuplicationRequested>(
-        _onProfileNicknameDuplicationRequested);
+    on<ProfileNicknameDuplicationRequested>(_onProfileNicknameDuplicationRequested);
     on<ProfileImageChanged>(_onProfileImageChanged);
     on<ProfilePermissionRequested>(_onProfilePermissionRequested);
     on<ProfileNicknameChanged>(_onProfileNicknameChanged);
@@ -130,9 +128,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           memberId: userRepository.getMemberData?.memberId ?? -1,
           nickName: nickname,
           imageFile: profileImagePath,
-          deleteImageId: profileImagePath != null
-              ? userRepository.getMemberData?.imageIdPair?.imageId
-              : null,
+          deleteImageId:
+              profileImagePath != null ? userRepository.getMemberData?.imageIdPair?.imageId : null,
         ),
       );
 
