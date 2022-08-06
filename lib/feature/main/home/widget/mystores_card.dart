@@ -85,7 +85,7 @@ class MyStoresCard extends StatelessWidget {
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(48), // Image radius
                                             child: Image.network(
-                                                state.memberStores[index].imageIdPair.imageUrl!,
+                                                state.memberStores[index].imageIdPair!.imageUrl!,
                                                 fit: BoxFit.cover),
                                           ),
                                         ),
@@ -108,7 +108,7 @@ class MyStoresCard extends StatelessWidget {
                                                       decoration: BoxDecoration(
                                                         border: Border.all(
                                                             width: 1,
-                                                            color: state.memberStores[index].isOpen
+                                                            color: state.memberStores[index].businessInfo?.isOpen ?? false
                                                                 ? AppColor.orange500
                                                                 : AppColor.grey300),
                                                         borderRadius: const BorderRadius.all(
@@ -117,7 +117,7 @@ class MyStoresCard extends StatelessWidget {
                                                       child: Padding(
                                                         padding: const EdgeInsets.only(
                                                             top: 3, bottom: 3, left: 4, right: 4),
-                                                        child: state.memberStores[index].isOpen
+                                                        child: state.memberStores[index].businessInfo?.isOpen ?? false
                                                             ? Text(
                                                                 "영업중",
                                                                 style: AppStyle.caption11Regular

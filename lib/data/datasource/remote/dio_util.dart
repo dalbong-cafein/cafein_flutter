@@ -1,3 +1,4 @@
+
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/local/preference/auth_preference.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
@@ -33,7 +34,7 @@ class DioUtil {
         connectTimeout: 5000,
       ),
     );
-    dio.interceptors.add(CustomDioLogger('dio'));
+    dio.interceptors.add(CustomDioLogger('dio', responseBody: false));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(
         onRequest: (options, handler) {

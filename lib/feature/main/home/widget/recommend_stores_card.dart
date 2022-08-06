@@ -148,7 +148,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                                 .caption11Regular
                                                                 .copyWith(
                                                               color: AppColor
-                                                                  .orange500,
+                                                                  .grey500,
                                                             ),
                                                           )
                                                         ),
@@ -278,10 +278,10 @@ class RecommendStoresCard extends StatelessWidget {
   }
 
   Widget _confuse(double conf) {
-    if (conf/1 == 0) {
+    if (conf.floor() == 0) {
       return const Text("혼잡도 정보가 없습니다.");
     }
-    if (conf/1 == 1) {
+    if (conf.floor() == 1) {
       return Container(
           decoration: const BoxDecoration(
             color: AppColor.green50,
@@ -296,7 +296,7 @@ class RecommendStoresCard extends StatelessWidget {
                     AppStyle.caption12Medium.copyWith(color: AppColor.green500),
               )));
     }
-    if (conf/1 == 2) {
+    if (conf.floor() == 2) {
       return Container(
           decoration: const BoxDecoration(
             color: AppColor.amber50,

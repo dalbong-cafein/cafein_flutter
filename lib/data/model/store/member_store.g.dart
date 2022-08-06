@@ -12,10 +12,14 @@ _$_MemberStore _$$_MemberStoreFromJson(Map<String, dynamic> json) =>
       storeName: json['storeName'] as String,
       lngX: (json['lngX'] as num).toDouble(),
       latY: (json['latY'] as num).toDouble(),
-      isOpen: json['isOpen'] as bool,
       congestionScoreAvg: (json['congestionScoreAvg'] as num?)?.toDouble(),
-      imageIdPair:
-          ImageIdPair.fromJson(json['storeImageDto'] as Map<String, dynamic>),
+      businessInfo: json['businessHoursInfoDto'] == null
+          ? null
+          : BusinessInfo.fromJson(
+              json['businessHoursInfoDto'] as Map<String, dynamic>),
+      imageIdPair: json['storeImageDto'] == null
+          ? null
+          : ImageIdPair.fromJson(json['storeImageDto'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_MemberStoreToJson(_$_MemberStore instance) =>
@@ -24,7 +28,7 @@ Map<String, dynamic> _$$_MemberStoreToJson(_$_MemberStore instance) =>
       'storeName': instance.storeName,
       'lngX': instance.lngX,
       'latY': instance.latY,
-      'isOpen': instance.isOpen,
       'congestionScoreAvg': instance.congestionScoreAvg,
+      'businessHoursInfoDto': instance.businessInfo,
       'storeImageDto': instance.imageIdPair,
     };
