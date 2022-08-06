@@ -50,4 +50,6 @@ abstract class AppImage {
   static const recGoodGrey = "asset/image/rec_good_grey_image.svg";
   static const recNormalGrey = "asset/image/rec_normal_grey_image.svg";
   static const recBadGrey = "asset/image/rec_bad_grey_image.svg";
+
+  static const noImage = "asset/image/no_image_image.png";
 }

@@ -25,7 +25,7 @@ abstract class HeartClient {
   );
 
   @GET('/hearts')
-  Future<BaseResponse<StoreResponse<MemberStore>>> getMyStores();
+  Future<BaseResponse<StoreResponse<List<MemberStore>>>> getMyStores();
 
   @GET('/hearts/limit')
   Future<BaseResponse<StoreResponse<MemberStore>>> getMyStoresLimit();

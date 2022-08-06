@@ -23,6 +23,11 @@ abstract class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static const title18Bold = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+  );
+
   static const title19SemiBold = TextStyle(
     fontSize: 19,
     fontWeight: FontWeight.w600,

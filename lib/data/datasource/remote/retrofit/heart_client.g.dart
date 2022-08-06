@@ -56,22 +56,25 @@ class _HeartClient implements HeartClient {
   }
 
   @override
-  Future<BaseResponse<StoreResponse<MemberStore>>> getMyStores() async {
+  Future<BaseResponse<StoreResponse<List<MemberStore>>>> getMyStores() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<StoreResponse<MemberStore>>>(
+        _setStreamType<BaseResponse<StoreResponse<List<MemberStore>>>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/hearts',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<StoreResponse<MemberStore>>.fromJson(
+    final value = BaseResponse<StoreResponse<List<MemberStore>>>.fromJson(
       _result.data!,
-      (json) => StoreResponse<MemberStore>.fromJson(
+      (json) => StoreResponse<List<MemberStore>>.fromJson(
         json as Map<String, dynamic>,
-        (json) => MemberStore.fromJson(json as Map<String, dynamic>),
+        (json) => (json as List<dynamic>)
+            .map<MemberStore>(
+                (i) => MemberStore.fromJson(i as Map<String, dynamic>))
+            .toList(),
       ),
     );
     return value;
