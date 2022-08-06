@@ -26,6 +26,8 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/main/home/home_page.dart';
+import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
@@ -105,11 +107,12 @@ class CafeinApp extends StatelessWidget {
             boldText: false,
             textScaleFactor: 1.0,
           ),
-          child: child!,
+          child: child!
+
         ),
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        initialRoute: SplashPage.routeName,
+        initialRoute: SplashPage.routeName,//MainPage.routeName,
         theme: AppTheme.light.copyWith(
           textTheme: Theme.of(context).textTheme.apply(
                 bodyColor: AppColor.grey800,
