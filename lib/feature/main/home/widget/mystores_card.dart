@@ -162,23 +162,32 @@ class MyStoresCard extends StatelessWidget {
                           );
                         }),
                   ),
-                  Container(height: 1.0, width: width - 32, color: AppColor.grey100),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "나의 카페${state.memberStores.length}개 모두 보기",
-                          style: AppStyle.body14Regular,
+                  state.memberStores.length <= 4?
+                  const SizedBox.shrink() :
+                  Column(
+                    children: [
+                      Container(height: 1.0, width: width - 32, color: AppColor.grey100),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "나의 카페${state.memberStores.length}개 모두 보기",
+                              style: AppStyle.body14Regular,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 3),
+                              child: Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: AppColor.grey400,
+                                  size: 16
+                              ),
+                            )
+                          ],
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 3),
-                          child: Icon(Icons.arrow_forward_ios_rounded,
-                              color: AppColor.grey400, size: 16),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   )
                 ],
               ),
