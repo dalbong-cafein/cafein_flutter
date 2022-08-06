@@ -32,21 +32,7 @@ class _SearchPageState extends State<SearchPage> {
         title: Column(
           children: [
             InkWell(
-              onTap: () async {
-                final result = await Geolocator.getCurrentPosition();
-                log('result.latitude: ${result.latitude}');
-                log('result.longitude: ${result.longitude}');
-
-                final response = await Dio().get(
-                  'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${result.longitude}&y=${result.latitude}',
-                  options: Options(
-                    headers: {
-                      'Authorization': 'KakaoAK ${CafeinConfig.kakaoRestApiKey}',
-                    },
-                  ),
-                );
-                log('${response.data}');
-              },
+              onTap: () async {},
               child: Container(
                 margin: const EdgeInsets.symmetric(
                   horizontal: 16,

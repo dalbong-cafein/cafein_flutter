@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/local/preference/auth_preference.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
@@ -24,6 +25,22 @@ class DioUtil {
     );
 
     dio.interceptors.add(CustomDioLogger('authDio'));
+
+    return dio;
+  }
+
+  Dio get kakaoDio {
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: 5000,
+        headers: {
+          'Authorization': 'KakaoAK ${CafeinConfig.kakaoRestApiKey}',
+        },
+      ),
+    );
+
+    dio.interceptors.add(CustomDioLogger('kakaoDio'));
+
     return dio;
   }
 
@@ -71,19 +88,16 @@ class DioUtil {
             return dio.fetch(options).then((r) => handler.resolve(r));
           }
 
-          return AuthClient(
-                  Dio()..interceptors.add(CustomDioLogger('refreshDio')))
+          return AuthClient(Dio()..interceptors.add(CustomDioLogger('refreshDio')))
               .refreshAccessToken()
               .then(
             (value) async {
-              final List<String> tokenDatas =
-                  value.response.headers['set-cookie'] ?? [];
+              final List<String> tokenDatas = value.response.headers['set-cookie'] ?? [];
               if (tokenDatas.isNotEmpty) {
-                final accessToken =
-                    tokenDatas.first.substring(12).split(';').first;
+                final accessToken = tokenDatas.first.substring(12).split(';').first;
 
-                await authPreference.setTokenData(
-                    TokenData(accessToken: accessToken, refreshToken: ''));
+                await authPreference
+                    .setTokenData(TokenData(accessToken: accessToken, refreshToken: ''));
 
                 options.headers['cookie'] = 'accessToken=$accessToken';
               }
@@ -93,6 +107,7 @@ class DioUtil {
         },
       ),
     );
+
     return dio;
   }
 }

@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/datasource/remote/dio_util.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/review_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_form_data_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/kakao/kakao_api_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/board_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/congestion_client.dart';
@@ -50,6 +51,7 @@ class CafeinApp extends StatelessWidget {
           create: (context) => UserRepositoryImpl(
             memberClient: MemberClient(DioUtil().dio),
             memberFormDataClient: MemberFormDataClient(dio: DioUtil().dio),
+            kakaoApiClient: KakaoApiClient(dio: DioUtil().kakaoDio),
           ),
         ),
         RepositoryProvider<StoreRepository>(
