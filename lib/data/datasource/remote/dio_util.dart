@@ -33,7 +33,9 @@ class DioUtil {
         connectTimeout: 5000,
       ),
     );
-    dio.interceptors.add(CustomDioLogger('dio'));
+    dio.interceptors.add(CustomDioLogger(
+      'dio',
+    ));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(
         onRequest: (options, handler) {
@@ -71,16 +73,19 @@ class DioUtil {
             return dio.fetch(options).then((r) => handler.resolve(r));
           }
 
-          return AuthClient(Dio()..interceptors.add(CustomDioLogger('refreshDio')))
+          return AuthClient(
+                  Dio()..interceptors.add(CustomDioLogger('refreshDio')))
               .refreshAccessToken()
               .then(
             (value) async {
-              final List<String> tokenDatas = value.response.headers['set-cookie'] ?? [];
+              final List<String> tokenDatas =
+                  value.response.headers['set-cookie'] ?? [];
               if (tokenDatas.isNotEmpty) {
-                final accessToken = tokenDatas.first.substring(12).split(';').first;
+                final accessToken =
+                    tokenDatas.first.substring(12).split(';').first;
 
-                await authPreference
-                    .setTokenData(TokenData(accessToken: accessToken, refreshToken: ''));
+                await authPreference.setTokenData(
+                    TokenData(accessToken: accessToken, refreshToken: ''));
 
                 options.headers['cookie'] = 'accessToken=$accessToken';
               }

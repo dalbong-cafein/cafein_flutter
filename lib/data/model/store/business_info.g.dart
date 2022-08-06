@@ -8,8 +8,8 @@ part of 'business_info.dart';
 
 _$_BusinessInfo _$$_BusinessInfoFromJson(Map<String, dynamic> json) =>
     _$_BusinessInfo(
-      isOpen: json['isOpen'] as bool,
-      closed: json['closed'] as String,
+      isOpen: json['isOpen'] as bool? ?? false,
+      closed: json['closed'] as String?,
       tmrOpen: json['tmrOpen'] as String? ?? '10:00',
     );
 

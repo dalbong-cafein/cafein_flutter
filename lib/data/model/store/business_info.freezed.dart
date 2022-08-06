@@ -20,8 +20,8 @@ BusinessInfo _$BusinessInfoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BusinessInfo {
-  bool get isOpen => throw _privateConstructorUsedError;
-  String get closed => throw _privateConstructorUsedError;
+  bool? get isOpen => throw _privateConstructorUsedError;
+  String? get closed => throw _privateConstructorUsedError;
   String get tmrOpen => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $BusinessInfoCopyWith<$Res> {
   factory $BusinessInfoCopyWith(
           BusinessInfo value, $Res Function(BusinessInfo) then) =
       _$BusinessInfoCopyWithImpl<$Res>;
-  $Res call({bool isOpen, String closed, String tmrOpen});
+  $Res call({bool? isOpen, String? closed, String tmrOpen});
 }
 
 /// @nodoc
@@ -56,11 +56,11 @@ class _$BusinessInfoCopyWithImpl<$Res> implements $BusinessInfoCopyWith<$Res> {
       isOpen: isOpen == freezed
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       closed: closed == freezed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       tmrOpen: tmrOpen == freezed
           ? _value.tmrOpen
           : tmrOpen // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,7 @@ abstract class _$$_BusinessInfoCopyWith<$Res>
           _$_BusinessInfo value, $Res Function(_$_BusinessInfo) then) =
       __$$_BusinessInfoCopyWithImpl<$Res>;
   @override
-  $Res call({bool isOpen, String closed, String tmrOpen});
+  $Res call({bool? isOpen, String? closed, String tmrOpen});
 }
 
 /// @nodoc
@@ -100,11 +100,11 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
       isOpen: isOpen == freezed
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       closed: closed == freezed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       tmrOpen: tmrOpen == freezed
           ? _value.tmrOpen
           : tmrOpen // ignore: cast_nullable_to_non_nullable
@@ -116,16 +116,16 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_BusinessInfo implements _BusinessInfo {
-  _$_BusinessInfo(
-      {required this.isOpen, required this.closed, this.tmrOpen = '10:00'});
+  _$_BusinessInfo({this.isOpen = false, this.closed, this.tmrOpen = '10:00'});
 
   factory _$_BusinessInfo.fromJson(Map<String, dynamic> json) =>
       _$$_BusinessInfoFromJson(json);
 
   @override
-  final bool isOpen;
+  @JsonKey()
+  final bool? isOpen;
   @override
-  final String closed;
+  final String? closed;
   @override
   @JsonKey()
   final String tmrOpen;
@@ -166,17 +166,17 @@ class _$_BusinessInfo implements _BusinessInfo {
 
 abstract class _BusinessInfo implements BusinessInfo {
   factory _BusinessInfo(
-      {required final bool isOpen,
-      required final String closed,
+      {final bool? isOpen,
+      final String? closed,
       final String tmrOpen}) = _$_BusinessInfo;
 
   factory _BusinessInfo.fromJson(Map<String, dynamic> json) =
       _$_BusinessInfo.fromJson;
 
   @override
-  bool get isOpen => throw _privateConstructorUsedError;
+  bool? get isOpen => throw _privateConstructorUsedError;
   @override
-  String get closed => throw _privateConstructorUsedError;
+  String? get closed => throw _privateConstructorUsedError;
   @override
   String get tmrOpen => throw _privateConstructorUsedError;
   @override
