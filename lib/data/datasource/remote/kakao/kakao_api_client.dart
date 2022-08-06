@@ -13,7 +13,7 @@ class KakaoApiClient {
   }) =>
       dio
           .get(
-            'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}',
+            'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=$longitude&y=$latitude',
           )
           .then(
             (value) => value.data['documents'].last['region_2depth_name'],
