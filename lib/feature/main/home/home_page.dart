@@ -50,20 +50,20 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   right: 24,
                 ),
-                child: CircleAvatar(
-                  radius: 32,
-                  child: memberData?.imageIdPair?.imageUrl == null
-                      ? loadAsset(
-                          CafeinConst.defaultProfiles[Random().nextInt(2)],
-                          width: 32,
-                          height: 32,
-                        )
-                      : Image.network(
-                          memberData!.imageIdPair!.imageUrl!,
-                          width: 32,
-                          height: 32,
-                        ),
-                ),
+                child:SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: memberData?.imageIdPair?.imageUrl == null ? CircleAvatar(
+                    child: loadAsset(
+                      CafeinConst.defaultProfiles[Random().nextInt(2)],
+                      width: 32,
+                      height: 32,
+                    )
+                  ) : CircleAvatar(
+                    radius: 32,
+                    backgroundImage: NetworkImage(memberData?.imageIdPair?.imageUrl ?? 'url'),
+                  ),
+                )
               ),
             ],
           ),
