@@ -1,10 +1,10 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
-import 'package:cafein_flutter/data/model/notice/notice.dart';
+import 'package:cafein_flutter/data/model/notification/notification.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'notice_client.g.dart';
+part 'notification_client.g.dart';
 
 @RestApi(baseUrl: CafeinConfig.baseUrl)
 abstract class NotificationClient {

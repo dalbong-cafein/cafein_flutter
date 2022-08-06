@@ -35,6 +35,7 @@ class DioUtil {
     );
     dio.interceptors.add(CustomDioLogger(
       'dio',
+      responseBody: false,
     ));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cafein_flutter/data/model/notice/notice.dart';
+import 'package:cafein_flutter/data/model/notification/notification.dart';
 import 'package:cafein_flutter/data/repository/notification_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

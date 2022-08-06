@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notice_client.dart';
+part of 'notification_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator

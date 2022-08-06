@@ -11,7 +11,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/coupon_client.dar
 import 'package:cafein_flutter/data/datasource/remote/retrofit/event_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/heart_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
-import 'package:cafein_flutter/data/datasource/remote/retrofit/notice_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/notification_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.dart';

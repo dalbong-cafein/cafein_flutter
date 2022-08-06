@@ -1,6 +1,6 @@
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
-import 'package:cafein_flutter/data/datasource/remote/retrofit/notice_client.dart';
-import 'package:cafein_flutter/data/model/notice/notice.dart';
+import 'package:cafein_flutter/data/datasource/remote/retrofit/notification_client.dart';
+import 'package:cafein_flutter/data/model/notification/notification.dart';
 
 abstract class NotificationRepository {
   Future<BaseResponse<List<Notification>>> getNotices();

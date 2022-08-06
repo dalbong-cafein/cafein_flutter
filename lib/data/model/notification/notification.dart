@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'notice.g.dart';
-part 'notice.freezed.dart';
+part 'notification.g.dart';
+part 'notification.freezed.dart';
 
 @freezed
 class Notification with _$Notification {
