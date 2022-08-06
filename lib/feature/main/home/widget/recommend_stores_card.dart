@@ -56,7 +56,12 @@ class RecommendStoresCard extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       ...List.generate(
-                                        3,
+                                        state.recommendStores[index].imageIdPair
+                                                    .length >=
+                                                3
+                                            ? 3
+                                            : state.recommendStores[index]
+                                                .imageIdPair.length,
                                         (imageIndex) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 4,
