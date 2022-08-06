@@ -55,7 +55,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final storeList = response.data;
       emit(HomeRecommendStoreLoaded(recommendStores: [...storeList]));
     }catch(e){
-      print("error : $e");
+      print("HomeRecommendStoreBlocerror : $e");
       emit(HomeRecommendStoreError());
     }
   }
