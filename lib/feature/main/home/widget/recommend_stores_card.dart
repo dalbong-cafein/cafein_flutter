@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,12 +57,7 @@ class RecommendStoresCard extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       ...List.generate(
-                                        state.recommendStores[index].imageIdPair
-                                                    .length >=
-                                                3
-                                            ? 3
-                                            : state.recommendStores[index]
-                                                .imageIdPair.length,
+                                        3,
                                         (imageIndex) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 4,
@@ -74,7 +70,9 @@ class RecommendStoresCard extends StatelessWidget {
                                                   BorderRadius.circular(8),
                                               child: SizedBox.fromSize(
                                                 size: const Size.fromRadius(48),
-                                                child: Image.network(
+                                                child: state.recommendStores[index].imageIdPair.length-1 < imageIndex ?
+                                                loadAsset(AppImage.noImage) :
+                                                Image.network(
                                                   state
                                                       .recommendStores[index]
                                                       .imageIdPair[imageIndex]
