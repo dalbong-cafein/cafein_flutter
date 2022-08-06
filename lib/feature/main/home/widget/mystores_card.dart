@@ -132,7 +132,9 @@ class MyStoresCard extends StatelessWidget {
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 6.0),
                                                     child: Text(
-                                                      "오후 11:30에 영업 종료",
+                                                      state.memberStores[index].businessInfo?.isOpen ?? false ?
+                                                      "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 종료" :
+                                                      "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
                                                       style: AppStyle.caption12Regular
                                                           .copyWith(color: AppColor.grey600),
                                                     ),
@@ -151,9 +153,7 @@ class MyStoresCard extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      _confuse(state.memberStores[index].congestionScoreAvg == null
-                                          ? 0
-                                          : state.memberStores[index].congestionScoreAvg!.toInt())
+                                      _confuse(state.memberStores[index].congestionScoreAvg ?? 0)
                                     ],
                                   ),
                                 )
@@ -191,11 +191,31 @@ class MyStoresCard extends StatelessWidget {
     );
   }
 
-  Widget _confuse(int conf) {
-    if (conf == 0) {
+  String _parseTime(String time){
+    int hour = int.parse(time.substring(0, 2));
+    String minute = time.substring(3, 5);
+    if(time == "null"){
+      return "시간 정보가 없습니다";
+    }
+    else if(hour > 12){
+      hour = hour -12;
+      if(hour <= 9 ){
+        return "오후0$hour:$minute";
+      }
+      return "오후$hour:$minute";
+    }else{
+      if(hour <= 9 ){
+        return "오전0$hour:$minute";
+      }
+      return "오전$hour:$minute";
+    }
+  }
+
+  Widget _confuse(double conf) {
+    if (conf.floor() == 0) {
       return const Text("혼잡도 정보가 없습니다.");
     }
-    if (conf == 1) {
+    if (conf.floor() == 1) {
       return Container(
           decoration: const BoxDecoration(
             color: AppColor.green50,
@@ -208,7 +228,7 @@ class MyStoresCard extends StatelessWidget {
                 style: AppStyle.subTitle15Medium.copyWith(color: AppColor.green500),
               )));
     }
-    if (conf == 2) {
+    if (conf.floor() == 2) {
       return Container(
           decoration: const BoxDecoration(
             color: AppColor.amber50,
