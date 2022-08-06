@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -46,29 +50,46 @@ class _SearchPageState extends State<SearchPage> {
         toolbarHeight: 112,
         title: Column(
           children: [
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              height: 44,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppColor.grey50,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Icon(CupertinoIcons.search),
-                  const SizedBox(width: 8),
-                  Text(
-                    '카페 이름, 구, 동, 역 등으로 검색',
-                    style: AppStyle.body15Regular.copyWith(
-                      color: AppColor.grey500,
-                    ),
+            InkWell(
+              onTap: () async {
+                final result = await Geolocator.getCurrentPosition();
+                log('result.latitude: ${result.latitude}');
+                log('result.longitude: ${result.longitude}');
+
+                final response = await Dio().get(
+                  'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${result.longitude}&y=${result.latitude}',
+                  options: Options(
+                    headers: {
+                      'Authorization': 'KakaoAK ${CafeinConfig.kakaoRestApiKey}',
+                    },
                   ),
-                ],
+                );
+                log('${response.data}');
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                height: 44,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: AppColor.grey50,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(CupertinoIcons.search),
+                    const SizedBox(width: 8),
+                    Text(
+                      '카페 이름, 구, 동, 역 등으로 검색',
+                      style: AppStyle.body15Regular.copyWith(
+                        color: AppColor.grey500,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(
