@@ -18,18 +18,18 @@ class HomeRecommendStoreRequested extends HomeEvent {
   List<Object?> get props => [];
 }
 
-class HomeMyStoreAdded extends HomeEvent{
-  final String storeId;
-  const HomeMyStoreAdded({required this.storeId});
+class HomeMyStoreCreateRequested extends HomeEvent{
+  final int storeId;
+  const HomeMyStoreCreateRequested({required this.storeId});
 
   @override
   List<Object?> get props => [storeId];
 
 }
 
-class HomeMyStoreDeleted extends HomeEvent{
-  final String storeId;
-  const HomeMyStoreDeleted({required this.storeId});
+class HomeMyStoreDeleteRequested extends HomeEvent{
+  final int storeId;
+  const HomeMyStoreDeleteRequested({required this.storeId});
 
   @override
   List<Object?> get props => [storeId];

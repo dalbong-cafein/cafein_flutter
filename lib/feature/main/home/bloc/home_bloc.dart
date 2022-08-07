@@ -20,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }) : super(const HomeInitial()) {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
+    on<HomeMyStoreCreateRequested>(_onHomeMyStoreCreateRequested);
   }
 
   final HeartRepository heartRepository;
@@ -70,4 +71,25 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ));
     }
   }
+
+  FutureOr<void> _onHomeMyStoreCreateRequested(
+      HomeMyStoreCreateRequested event,
+      Emitter<HomeState> emit) async
+  {
+    emit(HomeMyStoreAddLoading());
+    try{
+      await heartRepository.createHeart(event.storeId);
+      emit(HomeMyStoreAddLoaded());
+    }catch(e){
+      emit(HomeMyStoreDeleteError(
+          event: ()=>add(event),
+          error: e
+      ));
+    }
+
+  }
+
 }
+
+
+
