@@ -54,3 +54,45 @@ class HomeRecommendStoreLoaded extends HomeState {
   @override
   List<Object?> get props => [recommendStores];
 }
+
+class HomeMyStoreAddLoading extends HomeState{
+
+  @override
+  List<Object?> get props => [];
+
+}
+
+class HomeMyStoreAddLoaded extends HomeState{
+
+  @override
+  List<Object?> get props => [];
+
+}
+
+class HomeMyStoreAddError extends HomeState{
+
+  @override
+  List<Object?> get props => [];
+
+}
+
+class HomeMyStoreDeleteLoading extends HomeState{
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+
+}
+
+class HomeMyStoreDeleteLoaded extends HomeState{
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+
+}
+
+class HomeMyStoreDeleteError extends HomeState{
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
+
+}
