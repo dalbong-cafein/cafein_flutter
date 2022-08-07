@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                           height: 32,
                         )
                       : Image.network(
-                          memberData!.imageIdPair!.imageUrl!,
+                          memberData!.imageIdPair!.imageUrl,
                           width: 32,
                           height: 32,
                         ),
@@ -84,19 +84,16 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(16.0)),
                     ),
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 32, top: 12, bottom: 12),
+                      padding: const EdgeInsets.only(left: 32, top: 12, bottom: 12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "친구 초대하고",
-                            style: AppStyle.subTitle14Medium
-                                .copyWith(color: Colors.white),
+                            style: AppStyle.subTitle14Medium.copyWith(color: Colors.white),
                           ),
                           Text("무료 아메리카노 받자",
-                              style: AppStyle.subTitle14Medium
-                                  .copyWith(color: Colors.white))
+                              style: AppStyle.subTitle14Medium.copyWith(color: Colors.white))
                         ],
                       ),
                     ),

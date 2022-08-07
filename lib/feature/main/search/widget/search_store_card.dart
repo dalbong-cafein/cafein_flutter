@@ -1,5 +1,8 @@
+import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,19 @@ class SearchStoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageDatas = [...store.imageIdPair];
+    if (imageDatas.length < 4) {
+      final length = 4 - imageDatas.length;
+      for (int i = 0; i < length + 5; i++) {
+        imageDatas.add(
+          ImageIdPair(
+            imageId: -1,
+            imageUrl: CafeinConst.defaultStoreImage,
+          ),
+        );
+      }
+    }
+
     return Container(
       height: 170,
       width: MediaQuery.of(context).size.width,
@@ -77,15 +93,51 @@ class SearchStoreCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Expanded(
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Image.network(
-                  'https://avatars.githubusercontent.com/u/73538957?v=4',
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(width: 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ...List.generate(
+                  3,
+                  (index) => CustomCachedNetworkImage(
+                    imageUrl: imageDatas[index].imageUrl,
+                    width: 70,
+                    height: 70,
+                  ),
+                ),
+                SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CustomCachedNetworkImage(
+                        imageUrl: imageDatas[3].imageUrl,
+                        width: 70,
+                        height: 70,
+                      ),
+                      if (imageDatas.length >= 5)
+                        Container(
+                          width: 70,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: AppColor.black.withOpacity(0.48),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '+${imageDatas.length - 4}',
+                              style: AppStyle.subTitle15Medium.copyWith(
+                                color: AppColor.white,
+                              ),
+                            ),
+                          ),
+                        )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

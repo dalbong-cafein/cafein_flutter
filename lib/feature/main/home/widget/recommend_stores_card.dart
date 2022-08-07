@@ -43,8 +43,7 @@ class RecommendStoresCard extends StatelessWidget {
                           child: Container(
                             decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16)),
+                              borderRadius: BorderRadius.all(Radius.circular(16)),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(12),
@@ -52,16 +51,12 @@ class RecommendStoresCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       ...List.generate(
-                                        state.recommendStores[index].imageIdPair
-                                                    .length >=
-                                                3
+                                        state.recommendStores[index].imageIdPair.length >= 3
                                             ? 3
-                                            : state.recommendStores[index]
-                                                .imageIdPair.length,
+                                            : state.recommendStores[index].imageIdPair.length,
                                         (imageIndex) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 4,
@@ -70,15 +65,12 @@ class RecommendStoresCard extends StatelessWidget {
                                             width: 70,
                                             height: 70,
                                             child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                              borderRadius: BorderRadius.circular(8),
                                               child: SizedBox.fromSize(
                                                 size: const Size.fromRadius(48),
                                                 child: Image.network(
-                                                  state
-                                                      .recommendStores[index]
-                                                      .imageIdPair[imageIndex]
-                                                      .imageUrl!,
+                                                  state.recommendStores[index]
+                                                      .imageIdPair[imageIndex].imageUrl,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -102,53 +94,35 @@ class RecommendStoresCard extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8),
+                                                  padding: const EdgeInsets.only(top: 8),
                                                   child: Row(
                                                     children: [
                                                       Container(
-                                                        decoration:
-                                                            BoxDecoration(
+                                                        decoration: BoxDecoration(
                                                           border: Border.all(
                                                             width: 1,
-                                                            color: AppColor
-                                                                .orange500,
+                                                            color: AppColor.orange500,
                                                           ),
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                      .all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          4.0)),
+                                                          borderRadius: const BorderRadius.all(
+                                                              Radius.circular(4.0)),
                                                         ),
                                                         child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 3,
-                                                                  bottom: 3,
-                                                                  left: 4,
-                                                                  right: 4),
+                                                          padding: const EdgeInsets.only(
+                                                              top: 3, bottom: 3, left: 4, right: 4),
                                                           child: Text(
                                                             "영업중",
-                                                            style: AppStyle
-                                                                .caption11Regular
-                                                                .copyWith(
-                                                              color: AppColor
-                                                                  .orange500,
+                                                            style:
+                                                                AppStyle.caption11Regular.copyWith(
+                                                              color: AppColor.orange500,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
+                                                        padding: const EdgeInsets.only(
                                                           left: 4,
                                                         ),
                                                         child: _confuse(1),
@@ -157,66 +131,40 @@ class RecommendStoresCard extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8),
+                                                  padding: const EdgeInsets.only(top: 8),
                                                   child: Row(
                                                     children: const [
-                                                      Icon(
-                                                          Icons.near_me_rounded,
-                                                          color:
-                                                              AppColor.grey500,
-                                                          size: 16),
+                                                      Icon(Icons.near_me_rounded,
+                                                          color: AppColor.grey500, size: 16),
                                                       Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 2),
+                                                        padding: EdgeInsets.only(left: 2),
                                                         child: Text(
                                                           "150m",
-                                                          style: AppStyle
-                                                              .caption12Regular,
+                                                          style: AppStyle.caption12Regular,
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 4),
-                                                        child: Icon(
-                                                            Icons
-                                                                .thumb_up_alt_rounded,
-                                                            color: AppColor
-                                                                .orange400,
-                                                            size: 16),
+                                                        padding: EdgeInsets.only(left: 4),
+                                                        child: Icon(Icons.thumb_up_alt_rounded,
+                                                            color: AppColor.orange400, size: 16),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 2),
+                                                        padding: EdgeInsets.only(left: 2),
                                                         child: Text(
                                                           "79%",
-                                                          style: AppStyle
-                                                              .caption12Regular,
+                                                          style: AppStyle.caption12Regular,
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 4),
-                                                        child: Icon(
-                                                            Icons
-                                                                .favorite_rounded,
-                                                            color: AppColor
-                                                                .orange400,
-                                                            size: 16),
+                                                        padding: EdgeInsets.only(left: 4),
+                                                        child: Icon(Icons.favorite_rounded,
+                                                            color: AppColor.orange400, size: 16),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 2),
+                                                        padding: EdgeInsets.only(left: 2),
                                                         child: Text(
                                                           "12",
-                                                          style: AppStyle
-                                                              .caption12Regular,
+                                                          style: AppStyle.caption12Regular,
                                                         ),
                                                       ),
                                                     ],
@@ -231,14 +179,11 @@ class RecommendStoresCard extends StatelessWidget {
                                         width: 72,
                                         height: 50,
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
                                             InkWell(
-                                              child: const Icon(
-                                                  Icons.favorite_border_rounded,
+                                              child: const Icon(Icons.favorite_border_rounded,
                                                   color: AppColor.grey200),
                                               onTap: () {},
                                             )
@@ -276,12 +221,10 @@ class RecommendStoresCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 3, bottom: 3, left: 4, right: 4),
+              padding: const EdgeInsets.only(top: 3, bottom: 3, left: 4, right: 4),
               child: Text(
                 "여유",
-                style:
-                    AppStyle.caption12Medium.copyWith(color: AppColor.green500),
+                style: AppStyle.caption12Medium.copyWith(color: AppColor.green500),
               )));
     }
     if (conf == 2) {
@@ -291,12 +234,10 @@ class RecommendStoresCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
+              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
               child: Text(
                 "보통",
-                style: AppStyle.subTitle15Medium
-                    .copyWith(color: AppColor.amber500),
+                style: AppStyle.subTitle15Medium.copyWith(color: AppColor.amber500),
               )));
     } else {
       return Container(
@@ -305,12 +246,10 @@ class RecommendStoresCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
+              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
               child: Text(
                 "혼잡",
-                style: AppStyle.subTitle15Medium
-                    .copyWith(color: AppColor.scarlet500),
+                style: AppStyle.subTitle15Medium.copyWith(color: AppColor.scarlet500),
               )));
     }
   }

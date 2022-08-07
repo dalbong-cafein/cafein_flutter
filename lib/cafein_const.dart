@@ -8,4 +8,7 @@ abstract class CafeinConst {
   ];
 
   static const defaultLocation = '종로구';
+
+  static const defaultStoreImage =
+      'https://raw.githubusercontent.com/dalbong-cafein/cafein_flutter/develop/default_store_image.png';
 }

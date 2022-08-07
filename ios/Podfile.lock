@@ -2,6 +2,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_native_splash (0.0.1):
     - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - geolocator_apple (1.2.0):
     - Flutter
   - image_picker_ios (0.0.1):
@@ -22,6 +25,9 @@ PODS:
     - Flutter
   - sign_in_with_apple (0.0.1):
     - Flutter
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
   - url_launcher_ios (0.0.1):
     - Flutter
 
@@ -37,10 +43,12 @@ DEPENDENCIES:
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
+    - FMDB
     - NMapsMap
 
 EXTERNAL SOURCES:
@@ -66,12 +74,15 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   sign_in_with_apple:
     :path: ".symlinks/plugins/sign_in_with_apple/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   kakao_flutter_sdk_common: 3113c6a6747b2a88b484a1de798debfb01e5c5c1
@@ -82,6 +93,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
 PODFILE CHECKSUM: 573ac60c080e5c06d844766dcaf8c627600f2df3

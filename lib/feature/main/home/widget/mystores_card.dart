@@ -85,7 +85,7 @@ class MyStoresCard extends StatelessWidget {
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(48), // Image radius
                                             child: Image.network(
-                                                state.memberStores[index].imageIdPair.imageUrl!,
+                                                state.memberStores[index].imageIdPair.imageUrl,
                                                 fit: BoxFit.cover),
                                           ),
                                         ),
