@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -35,6 +36,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return BlocListener<SearchBloc, SearchState>(
       listener: (context, state) {
         final bloc = context.read<SearchBloc>();
@@ -50,9 +53,10 @@ class _SearchPageState extends State<SearchPage> {
             bloc.add(const SearchStoreRequested(
               location: CafeinConst.defaultLocation,
             ));
-          } else {
-            bloc.add(const SearchLocationRequested());
+            return;
           }
+
+          bloc.add(const SearchLocationRequested());
         } else if (state is SearchLocationChecked) {
           bloc.add(
             SearchStoreRequested(location: state.location),
@@ -122,37 +126,118 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
         ),
-        body: SlidingUpPanel(
-          panel: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 12,
-                  bottom: 16,
-                ),
-                height: 3,
-                width: 48,
-                decoration: BoxDecoration(
-                  color: AppColor.grey400,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) => const SearchStorePanelCard(),
-                  separatorBuilder: (context, index) => Container(
-                    height: 1,
-                    color: AppColor.grey500,
+        body: BlocBuilder<SearchBloc, SearchState>(
+          buildWhen: (pre, next) => next is SearchViewTypeChecked,
+          builder: (context, state) {
+            bool isCardView = false;
+            if (state is SearchViewTypeChecked) {
+              isCardView = state.isCard;
+            }
+            if (isCardView) {
+              return Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  NaverMap(
+                    onMapCreated: onMapCreated,
                   ),
-                  itemCount: 10,
+                  SizedBox(
+                    height: 248,
+                    width: width,
+                    child: Column(
+                      children: [
+                        SearchBodyHeader(
+                          isCardView: isCardView,
+                        ),
+                        Expanded(
+                          child: PageView.builder(
+                            itemBuilder: (context, index) {
+                              return Center(
+                                child: Text('$index'),
+                              );
+                            },
+                            itemCount: 5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return SlidingUpPanel(
+                color: Colors.transparent,
+                backdropOpacity: 0,
+                backdropColor: Colors.transparent,
+                boxShadow: const [],
+                backdropEnabled: false,
+                panel: Container(
+                  color: Colors.transparent,
+                  child: Column(
+                    children: [
+                      SearchBodyHeader(
+                        isCardView: isCardView,
+                      ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
+                            color: AppColor.white,
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  top: 12,
+                                  bottom: 16,
+                                ),
+                                height: 3,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                  color: AppColor.grey200,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListView.separated(
+                                  itemBuilder: (context, index) => const SearchStorePanelCard(),
+                                  separatorBuilder: (context, index) => Container(
+                                    height: 1,
+                                    color: AppColor.grey500,
+                                  ),
+                                  itemCount: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          maxHeight: 500,
-          body: NaverMap(
-            onMapCreated: onMapCreated,
-          ),
+                maxHeight: 700,
+                minHeight: MediaQuery.of(context).size.height * 0.35,
+                body: BlocBuilder<SearchBloc, SearchState>(
+                  buildWhen: (pre, next) => next is SearchStoreLoaded,
+                  builder: (context, state) {
+                    List<Marker> storeMarkers = [];
+
+                    if (state is SearchStoreLoaded) {
+                      storeMarkers = [...state.markers];
+                    }
+
+                    return NaverMap(
+                      onMapCreated: onMapCreated,
+                      markers: storeMarkers,
+                    );
+                  },
+                ),
+              );
+            }
+          },
         ),
       ),
     );

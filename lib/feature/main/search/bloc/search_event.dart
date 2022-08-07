@@ -25,3 +25,14 @@ class SearchPermissionRequested extends SearchEvent {
 class SearchLocationRequested extends SearchEvent {
   const SearchLocationRequested();
 }
+
+class SearchViewTypeChanged extends SearchEvent {
+  const SearchViewTypeChanged({
+    required this.isCard,
+  });
+
+  final bool isCard;
+
+  @override
+  List<Object?> get props => [isCard];
+}

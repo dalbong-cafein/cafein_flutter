@@ -31,12 +31,17 @@ class SearchError extends SearchState {
 class SearchStoreLoaded extends SearchState {
   const SearchStoreLoaded({
     required this.stores,
+    required this.markers,
   });
 
   final List<Store> stores;
+  final List<Marker> markers;
 
   @override
-  List<Object?> get props => [stores];
+  List<Object?> get props => [
+        stores,
+        markers,
+      ];
 }
 
 class SearchPermissionChecked extends SearchState {
@@ -53,10 +58,29 @@ class SearchPermissionChecked extends SearchState {
 class SearchLocationChecked extends SearchState {
   const SearchLocationChecked({
     required this.location,
+    required this.latitude,
+    required this.longitude,
   });
 
   final String location;
+  final double latitude;
+  final double longitude;
 
   @override
-  List<Object?> get props => [location];
+  List<Object?> get props => [
+        location,
+        latitude,
+        longitude,
+      ];
+}
+
+class SearchViewTypeChecked extends SearchState {
+  const SearchViewTypeChecked({
+    required this.isCard,
+  });
+
+  final bool isCard;
+
+  @override
+  List<Object?> get props => [isCard];
 }

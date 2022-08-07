@@ -29,4 +29,5 @@ abstract class AppIcon {
   static const circleDeleteGrey = 'asset/icon/ic_close_circle_grey300.svg';
 
   static const trash = "asset/icon/trash_icon.svg";
+  static const locationArrow = 'asset/icon/ic_near_me.svg';
 }
