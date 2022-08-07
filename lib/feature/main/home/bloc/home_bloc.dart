@@ -21,6 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
     on<HomeMyStoreCreateRequested>(_onHomeMyStoreCreateRequested);
+    on<HomeMyStoreDeleteRequested>(_onHomeMyStoreDeleteRequested);
   }
 
   final HeartRepository heartRepository;
@@ -88,6 +89,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ));
     }
 
+  }
+
+  FutureOr<void> _onHomeMyStoreDeleteRequested(
+      HomeMyStoreDeleteRequested event,
+      Emitter<HomeState> emit,
+      ) async
+  {
+    emit(HomeMyStoreDeleteLoading());
+    try{
+      await heartRepository.deleteHeart(event.storeId);
+      emit(HomeMyStoreDeleteLoaded());
+    }catch(e){
+      emit(HomeMyStoreDeleteError(
+          event: ()=>add(event),
+          error: e
+      ));
+    }
   }
 
 }

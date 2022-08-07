@@ -66,7 +66,6 @@ class MyStoresCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: ListView.builder(
-                        itemCount: 1,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
