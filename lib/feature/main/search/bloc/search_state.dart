@@ -32,15 +32,18 @@ class SearchStoreLoaded extends SearchState {
   const SearchStoreLoaded({
     required this.stores,
     required this.markers,
+    required this.isCard,
   });
 
   final List<Store> stores;
   final List<Marker> markers;
+  final bool isCard;
 
   @override
   List<Object?> get props => [
         stores,
         markers,
+        isCard,
       ];
 }
 
@@ -52,7 +55,10 @@ class SearchPermissionChecked extends SearchState {
   final PermissionStatus permissionStatus;
 
   @override
-  List<Object?> get props => [permissionStatus];
+  List<Object?> get props => [
+        permissionStatus,
+        DateTime.now(),
+      ];
 }
 
 class SearchLocationChecked extends SearchState {
@@ -72,15 +78,4 @@ class SearchLocationChecked extends SearchState {
         latitude,
         longitude,
       ];
-}
-
-class SearchViewTypeChecked extends SearchState {
-  const SearchViewTypeChecked({
-    required this.isCard,
-  });
-
-  final bool isCard;
-
-  @override
-  List<Object?> get props => [isCard];
 }

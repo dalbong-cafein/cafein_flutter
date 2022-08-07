@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:cafein_flutter/resource/resource.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,6 +27,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final StoreRepository storeRepository;
 
   String currentLocation = '';
+
+  List<Store> currentStores = [];
+  List<Marker> currentMarker = [];
+  bool isCard = false;
 
   FutureOr<void> _onSearchLocationRequested(
     SearchLocationRequested event,
@@ -77,30 +80,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         return;
       }
 
-      final overlayImage = await OverlayImage.fromAssetImage(
-        assetName: AppLottie.currentLocation,
-      );
-
-      final markers = [
-        Marker(
-          markerId: 'id',
-          position: const LatLng(37.563600, 126.962370),
-          captionText: "커스텀 아이콘",
-          captionColor: AppColor.amber500,
-          captionTextSize: 20.0,
-          alpha: 0.8,
-          captionOffset: 30,
-          icon: overlayImage,
-          anchor: AnchorPoint(0.5, 1),
-          width: 45,
-          height: 45,
-          infoWindow: '인포 윈도우',
-        )
-      ];
+      currentStores = [...response.data];
+      currentMarker = [];
 
       emit(SearchStoreLoaded(
-        stores: response.data,
-        markers: markers,
+        stores: [...currentStores],
+        markers: [...currentMarker],
+        isCard: isCard,
       ));
     } catch (e) {
       emit(SearchError(
@@ -122,6 +108,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchViewTypeChanged event,
     Emitter<SearchState> emit,
   ) {
-    emit(SearchViewTypeChecked(isCard: event.isCard));
+    isCard = event.isCard;
+    emit(SearchStoreLoaded(
+      stores: [...currentStores],
+      markers: [...currentMarker],
+      isCard: isCard,
+    ));
   }
 }

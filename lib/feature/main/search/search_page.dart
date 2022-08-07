@@ -5,8 +5,11 @@ import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_store_panel_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
+import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +24,13 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
   Completer<NaverMapController> mapController = Completer<NaverMapController>();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     Future.microtask(
       () => context.read<SearchBloc>().add(
             const SearchPermissionRequested(),
@@ -35,11 +39,31 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   @override
+  void didChangeAppLifecycleState(state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        context.read<SearchBloc>().add(
+              const SearchPermissionRequested(),
+            );
+        break;
+      default:
+        break;
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
     return BlocListener<SearchBloc, SearchState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         final bloc = context.read<SearchBloc>();
 
         if (state is SearchError) {
@@ -49,14 +73,21 @@ class _SearchPageState extends State<SearchPage> {
             refresh: state.event,
           );
         } else if (state is SearchPermissionChecked) {
-          if (!state.permissionStatus.isGranted) {
+          if (state.permissionStatus.isGranted) {
+            bloc.add(const SearchLocationRequested());
+
+            return;
+          }
+
+          final result = await PermissionDialog.show(context);
+          if (!result) {
             bloc.add(const SearchStoreRequested(
               location: CafeinConst.defaultLocation,
             ));
             return;
           }
 
-          bloc.add(const SearchLocationRequested());
+          openAppSettings();
         } else if (state is SearchLocationChecked) {
           bloc.add(
             SearchStoreRequested(location: state.location),
@@ -127,116 +158,106 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
         body: BlocBuilder<SearchBloc, SearchState>(
-          buildWhen: (pre, next) => next is SearchViewTypeChecked,
+          buildWhen: (pre, next) => next is SearchStoreLoaded,
           builder: (context, state) {
             bool isCardView = false;
-            if (state is SearchViewTypeChecked) {
+            if (state is SearchStoreLoaded) {
               isCardView = state.isCard;
-            }
-            if (isCardView) {
-              return Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  NaverMap(
-                    onMapCreated: onMapCreated,
-                  ),
-                  SizedBox(
-                    height: 248,
-                    width: width,
+              if (isCardView) {
+                return Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    NaverMap(
+                      onMapCreated: onMapCreated,
+                    ),
+                    SizedBox(
+                      height: 248,
+                      width: width,
+                      child: Column(
+                        children: [
+                          SearchBodyHeader(isCardView: isCardView),
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: PageView.builder(
+                              itemBuilder: (context, index) {
+                                return SearchStoreCard(
+                                  store: state.stores[index],
+                                );
+                              },
+                              itemCount: state.stores.length,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return SlidingUpPanel(
+                  color: Colors.transparent,
+                  backdropOpacity: 0,
+                  backdropColor: Colors.transparent,
+                  boxShadow: const [],
+                  backdropEnabled: false,
+                  panel: Container(
+                    color: Colors.transparent,
                     child: Column(
                       children: [
                         SearchBodyHeader(
                           isCardView: isCardView,
                         ),
+                        const SizedBox(height: 16),
                         Expanded(
-                          child: PageView.builder(
-                            itemBuilder: (context, index) {
-                              return Center(
-                                child: Text('$index'),
-                              );
-                            },
-                            itemCount: 5,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
+                              ),
+                              color: AppColor.white,
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 12,
+                                    bottom: 16,
+                                  ),
+                                  height: 3,
+                                  width: 48,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.grey200,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListView.separated(
+                                    itemBuilder: (context, index) => const SearchStorePanelCard(),
+                                    separatorBuilder: (context, index) => Container(
+                                      height: 1,
+                                      color: AppColor.grey500,
+                                    ),
+                                    itemCount: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              );
-            } else {
-              return SlidingUpPanel(
-                color: Colors.transparent,
-                backdropOpacity: 0,
-                backdropColor: Colors.transparent,
-                boxShadow: const [],
-                backdropEnabled: false,
-                panel: Container(
-                  color: Colors.transparent,
-                  child: Column(
-                    children: [
-                      SearchBodyHeader(
-                        isCardView: isCardView,
-                      ),
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
-                            ),
-                            color: AppColor.white,
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 12,
-                                  bottom: 16,
-                                ),
-                                height: 3,
-                                width: 48,
-                                decoration: BoxDecoration(
-                                  color: AppColor.grey200,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                              Expanded(
-                                child: ListView.separated(
-                                  itemBuilder: (context, index) => const SearchStorePanelCard(),
-                                  separatorBuilder: (context, index) => Container(
-                                    height: 1,
-                                    color: AppColor.grey500,
-                                  ),
-                                  itemCount: 10,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                  maxHeight: 700,
+                  minHeight: MediaQuery.of(context).size.height * 0.35,
+                  body: NaverMap(
+                    onMapCreated: onMapCreated,
+                    markers: const [],
                   ),
-                ),
-                maxHeight: 700,
-                minHeight: MediaQuery.of(context).size.height * 0.35,
-                body: BlocBuilder<SearchBloc, SearchState>(
-                  buildWhen: (pre, next) => next is SearchStoreLoaded,
-                  builder: (context, state) {
-                    List<Marker> storeMarkers = [];
-
-                    if (state is SearchStoreLoaded) {
-                      storeMarkers = [...state.markers];
-                    }
-
-                    return NaverMap(
-                      onMapCreated: onMapCreated,
-                      markers: storeMarkers,
-                    );
-                  },
-                ),
-              );
+                );
+              }
             }
+            return const CircleLoadingIndicator();
           },
         ),
       ),
