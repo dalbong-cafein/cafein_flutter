@@ -66,6 +66,8 @@ class MyStoresCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: ListView.builder(
+                        itemCount: state.memberStores.length >= 4
+                            ? 4: state.memberStores.length,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
@@ -83,7 +85,9 @@ class MyStoresCard extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(8), // Image border
                                           child: SizedBox.fromSize(
                                             size: const Size.fromRadius(48), // Image radius
-                                            child: Image.network(
+                                            child: state.memberStores[index].imageIdPair == null ?
+                                            loadAsset(AppImage.noImage) :
+                                            Image.network(
                                                 state.memberStores[index].imageIdPair!.imageUrl!,
                                                 fit: BoxFit.cover),
                                           ),

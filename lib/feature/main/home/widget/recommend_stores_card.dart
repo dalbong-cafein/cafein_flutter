@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,12 +12,20 @@ class RecommendStoresCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final homeBloc = BlocProvider.of<HomeBloc>(context);
     context.read<HomeBloc>().add(const HomeRecommendStoreRequested());
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        if (state is HomeError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
+        }
+      },
       buildWhen: (pre, next) => next is HomeRecommendStoreLoaded,
       builder: (blocContext, state) {
-        if (state is HomeRecommendStoreLoaded) {
+        if (state is HomeRecommendStoreLoaded ) {
           return Padding(
             padding: const EdgeInsets.only(top: 32),
             child: Column(
@@ -39,6 +48,7 @@ class RecommendStoresCard extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: 10,
                       itemBuilder: (BuildContext listContext, int index) {
+                        int storeId = state.recommendStores[index].storeId;
                         return Padding(
                           padding: const EdgeInsets.only(left: 12),
                           child: Container(
@@ -246,16 +256,20 @@ class RecommendStoresCard extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            InkWell(
-                                              child: const Icon(
-                                                  Icons.favorite_border_rounded,
-                                                  color: AppColor.grey200),
-                                              onTap: () {
-                                                context.read<HomeBloc>().add(
-                                                    HomeMyStoreCreateRequested(
-                                                    storeId: state.recommendStores[index].storeId
-                                                ));
-                                              },
+                                            BlocBuilder<HomeBloc, HomeState>(
+                                              builder: (context, state) {
+                                                return InkWell(
+                                                  child: state is !HomeMyStoreCreateLoaded ? const Icon(
+                                                      Icons.favorite_border_rounded,
+                                                      color: AppColor.grey200) :
+                                                  const Icon(Icons.favorite_rounded, color : Colors.orange),
+                                                  onTap: () {
+                                                    context.read<HomeBloc>().add(
+                                                        HomeMyStoreCreateRequested(
+                                                        storeId: storeId
+                                                    ));
+                                                  },
+                                              );},
                                             )
                                           ],
                                         ),
