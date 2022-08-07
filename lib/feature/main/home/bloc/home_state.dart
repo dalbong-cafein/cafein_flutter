@@ -70,6 +70,13 @@ class HomeMyStoreAddLoaded extends HomeState{
 }
 
 class HomeMyStoreAddError extends HomeState{
+  const HomeMyStoreAddError({
+    required this.event,
+    required this.error,
+  });
+
+  final Function event;
+  final dynamic error;
 
   @override
   List<Object?> get props => [];
@@ -79,20 +86,28 @@ class HomeMyStoreAddError extends HomeState{
 class HomeMyStoreDeleteLoading extends HomeState{
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 
 }
 
 class HomeMyStoreDeleteLoaded extends HomeState{
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 
 }
 
 class HomeMyStoreDeleteError extends HomeState{
 
+  const HomeMyStoreDeleteError({
+    required this.event,
+    required this.error,
+  });
+
+  final Function event;
+  final dynamic error;
+
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [error];
 
 }
