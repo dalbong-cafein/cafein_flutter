@@ -11,11 +11,11 @@ class RecommendStoresCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
     context.read<HomeBloc>().add(const HomeRecommendStoreRequested());
     return BlocBuilder<HomeBloc, HomeState>(
       buildWhen: (pre, next) => next is HomeRecommendStoreLoaded,
-      builder: (context, state) {
+      builder: (blocContext, state) {
         if (state is HomeRecommendStoreLoaded) {
           return Padding(
             padding: const EdgeInsets.only(top: 32),
@@ -38,7 +38,7 @@ class RecommendStoresCard extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
+                      itemBuilder: (BuildContext listContext, int index) {
                         return Padding(
                           padding: const EdgeInsets.only(left: 12),
                           child: Container(
@@ -250,7 +250,12 @@ class RecommendStoresCard extends StatelessWidget {
                                               child: const Icon(
                                                   Icons.favorite_border_rounded,
                                                   color: AppColor.grey200),
-                                              onTap: () {},
+                                              onTap: () {
+                                                context.read<HomeBloc>().add(
+                                                    HomeMyStoreCreateRequested(
+                                                    storeId: state.recommendStores[index].storeId
+                                                ));
+                                              },
                                             )
                                           ],
                                         ),

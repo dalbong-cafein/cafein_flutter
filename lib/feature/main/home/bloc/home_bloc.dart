@@ -74,12 +74,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _onHomeMyStoreCreateRequested(
       HomeMyStoreCreateRequested event,
-      Emitter<HomeState> emit) async
+      Emitter<HomeState> emit,
+      ) async
   {
-    emit(HomeMyStoreAddLoading());
+    emit(HomeMyStoreCreateLoading());
     try{
       await heartRepository.createHeart(event.storeId);
-      emit(HomeMyStoreAddLoaded());
+      emit(HomeMyStoreCreateLoaded());
     }catch(e){
       emit(HomeMyStoreDeleteError(
           event: ()=>add(event),

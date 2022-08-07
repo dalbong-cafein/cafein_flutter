@@ -55,22 +55,22 @@ class HomeRecommendStoreLoaded extends HomeState {
   List<Object?> get props => [recommendStores];
 }
 
-class HomeMyStoreAddLoading extends HomeState{
+class HomeMyStoreCreateLoading extends HomeState{
 
   @override
   List<Object?> get props => [];
 
 }
 
-class HomeMyStoreAddLoaded extends HomeState{
+class HomeMyStoreCreateLoaded extends HomeState{
 
   @override
   List<Object?> get props => [];
 
 }
 
-class HomeMyStoreAddError extends HomeState{
-  const HomeMyStoreAddError({
+class HomeMyStoreCreateError extends HomeState{
+  const HomeMyStoreCreateError({
     required this.event,
     required this.error,
   });
