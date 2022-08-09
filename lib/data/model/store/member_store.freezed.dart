@@ -24,10 +24,11 @@ mixin _$MemberStore {
   String get storeName => throw _privateConstructorUsedError;
   double get lngX => throw _privateConstructorUsedError;
   double get latY => throw _privateConstructorUsedError;
-  bool get isOpen => throw _privateConstructorUsedError;
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
+  @JsonKey(name: 'businessHoursInfoDto')
+  BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
   @JsonKey(name: 'storeImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,11 +46,12 @@ abstract class $MemberStoreCopyWith<$Res> {
       String storeName,
       double lngX,
       double latY,
-      bool isOpen,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair});
+      @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo,
+      @JsonKey(name: 'storeImageDto') ImageIdPair? imageIdPair});
 
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
+  $BusinessInfoCopyWith<$Res>? get businessInfo;
+  $ImageIdPairCopyWith<$Res>? get imageIdPair;
 }
 
 /// @nodoc
@@ -66,8 +68,8 @@ class _$MemberStoreCopyWithImpl<$Res> implements $MemberStoreCopyWith<$Res> {
     Object? storeName = freezed,
     Object? lngX = freezed,
     Object? latY = freezed,
-    Object? isOpen = freezed,
     Object? congestionScoreAvg = freezed,
+    Object? businessInfo = freezed,
     Object? imageIdPair = freezed,
   }) {
     return _then(_value.copyWith(
@@ -87,24 +89,39 @@ class _$MemberStoreCopyWithImpl<$Res> implements $MemberStoreCopyWith<$Res> {
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      isOpen: isOpen == freezed
-          ? _value.isOpen
-          : isOpen // ignore: cast_nullable_to_non_nullable
-              as bool,
       congestionScoreAvg: congestionScoreAvg == freezed
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
+      businessInfo: businessInfo == freezed
+          ? _value.businessInfo
+          : businessInfo // ignore: cast_nullable_to_non_nullable
+              as BusinessInfo?,
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
     ));
   }
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair {
-    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair, (value) {
+  $BusinessInfoCopyWith<$Res>? get businessInfo {
+    if (_value.businessInfo == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.businessInfo!, (value) {
+      return _then(_value.copyWith(businessInfo: value));
+    });
+  }
+
+  @override
+  $ImageIdPairCopyWith<$Res>? get imageIdPair {
+    if (_value.imageIdPair == null) {
+      return null;
+    }
+
+    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
       return _then(_value.copyWith(imageIdPair: value));
     });
   }
@@ -122,12 +139,14 @@ abstract class _$$_MemberStoreCopyWith<$Res>
       String storeName,
       double lngX,
       double latY,
-      bool isOpen,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair});
+      @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo,
+      @JsonKey(name: 'storeImageDto') ImageIdPair? imageIdPair});
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
+  $BusinessInfoCopyWith<$Res>? get businessInfo;
+  @override
+  $ImageIdPairCopyWith<$Res>? get imageIdPair;
 }
 
 /// @nodoc
@@ -146,8 +165,8 @@ class __$$_MemberStoreCopyWithImpl<$Res> extends _$MemberStoreCopyWithImpl<$Res>
     Object? storeName = freezed,
     Object? lngX = freezed,
     Object? latY = freezed,
-    Object? isOpen = freezed,
     Object? congestionScoreAvg = freezed,
+    Object? businessInfo = freezed,
     Object? imageIdPair = freezed,
   }) {
     return _then(_$_MemberStore(
@@ -167,18 +186,18 @@ class __$$_MemberStoreCopyWithImpl<$Res> extends _$MemberStoreCopyWithImpl<$Res>
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      isOpen: isOpen == freezed
-          ? _value.isOpen
-          : isOpen // ignore: cast_nullable_to_non_nullable
-              as bool,
       congestionScoreAvg: congestionScoreAvg == freezed
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
+      businessInfo: businessInfo == freezed
+          ? _value.businessInfo
+          : businessInfo // ignore: cast_nullable_to_non_nullable
+              as BusinessInfo?,
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
     ));
   }
 }
@@ -191,9 +210,9 @@ class _$_MemberStore implements _MemberStore {
       required this.storeName,
       required this.lngX,
       required this.latY,
-      required this.isOpen,
       this.congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') required this.imageIdPair});
+      @JsonKey(name: 'businessHoursInfoDto') this.businessInfo,
+      @JsonKey(name: 'storeImageDto') this.imageIdPair});
 
   factory _$_MemberStore.fromJson(Map<String, dynamic> json) =>
       _$$_MemberStoreFromJson(json);
@@ -207,16 +226,17 @@ class _$_MemberStore implements _MemberStore {
   @override
   final double latY;
   @override
-  final bool isOpen;
-  @override
   final double? congestionScoreAvg;
   @override
+  @JsonKey(name: 'businessHoursInfoDto')
+  final BusinessInfo? businessInfo;
+  @override
   @JsonKey(name: 'storeImageDto')
-  final ImageIdPair imageIdPair;
+  final ImageIdPair? imageIdPair;
 
   @override
   String toString() {
-    return 'MemberStore(storeId: $storeId, storeName: $storeName, lngX: $lngX, latY: $latY, isOpen: $isOpen, congestionScoreAvg: $congestionScoreAvg, imageIdPair: $imageIdPair)';
+    return 'MemberStore(storeId: $storeId, storeName: $storeName, lngX: $lngX, latY: $latY, congestionScoreAvg: $congestionScoreAvg, businessInfo: $businessInfo, imageIdPair: $imageIdPair)';
   }
 
   @override
@@ -228,9 +248,10 @@ class _$_MemberStore implements _MemberStore {
             const DeepCollectionEquality().equals(other.storeName, storeName) &&
             const DeepCollectionEquality().equals(other.lngX, lngX) &&
             const DeepCollectionEquality().equals(other.latY, latY) &&
-            const DeepCollectionEquality().equals(other.isOpen, isOpen) &&
             const DeepCollectionEquality()
                 .equals(other.congestionScoreAvg, congestionScoreAvg) &&
+            const DeepCollectionEquality()
+                .equals(other.businessInfo, businessInfo) &&
             const DeepCollectionEquality()
                 .equals(other.imageIdPair, imageIdPair));
   }
@@ -243,8 +264,8 @@ class _$_MemberStore implements _MemberStore {
       const DeepCollectionEquality().hash(storeName),
       const DeepCollectionEquality().hash(lngX),
       const DeepCollectionEquality().hash(latY),
-      const DeepCollectionEquality().hash(isOpen),
       const DeepCollectionEquality().hash(congestionScoreAvg),
+      const DeepCollectionEquality().hash(businessInfo),
       const DeepCollectionEquality().hash(imageIdPair));
 
   @JsonKey(ignore: true)
@@ -264,10 +285,11 @@ abstract class _MemberStore implements MemberStore {
       required final String storeName,
       required final double lngX,
       required final double latY,
-      required final bool isOpen,
       final double? congestionScoreAvg,
+      @JsonKey(name: 'businessHoursInfoDto')
+          final BusinessInfo? businessInfo,
       @JsonKey(name: 'storeImageDto')
-          required final ImageIdPair imageIdPair}) = _$_MemberStore;
+          final ImageIdPair? imageIdPair}) = _$_MemberStore;
 
   factory _MemberStore.fromJson(Map<String, dynamic> json) =
       _$_MemberStore.fromJson;
@@ -281,12 +303,13 @@ abstract class _MemberStore implements MemberStore {
   @override
   double get latY => throw _privateConstructorUsedError;
   @override
-  bool get isOpen => throw _privateConstructorUsedError;
-  @override
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'businessHoursInfoDto')
+  BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: 'storeImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_MemberStoreCopyWith<_$_MemberStore> get copyWith =>

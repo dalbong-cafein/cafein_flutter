@@ -12,6 +12,6 @@ class SearchKeywordPage extends StatefulWidget {
 class _SearchKeywordPageState extends State<SearchKeywordPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
