@@ -257,7 +257,8 @@ class RecommendStoresCard extends StatelessWidget {
                                               CrossAxisAlignment.end,
                                           children: [
                                             BlocBuilder<HomeBloc, HomeState>(
-                                              builder: (context, state) {
+                                              buildWhen: (pre , next)=>next is HomeMyStoreCreateLoaded || next is HomeMyStoreDeleteLoaded || next is HomeRecommendStoreLoaded ,
+                                              builder: (context, heartState) {
                                                 return InkWell(
                                                   child: state is !HomeMyStoreCreateLoaded ? const Icon(
                                                       Icons.favorite_border_rounded,
