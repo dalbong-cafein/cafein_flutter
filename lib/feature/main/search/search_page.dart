@@ -160,7 +160,7 @@ class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
         body: BlocBuilder<SearchBloc, SearchState>(
           buildWhen: (pre, next) => next is SearchStoreLoaded,
           builder: (context, state) {
-            bool isCardView = false;
+            bool isCardView = true;
             if (state is SearchStoreLoaded) {
               isCardView = state.isCard;
               if (isCardView) {
@@ -169,6 +169,9 @@ class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
                   children: [
                     NaverMap(
                       onMapCreated: onMapCreated,
+                      initialCameraPosition: const CameraPosition(
+                        target: CafeinConst.defaultLating,
+                      ),
                     ),
                     SizedBox(
                       height: 248,
@@ -204,9 +207,7 @@ class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
                     color: Colors.transparent,
                     child: Column(
                       children: [
-                        SearchBodyHeader(
-                          isCardView: isCardView,
-                        ),
+                        SearchBodyHeader(isCardView: isCardView),
                         const SizedBox(height: 16),
                         Expanded(
                           child: Container(
@@ -252,6 +253,9 @@ class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
                   minHeight: MediaQuery.of(context).size.height * 0.35,
                   body: NaverMap(
                     onMapCreated: onMapCreated,
+                    initialCameraPosition: const CameraPosition(
+                      target: CafeinConst.defaultLating,
+                    ),
                     markers: const [],
                   ),
                 );
