@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
@@ -12,6 +13,7 @@ import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,86 +36,94 @@ class HomePage extends StatelessWidget {
         }
       },
       child: Scaffold(
+        backgroundColor: AppColor.grey50,
+        appBar: AppBar(
           backgroundColor: AppColor.grey50,
-          appBar: AppBar(
-            backgroundColor: AppColor.grey50,
-            title: const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                "나의 카페",
-                style: AppStyle.title18Bold,
+          title: const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(
+              "나의 카페",
+              style: AppStyle.title18Bold,
+            ),
+          ),
+          centerTitle: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 24,
+              ),
+              child: SizedBox(
+                width: 32,
+                height: 32,
+                child: memberData?.imageIdPair?.imageUrl == null
+                    ? CircleAvatar(
+                        child: loadAsset(
+                          CafeinConst.defaultProfiles[Random().nextInt(2)],
+                          width: 32,
+                          height: 32,
+                        ),
+                      )
+                    : CircleAvatar(
+                        radius: 32,
+                        backgroundImage: NetworkImage(memberData?.imageIdPair?.imageUrl ?? 'url'),
+                      ),
               ),
             ),
-            centerTitle: false,
-            actions: [
+          ],
+        ),
+        bottomNavigationBar: const MainBottomNavigationBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
               Padding(
                 padding: const EdgeInsets.only(
-                  right: 24,
+                  left: 16,
+                  right: 16,
+                  top: 16,
                 ),
-                child:SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: memberData?.imageIdPair?.imageUrl == null ? CircleAvatar(
-                    child: loadAsset(
-                      CafeinConst.defaultProfiles[Random().nextInt(2)],
-                      width: 32,
-                      height: 32,
-                    )
-                  ) : CircleAvatar(
-                    radius: 32,
-                    backgroundImage: NetworkImage(memberData?.imageIdPair?.imageUrl ?? 'url'),
+                child: Container(
+                  width: 328 * widthPercent,
+                  decoration: const BoxDecoration(
+                    color: AppColor.orange400,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
+                    ),
                   ),
-                )
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 32, top: 12, bottom: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "친구 초대하고",
+                          style: AppStyle.subTitle14Medium.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          "무료 아메리카노 받자",
+                          style: AppStyle.subTitle14Medium.copyWith(
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: StickerCard(),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: MyStoresCard(),
+              ),
+              const RecommendStoresCard(),
             ],
           ),
-          bottomNavigationBar: const MainBottomNavigationBar(),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 16,
-                  ),
-                  child: Container(
-                    width: 328 * widthPercent,
-                    decoration: const BoxDecoration(
-                      color: AppColor.orange400,
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                    ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 32, top: 12, bottom: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "친구 초대하고",
-                            style: AppStyle.subTitle14Medium
-                                .copyWith(color: Colors.white),
-                          ),
-                          Text("무료 아메리카노 받자",
-                              style: AppStyle.subTitle14Medium
-                                  .copyWith(color: Colors.white))
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: StickerCard(),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: MyStoresCard(),
-                ),
-                const RecommendStoresCard()
-              ],
-            ),
-          )),
+        ),
+      ),
     );
   }
 }

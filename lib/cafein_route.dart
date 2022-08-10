@@ -7,8 +7,10 @@ import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dar
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -53,8 +55,15 @@ abstract class CafeinRoute {
         );
         break;
       case MainPage.routeName:
-        page = BlocProvider(
-          create: (context) => MainBloc(),
+        page = MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => MainBloc(),
+            ),
+            BlocProvider(
+              create: (context) => LocationPermissionBloc(),
+            ),
+          ],
           child: const MainPage(),
         );
         break;
@@ -69,6 +78,9 @@ abstract class CafeinRoute {
         break;
       case PhoneCertificationDonePage.routeName:
         page = const PhoneCertificationDonePage();
+        break;
+      case SearchKeywordPage.routeName:
+        page = const SearchKeywordPage();
         break;
     }
 

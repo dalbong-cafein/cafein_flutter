@@ -7,6 +7,7 @@ import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -20,14 +21,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }) : super(const HomeInitial()) {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
-    on<HomeMyStoreCreateRequested>(_onHomeMyStoreCreateRequested);
-    on<HomeMyStoreDeleteRequested>(_onHomeMyStoreDeleteRequested);
+    on<HomeStoreHeartRequested>(_onHomeStoreHeartRequested);
   }
 
   final HeartRepository heartRepository;
   final StickerRepository stickerRepository;
   final UserRepository userRepository;
   final StoreRepository storeRepository;
+
+  bool isGranted = false;
+
+  List<Store> currentRecommendedStores = [];
 
   FutureOr<void> _onHomeRequested(
     HomeRequested event,
@@ -40,7 +44,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       final stickerCnt = stickerResponse.data;
       final memberStoreList = heartResponse.data.storeData;
-
 
       emit(HomeLoaded(
         stickerCnt: stickerCnt,
@@ -59,56 +62,70 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(const HomeLoading());
+
+    if (event.isGranted) {
+      isGranted = true;
+      try {
+        final result = await Geolocator.getCurrentPosition();
+
+        final currentLocation = await userRepository.getCurrentLocation(
+          longitude: result.longitude,
+          latitude: result.latitude,
+        );
+
+        final response = await storeRepository.getStores(currentLocation);
+        currentRecommendedStores = response.data;
+
+        emit(HomeRecommendStoreLoaded(
+          recommendStores: [...currentRecommendedStores],
+          isGranted: isGranted,
+        ));
+      } catch (e) {
+        emit(HomeError(
+          error: e,
+          event: () => add(event),
+        ));
+      }
+    } else {
+      emit(
+        HomeRecommendStoreLoaded(
+          recommendStores: const [],
+          isGranted: isGranted,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onHomeStoreHeartRequested(
+    HomeStoreHeartRequested event,
+    Emitter<HomeState> emit,
+  ) async {
     try {
-      final response = await storeRepository.getStores("노원구");
-      final storeList = response.data;
-      emit(HomeRecommendStoreLoaded(
-        recommendStores: [...storeList],
-      ));
+      final cur = currentRecommendedStores;
+      if (event.isLike) {
+        await heartRepository.createHeart(
+          currentRecommendedStores[event.index].storeId,
+        );
+      } else {
+        await heartRepository.deleteHeart(
+          currentRecommendedStores[event.index].storeId,
+        );
+      }
+
+      cur[event.index] = cur[event.index].copyWith(isHeart: event.isLike);
+      currentRecommendedStores = [...cur];
+
+      emit(
+        HomeRecommendStoreLoaded(
+          recommendStores: [...currentRecommendedStores],
+          isGranted: isGranted,
+        ),
+      );
     } catch (e) {
       emit(HomeError(
-        error: e,
         event: () => add(event),
+        error: e,
       ));
     }
   }
-
-  FutureOr<void> _onHomeMyStoreCreateRequested(
-      HomeMyStoreCreateRequested event,
-      Emitter<HomeState> emit,
-      ) async
-  {
-    emit(HomeMyStoreCreateLoading());
-    try{
-      await heartRepository.createHeart(event.storeId);
-      emit(HomeMyStoreCreateLoaded());
-    }catch(e){
-      emit(HomeMyStoreDeleteError(
-          event: ()=>add(event),
-          error: e
-      ));
-    }
-
-  }
-
-  FutureOr<void> _onHomeMyStoreDeleteRequested(
-      HomeMyStoreDeleteRequested event,
-      Emitter<HomeState> emit,
-      ) async
-  {
-    emit(HomeMyStoreDeleteLoading());
-    try{
-      await heartRepository.deleteHeart(event.storeId);
-      emit(HomeMyStoreDeleteLoaded());
-    }catch(e){
-      emit(HomeMyStoreDeleteError(
-          event: ()=>add(event),
-          error: e
-      ));
-    }
-  }
-
 }
-
-
-

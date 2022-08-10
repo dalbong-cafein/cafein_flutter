@@ -7,7 +7,7 @@ part 'main_event.dart';
 part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
-  MainBloc() : super(const MainNavigationSelected(index: 0)) {
+  MainBloc() : super(const MainNavigationSelected(index: 1)) {
     on<MainTabChanged>(_onMainTabChanged);
   }
 

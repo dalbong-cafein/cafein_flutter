@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_form_data_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/kakao/kakao_api_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
@@ -22,15 +23,22 @@ abstract class UserRepository {
   Future<BaseResponse<ImageIdPair>> updateMember(
     UpdateMemberRequest updateMemberRequest,
   );
+
+  Future<String> getCurrentLocation({
+    required double longitude,
+    required double latitude,
+  });
 }
 
 class UserRepositoryImpl extends UserRepository {
   final MemberClient memberClient;
   final MemberFormDataClient memberFormDataClient;
+  final KakaoApiClient kakaoApiClient;
 
   UserRepositoryImpl({
     required this.memberClient,
     required this.memberFormDataClient,
+    required this.kakaoApiClient,
   });
 
   @override
@@ -54,4 +62,14 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   set setMemberData(Member member) => _member = member;
+
+  @override
+  Future<String> getCurrentLocation({
+    required double longitude,
+    required double latitude,
+  }) =>
+      kakaoApiClient.getCurrentLocation(
+        longitude: longitude,
+        latitude: latitude,
+      );
 }

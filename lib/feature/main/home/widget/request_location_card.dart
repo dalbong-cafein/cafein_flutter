@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RequestLocationCard extends StatelessWidget {
   const RequestLocationCard({Key? key}) : super(key: key);
@@ -15,10 +16,8 @@ class RequestLocationCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Container(
         decoration: const BoxDecoration(
-          color : Colors.white,
-          borderRadius: BorderRadius.all(
-              Radius.circular(16)
-          ),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -29,28 +28,21 @@ class RequestLocationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                        color: AppColor.orange50,
-                        shape: BoxShape.circle
-                    ),
+                    decoration:
+                        const BoxDecoration(color: AppColor.orange50, shape: BoxShape.circle),
                     child: Padding(
                       padding: const EdgeInsets.all(6),
                       child: Center(
-                        child: loadAsset(
-                            AppIcon.place,
-                            height: 32 * heightPercent,
-                            width : 32 * widthPercent
-                        ),
+                        child: loadAsset(AppIcon.place,
+                            height: 32 * heightPercent, width: 32 * widthPercent),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left : 12),
+                    padding: const EdgeInsets.only(left: 12),
                     child: Text(
                       "원하시는 카페가 없나요? 위치 접근을\n허용하시면 근처 카페를 추천해드릴게요",
-                      style: AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.grey700
-                      ),
+                      style: AppStyle.subTitle14Medium.copyWith(color: AppColor.grey700),
                     ),
                   )
                 ],
@@ -59,20 +51,19 @@ class RequestLocationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top : 14),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color : AppColor.orange400,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(8.0)
+                    padding: const EdgeInsets.only(top: 14),
+                    child: InkWell(
+                      onTap: () => openAppSettings(),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: AppColor.orange400,
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left : 16, right : 16, top : 10, bottom : 10),
-                        child: Text(
-                          "위치 접근 설정",
-                          style: AppStyle.subTitle14Medium.copyWith(
-                            color: Colors.white
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+                          child: Text(
+                            "위치 접근 설정",
+                            style: AppStyle.subTitle14Medium.copyWith(color: Colors.white),
                           ),
                         ),
                       ),

@@ -9,6 +9,7 @@ import 'package:cafein_flutter/feature/main/home/home_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/notification_page.dart';
+import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,13 +24,21 @@ class MainPage extends StatelessWidget {
     var pages = [
       BlocProvider(
         create: (context) => HomeBloc(
-            stickerRepository: context.read<StickerRepository>(),
-            heartRepository: context.read<HeartRepository>(),
-            userRepository: context.read<UserRepository>(),
-            storeRepository: context.read<StoreRepository>()),
+          stickerRepository: context.read<StickerRepository>(),
+          heartRepository: context.read<HeartRepository>(),
+          userRepository: context.read<UserRepository>(),
+          storeRepository: context.read<StoreRepository>(),
+        ),
         child: const HomePage(),
       ),
-      const SearchPage(),
+      BlocProvider(
+        create: (context) => SearchBloc(
+          userRepository: context.read<UserRepository>(),
+          storeRepository: context.read<StoreRepository>(),
+          heartRepository: context.read<HeartRepository>(),
+        ),
+        child: const SearchPage(),
+      ),
       BlocProvider(
         create: (context) => NotificationBloc(
           notificationRepository: context.read<NotificationRepository>(),

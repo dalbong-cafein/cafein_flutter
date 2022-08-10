@@ -7,7 +7,7 @@ part 'image_id_pair.freezed.dart';
 class ImageIdPair with _$ImageIdPair {
   factory ImageIdPair({
     required int imageId,
-    String? imageUrl,
+    required String imageUrl,
   }) = _StoreImagePair;
 
   factory ImageIdPair.fromJson(Map<String, dynamic> json) => _$ImageIdPairFromJson(json);

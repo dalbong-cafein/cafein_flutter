@@ -46,68 +46,21 @@ class HomeError extends HomeState {
 
 class HomeRecommendStoreLoaded extends HomeState {
   final List<Store> recommendStores;
+  final bool isGranted;
 
   const HomeRecommendStoreLoaded({
     required this.recommendStores,
+    required this.isGranted,
   });
 
   @override
-  List<Object?> get props => [recommendStores];
+  List<Object?> get props => [
+        recommendStores,
+        isGranted,
+      ];
 }
 
-class HomeMyStoreCreateLoading extends HomeState{
-
+class HomeMyStoreCreateLoading extends HomeState {
   @override
   List<Object?> get props => [];
-
-}
-
-class HomeMyStoreCreateLoaded extends HomeState{
-
-  @override
-  List<Object?> get props => [];
-
-}
-
-class HomeMyStoreCreateError extends HomeState{
-  const HomeMyStoreCreateError({
-    required this.event,
-    required this.error,
-  });
-
-  final Function event;
-  final dynamic error;
-
-  @override
-  List<Object?> get props => [];
-
-}
-
-class HomeMyStoreDeleteLoading extends HomeState{
-
-  @override
-  List<Object?> get props => [];
-
-}
-
-class HomeMyStoreDeleteLoaded extends HomeState{
-
-  @override
-  List<Object?> get props => [];
-
-}
-
-class HomeMyStoreDeleteError extends HomeState{
-
-  const HomeMyStoreDeleteError({
-    required this.event,
-    required this.error,
-  });
-
-  final Function event;
-  final dynamic error;
-
-  @override
-  List<Object?> get props => [error];
-
 }

@@ -14,6 +14,7 @@ class Store with _$Store {
     required double lngX,
     required double latY,
     required int heartCnt,
+    required bool isHeart,
     double? congestionScoreAvg,
     @JsonKey(name: 'storeImageDtoList') required List<ImageIdPair> imageIdPair,
     @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo,

@@ -21,7 +21,7 @@ ImageIdPair _$ImageIdPairFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ImageIdPair {
   int get imageId => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $ImageIdPairCopyWith<$Res> {
   factory $ImageIdPairCopyWith(
           ImageIdPair value, $Res Function(ImageIdPair) then) =
       _$ImageIdPairCopyWithImpl<$Res>;
-  $Res call({int imageId, String? imageUrl});
+  $Res call({int imageId, String imageUrl});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$ImageIdPairCopyWithImpl<$Res> implements $ImageIdPairCopyWith<$Res> {
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$_StoreImagePairCopyWith<$Res>
           _$_StoreImagePair value, $Res Function(_$_StoreImagePair) then) =
       __$$_StoreImagePairCopyWithImpl<$Res>;
   @override
-  $Res call({int imageId, String? imageUrl});
+  $Res call({int imageId, String imageUrl});
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$_StoreImagePairCopyWithImpl<$Res>
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -105,7 +105,7 @@ class __$$_StoreImagePairCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_StoreImagePair implements _StoreImagePair {
-  _$_StoreImagePair({required this.imageId, this.imageUrl});
+  _$_StoreImagePair({required this.imageId, required this.imageUrl});
 
   factory _$_StoreImagePair.fromJson(Map<String, dynamic> json) =>
       _$$_StoreImagePairFromJson(json);
@@ -113,7 +113,7 @@ class _$_StoreImagePair implements _StoreImagePair {
   @override
   final int imageId;
   @override
-  final String? imageUrl;
+  final String imageUrl;
 
   @override
   String toString() {
@@ -149,7 +149,8 @@ class _$_StoreImagePair implements _StoreImagePair {
 
 abstract class _StoreImagePair implements ImageIdPair {
   factory _StoreImagePair(
-      {required final int imageId, final String? imageUrl}) = _$_StoreImagePair;
+      {required final int imageId,
+      required final String imageUrl}) = _$_StoreImagePair;
 
   factory _StoreImagePair.fromJson(Map<String, dynamic> json) =
       _$_StoreImagePair.fromJson;
@@ -157,7 +158,7 @@ abstract class _StoreImagePair implements ImageIdPair {
   @override
   int get imageId => throw _privateConstructorUsedError;
   @override
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_StoreImagePairCopyWith<_$_StoreImagePair> get copyWith =>

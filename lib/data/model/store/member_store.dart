@@ -17,6 +17,5 @@ class MemberStore with _$MemberStore {
     @JsonKey(name: 'storeImageDto') ImageIdPair? imageIdPair,
   }) = _MemberStore;
 
-  factory MemberStore.fromJson(Map<String, dynamic> json) =>
-      _$MemberStoreFromJson(json);
+  factory MemberStore.fromJson(Map<String, dynamic> json) => _$MemberStoreFromJson(json);
 }

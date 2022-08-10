@@ -7,9 +7,9 @@ abstract class AppIcon {
   static const passcucci = "asset/icon/passcucci_icon.png";
   static const ediya = "asset/icon/ediya_icon.png";
 
-  static const cafeCrowded = "asset/icon/cafe_crowded_icon.svg";
-  static const cafeGood = "asset/icon/cafe_good_icon.svg";
-  static const cafeNormal = "asset/icon/cafe_normal_icon.svg";
+  static const storeBad = "asset/icon/conf_bad.png";
+  static const storeGood = "asset/icon/conf_good.png";
+  static const storeNormal = "asset/icon/conf_normal.png";
 
   static const heartCrowded = "asset/icon/heart_crowded_icon.svg";
   static const heartGood = "asset/icon/heart_good_icon.svg";
@@ -29,4 +29,5 @@ abstract class AppIcon {
   static const circleDeleteGrey = 'asset/icon/ic_close_circle_grey300.svg';
 
   static const trash = "asset/icon/trash_icon.svg";
+  static const locationArrow = 'asset/icon/ic_near_me.svg';
 }
