@@ -5,6 +5,7 @@ import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
+import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,22 +76,8 @@ class SearchStoreCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                height: 18,
-                width: 37,
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.orange500),
-                  borderRadius: BorderRadius.circular(4),
-                  color: AppColor.white,
-                ),
-                child: Center(
-                  child: Text(
-                    '영업중',
-                    style: AppStyle.caption11Regular.copyWith(
-                      color: AppColor.orange500,
-                    ),
-                  ),
-                ),
+              OpenCloseChip(
+                isOpen: store.businessInfo?.isOpen ?? false,
               ),
               const SizedBox(width: 4),
               ConfuseChip(

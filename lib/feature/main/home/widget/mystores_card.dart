@@ -1,6 +1,8 @@
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
+import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +23,11 @@ class MyStoresCard extends StatelessWidget {
               return Container(
                 width: width - 32,
                 decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16.0)), color: Colors.white),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16.0),
+                  ),
+                  color: Colors.white,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 31, bottom: 31),
                   child: Column(
@@ -41,7 +47,9 @@ class MyStoresCard extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(width: 1, color: AppColor.orange500),
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
                           ),
                           child: Padding(
                             padding:
@@ -60,7 +68,11 @@ class MyStoresCard extends StatelessWidget {
             }
             return Container(
               decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(16.0)), color: Colors.white),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16.0),
+                ),
+                color: Colors.white,
+              ),
               child: Column(
                 children: [
                   Padding(
@@ -107,35 +119,11 @@ class MyStoresCard extends StatelessWidget {
                                               padding: const EdgeInsets.only(top: 5),
                                               child: Row(
                                                 children: [
-                                                  Container(
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1,
-                                                            color: state.memberStores[index]
-                                                                        .businessInfo?.isOpen ??
-                                                                    false
-                                                                ? AppColor.orange500
-                                                                : AppColor.grey300),
-                                                        borderRadius: const BorderRadius.all(
-                                                            Radius.circular(4.0)),
-                                                      ),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(
-                                                            top: 3, bottom: 3, left: 4, right: 4),
-                                                        child: state.memberStores[index]
-                                                                    .businessInfo?.isOpen ??
-                                                                false
-                                                            ? Text(
-                                                                "영업중",
-                                                                style: AppStyle.caption11Regular
-                                                                    .copyWith(
-                                                                        color: AppColor.orange500),
-                                                              )
-                                                            : Text("영업종료",
-                                                                style: AppStyle.caption11Regular
-                                                                    .copyWith(
-                                                                        color: AppColor.grey500)),
-                                                      )),
+                                                  OpenCloseChip(
+                                                    isOpen: state.memberStores[index].businessInfo
+                                                            ?.isOpen ??
+                                                        false,
+                                                  ),
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 6.0),
                                                     child: Text(
@@ -159,11 +147,11 @@ class MyStoresCard extends StatelessWidget {
                                 ),
                                 SizedBox(
                                   width: (width - 64) * 0.2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      _confuse(state.memberStores[index].congestionScoreAvg ?? 0)
-                                    ],
+                                  child: ConfuseChip(
+                                    confuseScore: state.memberStores[index].congestionScoreAvg,
+                                    height: 24,
+                                    textStyle: AppStyle.subTitle15Medium,
+                                    width: 42,
                                   ),
                                 )
                               ],
@@ -199,7 +187,7 @@ class MyStoresCard extends StatelessWidget {
               ),
             );
           } else {
-            return Container();
+            return const SizedBox.shrink();
           }
         },
       ),
@@ -222,50 +210,6 @@ class MyStoresCard extends StatelessWidget {
         return "오전0$hour:$minute";
       }
       return "오전$hour:$minute";
-    }
-  }
-
-  Widget _confuse(double conf) {
-    if (conf.floor() == 0) {
-      return const Text("혼잡도 정보가 없습니다.");
-    }
-    if (conf.floor() == 1) {
-      return Container(
-          decoration: const BoxDecoration(
-            color: AppColor.green50,
-            borderRadius: BorderRadius.all(Radius.circular(4.0)),
-          ),
-          child: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
-              child: Text(
-                "여유",
-                style: AppStyle.subTitle15Medium.copyWith(color: AppColor.green500),
-              )));
-    }
-    if (conf.floor() == 2) {
-      return Container(
-          decoration: const BoxDecoration(
-            color: AppColor.amber50,
-            borderRadius: BorderRadius.all(Radius.circular(4.0)),
-          ),
-          child: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
-              child: Text(
-                "보통",
-                style: AppStyle.subTitle15Medium.copyWith(color: AppColor.amber500),
-              )));
-    } else {
-      return Container(
-          decoration: const BoxDecoration(
-            color: AppColor.scarlet50,
-            borderRadius: BorderRadius.all(Radius.circular(4.0)),
-          ),
-          child: Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
-              child: Text(
-                "혼잡",
-                style: AppStyle.subTitle15Medium.copyWith(color: AppColor.scarlet500),
-              )));
     }
   }
 }

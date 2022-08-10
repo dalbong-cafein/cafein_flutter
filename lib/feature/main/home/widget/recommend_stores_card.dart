@@ -1,19 +1,45 @@
+import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
+import 'package:cafein_flutter/feature/main/home/widget/request_location_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
+import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
+import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class RecommendStoresCard extends StatelessWidget {
+class RecommendStoresCard extends StatefulWidget {
   const RecommendStoresCard({Key? key}) : super(key: key);
+
+  @override
+  State<RecommendStoresCard> createState() => _RecommendStoresCardState();
+}
+
+class _RecommendStoresCardState extends State<RecommendStoresCard> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () {
+        final state = context.read<LocationPermissionBloc>().state;
+
+        context.read<HomeBloc>().add(
+              HomeRecommendStoreRequested(
+                isGranted: state is LocationPermissionChecked && state.permissionStatus.isGranted,
+              ),
+            );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    context.read<HomeBloc>().add(const HomeRecommendStoreRequested());
+
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state is HomeError) {
@@ -27,6 +53,9 @@ class RecommendStoresCard extends StatelessWidget {
       buildWhen: (pre, next) => next is HomeRecommendStoreLoaded,
       builder: (blocContext, state) {
         if (state is HomeRecommendStoreLoaded) {
+          if (!state.isGranted) {
+            return const RequestLocationCard();
+          }
           return Padding(
             padding: const EdgeInsets.only(top: 32),
             child: Column(
@@ -48,14 +77,15 @@ class RecommendStoresCard extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 10,
-                      itemBuilder: (BuildContext listContext, int index) {
-                        int storeId = state.recommendStores[index].storeId;
+                      itemBuilder: (listContext, index) {
                         return Padding(
                           padding: const EdgeInsets.only(left: 12),
                           child: Container(
                             decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(16)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16),
+                              ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(12),
@@ -115,42 +145,10 @@ class RecommendStoresCard extends StatelessWidget {
                                                   padding: const EdgeInsets.only(top: 8),
                                                   child: Row(
                                                     children: [
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            width: 1,
-                                                            color: state.recommendStores[index]
-                                                                        .businessInfo?.isOpen ??
-                                                                    false
-                                                                ? AppColor.orange500
-                                                                : AppColor.grey500,
-                                                          ),
-                                                          borderRadius: const BorderRadius.all(
-                                                              Radius.circular(4.0)),
-                                                        ),
-                                                        child: Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                top: 3,
-                                                                bottom: 3,
-                                                                left: 4,
-                                                                right: 4),
-                                                            child: state.recommendStores[index]
-                                                                        .businessInfo?.isOpen ??
-                                                                    false
-                                                                ? Text(
-                                                                    "영업중",
-                                                                    style: AppStyle.caption11Regular
-                                                                        .copyWith(
-                                                                      color: AppColor.orange500,
-                                                                    ),
-                                                                  )
-                                                                : Text(
-                                                                    "영업종료",
-                                                                    style: AppStyle.caption11Regular
-                                                                        .copyWith(
-                                                                      color: AppColor.grey500,
-                                                                    ),
-                                                                  )),
+                                                      OpenCloseChip(
+                                                        isOpen: state.recommendStores[index]
+                                                                .businessInfo?.isOpen ??
+                                                            false,
                                                       ),
                                                       Padding(
                                                         padding: const EdgeInsets.only(
@@ -173,47 +171,16 @@ class RecommendStoresCard extends StatelessWidget {
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.only(top: 8),
-                                                  child: Row(
-                                                    children: [
-                                                      const Icon(Icons.near_me_rounded,
-                                                          color: AppColor.grey500, size: 16),
-                                                      const Padding(
-                                                        padding: EdgeInsets.only(left: 2),
-                                                        child: Text(
-                                                          "150m",
-                                                          style: AppStyle.caption12Regular,
-                                                        ),
-                                                      ),
-                                                      const Padding(
-                                                        padding: EdgeInsets.only(left: 4),
-                                                        child: Icon(Icons.thumb_up_alt_rounded,
-                                                            color: AppColor.orange400, size: 16),
-                                                      ),
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(left: 2),
-                                                        child: Text(
-                                                          state.recommendStores[index]
-                                                                      .recommendPercent ==
-                                                                  null
-                                                              ? "0%"
-                                                              : "${state.recommendStores[index].recommendPercent!.floor()}%",
-                                                          style: AppStyle.caption12Regular,
-                                                        ),
-                                                      ),
-                                                      const Padding(
-                                                        padding: EdgeInsets.only(left: 4),
-                                                        child: Icon(Icons.favorite_rounded,
-                                                            color: AppColor.orange400, size: 16),
-                                                      ),
-                                                      Padding(
-                                                        padding: const EdgeInsets.only(left: 2),
-                                                        child: Text(
-                                                          state.recommendStores[index].heartCnt
-                                                              .toString(),
-                                                          style: AppStyle.caption12Regular,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  child: StoreAdditionalInformationRow(
+                                                    textStyle: AppStyle.caption12Regular,
+                                                    distance: 150,
+                                                    recommendScore: state
+                                                            .recommendStores[index].recommendPercent
+                                                            ?.toInt() ??
+                                                        0,
+                                                    likeCount:
+                                                        state.recommendStores[index].heartCnt,
+                                                    iconSize: 20,
                                                   ),
                                                 )
                                               ],
@@ -228,25 +195,22 @@ class RecommendStoresCard extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
-                                            BlocBuilder<HomeBloc, HomeState>(
-                                              buildWhen: (pre, next) =>
-                                                  next is HomeMyStoreCreateLoaded ||
-                                                  next is HomeMyStoreDeleteLoaded ||
-                                                  next is HomeRecommendStoreLoaded,
-                                              builder: (context, heartState) {
-                                                return InkWell(
-                                                  child: state is! HomeMyStoreCreateLoaded
-                                                      ? const Icon(Icons.favorite_border_rounded,
-                                                          color: AppColor.grey200)
-                                                      : const Icon(Icons.favorite_rounded,
-                                                          color: Colors.orange),
-                                                  onTap: () {
-                                                    context.read<HomeBloc>().add(
-                                                        HomeMyStoreCreateRequested(
-                                                            storeId: storeId));
-                                                  },
-                                                );
-                                              },
+                                            InkWell(
+                                              onTap: () => context.read<HomeBloc>().add(
+                                                    HomeStoreHeartRequested(
+                                                      index: index,
+                                                      isLike: !state.recommendStores[index].isHeart,
+                                                    ),
+                                                  ),
+                                              child: state.recommendStores[index].isHeart
+                                                  ? const Icon(
+                                                      Icons.favorite_border_rounded,
+                                                      color: AppColor.grey200,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.favorite_rounded,
+                                                      color: Colors.orange,
+                                                    ),
                                             )
                                           ],
                                         ),

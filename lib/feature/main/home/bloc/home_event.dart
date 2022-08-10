@@ -12,26 +12,25 @@ class HomeRequested extends HomeEvent {
 }
 
 class HomeRecommendStoreRequested extends HomeEvent {
-  const HomeRecommendStoreRequested();
+  const HomeRecommendStoreRequested({
+    required this.isGranted,
+  });
+
+  final bool isGranted;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [isGranted];
 }
 
-class HomeMyStoreCreateRequested extends HomeEvent{
-  final int storeId;
-  const HomeMyStoreCreateRequested({required this.storeId});
+class HomeStoreHeartRequested extends HomeEvent {
+  final int index;
+  final bool isLike;
+
+  const HomeStoreHeartRequested({
+    required this.index,
+    required this.isLike,
+  });
 
   @override
-  List<Object?> get props => [storeId];
-
-}
-
-class HomeMyStoreDeleteRequested extends HomeEvent{
-  final int storeId;
-  const HomeMyStoreDeleteRequested({required this.storeId});
-
-  @override
-  List<Object?> get props => [storeId];
-
+  List<Object?> get props => [index];
 }
