@@ -6,8 +6,8 @@ part 'notification.freezed.dart';
 @freezed
 class Notification with _$Notification {
   factory Notification({
-    required int notificationId,
-    required String noticeType,
+    @JsonKey(name: 'noticeId') required int notificationId,
+    @JsonKey(name: 'noticeType') required String notificationType,
     required String content,
     required bool isRead,
     int? stickerId,
@@ -16,6 +16,5 @@ class Notification with _$Notification {
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _Notification;
 
-  factory Notification.fromJson(Map<String, dynamic> json) =>
-      _$NotificationFromJson(json);
+  factory Notification.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
 }

@@ -8,8 +8,8 @@ part of 'notification.dart';
 
 _$_Notification _$$_NotificationFromJson(Map<String, dynamic> json) =>
     _$_Notification(
-      notificationId: json['notificationId'] as int,
-      noticeType: json['noticeType'] as String,
+      notificationId: json['noticeId'] as int,
+      notificationType: json['noticeType'] as String,
       content: json['content'] as String,
       isRead: json['isRead'] as bool,
       stickerId: json['stickerId'] as int?,
@@ -20,8 +20,8 @@ _$_Notification _$$_NotificationFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_NotificationToJson(_$_Notification instance) =>
     <String, dynamic>{
-      'notificationId': instance.notificationId,
-      'noticeType': instance.noticeType,
+      'noticeId': instance.notificationId,
+      'noticeType': instance.notificationType,
       'content': instance.content,
       'isRead': instance.isRead,
       'stickerId': instance.stickerId,

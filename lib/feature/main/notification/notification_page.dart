@@ -2,6 +2,7 @@ import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,17 +28,21 @@ class NotificationPage extends StatelessWidget {
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(
           centerTitle: false,
-          title: const Text("알림"),
+          titleSpacing: 16,
+          title: const Text(
+            '알림',
+            style: AppStyle.title19Bold,
+          ),
           actions: [
             Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    AppIcon.trash,
-                  ),
-                  iconSize: 160,
-                ))
+              padding: const EdgeInsets.only(right: 16),
+              child: IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(
+                  AppIcon.trash,
+                ),
+              ),
+            )
           ],
         ),
         body: BlocBuilder<NotificationBloc, NotificationState>(
@@ -45,7 +50,7 @@ class NotificationPage extends StatelessWidget {
             if (state is NotificationLoaded) {
               if (state.notifications.isEmpty) {
                 return const Center(
-                  child: Text("빈 화면"),
+                  child: Text('알림이 없습니다'),
                 );
               }
               return ListView.builder(
@@ -54,19 +59,30 @@ class NotificationPage extends StatelessWidget {
                   return Container(
                     color: state.notifications[index].isRead ? Colors.white : AppColor.grey50,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 16),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        top: 12,
+                        bottom: 12,
+                        right: 16,
+                      ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Icon(Icons.square, color: AppColor.grey400),
+                          const Icon(
+                            CupertinoIcons.xmark,
+                            color: AppColor.grey800,
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(state.notifications[index].noticeType),
+                                Text(
+                                  state.notifications[index].notificationType,
+                                  style: AppStyle.subTitle14Medium,
+                                ),
                                 Text(
                                   state.notifications[index].content,
                                   style: AppStyle.body14Regular,

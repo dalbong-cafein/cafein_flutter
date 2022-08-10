@@ -39,6 +39,16 @@ class _SearchPageState extends State<SearchPage> {
               const LocationPermissionRequest(),
             ),
       );
+    } else {
+      final state = context.read<LocationPermissionBloc>().state as LocationPermissionChecked;
+      final bloc = context.read<SearchBloc>();
+      if (state.permissionStatus.isGranted) {
+        bloc.add(const SearchLocationRequested());
+      } else {
+        bloc.add(const SearchStoreRequested(
+          location: CafeinConst.defaultLocation,
+        ));
+      }
     }
   }
 

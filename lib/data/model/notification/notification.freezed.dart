@@ -20,8 +20,10 @@ Notification _$NotificationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Notification {
+  @JsonKey(name: 'noticeId')
   int get notificationId => throw _privateConstructorUsedError;
-  String get noticeType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'noticeType')
+  String get notificationType => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   bool get isRead => throw _privateConstructorUsedError;
   int? get stickerId => throw _privateConstructorUsedError;
@@ -42,8 +44,8 @@ abstract class $NotificationCopyWith<$Res> {
           Notification value, $Res Function(Notification) then) =
       _$NotificationCopyWithImpl<$Res>;
   $Res call(
-      {int notificationId,
-      String noticeType,
+      {@JsonKey(name: 'noticeId') int notificationId,
+      @JsonKey(name: 'noticeType') String notificationType,
       String content,
       bool isRead,
       int? stickerId,
@@ -63,7 +65,7 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
   @override
   $Res call({
     Object? notificationId = freezed,
-    Object? noticeType = freezed,
+    Object? notificationType = freezed,
     Object? content = freezed,
     Object? isRead = freezed,
     Object? stickerId = freezed,
@@ -76,9 +78,9 @@ class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
           ? _value.notificationId
           : notificationId // ignore: cast_nullable_to_non_nullable
               as int,
-      noticeType: noticeType == freezed
-          ? _value.noticeType
-          : noticeType // ignore: cast_nullable_to_non_nullable
+      notificationType: notificationType == freezed
+          ? _value.notificationType
+          : notificationType // ignore: cast_nullable_to_non_nullable
               as String,
       content: content == freezed
           ? _value.content
@@ -116,8 +118,8 @@ abstract class _$$_NotificationCopyWith<$Res>
       __$$_NotificationCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int notificationId,
-      String noticeType,
+      {@JsonKey(name: 'noticeId') int notificationId,
+      @JsonKey(name: 'noticeType') String notificationType,
       String content,
       bool isRead,
       int? stickerId,
@@ -140,7 +142,7 @@ class __$$_NotificationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? notificationId = freezed,
-    Object? noticeType = freezed,
+    Object? notificationType = freezed,
     Object? content = freezed,
     Object? isRead = freezed,
     Object? stickerId = freezed,
@@ -153,9 +155,9 @@ class __$$_NotificationCopyWithImpl<$Res>
           ? _value.notificationId
           : notificationId // ignore: cast_nullable_to_non_nullable
               as int,
-      noticeType: noticeType == freezed
-          ? _value.noticeType
-          : noticeType // ignore: cast_nullable_to_non_nullable
+      notificationType: notificationType == freezed
+          ? _value.notificationType
+          : notificationType // ignore: cast_nullable_to_non_nullable
               as String,
       content: content == freezed
           ? _value.content
@@ -189,8 +191,8 @@ class __$$_NotificationCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Notification implements _Notification {
   _$_Notification(
-      {required this.notificationId,
-      required this.noticeType,
+      {@JsonKey(name: 'noticeId') required this.notificationId,
+      @JsonKey(name: 'noticeType') required this.notificationType,
       required this.content,
       required this.isRead,
       this.stickerId,
@@ -202,9 +204,11 @@ class _$_Notification implements _Notification {
       _$$_NotificationFromJson(json);
 
   @override
+  @JsonKey(name: 'noticeId')
   final int notificationId;
   @override
-  final String noticeType;
+  @JsonKey(name: 'noticeType')
+  final String notificationType;
   @override
   final String content;
   @override
@@ -221,7 +225,7 @@ class _$_Notification implements _Notification {
 
   @override
   String toString() {
-    return 'Notification(notificationId: $notificationId, noticeType: $noticeType, content: $content, isRead: $isRead, stickerId: $stickerId, couponId: $couponId, boardId: $boardId, registeredDateTime: $registeredDateTime)';
+    return 'Notification(notificationId: $notificationId, notificationType: $notificationType, content: $content, isRead: $isRead, stickerId: $stickerId, couponId: $couponId, boardId: $boardId, registeredDateTime: $registeredDateTime)';
   }
 
   @override
@@ -232,7 +236,7 @@ class _$_Notification implements _Notification {
             const DeepCollectionEquality()
                 .equals(other.notificationId, notificationId) &&
             const DeepCollectionEquality()
-                .equals(other.noticeType, noticeType) &&
+                .equals(other.notificationType, notificationType) &&
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality().equals(other.isRead, isRead) &&
             const DeepCollectionEquality().equals(other.stickerId, stickerId) &&
@@ -247,7 +251,7 @@ class _$_Notification implements _Notification {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(notificationId),
-      const DeepCollectionEquality().hash(noticeType),
+      const DeepCollectionEquality().hash(notificationType),
       const DeepCollectionEquality().hash(content),
       const DeepCollectionEquality().hash(isRead),
       const DeepCollectionEquality().hash(stickerId),
@@ -268,8 +272,10 @@ class _$_Notification implements _Notification {
 
 abstract class _Notification implements Notification {
   factory _Notification(
-      {required final int notificationId,
-      required final String noticeType,
+      {@JsonKey(name: 'noticeId')
+          required final int notificationId,
+      @JsonKey(name: 'noticeType')
+          required final String notificationType,
       required final String content,
       required final bool isRead,
       final int? stickerId,
@@ -282,9 +288,11 @@ abstract class _Notification implements Notification {
       _$_Notification.fromJson;
 
   @override
+  @JsonKey(name: 'noticeId')
   int get notificationId => throw _privateConstructorUsedError;
   @override
-  String get noticeType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'noticeType')
+  String get notificationType => throw _privateConstructorUsedError;
   @override
   String get content => throw _privateConstructorUsedError;
   @override
