@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
+import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
@@ -32,52 +33,64 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => context.read<SearchBloc>().add(
-            const SearchPermissionRequested(),
-          ),
-    );
+    if (context.read<LocationPermissionBloc>().state == const LocationPermissionInitial()) {
+      Future.microtask(
+        () => context.read<LocationPermissionBloc>().add(
+              const LocationPermissionRequest(),
+            ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    return BlocListener<SearchBloc, SearchState>(
-      listener: (context, state) async {
-        final bloc = context.read<SearchBloc>();
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SearchBloc, SearchState>(
+          listener: (context, state) async {
+            final bloc = context.read<SearchBloc>();
 
-        if (state is SearchError) {
-          ErrorDialog.show(
-            context,
-            error: state.error,
-            refresh: state.event,
-          );
-        } else if (state is SearchPermissionChecked) {
-          if (state.permissionStatus.isGranted) {
-            bloc.add(const SearchLocationRequested());
+            if (state is SearchError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            } else if (state is SearchLocationChecked) {
+              bloc.add(
+                SearchStoreRequested(location: state.location),
+              );
+            } else if (state is SearchStoreLoaded) {
+              markers.addAll(state.markers);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<LocationPermissionBloc, LocationPermissionState>(
+          listener: (context, state) async {
+            final bloc = context.read<SearchBloc>();
+            if (state is LocationPermissionChecked) {
+              if (state.permissionStatus.isGranted) {
+                bloc.add(const SearchLocationRequested());
 
-            return;
-          }
+                return;
+              }
 
-          final result = await PermissionDialog.show(context);
-          if (!result) {
-            bloc.add(const SearchStoreRequested(
-              location: CafeinConst.defaultLocation,
-            ));
-            return;
-          }
+              final result = await PermissionDialog.show(context);
+              if (!result) {
+                bloc.add(const SearchStoreRequested(
+                  location: CafeinConst.defaultLocation,
+                ));
+                return;
+              }
 
-          openAppSettings();
-        } else if (state is SearchLocationChecked) {
-          bloc.add(
-            SearchStoreRequested(location: state.location),
-          );
-        } else if (state is SearchStoreLoaded) {
-          markers.addAll(state.markers);
-          setState(() {});
-        }
-      },
+              openAppSettings();
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(

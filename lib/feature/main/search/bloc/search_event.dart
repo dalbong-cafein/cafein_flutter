@@ -18,10 +18,6 @@ class SearchStoreRequested extends SearchEvent {
   List<Object?> get props => [location];
 }
 
-class SearchPermissionRequested extends SearchEvent {
-  const SearchPermissionRequested();
-}
-
 class SearchLocationRequested extends SearchEvent {
   const SearchLocationRequested();
 }

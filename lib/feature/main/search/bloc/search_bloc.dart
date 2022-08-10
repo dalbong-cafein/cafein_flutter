@@ -9,7 +9,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -20,7 +19,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required this.storeRepository,
     required this.heartRepository,
   }) : super(const SearchInitial()) {
-    on<SearchPermissionRequested>(_onSearchPermissionRequested);
     on<SearchLocationRequested>(_onSearchLocationRequested);
     on<SearchStoreRequested>(_onSearchStoreRequested);
     on<SearchStoreHeartRequested>(_onSearchStoreHeartRequested);
@@ -118,14 +116,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         event: () => add(event),
       ));
     }
-  }
-
-  FutureOr<void> _onSearchPermissionRequested(
-    SearchPermissionRequested event,
-    Emitter<SearchState> emit,
-  ) async {
-    final status = await Permission.locationWhenInUse.request();
-    emit(SearchPermissionChecked(permissionStatus: status));
   }
 
   FutureOr<void> _onSearchStoreHeartRequested(

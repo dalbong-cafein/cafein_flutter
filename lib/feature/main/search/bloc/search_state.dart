@@ -44,20 +44,6 @@ class SearchStoreLoaded extends SearchState {
       ];
 }
 
-class SearchPermissionChecked extends SearchState {
-  const SearchPermissionChecked({
-    required this.permissionStatus,
-  });
-
-  final PermissionStatus permissionStatus;
-
-  @override
-  List<Object?> get props => [
-        permissionStatus,
-        DateTime.now(),
-      ];
-}
-
 class SearchLocationChecked extends SearchState {
   const SearchLocationChecked({
     required this.location,
