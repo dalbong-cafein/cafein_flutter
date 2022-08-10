@@ -1,19 +1,23 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
+import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchStoreCard extends StatelessWidget {
   const SearchStoreCard({
     Key? key,
     required this.store,
+    required this.index,
   }) : super(key: key);
 
   final Store store;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +52,24 @@ class SearchStoreCard extends StatelessWidget {
                 store.storeName,
                 style: AppStyle.subTitle16SemiBold,
               ),
-              const Icon(
-                Icons.favorite_outline,
-                size: 32,
-                color: AppColor.grey300,
+              InkWell(
+                onTap: () => context.read<SearchBloc>().add(
+                      SearchStoreHeartRequested(
+                        isLike: !store.isHeart,
+                        index: index,
+                      ),
+                    ),
+                child: store.isHeart
+                    ? const Icon(
+                        Icons.favorite,
+                        size: 32,
+                        color: AppColor.orange500,
+                      )
+                    : const Icon(
+                        Icons.favorite_outline,
+                        size: 32,
+                        color: AppColor.grey300,
+                      ),
               ),
             ],
           ),

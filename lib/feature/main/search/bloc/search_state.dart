@@ -32,18 +32,15 @@ class SearchStoreLoaded extends SearchState {
   const SearchStoreLoaded({
     required this.stores,
     required this.markers,
-    required this.isCard,
   });
 
   final List<Store> stores;
   final List<Marker> markers;
-  final bool isCard;
 
   @override
   List<Object?> get props => [
         stores,
         markers,
-        isCard,
       ];
 }
 

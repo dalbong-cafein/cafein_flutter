@@ -35,6 +35,7 @@ class MainPage extends StatelessWidget {
         create: (context) => SearchBloc(
           userRepository: context.read<UserRepository>(),
           storeRepository: context.read<StoreRepository>(),
+          heartRepository: context.read<HeartRepository>(),
         ),
         child: const SearchPage(),
       ),

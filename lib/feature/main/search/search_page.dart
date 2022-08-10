@@ -5,7 +5,6 @@ import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
-import 'package:cafein_flutter/feature/main/search/widget/search_store_panel_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
@@ -15,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -24,38 +22,19 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
+class _SearchPageState extends State<SearchPage> {
   Completer<NaverMapController> mapController = Completer<NaverMapController>();
+
+  final markers = <Marker>[];
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     Future.microtask(
       () => context.read<SearchBloc>().add(
             const SearchPermissionRequested(),
           ),
     );
-  }
-
-  @override
-  void didChangeAppLifecycleState(state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        context.read<SearchBloc>().add(
-              const SearchPermissionRequested(),
-            );
-        break;
-      default:
-        break;
-    }
-    super.didChangeAppLifecycleState(state);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
   }
 
   @override
@@ -92,6 +71,9 @@ class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
           bloc.add(
             SearchStoreRequested(location: state.location),
           );
+        } else if (state is SearchStoreLoaded) {
+          markers.addAll(state.markers);
+          setState(() {});
         }
       },
       child: Scaffold(
@@ -157,112 +139,47 @@ class _SearchPageState extends State<SearchPage> with WidgetsBindingObserver {
             ],
           ),
         ),
-        body: BlocBuilder<SearchBloc, SearchState>(
-          buildWhen: (pre, next) => next is SearchStoreLoaded,
-          builder: (context, state) {
-            bool isCardView = true;
-            if (state is SearchStoreLoaded) {
-              isCardView = state.isCard;
-              if (isCardView) {
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    NaverMap(
-                      onMapCreated: onMapCreated,
-                      initialCameraPosition: const CameraPosition(
-                        target: CafeinConst.defaultLating,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 248,
-                      width: width,
-                      child: Column(
-                        children: [
-                          SearchBodyHeader(isCardView: isCardView),
-                          const SizedBox(height: 16),
-                          Expanded(
-                            child: PageView.builder(
-                              itemBuilder: (context, index) {
-                                return SearchStoreCard(
-                                  store: state.stores[index],
-                                );
-                              },
-                              itemCount: state.stores.length,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return SlidingUpPanel(
-                  color: Colors.transparent,
-                  backdropOpacity: 0,
-                  backdropColor: Colors.transparent,
-                  boxShadow: const [],
-                  backdropEnabled: false,
-                  panel: Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        SearchBodyHeader(isCardView: isCardView),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
-                              color: AppColor.white,
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 12,
-                                    bottom: 16,
-                                  ),
-                                  height: 3,
-                                  width: 48,
-                                  decoration: BoxDecoration(
-                                    color: AppColor.grey200,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: ListView.separated(
-                                    itemBuilder: (context, index) => const SearchStorePanelCard(),
-                                    separatorBuilder: (context, index) => Container(
-                                      height: 1,
-                                      color: AppColor.grey500,
-                                    ),
-                                    itemCount: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            NaverMap(
+              onMapCreated: onMapCreated,
+              initialCameraPosition: const CameraPosition(
+                target: CafeinConst.defaultLating,
+              ),
+              markers: markers,
+            ),
+            SizedBox(
+              height: 248,
+              width: width,
+              child: Column(
+                children: [
+                  const SearchBodyHeader(isCardView: true),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: BlocBuilder<SearchBloc, SearchState>(
+                      buildWhen: (pre, next) => next is SearchStoreLoaded,
+                      builder: (context, state) {
+                        if (state is SearchStoreLoaded) {
+                          return PageView.builder(
+                            itemBuilder: (context, index) {
+                              return SearchStoreCard(
+                                store: state.stores[index],
+                                index: index,
+                              );
+                            },
+                            itemCount: state.stores.length,
+                          );
+                        }
+                        return const CircleLoadingIndicator();
+                      },
                     ),
                   ),
-                  maxHeight: 700,
-                  minHeight: MediaQuery.of(context).size.height * 0.35,
-                  body: NaverMap(
-                    onMapCreated: onMapCreated,
-                    initialCameraPosition: const CameraPosition(
-                      target: CafeinConst.defaultLating,
-                    ),
-                    markers: const [],
-                  ),
-                );
-              }
-            }
-            return const CircleLoadingIndicator();
-          },
+                  const SizedBox(height: 12),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

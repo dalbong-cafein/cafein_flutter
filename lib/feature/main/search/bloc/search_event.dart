@@ -26,13 +26,15 @@ class SearchLocationRequested extends SearchEvent {
   const SearchLocationRequested();
 }
 
-class SearchViewTypeChanged extends SearchEvent {
-  const SearchViewTypeChanged({
-    required this.isCard,
+class SearchStoreHeartRequested extends SearchEvent {
+  const SearchStoreHeartRequested({
+    required this.isLike,
+    required this.index,
   });
 
-  final bool isCard;
+  final bool isLike;
+  final int index;
 
   @override
-  List<Object?> get props => [isCard];
+  List<Object?> get props => [isLike];
 }

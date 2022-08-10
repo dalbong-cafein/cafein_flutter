@@ -1,8 +1,6 @@
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchBodyHeader extends StatelessWidget {
   const SearchBodyHeader({
@@ -32,9 +30,7 @@ class SearchBodyHeader extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () => context.read<SearchBloc>().add(
-                  SearchViewTypeChanged(isCard: !isCardView),
-                ),
+            onTap: () {},
             child: Container(
               height: 34,
               width: isCardView ? 88 : 101,
