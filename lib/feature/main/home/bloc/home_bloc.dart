@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/store/member_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
