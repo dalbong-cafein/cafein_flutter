@@ -1,4 +1,15 @@
 part of 'sticker_bloc.dart';
 
-@immutable
-abstract class StickerEvent {}
+
+abstract class StickerEvent extends Equatable{
+
+  const StickerEvent();
+
+}
+
+class StickerRequested extends StickerEvent{
+
+  @override
+  List<Object?> get props => [];
+
+}
