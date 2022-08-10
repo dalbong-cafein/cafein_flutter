@@ -12,6 +12,10 @@ class SearchKeywordPage extends StatefulWidget {
 class _SearchKeywordPageState extends State<SearchKeywordPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      body: Center(
+        child: Text('검색페이지'),
+      ),
+    );
   }
 }

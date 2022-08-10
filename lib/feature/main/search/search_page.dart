@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
+import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -83,7 +85,9 @@ class _SearchPageState extends State<SearchPage> {
           title: Column(
             children: [
               InkWell(
-                onTap: () async {},
+                onTap: () async {
+                  Navigator.of(context).pushNamed(SearchKeywordPage.routeName);
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -118,22 +122,37 @@ class _SearchPageState extends State<SearchPage> {
                     horizontal: 16,
                   ),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                    height: 30,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: AppColor.grey200),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '영업중 $index',
-                        style: AppStyle.body14Regular,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Container(
+                        height: 30,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: AppColor.grey200),
+                        ),
+                        child: const Center(
+                          child: Icon(Icons.more_vert),
+                        ),
+                      );
+                    }
+                    return Container(
+                      height: 30,
+                      width: 25 + 12.0 * SearchKeyword.values[index - 1].title.length,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColor.grey200),
                       ),
-                    ),
-                  ),
+                      child: Center(
+                        child: Text(
+                          SearchKeyword.values[index - 1].title,
+                          style: AppStyle.body14Regular,
+                        ),
+                      ),
+                    );
+                  },
                   separatorBuilder: (context, index) => const SizedBox(width: 8),
-                  itemCount: 20,
+                  itemCount: SearchKeyword.values.length + 1,
                 ),
               ),
             ],

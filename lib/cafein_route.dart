@@ -9,6 +9,7 @@ import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -69,6 +70,9 @@ abstract class CafeinRoute {
         break;
       case PhoneCertificationDonePage.routeName:
         page = const PhoneCertificationDonePage();
+        break;
+      case SearchKeywordPage.routeName:
+        page = const SearchKeywordPage();
         break;
     }
 
