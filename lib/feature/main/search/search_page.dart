@@ -73,6 +73,7 @@ class _SearchPageState extends State<SearchPage> {
                 SearchStoreRequested(location: state.location),
               );
             } else if (state is SearchStoreLoaded) {
+              markers.clear();
               markers.addAll(state.markers);
               setState(() {});
             }
@@ -204,12 +205,10 @@ class _SearchPageState extends State<SearchPage> {
                       builder: (context, state) {
                         if (state is SearchStoreLoaded) {
                           return PageView.builder(
-                            itemBuilder: (context, index) {
-                              return SearchStoreCard(
-                                store: state.stores[index],
-                                index: index,
-                              );
-                            },
+                            itemBuilder: (context, index) => SearchStoreCard(
+                              store: state.stores[index],
+                              index: index,
+                            ),
                             itemCount: state.stores.length,
                           );
                         }
