@@ -11,10 +11,12 @@ abstract class CafeinConfig {
 
   static const kakaoRestApiKey = '8898a6b3df99b2f5e57b1c3ac85e6777';
 
-  static late OverlayImage confuseBadIcon;
-  static late OverlayImage confuseNormalIcon;
-  static late OverlayImage confuseGoodIcon;
-  static late OverlayImage confuseHeartIcon;
+  static late OverlayImage markerBadIcon;
+  static late OverlayImage markerNormalIcon;
+  static late OverlayImage markerGoodIcon;
+  static late OverlayImage markerLikeBadIcon;
+  static late OverlayImage markerLikeNormalIcon;
+  static late OverlayImage markerLikeGoodIcon;
 
   static Future<void> initializeApp() async {
     KakaoSdk.init(
@@ -23,20 +25,28 @@ abstract class CafeinConfig {
     );
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     await AppDatabase().initDatabase();
-    confuseBadIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.storeBad,
+    markerBadIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerBad,
       devicePixelRatio: window.devicePixelRatio,
     );
-    confuseNormalIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.storeNormal,
+    markerGoodIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerGood,
       devicePixelRatio: window.devicePixelRatio,
     );
-    confuseGoodIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.storeGood,
+    markerNormalIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerNormal,
       devicePixelRatio: window.devicePixelRatio,
     );
-    confuseHeartIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.storeGood,
+    markerLikeBadIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerLikeBad,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+    markerLikeNormalIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerLikeNormal,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+    markerLikeGoodIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerLikeGood,
       devicePixelRatio: window.devicePixelRatio,
     );
   }

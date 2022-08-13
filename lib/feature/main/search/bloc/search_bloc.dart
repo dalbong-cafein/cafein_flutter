@@ -83,27 +83,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       currentStores = [...response.data];
       currentMarker = List.generate(
-        response.data.length,
-        (index) {
-          late OverlayImage icon;
-          final score = response.data[index].congestionScoreAvg ?? 0;
-          if (score <= 1.5) {
-            icon = CafeinConfig.confuseGoodIcon;
-          } else if (score <= 2.5) {
-            icon = CafeinConfig.confuseNormalIcon;
-          } else {
-            icon = CafeinConfig.confuseBadIcon;
-          }
-
-          return Marker(
-            markerId: '${response.data[index].storeId}',
-            position: LatLng(
-              response.data[index].latY,
-              response.data[index].lngX,
-            ),
-            icon: response.data[index].isHeart ? CafeinConfig.confuseHeartIcon : icon,
-          );
-        },
+        currentStores.length,
+        (index) => Marker(
+          markerId: '${currentStores[index].storeId}',
+          position: LatLng(
+            currentStores[index].latY,
+            currentStores[index].lngX,
+          ),
+          icon: getMarker(
+            confuseScore: currentStores[index].congestionScoreAvg ?? 0,
+            isLike: currentStores[index].isHeart,
+          ),
+        ),
       );
 
       emit(SearchStoreLoaded(
@@ -135,26 +126,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       currentMarker = List.generate(
         currentStores.length,
-        (index) {
-          late OverlayImage icon;
-          final score = currentStores[index].congestionScoreAvg ?? 0;
-          if (score <= 1.5) {
-            icon = CafeinConfig.confuseGoodIcon;
-          } else if (score <= 2.5) {
-            icon = CafeinConfig.confuseNormalIcon;
-          } else {
-            icon = CafeinConfig.confuseBadIcon;
-          }
-
-          return Marker(
-            markerId: '${currentStores[index].storeId}',
-            position: LatLng(
-              currentStores[index].latY,
-              currentStores[index].lngX,
-            ),
-            icon: currentStores[index].isHeart ? CafeinConfig.confuseHeartIcon : icon,
-          );
-        },
+        (index) => Marker(
+          markerId: '${currentStores[index].storeId}',
+          position: LatLng(
+            currentStores[index].latY,
+            currentStores[index].lngX,
+          ),
+          icon: getMarker(
+            confuseScore: currentStores[index].congestionScoreAvg ?? 0,
+            isLike: currentStores[index].isHeart,
+          ),
+        ),
       );
 
       emit(SearchStoreLoaded(
@@ -167,5 +149,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         event: () => add(event),
       ));
     }
+  }
+
+  OverlayImage getMarker({
+    required double confuseScore,
+    required bool isLike,
+  }) {
+    late OverlayImage icon;
+    if (confuseScore <= 1.5) {
+      icon = isLike ? CafeinConfig.markerLikeGoodIcon : CafeinConfig.markerGoodIcon;
+    } else if (confuseScore <= 2.5) {
+      icon = isLike ? CafeinConfig.markerLikeNormalIcon : CafeinConfig.markerNormalIcon;
+    } else {
+      icon = isLike ? CafeinConfig.markerLikeBadIcon : CafeinConfig.markerBadIcon;
+    }
+
+    return icon;
   }
 }

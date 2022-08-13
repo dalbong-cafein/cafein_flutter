@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
@@ -13,7 +12,6 @@ import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
