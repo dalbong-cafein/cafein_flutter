@@ -10,6 +10,7 @@ import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/get_marker_icon.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
@@ -27,7 +28,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  Completer<NaverMapController> mapController = Completer<NaverMapController>();
+  Completer<NaverMapController> naverMapController = Completer<NaverMapController>();
+  final pageController = PageController();
 
   final markers = <Marker>[];
 
@@ -75,7 +77,42 @@ class _SearchPageState extends State<SearchPage> {
               );
             } else if (state is SearchStoreLoaded) {
               markers.clear();
-              markers.addAll(state.markers);
+              markers.addAll(
+                List.generate(
+                  state.stores.length,
+                  (index) => Marker(
+                    markerId: '${state.stores[index].storeId}',
+                    position: LatLng(
+                      state.stores[index].latY,
+                      state.stores[index].lngX,
+                    ),
+                    icon: getMarkerIcon(
+                      confuseScore: state.stores[index].congestionScoreAvg ?? 0,
+                      isLike: state.stores[index].isHeart,
+                    ),
+                    onMarkerTab: (marker, iconSize) async {
+                      if (marker?.position == null) {
+                        return;
+                      }
+
+                      // 마커 눌렀을 때 맵 이동
+                      moveMarkerCamera(marker!.position!);
+
+                      final moveIndex = state.stores.indexWhere(
+                        (store) => '${store.storeId}' == marker.markerId,
+                      );
+
+                      if (moveIndex == -1) {
+                        return;
+                      }
+
+                      // 카드 페이지 이동
+                      moveToCurrentStoreCard(moveIndex);
+                    },
+                  ),
+                ),
+              );
+
               setState(() {});
             }
           },
@@ -193,7 +230,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
               markers: markers,
               onMapTap: (latLng) async {
-                final controller = await mapController.future;
+                final controller = await naverMapController.future;
                 if (Platform.isAndroid) {
                   controller.moveCamera(
                     CameraUpdate.toCameraPosition(
@@ -222,9 +259,10 @@ class _SearchPageState extends State<SearchPage> {
                       builder: (context, state) {
                         if (state is SearchStoreLoaded) {
                           if (state.stores.isEmpty) {
-                            return Text('빈화면');
+                            return const Text('빈화면');
                           }
                           return PageView.builder(
+                            controller: pageController,
                             itemBuilder: (context, index) => SearchStoreCard(
                               store: state.stores[index],
                               index: index,
@@ -247,9 +285,32 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void onMapCreated(NaverMapController controller) {
-    if (mapController.isCompleted) {
-      mapController = Completer<NaverMapController>();
+    if (naverMapController.isCompleted) {
+      naverMapController = Completer<NaverMapController>();
     }
-    mapController.complete(controller);
+    naverMapController.complete(controller);
   }
+
+  Future<void> moveMarkerCamera(LatLng latLng) async {
+    final controller = await naverMapController.future;
+    if (Platform.isAndroid) {
+      controller.moveCamera(
+        CameraUpdate.toCameraPosition(
+          CameraPosition(
+            target: latLng,
+          ),
+        ),
+      );
+    } else if (Platform.isIOS) {
+      controller.moveCamera(
+        CameraUpdate.scrollTo(latLng),
+      );
+    }
+  }
+
+  void moveToCurrentStoreCard(int moveIndex) => pageController.animateToPage(
+        moveIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.linear,
+      );
 }

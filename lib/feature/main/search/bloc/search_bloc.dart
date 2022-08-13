@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -8,7 +7,6 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -31,7 +29,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   String currentLocation = '';
 
   List<Store> currentStores = [];
-  List<Marker> currentMarker = [];
 
   FutureOr<void> _onSearchLocationRequested(
     SearchLocationRequested event,
@@ -82,24 +79,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
 
       currentStores = [...response.data];
-      currentMarker = List.generate(
-        currentStores.length,
-        (index) => Marker(
-          markerId: '${currentStores[index].storeId}',
-          position: LatLng(
-            currentStores[index].latY,
-            currentStores[index].lngX,
-          ),
-          icon: getMarker(
-            confuseScore: currentStores[index].congestionScoreAvg ?? 0,
-            isLike: currentStores[index].isHeart,
-          ),
-        ),
-      );
 
       emit(SearchStoreLoaded(
         stores: [...currentStores],
-        markers: [...currentMarker],
       ));
     } catch (e) {
       emit(SearchError(
@@ -124,24 +106,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       cur[event.index] = cur[event.index].copyWith(isHeart: event.isLike);
       currentStores = [...cur];
 
-      currentMarker = List.generate(
-        currentStores.length,
-        (index) => Marker(
-          markerId: '${currentStores[index].storeId}',
-          position: LatLng(
-            currentStores[index].latY,
-            currentStores[index].lngX,
-          ),
-          icon: getMarker(
-            confuseScore: currentStores[index].congestionScoreAvg ?? 0,
-            isLike: currentStores[index].isHeart,
-          ),
-        ),
-      );
-
       emit(SearchStoreLoaded(
         stores: [...currentStores],
-        markers: [...currentMarker],
       ));
     } catch (e) {
       emit(SearchError(
@@ -149,21 +115,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         event: () => add(event),
       ));
     }
-  }
-
-  OverlayImage getMarker({
-    required double confuseScore,
-    required bool isLike,
-  }) {
-    late OverlayImage icon;
-    if (confuseScore <= 1.5) {
-      icon = isLike ? CafeinConfig.markerLikeGoodIcon : CafeinConfig.markerGoodIcon;
-    } else if (confuseScore <= 2.5) {
-      icon = isLike ? CafeinConfig.markerLikeNormalIcon : CafeinConfig.markerNormalIcon;
-    } else {
-      icon = isLike ? CafeinConfig.markerLikeBadIcon : CafeinConfig.markerBadIcon;
-    }
-
-    return icon;
   }
 }
