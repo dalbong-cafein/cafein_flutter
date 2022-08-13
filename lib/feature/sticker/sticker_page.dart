@@ -1,5 +1,6 @@
 
 import 'package:cafein_flutter/feature/sticker/widget/mystckier_card.dart';
+import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,9 @@ class StickerPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container( height:1.0,
               color:AppColor.grey100),
-          )
+          ),
+          const SizedBox(height: 24,),
+          const StickerHistoryCard()
         ],
       )
     );

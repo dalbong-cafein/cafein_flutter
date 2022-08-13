@@ -1,5 +1,4 @@
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyStickerCard extends StatelessWidget {
