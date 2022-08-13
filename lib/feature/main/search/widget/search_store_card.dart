@@ -25,7 +25,7 @@ class SearchStoreCard extends StatelessWidget {
     final imageDatas = [...store.imageIdPair];
     if (imageDatas.length < 4) {
       final length = 4 - imageDatas.length;
-      for (int i = 0; i < length + 5; i++) {
+      for (int i = 0; i < length; i++) {
         imageDatas.add(
           ImageIdPair(
             imageId: -1,

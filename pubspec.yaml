@@ -60,6 +60,7 @@ flutter:
     - asset/image/
     - asset/icon/
     - asset/lottie/
+    - asset/icon/marker/
   
   fonts:
     - family: SpoqaHanSansNeo

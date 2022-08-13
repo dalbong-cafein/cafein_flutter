@@ -7,9 +7,12 @@ abstract class AppIcon {
   static const passcucci = "asset/icon/passcucci_icon.png";
   static const ediya = "asset/icon/ediya_icon.png";
 
-  static const storeBad = "asset/icon/conf_bad.png";
-  static const storeGood = "asset/icon/conf_good.png";
-  static const storeNormal = "asset/icon/conf_normal.png";
+  static const markerBad = "asset/icon/marker/marker_bad.png";
+  static const markerGood = "asset/icon/marker/marker_good.png";
+  static const markerNormal = "asset/icon/marker/marker_normal.png";
+  static const markerLikeBad = "asset/icon/marker/marker_like_bad.png";
+  static const markerLikeGood = "asset/icon/marker/marker_like_good.png";
+  static const markerLikeNormal = "asset/icon/marker/marker_like_normal.png";
 
   static const heartCrowded = "asset/icon/heart_crowded_icon.svg";
   static const heartGood = "asset/icon/heart_good_icon.svg";
