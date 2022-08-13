@@ -78,7 +78,7 @@ class DioUtil {
             return handler.next(error);
           }
 
-          if (error.response?.statusCode == 401) {
+          if (error.response?.statusCode != 401) {
             return handler.next(error);
           }
 

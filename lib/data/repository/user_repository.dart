@@ -10,6 +10,12 @@ import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 abstract class UserRepository {
   Member? _member;
 
+  String? _authProvider;
+
+  set setAuthProvider(String authProvider);
+
+  String? get getAuthProvider => _authProvider;
+
   set setMemberData(Member member);
   Member? get getMemberData => _member;
 
@@ -72,4 +78,7 @@ class UserRepositoryImpl extends UserRepository {
         longitude: longitude,
         latitude: latitude,
       );
+
+  @override
+  set setAuthProvider(String authProvider) => _authProvider = authProvider;
 }

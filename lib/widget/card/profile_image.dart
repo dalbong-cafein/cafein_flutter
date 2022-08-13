@@ -9,16 +9,18 @@ class ProfileImage extends StatelessWidget {
     super.key,
     required this.imagePath,
     required this.filePath,
+    required this.radius,
   });
 
   final String imagePath;
   final String? filePath;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
     if (filePath != null) {
       return CircleAvatar(
-        radius: 44,
+        radius: radius,
         backgroundColor: AppColor.white,
         foregroundImage: FileImage(
           File(filePath!),
@@ -27,12 +29,12 @@ class ProfileImage extends StatelessWidget {
     }
 
     return CircleAvatar(
-      radius: 44,
+      radius: radius,
       backgroundColor: AppColor.white,
       child: loadAsset(
         imagePath,
-        width: 88,
-        height: 88,
+        width: radius * 2,
+        height: radius * 2,
       ),
     );
   }
