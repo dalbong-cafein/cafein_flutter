@@ -109,13 +109,16 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: StickerCard(),
+              const SizedBox(
+                height: 16,
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: MyStoresCard(),
+              const StickerCard(),
+              const SizedBox(
+                height: 16,
+              ),
+              const MyStoresCard(),
+              const SizedBox(
+                height: 32,
               ),
               const RecommendStoresCard(),
             ],
