@@ -1,4 +1,5 @@
 
+import 'package:cafein_flutter/feature/sticker/widget/mystckier_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class StickerPage extends StatelessWidget {
                     ),
                     loadAsset(
                         AppIcon.cokeSticker,
-                        width: 32 * widthPercent
+                        width: 60,
                     ),
                     const SizedBox(
                       width: 6
@@ -57,7 +58,11 @@ class StickerPage extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          const MyStickerCard()
         ],
       )
     );
