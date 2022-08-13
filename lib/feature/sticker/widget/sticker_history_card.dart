@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/sticker/widget/no_sticker_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,63 +50,64 @@ class StickerHistoryCard extends StatelessWidget {
             )
           ],
         ),
-        const SizedBox(
-          height: 16,
-        ),
-        ListView.builder(
-          itemCount: 3,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (
-                BuildContext context,
-                int index
-            ){
-              return Padding(
-                padding: const EdgeInsets.only(top : 10, bottom: 10, left : 20),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            width: 1,
-                            color : AppColor.grey400
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text(
-                            "+1",
-                          style: AppStyle.subTitle15Medium,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width : 12
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "혼잡도 공유",
-                          style: AppStyle.subTitle15Medium,
-                        ),
-                        Text(
-                          "투썸플레이스 명동성당",
-                          style: AppStyle.caption12Regular.copyWith(
-                            color : AppColor.grey400
+
+        true? const NoStickerCard() :Padding(
+          padding: const EdgeInsets.only(top : 16),
+          child: ListView.builder(
+            itemCount: 3,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (
+                  BuildContext context,
+                  int index
+              ){
+                return Padding(
+                  padding: const EdgeInsets.only(top : 10, bottom: 10, left : 20),
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              width: 1,
+                              color : AppColor.grey400
                           ),
                         ),
-                        const Text(
-                          "유호기간 ~!!",
-                          style: AppStyle.caption13Medium,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              );
-            }
+                        child: const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                              "+1",
+                            style: AppStyle.subTitle15Medium,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width : 12
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "혼잡도 공유",
+                            style: AppStyle.subTitle15Medium,
+                          ),
+                          Text(
+                            "투썸플레이스 명동성당",
+                            style: AppStyle.caption12Regular.copyWith(
+                              color : AppColor.grey400
+                            ),
+                          ),
+                          const Text(
+                            "유호기간 ~!!",
+                            style: AppStyle.caption13Medium,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              }
+          ),
         ),
 
       ],

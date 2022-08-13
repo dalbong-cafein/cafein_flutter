@@ -27,7 +27,7 @@ class StickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final widthPercent = width / 360;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
