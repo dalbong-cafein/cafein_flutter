@@ -33,4 +33,6 @@ abstract class AppIcon {
 
   static const trash = "asset/icon/trash_icon.svg";
   static const locationArrow = 'asset/icon/ic_near_me.svg';
+
+  static const cokeSticker = 'asset/icon/coke_sticker_icon.png';
 }

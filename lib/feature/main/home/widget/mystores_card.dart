@@ -78,83 +78,81 @@ class MyStoresCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: ListView.builder(
-                        itemCount: state.memberStores.length >= 4 ? 4 : state.memberStores.length,
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
+                        itemCount: state.memberStores.length >= 4 ? 4 : state.memberStores.length,
+                        itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: (width - 64) * 0.8,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 48,
-                                        height: 48,
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
-                                          child: SizedBox.fromSize(
-                                            size: const Size.fromRadius(48),
-                                            child: state.memberStores[index].imageIdPair == null
-                                                ? loadAsset(AppImage.noImage)
-                                                : Image.network(
-                                                    state.memberStores[index].imageIdPair!.imageUrl,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 12),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              state.memberStores[index].storeName,
-                                              style: AppStyle.subTitle15Medium,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 5),
-                                              child: Row(
-                                                children: [
-                                                  OpenCloseChip(
-                                                    isOpen: state.memberStores[index].businessInfo
-                                                            ?.isOpen ??
-                                                        false,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 6.0),
-                                                    child: Text(
-                                                      state.memberStores[index].businessInfo
-                                                                  ?.isOpen ??
-                                                              false
-                                                          ? "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 종료"
-                                                          : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
-                                                      style: AppStyle.caption12Regular
-                                                          .copyWith(color: AppColor.grey600),
-                                                    ),
-                                                  )
-                                                ],
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 20,
+                            ),
+                            child: SizedBox(
+                              width: (width - 64) * 0.8,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 48,
+                                    height: 48,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: SizedBox.fromSize(
+                                        size: const Size.fromRadius(48),
+                                        child: state.memberStores[index].imageIdPair == null
+                                            ? loadAsset(AppImage.noImage)
+                                            : Image.network(
+                                                state.memberStores[index].imageIdPair!.imageUrl,
+                                                fit: BoxFit.cover,
                                               ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: (width - 64) * 0.2,
-                                  child: ConfuseChip(
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 12),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          state.memberStores[index].storeName,
+                                          style: AppStyle.subTitle15Medium,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 5),
+                                          child: Row(
+                                            children: [
+                                              OpenCloseChip(
+                                                isOpen: state
+                                                        .memberStores[index].businessInfo?.isOpen ??
+                                                    false,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 6.0),
+                                                child: Text(
+                                                  state.memberStores[index].businessInfo?.isOpen ??
+                                                          false
+                                                      ? "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 종료"
+                                                      : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
+                                                  style: AppStyle.caption12Regular
+                                                      .copyWith(color: AppColor.grey600),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  ConfuseChip(
                                     confuseScore: state.memberStores[index].congestionScoreAvg,
                                     height: 24,
                                     textStyle: AppStyle.subTitle15Medium,
                                     width: 42,
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         }),
@@ -163,9 +161,16 @@ class MyStoresCard extends StatelessWidget {
                       ? const SizedBox.shrink()
                       : Column(
                           children: [
-                            Container(height: 1.0, width: width - 32, color: AppColor.grey100),
+                            Container(
+                              height: 1.0,
+                              width: width - 32,
+                              color: AppColor.grey100,
+                            ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10, bottom: 10),
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                              ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
