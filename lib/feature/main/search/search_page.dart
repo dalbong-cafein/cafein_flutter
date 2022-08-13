@@ -2,14 +2,15 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
-import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_keyword_tab.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/get_marker_icon.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
@@ -27,7 +28,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  Completer<NaverMapController> mapController = Completer<NaverMapController>();
+  Completer<NaverMapController> naverMapController = Completer<NaverMapController>();
+  final pageController = PageController();
 
   final markers = <Marker>[];
 
@@ -70,12 +72,55 @@ class _SearchPageState extends State<SearchPage> {
                 refresh: state.event,
               );
             } else if (state is SearchLocationChecked) {
+              final currentLatLng = LatLng(
+                state.latitude,
+                state.longitude,
+              );
+
+              moveCurrentCamera(currentLatLng);
+              updateCurrentLocation(currentLatLng);
+
               bloc.add(
                 SearchStoreRequested(location: state.location),
               );
             } else if (state is SearchStoreLoaded) {
               markers.clear();
-              markers.addAll(state.markers);
+              markers.addAll(
+                List.generate(
+                  state.stores.length,
+                  (index) => Marker(
+                    markerId: '${state.stores[index].storeId}',
+                    position: LatLng(
+                      state.stores[index].latY,
+                      state.stores[index].lngX,
+                    ),
+                    icon: getMarkerIcon(
+                      confuseScore: state.stores[index].congestionScoreAvg,
+                      isLike: state.stores[index].isHeart,
+                    ),
+                    onMarkerTab: (marker, iconSize) async {
+                      if (marker?.position == null) {
+                        return;
+                      }
+
+                      // 마커 눌렀을 때 맵 이동
+                      moveCurrentCamera(marker!.position!);
+
+                      final moveIndex = state.stores.indexWhere(
+                        (store) => '${store.storeId}' == marker.markerId,
+                      );
+
+                      if (moveIndex == -1) {
+                        return;
+                      }
+
+                      // 카드 페이지 이동
+                      moveToCurrentStoreCard(moveIndex);
+                    },
+                  ),
+                ),
+              );
+
               setState(() {});
             }
           },
@@ -139,47 +184,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return Container(
-                        height: 30,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: AppColor.grey200),
-                        ),
-                        child: const Center(
-                          child: Icon(Icons.more_vert),
-                        ),
-                      );
-                    }
-                    return Container(
-                      height: 30,
-                      width: 25 + 12.0 * SearchKeyword.values[index - 1].title.length,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppColor.grey200),
-                      ),
-                      child: Center(
-                        child: Text(
-                          SearchKeyword.values[index - 1].title,
-                          style: AppStyle.body14Regular,
-                        ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(width: 8),
-                  itemCount: SearchKeyword.values.length + 1,
-                ),
-              ),
+              const SearchKeywordTab(),
             ],
           ),
         ),
@@ -192,53 +197,48 @@ class _SearchPageState extends State<SearchPage> {
                 target: CafeinConst.defaultLating,
               ),
               markers: markers,
-              onMapTap: (latLng) async {
-                final controller = await mapController.future;
-                if (Platform.isAndroid) {
-                  controller.moveCamera(
-                    CameraUpdate.toCameraPosition(
-                      CameraPosition(
-                        target: latLng,
-                      ),
-                    ),
-                  );
-                } else if (Platform.isIOS) {
-                  controller.moveCamera(
-                    CameraUpdate.scrollTo(latLng),
-                  );
-                }
-              },
             ),
-            SizedBox(
-              height: 248,
-              width: width,
-              child: Column(
-                children: [
-                  const SearchBodyHeader(isCardView: true),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: BlocBuilder<SearchBloc, SearchState>(
-                      buildWhen: (pre, next) => next is SearchStoreLoaded,
-                      builder: (context, state) {
-                        if (state is SearchStoreLoaded) {
-                          if (state.stores.isEmpty) {
-                            return Text('빈화면');
-                          }
-                          return PageView.builder(
+            BlocBuilder<SearchBloc, SearchState>(
+              buildWhen: (pre, next) => next is SearchStoreLoaded,
+              builder: (context, state) {
+                if (state is SearchStoreLoaded) {
+                  if (state.stores.isEmpty) {
+                    return const Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: SearchBodyHeader(
+                        isCardView: true,
+                        isEmpty: true,
+                      ),
+                    );
+                  }
+
+                  return SizedBox(
+                    height: 248,
+                    width: width,
+                    child: Column(
+                      children: [
+                        const SearchBodyHeader(
+                          isCardView: true,
+                          isEmpty: false,
+                        ),
+                        const SizedBox(height: 16),
+                        Expanded(
+                          child: PageView.builder(
+                            controller: pageController,
                             itemBuilder: (context, index) => SearchStoreCard(
                               store: state.stores[index],
                               index: index,
                             ),
                             itemCount: state.stores.length,
-                          );
-                        }
-                        return const CircleLoadingIndicator();
-                      },
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                ],
-              ),
+                  );
+                }
+                return const CircleLoadingIndicator();
+              },
             ),
           ],
         ),
@@ -247,9 +247,40 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void onMapCreated(NaverMapController controller) {
-    if (mapController.isCompleted) {
-      mapController = Completer<NaverMapController>();
+    if (naverMapController.isCompleted) {
+      naverMapController = Completer<NaverMapController>();
     }
-    mapController.complete(controller);
+    naverMapController.complete(controller);
   }
+
+  Future<void> moveCurrentCamera(LatLng latLng) async {
+    final controller = await naverMapController.future;
+    if (Platform.isAndroid) {
+      controller.moveCamera(
+        CameraUpdate.toCameraPosition(
+          CameraPosition(
+            target: latLng,
+          ),
+        ),
+      );
+    } else if (Platform.isIOS) {
+      controller.moveCamera(
+        CameraUpdate.scrollTo(latLng),
+      );
+    }
+  }
+
+  Future<void> updateCurrentLocation(LatLng latLng) async {
+    final controller = await naverMapController.future;
+    controller.locationOverlay = LocationOverlay(
+      controller,
+    );
+    controller.locationOverlay!.setPosition(latLng);
+  }
+
+  void moveToCurrentStoreCard(int moveIndex) => pageController.animateToPage(
+        moveIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.linear,
+      );
 }

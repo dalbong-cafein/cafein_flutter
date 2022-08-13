@@ -17,6 +17,8 @@ abstract class CafeinConfig {
   static late OverlayImage markerLikeBadIcon;
   static late OverlayImage markerLikeNormalIcon;
   static late OverlayImage markerLikeGoodIcon;
+  static late OverlayImage markerNoneIcon;
+  static late OverlayImage markerLikeNoneIcon;
 
   static Future<void> initializeApp() async {
     KakaoSdk.init(
@@ -47,6 +49,15 @@ abstract class CafeinConfig {
     );
     markerLikeGoodIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeGood,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+    markerNoneIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerNone,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+
+    markerLikeNoneIcon = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerLikeNone,
       devicePixelRatio: window.devicePixelRatio,
     );
   }
