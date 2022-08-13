@@ -8,6 +8,9 @@
         android:label="카페인"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="4zky5l98tl" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

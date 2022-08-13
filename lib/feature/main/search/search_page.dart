@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
@@ -191,6 +192,22 @@ class _SearchPageState extends State<SearchPage> {
                 target: CafeinConst.defaultLating,
               ),
               markers: markers,
+              onMapTap: (latLng) async {
+                final controller = await mapController.future;
+                if (Platform.isAndroid) {
+                  controller.moveCamera(
+                    CameraUpdate.toCameraPosition(
+                      CameraPosition(
+                        target: latLng,
+                      ),
+                    ),
+                  );
+                } else if (Platform.isIOS) {
+                  controller.moveCamera(
+                    CameraUpdate.scrollTo(latLng),
+                  );
+                }
+              },
             ),
             SizedBox(
               height: 248,
@@ -204,6 +221,9 @@ class _SearchPageState extends State<SearchPage> {
                       buildWhen: (pre, next) => next is SearchStoreLoaded,
                       builder: (context, state) {
                         if (state is SearchStoreLoaded) {
+                          if (state.stores.isEmpty) {
+                            return Text('빈화면');
+                          }
                           return PageView.builder(
                             itemBuilder: (context, index) => SearchStoreCard(
                               store: state.stores[index],
