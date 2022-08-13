@@ -34,3 +34,14 @@ class SearchStoreHeartRequested extends SearchEvent {
   @override
   List<Object?> get props => [isLike];
 }
+
+class SearchKeywordTabed extends SearchEvent {
+  const SearchKeywordTabed({
+    required this.searchKeyword,
+  });
+
+  final SearchKeyword searchKeyword;
+
+  @override
+  List<Object?> get props => [searchKeyword];
+}

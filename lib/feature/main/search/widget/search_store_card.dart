@@ -3,12 +3,14 @@ import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/calculate_distance.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class SearchStoreCard extends StatelessWidget {
   const SearchStoreCard({
@@ -91,7 +93,10 @@ class SearchStoreCard extends StatelessWidget {
           const SizedBox(height: 4),
           StoreAdditionalInformationRow(
             textStyle: AppStyle.caption12Regular,
-            distance: 150,
+            distance: calculateDistance(
+              currentLatLng: context.watch<SearchBloc>().currentLatLng,
+              targetLatLng: LatLng(store.latY, store.lngX),
+            ),
             recommendScore: store.recommendPercent?.toInt() ?? 0,
             likeCount: store.heartCnt,
             iconSize: 20,

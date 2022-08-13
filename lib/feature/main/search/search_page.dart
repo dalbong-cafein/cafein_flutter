@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
-import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_keyword_tab.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/get_marker_icon.dart';
@@ -87,7 +87,7 @@ class _SearchPageState extends State<SearchPage> {
                       state.stores[index].lngX,
                     ),
                     icon: getMarkerIcon(
-                      confuseScore: state.stores[index].congestionScoreAvg ?? 0,
+                      confuseScore: state.stores[index].congestionScoreAvg,
                       isLike: state.stores[index].isHeart,
                     ),
                     onMarkerTab: (marker, iconSize) async {
@@ -176,47 +176,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return Container(
-                        height: 30,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: AppColor.grey200),
-                        ),
-                        child: const Center(
-                          child: Icon(Icons.more_vert),
-                        ),
-                      );
-                    }
-                    return Container(
-                      height: 30,
-                      width: 25 + 12.0 * SearchKeyword.values[index - 1].title.length,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppColor.grey200),
-                      ),
-                      child: Center(
-                        child: Text(
-                          SearchKeyword.values[index - 1].title,
-                          style: AppStyle.body14Regular,
-                        ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(width: 8),
-                  itemCount: SearchKeyword.values.length + 1,
-                ),
-              ),
+              const SearchKeywordTab(),
             ],
           ),
         ),
@@ -229,22 +189,6 @@ class _SearchPageState extends State<SearchPage> {
                 target: CafeinConst.defaultLating,
               ),
               markers: markers,
-              onMapTap: (latLng) async {
-                final controller = await naverMapController.future;
-                if (Platform.isAndroid) {
-                  controller.moveCamera(
-                    CameraUpdate.toCameraPosition(
-                      CameraPosition(
-                        target: latLng,
-                      ),
-                    ),
-                  );
-                } else if (Platform.isIOS) {
-                  controller.moveCamera(
-                    CameraUpdate.scrollTo(latLng),
-                  );
-                }
-              },
             ),
             SizedBox(
               height: 248,
