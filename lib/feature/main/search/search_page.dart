@@ -72,6 +72,14 @@ class _SearchPageState extends State<SearchPage> {
                 refresh: state.event,
               );
             } else if (state is SearchLocationChecked) {
+              final currentLatLng = LatLng(
+                state.latitude,
+                state.longitude,
+              );
+
+              moveCurrentCamera(currentLatLng);
+              updateCurrentLocation(currentLatLng);
+
               bloc.add(
                 SearchStoreRequested(location: state.location),
               );
@@ -96,7 +104,7 @@ class _SearchPageState extends State<SearchPage> {
                       }
 
                       // 마커 눌렀을 때 맵 이동
-                      moveMarkerCamera(marker!.position!);
+                      moveCurrentCamera(marker!.position!);
 
                       final moveIndex = state.stores.indexWhere(
                         (store) => '${store.storeId}' == marker.markerId,
@@ -190,37 +198,47 @@ class _SearchPageState extends State<SearchPage> {
               ),
               markers: markers,
             ),
-            SizedBox(
-              height: 248,
-              width: width,
-              child: Column(
-                children: [
-                  const SearchBodyHeader(isCardView: true),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: BlocBuilder<SearchBloc, SearchState>(
-                      buildWhen: (pre, next) => next is SearchStoreLoaded,
-                      builder: (context, state) {
-                        if (state is SearchStoreLoaded) {
-                          if (state.stores.isEmpty) {
-                            return const Text('빈화면');
-                          }
-                          return PageView.builder(
+            BlocBuilder<SearchBloc, SearchState>(
+              buildWhen: (pre, next) => next is SearchStoreLoaded,
+              builder: (context, state) {
+                if (state is SearchStoreLoaded) {
+                  if (state.stores.isEmpty) {
+                    return const Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: SearchBodyHeader(
+                        isCardView: true,
+                        isEmpty: true,
+                      ),
+                    );
+                  }
+
+                  return SizedBox(
+                    height: 248,
+                    width: width,
+                    child: Column(
+                      children: [
+                        const SearchBodyHeader(
+                          isCardView: true,
+                          isEmpty: false,
+                        ),
+                        const SizedBox(height: 16),
+                        Expanded(
+                          child: PageView.builder(
                             controller: pageController,
                             itemBuilder: (context, index) => SearchStoreCard(
                               store: state.stores[index],
                               index: index,
                             ),
                             itemCount: state.stores.length,
-                          );
-                        }
-                        return const CircleLoadingIndicator();
-                      },
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                ],
-              ),
+                  );
+                }
+                return const CircleLoadingIndicator();
+              },
             ),
           ],
         ),
@@ -235,7 +253,7 @@ class _SearchPageState extends State<SearchPage> {
     naverMapController.complete(controller);
   }
 
-  Future<void> moveMarkerCamera(LatLng latLng) async {
+  Future<void> moveCurrentCamera(LatLng latLng) async {
     final controller = await naverMapController.future;
     if (Platform.isAndroid) {
       controller.moveCamera(
@@ -250,6 +268,14 @@ class _SearchPageState extends State<SearchPage> {
         CameraUpdate.scrollTo(latLng),
       );
     }
+  }
+
+  Future<void> updateCurrentLocation(LatLng latLng) async {
+    final controller = await naverMapController.future;
+    controller.locationOverlay = LocationOverlay(
+      controller,
+    );
+    controller.locationOverlay!.setPosition(latLng);
   }
 
   void moveToCurrentStoreCard(int moveIndex) => pageController.animateToPage(
