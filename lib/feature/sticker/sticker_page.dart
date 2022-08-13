@@ -43,8 +43,8 @@ class StickerPage extends StatelessWidget {
                       width : 12
                     ),
                     loadAsset(
-                        AppIcon.cokeSticker,
-                        width: 60,
+                        'asset/icon/ic_sticker.svg',
+                        width: 32,
                     ),
                     const SizedBox(
                       width: 6
@@ -62,7 +62,12 @@ class StickerPage extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          const MyStickerCard()
+          const MyStickerCard(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container( height:1.0,
+              color:AppColor.grey100),
+          )
         ],
       )
     );

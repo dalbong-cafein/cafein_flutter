@@ -30,22 +30,35 @@ class MyStickerCard extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(left : 30, right : 30, bottom: 24, top : 16),
+          padding: const EdgeInsets.only(left : 38, right : 38, top : 28),
           child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: 16,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
-                  mainAxisSpacing: 36,
-                  crossAxisSpacing: 18,
+                  mainAxisSpacing: 18,
+                  crossAxisSpacing: 36,
               ),
               itemBuilder: (BuildContext context, int index){
                 return Container(
                   width : 44,
                   height: 44,
-                  decoration: const BoxDecoration(
-                      color: Colors.orange,
-                      shape: BoxShape.circle
+                  decoration: BoxDecoration(
+                      color: AppColor.grey50,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                          width: 1,
+                          color : AppColor.grey100
+                      ),
+                  ),
+                  child: const Center(
+                    child: Center(
+                      child: Icon(
+                          Icons.question_mark_rounded,
+                          color : AppColor.grey400
+                      ),
+                    ),
                   ),
                 );
               }
