@@ -1,10 +1,12 @@
 import 'dart:async';
 
-import 'package:cafein_flutter/cafein_config.dart';
+import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/util/calculate_distance.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,6 +24,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchLocationRequested>(_onSearchLocationRequested);
     on<SearchStoreRequested>(_onSearchStoreRequested);
     on<SearchStoreHeartRequested>(_onSearchStoreHeartRequested);
+    on<SearchKeywordTabed>(_onSearchKeywordTabed);
   }
 
   final UserRepository userRepository;
@@ -31,7 +34,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   String currentLocation = '';
 
   List<Store> currentStores = [];
-  List<Marker> currentMarker = [];
+
+  LatLng currentLatLng = CafeinConst.defaultLating;
 
   FutureOr<void> _onSearchLocationRequested(
     SearchLocationRequested event,
@@ -43,6 +47,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final currentLocation = await userRepository.getCurrentLocation(
         longitude: result.longitude,
         latitude: result.latitude,
+      );
+
+      currentLatLng = LatLng(
+        result.latitude,
+        result.longitude,
       );
 
       emit(
@@ -71,7 +80,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     emit(const SearchLoading());
     try {
-      final response = await storeRepository.getStores(currentLocation);
+      final response = await storeRepository.getStores(
+        currentLocation,
+      );
       if (response.code == -1) {
         emit(SearchError(
           error: Error(),
@@ -82,24 +93,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
 
       currentStores = [...response.data];
-      currentMarker = List.generate(
-        currentStores.length,
-        (index) => Marker(
-          markerId: '${currentStores[index].storeId}',
-          position: LatLng(
-            currentStores[index].latY,
-            currentStores[index].lngX,
-          ),
-          icon: getMarker(
-            confuseScore: currentStores[index].congestionScoreAvg ?? 0,
-            isLike: currentStores[index].isHeart,
-          ),
-        ),
-      );
 
       emit(SearchStoreLoaded(
         stores: [...currentStores],
-        markers: [...currentMarker],
       ));
     } catch (e) {
       emit(SearchError(
@@ -117,31 +113,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final cur = currentStores;
 
       if (event.isLike) {
-        await heartRepository.createHeart(currentStores[event.index].storeId);
+        await heartRepository.createHeart(
+          currentStores[event.index].storeId,
+        );
       } else {
-        await heartRepository.deleteHeart(currentStores[event.index].storeId);
+        await heartRepository.deleteHeart(
+          currentStores[event.index].storeId,
+        );
       }
-      cur[event.index] = cur[event.index].copyWith(isHeart: event.isLike);
-      currentStores = [...cur];
 
-      currentMarker = List.generate(
-        currentStores.length,
-        (index) => Marker(
-          markerId: '${currentStores[index].storeId}',
-          position: LatLng(
-            currentStores[index].latY,
-            currentStores[index].lngX,
-          ),
-          icon: getMarker(
-            confuseScore: currentStores[index].congestionScoreAvg ?? 0,
-            isLike: currentStores[index].isHeart,
-          ),
-        ),
+      cur[event.index] = cur[event.index].copyWith(
+        isHeart: event.isLike,
       );
+
+      currentStores = [...cur];
 
       emit(SearchStoreLoaded(
         stores: [...currentStores],
-        markers: [...currentMarker],
       ));
     } catch (e) {
       emit(SearchError(
@@ -151,19 +139,64 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  OverlayImage getMarker({
-    required double confuseScore,
-    required bool isLike,
-  }) {
-    late OverlayImage icon;
-    if (confuseScore <= 1.5) {
-      icon = isLike ? CafeinConfig.markerLikeGoodIcon : CafeinConfig.markerGoodIcon;
-    } else if (confuseScore <= 2.5) {
-      icon = isLike ? CafeinConfig.markerLikeNormalIcon : CafeinConfig.markerNormalIcon;
-    } else {
-      icon = isLike ? CafeinConfig.markerLikeBadIcon : CafeinConfig.markerBadIcon;
+  FutureOr<void> _onSearchKeywordTabed(
+    SearchKeywordTabed event,
+    Emitter<SearchState> emit,
+  ) {
+    var cur = currentStores;
+    switch (event.searchKeyword) {
+      case SearchKeyword.business:
+        cur.sort(
+          (a, b) {
+            final isOpenA = a.businessInfo?.isOpen ?? false;
+
+            return isOpenA ? -1 : 1;
+          },
+        );
+        break;
+      case SearchKeyword.confuse:
+        cur.sort(
+          (a, b) {
+            final confuseScoreA = a.congestionScoreAvg ?? 0;
+            final confuseScoreB = b.congestionScoreAvg ?? 0;
+
+            return confuseScoreA < confuseScoreB ? -1 : 1;
+          },
+        );
+        break;
+      case SearchKeyword.close:
+        cur.sort(
+          (a, b) {
+            final distanceA = calculateDistance(
+              currentLatLng: currentLatLng,
+              targetLatLng: LatLng(a.latY, a.lngX),
+            );
+            final distanceB = calculateDistance(
+              currentLatLng: currentLatLng,
+              targetLatLng: LatLng(b.latY, b.lngX),
+            );
+
+            return distanceA < distanceB ? -1 : 1;
+          },
+        );
+        break;
+      case SearchKeyword.recommended:
+        cur.sort(
+          (a, b) {
+            final recommendedScoreA = a.recommendPercent ?? 0;
+            final recommendedScoreB = b.recommendPercent ?? 0;
+
+            return recommendedScoreA < recommendedScoreB ? -1 : 1;
+          },
+        );
+        break;
     }
 
-    return icon;
+    currentStores = [...cur];
+    emit(
+      SearchStoreLoaded(
+        stores: [...currentStores],
+      ),
+    );
   }
 }
