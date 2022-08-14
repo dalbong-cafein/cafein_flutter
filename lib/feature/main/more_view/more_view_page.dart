@@ -2,7 +2,11 @@ import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
+import 'package:cafein_flutter/feature/main/more_view/account/account_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/setting/setting_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -41,7 +45,9 @@ class MoreViewPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(SettingPage.routeName);
+                },
                 icon: const Icon(
                   Icons.settings,
                   color: AppColor.grey400,
@@ -101,7 +107,9 @@ class MoreViewPage extends StatelessWidget {
                 const SizedBox(height: 12),
                 MoreViewMenuCard(
                   title: '연결된 계정',
-                  onTab: () {},
+                  onTab: () {
+                    Navigator.of(context).pushNamed(AccountPage.routeName);
+                  },
                 ),
                 const SizedBox(height: 12),
                 Container(
@@ -112,11 +120,15 @@ class MoreViewPage extends StatelessWidget {
                 const SizedBox(height: 12),
                 MoreViewMenuCard(
                   title: '공지사항',
-                  onTab: () {},
+                  onTab: () {
+                    Navigator.of(context).pushNamed(NoticePage.routeName);
+                  },
                 ),
                 MoreViewMenuCard(
                   title: '자주 묻는 질문',
-                  onTab: () {},
+                  onTab: () {
+                    Navigator.of(context).pushNamed(FaqPage.routeName);
+                  },
                 ),
                 MoreViewMenuCard(
                   title: '서비스 이용 약관',
