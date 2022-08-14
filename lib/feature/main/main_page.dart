@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/notification_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
@@ -6,7 +7,9 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/home_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
+
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/notification_page.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
@@ -21,8 +24,8 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var pages = [
-      BlocProvider(
+    final pages = [
+      BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(
           stickerRepository: context.read<StickerRepository>(),
           heartRepository: context.read<HeartRepository>(),
@@ -31,7 +34,7 @@ class MainPage extends StatelessWidget {
         ),
         child: const HomePage(),
       ),
-      BlocProvider(
+      BlocProvider<SearchBloc>(
         create: (context) => SearchBloc(
           userRepository: context.read<UserRepository>(),
           storeRepository: context.read<StoreRepository>(),
@@ -39,13 +42,19 @@ class MainPage extends StatelessWidget {
         ),
         child: const SearchPage(),
       ),
-      BlocProvider(
+      BlocProvider<NotificationBloc>(
         create: (context) => NotificationBloc(
           notificationRepository: context.read<NotificationRepository>(),
         ),
         child: const NotificationPage(),
       ),
-      const MoreViewPage(),
+      BlocProvider<MoreViewBloc>(
+        create: (context) => MoreViewBloc(
+          authRepository: context.read<AuthRepository>(),
+        ),
+        child: const MoreViewPage(),
+      ),
+      const SizedBox.shrink(),
     ];
 
     return BlocBuilder<MainBloc, MainState>(
