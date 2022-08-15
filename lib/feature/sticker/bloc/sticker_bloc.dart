@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cafein_flutter/data/model/sticker/sticker.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'sticker_event.dart';
 part 'sticker_state.dart';

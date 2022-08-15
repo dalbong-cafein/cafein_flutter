@@ -13,3 +13,10 @@ class StickerRequested extends StickerEvent{
   List<Object?> get props => [];
 
 }
+
+class CouponRequested extends StickerEvent{
+
+  @override
+  List<Object?> get props => [];
+
+}
