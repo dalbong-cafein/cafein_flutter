@@ -1,9 +1,12 @@
-
+import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/widget/mystckier_card.dart';
+import 'package:cafein_flutter/feature/sticker/widget/sticker_bottomsheet.dart';
 import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class StickerPage extends StatelessWidget {
@@ -23,15 +26,15 @@ class StickerPage extends StatelessWidget {
   ];
 
 
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    context.read<StickerBloc>().add(const CouponCountRequested());
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            "스티커",
+          "스티커",
           style: AppStyle.subTitle16Medium,
         ),
 
@@ -53,17 +56,17 @@ class StickerPage extends StatelessWidget {
                   child: Row(
                     children: [
                       const SizedBox(
-                        width : 12
+                          width: 12
                       ),
                       loadAsset(
-                          'asset/icon/ic_sticker.svg',
-                          width: 32,
+                        'asset/icon/ic_sticker.svg',
+                        width: 32,
                       ),
                       const SizedBox(
-                        width: 6
+                          width: 6
                       ),
                       const Text(
-                          "스티커 받는 방법을 확인해 보세요",
+                        "스티커 받는 방법을 확인해 보세요",
                         style: AppStyle.body14Regular,
                       )
 
@@ -78,25 +81,25 @@ class StickerPage extends StatelessWidget {
             const MyStickerCard(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container( height:1.0,
-                color:AppColor.grey100),
+              child: Container(height: 1.0,
+                  color: AppColor.grey100),
             ),
             const SizedBox(height: 24,),
             const StickerHistoryCard(),
             false ? Column(
-              children:[
+              children: [
                 Container(
-                  height: 10,
-                  color : AppColor.grey50
+                    height: 10,
+                    color: AppColor.grey50
                 )
-                ,Padding(
-                  padding: const EdgeInsets.only( top : 24, bottom: 24),
+                , Padding(
+                  padding: const EdgeInsets.only(top: 24, bottom: 24),
                   child: Row(
                     children: [
                       SizedBox(
                         width: width / 2,
                         child: const Padding(
-                          padding: EdgeInsets.only(left : 20),
+                          padding: EdgeInsets.only(left: 20),
                           child: Text(
                             "받은 쿠폰을 확인해보세요",
                             style: AppStyle.subTitle16Medium,
@@ -104,7 +107,7 @@ class StickerPage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: width/2,
+                        width: width / 2,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: const [
@@ -112,8 +115,8 @@ class StickerPage extends StatelessWidget {
                               padding: EdgeInsets.only(right: 24),
                               child: Icon(
                                   Icons.arrow_forward_ios,
-                                color : AppColor.grey400,
-                                size : 16
+                                  color: AppColor.grey400,
+                                  size: 16
                               ),
                             ),
                           ],
@@ -125,10 +128,11 @@ class StickerPage extends StatelessWidget {
               ],
             ) : const SizedBox.shrink(),
             Container(
-              width : width ,
-              color : AppColor.grey50,
-              child : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              width: width,
+              color: AppColor.grey50,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -136,17 +140,17 @@ class StickerPage extends StatelessWidget {
                       children: [
                         const Icon(
                             Icons.error_outline,
-                          color : AppColor.grey600,
-                          size : 16
+                            color: AppColor.grey600,
+                            size: 16
                         ),
                         const SizedBox(
-                          width : 6
+                            width: 6
                         ),
                         Text(
-                          "확인해 주세요",
-                          style: AppStyle.subTitle15Medium.copyWith(
-                            color : AppColor.grey600
-                          )
+                            "확인해 주세요",
+                            style: AppStyle.subTitle15Medium.copyWith(
+                                color: AppColor.grey600
+                            )
                         )
                       ],
                     ),
@@ -157,17 +161,15 @@ class StickerPage extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: warningTexts.length,
-                        itemBuilder: (
-                            BuildContext context,
-                            int index
-                            ){
+                        itemBuilder: (BuildContext context,
+                            int index) {
                           return Padding(
-                            padding: const EdgeInsets.only(left :5, bottom: 3),
+                            padding: const EdgeInsets.only(left: 5, bottom: 3),
                             child: Text(
-                              warningTexts[index],
-                              style: AppStyle.caption13Regular.copyWith(
-                                color : AppColor.grey500
-                              )
+                                warningTexts[index],
+                                style: AppStyle.caption13Regular.copyWith(
+                                    color: AppColor.grey500
+                                )
                             ),
                           );
                         }
@@ -178,7 +180,31 @@ class StickerPage extends StatelessWidget {
             )
           ],
         ),
-      )
+      ),
+      bottomSheet: BlocConsumer<StickerBloc, StickerState>(
+        buildWhen: (pre, next) => next is CouponCountLoaded,
+        listener: (context, state) {
+          if (state is StickerError) {
+            ErrorDialog.show(
+              context,
+              error: state.error,
+              refresh: state.event,
+            );
+          }
+        },
+        builder: (context, state) {
+          if(state is CouponCountLoaded){
+            if(state.couponCnt > 0){
+              return const StickerBottomSheet();
+            }else{
+              return const SizedBox.shrink();
+            }
+          }else{
+            return const SizedBox.shrink();
+          }
+
+        },
+      ),
     );
   }
 }
