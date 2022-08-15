@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
+import 'package:cafein_flutter/feature/sticker/widget/mycoupon_card_button.dart';
 import 'package:cafein_flutter/feature/sticker/widget/mystckier_card.dart';
 import 'package:cafein_flutter/feature/sticker/widget/sticker_bottomsheet.dart';
 import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart';
@@ -85,48 +86,33 @@ class StickerPage extends StatelessWidget {
                   color: AppColor.grey100),
             ),
             const SizedBox(height: 24,),
+
             const StickerHistoryCard(),
-            false ? Column(
-              children: [
-                Container(
-                    height: 10,
-                    color: AppColor.grey50
-                )
-                , Padding(
-                  padding: const EdgeInsets.only(top: 24, bottom: 24),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: width / 2,
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Text(
-                            "받은 쿠폰을 확인해보세요",
-                            style: AppStyle.subTitle16Medium,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width / 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(right: 24),
-                              child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: AppColor.grey400,
-                                  size: 16
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ) : const SizedBox.shrink(),
+
+            BlocConsumer<StickerBloc, StickerState>(
+              buildWhen: (pre, next) => next is CouponCountLoaded,
+              listener: (context, state) {
+                if (state is StickerError) {
+                  ErrorDialog.show(
+                    context,
+                    error: state.error,
+                    refresh: state.event,
+                  );
+                }
+              },
+              builder: (context, state) {
+                if(state is CouponCountLoaded){
+                  if(state.couponCnt > 0){
+                    return const MyCouponCardButton();
+                  }else{
+                    return const SizedBox.shrink();
+                  }
+                }else{
+                  return const SizedBox.shrink();
+                }
+
+              },
+            ),
             Container(
               width: width,
               color: AppColor.grey50,
@@ -181,30 +167,7 @@ class StickerPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomSheet: BlocConsumer<StickerBloc, StickerState>(
-        buildWhen: (pre, next) => next is CouponCountLoaded,
-        listener: (context, state) {
-          if (state is StickerError) {
-            ErrorDialog.show(
-              context,
-              error: state.error,
-              refresh: state.event,
-            );
-          }
-        },
-        builder: (context, state) {
-          if(state is CouponCountLoaded){
-            if(state.couponCnt > 0){
-              return const StickerBottomSheet();
-            }else{
-              return const SizedBox.shrink();
-            }
-          }else{
-            return const SizedBox.shrink();
-          }
-
-        },
-      ),
+      bottomSheet: const StickerBottomSheet()
     );
   }
 }
