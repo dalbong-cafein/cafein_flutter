@@ -46,4 +46,13 @@ class StickerError extends StickerState {
   List<Object?> get props => [error];
 }
 
+class CouponCountLoaded extends StickerState{
+
+  final int couponCnt;
+  const CouponCountLoaded({required this.couponCnt});
+
+  @override
+  List<Object?> get props => [couponCnt];
+
+}
 

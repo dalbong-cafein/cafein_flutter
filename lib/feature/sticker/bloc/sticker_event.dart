@@ -8,14 +8,14 @@ abstract class StickerEvent extends Equatable{
 }
 
 class StickerRequested extends StickerEvent{
-
+  const StickerRequested();
   @override
   List<Object?> get props => [];
 
 }
 
-class CouponRequested extends StickerEvent{
-
+class CouponCountRequested extends StickerEvent{
+  const CouponCountRequested();
   @override
   List<Object?> get props => [];
 
