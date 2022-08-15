@@ -51,7 +51,7 @@ class StickerHistoryCard extends StatelessWidget {
           ],
         ),
 
-        true? const NoStickerCard() :Padding(
+        Padding(
           padding: const EdgeInsets.only(top : 16),
           child: ListView.builder(
             itemCount: 3,
