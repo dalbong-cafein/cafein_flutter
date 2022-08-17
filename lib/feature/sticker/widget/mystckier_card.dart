@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,7 +62,7 @@ class MyStickerCard extends StatelessWidget {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       if(index +1 <= state.stickerCnt){
-                        return Container();
+                        return loadAsset(CafeinConst.defaultProfiles[Random().nextInt(9)]);
                       }
                       return Container(
                         width: 44,
