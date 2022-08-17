@@ -7,6 +7,9 @@ abstract class CafeinConst {
     AppImage.profile2,
     AppImage.profile3,
   ];
+  static const randomStickers = [
+
+  ];
 
   static const defaultLocation = '종로구';
   static const defaultLating = LatLng(

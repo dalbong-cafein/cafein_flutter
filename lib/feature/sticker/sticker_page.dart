@@ -6,6 +6,7 @@ import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart'
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,7 +61,7 @@ class StickerPage extends StatelessWidget {
                           width: 12
                       ),
                       loadAsset(
-                        'asset/icon/ic_sticker.svg',
+                        AppIcon.eggSandwichSticker,
                         width: 32,
                       ),
                       const SizedBox(
@@ -108,7 +109,7 @@ class StickerPage extends StatelessWidget {
                     return const SizedBox.shrink();
                   }
                 }else{
-                  return const SizedBox.shrink();
+                  return const CircleLoadingIndicator();
                 }
 
               },
