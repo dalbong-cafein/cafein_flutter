@@ -52,4 +52,6 @@ abstract class AppImage {
   static const recBadGrey = "asset/image/rec_bad_grey_image.svg";
 
   static const noImage = "asset/image/no_image_image.png";
+
+  static const getStickerStep1 = "asset/image/get_sticker_step1_image.png";
 }

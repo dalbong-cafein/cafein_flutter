@@ -50,6 +50,7 @@ class StickerPage extends StatelessWidget {
               child: InkWell(
                 onTap: (){
                     showModalBottomSheet(
+                        isScrollControlled: true,
                         context: context,
                         builder: (BuildContext modalContext){
                           return const GetStickerWayBottomDrawer();
