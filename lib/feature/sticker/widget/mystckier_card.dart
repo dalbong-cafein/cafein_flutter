@@ -26,7 +26,7 @@ class MyStickerCard extends StatelessWidget {
       },
       buildWhen: (pre, next) => next is StickerLoaded,
       builder: (context, state) {
-        if(state is StickerLoaded){
+        if (state is StickerLoaded) {
           return Column(
             children: [
               Row(
@@ -38,14 +38,11 @@ class MyStickerCard extends StatelessWidget {
                       style: AppStyle.subTitle17SemiBold,
                     ),
                   ),
-                  const SizedBox(
-                      width: 6
-                  ),
+                  const SizedBox(width: 6),
                   Text(
                     state.stickerCnt.toString(),
-                    style: AppStyle.subTitle17SemiBold.copyWith(
-                        color: AppColor.orange500
-                    ),
+                    style: AppStyle.subTitle17SemiBold
+                        .copyWith(color: AppColor.orange500),
                   )
                 ],
               ),
@@ -55,14 +52,18 @@ class MyStickerCard extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 16,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       mainAxisSpacing: 18,
                       crossAxisSpacing: 36,
                     ),
                     itemBuilder: (BuildContext context, int index) {
-                      if(index +1 <= state.stickerCnt){
-                        return loadAsset(CafeinConst.defaultProfiles[Random().nextInt(9)]);
+                      if (index + 1 <= state.stickerCnt) {
+                        return loadAsset(
+                            CafeinConst.randomStickers[Random().nextInt(9)],
+                            height: 60,
+                            width: 60);
                       }
                       return Container(
                         width: 44,
@@ -70,26 +71,20 @@ class MyStickerCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColor.grey50,
                           shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 1,
-                              color: AppColor.grey100
-                          ),
+                          border: Border.all(width: 1, color: AppColor.grey100),
                         ),
                         child: const Center(
                           child: Center(
-                            child: Icon(
-                                Icons.question_mark_rounded,
-                                color: AppColor.grey400
-                            ),
+                            child: Icon(Icons.question_mark_rounded,
+                                color: AppColor.grey400),
                           ),
                         ),
                       );
-                    }
-                ),
+                    }),
               )
             ],
           );
-        }else{
+        } else {
           return const SizedBox.shrink();
         }
       },
