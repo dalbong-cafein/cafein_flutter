@@ -1,14 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cafein_flutter/data/model/sticker/congestion_sticker_request.dart';
-import 'package:cafein_flutter/data/model/sticker/review_sticker_request.dart';
 import 'package:cafein_flutter/data/model/sticker/sticker.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
-import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 part 'sticker_event.dart';
 

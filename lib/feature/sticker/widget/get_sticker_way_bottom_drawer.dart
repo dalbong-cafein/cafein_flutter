@@ -1,6 +1,5 @@
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GetStickerWayBottomDrawer extends StatelessWidget {

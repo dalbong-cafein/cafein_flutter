@@ -1,9 +1,7 @@
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
-import 'package:cafein_flutter/feature/sticker/widget/no_sticker_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
