@@ -25,6 +25,7 @@ import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dar
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
+import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
@@ -134,6 +135,10 @@ abstract class CafeinRoute {
       case EditProfilePage.routeName:
         page = const EditProfilePage();
         break;
+      case ReceivedCouponsPage.routeName :
+        page = const ReceivedCouponsPage();
+        break;
+
     }
 
     return MaterialPageRoute(builder: (context) => page);

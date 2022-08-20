@@ -1,6 +1,12 @@
 part of 'received_coupons_bloc.dart';
 
+abstract class ReceivedCouponsState extends Equatable {
+  const ReceivedCouponsState();
+}
 
-abstract class ReceivedCouponsState {}
+class ReceivedCouponsInitial extends ReceivedCouponsState {
+  const ReceivedCouponsInitial();
 
-class ReceivedCouponsInitial extends ReceivedCouponsState {}
+  @override
+  List<Object?> get props => [];
+}
