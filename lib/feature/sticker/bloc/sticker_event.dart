@@ -11,19 +11,14 @@ class StickerRequested extends StickerEvent {
   List<Object?> get props => [];
 }
 
-class CouponCountRequested extends StickerEvent {
-  const CouponCountRequested();
-
-  @override
-  List<Object?> get props => [];
-}
 
 class StickerReverseRequested extends StickerEvent {
   final List stickers;
   final int stickerCnt;
+  final int couponCnt;
 
   const StickerReverseRequested(
-      {required this.stickers, required this.stickerCnt});
+      {required this.stickers, required this.stickerCnt, required this.couponCnt});
 
   @override
   List<Object?> get props => [stickers, stickerCnt];

@@ -18,7 +18,6 @@ class StickerBloc extends Bloc<StickerEvent, StickerState> {
   StickerBloc({required this.stickerRepository, required this.couponRepository})
       : super(const StickerInitial()) {
     on<StickerRequested>(_onStickerRequested);
-    on<CouponCountRequested>(_onCouponCountRequested);
     on<StickerReverseRequested>(_onStickerReverseRequested);
   }
 
@@ -35,24 +34,9 @@ class StickerBloc extends Bloc<StickerEvent, StickerState> {
       final stickersResponse = await stickerRepository.getStickers();
       final stickerCnt = stickerCntResponse.data;
       final stickers =stickersResponse.data;
-      emit(StickerLoaded(stickerCnt: stickerCnt, stickers: [...stickers]));
-    } catch (e) {
-      emit(StickerError(
-        error: e,
-        event: () => add(event),
-      ));
-    }
-  }
-
-  FutureOr<void> _onCouponCountRequested(
-    CouponCountRequested event,
-    Emitter<StickerState> emit,
-  ) async {
-    emit(StickerLoading());
-    try {
       final couponResponse = await couponRepository.getCoupons();
       final int couponCnt = couponResponse.data.length;
-      emit(CouponCountLoaded(couponCnt: couponCnt));
+      emit(StickerLoaded(stickerCnt: stickerCnt, stickers: [...stickers], couponCnt: couponCnt));
     } catch (e) {
       emit(StickerError(
         error: e,
@@ -69,7 +53,7 @@ class StickerBloc extends Bloc<StickerEvent, StickerState> {
     try {
       final reversedStickers = List.from(event.stickers.reversed);
       emit(StickerLoaded(
-          stickerCnt: event.stickerCnt, stickers: [...reversedStickers]));
+          stickerCnt: event.stickerCnt, stickers: [...reversedStickers], couponCnt: event.couponCnt));
     } catch (e) {
       emit(StickerError(
         error: e,

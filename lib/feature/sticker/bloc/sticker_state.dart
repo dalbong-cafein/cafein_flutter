@@ -17,8 +17,8 @@ class StickerLoaded extends StickerState{
 
   final int stickerCnt;
   final List<Sticker> stickers;
-
-  const StickerLoaded({required this.stickerCnt, required this.stickers});
+  final int couponCnt;
+  const StickerLoaded({required this.stickerCnt, required this.stickers, required this.couponCnt});
 
   @override
   List<Object?> get props => [stickerCnt, [... stickers]];

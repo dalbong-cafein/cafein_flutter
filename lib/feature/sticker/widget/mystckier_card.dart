@@ -14,7 +14,7 @@ class MyStickerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isBuild = false;
-    context.read<StickerBloc>().add(const StickerRequested());
+
     return BlocConsumer<StickerBloc, StickerState>(
       listener: (context, state) {
         if (state is StickerError) {

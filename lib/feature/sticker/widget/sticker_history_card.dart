@@ -13,7 +13,7 @@ class StickerHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    context.read<StickerBloc>().add(const StickerRequested());
+
     bool isNewFirst = false;
     return BlocConsumer<StickerBloc, StickerState>(
       listener: (context, state) {
@@ -48,7 +48,8 @@ class StickerHistoryCard extends StatelessWidget {
                         isNewFirst = !isNewFirst;
                         context.read<StickerBloc>().add(StickerReverseRequested(
                             stickers: state.stickers,
-                            stickerCnt: state.stickerCnt));
+                            stickerCnt: state.stickerCnt,
+                            couponCnt: state.couponCnt));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,

@@ -38,7 +38,7 @@ class StickerPage extends StatelessWidget {
         .of(context)
         .size
         .width;
-    context.read<StickerBloc>().add(const CouponCountRequested());
+    context.read<StickerBloc>().add(const StickerRequested());
 
 
     return Scaffold(
@@ -109,7 +109,7 @@ class StickerPage extends StatelessWidget {
               const StickerHistoryCard(),
 
               BlocConsumer<StickerBloc, StickerState>(
-                buildWhen: (pre, next) => next is CouponCountLoaded,
+                buildWhen: (pre, next) => next is StickerLoaded,
                 listener: (context, state) {
                   if (state is StickerError) {
                     ErrorDialog.show(
@@ -120,7 +120,7 @@ class StickerPage extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state is CouponCountLoaded) {
+                  if (state is StickerLoaded) {
                     if (state.couponCnt > 0) {
                       return const MyCouponCardButton();
                     } else {
