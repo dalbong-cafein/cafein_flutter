@@ -52,10 +52,11 @@ class CustomExpansionTile extends StatefulWidget {
   final ListTileControlAffinity? controlAffinity;
 
   @override
-  State<ExpansionTile> createState() => _ExpansionTileState();
+  State<CustomExpansionTile> createState() => _CustomExpansionTileState();
 }
 
-class _ExpansionTileState extends State<ExpansionTile> with SingleTickerProviderStateMixin {
+class _CustomExpansionTileState extends State<CustomExpansionTile>
+    with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
   static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
   static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
@@ -68,7 +69,6 @@ class _ExpansionTileState extends State<ExpansionTile> with SingleTickerProvider
   late AnimationController _controller;
   late Animation<double> _iconTurns;
   late Animation<double> _heightFactor;
-  late Animation<Color?> _borderColor;
   late Animation<Color?> _headerColor;
   late Animation<Color?> _iconColor;
   late Animation<Color?> _backgroundColor;
@@ -81,7 +81,6 @@ class _ExpansionTileState extends State<ExpansionTile> with SingleTickerProvider
     _controller = AnimationController(duration: _kExpand, vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
     _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
-    _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
     _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
@@ -171,28 +170,6 @@ class _ExpansionTileState extends State<ExpansionTile> with SingleTickerProvider
         ],
       ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    final ThemeData theme = Theme.of(context);
-    final ExpansionTileThemeData expansionTileTheme = ExpansionTileTheme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    _borderColorTween.end = theme.dividerColor;
-    _headerColorTween
-      ..begin = widget.collapsedTextColor ??
-          expansionTileTheme.collapsedTextColor ??
-          theme.textTheme.subtitle1!.color
-      ..end = widget.textColor ?? expansionTileTheme.textColor ?? colorScheme.primary;
-    _iconColorTween
-      ..begin = widget.collapsedIconColor ??
-          expansionTileTheme.collapsedIconColor ??
-          theme.unselectedWidgetColor
-      ..end = widget.iconColor ?? expansionTileTheme.iconColor ?? colorScheme.primary;
-    _backgroundColorTween
-      ..begin = widget.collapsedBackgroundColor ?? expansionTileTheme.collapsedBackgroundColor
-      ..end = widget.backgroundColor ?? expansionTileTheme.backgroundColor;
-    super.didChangeDependencies();
   }
 
   @override

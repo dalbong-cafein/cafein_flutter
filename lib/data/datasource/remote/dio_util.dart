@@ -52,7 +52,7 @@ class DioUtil {
     );
     dio.interceptors.add(CustomDioLogger(
       'dio',
-      responseBody: false,
+      responseBody: true,
     ));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(

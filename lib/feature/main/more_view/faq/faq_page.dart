@@ -62,10 +62,37 @@ class _FaqPageState extends State<FaqPage> {
                         vertical: 16,
                       ),
                       itemBuilder: (context, index) => CustomExpansionTile(
-                        title: Text(
-                          state.faqs[index].title,
-                          style: AppStyle.subTitle15Medium,
+                        title: RichText(
+                          text: TextSpan(
+                            text: 'Q  ',
+                            style: AppStyle.subTitle15Medium.copyWith(
+                              color: AppColor.orange500,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: state.faqs[index].title,
+                                style: AppStyle.subTitle15Medium.copyWith(
+                                  color: AppColor.grey800,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              color: AppColor.grey50,
+                            ),
+                            child: Text(
+                              state.faqs[index].content,
+                              style: AppStyle.body14Regular,
+                            ),
+                          ),
+                        ],
                       ),
                       separatorBuilder: (context, index) => Container(
                         height: 1,
@@ -79,7 +106,7 @@ class _FaqPageState extends State<FaqPage> {
                 return const CircleLoadingIndicator();
               },
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 24),
             SizedBox(
               height: 44,
               width: width - 40,
