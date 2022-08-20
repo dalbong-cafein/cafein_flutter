@@ -21,6 +21,7 @@ import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
@@ -127,8 +128,11 @@ abstract class CafeinRoute {
         break;
       case SignOffPage.routeName:
         final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
-        page = SignOffPage(
-          moreViewCountResponse: moreViewCountResponse,
+        page = BlocProvider(
+          create: (context) => SignOffBloc(),
+          child: SignOffPage(
+            moreViewCountResponse: moreViewCountResponse,
+          ),
         );
         break;
       case EditProfilePage.routeName:
