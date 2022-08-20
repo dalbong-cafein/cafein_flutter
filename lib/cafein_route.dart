@@ -32,6 +32,8 @@ import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'feature/received_coupons/bloc/received_coupons_bloc.dart';
+
 abstract class CafeinRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     late Widget page;
@@ -136,7 +138,12 @@ abstract class CafeinRoute {
         page = const EditProfilePage();
         break;
       case ReceivedCouponsPage.routeName :
-        page = const ReceivedCouponsPage();
+        page = BlocProvider(
+          create: (context) => ReceivedCouponsBloc(
+            couponRepository: context.read<CouponRepository>()
+          ),
+          child: const ReceivedCouponsPage(),
+        );
         break;
 
     }
