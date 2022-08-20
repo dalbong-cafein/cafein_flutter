@@ -35,68 +35,70 @@ class ReceivedCouponsPage extends StatelessWidget {
             builder: (context, state) {
               if (state is ReceivedCouponsLoaded) {
                 return ListView.builder(
-                  itemCount: state.coupons.length,
+                    itemCount: state.coupons.length,
                     itemBuilder: (BuildContext context, int index) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: width * 2 / 3,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 14),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width * 2 / 3,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 14),
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${state.coupons[index].registeredDateTime.substring(5,7)}.${state.coupons[index].registeredDateTime.substring(8, 10)}",
-                                    style: AppStyle.body14Regular,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 16),
-                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    state.coupons[index].itemName,
-                                    style: AppStyle.subTitle15Medium,
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${state.coupons[index].registeredDateTime.substring(5, 7)}.${state.coupons[index].registeredDateTime.substring(8, 10)}",
+                                        style: AppStyle.body14Regular,
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    state.coupons[index].brandName,
-                                    style: AppStyle.caption13Regular
-                                        .copyWith(color: AppColor.grey400),
-                                  )
+                                  const SizedBox(width: 16),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.coupons[index].itemName,
+                                        style: AppStyle.subTitle15Medium,
+                                      ),
+                                      Text(
+                                        state.coupons[index].brandName,
+                                        style: AppStyle.caption13Regular
+                                            .copyWith(color: AppColor.grey400),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width * 1 / 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 14, right: 20),
-                              child: isSend(state.coupons[index].status),
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  );
-                });
-              }if(state is ReceivedCouponsLoading){
+                          ),
+                          SizedBox(
+                            width: width * 1 / 3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 14, right: 20),
+                                  child: isSend(state.coupons[index].status),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    });
+              }
+              if (state is ReceivedCouponsLoading) {
                 return const CircleLoadingIndicator();
-              }else{
+              } else {
                 return const SizedBox.shrink();
               }
             },
