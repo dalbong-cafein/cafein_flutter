@@ -5,8 +5,10 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -64,43 +66,50 @@ class _MoreViewPageState extends State<MoreViewPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 39,
-                      backgroundColor: AppColor.white,
-                      backgroundImage: NetworkImage(
-                        userData?.imageIdPair?.imageUrl ?? CafeinConst.defaultProfile,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${userData!.nickname}',
-                          style: AppStyle.subTitle17SemiBold,
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      EditProfilePage.routeName,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 39,
+                        backgroundColor: AppColor.white,
+                        backgroundImage: NetworkImage(
+                          userData?.imageIdPair?.imageUrl ?? CafeinConst.defaultProfile,
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          '카페인 ${DateTime.now().difference(
-                                DateTime.parse(userData.joinDateTime),
-                              ).inDays}일차',
-                          style: AppStyle.caption13Regular.copyWith(
-                            color: AppColor.grey400,
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${userData!.nickname}',
+                            style: AppStyle.subTitle17SemiBold,
                           ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Transform.rotate(
-                      angle: pi,
-                      child: const Icon(
-                        CupertinoIcons.back,
-                        color: AppColor.grey400,
+                          const SizedBox(height: 8),
+                          Text(
+                            '카페인 ${DateTime.now().difference(
+                                  DateTime.parse(userData.joinDateTime),
+                                ).inDays}일차',
+                            style: AppStyle.caption13Regular.copyWith(
+                              color: AppColor.grey400,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const Spacer(),
+                      Transform.rotate(
+                        angle: pi,
+                        child: const Icon(
+                          CupertinoIcons.back,
+                          color: AppColor.grey400,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
@@ -220,7 +229,11 @@ class _MoreViewPageState extends State<MoreViewPage> {
                   color: AppColor.grey50,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      SignOffPage.routeName,
+                    );
+                  },
                   child: SizedBox(
                     height: 56,
                     width: MediaQuery.of(context).size.width - 40,

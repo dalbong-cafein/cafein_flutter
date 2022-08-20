@@ -12,11 +12,13 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
@@ -113,6 +115,12 @@ abstract class CafeinRoute {
           ),
           child: const FaqPage(),
         );
+        break;
+      case SignOffPage.routeName:
+        page = const SignOffPage();
+        break;
+      case EditProfilePage.routeName:
+        page = const EditProfilePage();
         break;
     }
 
