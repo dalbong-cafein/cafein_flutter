@@ -35,4 +35,7 @@ abstract class AppIcon {
 
   static const trash = "asset/icon/trash_icon.svg";
   static const locationArrow = 'asset/icon/ic_near_me.svg';
+
+  static const kakaoCircle = 'asset/icon/ic_kakao_s.svg';
+  static const appleCircle = 'asset/icon/ic_apple_s.svg';
 }

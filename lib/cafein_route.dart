@@ -12,12 +12,11 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
-import 'package:cafein_flutter/feature/main/more_view/account/account_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
-import 'package:cafein_flutter/feature/main/more_view/setting/setting_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
@@ -94,12 +93,7 @@ abstract class CafeinRoute {
       case StickerPage.routeName:
         page = const StickerPage();
         break;
-      case SettingPage.routeName:
-        page = const SettingPage();
-        break;
-      case AccountPage.routeName:
-        page = const AccountPage();
-        break;
+
       case NoticePage.routeName:
         page = BlocProvider(
           create: (context) => NoticeBloc(
@@ -113,7 +107,12 @@ abstract class CafeinRoute {
         page = NoticeDetailPage(notice: notice);
         break;
       case FaqPage.routeName:
-        page = const FaqPage();
+        page = BlocProvider(
+          create: (context) => FaqBloc(
+            boardRepository: context.read<BoardRepository>(),
+          ),
+          child: const FaqPage(),
+        );
         break;
     }
 

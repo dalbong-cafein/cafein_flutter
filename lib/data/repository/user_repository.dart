@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_fo
 import 'package:cafein_flutter/data/datasource/remote/kakao/kakao_api_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/member_client.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
+import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
 import 'package:cafein_flutter/data/model/member/phone_number_request.dart';
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
@@ -34,6 +35,8 @@ abstract class UserRepository {
     required double longitude,
     required double latitude,
   });
+
+  Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt();
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -81,4 +84,8 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   set setAuthProvider(String authProvider) => _authProvider = authProvider;
+
+  @override
+  Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt() =>
+      memberClient.getStoreCntAndReviewCnt();
 }

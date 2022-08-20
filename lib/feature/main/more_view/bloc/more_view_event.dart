@@ -10,3 +10,7 @@ abstract class MoreViewEvent extends Equatable {
 class MoreViewSignOutRequested extends MoreViewEvent {
   const MoreViewSignOutRequested();
 }
+
+class MoreViewCountRequested extends MoreViewEvent {
+  const MoreViewCountRequested();
+}

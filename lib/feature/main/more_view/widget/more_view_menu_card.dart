@@ -1,22 +1,23 @@
 import 'dart:math';
 
-import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoreViewMenuCard extends StatelessWidget {
   const MoreViewMenuCard({
     Key? key,
     required this.title,
-    required this.onTab,
+    this.onTab,
     this.authProvider = false,
+    this.trailingWidget,
   }) : super(key: key);
 
   final String title;
-  final void Function() onTab;
+  final void Function()? onTab;
   final bool authProvider;
+  final Widget? trailingWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +37,16 @@ class MoreViewMenuCard extends StatelessWidget {
             if (authProvider)
               Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: Text(
-                  '${context.watch<UserRepository>().getAuthProvider}',
-                  style: AppStyle.body14Regular.copyWith(
+                child: loadAsset(AppIcon.kakaoCircle),
+              ),
+            trailingWidget ??
+                Transform.rotate(
+                  angle: pi,
+                  child: const Icon(
+                    CupertinoIcons.back,
                     color: AppColor.grey400,
                   ),
                 ),
-              ),
-            Transform.rotate(
-              angle: pi,
-              child: const Icon(
-                CupertinoIcons.back,
-                color: AppColor.grey400,
-              ),
-            ),
           ],
         ),
       ),

@@ -15,6 +15,22 @@ class MoreViewLoading extends MoreViewState {
   const MoreViewLoading();
 }
 
+class MoreViewStoreCntAndReviewCntLoaded extends MoreViewState {
+  const MoreViewStoreCntAndReviewCntLoaded({
+    required this.storeCount,
+    required this.reviewCount,
+  });
+
+  final int storeCount;
+  final int reviewCount;
+
+  @override
+  List<Object?> get props => [
+        storeCount,
+        reviewCount,
+      ];
+}
+
 class MoreViewError extends MoreViewState {
   const MoreViewError({
     required this.error,

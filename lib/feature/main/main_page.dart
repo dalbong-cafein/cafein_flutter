@@ -9,7 +9,6 @@ import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/home_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
-
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/notification_page.dart';
 import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
@@ -51,6 +50,7 @@ class MainPage extends StatelessWidget {
       BlocProvider<MoreViewBloc>(
         create: (context) => MoreViewBloc(
           authRepository: context.read<AuthRepository>(),
+          userRepository: context.read<UserRepository>(),
         ),
         child: const MoreViewPage(),
       ),
