@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/widget/get_sticker_way_bottom_drawer.dart';
 import 'package:cafein_flutter/feature/sticker/widget/mycoupon_card_button.dart';
@@ -31,155 +34,182 @@ class StickerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     context.read<StickerBloc>().add(const CouponCountRequested());
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "스티커",
-          style: AppStyle.subTitle16Medium,
-        ),
+        appBar: AppBar(
+          title: const Text(
+            "스티커",
+            style: AppStyle.subTitle16Medium,
+          ),
 
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: InkWell(
-                onTap: (){
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: InkWell(
+                  onTap: () {
                     showModalBottomSheet(
                         isScrollControlled: true,
                         context: context,
-                        builder: (BuildContext modalContext){
+                        builder: (BuildContext modalContext) {
                           return const GetStickerWayBottomDrawer();
-                    });
+                        });
                   },
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColor.grey50,
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(14.0)
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColor.grey50,
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(14.0)
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                            width: 12
-                        ),
-                        loadAsset(
-                          AppIcon.eggSandwichSticker,
-                          width: 32,
-                        ),
-                        const SizedBox(
-                            width: 6
-                        ),
-                        const Text(
-                          "스티커 받는 방법을 확인해 보세요",
-                          style: AppStyle.body14Regular,
-                        )
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                              width: 12
+                          ),
+                          loadAsset(
+                            CafeinConst.randomStickers[Random().nextInt(9)],
+                            width: 32,
+                          ),
+                          const SizedBox(
+                              width: 6
+                          ),
+                          const Text(
+                            "스티커 받는 방법을 확인해 보세요",
+                            style: AppStyle.body14Regular,
+                          )
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            const MyStickerCard(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(height: 1.0,
-                  color: AppColor.grey100),
-            ),
-            const SizedBox(height: 24,),
+              const SizedBox(
+                height: 24,
+              ),
+              const MyStickerCard(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(height: 1.0,
+                    color: AppColor.grey100),
+              ),
+              const SizedBox(height: 24,),
 
-            const StickerHistoryCard(),
+              const StickerHistoryCard(),
 
-            BlocConsumer<StickerBloc, StickerState>(
-              buildWhen: (pre, next) => next is CouponCountLoaded,
-              listener: (context, state) {
-                if (state is StickerError) {
-                  ErrorDialog.show(
-                    context,
-                    error: state.error,
-                    refresh: state.event,
-                  );
-                }
-              },
-              builder: (context, state) {
-                if(state is CouponCountLoaded){
-                  if(state.couponCnt > 0){
-                    return const MyCouponCardButton();
-                  }else{
-                    return const SizedBox.shrink();
+              BlocConsumer<StickerBloc, StickerState>(
+                buildWhen: (pre, next) => next is CouponCountLoaded,
+                listener: (context, state) {
+                  if (state is StickerError) {
+                    ErrorDialog.show(
+                      context,
+                      error: state.error,
+                      refresh: state.event,
+                    );
                   }
-                }else{
-                  return const CircleLoadingIndicator();
-                }
-
-              },
-            ),
-            Container(
-              width: width,
-              color: AppColor.grey50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                            Icons.error_outline,
-                            color: AppColor.grey600,
-                            size: 16
-                        ),
-                        const SizedBox(
-                            width: 6
-                        ),
-                        Text(
-                            "확인해 주세요",
-                            style: AppStyle.subTitle15Medium.copyWith(
-                                color: AppColor.grey600
-                            )
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: warningTexts.length,
-                        itemBuilder: (BuildContext context,
-                            int index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 5, bottom: 3),
-                            child: Text(
-                                warningTexts[index],
-                                style: AppStyle.caption13Regular.copyWith(
-                                    color: AppColor.grey500
-                                )
-                            ),
-                          );
-                        }
-                    )
-                  ],
-                ),
+                },
+                builder: (context, state) {
+                  if (state is CouponCountLoaded) {
+                    if (state.couponCnt > 0) {
+                      return const MyCouponCardButton();
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  } else {
+                    return const CircleLoadingIndicator();
+                  }
+                },
               ),
-            )
-          ],
+              Container(
+                width: width,
+                color: AppColor.grey50,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                              Icons.error_outline,
+                              color: AppColor.grey600,
+                              size: 16
+                          ),
+                          const SizedBox(
+                              width: 6
+                          ),
+                          Text(
+                              "확인해 주세요",
+                              style: AppStyle.subTitle15Medium.copyWith(
+                                  color: AppColor.grey600
+                              )
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: warningTexts.length,
+                          itemBuilder: (BuildContext context,
+                              int index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 5, bottom: 3),
+                              child: Text(
+                                  warningTexts[index],
+                                  style: AppStyle.caption13Regular.copyWith(
+                                      color: AppColor.grey500
+                                  )
+                              ),
+                            );
+                          }
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      bottomSheet: const StickerBottomSheet()
+        bottomSheet: BlocConsumer<StickerBloc, StickerState>(
+          listener: (context, state) {
+            if (state is StickerError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            }
+          },
+          builder: (context, state) {
+            if(state is StickerLoaded){
+              if(state.stickerCnt == 20){
+                return const StickerBottomSheet();
+              }else{
+                return const SizedBox.shrink();
+              }
+            }if(state is StickerLoading){
+              return const CircleLoadingIndicator();
+            }else{
+              return const SizedBox.shrink();
+            }
+
+          },
+        )
     );
   }
 }
