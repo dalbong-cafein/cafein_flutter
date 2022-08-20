@@ -4,6 +4,7 @@ abstract class AppImage {
   static const splash1 = 'asset/image/splash_image1.png';
   static const spalsh2 = 'asset/image/splash_image2.png';
   static const login = 'asset/image/login_image.png';
+  static const signOff = 'asset/image/img_sign_off.svg';
 
   static const cafeinLogo = 'asset/image/cafein_logo.svg';
   static const appleLogin = 'asset/image/apple_login.png';

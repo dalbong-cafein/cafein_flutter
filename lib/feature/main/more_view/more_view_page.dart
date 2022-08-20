@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
@@ -9,6 +10,7 @@ import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -121,12 +123,12 @@ class _MoreViewPageState extends State<MoreViewPage> {
                       if (state is MoreViewStoreCntAndReviewCntLoaded) {
                         return Row(
                           children: [
-                            _MoreViewCard(
+                            MoreViewCountCard(
                               title: '내가 등록한 카페',
                               value: state.storeCount,
                             ),
                             const SizedBox(width: 8),
-                            _MoreViewCard(
+                            MoreViewCountCard(
                               title: '내가 쓴 리뷰',
                               value: state.reviewCount,
                             ),
@@ -228,71 +230,40 @@ class _MoreViewPageState extends State<MoreViewPage> {
                   width: width - 40,
                   color: AppColor.grey50,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      SignOffPage.routeName,
-                    );
-                  },
-                  child: SizedBox(
-                    height: 56,
-                    width: MediaQuery.of(context).size.width - 40,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '탈퇴하기',
-                        style: AppStyle.caption13Medium.copyWith(
-                          color: AppColor.grey400,
+                BlocBuilder<MoreViewBloc, MoreViewState>(
+                  buildWhen: (pre, next) => next is MoreViewStoreCntAndReviewCntLoaded,
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: state is! MoreViewStoreCntAndReviewCntLoaded
+                          ? null
+                          : () => Navigator.of(context).pushNamed(
+                                SignOffPage.routeName,
+                                arguments: MoreViewCountResponse(
+                                  storeCnt: state.storeCount,
+                                  reviewCnt: state.reviewCount,
+                                ),
+                              ),
+                      child: SizedBox(
+                        height: 56,
+                        width: MediaQuery.of(context).size.width - 40,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '탈퇴하기',
+                            style: AppStyle.caption13Medium.copyWith(
+                              color: AppColor.grey400,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 24),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _MoreViewCard extends StatelessWidget {
-  const _MoreViewCard({
-    required this.title,
-    required this.value,
-  });
-
-  final String title;
-  final int value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 74,
-      width: (MediaQuery.of(context).size.width - 56) / 2,
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(16),
-        ),
-        color: AppColor.grey50,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: AppStyle.caption13Medium.copyWith(
-              color: AppColor.grey600,
-            ),
-          ),
-          Text(
-            '$value',
-            style: AppStyle.title19SemiBold,
-          ),
-        ],
       ),
     );
   }

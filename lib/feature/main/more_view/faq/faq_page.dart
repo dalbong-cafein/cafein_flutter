@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/widget/custom_expansion_tile.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/widget/button/bottom_out_lined_button.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -107,29 +108,15 @@ class _FaqPageState extends State<FaqPage> {
               },
             ),
             const SizedBox(height: 24),
-            SizedBox(
-              height: 44,
-              width: width - 40,
-              child: ElevatedButton(
-                onPressed: () async => await launchUrl(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: BottomOutLinedButton(
+                buttonTitle: '1:1 문의하기',
+                onTap: () async => await launchUrl(
                   Uri.parse(
                     'mailto:dalbong.cafein@gmail.com',
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  primary: AppColor.white,
-                  onPrimary: AppColor.grey800,
-                  elevation: 0,
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: AppColor.grey400,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                  ),
-                ),
-                child: const Text('1:1 문의하기'),
               ),
             ),
             const SizedBox(height: 16),

@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
+import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -117,7 +118,10 @@ abstract class CafeinRoute {
         );
         break;
       case SignOffPage.routeName:
-        page = const SignOffPage();
+        final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
+        page = SignOffPage(
+          moreViewCountResponse: moreViewCountResponse,
+        );
         break;
       case EditProfilePage.routeName:
         page = const EditProfilePage();
