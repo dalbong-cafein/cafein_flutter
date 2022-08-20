@@ -75,7 +75,7 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
                       "2. 카페 리뷰를 작성해 주세요",
                       "카페 상세페이지에서 추천도 버튼을 눌러 카페의 솔직한 리뷰를 남기면 스티커를 받을 수 있어요.",
                       false,
-                      AppImage.getStickerStep1
+                      AppImage.getStickerStep2
                   ),
                   const SizedBox(
                     height: 16,
@@ -84,7 +84,7 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
                       "3. 카공 카페를 등록해 주세요",
                        "카공 카페로 등록되어 있지 않은 카페의 상세 정보를 채워 카페인에 등록하면 스티커를 받을 수 있어요.",
                       false,
-                      AppImage.getStickerStep1
+                      AppImage.getStickerStep3
                   ),
                   const SizedBox(
                     height: 8,

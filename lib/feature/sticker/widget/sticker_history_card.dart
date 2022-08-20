@@ -12,10 +12,8 @@ class StickerHistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
+
     return Column(
       children: [
         Row(
@@ -40,24 +38,18 @@ class StickerHistoryCard extends StatelessWidget {
                     color: AppColor.grey500,
                     size: 16,
                   ),
-                  const SizedBox(
-                      width: 4
-                  ),
+                  const SizedBox(width: 4),
                   Text(
                     "최근 순",
-                    style: AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.grey600
-                    ),
+                    style: AppStyle.subTitle14Medium
+                        .copyWith(color: AppColor.grey600),
                   ),
-                  const SizedBox(
-                      width: 20
-                  )
+                  const SizedBox(width: 20)
                 ],
               ),
             )
           ],
         ),
-
         BlocConsumer<StickerBloc, StickerState>(
           listener: (context, state) {
             if (state is StickerError) {
@@ -69,8 +61,8 @@ class StickerHistoryCard extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if(state is StickerLoaded){
-              if(state.stickerCnt == 0){
+            if (state is StickerLoaded) {
+              if (state.stickerCnt == 0) {
                 return const NoStickerCard();
               }
               return Padding(
@@ -79,8 +71,7 @@ class StickerHistoryCard extends StatelessWidget {
                     itemCount: state.stickerCnt,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemBuilder: (BuildContext context,
-                        int index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.only(
                             top: 10, bottom: 10, left: 20),
@@ -90,9 +81,7 @@ class StickerHistoryCard extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                    width: 1,
-                                    color: AppColor.grey400
-                                ),
+                                    width: 1, color: AppColor.grey400),
                               ),
                               child: const Padding(
                                 padding: EdgeInsets.all(16),
@@ -102,9 +91,7 @@ class StickerHistoryCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                                width: 12
-                            ),
+                            const SizedBox(width: 12),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -114,32 +101,46 @@ class StickerHistoryCard extends StatelessWidget {
                                 ),
                                 Text(
                                   state.stickers[index].storeName,
-                                  style: AppStyle.caption12Regular.copyWith(
-                                      color: AppColor.grey400
-                                  ),
+                                  style: AppStyle.caption12Regular
+                                      .copyWith(color: AppColor.grey400),
                                 ),
                                 Text(
                                   "유효기간 "
-                                      "${state.stickers[index].registeredDateTime.substring(0, 10).replaceAll("-", ".")} - "
-                                      "${state.stickers[index].expiredDateTime.substring(0, 10).replaceAll("-", ".")}",
-                                  style: AppStyle.caption13Medium,
+                                  "${state.stickers[index].registeredDateTime.substring(0, 10).replaceAll("-", ".")} - "
+                                  "${state.stickers[index].expiredDateTime.substring(0, 10).replaceAll("-", ".")}",
+                                  style: AppStyle.caption13Medium.copyWith(
+                                      color: isExpire(state
+                                              .stickers[index].expiredDateTime
+                                              .substring(0, 10))
+                                          ? AppColor.orange500
+                                          : AppColor.grey800),
                                 )
                               ],
                             )
                           ],
                         ),
                       );
-                    }
-                ),
+                    }),
               );
-            }else{
+            } else {
               return const CircleLoadingIndicator();
             }
-
           },
         ),
-
       ],
     );
+  }
+
+  bool isExpire(String day) {
+    final year = int.parse(day.substring(0, 4));
+    final month = int.parse(day.substring(5, 7));
+    final date = int.parse(day.substring(8, 10));
+    final dateTime = DateTime(year, month, date);
+    final now = DateTime.now();
+    if (dateTime.difference(now).inDays <= 7) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
