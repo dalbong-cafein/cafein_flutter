@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
@@ -19,6 +21,12 @@ abstract class CafeinConst {
     AppIcon.pinkDrinkSticker,
     AppIcon.sandwichSticker
   ];
+
+  static late String defaultProfile;
+
+  static initConst() {
+    defaultProfile = defaultProfiles[Random().nextInt(2)];
+  }
 
   static const defaultLocation = '종로구';
   static const defaultLating = LatLng(

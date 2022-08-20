@@ -4,7 +4,7 @@ import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/widget/image_choice_dialog.dart';
-import 'package:cafein_flutter/feature/profile/widget/profile_image.dart';
+import 'package:cafein_flutter/widget/card/profile_image.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/debouncer.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -115,7 +115,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
                       return ProfileImage(
                         filePath: filePath,
-                        imagePath: randomProfile,
+                        imagePath: CafeinConst.defaultProfile,
+                        radius: 44,
                       );
                     },
                   ),
@@ -189,8 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const SizedBox(width: 4),
                   BlocBuilder<ProfileBloc, ProfileState>(
-                    buildWhen: (pre, next) =>
-                        next is ProfileNicknameValidationChecked,
+                    buildWhen: (pre, next) => next is ProfileNicknameValidationChecked,
                     builder: (context, state) {
                       int nicknameLength = 0;
                       if (state is ProfileNicknameValidationChecked) {
@@ -218,15 +218,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
-              buildWhen: (pre, next) =>
-                  next is ProfileNicknameDuplicationChecked,
+              buildWhen: (pre, next) => next is ProfileNicknameDuplicationChecked,
               builder: (context, state) {
                 bool isDuplicated = false;
                 String text = '한글, 영문, 숫자만 입력 가능합니다.';
                 if (state is ProfileNicknameDuplicationChecked) {
                   isDuplicated = state.isDuplicated;
-                  text =
-                      !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
+                  text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
                 }
                 return Align(
                   alignment: Alignment.centerLeft,

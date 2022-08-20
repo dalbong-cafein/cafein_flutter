@@ -2,7 +2,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum AuthProvider {
   @JsonValue('APPLE')
-  apple,
+  apple('애플'),
   @JsonValue('KAKAO')
-  kakao,
+  kakao('카카오');
+
+  final String name;
+
+  const AuthProvider(this.name);
 }

@@ -65,6 +65,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
+    userRepository.setAuthProvider = event.authProvider.name;
+
     emit(
       LoginSocialTokenConfirmed(
         socialLoginRequest: SocialLoginRequest(

@@ -1,4 +1,7 @@
+import 'package:cafein_flutter/data/model/board/board.dart';
+import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -12,6 +15,13 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
@@ -90,10 +100,39 @@ abstract class CafeinRoute {
         page = BlocProvider(
           create: (context) => StickerBloc(
               stickerRepository: context.read<StickerRepository>(),
-              couponRepository: context.read<CouponRepository>()
-          ),
+              couponRepository: context.read<CouponRepository>()),
           child: const StickerPage(),
         );
+        break;
+
+      case NoticePage.routeName:
+        page = BlocProvider(
+          create: (context) => NoticeBloc(
+            boardRepository: context.read<BoardRepository>(),
+          ),
+          child: const NoticePage(),
+        );
+        break;
+      case NoticeDetailPage.routeName:
+        final notice = settings.arguments as Board;
+        page = NoticeDetailPage(notice: notice);
+        break;
+      case FaqPage.routeName:
+        page = BlocProvider(
+          create: (context) => FaqBloc(
+            boardRepository: context.read<BoardRepository>(),
+          ),
+          child: const FaqPage(),
+        );
+        break;
+      case SignOffPage.routeName:
+        final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
+        page = SignOffPage(
+          moreViewCountResponse: moreViewCountResponse,
+        );
+        break;
+      case EditProfilePage.routeName:
+        page = const EditProfilePage();
         break;
     }
 
