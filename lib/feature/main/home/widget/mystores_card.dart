@@ -132,7 +132,7 @@ class MyStoresCard extends StatelessWidget {
                                                 child: Text(
                                                   state.memberStores[index].businessInfo?.isOpen ??
                                                           false
-                                                      ? "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 종료"
+                                                      ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
                                                       : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
                                                   style: AppStyle.caption12Regular
                                                       .copyWith(color: AppColor.grey600),

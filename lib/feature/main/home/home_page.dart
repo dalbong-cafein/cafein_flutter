@@ -20,7 +20,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final widthPercent = width / 360;
-
     final memberData = context.watch<UserRepository>().getMemberData;
 
     return BlocListener<HomeBloc, HomeState>(

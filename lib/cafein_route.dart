@@ -1,4 +1,6 @@
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/coupon_repository.dart';
+import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
@@ -14,6 +16,7 @@ import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
+import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,7 +87,13 @@ abstract class CafeinRoute {
         page = const SearchKeywordPage();
         break;
       case StickerPage.routeName:
-        page = const StickerPage();
+        page = BlocProvider(
+          create: (context) => StickerBloc(
+              stickerRepository: context.read<StickerRepository>(),
+              couponRepository: context.read<CouponRepository>()
+          ),
+          child: const StickerPage(),
+        );
         break;
     }
 
