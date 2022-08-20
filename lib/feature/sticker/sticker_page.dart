@@ -40,6 +40,7 @@ class StickerPage extends StatelessWidget {
         .width;
     context.read<StickerBloc>().add(const CouponCountRequested());
 
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(

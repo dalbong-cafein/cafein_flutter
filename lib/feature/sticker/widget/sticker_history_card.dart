@@ -13,62 +13,68 @@ class StickerHistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
-    return Column(
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              width: width / 2,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  "스티커 히스토리",
-                  style: AppStyle.subTitle17SemiBold,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: width / 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+    context.read<StickerBloc>().add(const StickerRequested());
+    bool isNewFirst = false;
+    return BlocConsumer<StickerBloc, StickerState>(
+      listener: (context, state) {
+        if (state is StickerError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is StickerLoaded) {
+          return Column(
+            children: [
+              Row(
                 children: [
-                  const Icon(
-                    Icons.swap_vert,
-                    color: AppColor.grey500,
-                    size: 16,
+                  SizedBox(
+                    width: width / 2,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "스티커 히스토리",
+                        style: AppStyle.subTitle17SemiBold,
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 4),
-                  Text(
-                    "최근 순",
-                    style: AppStyle.subTitle14Medium
-                        .copyWith(color: AppColor.grey600),
-                  ),
-                  const SizedBox(width: 20)
+                  SizedBox(
+                    width: width / 2,
+                    child: InkWell(
+                      onTap: () {
+                        isNewFirst = !isNewFirst;
+                        context.read<StickerBloc>().add(StickerReverseRequested(
+                            stickers: state.stickers,
+                            stickerCnt: state.stickerCnt));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Icon(
+                            Icons.swap_vert,
+                            color: AppColor.grey500,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            isNewFirst ? "오래된 순" : "최근 순",
+                            style: AppStyle.subTitle14Medium
+                                .copyWith(color: AppColor.grey600),
+                          ),
+                          const SizedBox(width: 20)
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-        BlocConsumer<StickerBloc, StickerState>(
-          listener: (context, state) {
-            if (state is StickerError) {
-              ErrorDialog.show(
-                context,
-                error: state.error,
-                refresh: state.event,
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state is StickerLoaded) {
-              if (state.stickerCnt == 0) {
-                return const NoStickerCard();
-              }
-              return Padding(
+              Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: ListView.builder(
-                    itemCount: state.stickerCnt,
+                    itemCount: state.stickers.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -121,13 +127,15 @@ class StickerHistoryCard extends StatelessWidget {
                         ),
                       );
                     }),
-              );
-            } else {
-              return const CircleLoadingIndicator();
-            }
-          },
-        ),
-      ],
+              )
+            ],
+          );
+        }if(state is StickerLoading){
+          return const CircleLoadingIndicator();
+        }else{
+          return const SizedBox.shrink();
+        }
+      },
     );
   }
 

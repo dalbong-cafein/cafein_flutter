@@ -6,7 +6,9 @@ import 'package:cafein_flutter/data/model/sticker/review_sticker_request.dart';
 import 'package:cafein_flutter/data/model/sticker/sticker.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
+import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'sticker_event.dart';
 
@@ -17,6 +19,7 @@ class StickerBloc extends Bloc<StickerEvent, StickerState> {
       : super(const StickerInitial()) {
     on<StickerRequested>(_onStickerRequested);
     on<CouponCountRequested>(_onCouponCountRequested);
+    on<StickerReverseRequested>(_onStickerReverseRequested);
   }
 
   final StickerRepository stickerRepository;
@@ -26,18 +29,13 @@ class StickerBloc extends Bloc<StickerEvent, StickerState> {
     StickerRequested event,
     Emitter<StickerState> emit,
   ) async {
-
-    CongestionStickerRequest congestionStickerRequest= CongestionStickerRequest(congestionId: 1);
-    stickerRepository.createCongestionSticker(congestionStickerRequest);
-
-
     emit(StickerLoading());
     try {
       final stickerCntResponse = await stickerRepository.getStickerCount();
       final stickersResponse = await stickerRepository.getStickers();
       final stickerCnt = stickerCntResponse.data;
-      final stickers = stickersResponse.data;
-      emit(StickerLoaded(stickerCnt: stickerCnt, stickers: stickers));
+      final stickers =stickersResponse.data;
+      emit(StickerLoaded(stickerCnt: stickerCnt, stickers: [...stickers]));
     } catch (e) {
       emit(StickerError(
         error: e,
@@ -55,6 +53,23 @@ class StickerBloc extends Bloc<StickerEvent, StickerState> {
       final couponResponse = await couponRepository.getCoupons();
       final int couponCnt = couponResponse.data.length;
       emit(CouponCountLoaded(couponCnt: couponCnt));
+    } catch (e) {
+      emit(StickerError(
+        error: e,
+        event: () => add(event),
+      ));
+    }
+  }
+
+  FutureOr<void> _onStickerReverseRequested(
+    StickerReverseRequested event,
+    Emitter<StickerState> emit,
+  ) async {
+    emit(StickerLoading());
+    try {
+      final reversedStickers = List.from(event.stickers.reversed);
+      emit(StickerLoaded(
+          stickerCnt: event.stickerCnt, stickers: [...reversedStickers]));
     } catch (e) {
       emit(StickerError(
         error: e,
