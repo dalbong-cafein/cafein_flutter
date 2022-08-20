@@ -13,6 +13,8 @@ import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dar
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
+import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
@@ -123,14 +125,28 @@ class _MoreViewPageState extends State<MoreViewPage> {
                       if (state is MoreViewStoreCntAndReviewCntLoaded) {
                         return Row(
                           children: [
-                            MoreViewCountCard(
-                              title: '내가 등록한 카페',
-                              value: state.storeCount,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  RegisteredStorePage.routeName,
+                                );
+                              },
+                              child: MoreViewCountCard(
+                                title: '내가 등록한 카페',
+                                value: state.storeCount,
+                              ),
                             ),
                             const SizedBox(width: 8),
-                            MoreViewCountCard(
-                              title: '내가 쓴 리뷰',
-                              value: state.reviewCount,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  RegisteredReviewPage.routeName,
+                                );
+                              },
+                              child: MoreViewCountCard(
+                                title: '내가 쓴 리뷰',
+                                value: state.reviewCount,
+                              ),
                             ),
                           ],
                         );

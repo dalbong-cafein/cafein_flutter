@@ -26,9 +26,11 @@ import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dar
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
+import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
+import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -137,6 +139,12 @@ abstract class CafeinRoute {
         break;
       case EditProfilePage.routeName:
         page = const EditProfilePage();
+        break;
+      case RegisteredReviewPage.routeName:
+        page = const RegisteredReviewPage();
+        break;
+      case RegisteredStorePage.routeName:
+        page = const RegisteredStorePage();
         break;
     }
 
