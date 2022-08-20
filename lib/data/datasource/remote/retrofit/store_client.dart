@@ -33,5 +33,5 @@ abstract class StoreClient {
   );
 
   @GET('/stores/my-registered')
-  Future<BaseResponse<StoreResponse<RegisteredStore>>> getMyRegisteredStores();
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>> getMyRegisteredStores();
 }

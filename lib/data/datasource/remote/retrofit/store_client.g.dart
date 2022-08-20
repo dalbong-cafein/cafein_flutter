@@ -81,23 +81,26 @@ class _StoreClient implements StoreClient {
   }
 
   @override
-  Future<BaseResponse<StoreResponse<RegisteredStore>>>
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>>
       getMyRegisteredStores() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<StoreResponse<RegisteredStore>>>(
+        _setStreamType<BaseResponse<StoreResponse<List<RegisteredStore>>>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/stores/my-registered',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<StoreResponse<RegisteredStore>>.fromJson(
+    final value = BaseResponse<StoreResponse<List<RegisteredStore>>>.fromJson(
       _result.data!,
-      (json) => StoreResponse<RegisteredStore>.fromJson(
+      (json) => StoreResponse<List<RegisteredStore>>.fromJson(
         json as Map<String, dynamic>,
-        (json) => RegisteredStore.fromJson(json as Map<String, dynamic>),
+        (json) => (json as List<dynamic>)
+            .map<RegisteredStore>(
+                (i) => RegisteredStore.fromJson(i as Map<String, dynamic>))
+            .toList(),
       ),
     );
     return value;

@@ -38,6 +38,7 @@ abstract class AppIcon {
 
   static const kakaoCircle = 'asset/icon/ic_kakao_s.svg';
   static const appleCircle = 'asset/icon/ic_apple_s.svg';
+  static const textBlank = 'asset/icon/ic_text_blank.svg';
 
   static const americanoSticker = "asset/icon/sticker/americano_sticker_icon.svg";
   static const eggSandwichSticker = "asset/icon/sticker/egg_sandwich_sticker_icon.svg";

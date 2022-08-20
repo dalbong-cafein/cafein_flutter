@@ -13,8 +13,9 @@ _$_RegisteredStore _$$_RegisteredStoreFromJson(Map<String, dynamic> json) =>
       businessInfo: BusinessInfo.fromJson(
           json['businessHoursInfoDto'] as Map<String, dynamic>),
       congestionScoreAvg: (json['congestionScoreAvg'] as num?)?.toDouble(),
-      imageIdPair:
-          ImageIdPair.fromJson(json['storeImageDto'] as Map<String, dynamic>),
+      imageIdPair: json['storeImageDto'] == null
+          ? null
+          : ImageIdPair.fromJson(json['storeImageDto'] as Map<String, dynamic>),
       registeredDateTime: json['regDateTime'] as String,
     );
 

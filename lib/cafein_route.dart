@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
+import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
@@ -30,6 +31,7 @@ import 'package:cafein_flutter/feature/review/registered_review/registered_revie
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
+import 'package:cafein_flutter/feature/store/registered_store/bloc/registered_store_bloc.dart';
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -144,7 +146,12 @@ abstract class CafeinRoute {
         page = const RegisteredReviewPage();
         break;
       case RegisteredStorePage.routeName:
-        page = const RegisteredStorePage();
+        page = BlocProvider(
+          create: (context) => RegisteredStoreBloc(
+            storeRepository: context.read<StoreRepository>(),
+          ),
+          child: const RegisteredStorePage(),
+        );
         break;
     }
 
