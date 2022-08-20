@@ -15,12 +15,14 @@ Widget loadAsset(
       width: width,
       height: height,
       color: color,
+      fit: fit,
     );
   } else if (asset.contains('.png')) {
     return Image.asset(
       asset,
       width: width,
       height: height,
+      fit: fit,
     );
   } else {
     return Lottie.asset(

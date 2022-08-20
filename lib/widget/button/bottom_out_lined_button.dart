@@ -1,6 +1,5 @@
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BottomOutLinedButton extends StatelessWidget {
   const BottomOutLinedButton({

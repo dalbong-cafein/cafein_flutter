@@ -38,4 +38,15 @@ abstract class AppIcon {
 
   static const kakaoCircle = 'asset/icon/ic_kakao_s.svg';
   static const appleCircle = 'asset/icon/ic_apple_s.svg';
+
+  static const americanoSticker = "asset/icon/sticker/americano_sticker_icon.svg";
+  static const eggSandwichSticker = "asset/icon/sticker/egg_sandwich_sticker_icon.svg";
+  static const greenDessertSticker = "asset/icon/sticker/green_dessert_sticker_icon.svg";
+  static const latteSticker = "asset/icon/sticker/latte_sticker_icon.svg";
+  static const mintDrinkSticker = "asset/icon/sticker/mint_drink_sticker_icon.svg";
+  static const orangeDessertSticker = "asset/icon/sticker/orange_dessert_sticker_icon.svg";
+  static const orangeDrinkSticker = "asset/icon/sticker/orange_drink_sticker_icon.svg";
+  static const pinkDessertSticker = "asset/icon/sticker/pink_dessert_sticker_icon.svg";
+  static const pinkDrinkSticker = "asset/icon/sticker/pink_drink_sticker_icon.svg";
+  static const sandwichSticker = "asset/icon/sticker/sandwich_sticker_icon.svg";
 }
