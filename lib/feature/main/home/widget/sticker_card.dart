@@ -108,7 +108,7 @@ class StickerCard extends StatelessWidget {
                                 ],
                               );
                             }
-                            return const CircleLoadingIndicator();
+                            return const CustomCircleLoadingIndicator();
                           },
                         ),
                       ),

@@ -60,8 +60,7 @@ class StickerHistoryCard extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             isNewFirst ? "오래된 순" : "최근 순",
-                            style: AppStyle.subTitle14Medium
-                                .copyWith(color: AppColor.grey600),
+                            style: AppStyle.subTitle14Medium.copyWith(color: AppColor.grey600),
                           ),
                           const SizedBox(width: 20)
                         ],
@@ -78,15 +77,13 @@ class StickerHistoryCard extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 10, left: 20),
+                        padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
                         child: Row(
                           children: [
                             Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(
-                                    width: 1, color: AppColor.grey400),
+                                border: Border.all(width: 1, color: AppColor.grey400),
                               ),
                               child: const Padding(
                                 padding: EdgeInsets.all(16),
@@ -106,16 +103,15 @@ class StickerHistoryCard extends StatelessWidget {
                                 ),
                                 Text(
                                   state.stickers[index].storeName,
-                                  style: AppStyle.caption12Regular
-                                      .copyWith(color: AppColor.grey400),
+                                  style:
+                                      AppStyle.caption12Regular.copyWith(color: AppColor.grey400),
                                 ),
                                 Text(
                                   "유효기간 "
                                   "${state.stickers[index].registeredDateTime.substring(0, 10).replaceAll("-", ".")} - "
                                   "${state.stickers[index].expiredDateTime.substring(0, 10).replaceAll("-", ".")}",
                                   style: AppStyle.caption13Medium.copyWith(
-                                      color: isExpire(state
-                                              .stickers[index].expiredDateTime
+                                      color: isExpire(state.stickers[index].expiredDateTime
                                               .substring(0, 10))
                                           ? AppColor.orange500
                                           : AppColor.grey800),
@@ -129,9 +125,10 @@ class StickerHistoryCard extends StatelessWidget {
               )
             ],
           );
-        }if(state is StickerLoading){
-          return const CircleLoadingIndicator();
-        }else{
+        }
+        if (state is StickerLoading) {
+          return const CustomCircleLoadingIndicator();
+        } else {
           return const SizedBox.shrink();
         }
       },

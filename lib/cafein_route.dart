@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
+import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -27,6 +28,7 @@ import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dar
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
+import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
@@ -143,7 +145,12 @@ abstract class CafeinRoute {
         page = const EditProfilePage();
         break;
       case RegisteredReviewPage.routeName:
-        page = const RegisteredReviewPage();
+        page = BlocProvider(
+          create: (context) => RegisteredReviewBloc(
+            reviewRepository: context.read<ReviewRepository>(),
+          ),
+          child: const RegisteredReviewPage(),
+        );
         break;
       case RegisteredStorePage.routeName:
         page = BlocProvider(

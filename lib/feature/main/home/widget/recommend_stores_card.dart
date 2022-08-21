@@ -231,7 +231,7 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
             ],
           );
         }
-        return const CircleLoadingIndicator();
+        return const CustomCircleLoadingIndicator();
       },
     );
   }

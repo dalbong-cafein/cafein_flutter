@@ -35,7 +35,7 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
       imageUrl: imageUrl,
       height: widget.height,
       width: widget.width,
-      placeholder: (context, url) => const CircleLoadingIndicator(),
+      placeholder: (context, url) => const CustomCircleLoadingIndicator(),
       errorWidget: (context, url, error) => const SizedBox.shrink(),
       fit: widget.fit ?? BoxFit.contain,
       fadeInDuration: const Duration(milliseconds: 200),

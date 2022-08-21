@@ -237,7 +237,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   );
                 }
-                return const CircleLoadingIndicator();
+                return const CustomCircleLoadingIndicator();
               },
             ),
           ],

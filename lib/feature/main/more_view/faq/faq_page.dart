@@ -104,7 +104,7 @@ class _FaqPageState extends State<FaqPage> {
                     ),
                   );
                 }
-                return const CircleLoadingIndicator();
+                return const CustomCircleLoadingIndicator();
               },
             ),
             const SizedBox(height: 24),

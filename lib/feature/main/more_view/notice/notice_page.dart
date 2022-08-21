@@ -97,7 +97,7 @@ class _NoticePageState extends State<NoticePage> {
                 ),
               );
             }
-            return const CircleLoadingIndicator();
+            return const CustomCircleLoadingIndicator();
           },
         ),
       ),

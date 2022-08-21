@@ -4,7 +4,7 @@ import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/widget/image_choice_dialog.dart';
-import 'package:cafein_flutter/widget/card/profile_image.dart';
+import 'package:cafein_flutter/feature/profile/widget/profile_image.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/debouncer.dart';
 import 'package:cafein_flutter/util/load_asset.dart';

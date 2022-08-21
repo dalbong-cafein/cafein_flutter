@@ -30,9 +30,10 @@ abstract class ReviewRepository {
 
   Future<BaseResponse<ReviewResponse<List<UserReview>>>> getUserReviews();
 
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews(
-    int limit,
-  );
+  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews({
+    required int storeId,
+    required int limit,
+  });
 
   Future<BaseResponse<dynamic>> deleteReview(
     int reviewId,
@@ -68,8 +69,14 @@ class ReviewRepositoryImpl implements ReviewRepository {
   Future<BaseResponse> deleteReview(int reviewId) => reviewClient.deleteReview(reviewId);
 
   @override
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews(int limit) =>
-      reviewClient.getMyRegisteredReviews(limit);
+  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews({
+    required int storeId,
+    required int limit,
+  }) =>
+      reviewClient.getMyRegisteredReviews(
+        storeId,
+        limit,
+      );
 
   @override
   Future<BaseResponse<List<ReportCategory>>> getReportCategories() =>

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
@@ -16,8 +15,9 @@ import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,12 +78,9 @@ class _MoreViewPageState extends State<MoreViewPage> {
                   },
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      CircleProfileImage(
+                        imageUrl: userData?.imageIdPair?.imageUrl,
                         radius: 39,
-                        backgroundColor: AppColor.white,
-                        backgroundImage: NetworkImage(
-                          userData?.imageIdPair?.imageUrl ?? CafeinConst.defaultProfile,
-                        ),
                       ),
                       const SizedBox(width: 16),
                       Column(
@@ -152,7 +149,7 @@ class _MoreViewPageState extends State<MoreViewPage> {
                         );
                       }
 
-                      return const CircleLoadingIndicator();
+                      return const CustomCircleLoadingIndicator();
                     },
                   ),
                 ),
@@ -182,15 +179,15 @@ class _MoreViewPageState extends State<MoreViewPage> {
                 const SizedBox(height: 12),
                 MoreViewMenuCard(
                   title: '공지사항',
-                  onTab: () {
-                    Navigator.of(context).pushNamed(NoticePage.routeName);
-                  },
+                  onTab: () => Navigator.of(context).pushNamed(
+                    NoticePage.routeName,
+                  ),
                 ),
                 MoreViewMenuCard(
                   title: '자주 묻는 질문',
-                  onTab: () {
-                    Navigator.of(context).pushNamed(FaqPage.routeName);
-                  },
+                  onTab: () => Navigator.of(context).pushNamed(
+                    FaqPage.routeName,
+                  ),
                 ),
                 MoreViewMenuCard(
                   title: '서비스 이용 약관',
