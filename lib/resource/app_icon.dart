@@ -50,4 +50,13 @@ abstract class AppIcon {
   static const pinkDessertSticker = "asset/icon/sticker/pink_dessert_sticker_icon.svg";
   static const pinkDrinkSticker = "asset/icon/sticker/pink_drink_sticker_icon.svg";
   static const sandwichSticker = "asset/icon/sticker/sandwich_sticker_icon.svg";
+
+  static const homeOn = 'asset/icon/bottom/ic_home_on.svg';
+  static const homeOff = 'asset/icon/bottom/ic_home_off.svg';
+  static const searchOn = 'asset/icon/bottom/ic_search_on.svg';
+  static const searchOff = 'asset/icon/bottom/ic_search_off.svg';
+  static const notificationOn = 'asset/icon/bottom/ic_notification_on.svg';
+  static const notificationOff = 'asset/icon/bottom/ic_notification_off.svg';
+  static const moreViewOn = 'asset/icon/bottom/ic_more_view_on.svg';
+  static const moreViewOff = 'asset/icon/bottom/ic_more_view_off.svg';
 }
