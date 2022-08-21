@@ -36,4 +36,29 @@ abstract class CafeinConst {
 
   static const defaultStoreImage =
       'https://raw.githubusercontent.com/dalbong-cafein/cafein_flutter/develop/default_store_image.png';
+
+  static const couponStoreImages = [
+    AppImage.starbucks,
+    AppImage.passcucci,
+    AppImage.tomntoms,
+    AppImage.twosomeplace,
+    AppImage.ediya
+  ];
+
+  static const couponStoreIcons = [
+    AppIcon.starbucks,
+    AppIcon.passcucci,
+    AppIcon.tomntoms,
+    AppIcon.twosomeplace,
+    AppIcon.ediya
+  ];
+
+  static const couponStoreNames = [
+    "스타벅스",
+    "파스쿠찌",
+    "탐앤탐스",
+    "투썸플레이스",
+    "이디야"
+  ];
+
 }
