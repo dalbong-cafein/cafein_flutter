@@ -5,6 +5,7 @@ import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/apply_coupon/apply_coupon_page.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
@@ -144,6 +145,9 @@ abstract class CafeinRoute {
           ),
           child: const ReceivedCouponsPage(),
         );
+        break;
+      case ApplyCouponPage.routeName :
+        page = const ApplyCouponPage();
         break;
 
     }

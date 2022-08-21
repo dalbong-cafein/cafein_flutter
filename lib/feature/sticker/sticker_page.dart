@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/feature/apply_coupon/apply_coupon_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/widget/get_sticker_way_bottom_drawer.dart';
@@ -106,7 +107,7 @@ class StickerPage extends StatelessWidget {
                 },
                 builder: (context, state) {
                   if (state is StickerLoaded) {
-                    if (state.couponCnt == 0) { //TODO 0개 이상으로 바꿔야함(테스트용)
+                    if (state.couponCnt > 0) {
                       return InkWell(
                           onTap: () {
                             Navigator.of(context)
@@ -175,8 +176,14 @@ class StickerPage extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is StickerLoaded) {
-              if (state.stickerCnt == 20) {
-                return const StickerBottomSheet();
+              if (state.stickerCnt == 3) {
+                //TODO 20으로 바꾸어야함 (테스트용)
+                return InkWell(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(ApplyCouponPage.routeName);
+                    },
+                    child: const StickerBottomSheet());
               } else {
                 return const SizedBox.shrink();
               }
