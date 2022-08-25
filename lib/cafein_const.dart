@@ -61,4 +61,12 @@ abstract class CafeinConst {
     "이디야"
   ];
 
+  static const couponItemNames = [
+    "아이스 카페 아메리카노 T",
+    "아이스 아메리카노(R)",
+    "아이스 아메리카노 T",
+    "아메리카노(R)",
+    "카페 아메리카노(ICE)(EXTRA)"
+  ];
+
 }

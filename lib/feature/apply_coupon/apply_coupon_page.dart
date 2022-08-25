@@ -40,6 +40,7 @@ class ApplyCouponPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left :12, right: 12, top: 12 , bottom: 16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       loadAsset(
                           CafeinConst.couponStoreImages[index]
@@ -64,6 +65,13 @@ class ApplyCouponPage extends StatelessWidget {
                             ),
                           )
                         ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        CafeinConst.couponItemNames[index],
+                        style: AppStyle.subTitle15Bold,
                       )
 
                     ],

@@ -10,10 +10,4 @@ class ReceivedCouponsRequested extends ReceivedCouponsEvent{
 
 }
 
-class CouponClicked extends ReceivedCouponsEvent{
-  CouponClicked({required this.clickedIndex});
-  final int clickedIndex;
-  @override
-  List<Object?> get props => [clickedIndex];
 
-}

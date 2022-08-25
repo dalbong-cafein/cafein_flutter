@@ -1,4 +1,12 @@
 part of 'apply_coupon_bloc.dart';
 
-@immutable
-abstract class ApplyCouponEvent {}
+
+abstract class ApplyCouponEvent extends Equatable{}
+
+class CouponClicked extends ApplyCouponEvent{
+  CouponClicked({required this.clickedIndex});
+  final int clickedIndex;
+  @override
+  List<Object?> get props => [clickedIndex];
+
+}
