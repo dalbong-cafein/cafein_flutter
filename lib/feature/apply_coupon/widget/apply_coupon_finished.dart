@@ -1,3 +1,5 @@
+import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,34 +58,47 @@ class ApplyCouponFinished extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: width - 32,
-              decoration: const BoxDecoration(
-                color : AppColor.orange400,
-                borderRadius: BorderRadius.all(
-                    Radius.circular(14.0)
+            InkWell(
+              onTap: (){
+
+                Navigator.of(context)
+                    .pushNamed(MainPage.routeName);
+              },
+              child: Container(
+                width: width - 32,
+                decoration: const BoxDecoration(
+                  color : AppColor.orange400,
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(14.0)
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                child: Center(
-                  child: Text(
-                    "확인",
-                    style: AppStyle.subTitle16Medium.copyWith(
-                      color : AppColor.white
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  child: Center(
+                    child: Text(
+                      "확인",
+                      style: AppStyle.subTitle16Medium.copyWith(
+                        color : AppColor.white
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
-              width: width - 32,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 14),
-                child: Center(
-                  child: Text(
-                    "신청한 쿠폰 내역 보러가기",
-                    style: AppStyle.subTitle15Medium
+            InkWell(
+              onTap: (){
+                Navigator.of(context)
+                    .pushNamed(ReceivedCouponsPage.routeName);
+              },
+              child: SizedBox(
+                width: width - 32,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 14),
+                  child: Center(
+                    child: Text(
+                      "신청한 쿠폰 내역 보러가기",
+                      style: AppStyle.subTitle15Medium
+                    ),
                   ),
                 ),
               ),
