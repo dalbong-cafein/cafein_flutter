@@ -1,7 +1,9 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/apply_coupon/bloc/apply_coupon_bloc.dart';
+import 'package:cafein_flutter/feature/received_coupons/bloc/received_coupons_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,10 +16,16 @@ class ApplyCouponPage extends StatelessWidget {
     context.read<ApplyCouponBloc>().add(CouponInitialLoading());
     return BlocConsumer<ApplyCouponBloc, ApplyCouponState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is ApplyCouponError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
+        }
       },
       builder: (context, state) {
-        if(state is CouponClickLoaded){
+        if (state is CouponClickLoaded) {
           return Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -25,14 +33,13 @@ class ApplyCouponPage extends StatelessWidget {
                 style: AppStyle.subTitle16Medium,
               ),
             ),
-
             body: SingleChildScrollView(
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 5,
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 158 / 240,
                       mainAxisSpacing: 12,
@@ -40,13 +47,14 @@ class ApplyCouponPage extends StatelessWidget {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: index % 2 == 0 ?
-                        const EdgeInsets.only(left: 16) : const EdgeInsets.only(
-                            right: 16),
+                        padding: index % 2 == 0
+                            ? const EdgeInsets.only(left: 16)
+                            : const EdgeInsets.only(right: 16),
                         child: InkWell(
                           onTap: () {
-                            context.read<ApplyCouponBloc>().add(CouponClicked(
-                                clickedIndex: index));
+                            context
+                                .read<ApplyCouponBloc>()
+                                .add(CouponClicked(clickedIndex: index));
                           },
                           child: Container(
                             height: 240,
@@ -61,12 +69,11 @@ class ApplyCouponPage extends StatelessWidget {
                               ],
                               border: Border.all(
                                   width: 2,
-                                  color: index == state.clickedIndex ? AppColor
-                                      .orange500 : Colors.transparent
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0)
-                              ),
+                                  color: index == state.clickedIndex
+                                      ? AppColor.orange500
+                                      : Colors.transparent),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10.0)),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -75,8 +82,7 @@ class ApplyCouponPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   loadAsset(
-                                      CafeinConst.couponStoreImages[index]
-                                  ),
+                                      CafeinConst.couponStoreImages[index]),
                                   const SizedBox(
                                     height: 10,
                                   ),
@@ -85,16 +91,14 @@ class ApplyCouponPage extends StatelessWidget {
                                       loadAsset(
                                           CafeinConst.couponStoreIcons[index],
                                           height: 16,
-                                          width: 16
-                                      ),
+                                          width: 16),
                                       const SizedBox(
                                         width: 4,
                                       ),
                                       Text(
                                         CafeinConst.couponStoreNames[index],
-                                        style: AppStyle.caption12Regular.copyWith(
-                                            color: AppColor.grey600
-                                        ),
+                                        style: AppStyle.caption12Regular
+                                            .copyWith(color: AppColor.grey600),
                                       )
                                     ],
                                   ),
@@ -105,18 +109,15 @@ class ApplyCouponPage extends StatelessWidget {
                                     CafeinConst.couponItemNames[index],
                                     style: AppStyle.subTitle15Bold,
                                   )
-
                                 ],
                               ),
                             ),
                           ),
                         ),
                       );
-                    })
-            ),
+                    })),
           );
-
-        }else{
+        } else {
           return Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -124,14 +125,13 @@ class ApplyCouponPage extends StatelessWidget {
                 style: AppStyle.subTitle16Medium,
               ),
             ),
-
             body: SingleChildScrollView(
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 5,
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 158 / 240,
                       mainAxisSpacing: 12,
@@ -139,13 +139,14 @@ class ApplyCouponPage extends StatelessWidget {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: index % 2 == 0 ?
-                        const EdgeInsets.only(left: 16) : const EdgeInsets.only(
-                            right: 16),
+                        padding: index % 2 == 0
+                            ? const EdgeInsets.only(left: 16)
+                            : const EdgeInsets.only(right: 16),
                         child: InkWell(
                           onTap: () {
-                            context.read<ApplyCouponBloc>().add(CouponClicked(
-                                clickedIndex: index));
+                            context
+                                .read<ApplyCouponBloc>()
+                                .add(CouponClicked(clickedIndex: index));
                           },
                           child: Container(
                             height: 240,
@@ -158,10 +159,8 @@ class ApplyCouponPage extends StatelessWidget {
                                   blurRadius: 4,
                                 ),
                               ],
-
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0)
-                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10.0)),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -170,8 +169,7 @@ class ApplyCouponPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   loadAsset(
-                                      CafeinConst.couponStoreImages[index]
-                                  ),
+                                      CafeinConst.couponStoreImages[index]),
                                   const SizedBox(
                                     height: 10,
                                   ),
@@ -180,16 +178,14 @@ class ApplyCouponPage extends StatelessWidget {
                                       loadAsset(
                                           CafeinConst.couponStoreIcons[index],
                                           height: 16,
-                                          width: 16
-                                      ),
+                                          width: 16),
                                       const SizedBox(
                                         width: 4,
                                       ),
                                       Text(
                                         CafeinConst.couponStoreNames[index],
-                                        style: AppStyle.caption12Regular.copyWith(
-                                            color: AppColor.grey600
-                                        ),
+                                        style: AppStyle.caption12Regular
+                                            .copyWith(color: AppColor.grey600),
                                       )
                                     ],
                                   ),
@@ -200,18 +196,15 @@ class ApplyCouponPage extends StatelessWidget {
                                     CafeinConst.couponItemNames[index],
                                     style: AppStyle.subTitle15Bold,
                                   )
-
                                 ],
                               ),
                             ),
                           ),
                         ),
                       );
-                    })
-            ),
+                    })),
           );
         }
-
       },
     );
   }
