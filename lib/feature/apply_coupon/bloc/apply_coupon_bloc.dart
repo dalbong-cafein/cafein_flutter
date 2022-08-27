@@ -11,6 +11,7 @@ class ApplyCouponBloc extends Bloc<ApplyCouponEvent, ApplyCouponState> {
   ApplyCouponBloc() : super(const ApplyCouponInitial()) {
     on<CouponClicked>(_onCouponClicked);
     on<CouponInitialLoading>(_onCouponInitialLoaded);
+    on<CouponReClicked>(_onCouponReClicked);
   }
 
   FutureOr<void> _onCouponClicked(
@@ -24,5 +25,11 @@ class ApplyCouponBloc extends Bloc<ApplyCouponEvent, ApplyCouponState> {
       CouponInitialLoading event,
       Emitter<ApplyCouponState> emit) async {
     emit(const CouponLoading());
+  }
+
+  FutureOr<void> _onCouponReClicked(
+      CouponReClicked event,
+      Emitter<ApplyCouponState> emit) async {
+    emit(const CouponReClickLoaded());
   }
 }

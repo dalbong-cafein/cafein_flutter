@@ -16,7 +16,7 @@ class ApplyCouponPage extends StatelessWidget {
     context.read<ApplyCouponBloc>().add(CouponInitialLoading());
     final width = MediaQuery.of(context).size.width;
     return BlocConsumer<ApplyCouponBloc, ApplyCouponState>(
-      buildWhen: (pre, next) => next is CouponClickLoaded || next is CouponInitialLoading,
+      buildWhen: (pre, next) => next is CouponClickLoaded || next is CouponInitialLoading || next is CouponReClickLoaded,
       listener: (context, state) {
         if (state is ApplyCouponError) {
           ErrorDialog.show(
@@ -37,23 +37,28 @@ class ApplyCouponPage extends StatelessWidget {
                   const SizedBox(
                     height: 7.05,
                   ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      color : AppColor.orange400,
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(14.0)
+                  InkWell(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color : AppColor.orange400,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(14.0)
+                        ),
                       ),
-                    ),
-                    width: width - 32,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Center(
-                          child: Text(
-                              "이 쿠폰으로 신청하기",
-                            style: AppStyle.subTitle15Medium.copyWith(
-                              color : AppColor.white
-                            ),
-                          )
+                      width: width - 32,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Center(
+                            child: Text(
+                                "이 쿠폰으로 신청하기",
+                              style: AppStyle.subTitle15Medium.copyWith(
+                                color : AppColor.white
+                              ),
+                            )
+                        ),
                       ),
                     ),
                   ),
@@ -85,9 +90,17 @@ class ApplyCouponPage extends StatelessWidget {
                             : const EdgeInsets.only(right: 16),
                         child: InkWell(
                           onTap: () {
-                            context
-                                .read<ApplyCouponBloc>()
-                                .add(CouponClicked(clickedIndex: index));
+                            if(state.clickedIndex == index){
+                              context
+                                  .read<ApplyCouponBloc>()
+                                  .add(CouponReClicked());
+                            }
+                            else{
+                              context
+                                  .read<ApplyCouponBloc>()
+                                  .add(CouponClicked(clickedIndex: index));
+                            }
+
                           },
                           child: Container(
                             height: 240,

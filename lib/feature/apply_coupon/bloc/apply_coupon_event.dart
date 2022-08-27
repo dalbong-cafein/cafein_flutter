@@ -17,3 +17,9 @@ class CouponInitialLoading extends ApplyCouponEvent{
   List<Object?> get props => [];
 
 }
+
+class CouponReClicked extends ApplyCouponEvent{
+  @override
+  List<Object?> get props => [];
+
+}
