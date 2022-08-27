@@ -17,3 +17,12 @@ class CouponClickLoaded extends ApplyCouponState{
   List<Object?> get props => [];
 
 }
+
+class CouponLoading extends ApplyCouponState{
+  const CouponLoading();
+  @override
+  List<Object?> get props => [];
+
+}
+
+

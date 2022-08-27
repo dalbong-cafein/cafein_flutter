@@ -10,3 +10,10 @@ class CouponClicked extends ApplyCouponEvent{
   List<Object?> get props => [clickedIndex];
 
 }
+
+class CouponInitialLoading extends ApplyCouponEvent{
+
+  @override
+  List<Object?> get props => [];
+
+}
