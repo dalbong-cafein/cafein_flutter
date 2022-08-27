@@ -16,8 +16,7 @@ class ApplyCouponPage extends StatelessWidget {
           style: AppStyle.subTitle16Medium,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+      body: SingleChildScrollView(
         child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -30,51 +29,63 @@ class ApplyCouponPage extends StatelessWidget {
               crossAxisSpacing: 12,
             ),
             itemBuilder: (BuildContext context , int index){
-              return Container(
-                height: 240,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(10.0)
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left :12, right: 12, top: 12 , bottom: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      loadAsset(
-                          CafeinConst.couponStoreImages[index]
+              return Padding(
+                padding: index % 2 == 0 ?
+                const EdgeInsets.only( left : 16) : const EdgeInsets.only(right: 16),
+                child: Container(
+                  height: 240,
+                  decoration: BoxDecoration(
+                    color : AppColor.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 4,
+                        blurRadius: 4,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          loadAsset(
-                            CafeinConst.couponStoreIcons[index],
-                            height: 16,
-                            width: 16
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            CafeinConst.couponStoreNames[index],
-                            style: AppStyle.caption12Regular.copyWith(
-                              color: AppColor.grey600
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        CafeinConst.couponItemNames[index],
-                        style: AppStyle.subTitle15Bold,
-                      )
-
                     ],
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0)
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left :12, right: 12, top: 12 , bottom: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        loadAsset(
+                            CafeinConst.couponStoreImages[index]
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            loadAsset(
+                              CafeinConst.couponStoreIcons[index],
+                              height: 16,
+                              width: 16
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              CafeinConst.couponStoreNames[index],
+                              style: AppStyle.caption12Regular.copyWith(
+                                color: AppColor.grey600
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          CafeinConst.couponItemNames[index],
+                          style: AppStyle.subTitle15Bold,
+                        )
+
+                      ],
+                    ),
                   ),
                 ),
               );
