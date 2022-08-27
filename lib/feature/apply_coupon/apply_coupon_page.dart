@@ -53,7 +53,6 @@ class ApplyCouponPage extends StatelessWidget {
                     onTap: () {
                       context.read<ApplyCouponBloc>().add(ApplyCouponRequested(
                           clickedIndex: state.clickedIndex));
-
                     },
                     child: Container(
                       decoration: const BoxDecoration(
@@ -175,9 +174,10 @@ class ApplyCouponPage extends StatelessWidget {
                       );
                     })),
           );
-        }if(state is ApplyCouponLoading){
+        }
+        if (state is ApplyCouponLoading) {
           return Container(
-            color : AppColor.white,
+            color: AppColor.white,
             height: height,
             width: width,
             child: const Center(
