@@ -14,6 +14,7 @@ class ApplyCouponPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<ApplyCouponBloc>().add(CouponInitialLoading());
+    final width = MediaQuery.of(context).size.width;
     return BlocConsumer<ApplyCouponBloc, ApplyCouponState>(
       listener: (context, state) {
         if (state is ApplyCouponError) {
@@ -27,6 +28,37 @@ class ApplyCouponPage extends StatelessWidget {
       builder: (context, state) {
         if (state is CouponClickLoaded) {
           return Scaffold(
+            bottomSheet: SizedBox(
+              height: 70,
+              child: Column(
+                children: [
+                  Container(height: 1.0, width: width, color: AppColor.grey100),
+                  const SizedBox(
+                    height: 7.05,
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color : AppColor.orange400,
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(14.0)
+                      ),
+                    ),
+                    width: width - 32,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Center(
+                          child: Text(
+                              "이 쿠폰으로 신청하기",
+                            style: AppStyle.subTitle15Medium.copyWith(
+                              color : AppColor.white
+                            ),
+                          )
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             appBar: AppBar(
               title: const Text(
                 "쿠폰 신청",
@@ -119,6 +151,37 @@ class ApplyCouponPage extends StatelessWidget {
           );
         } else {
           return Scaffold(
+            bottomSheet: SizedBox(
+              height: 70,
+              child: Column(
+                children: [
+                  Container(height: 1.0, width: width, color: AppColor.grey100),
+                  const SizedBox(
+                    height: 7.05,
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color : AppColor.orange100,
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(14.0)
+                      ),
+                    ),
+                    width: width - 32,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Center(
+                          child: Text(
+                            "이 쿠폰으로 신청하기",
+                            style: AppStyle.subTitle15Medium.copyWith(
+                                color : AppColor.white
+                            ),
+                          )
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             appBar: AppBar(
               title: const Text(
                 "쿠폰 신청",
