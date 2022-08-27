@@ -20,9 +20,8 @@ class ApplyCouponPage extends StatelessWidget {
       buildWhen: (pre, next) =>
           next is CouponClickLoaded ||
           next is CouponInitialLoading ||
-          next is CouponReClickLoaded||
-          next is ApplyCouponLoaded
-      ,
+          next is CouponReClickLoaded ||
+          next is ApplyCouponLoaded,
       listener: (context, state) {
         if (state is ApplyCouponError) {
           ErrorDialog.show(
@@ -89,8 +88,12 @@ class ApplyCouponPage extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: index % 2 == 0
-                            ? const EdgeInsets.only(left: 16)
-                            : const EdgeInsets.only(right: 16),
+                            ? EdgeInsets.only(
+                                left: 16,
+                                top: index == 1 || index == 0 ? 10 : 0)
+                            : EdgeInsets.only(
+                                right: 16,
+                                top: index == 1 || index == 0 ? 10 : 0),
                         child: InkWell(
                           onTap: () {
                             if (state.clickedIndex == index) {
@@ -110,8 +113,8 @@ class ApplyCouponPage extends StatelessWidget {
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 4,
-                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                  blurRadius: 6,
                                 ),
                               ],
                               border: Border.all(
@@ -164,9 +167,10 @@ class ApplyCouponPage extends StatelessWidget {
                       );
                     })),
           );
-        }if(state is ApplyCouponLoaded){
+        }
+        if (state is ApplyCouponLoaded) {
           return const ApplyCouponFinished();
-        } else{
+        } else {
           return Scaffold(
             bottomSheet: SizedBox(
               height: 70,
@@ -216,8 +220,12 @@ class ApplyCouponPage extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: index % 2 == 0
-                            ? const EdgeInsets.only(left: 16)
-                            : const EdgeInsets.only(right: 16),
+                            ? EdgeInsets.only(
+                                left: 16,
+                                top: index == 1 || index == 0 ? 10 : 0)
+                            : EdgeInsets.only(
+                                right: 16,
+                                top: index == 1 || index == 0 ? 10 : 0),
                         child: InkWell(
                           onTap: () {
                             context
@@ -231,8 +239,8 @@ class ApplyCouponPage extends StatelessWidget {
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 4,
-                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                  blurRadius: 6,
                                 ),
                               ],
                               borderRadius:

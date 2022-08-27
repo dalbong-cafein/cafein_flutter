@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cafein_flutter/data/model/coupon/coupon.dart';
-import 'package:cafein_flutter/data/model/coupon/coupon_request.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
 import 'package:equatable/equatable.dart';
 

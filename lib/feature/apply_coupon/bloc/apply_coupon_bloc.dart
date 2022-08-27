@@ -11,7 +11,8 @@ part 'apply_coupon_event.dart';
 part 'apply_coupon_state.dart';
 
 class ApplyCouponBloc extends Bloc<ApplyCouponEvent, ApplyCouponState> {
-  ApplyCouponBloc({required this.couponRepository}) : super(const ApplyCouponInitial()) {
+  ApplyCouponBloc({required this.couponRepository})
+      : super(const ApplyCouponInitial()) {
     on<CouponClicked>(_onCouponClicked);
     on<CouponInitialLoading>(_onCouponInitialLoaded);
     on<CouponReClicked>(_onCouponReClicked);

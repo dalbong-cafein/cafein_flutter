@@ -135,7 +135,7 @@ class ReceivedCouponsPage extends StatelessWidget {
           ),
         ),
       );
-      ;
+
     }
   }
 }
