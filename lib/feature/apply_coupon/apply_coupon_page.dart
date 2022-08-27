@@ -1,9 +1,10 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/apply_coupon/bloc/apply_coupon_bloc.dart';
+
+import 'package:cafein_flutter/feature/apply_coupon/widget/apply_coupon_finished.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -164,7 +165,7 @@ class ApplyCouponPage extends StatelessWidget {
                     })),
           );
         }if(state is ApplyCouponLoaded){
-          return Container();
+          return const ApplyCouponFinished();
         } else{
           return Scaffold(
             bottomSheet: SizedBox(
