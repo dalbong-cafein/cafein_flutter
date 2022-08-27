@@ -27,6 +27,7 @@ class ApplyCouponPage extends StatelessWidget {
       listener: (context, state) {
         if (state is ApplyCouponLoaded) {
           Navigator.pop(context);
+          Navigator.pop(context);
           Navigator.of(context).pushNamed(ApplyCouponFinishedPage.routeName);
         }
         if (state is ApplyCouponError) {
