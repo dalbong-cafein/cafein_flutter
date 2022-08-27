@@ -149,7 +149,9 @@ abstract class CafeinRoute {
         break;
       case ApplyCouponPage.routeName :
         page = BlocProvider(
-            create: (context) => ApplyCouponBloc(),
+            create: (context) => ApplyCouponBloc(
+                couponRepository: context.read<CouponRepository>()
+            ),
           child: const ApplyCouponPage(),
         );
         break;

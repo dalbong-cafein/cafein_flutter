@@ -1,9 +1,9 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/apply_coupon/bloc/apply_coupon_bloc.dart';
-import 'package:cafein_flutter/feature/received_coupons/bloc/received_coupons_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +16,12 @@ class ApplyCouponPage extends StatelessWidget {
     context.read<ApplyCouponBloc>().add(CouponInitialLoading());
     final width = MediaQuery.of(context).size.width;
     return BlocConsumer<ApplyCouponBloc, ApplyCouponState>(
-      buildWhen: (pre, next) => next is CouponClickLoaded || next is CouponInitialLoading || next is CouponReClickLoaded,
+      buildWhen: (pre, next) =>
+          next is CouponClickLoaded ||
+          next is CouponInitialLoading ||
+          next is CouponReClickLoaded||
+          next is ApplyCouponLoaded
+      ,
       listener: (context, state) {
         if (state is ApplyCouponError) {
           ErrorDialog.show(
@@ -38,27 +43,24 @@ class ApplyCouponPage extends StatelessWidget {
                     height: 7.05,
                   ),
                   InkWell(
-                    onTap: (){
-
+                    onTap: () {
+                      context.read<ApplyCouponBloc>().add(ApplyCouponRequested(
+                          clickedIndex: state.clickedIndex));
                     },
                     child: Container(
                       decoration: const BoxDecoration(
-                        color : AppColor.orange400,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(14.0)
-                        ),
+                        color: AppColor.orange400,
+                        borderRadius: BorderRadius.all(Radius.circular(14.0)),
                       ),
                       width: width - 32,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Center(
                             child: Text(
-                                "이 쿠폰으로 신청하기",
-                              style: AppStyle.subTitle15Medium.copyWith(
-                                color : AppColor.white
-                              ),
-                            )
-                        ),
+                          "이 쿠폰으로 신청하기",
+                          style: AppStyle.subTitle15Medium
+                              .copyWith(color: AppColor.white),
+                        )),
                       ),
                     ),
                   ),
@@ -90,17 +92,15 @@ class ApplyCouponPage extends StatelessWidget {
                             : const EdgeInsets.only(right: 16),
                         child: InkWell(
                           onTap: () {
-                            if(state.clickedIndex == index){
+                            if (state.clickedIndex == index) {
                               context
                                   .read<ApplyCouponBloc>()
                                   .add(CouponReClicked());
-                            }
-                            else{
+                            } else {
                               context
                                   .read<ApplyCouponBloc>()
                                   .add(CouponClicked(clickedIndex: index));
                             }
-
                           },
                           child: Container(
                             height: 240,
@@ -163,7 +163,9 @@ class ApplyCouponPage extends StatelessWidget {
                       );
                     })),
           );
-        } else {
+        }if(state is ApplyCouponLoaded){
+          return Container();
+        } else{
           return Scaffold(
             bottomSheet: SizedBox(
               height: 70,
@@ -175,22 +177,18 @@ class ApplyCouponPage extends StatelessWidget {
                   ),
                   Container(
                     decoration: const BoxDecoration(
-                      color : AppColor.orange100,
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(14.0)
-                      ),
+                      color: AppColor.orange100,
+                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
                     ),
                     width: width - 32,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Center(
                           child: Text(
-                            "이 쿠폰으로 신청하기",
-                            style: AppStyle.subTitle15Medium.copyWith(
-                                color : AppColor.white
-                            ),
-                          )
-                      ),
+                        "이 쿠폰으로 신청하기",
+                        style: AppStyle.subTitle15Medium
+                            .copyWith(color: AppColor.white),
+                      )),
                     ),
                   ),
                 ],
@@ -238,9 +236,7 @@ class ApplyCouponPage extends StatelessWidget {
                               ],
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10.0)),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Colors.white),
+                              border: Border.all(width: 2, color: Colors.white),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(

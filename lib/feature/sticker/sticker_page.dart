@@ -176,8 +176,7 @@ class StickerPage extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is StickerLoaded) {
-              if (state.stickerCnt == 3) {
-                //TODO 20으로 바꾸어야함 (테스트용)
+              if (state.stickerCnt >= 20) {
                 return InkWell(
                     onTap: () {
                       Navigator.of(context)

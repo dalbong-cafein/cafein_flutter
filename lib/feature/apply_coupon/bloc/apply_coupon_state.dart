@@ -34,6 +34,21 @@ class CouponReClickLoaded extends ApplyCouponState{
   List<Object?> get props => [];
 }
 
+class ApplyCouponLoading extends ApplyCouponState{
+  const ApplyCouponLoading();
+
+  @override
+  List<Object?> get props => [];
+
+}
+
+class ApplyCouponLoaded extends ApplyCouponState{
+  const ApplyCouponLoaded();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class ApplyCouponError extends ApplyCouponState {
 
   const  ApplyCouponError({
