@@ -16,6 +16,7 @@ class ApplyCouponPage extends StatelessWidget {
     context.read<ApplyCouponBloc>().add(CouponInitialLoading());
     final width = MediaQuery.of(context).size.width;
     return BlocConsumer<ApplyCouponBloc, ApplyCouponState>(
+      buildWhen: (pre, next) => next is CouponClickLoaded || next is CouponInitialLoading,
       listener: (context, state) {
         if (state is ApplyCouponError) {
           ErrorDialog.show(
@@ -103,7 +104,7 @@ class ApplyCouponPage extends StatelessWidget {
                                   width: 2,
                                   color: index == state.clickedIndex
                                       ? AppColor.orange500
-                                      : Colors.transparent),
+                                      : Colors.white),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10.0)),
                             ),
@@ -224,6 +225,9 @@ class ApplyCouponPage extends StatelessWidget {
                               ],
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10.0)),
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.white),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(
