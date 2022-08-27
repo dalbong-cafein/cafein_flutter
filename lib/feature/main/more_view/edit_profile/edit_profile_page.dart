@@ -8,7 +8,9 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('내정보'),
+      ),
       body: const Center(
         child: Text('프로필 수정하기'),
       ),
