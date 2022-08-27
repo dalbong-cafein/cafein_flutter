@@ -5,6 +5,7 @@ import 'package:cafein_flutter/feature/apply_coupon/widget/apply_coupon_finished
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,7 @@ class ApplyCouponPage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ApplyCouponBloc>().add(CouponInitialLoading());
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return BlocConsumer<ApplyCouponBloc, ApplyCouponState>(
       buildWhen: (pre, next) =>
           next is CouponClickLoaded ||
@@ -23,6 +25,10 @@ class ApplyCouponPage extends StatelessWidget {
           next is CouponReClickLoaded ||
           next is ApplyCouponLoaded,
       listener: (context, state) {
+        if (state is ApplyCouponLoaded) {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed(ApplyCouponFinishedPage.routeName);
+        }
         if (state is ApplyCouponError) {
           ErrorDialog.show(
             context,
@@ -46,6 +52,7 @@ class ApplyCouponPage extends StatelessWidget {
                     onTap: () {
                       context.read<ApplyCouponBloc>().add(ApplyCouponRequested(
                           clickedIndex: state.clickedIndex));
+
                     },
                     child: Container(
                       decoration: const BoxDecoration(
@@ -167,9 +174,15 @@ class ApplyCouponPage extends StatelessWidget {
                       );
                     })),
           );
-        }
-        if (state is ApplyCouponLoaded) {
-          return const ApplyCouponFinished();
+        }if(state is ApplyCouponLoading){
+          return Container(
+            color : AppColor.white,
+            height: height,
+            width: width,
+            child: const Center(
+              child: CircleLoadingIndicator(),
+            ),
+          );
         } else {
           return Scaffold(
             bottomSheet: SizedBox(

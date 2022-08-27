@@ -7,6 +7,7 @@ import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/apply_coupon/apply_coupon_page.dart';
 import 'package:cafein_flutter/feature/apply_coupon/bloc/apply_coupon_bloc.dart';
+import 'package:cafein_flutter/feature/apply_coupon/widget/apply_coupon_finished.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
@@ -155,6 +156,8 @@ abstract class CafeinRoute {
           child: const ApplyCouponPage(),
         );
         break;
+      case ApplyCouponFinishedPage.routeName :
+        page = const ApplyCouponFinishedPage();
 
     }
 

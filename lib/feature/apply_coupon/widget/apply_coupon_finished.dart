@@ -4,9 +4,9 @@ import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
-class ApplyCouponFinished extends StatelessWidget {
-  const ApplyCouponFinished({Key? key}) : super(key: key);
-
+class ApplyCouponFinishedPage extends StatelessWidget {
+  const ApplyCouponFinishedPage({Key? key}) : super(key: key);
+  static const routeName = 'ApplyCouponFinishedPage';
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -49,6 +49,7 @@ class ApplyCouponFinished extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context).pushNamed(MainPage.routeName);
               },
               child: Container(
@@ -71,6 +72,7 @@ class ApplyCouponFinished extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context).pushNamed(ReceivedCouponsPage.routeName);
               },
               child: SizedBox(
