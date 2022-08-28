@@ -46,15 +46,15 @@ class EditProfilePermissionRequested extends EditProfileEvent {
 
 class EditProfileImageChanged extends EditProfileEvent {
   const EditProfileImageChanged({
-    required this.permission,
+    this.permission,
     this.isDefault = false,
   });
 
-  final Permission permission;
+  final Permission? permission;
   final bool isDefault;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         permission,
         isDefault,
       ];

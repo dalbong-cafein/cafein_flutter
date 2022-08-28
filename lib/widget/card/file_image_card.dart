@@ -4,13 +4,13 @@ import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
-class ProfileImage extends StatelessWidget {
-  const ProfileImage({
-    super.key,
+class FileImageCard extends StatelessWidget {
+  const FileImageCard({
+    Key? key,
     required this.imagePath,
-    required this.filePath,
     required this.radius,
-  });
+    this.filePath,
+  }) : super(key: key);
 
   final String imagePath;
   final String? filePath;

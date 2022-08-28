@@ -4,7 +4,6 @@ import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_pag
 import 'package:cafein_flutter/feature/certify_phone/widget/certify_failed_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/time_out_dialog.dart';
 import 'package:cafein_flutter/feature/certify_phone/widget/timer_text.dart';
-import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -13,20 +12,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+class InputCertificationCodePageArguments {
+  final String phoneNumber;
+  final String returnPage;
+
+  InputCertificationCodePageArguments({
+    required this.phoneNumber,
+    required this.returnPage,
+  });
+}
+
 class InputCertificationCodePage extends StatefulWidget {
   const InputCertificationCodePage({
     super.key,
+    required this.returnPage,
   });
 
   static const routeName = 'InputCertificationCodePage';
 
+  final String returnPage;
+
   @override
-  State<InputCertificationCodePage> createState() =>
-      _InputCertificationCodePageState();
+  State<InputCertificationCodePage> createState() => _InputCertificationCodePageState();
 }
 
-class _InputCertificationCodePageState
-    extends State<InputCertificationCodePage> {
+class _InputCertificationCodePageState extends State<InputCertificationCodePage> {
   final controller = TextEditingController();
   late final timerBloc = TimerBloc(
     certifyCodeBloc: context.read<CertifyCodeBloc>(),
@@ -68,10 +78,10 @@ class _InputCertificationCodePageState
             final bloc = context.read<CertifyCodeBloc>();
 
             if (state is CertifyCodeSucceed) {
-              Navigator.pushNamedAndRemoveUntil(
+              Navigator.pushNamed(
                 context,
                 PhoneCertificationDonePage.routeName,
-                ModalRoute.withName(LoginPage.routeName),
+                arguments: widget.returnPage,
               );
             } else if (state is CertifyCodeTimeOuted) {
               final result = await TimeOutDialog.show(context);
@@ -146,9 +156,7 @@ class _InputCertificationCodePageState
                         maxLength: 6,
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         autofocus: true,
                         textInputAction: TextInputAction.next,
                         decoration: const InputDecoration(
@@ -229,9 +237,7 @@ class _InputCertificationCodePageState
                                 ),
                               )
                           : null,
-                      child: isLoading
-                          ? const DotsLoadingIndicator()
-                          : const Text('확인'),
+                      child: isLoading ? const DotsLoadingIndicator() : const Text('확인'),
                     ),
                   );
                 },

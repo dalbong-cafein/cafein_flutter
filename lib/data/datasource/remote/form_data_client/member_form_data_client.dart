@@ -9,7 +9,7 @@ class MemberFormDataClient {
 
   const MemberFormDataClient({required this.dio});
 
-  Future<BaseResponse<ImageIdPair>> updateMember(
+  Future<BaseResponse<ImageIdPair?>> updateMember(
     UpdateMemberRequest updateMemberRequest,
   ) async {
     final response = await dio.patch(
@@ -27,7 +27,7 @@ class MemberFormDataClient {
 
     return BaseResponse.fromJson(
       response.data,
-      (json) => ImageIdPair.fromJson(response.data['data']),
+      (json) => response.data['data'] != null ? ImageIdPair.fromJson(response.data['data']) : null,
     );
   }
 }

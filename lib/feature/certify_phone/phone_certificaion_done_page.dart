@@ -1,4 +1,3 @@
-import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -7,9 +6,12 @@ import 'package:flutter/material.dart';
 class PhoneCertificationDonePage extends StatefulWidget {
   const PhoneCertificationDonePage({
     super.key,
+    required this.returnPage,
   });
 
   static const routeName = 'PhoneCertificationDonePage';
+
+  final String returnPage;
 
   @override
   State<PhoneCertificationDonePage> createState() => _PhoneCertificationDonePageState();
@@ -23,7 +25,7 @@ class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage>
       const Duration(seconds: 1),
       () => Navigator.of(context).pushNamedAndRemoveUntil(
         ProfilePage.routeName,
-        ModalRoute.withName(LoginPage.routeName),
+        ModalRoute.withName(widget.returnPage),
       ),
     );
   }

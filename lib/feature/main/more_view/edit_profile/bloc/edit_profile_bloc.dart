@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -64,6 +66,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
       emit(const EditProfileSucceed());
     } catch (e) {
+      debugPrint(e.toString());
       emit(
         EditProfileError(
           error: e,
@@ -123,7 +126,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     Emitter<EditProfileState> emit,
   ) async {
     if (event.isDefault) {
-      _imagePath = null;
+      _imagePath = CafeinConst.defaultProfileFlag;
     } else {
       final imagePicker = ImagePicker();
       XFile? imageFile;

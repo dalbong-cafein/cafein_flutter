@@ -4,10 +4,10 @@ import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/widget/image_choice_dialog.dart';
-import 'package:cafein_flutter/feature/profile/widget/profile_image.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/debouncer.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/card/file_image_card.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         filePath = state.imagePath;
                       }
 
-                      return ProfileImage(
+                      return FileImageCard(
                         filePath: filePath,
                         imagePath: CafeinConst.defaultProfile,
                         radius: 44,

@@ -71,45 +71,61 @@ class _MoreViewPageState extends State<MoreViewPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
+                  onTap: () async {
+                    final bloc = context.read<MoreViewBloc>();
+                    await Navigator.of(context).pushNamed(
                       EditProfilePage.routeName,
                     );
+
+                    bloc.add(const MoreViewProfileChanged());
                   },
-                  child: Row(
-                    children: [
-                      CircleProfileImage(
-                        imageUrl: userData?.imageIdPair?.imageUrl,
-                        radius: 39,
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  child: BlocBuilder<MoreViewBloc, MoreViewState>(
+                    buildWhen: (pre, next) => next is MoreViewProfileEdited,
+                    builder: (context, state) {
+                      String userName = userData?.nickname ?? '';
+                      String? imageUrl = userData?.imageIdPair?.imageUrl;
+                      if (state is MoreViewProfileEdited) {
+                        userName = context.watch<UserRepository>().getMemberData?.nickname ?? '';
+                        imageUrl =
+                            context.watch<UserRepository>().getMemberData?.imageIdPair?.imageUrl;
+                      }
+
+                      return Row(
                         children: [
-                          Text(
-                            '${userData!.nickname}',
-                            style: AppStyle.subTitle17SemiBold,
+                          CircleProfileImage(
+                            imageUrl: imageUrl,
+                            radius: 39,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '카페인 ${DateTime.now().difference(
-                                  DateTime.parse(userData.joinDateTime),
-                                ).inDays}일차',
-                            style: AppStyle.caption13Regular.copyWith(
+                          const SizedBox(width: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                userName,
+                                style: AppStyle.subTitle17SemiBold,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                '카페인 ${DateTime.now().difference(
+                                      DateTime.parse(userData!.joinDateTime),
+                                    ).inDays}일차',
+                                style: AppStyle.caption13Regular.copyWith(
+                                  color: AppColor.grey400,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Transform.rotate(
+                            angle: pi,
+                            child: const Icon(
+                              CupertinoIcons.back,
                               color: AppColor.grey400,
                             ),
                           ),
                         ],
-                      ),
-                      const Spacer(),
-                      Transform.rotate(
-                        angle: pi,
-                        child: const Icon(
-                          CupertinoIcons.back,
-                          color: AppColor.grey400,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(height: 24),

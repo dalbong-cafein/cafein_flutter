@@ -17,6 +17,7 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
@@ -64,15 +65,17 @@ abstract class CafeinRoute {
         );
         break;
       case InputCertificationCodePage.routeName:
-        final phoneNumber = settings.arguments as String;
+        final arguments = settings.arguments as InputCertificationCodePageArguments;
 
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
             authRepository: context.read<AuthRepository>(),
             userRepository: context.read<UserRepository>(),
-            phoneNumber: phoneNumber,
+            phoneNumber: arguments.phoneNumber,
           ),
-          child: const InputCertificationCodePage(),
+          child: InputCertificationCodePage(
+            returnPage: arguments.returnPage,
+          ),
         );
         break;
       case MainPage.routeName:
@@ -98,7 +101,10 @@ abstract class CafeinRoute {
         );
         break;
       case PhoneCertificationDonePage.routeName:
-        page = const PhoneCertificationDonePage();
+        final returnPage = settings.arguments as String;
+        page = PhoneCertificationDonePage(
+          returnPage: returnPage,
+        );
         break;
       case SearchKeywordPage.routeName:
         page = const SearchKeywordPage();
@@ -142,7 +148,13 @@ abstract class CafeinRoute {
         );
         break;
       case EditProfilePage.routeName:
-        page = const EditProfilePage();
+        page = BlocProvider(
+          create: (context) => EditProfileBloc(
+            authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
+          ),
+          child: const EditProfilePage(),
+        );
         break;
       case RegisteredReviewPage.routeName:
         page = BlocProvider(

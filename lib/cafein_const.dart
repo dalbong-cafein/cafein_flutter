@@ -24,6 +24,8 @@ abstract class CafeinConst {
 
   static late String defaultProfile;
 
+  static const defaultProfileFlag = 'defaultProfile';
+
   static initConst() {
     defaultProfile = defaultProfiles[Random().nextInt(2)];
   }

@@ -15,6 +15,7 @@ class MoreViewBloc extends Bloc<MoreViewEvent, MoreViewState> {
   }) : super(const MoreViewInitial()) {
     on<MoreViewSignOutRequested>(_onMoreViewSignOutRequested);
     on<MoreViewCountRequested>(_onMoreViewCountRequested);
+    on<MoreViewProfileChanged>(_onMoreViewProfileChanged);
   }
 
   final AuthRepository authRepository;
@@ -72,5 +73,12 @@ class MoreViewBloc extends Bloc<MoreViewEvent, MoreViewState> {
         ),
       );
     }
+  }
+
+  FutureOr<void> _onMoreViewProfileChanged(
+    MoreViewProfileChanged event,
+    Emitter<MoreViewState> emit,
+  ) {
+    emit(const MoreViewProfileEdited());
   }
 }
