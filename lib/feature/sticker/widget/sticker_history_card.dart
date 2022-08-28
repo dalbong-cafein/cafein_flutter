@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
+import 'package:cafein_flutter/feature/sticker/widget/no_sticker_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
@@ -72,10 +73,13 @@ class StickerHistoryCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: ListView.builder(
-                    itemCount: state.stickers.length,
+                    itemCount: state.stickers.isEmpty ? 1 : state.stickers.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
+                      if (state.stickers.isEmpty) {
+                        return const NoStickerCard();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
                         child: Row(

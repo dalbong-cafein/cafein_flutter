@@ -7,6 +7,9 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/apply_coupon/apply_coupon_page.dart';
+import 'package:cafein_flutter/feature/apply_coupon/bloc/apply_coupon_bloc.dart';
+import 'package:cafein_flutter/feature/apply_coupon/widget/apply_coupon_finished.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/certify_code_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
@@ -29,6 +32,7 @@ import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dar
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
+import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -38,6 +42,8 @@ import 'package:cafein_flutter/feature/store/registered_store/bloc/registered_st
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'feature/received_coupons/bloc/received_coupons_bloc.dart';
 
 abstract class CafeinRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -172,6 +178,21 @@ abstract class CafeinRoute {
           child: const RegisteredStorePage(),
         );
         break;
+      case ReceivedCouponsPage.routeName:
+        page = BlocProvider(
+          create: (context) =>
+              ReceivedCouponsBloc(couponRepository: context.read<CouponRepository>()),
+          child: const ReceivedCouponsPage(),
+        );
+        break;
+      case ApplyCouponPage.routeName:
+        page = BlocProvider(
+          create: (context) => ApplyCouponBloc(couponRepository: context.read<CouponRepository>()),
+          child: const ApplyCouponPage(),
+        );
+        break;
+      case ApplyCouponFinishedPage.routeName:
+        page = const ApplyCouponFinishedPage();
     }
 
     return MaterialPageRoute(builder: (context) => page);

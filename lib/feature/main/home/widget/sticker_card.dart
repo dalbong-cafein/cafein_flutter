@@ -88,7 +88,7 @@ class StickerCard extends StatelessWidget {
                                           animation: true,
                                           animationDuration: 2000,
                                           barRadius: const Radius.elliptical(20, 20),
-                                          percent: state.stickerCnt / 20,
+                                          percent: state.stickerCnt > 20 ? 1 : state.stickerCnt / 20,
                                           lineHeight: 6 * heightPercent,
                                           width: 160 * widthPercent,
                                           backgroundColor: AppColor.orange50,
