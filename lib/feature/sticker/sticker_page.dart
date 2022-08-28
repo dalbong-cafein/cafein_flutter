@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/feature/apply_coupon/apply_coupon_page.dart';
+import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/widget/get_sticker_way_bottom_drawer.dart';
 import 'package:cafein_flutter/feature/sticker/widget/mycoupon_card_button.dart';
@@ -14,9 +16,7 @@ import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class StickerPage extends StatelessWidget {
-
   const StickerPage({Key? key}) : super(key: key);
 
   static const routeName = 'StickerPage';
@@ -31,15 +31,10 @@ class StickerPage extends StatelessWidget {
     "· 신청한 쿠폰은 인증된 휴대폰번호로 발송됩니다."
   ];
 
-
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     context.read<StickerBloc>().add(const StickerRequested());
-
 
     return Scaffold(
         appBar: AppBar(
@@ -47,7 +42,6 @@ class StickerPage extends StatelessWidget {
             "스티커",
             style: AppStyle.subTitle16Medium,
           ),
-
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -66,29 +60,22 @@ class StickerPage extends StatelessWidget {
                   child: Container(
                     decoration: const BoxDecoration(
                       color: AppColor.grey50,
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(14.0)
-                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         children: [
-                          const SizedBox(
-                              width: 12
-                          ),
+                          const SizedBox(width: 12),
                           loadAsset(
                             CafeinConst.randomStickers[Random().nextInt(9)],
                             width: 32,
                           ),
-                          const SizedBox(
-                              width: 6
-                          ),
+                          const SizedBox(width: 6),
                           const Text(
                             "스티커 받는 방법을 확인해 보세요",
                             style: AppStyle.body14Regular,
                           )
-
                         ],
                       ),
                     ),
@@ -101,13 +88,12 @@ class StickerPage extends StatelessWidget {
               const MyStickerCard(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(height: 1.0,
-                    color: AppColor.grey100),
+                child: Container(height: 1.0, color: AppColor.grey100),
               ),
-              const SizedBox(height: 24,),
-
+              const SizedBox(
+                height: 24,
+              ),
               const StickerHistoryCard(),
-
               BlocConsumer<StickerBloc, StickerState>(
                 buildWhen: (pre, next) => next is StickerLoaded,
                 listener: (context, state) {
@@ -122,7 +108,12 @@ class StickerPage extends StatelessWidget {
                 builder: (context, state) {
                   if (state is StickerLoaded) {
                     if (state.couponCnt > 0) {
-                      return const MyCouponCardButton();
+                      return InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(ReceivedCouponsPage.routeName);
+                          },
+                          child: const MyCouponCardButton());
                     } else {
                       return const SizedBox.shrink();
                     }
@@ -135,27 +126,19 @@ class StickerPage extends StatelessWidget {
                 width: width,
                 color: AppColor.grey50,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 24),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(
-                              Icons.error_outline,
-                              color: AppColor.grey600,
-                              size: 16
-                          ),
-                          const SizedBox(
-                              width: 6
-                          ),
-                          Text(
-                              "확인해 주세요",
-                              style: AppStyle.subTitle15Medium.copyWith(
-                                  color: AppColor.grey600
-                              )
-                          )
+                          const Icon(Icons.error_outline,
+                              color: AppColor.grey600, size: 16),
+                          const SizedBox(width: 6),
+                          Text("확인해 주세요",
+                              style: AppStyle.subTitle15Medium
+                                  .copyWith(color: AppColor.grey600))
                         ],
                       ),
                       const SizedBox(
@@ -165,20 +148,15 @@ class StickerPage extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: warningTexts.length,
-                          itemBuilder: (BuildContext context,
-                              int index) {
+                          itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 5, bottom: 3),
-                              child: Text(
-                                  warningTexts[index],
-                                  style: AppStyle.caption13Regular.copyWith(
-                                      color: AppColor.grey500
-                                  )
-                              ),
+                              padding:
+                                  const EdgeInsets.only(left: 5, bottom: 3),
+                              child: Text(warningTexts[index],
+                                  style: AppStyle.caption13Regular
+                                      .copyWith(color: AppColor.grey500)),
                             );
-                          }
-                      )
+                          })
                     ],
                   ),
                 ),
@@ -197,20 +175,25 @@ class StickerPage extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if(state is StickerLoaded){
-              if(state.stickerCnt == 20){
-                return const StickerBottomSheet();
-              }else{
+            if (state is StickerLoaded) {
+              if (state.stickerCnt <= 20) {
+                //TODO 20 이상으로 바꾸어야함 테스트용
+                return InkWell(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(ApplyCouponPage.routeName);
+                    },
+                    child: const StickerBottomSheet());
+              } else {
                 return const SizedBox.shrink();
               }
-            }if(state is StickerLoading){
+            }
+            if (state is StickerLoading) {
               return const CircleLoadingIndicator();
-            }else{
+            } else {
               return const SizedBox.shrink();
             }
-
           },
-        )
-    );
+        ));
   }
 }
