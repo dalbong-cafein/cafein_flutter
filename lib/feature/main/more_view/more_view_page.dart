@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
@@ -13,9 +12,12 @@ import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dar
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
+import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,48 +71,61 @@ class _MoreViewPageState extends State<MoreViewPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
+                  onTap: () async {
+                    final bloc = context.read<MoreViewBloc>();
+                    await Navigator.of(context).pushNamed(
                       EditProfilePage.routeName,
                     );
+
+                    bloc.add(const MoreViewProfileChanged());
                   },
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 39,
-                        backgroundColor: AppColor.white,
-                        backgroundImage: NetworkImage(
-                          userData?.imageIdPair?.imageUrl ?? CafeinConst.defaultProfile,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  child: BlocBuilder<MoreViewBloc, MoreViewState>(
+                    buildWhen: (pre, next) => next is MoreViewProfileEdited,
+                    builder: (context, state) {
+                      String userName = userData?.nickname ?? '';
+                      String? imageUrl = userData?.imageIdPair?.imageUrl;
+                      if (state is MoreViewProfileEdited) {
+                        userName = context.watch<UserRepository>().getMemberData?.nickname ?? '';
+                        imageUrl =
+                            context.watch<UserRepository>().getMemberData?.imageIdPair?.imageUrl;
+                      }
+
+                      return Row(
                         children: [
-                          Text(
-                            '${userData!.nickname}',
-                            style: AppStyle.subTitle17SemiBold,
+                          CircleProfileImage(
+                            imageUrl: imageUrl,
+                            radius: 39,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '카페인 ${DateTime.now().difference(
-                                  DateTime.parse(userData.joinDateTime),
-                                ).inDays}일차',
-                            style: AppStyle.caption13Regular.copyWith(
+                          const SizedBox(width: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                userName,
+                                style: AppStyle.subTitle17SemiBold,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                '카페인 ${DateTime.now().difference(
+                                      DateTime.parse(userData!.joinDateTime),
+                                    ).inDays}일차',
+                                style: AppStyle.caption13Regular.copyWith(
+                                  color: AppColor.grey400,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Transform.rotate(
+                            angle: pi,
+                            child: const Icon(
+                              CupertinoIcons.back,
                               color: AppColor.grey400,
                             ),
                           ),
                         ],
-                      ),
-                      const Spacer(),
-                      Transform.rotate(
-                        angle: pi,
-                        child: const Icon(
-                          CupertinoIcons.back,
-                          color: AppColor.grey400,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -123,20 +138,34 @@ class _MoreViewPageState extends State<MoreViewPage> {
                       if (state is MoreViewStoreCntAndReviewCntLoaded) {
                         return Row(
                           children: [
-                            MoreViewCountCard(
-                              title: '내가 등록한 카페',
-                              value: state.storeCount,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  RegisteredStorePage.routeName,
+                                );
+                              },
+                              child: MoreViewCountCard(
+                                title: '내가 등록한 카페',
+                                value: state.storeCount,
+                              ),
                             ),
                             const SizedBox(width: 8),
-                            MoreViewCountCard(
-                              title: '내가 쓴 리뷰',
-                              value: state.reviewCount,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  RegisteredReviewPage.routeName,
+                                );
+                              },
+                              child: MoreViewCountCard(
+                                title: '내가 쓴 리뷰',
+                                value: state.reviewCount,
+                              ),
                             ),
                           ],
                         );
                       }
 
-                      return const CircleLoadingIndicator();
+                      return const CustomCircleLoadingIndicator();
                     },
                   ),
                 ),
@@ -166,15 +195,15 @@ class _MoreViewPageState extends State<MoreViewPage> {
                 const SizedBox(height: 12),
                 MoreViewMenuCard(
                   title: '공지사항',
-                  onTab: () {
-                    Navigator.of(context).pushNamed(NoticePage.routeName);
-                  },
+                  onTab: () => Navigator.of(context).pushNamed(
+                    NoticePage.routeName,
+                  ),
                 ),
                 MoreViewMenuCard(
                   title: '자주 묻는 질문',
-                  onTab: () {
-                    Navigator.of(context).pushNamed(FaqPage.routeName);
-                  },
+                  onTab: () => Navigator.of(context).pushNamed(
+                    FaqPage.routeName,
+                  ),
                 ),
                 MoreViewMenuCard(
                   title: '서비스 이용 약관',

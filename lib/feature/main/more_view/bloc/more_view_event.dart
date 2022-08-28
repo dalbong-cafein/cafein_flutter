@@ -14,3 +14,7 @@ class MoreViewSignOutRequested extends MoreViewEvent {
 class MoreViewCountRequested extends MoreViewEvent {
   const MoreViewCountRequested();
 }
+
+class MoreViewProfileChanged extends MoreViewEvent {
+  const MoreViewProfileChanged();
+}

@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -108,8 +109,7 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
             ),
             const Spacer(),
             BlocBuilder<InputPhoneNumberBloc, InputPhoneNumberState>(
-              buildWhen: (pre, next) =>
-                  next is PhoneCertificationPhoneNumberValidationChecked,
+              buildWhen: (pre, next) => next is PhoneCertificationPhoneNumberValidationChecked,
               builder: (context, state) {
                 bool isValid = false;
                 if (state is PhoneCertificationPhoneNumberValidationChecked) {
@@ -122,7 +122,10 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
                     onPressed: isValid
                         ? () => Navigator.of(context).pushNamed(
                               InputCertificationCodePage.routeName,
-                              arguments: controller.text,
+                              arguments: InputCertificationCodePageArguments(
+                                phoneNumber: controller.text,
+                                returnPage: LoginPage.routeName,
+                              ),
                             )
                         : null,
                     child: const Text('인증번호 받기'),

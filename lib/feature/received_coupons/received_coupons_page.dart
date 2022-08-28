@@ -1,7 +1,7 @@
 import 'package:cafein_flutter/feature/received_coupons/bloc/received_coupons_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,8 +43,7 @@ class ReceivedCouponsPage extends StatelessWidget {
                           SizedBox(
                             width: width * 2 / 3,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 14),
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,8 +59,7 @@ class ReceivedCouponsPage extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 16),
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         state.coupons[index].itemName,
@@ -85,8 +83,7 @@ class ReceivedCouponsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 14, right: 20),
+                                  padding: const EdgeInsets.only(top: 14, right: 20),
                                   child: isSend(state.coupons[index].status),
                                 ),
                               ],
@@ -97,7 +94,7 @@ class ReceivedCouponsPage extends StatelessWidget {
                     });
               }
               if (state is ReceivedCouponsLoading) {
-                return const CircleLoadingIndicator();
+                return const CustomCircleLoadingIndicator();
               } else {
                 return const SizedBox.shrink();
               }
@@ -135,7 +132,6 @@ class ReceivedCouponsPage extends StatelessWidget {
           ),
         ),
       );
-
     }
   }
 }

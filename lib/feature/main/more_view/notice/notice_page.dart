@@ -3,7 +3,7 @@ import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -97,7 +97,7 @@ class _NoticePageState extends State<NoticePage> {
                 ),
               );
             }
-            return const CircleLoadingIndicator();
+            return const CustomCircleLoadingIndicator();
           },
         ),
       ),

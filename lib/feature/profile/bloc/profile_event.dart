@@ -54,5 +54,8 @@ class ProfileImageChanged extends ProfileEvent {
   final bool isDefault;
 
   @override
-  List<Object> get props => [permission, false];
+  List<Object> get props => [
+        permission,
+        isDefault,
+      ];
 }

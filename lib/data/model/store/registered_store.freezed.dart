@@ -26,7 +26,7 @@ mixin _$RegisteredStore {
   BusinessInfo get businessInfo => throw _privateConstructorUsedError;
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @JsonKey(name: 'storeImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'regDateTime')
   String get registeredDateTime => throw _privateConstructorUsedError;
 
@@ -46,11 +46,11 @@ abstract class $RegisteredStoreCopyWith<$Res> {
       String storeName,
       @JsonKey(name: 'businessHoursInfoDto') BusinessInfo businessInfo,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair,
+      @JsonKey(name: 'storeImageDto') ImageIdPair? imageIdPair,
       @JsonKey(name: 'regDateTime') String registeredDateTime});
 
   $BusinessInfoCopyWith<$Res> get businessInfo;
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
+  $ImageIdPairCopyWith<$Res>? get imageIdPair;
 }
 
 /// @nodoc
@@ -91,7 +91,7 @@ class _$RegisteredStoreCopyWithImpl<$Res>
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
       registeredDateTime: registeredDateTime == freezed
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
@@ -107,8 +107,12 @@ class _$RegisteredStoreCopyWithImpl<$Res>
   }
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair {
-    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair, (value) {
+  $ImageIdPairCopyWith<$Res>? get imageIdPair {
+    if (_value.imageIdPair == null) {
+      return null;
+    }
+
+    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
       return _then(_value.copyWith(imageIdPair: value));
     });
   }
@@ -126,13 +130,13 @@ abstract class _$$_RegisteredStoreCopyWith<$Res>
       String storeName,
       @JsonKey(name: 'businessHoursInfoDto') BusinessInfo businessInfo,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') ImageIdPair imageIdPair,
+      @JsonKey(name: 'storeImageDto') ImageIdPair? imageIdPair,
       @JsonKey(name: 'regDateTime') String registeredDateTime});
 
   @override
   $BusinessInfoCopyWith<$Res> get businessInfo;
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
+  $ImageIdPairCopyWith<$Res>? get imageIdPair;
 }
 
 /// @nodoc
@@ -175,7 +179,7 @@ class __$$_RegisteredStoreCopyWithImpl<$Res>
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
       registeredDateTime: registeredDateTime == freezed
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
@@ -192,7 +196,7 @@ class _$_RegisteredStore implements _RegisteredStore {
       required this.storeName,
       @JsonKey(name: 'businessHoursInfoDto') required this.businessInfo,
       this.congestionScoreAvg,
-      @JsonKey(name: 'storeImageDto') required this.imageIdPair,
+      @JsonKey(name: 'storeImageDto') this.imageIdPair,
       @JsonKey(name: 'regDateTime') required this.registeredDateTime});
 
   factory _$_RegisteredStore.fromJson(Map<String, dynamic> json) =>
@@ -209,7 +213,7 @@ class _$_RegisteredStore implements _RegisteredStore {
   final double? congestionScoreAvg;
   @override
   @JsonKey(name: 'storeImageDto')
-  final ImageIdPair imageIdPair;
+  final ImageIdPair? imageIdPair;
   @override
   @JsonKey(name: 'regDateTime')
   final String registeredDateTime;
@@ -266,7 +270,7 @@ abstract class _RegisteredStore implements RegisteredStore {
           required final BusinessInfo businessInfo,
       final double? congestionScoreAvg,
       @JsonKey(name: 'storeImageDto')
-          required final ImageIdPair imageIdPair,
+          final ImageIdPair? imageIdPair,
       @JsonKey(name: 'regDateTime')
           required final String registeredDateTime}) = _$_RegisteredStore;
 
@@ -284,7 +288,7 @@ abstract class _RegisteredStore implements RegisteredStore {
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'storeImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'regDateTime')
   String get registeredDateTime => throw _privateConstructorUsedError;

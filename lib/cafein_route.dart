@@ -3,7 +3,9 @@ import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
+import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
+import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/apply_coupon/apply_coupon_page.dart';
 import 'package:cafein_flutter/feature/apply_coupon/bloc/apply_coupon_bloc.dart';
@@ -18,20 +20,26 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
+import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
+import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
+import 'package:cafein_flutter/feature/store/registered_store/bloc/registered_store_bloc.dart';
+import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,15 +71,17 @@ abstract class CafeinRoute {
         );
         break;
       case InputCertificationCodePage.routeName:
-        final phoneNumber = settings.arguments as String;
+        final arguments = settings.arguments as InputCertificationCodePageArguments;
 
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
             authRepository: context.read<AuthRepository>(),
             userRepository: context.read<UserRepository>(),
-            phoneNumber: phoneNumber,
+            phoneNumber: arguments.phoneNumber,
           ),
-          child: const InputCertificationCodePage(),
+          child: InputCertificationCodePage(
+            returnPage: arguments.returnPage,
+          ),
         );
         break;
       case MainPage.routeName:
@@ -97,7 +107,10 @@ abstract class CafeinRoute {
         );
         break;
       case PhoneCertificationDonePage.routeName:
-        page = const PhoneCertificationDonePage();
+        final returnPage = settings.arguments as String;
+        page = PhoneCertificationDonePage(
+          returnPage: returnPage,
+        );
         break;
       case SearchKeywordPage.routeName:
         page = const SearchKeywordPage();
@@ -133,32 +146,53 @@ abstract class CafeinRoute {
         break;
       case SignOffPage.routeName:
         final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
-        page = SignOffPage(
-          moreViewCountResponse: moreViewCountResponse,
+        page = BlocProvider(
+          create: (context) => SignOffBloc(),
+          child: SignOffPage(
+            moreViewCountResponse: moreViewCountResponse,
+          ),
         );
         break;
       case EditProfilePage.routeName:
-        page = const EditProfilePage();
-        break;
-      case ReceivedCouponsPage.routeName :
         page = BlocProvider(
-          create: (context) => ReceivedCouponsBloc(
-            couponRepository: context.read<CouponRepository>()
+          create: (context) => EditProfileBloc(
+            authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
           ),
+          child: const EditProfilePage(),
+        );
+        break;
+      case RegisteredReviewPage.routeName:
+        page = BlocProvider(
+          create: (context) => RegisteredReviewBloc(
+            reviewRepository: context.read<ReviewRepository>(),
+          ),
+          child: const RegisteredReviewPage(),
+        );
+        break;
+      case RegisteredStorePage.routeName:
+        page = BlocProvider(
+          create: (context) => RegisteredStoreBloc(
+            storeRepository: context.read<StoreRepository>(),
+          ),
+          child: const RegisteredStorePage(),
+        );
+        break;
+      case ReceivedCouponsPage.routeName:
+        page = BlocProvider(
+          create: (context) =>
+              ReceivedCouponsBloc(couponRepository: context.read<CouponRepository>()),
           child: const ReceivedCouponsPage(),
         );
         break;
-      case ApplyCouponPage.routeName :
+      case ApplyCouponPage.routeName:
         page = BlocProvider(
-            create: (context) => ApplyCouponBloc(
-                couponRepository: context.read<CouponRepository>()
-            ),
+          create: (context) => ApplyCouponBloc(couponRepository: context.read<CouponRepository>()),
           child: const ApplyCouponPage(),
         );
         break;
-      case ApplyCouponFinishedPage.routeName :
+      case ApplyCouponFinishedPage.routeName:
         page = const ApplyCouponFinishedPage();
-
     }
 
     return MaterialPageRoute(builder: (context) => page);

@@ -22,7 +22,7 @@ abstract class StoreRepository {
     int storeId,
   );
 
-  Future<BaseResponse<StoreResponse<RegisteredStore>>> getMyRegisteredStores();
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>> getMyRegisteredStores();
 
   Future<BaseResponse<int>> createStore(
     RegisteredStoreRequest registeredStoreRequest,
@@ -49,7 +49,7 @@ class StoreRepositoryImpl extends StoreRepository {
       storeFormDataClient.createStore(registeredStoreRequest);
 
   @override
-  Future<BaseResponse<StoreResponse<RegisteredStore>>> getMyRegisteredStores() =>
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>> getMyRegisteredStores() =>
       storeClient.getMyRegisteredStores();
 
   @override

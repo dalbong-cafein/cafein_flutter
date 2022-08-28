@@ -3,7 +3,7 @@ import 'package:cafein_flutter/feature/main/more_view/faq/widget/custom_expansio
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/button/bottom_out_lined_button.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -104,7 +104,7 @@ class _FaqPageState extends State<FaqPage> {
                     ),
                   );
                 }
-                return const CircleLoadingIndicator();
+                return const CustomCircleLoadingIndicator();
               },
             ),
             const SizedBox(height: 24),

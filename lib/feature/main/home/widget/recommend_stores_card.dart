@@ -7,7 +7,7 @@ import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -231,7 +231,7 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
             ],
           );
         }
-        return const CircleLoadingIndicator();
+        return const CustomCircleLoadingIndicator();
       },
     );
   }

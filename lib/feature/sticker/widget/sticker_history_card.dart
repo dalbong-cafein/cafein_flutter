@@ -2,7 +2,7 @@ import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/widget/no_sticker_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,8 +61,7 @@ class StickerHistoryCard extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             isNewFirst ? "오래된 순" : "최근 순",
-                            style: AppStyle.subTitle14Medium
-                                .copyWith(color: AppColor.grey600),
+                            style: AppStyle.subTitle14Medium.copyWith(color: AppColor.grey600),
                           ),
                           const SizedBox(width: 20)
                         ],
@@ -74,8 +73,7 @@ class StickerHistoryCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: ListView.builder(
-                    itemCount:
-                        state.stickers.isEmpty ? 1 : state.stickers.length,
+                    itemCount: state.stickers.isEmpty ? 1 : state.stickers.length,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -83,15 +81,13 @@ class StickerHistoryCard extends StatelessWidget {
                         return const NoStickerCard();
                       }
                       return Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 10, left: 20),
+                        padding: const EdgeInsets.only(top: 10, bottom: 10, left: 20),
                         child: Row(
                           children: [
                             Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(
-                                    width: 1, color: AppColor.grey400),
+                                border: Border.all(width: 1, color: AppColor.grey400),
                               ),
                               child: const Padding(
                                 padding: EdgeInsets.all(16),
@@ -111,16 +107,15 @@ class StickerHistoryCard extends StatelessWidget {
                                 ),
                                 Text(
                                   state.stickers[index].storeName,
-                                  style: AppStyle.caption12Regular
-                                      .copyWith(color: AppColor.grey400),
+                                  style:
+                                      AppStyle.caption12Regular.copyWith(color: AppColor.grey400),
                                 ),
                                 Text(
                                   "유효기간 "
                                   "${state.stickers[index].registeredDateTime.substring(0, 10).replaceAll("-", ".")} - "
                                   "${state.stickers[index].expiredDateTime.substring(0, 10).replaceAll("-", ".")}",
                                   style: AppStyle.caption13Medium.copyWith(
-                                      color: isExpire(state
-                                              .stickers[index].expiredDateTime
+                                      color: isExpire(state.stickers[index].expiredDateTime
                                               .substring(0, 10))
                                           ? AppColor.orange500
                                           : AppColor.grey800),
@@ -136,7 +131,7 @@ class StickerHistoryCard extends StatelessWidget {
           );
         }
         if (state is StickerLoading) {
-          return const CircleLoadingIndicator();
+          return const CustomCircleLoadingIndicator();
         } else {
           return const SizedBox.shrink();
         }

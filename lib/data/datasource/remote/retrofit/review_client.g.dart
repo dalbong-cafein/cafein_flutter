@@ -90,7 +90,7 @@ class _ReviewClient implements ReviewClient {
 
   @override
   Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews(
-      limit) async {
+      storeId, limit) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'limit': limit};
     final _headers = <String, dynamic>{};
@@ -98,7 +98,7 @@ class _ReviewClient implements ReviewClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<ReviewResponse<Review>>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/stores/{storeId}/reviews/limit',
+                .compose(_dio.options, '/stores/${storeId}/reviews/limit',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<ReviewResponse<Review>>.fromJson(

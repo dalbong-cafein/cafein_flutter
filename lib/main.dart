@@ -11,10 +11,8 @@ void main() async {
   await CafeinConfig.initializeApp();
   CafeinConst.initConst();
 
-  BlocOverrides.runZoned(
-    () => runApp(
-      const CafeinApp(),
-    ),
-    blocObserver: CustomBlocObserver(),
+  Bloc.observer = CustomBlocObserver();
+  runApp(
+    const CafeinApp(),
   );
 }

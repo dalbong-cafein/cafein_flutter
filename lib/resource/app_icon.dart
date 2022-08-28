@@ -38,6 +38,7 @@ abstract class AppIcon {
 
   static const kakaoCircle = 'asset/icon/ic_kakao_s.svg';
   static const appleCircle = 'asset/icon/ic_apple_s.svg';
+  static const textBlank = 'asset/icon/ic_text_blank.svg';
 
   static const americanoSticker = "asset/icon/sticker/americano_sticker_icon.svg";
   static const eggSandwichSticker = "asset/icon/sticker/egg_sandwich_sticker_icon.svg";
@@ -49,4 +50,13 @@ abstract class AppIcon {
   static const pinkDessertSticker = "asset/icon/sticker/pink_dessert_sticker_icon.svg";
   static const pinkDrinkSticker = "asset/icon/sticker/pink_drink_sticker_icon.svg";
   static const sandwichSticker = "asset/icon/sticker/sandwich_sticker_icon.svg";
+
+  static const homeOn = 'asset/icon/bottom/ic_home_on.svg';
+  static const homeOff = 'asset/icon/bottom/ic_home_off.svg';
+  static const searchOn = 'asset/icon/bottom/ic_search_on.svg';
+  static const searchOff = 'asset/icon/bottom/ic_search_off.svg';
+  static const notificationOn = 'asset/icon/bottom/ic_notification_on.svg';
+  static const notificationOff = 'asset/icon/bottom/ic_notification_off.svg';
+  static const moreViewOn = 'asset/icon/bottom/ic_more_view_on.svg';
+  static const moreViewOff = 'asset/icon/bottom/ic_more_view_off.svg';
 }

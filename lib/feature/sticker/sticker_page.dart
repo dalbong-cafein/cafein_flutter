@@ -12,7 +12,7 @@ import 'package:cafein_flutter/feature/sticker/widget/sticker_history_card.dart'
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,15 +110,14 @@ class StickerPage extends StatelessWidget {
                     if (state.couponCnt > 0) {
                       return InkWell(
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(ReceivedCouponsPage.routeName);
+                            Navigator.of(context).pushNamed(ReceivedCouponsPage.routeName);
                           },
                           child: const MyCouponCardButton());
                     } else {
                       return const SizedBox.shrink();
                     }
                   } else {
-                    return const CircleLoadingIndicator();
+                    return const CustomCircleLoadingIndicator();
                   }
                 },
               ),
@@ -126,19 +125,27 @@ class StickerPage extends StatelessWidget {
                 width: width,
                 color: AppColor.grey50,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 24,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.error_outline,
-                              color: AppColor.grey600, size: 16),
+                          const Icon(
+                            Icons.error_outline,
+                            color: AppColor.grey600,
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
-                          Text("확인해 주세요",
-                              style: AppStyle.subTitle15Medium
-                                  .copyWith(color: AppColor.grey600))
+                          Text(
+                            "확인해 주세요",
+                            style: AppStyle.subTitle15Medium.copyWith(
+                              color: AppColor.grey600,
+                            ),
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -150,11 +157,13 @@ class StickerPage extends StatelessWidget {
                           itemCount: warningTexts.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 5, bottom: 3),
-                              child: Text(warningTexts[index],
-                                  style: AppStyle.caption13Regular
-                                      .copyWith(color: AppColor.grey500)),
+                              padding: const EdgeInsets.only(left: 5, bottom: 3),
+                              child: Text(
+                                warningTexts[index],
+                                style: AppStyle.caption13Regular.copyWith(
+                                  color: AppColor.grey500,
+                                ),
+                              ),
                             );
                           })
                     ],
@@ -177,11 +186,9 @@ class StickerPage extends StatelessWidget {
           builder: (context, state) {
             if (state is StickerLoaded) {
               if (state.stickerCnt <= 20) {
-                //TODO 20 이상으로 바꾸어야함 테스트용
                 return InkWell(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(ApplyCouponPage.routeName);
+                      Navigator.of(context).pushNamed(ApplyCouponPage.routeName);
                     },
                     child: const StickerBottomSheet());
               } else {
@@ -189,7 +196,7 @@ class StickerPage extends StatelessWidget {
               }
             }
             if (state is StickerLoading) {
-              return const CircleLoadingIndicator();
+              return const CustomCircleLoadingIndicator();
             } else {
               return const SizedBox.shrink();
             }

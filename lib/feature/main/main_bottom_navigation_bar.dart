@@ -1,6 +1,6 @@
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,26 +23,30 @@ class MainBottomNavigationBar extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
+        children: [
           _BottomTab(
             currentIndex: 0,
-            offIcon: CupertinoIcons.home,
-            onIcon: CupertinoIcons.house_fill,
+            offIcon: AppIcon.homeOff,
+            onIcon: AppIcon.homeOn,
+            height: bottomPadding > 0 ? bottomPadding + 56 : 56,
           ),
           _BottomTab(
             currentIndex: 1,
-            offIcon: CupertinoIcons.search_circle,
-            onIcon: CupertinoIcons.search_circle_fill,
+            offIcon: AppIcon.searchOff,
+            onIcon: AppIcon.searchOn,
+            height: bottomPadding > 0 ? bottomPadding + 56 : 56,
           ),
           _BottomTab(
             currentIndex: 2,
-            offIcon: CupertinoIcons.bell,
-            onIcon: CupertinoIcons.bell_fill,
+            offIcon: AppIcon.notificationOff,
+            onIcon: AppIcon.notificationOn,
+            height: bottomPadding > 0 ? bottomPadding + 56 : 56,
           ),
           _BottomTab(
             currentIndex: 3,
-            offIcon: CupertinoIcons.person,
-            onIcon: CupertinoIcons.person_fill,
+            offIcon: AppIcon.moreViewOff,
+            onIcon: AppIcon.moreViewOn,
+            height: bottomPadding > 0 ? bottomPadding + 56 : 56,
           ),
         ],
       ),
@@ -56,11 +60,13 @@ class _BottomTab extends StatelessWidget {
     required this.currentIndex,
     required this.offIcon,
     required this.onIcon,
+    required this.height,
   }) : super(key: key);
 
-  final IconData onIcon;
-  final IconData offIcon;
+  final String onIcon;
+  final String offIcon;
   final int currentIndex;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +75,29 @@ class _BottomTab extends StatelessWidget {
       child: BlocBuilder<MainBloc, MainState>(
         builder: (context, state) {
           if (state is MainNavigationSelected) {
-            return InkWell(
-              onTap: () => context
-                  .read<MainBloc>()
-                  .add(MainTabChanged(index: currentIndex)),
-              child: Icon(
-                currentIndex == state.index ? onIcon : offIcon,
+            return Container(
+              height: height,
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    currentIndex == 0 ? 16 : 0,
+                  ),
+                  topRight: Radius.circular(
+                    currentIndex == 3 ? 16 : 0,
+                  ),
+                ),
+              ),
+              child: InkWell(
+                onTap: () => context.read<MainBloc>().add(
+                      MainTabChanged(
+                        index: currentIndex,
+                      ),
+                    ),
+                child: loadAsset(
+                  currentIndex == state.index ? onIcon : offIcon,
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             );
           }

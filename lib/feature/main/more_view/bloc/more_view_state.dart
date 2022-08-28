@@ -47,3 +47,12 @@ class MoreViewError extends MoreViewState {
 class MoreViewSignOuted extends MoreViewState {
   const MoreViewSignOuted();
 }
+
+class MoreViewProfileEdited extends MoreViewState {
+  const MoreViewProfileEdited();
+
+  @override
+  List<Object?> get props => [
+        DateTime.now(),
+      ];
+}

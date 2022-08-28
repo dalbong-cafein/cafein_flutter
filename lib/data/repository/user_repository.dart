@@ -27,7 +27,7 @@ abstract class UserRepository {
 
   Future<BaseResponse<Member>> getMember();
 
-  Future<BaseResponse<ImageIdPair>> updateMember(
+  Future<BaseResponse<ImageIdPair?>> updateMember(
     UpdateMemberRequest updateMemberRequest,
   );
 
@@ -54,7 +54,7 @@ class UserRepositoryImpl extends UserRepository {
   Future<BaseResponse<Member>> getMember() => memberClient.getMember();
 
   @override
-  Future<BaseResponse<ImageIdPair>> updateMember(
+  Future<BaseResponse<ImageIdPair?>> updateMember(
     UpdateMemberRequest updateMemberRequest,
   ) =>
       memberFormDataClient.updateMember(updateMemberRequest);
