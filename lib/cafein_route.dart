@@ -33,6 +33,7 @@ import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
+import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -193,6 +194,10 @@ abstract class CafeinRoute {
         break;
       case ApplyCouponFinishedPage.routeName:
         page = const ApplyCouponFinishedPage();
+        break;
+      case CreatedReviewPage.routeName :
+        page = const CreatedReviewPage();
+        break;
     }
 
     return MaterialPageRoute(builder: (context) => page);

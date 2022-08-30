@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 
 class CreatedReviewPage extends StatelessWidget {
@@ -8,7 +9,12 @@ class CreatedReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text(
+          "리뷰 작성",
+          style: AppStyle.subTitle16Medium,
+        ),
+      ),
       body: Center(
         child: Text('리뷰 생성 페이지'),
       ),
