@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
 class CreatedReviewPage extends StatelessWidget {
@@ -58,5 +59,48 @@ class CreatedReviewPage extends StatelessWidget {
             ),
           ),
         ));
+  }
+  Widget reviewButton(String mood , bool isClicked){
+    String moodText;
+    String moodImage;
+    if(mood == "GOOD"){
+      moodText = "추천해요";
+      if(isClicked){
+        moodImage = AppImage.recGood;
+      }else{
+        moodImage = AppImage.recGoodGrey;
+      }
+    }if(mood == "NORMAL"){
+      moodText = "그저그래요";
+      if(isClicked){
+        moodImage = AppImage.recNormal;
+      }else{
+        moodImage = AppImage.recNormalGrey;
+      }
+    }else{
+      moodText = "별로에요";
+      if(isClicked){
+        moodImage = AppImage.recGood;
+      }else{
+        moodImage = AppImage.recGoodGrey;
+      }
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        loadAsset(
+          moodImage,
+          height: 56,
+          width: 56
+        ),
+        Text(
+          moodText,
+          style: AppStyle.caption13Medium.copyWith(
+            color : isClicked?
+                AppColor.grey800 : AppColor.grey400
+          ),
+        )
+      ],
+    );
   }
 }
