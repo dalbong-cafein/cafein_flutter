@@ -54,15 +54,41 @@ class CreatedReviewPage extends StatelessWidget {
                 const Text(
                   "카공 카페로 어떤가요?",
                   style: AppStyle.subTitle17SemiBold,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      reviewButton("GOOD", true),
+                      reviewButton("NORMAL", true),
+                      reviewButton("BAD", true)
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container( height:1.0,
+                      width: width - 40,
+                      color: AppColor.grey50,),
+                  ],
                 )
+
               ],
             ),
           ),
         ));
   }
   Widget reviewButton(String mood , bool isClicked){
-    String moodText;
-    String moodImage;
+    String moodText = "추천해요";
+    String moodImage = AppImage.recGood;
     if(mood == "GOOD"){
       moodText = "추천해요";
       if(isClicked){
@@ -77,12 +103,12 @@ class CreatedReviewPage extends StatelessWidget {
       }else{
         moodImage = AppImage.recNormalGrey;
       }
-    }else{
+    }if(mood == "BAD"){
       moodText = "별로에요";
       if(isClicked){
-        moodImage = AppImage.recGood;
+        moodImage = AppImage.recBad;
       }else{
-        moodImage = AppImage.recGoodGrey;
+        moodImage = AppImage.recBadGrey;
       }
     }
     return Column(
@@ -92,6 +118,9 @@ class CreatedReviewPage extends StatelessWidget {
           moodImage,
           height: 56,
           width: 56
+        ),
+        const SizedBox(
+          height: 12,
         ),
         Text(
           moodText,
