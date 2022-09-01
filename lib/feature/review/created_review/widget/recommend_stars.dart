@@ -5,6 +5,15 @@ class RecommendStars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Container();
+  }
+
+  Widget textAndStars(String text, int starsCount, double width){
+    return Row(
+      children: [
+
+      ],
+    );
   }
 }
