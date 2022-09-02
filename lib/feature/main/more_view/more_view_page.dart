@@ -89,7 +89,6 @@ class _MoreViewPageState extends State<MoreViewPage> {
                         imageUrl =
                             context.watch<UserRepository>().getMemberData?.imageIdPair?.imageUrl;
                       }
-
                       return Row(
                         children: [
                           CircleProfileImage(

@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
 class CircleProfileImage extends StatelessWidget {
@@ -15,11 +16,13 @@ class CircleProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (imageUrl == null) {
-      CircleAvatar(
+      return CircleAvatar(
         radius: radius,
         backgroundColor: AppColor.white,
-        backgroundImage: AssetImage(
+        child: loadAsset(
           CafeinConst.defaultProfile,
+          width: radius * 2,
+          height: radius * 2,
         ),
       );
     }

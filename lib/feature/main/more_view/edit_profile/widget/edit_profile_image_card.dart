@@ -24,6 +24,8 @@ class EditProfileImageCard extends StatelessWidget {
           backgroundColor: AppColor.white,
           child: loadAsset(
             CafeinConst.defaultProfile,
+            width: 88,
+            height: 88,
           ),
         );
       }
@@ -41,8 +43,10 @@ class EditProfileImageCard extends StatelessWidget {
       return CircleAvatar(
         radius: 44,
         backgroundColor: AppColor.white,
-        backgroundImage: AssetImage(
+        child: loadAsset(
           CafeinConst.defaultProfile,
+          width: 88,
+          height: 88,
         ),
       );
     }
@@ -50,7 +54,7 @@ class EditProfileImageCard extends StatelessWidget {
     return CircleAvatar(
       radius: 44,
       backgroundColor: AppColor.white,
-      foregroundImage: FileImage(
+      backgroundImage: FileImage(
         File(filePath!),
       ),
     );

@@ -78,8 +78,7 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
             final bloc = context.read<CertifyCodeBloc>();
 
             if (state is CertifyCodeSucceed) {
-              Navigator.pushNamed(
-                context,
+              navigator.pushNamed(
                 PhoneCertificationDonePage.routeName,
                 arguments: widget.returnPage,
               );

@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
+import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_confirm_dialog.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_confrim_toast_dialog.dart';
@@ -250,11 +251,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       BlocBuilder<EditProfileBloc, EditProfileState>(
-                        buildWhen: (pre, next) => next is EditProfileInformationChecked,
+                        buildWhen: (pre, next) => next is EditProfileNicknameDupicatedChecked,
                         builder: (context, state) {
                           bool isDuplicated = false;
                           String text = '한글, 영문, 숫자만 입력 가능합니다.';
-                          if (state is EditProfileInformationChecked) {
+                          if (state is EditProfileNicknameDupicatedChecked) {
                             isDuplicated = state.isDuplicated;
                             text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
                           }
@@ -301,21 +302,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               return;
                             }
 
-                            final phoneNumber = await navigator.pushNamed(
-                              InputCertificationCodePage.routeName,
-                              arguments: InputCertificationCodePageArguments(
-                                phoneNumber: userData!.phoneNumber!,
-                                returnPage: EditProfilePage.routeName,
-                              ),
+                            await navigator.pushNamed(
+                              InputPhoneNumberPage.routeName,
+                              arguments: EditProfilePage.routeName,
                             );
 
-                            if (phoneNumber != null) {
-                              bloc.add(
-                                EditProfilePhoneNumberChanged(
-                                  phoneNumber: phoneNumber as String,
-                                ),
-                              );
-                            }
+                            bloc.add(
+                              const EditProfilePhoneNumberChanged(),
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -380,6 +374,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: ElevatedButton(
                       onPressed: isValid
                           ? () async {
+                              FocusScope.of(context).unfocus();
                               final bloc = context.read<EditProfileBloc>();
                               final result = await EditConfirmDialog.show(context);
 

@@ -50,7 +50,6 @@ class EditProfilePermissionChecked extends EditProfileState {
 
 class EditProfileInformationChecked extends EditProfileState {
   const EditProfileInformationChecked({
-    required this.isDuplicated,
     required this.isNicknameValid,
     required this.nicknameLength,
     this.imagePath,
@@ -59,7 +58,6 @@ class EditProfileInformationChecked extends EditProfileState {
 
   final bool isNicknameValid;
   final int nicknameLength;
-  final bool isDuplicated;
   final String? imagePath;
   final String? phoneNumber;
 
@@ -67,8 +65,19 @@ class EditProfileInformationChecked extends EditProfileState {
   List<Object?> get props => [
         isNicknameValid,
         nicknameLength,
-        isDuplicated,
         imagePath,
         phoneNumber,
+      ];
+}
+
+class EditProfileNicknameDupicatedChecked extends EditProfileState {
+  const EditProfileNicknameDupicatedChecked({
+    required this.isDuplicated,
+  });
+
+  final bool isDuplicated;
+  @override
+  List<Object?> get props => [
+        isDuplicated,
       ];
 }

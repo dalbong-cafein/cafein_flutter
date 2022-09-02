@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
 
     return BlocListener<LoginBloc, LoginState>(
       listenWhen: (pre, next) => pre is LoginLoading,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginSocialTokenConfirmed) {
           context.read<LoginBloc>().add(
                 LoginRequested(socialLoginRequest: state.socialLoginRequest),
@@ -32,6 +32,7 @@ class LoginPage extends StatelessWidget {
           if (!state.isCertifiedPhone) {
             Navigator.of(context).pushNamed(
               InputPhoneNumberPage.routeName,
+              arguments: LoginPage.routeName,
             );
           } else if (!state.isRegisteredNickname) {
             Navigator.of(context).pushNamed(
@@ -90,8 +91,7 @@ class LoginPage extends StatelessWidget {
                   const Spacer(),
                   InkWell(
                     onTap: () => context.read<LoginBloc>().add(
-                          const LoginSocialTokenRequested(
-                              authProvider: AuthProvider.kakao),
+                          const LoginSocialTokenRequested(authProvider: AuthProvider.kakao),
                         ),
                     child: loadAsset(
                       AppImage.kakaoLogin,
@@ -102,8 +102,7 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 12),
                       child: InkWell(
                         onTap: () => context.read<LoginBloc>().add(
-                              const LoginSocialTokenRequested(
-                                  authProvider: AuthProvider.apple),
+                              const LoginSocialTokenRequested(authProvider: AuthProvider.apple),
                             ),
                         child: loadAsset(
                           AppImage.appleLogin,

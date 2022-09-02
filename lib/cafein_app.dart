@@ -29,6 +29,7 @@ import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -124,6 +125,9 @@ class CafeinApp extends StatelessWidget {
               ),
         ),
         onGenerateRoute: CafeinRoute.onGenerateRoute,
+        navigatorObservers: [
+          CustomNavigatorLogger(),
+        ],
       ),
     );
   }

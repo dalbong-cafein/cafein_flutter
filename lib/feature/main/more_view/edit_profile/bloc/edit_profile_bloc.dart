@@ -29,10 +29,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
 
-  bool _isNicknameValid = false;
-  int _nicknameLength = 0;
+  bool _isNicknameValid = true;
+  late int _nicknameLength = userRepository.getMemberData?.nickname?.length ?? 0;
   bool _isDuplicated = true;
-  String _nickname = '';
+  late String _nickname = userRepository.getMemberData?.nickname ?? '';
   String? _imagePath;
   String? _phoneNumber;
 
@@ -41,6 +41,15 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     Emitter<EditProfileState> emit,
   ) async {
     emit(const EditProfileLoading());
+    if (!_isDuplicated) {
+      emit(
+        EditProfileNicknameDupicatedChecked(
+          isDuplicated: _isDuplicated,
+        ),
+      );
+
+      return;
+    }
     try {
       final currentUserData = userRepository.getMemberData;
 
@@ -48,8 +57,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         UpdateMemberRequest(
           memberId: currentUserData!.memberId,
           nickName: _nickname,
-          imageFile: _imagePath,
-          deleteImageId: _imagePath != null ? currentUserData.imageIdPair?.imageId : null,
+          imageFile: _imagePath == null || _imagePath == CafeinConst.defaultProfileFlag
+              ? null
+              : _imagePath,
+          deleteImageId: _imagePath == null ? null : currentUserData.imageIdPair?.imageId,
         ),
       );
 
@@ -63,7 +74,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
         return;
       }
-
+      userRepository.setMemberData = userRepository.getMemberData!.copyWith(
+        nickname: _nickname,
+        imageIdPair: _imagePath == CafeinConst.defaultProfileFlag ? null : response.data,
+      );
       emit(const EditProfileSucceed());
     } catch (e) {
       debugPrint(e.toString());
@@ -85,7 +99,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
     emit(
       EditProfileInformationChecked(
-        isDuplicated: _isDuplicated,
         nicknameLength: _nicknameLength,
         isNicknameValid: _isNicknameValid,
         phoneNumber: _phoneNumber,
@@ -110,12 +123,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       _isDuplicated = false;
     } finally {
       emit(
-        EditProfileInformationChecked(
+        EditProfileNicknameDupicatedChecked(
           isDuplicated: _isDuplicated,
-          nicknameLength: _nicknameLength,
-          isNicknameValid: _isNicknameValid,
-          phoneNumber: _phoneNumber,
-          imagePath: _imagePath,
         ),
       );
     }
@@ -149,7 +158,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
     emit(
       EditProfileInformationChecked(
-        isDuplicated: _isDuplicated,
         nicknameLength: _nicknameLength,
         isNicknameValid: _isNicknameValid,
         phoneNumber: _phoneNumber,
@@ -175,11 +183,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     EditProfilePhoneNumberChanged event,
     Emitter<EditProfileState> emit,
   ) {
-    _phoneNumber = event.phoneNumber;
+    _phoneNumber = userRepository.getMemberData!.phoneNumber;
 
     emit(
       EditProfileInformationChecked(
-        isDuplicated: _isDuplicated,
         nicknameLength: _nicknameLength,
         isNicknameValid: _isNicknameValid,
         phoneNumber: _phoneNumber,

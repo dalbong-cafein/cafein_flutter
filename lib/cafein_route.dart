@@ -64,11 +64,14 @@ abstract class CafeinRoute {
         );
         break;
       case InputPhoneNumberPage.routeName:
+        final returnPage = settings.arguments as String;
         page = BlocProvider(
           create: (context) => InputPhoneNumberBloc(
             authRepository: context.read<AuthRepository>(),
           ),
-          child: const InputPhoneNumberPage(),
+          child: InputPhoneNumberPage(
+            returnPage: returnPage,
+          ),
         );
         break;
       case InputCertificationCodePage.routeName:
@@ -195,11 +198,14 @@ abstract class CafeinRoute {
       case ApplyCouponFinishedPage.routeName:
         page = const ApplyCouponFinishedPage();
         break;
-      case CreatedReviewPage.routeName :
+      case CreatedReviewPage.routeName:
         page = const CreatedReviewPage();
         break;
     }
 
-    return MaterialPageRoute(builder: (context) => page);
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) => page,
+    );
   }
 }
