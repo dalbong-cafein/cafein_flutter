@@ -57,4 +57,9 @@ abstract class AppImage {
   static const getStickerStep1 = "asset/image/get_sticker_step1_image.png";
   static const getStickerStep2 = "asset/image/get_sticker_step2_image.png";
   static const getStickerStep3 = "asset/image/get_sticker_step3_image.png";
+
+  static const onboardA = 'asset/image/onboard/img_onboard_a.png';
+  static const onboardB = 'asset/image/onboard/img_onboard_b.png';
+  static const onboardC = 'asset/image/onboard/img_onboard_c.png';
+  static const onboardD = 'asset/image/onboard/img_onboard_d.png';
 }

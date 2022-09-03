@@ -17,6 +17,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dar
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
@@ -97,6 +98,11 @@ class CafeinApp extends StatelessWidget {
         RepositoryProvider<CouponRepository>(
           create: (context) => CouponRepositoryImpl(
             couponClient: CouponClient(DioUtil().dio),
+          ),
+        ),
+        RepositoryProvider<AppRepository>(
+          create: (context) => AppRepositoryImpl(
+            appPreference: AppDatabase().appPreference,
           ),
         ),
       ],

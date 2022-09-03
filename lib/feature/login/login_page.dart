@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -37,6 +38,11 @@ class LoginPage extends StatelessWidget {
           } else if (!state.isRegisteredNickname) {
             Navigator.of(context).pushNamed(
               ProfilePage.routeName,
+            );
+          } else if (!state.isOnboardSkip) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              OnboardPage.routeName,
+              (route) => false,
             );
           } else {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -91,7 +97,8 @@ class LoginPage extends StatelessWidget {
                   const Spacer(),
                   InkWell(
                     onTap: () => context.read<LoginBloc>().add(
-                          const LoginSocialTokenRequested(authProvider: AuthProvider.kakao),
+                          const LoginSocialTokenRequested(
+                              authProvider: AuthProvider.kakao),
                         ),
                     child: loadAsset(
                       AppImage.kakaoLogin,
@@ -102,7 +109,8 @@ class LoginPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 12),
                       child: InkWell(
                         onTap: () => context.read<LoginBloc>().add(
-                              const LoginSocialTokenRequested(authProvider: AuthProvider.apple),
+                              const LoginSocialTokenRequested(
+                                  authProvider: AuthProvider.apple),
                             ),
                         child: loadAsset(
                           AppImage.appleLogin,
