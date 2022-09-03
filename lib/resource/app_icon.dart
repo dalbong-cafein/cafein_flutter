@@ -59,4 +59,9 @@ abstract class AppIcon {
   static const notificationOff = 'asset/icon/bottom/ic_notification_off.svg';
   static const moreViewOn = 'asset/icon/bottom/ic_more_view_on.svg';
   static const moreViewOff = 'asset/icon/bottom/ic_more_view_off.svg';
+
+  static const notificationNotice = 'asset/icon/ic_notice.svg';
+  static const notificationReport = 'asset/icon/ic_report_s.svg';
+  static const notificationEvent = 'asset/icon/ic_star.svg';
+  static const notificationSticker = 'asset/icon/ic_sticker.svg';
 }

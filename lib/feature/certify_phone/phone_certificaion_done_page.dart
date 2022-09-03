@@ -1,5 +1,4 @@
 import 'package:cafein_flutter/feature/login/login_page.dart';
-import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';

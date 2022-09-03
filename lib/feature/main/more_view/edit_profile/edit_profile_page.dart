@@ -1,5 +1,4 @@
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_confirm_dialog.dart';
