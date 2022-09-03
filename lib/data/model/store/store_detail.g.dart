@@ -11,25 +11,29 @@ _$_StoreDetail _$$_StoreDetailFromJson(Map<String, dynamic> json) =>
       storeId: json['storeId'] as int,
       storeName: json['storeName'] as String,
       nicknameOfModMember: json['nicknameOfModMember'] as String,
-      imageIdPair:
-          ImageIdPair.fromJson(json['memberImageDto'] as Map<String, dynamic>),
+      imageIdPair: json['memberImageDto'] == null
+          ? null
+          : ImageIdPair.fromJson(
+              json['memberImageDto'] as Map<String, dynamic>),
       addressInfo:
           AddressInfo.fromJson(json['address'] as Map<String, dynamic>),
-      wifiPassword: json['wifiPassword'] as String,
+      wifiPassword: json['wifiPassword'] as String?,
       heartCnt: json['heartCnt'] as int,
       isHeart: json['isHeart'] as bool,
       businessInfo: BusinessInfo.fromJson(
           json['businessHoursInfoDto'] as Map<String, dynamic>),
       lngX: (json['lngX'] as num).toDouble(),
       latY: (json['latY'] as num).toDouble(),
-      reviewImageIdPairList: (json['reviewImageIdPairList'] as List<dynamic>)
+      reviewImageList: (json['reviewImageList'] as List<dynamic>)
           .map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),
-      storeImageIdPairList: (json['storeImageIdPairList'] as List<dynamic>)
+      storeImageList: (json['storeImageList'] as List<dynamic>)
           .map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalBusinessInfo: TotalBusinessInfo.fromJson(
-          json['totalBusinessHoursResDto'] as Map<String, dynamic>),
+      totalBusinessInfo: json['totalBusinessHoursResDto'] == null
+          ? null
+          : TotalBusinessInfo.fromJson(
+              json['totalBusinessHoursResDto'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_StoreDetailToJson(_$_StoreDetail instance) =>
@@ -45,7 +49,7 @@ Map<String, dynamic> _$$_StoreDetailToJson(_$_StoreDetail instance) =>
       'businessHoursInfoDto': instance.businessInfo,
       'lngX': instance.lngX,
       'latY': instance.latY,
-      'reviewImageIdPairList': instance.reviewImageIdPairList,
-      'storeImageIdPairList': instance.storeImageIdPairList,
+      'reviewImageList': instance.reviewImageList,
+      'storeImageList': instance.storeImageList,
       'totalBusinessHoursResDto': instance.totalBusinessInfo,
     };

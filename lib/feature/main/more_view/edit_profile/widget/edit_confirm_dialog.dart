@@ -33,10 +33,10 @@ class EditConfirmDialog extends StatelessWidget {
                 style: AppStyle.subTitle17Bold,
               ),
               const Spacer(),
-              SizedBox(
-                height: 44,
-                child: Row(children: [
-                  Expanded(
+              Row(children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 44,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: AppColor.white,
@@ -54,8 +54,11 @@ class EditConfirmDialog extends StatelessWidget {
                       child: const Text('아니요'),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: SizedBox(
+                    height: 44,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -67,8 +70,8 @@ class EditConfirmDialog extends StatelessWidget {
                       child: const Text('네'),
                     ),
                   ),
-                ]),
-              )
+                ),
+              ])
             ],
           ),
         ),

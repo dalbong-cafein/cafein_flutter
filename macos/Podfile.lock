@@ -1,5 +1,12 @@
 PODS:
+  - device_info_plus_macos (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - geolocator_apple (1.2.0):
+    - FlutterMacOS
   - package_info_plus_macos (0.0.1):
     - FlutterMacOS
   - path_provider_macos (0.0.1):
@@ -8,17 +15,34 @@ PODS:
     - FlutterMacOS
   - sign_in_with_apple (0.0.1):
     - FlutterMacOS
+  - sqflite (0.0.2):
+    - FlutterMacOS
+    - FMDB (>= 2.7.5)
+  - url_launcher_macos (0.0.1):
+    - FlutterMacOS
 
 DEPENDENCIES:
+  - device_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - geolocator_apple (from `Flutter/ephemeral/.symlinks/plugins/geolocator_apple/macos`)
   - package_info_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
   - sign_in_with_apple (from `Flutter/ephemeral/.symlinks/plugins/sign_in_with_apple/macos`)
+  - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
+  - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
+
+SPEC REPOS:
+  trunk:
+    - FMDB
 
 EXTERNAL SOURCES:
+  device_info_plus_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus_macos/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  geolocator_apple:
+    :path: Flutter/ephemeral/.symlinks/plugins/geolocator_apple/macos
   package_info_plus_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus_macos/macos
   path_provider_macos:
@@ -27,13 +51,22 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
   sign_in_with_apple:
     :path: Flutter/ephemeral/.symlinks/plugins/sign_in_with_apple/macos
+  sqflite:
+    :path: Flutter/ephemeral/.symlinks/plugins/sqflite/macos
+  url_launcher_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
 SPEC CHECKSUMS:
+  device_info_plus_macos: 1ad388a1ef433505c4038e7dd9605aadd1e2e9c7
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  geolocator_apple: 72a78ae3f3e4ec0db62117bd93e34523f5011d58
   package_info_plus_macos: f010621b07802a241d96d01876d6705f15e77c1c
   path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   sign_in_with_apple: a9e97e744e8edc36aefc2723111f652102a7a727
+  sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
 

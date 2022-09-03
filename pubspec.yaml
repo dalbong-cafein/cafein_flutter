@@ -38,6 +38,8 @@ dependencies:
   geolocator: ^9.0.1
   percent_indicator: ^4.2.2
   cached_network_image: ^3.2.1
+  device_info_plus: ^4.1.2
+  package_info_plus: ^1.4.3
 
 dev_dependencies:
   flutter_test:
