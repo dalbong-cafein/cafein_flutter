@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
@@ -215,7 +216,7 @@ class _MoreViewPageState extends State<MoreViewPage> {
                 MoreViewMenuCard(
                   title: '버전 정보',
                   trailingWidget: Text(
-                    '1.0.0',
+                    CafeinConfig.packageInfo.version,
                     style: AppStyle.body14Regular.copyWith(
                       color: AppColor.grey400,
                     ),

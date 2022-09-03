@@ -122,13 +122,17 @@ class ReceivedCouponsPage extends StatelessWidget {
       return Container(
         decoration: const BoxDecoration(
           color: AppColor.orange50,
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.0),
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
           child: Text(
             "신청 완료",
-            style: AppStyle.caption13Medium.copyWith(color: AppColor.orange500),
+            style: AppStyle.caption13Medium.copyWith(
+              color: AppColor.orange500,
+            ),
           ),
         ),
       );

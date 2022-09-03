@@ -2,14 +2,12 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
-import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class StoreDetailPage extends StatefulWidget {
   const StoreDetailPage({
@@ -151,33 +149,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 textStyle: AppStyle.subTitle16Medium,
                               ),
                             ],
-                          ),
-                          SizedBox(
-                            height: 200,
-                            child: GridView.custom(
-                              scrollDirection: Axis.horizontal,
-                              gridDelegate: SliverWovenGridDelegate.count(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                pattern: [
-                                  WovenGridTile(1),
-                                  WovenGridTile(
-                                    5 / 7,
-                                    crossAxisRatio: 0.9,
-                                    alignment: AlignmentDirectional.centerEnd,
-                                  ),
-                                ],
-                              ),
-                              childrenDelegate: SliverChildBuilderDelegate(
-                                (context, index) => CustomCachedNetworkImage(
-                                  height: 200,
-                                  imageUrl: state.storeDetail.storeImageList[index].imageUrl,
-                                  width: 160,
-                                ),
-                                childCount: state.storeDetail.storeImageList.length,
-                              ),
-                            ),
                           ),
                         ],
                       ),

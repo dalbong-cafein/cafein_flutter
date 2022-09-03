@@ -7,24 +7,29 @@ class StickerBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final bottomPadding = MediaQuery.of(context).viewPadding.bottom;
 
     return SizedBox(
-      height: 70,
+      height: bottomPadding > 0 ? bottomPadding + 72 : 72,
       child: Padding(
-        padding: const EdgeInsets.only(top : 8, bottom: 14, left : 16),
+        padding: EdgeInsets.only(
+          top: 8,
+          bottom: bottomPadding > 0 ? bottomPadding + 16 : 16,
+          left: 16,
+        ),
         child: Container(
           width: width - 32,
-          decoration:const BoxDecoration(
+          decoration: const BoxDecoration(
             color: AppColor.orange400,
             borderRadius: BorderRadius.all(
-                Radius.circular(14)
+              Radius.circular(14),
             ),
           ),
           child: Center(
             child: Text(
               "쿠폰 신청하기",
               style: AppStyle.subTitle15Medium.copyWith(
-                color: AppColor.white
+                color: AppColor.white,
               ),
             ),
           ),
