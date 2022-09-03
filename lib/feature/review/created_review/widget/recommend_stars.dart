@@ -1,3 +1,5 @@
+import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/created_review_policy.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +77,9 @@ class RecommendStars extends StatelessWidget {
               ),
             ),
           ),
-        )
+
+        ),
+        const CreatedReviewPolicy()
       ],
     );
   }
