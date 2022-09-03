@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
@@ -30,6 +31,7 @@ import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
+import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
@@ -59,20 +61,25 @@ abstract class CafeinRoute {
           create: (context) => LoginBloc(
             authRepository: context.read<AuthRepository>(),
             userRepository: context.read<UserRepository>(),
+            appRepository: context.read<AppRepository>(),
           ),
           child: const LoginPage(),
         );
         break;
       case InputPhoneNumberPage.routeName:
+        final returnPage = settings.arguments as String;
         page = BlocProvider(
           create: (context) => InputPhoneNumberBloc(
             authRepository: context.read<AuthRepository>(),
           ),
-          child: const InputPhoneNumberPage(),
+          child: InputPhoneNumberPage(
+            returnPage: returnPage,
+          ),
         );
         break;
       case InputCertificationCodePage.routeName:
-        final arguments = settings.arguments as InputCertificationCodePageArguments;
+        final arguments =
+            settings.arguments as InputCertificationCodePageArguments;
 
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
@@ -146,7 +153,8 @@ abstract class CafeinRoute {
         );
         break;
       case SignOffPage.routeName:
-        final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
+        final moreViewCountResponse =
+            settings.arguments as MoreViewCountResponse;
         page = BlocProvider(
           create: (context) => SignOffBloc(),
           child: SignOffPage(
@@ -181,25 +189,32 @@ abstract class CafeinRoute {
         break;
       case ReceivedCouponsPage.routeName:
         page = BlocProvider(
-          create: (context) =>
-              ReceivedCouponsBloc(couponRepository: context.read<CouponRepository>()),
+          create: (context) => ReceivedCouponsBloc(
+              couponRepository: context.read<CouponRepository>()),
           child: const ReceivedCouponsPage(),
         );
         break;
       case ApplyCouponPage.routeName:
         page = BlocProvider(
-          create: (context) => ApplyCouponBloc(couponRepository: context.read<CouponRepository>()),
+          create: (context) => ApplyCouponBloc(
+              couponRepository: context.read<CouponRepository>()),
           child: const ApplyCouponPage(),
         );
         break;
       case ApplyCouponFinishedPage.routeName:
         page = const ApplyCouponFinishedPage();
         break;
-      case CreatedReviewPage.routeName :
+      case CreatedReviewPage.routeName:
         page = const CreatedReviewPage();
+        break;
+      case OnboardPage.routeName:
+        page = const OnboardPage();
         break;
     }
 
-    return MaterialPageRoute(builder: (context) => page);
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) => page,
+    );
   }
 }

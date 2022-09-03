@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -27,7 +28,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final AuthRepository authRepository;
 
   String? profileImagePath;
-  String nickname = '';
+  late String nickname = userRepository.getMemberData?.nickname ?? '';
 
   bool isDuplicated = true;
 
@@ -49,7 +50,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     Emitter<ProfileState> emit,
   ) async {
     if (event.isDefault) {
-      profileImagePath = null;
+      profileImagePath = CafeinConst.defaultProfileFlag;
     } else {
       final imagePicker = ImagePicker();
       XFile? imageFile;
@@ -114,7 +115,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     if (!isDuplicated) {
       emit(
-        const ProfileNicknameDuplicationChecked(isDuplicated: false),
+        const ProfileNicknameDuplicationChecked(
+          isDuplicated: false,
+        ),
       );
 
       return;

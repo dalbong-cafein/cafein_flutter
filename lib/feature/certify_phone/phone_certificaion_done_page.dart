@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -21,12 +22,21 @@ class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage>
   @override
   void initState() {
     super.initState();
+
     Future.delayed(
       const Duration(seconds: 1),
-      () => Navigator.of(context).pushNamedAndRemoveUntil(
-        ProfilePage.routeName,
-        ModalRoute.withName(widget.returnPage),
-      ),
+      () {
+        if (widget.returnPage == LoginPage.routeName) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            ProfilePage.routeName,
+            ModalRoute.withName(widget.returnPage),
+          );
+        } else {
+          Navigator.of(context).popUntil(
+            ModalRoute.withName(widget.returnPage),
+          );
+        }
+      },
     );
   }
 

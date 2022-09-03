@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -23,7 +24,7 @@ class LoginPage extends StatelessWidget {
 
     return BlocListener<LoginBloc, LoginState>(
       listenWhen: (pre, next) => pre is LoginLoading,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginSocialTokenConfirmed) {
           context.read<LoginBloc>().add(
                 LoginRequested(socialLoginRequest: state.socialLoginRequest),
@@ -32,10 +33,16 @@ class LoginPage extends StatelessWidget {
           if (!state.isCertifiedPhone) {
             Navigator.of(context).pushNamed(
               InputPhoneNumberPage.routeName,
+              arguments: LoginPage.routeName,
             );
           } else if (!state.isRegisteredNickname) {
             Navigator.of(context).pushNamed(
               ProfilePage.routeName,
+            );
+          } else if (!state.isOnboardSkip) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              OnboardPage.routeName,
+              (route) => false,
             );
           } else {
             Navigator.of(context).pushNamedAndRemoveUntil(

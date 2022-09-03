@@ -58,6 +58,7 @@ flutter:
 
   assets:
     - asset/image/
+    - asset/image/onboard/
     - asset/icon/
     - asset/lottie/
     - asset/icon/marker/

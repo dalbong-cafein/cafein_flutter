@@ -37,8 +37,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     }
   }
 
-  FutureOr<void> _onNoticeDeleteRequested(NotificationDeleteRequested event,
-      Emitter<NotificationState> emit) async {
+  FutureOr<void> _onNoticeDeleteRequested(
+    NotificationDeleteRequested event,
+    Emitter<NotificationState> emit,
+  ) async {
     emit(const NotificationLoading());
     try {
       await notificationRepository.deleteNotice(
@@ -55,15 +57,16 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   }
 
   FutureOr<void> _onNoticeReadRequested(
-      NotificationReadRequested event, Emitter<NotificationState> emit) async {
+    NotificationReadRequested event,
+    Emitter<NotificationState> emit,
+  ) async {
     emit(const NotificationLoading());
     try {
       await notificationRepository.readNotice(
         _noticeList[event.notificationIndex].notificationId,
       );
       var cur = _noticeList;
-      cur[event.notificationIndex] =
-          _noticeList[event.notificationIndex].copyWith(isRead: true);
+      cur[event.notificationIndex] = _noticeList[event.notificationIndex].copyWith(isRead: true);
       emit(NotificationLoaded(notifications: [...cur]));
     } catch (e) {
       emit(NotificationError(

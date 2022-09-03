@@ -17,6 +17,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dar
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
@@ -29,6 +30,7 @@ import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -98,6 +100,11 @@ class CafeinApp extends StatelessWidget {
             couponClient: CouponClient(DioUtil().dio),
           ),
         ),
+        RepositoryProvider<AppRepository>(
+          create: (context) => AppRepositoryImpl(
+            appPreference: AppDatabase().appPreference,
+          ),
+        ),
       ],
       child: MaterialApp(
         builder: (context, child) => MediaQuery(
@@ -124,6 +131,9 @@ class CafeinApp extends StatelessWidget {
               ),
         ),
         onGenerateRoute: CafeinRoute.onGenerateRoute,
+        navigatorObservers: [
+          CustomNavigatorLogger(),
+        ],
       ),
     );
   }

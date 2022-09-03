@@ -1,6 +1,8 @@
+import 'package:cafein_flutter/data/model/enum/notification_type.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,49 +51,61 @@ class NotificationPage extends StatelessWidget {
           builder: (context, state) {
             if (state is NotificationLoaded) {
               if (state.notifications.isEmpty) {
-                return const Center(
-                  child: Text('알림이 없습니다'),
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      loadAsset(
+                        AppIcon.notificationOff,
+                        width: 80,
+                        height: 80,
+                        color: AppColor.grey200,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        '새로운 알림이 없습니다',
+                        style: AppStyle.caption13Regular.copyWith(
+                          color: AppColor.grey600,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }
               return ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 24),
                 itemCount: state.notifications.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     color: state.notifications[index].isRead ? Colors.white : AppColor.grey50,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 12,
-                        bottom: 12,
-                        right: 16,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            CupertinoIcons.xmark,
-                            color: AppColor.grey800,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.notifications[index].notificationType,
-                                  style: AppStyle.subTitle14Medium,
-                                ),
-                                Text(
-                                  state.notifications[index].content,
-                                  style: AppStyle.body14Regular,
-                                )
-                              ],
+                    height: 92,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _getNotificationIcon(state.notifications[index].notificationType),
+                        const SizedBox(width: 12),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.notifications[index].notificationType,
+                              style: AppStyle.subTitle14Medium,
                             ),
-                          )
-                        ],
-                      ),
+                            const SizedBox(height: 8),
+                            Text(
+                              state.notifications[index].content,
+                              style: AppStyle.body14Regular,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   );
                 },
@@ -102,5 +116,21 @@ class NotificationPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _getNotificationIcon(String notificationType) {
+    if (notificationType == NotificationType.notice.name) {
+      return loadAsset(AppIcon.notificationNotice);
+    } else if (notificationType == NotificationType.sticker.name) {
+      return loadAsset(AppIcon.notificationSticker);
+    } else if (notificationType == NotificationType.coupon.name) {
+      return loadAsset(AppIcon.notificationEvent);
+    } else if (notificationType == NotificationType.report.name) {
+      return loadAsset(AppIcon.notificationReport);
+    } else {
+      return const Icon(
+        CupertinoIcons.xmark,
+      );
+    }
   }
 }
