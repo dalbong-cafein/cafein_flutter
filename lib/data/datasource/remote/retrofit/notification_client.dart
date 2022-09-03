@@ -25,4 +25,7 @@ abstract class NotificationClient {
   Future<BaseResponse<dynamic>> deleteNotice(
     @Path() int noticeId,
   );
+
+  @DELETE('/notices')
+  Future<BaseResponse<dynamic>> deleteAllNotice();
 }

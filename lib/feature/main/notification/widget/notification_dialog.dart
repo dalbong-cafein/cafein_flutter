@@ -4,74 +4,84 @@ import 'package:flutter/material.dart';
 class NotificationDialog extends StatelessWidget {
   const NotificationDialog({Key? key}) : super(key: key);
 
-  static Future<void> show(BuildContext context) async {
-    await showDialog(
+  static Future<bool> show(BuildContext context) async {
+    final result = await showDialog<bool?>(
       context: context,
       builder: (context) => const NotificationDialog(),
     );
+
+    return result ?? false;
   }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    final widthPercent = width / 360;
-    final heightPercent = height / 800;
-
     return Dialog(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16.0))),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        ),
-        height: 160 * heightPercent,
-        width: 300 * widthPercent,
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 30, bottom: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text("알림을 모두 삭제하시겠어요?", style: TextStyle(fontSize: 16)),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: 12 * heightPercent, bottom: 20 * heightPercent),
-              child: const Text("삭제된 알림은 다시 확인할 수 없습니다.",
-                  style: TextStyle(fontSize: 14)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: Container(
-                    width: 130 * widthPercent,
-                    height: 44 * heightPercent,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: AppColor.grey400),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(12.0)),
+      child: SizedBox(
+        height: 180,
+        width: 300,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 32,
+            bottom: 16,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "알림을 모두 삭제하시겠어요?",
+                style: AppStyle.subTitle17Bold,
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                "삭제된 알림은 다시 확인할 수 없습니다.",
+                style: AppStyle.body14Regular,
+              ),
+              const Spacer(),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 44,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: AppColor.white,
+                          onPrimary: AppColor.grey800,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          textStyle: AppStyle.subTitle15Medium,
+                          side: const BorderSide(
+                            color: AppColor.grey400,
+                            width: 1,
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('취소'),
+                      ),
                     ),
-                    child: const Center(
-                      child: Text("취소"),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: SizedBox(
+                      height: 44,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          textStyle: AppStyle.subTitle15Medium,
+                        ),
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: const Text('삭제'),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  width: 130 * widthPercent,
-                  height: 44 * heightPercent,
-                  decoration: const BoxDecoration(
-                    color: AppColor.orange500,
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  ),
-                  child: const Center(
-                    child: Text("삭제"),
-                  ),
-                )
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
