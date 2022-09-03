@@ -43,6 +43,8 @@ import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/registered_store/bloc/registered_store_bloc.dart';
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
+import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -78,8 +80,7 @@ abstract class CafeinRoute {
         );
         break;
       case InputCertificationCodePage.routeName:
-        final arguments =
-            settings.arguments as InputCertificationCodePageArguments;
+        final arguments = settings.arguments as InputCertificationCodePageArguments;
 
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
@@ -153,8 +154,7 @@ abstract class CafeinRoute {
         );
         break;
       case SignOffPage.routeName:
-        final moreViewCountResponse =
-            settings.arguments as MoreViewCountResponse;
+        final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
         page = BlocProvider(
           create: (context) => SignOffBloc(),
           child: SignOffPage(
@@ -189,15 +189,14 @@ abstract class CafeinRoute {
         break;
       case ReceivedCouponsPage.routeName:
         page = BlocProvider(
-          create: (context) => ReceivedCouponsBloc(
-              couponRepository: context.read<CouponRepository>()),
+          create: (context) =>
+              ReceivedCouponsBloc(couponRepository: context.read<CouponRepository>()),
           child: const ReceivedCouponsPage(),
         );
         break;
       case ApplyCouponPage.routeName:
         page = BlocProvider(
-          create: (context) => ApplyCouponBloc(
-              couponRepository: context.read<CouponRepository>()),
+          create: (context) => ApplyCouponBloc(couponRepository: context.read<CouponRepository>()),
           child: const ApplyCouponPage(),
         );
         break;
@@ -210,6 +209,14 @@ abstract class CafeinRoute {
       case OnboardPage.routeName:
         page = const OnboardPage();
         break;
+      case StoreDetailPage.routeName:
+        final storeId = settings.arguments as int;
+        page = BlocProvider(
+          create: (context) => StoreDetailBloc(
+            storeRepository: context.read<StoreRepository>(),
+          ),
+          child: StoreDetailPage(storeId: storeId),
+        );
     }
 
     return MaterialPageRoute(
