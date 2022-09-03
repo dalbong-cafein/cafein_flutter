@@ -11,61 +11,89 @@ class RecommendStars extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        textAndStars("와이파이",  width),
-        const SizedBox(
-          height: 30,
+        Text(
+          "별점을 눌러 카페 정보를 자세히 알려주세요",
+          style: AppStyle.subTitle14Medium.copyWith(color: AppColor.grey600),
         ),
-        textAndStars("콘센트",  width),
         const SizedBox(
-          height: 30,
+          height: 32,
         ),
-        textAndStars("화장실",  width),
+        textAndStars("와이파이", width),
         const SizedBox(
-          height: 30,
+          height: 10,
         ),
-        textAndStars("테이블",  width)
+        textAndStars("콘센트", width),
+        const SizedBox(
+          height: 10,
+        ),
+        textAndStars("화장실", width),
+        const SizedBox(
+          height: 10,
+        ),
+        textAndStars("테이블", width)
       ],
     );
   }
 
-  Widget textAndStars(String text, double width){
-    return Row(
+  Widget textAndStars(String text, double width) {
+    return Column(
       children: [
-        SizedBox(
-          width : width  * 0.3,
-          child: Padding(
-            padding: const EdgeInsets.only(left : 56),
-            child: Text(
-              text,
-              style: AppStyle.subTitle15SemiBold,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: width * 0.7,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right : 56),
-                child: RatingBar.builder(
-                  initialRating: 3,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  itemCount: 4,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star_rounded,
-                    color: AppColor.orange400,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
+        Row(
+          children: [
+            SizedBox(
+              width: width * 0.3,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 70),
+                child: Text(
+                  text,
+                  style: AppStyle.subTitle15SemiBold,
                 ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(
+              width: width * 0.7,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 70),
+                    child: RatingBar.builder(
+                      initialRating: 0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      itemCount: 4,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star_rounded,
+                        color: AppColor.orange400,
+                      ),
+                      unratedColor: AppColor.grey200,
+                      onRatingUpdate: (rating) {
+
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 175),
+              child: Text(
+                "여유 있어요",
+                style:
+                    AppStyle.caption12Regular.copyWith(color: AppColor.grey600),
+              ),
+            ),
+          ],
         )
       ],
     );

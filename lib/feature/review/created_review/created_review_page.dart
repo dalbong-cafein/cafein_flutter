@@ -64,9 +64,9 @@ class CreatedReviewPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      reviewButton("GOOD", true),
+                      reviewButton("BAD", true),
                       reviewButton("NORMAL", true),
-                      reviewButton("BAD", true)
+                      reviewButton("GOOD", true),
                     ],
                   ),
                 ),
@@ -82,7 +82,7 @@ class CreatedReviewPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 32,
+                  height: 24,
                 ),
                 const RecommendStars(),
 
