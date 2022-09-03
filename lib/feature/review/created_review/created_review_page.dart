@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/review/created_review/widget/recommend_stars.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,11 @@ class CreatedReviewPage extends StatelessWidget {
                       width: width - 40,
                       color: AppColor.grey50,),
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                const RecommendStars(),
 
               ],
             ),
