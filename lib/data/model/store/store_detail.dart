@@ -13,17 +13,17 @@ class StoreDetail with _$StoreDetail {
     required int storeId,
     required String storeName,
     required String nicknameOfModMember,
-    @JsonKey(name: 'memberImageDto') required ImageIdPair imageIdPair,
+    @JsonKey(name: 'memberImageDto') ImageIdPair? imageIdPair,
     @JsonKey(name: 'address') required AddressInfo addressInfo,
-    required String wifiPassword,
+    String? wifiPassword,
     required int heartCnt,
     required bool isHeart,
     @JsonKey(name: 'businessHoursInfoDto') required BusinessInfo businessInfo,
     required double lngX,
     required double latY,
-    required List<ImageIdPair> reviewImageIdPairList,
-    required List<ImageIdPair> storeImageIdPairList,
-    @JsonKey(name: 'totalBusinessHoursResDto') required TotalBusinessInfo totalBusinessInfo,
+    required List<ImageIdPair> reviewImageList,
+    required List<ImageIdPair> storeImageList,
+    @JsonKey(name: 'totalBusinessHoursResDto') TotalBusinessInfo? totalBusinessInfo,
   }) = _StoreDetail;
 
   factory StoreDetail.fromJson(Map<String, dynamic> json) => _$StoreDetailFromJson(json);

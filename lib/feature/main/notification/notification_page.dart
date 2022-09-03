@@ -119,13 +119,13 @@ class NotificationPage extends StatelessWidget {
   }
 
   Widget _getNotificationIcon(String notificationType) {
-    if (notificationType == NotificationType.notice.name) {
+    if (notificationType == NotificationType.notice.title) {
       return loadAsset(AppIcon.notificationNotice);
-    } else if (notificationType == NotificationType.sticker.name) {
+    } else if (notificationType == NotificationType.sticker.title) {
       return loadAsset(AppIcon.notificationSticker);
-    } else if (notificationType == NotificationType.coupon.name) {
+    } else if (notificationType == NotificationType.coupon.title) {
       return loadAsset(AppIcon.notificationEvent);
-    } else if (notificationType == NotificationType.report.name) {
+    } else if (notificationType == NotificationType.report.title) {
       return loadAsset(AppIcon.notificationReport);
     } else {
       return const Icon(
