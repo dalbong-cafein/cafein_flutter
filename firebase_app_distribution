@@ -1,5 +1,8 @@
 #!/bin/bash
 
+flutter clean
+python3 main.py
+flutter pub get
 flutter build apk
 cd android
 bundle exec fastlane firebase_deploy
