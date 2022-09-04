@@ -20,7 +20,8 @@ CongestionResponse _$CongestionResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CongestionResponse {
-  int get congestionCng => throw _privateConstructorUsedError;
+  int get congestionCnt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'resDtoList')
   List<Congestion> get congestionList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +35,9 @@ abstract class $CongestionResponseCopyWith<$Res> {
   factory $CongestionResponseCopyWith(
           CongestionResponse value, $Res Function(CongestionResponse) then) =
       _$CongestionResponseCopyWithImpl<$Res>;
-  $Res call({int congestionCng, List<Congestion> congestionList});
+  $Res call(
+      {int congestionCnt,
+      @JsonKey(name: 'resDtoList') List<Congestion> congestionList});
 }
 
 /// @nodoc
@@ -48,13 +51,13 @@ class _$CongestionResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? congestionCng = freezed,
+    Object? congestionCnt = freezed,
     Object? congestionList = freezed,
   }) {
     return _then(_value.copyWith(
-      congestionCng: congestionCng == freezed
-          ? _value.congestionCng
-          : congestionCng // ignore: cast_nullable_to_non_nullable
+      congestionCnt: congestionCnt == freezed
+          ? _value.congestionCnt
+          : congestionCnt // ignore: cast_nullable_to_non_nullable
               as int,
       congestionList: congestionList == freezed
           ? _value.congestionList
@@ -71,7 +74,9 @@ abstract class _$$_CongestionResponseCopyWith<$Res>
           $Res Function(_$_CongestionResponse) then) =
       __$$_CongestionResponseCopyWithImpl<$Res>;
   @override
-  $Res call({int congestionCng, List<Congestion> congestionList});
+  $Res call(
+      {int congestionCnt,
+      @JsonKey(name: 'resDtoList') List<Congestion> congestionList});
 }
 
 /// @nodoc
@@ -87,13 +92,13 @@ class __$$_CongestionResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? congestionCng = freezed,
+    Object? congestionCnt = freezed,
     Object? congestionList = freezed,
   }) {
     return _then(_$_CongestionResponse(
-      congestionCng: congestionCng == freezed
-          ? _value.congestionCng
-          : congestionCng // ignore: cast_nullable_to_non_nullable
+      congestionCnt: congestionCnt == freezed
+          ? _value.congestionCnt
+          : congestionCnt // ignore: cast_nullable_to_non_nullable
               as int,
       congestionList: congestionList == freezed
           ? _value._congestionList
@@ -107,17 +112,19 @@ class __$$_CongestionResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CongestionResponse implements _CongestionResponse {
   _$_CongestionResponse(
-      {required this.congestionCng,
-      required final List<Congestion> congestionList})
+      {required this.congestionCnt,
+      @JsonKey(name: 'resDtoList')
+          required final List<Congestion> congestionList})
       : _congestionList = congestionList;
 
   factory _$_CongestionResponse.fromJson(Map<String, dynamic> json) =>
       _$$_CongestionResponseFromJson(json);
 
   @override
-  final int congestionCng;
+  final int congestionCnt;
   final List<Congestion> _congestionList;
   @override
+  @JsonKey(name: 'resDtoList')
   List<Congestion> get congestionList {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_congestionList);
@@ -125,7 +132,7 @@ class _$_CongestionResponse implements _CongestionResponse {
 
   @override
   String toString() {
-    return 'CongestionResponse(congestionCng: $congestionCng, congestionList: $congestionList)';
+    return 'CongestionResponse(congestionCnt: $congestionCnt, congestionList: $congestionList)';
   }
 
   @override
@@ -134,7 +141,7 @@ class _$_CongestionResponse implements _CongestionResponse {
         (other.runtimeType == runtimeType &&
             other is _$_CongestionResponse &&
             const DeepCollectionEquality()
-                .equals(other.congestionCng, congestionCng) &&
+                .equals(other.congestionCnt, congestionCnt) &&
             const DeepCollectionEquality()
                 .equals(other._congestionList, _congestionList));
   }
@@ -143,7 +150,7 @@ class _$_CongestionResponse implements _CongestionResponse {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(congestionCng),
+      const DeepCollectionEquality().hash(congestionCnt),
       const DeepCollectionEquality().hash(_congestionList));
 
   @JsonKey(ignore: true)
@@ -160,15 +167,18 @@ class _$_CongestionResponse implements _CongestionResponse {
 
 abstract class _CongestionResponse implements CongestionResponse {
   factory _CongestionResponse(
-      {required final int congestionCng,
-      required final List<Congestion> congestionList}) = _$_CongestionResponse;
+          {required final int congestionCnt,
+          @JsonKey(name: 'resDtoList')
+              required final List<Congestion> congestionList}) =
+      _$_CongestionResponse;
 
   factory _CongestionResponse.fromJson(Map<String, dynamic> json) =
       _$_CongestionResponse.fromJson;
 
   @override
-  int get congestionCng => throw _privateConstructorUsedError;
+  int get congestionCnt => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'resDtoList')
   List<Congestion> get congestionList => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

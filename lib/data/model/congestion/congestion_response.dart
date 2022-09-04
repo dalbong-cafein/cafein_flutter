@@ -7,8 +7,8 @@ part 'congestion_response.freezed.dart';
 @freezed
 class CongestionResponse with _$CongestionResponse {
   factory CongestionResponse({
-    required int congestionCng,
-    required List<Congestion> congestionList,
+    required int congestionCnt,
+    @JsonKey(name: 'resDtoList') required List<Congestion> congestionList,
   }) = _CongestionResponse;
 
   factory CongestionResponse.fromJson(Map<String, dynamic> json) =>

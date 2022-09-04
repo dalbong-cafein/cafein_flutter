@@ -9,7 +9,7 @@ part of 'review_score_detail.dart';
 _$_ReviewDetailScore _$$_ReviewDetailScoreFromJson(Map<String, dynamic> json) =>
     _$_ReviewDetailScore(
       reviewCnt: json['reviewCnt'] as int,
-      recommendPercent: json['recommendPercent'] as int,
+      recommendPercent: (json['recommendPercent'] as num).toDouble(),
       socket: json['socket'] as String,
       socketCnt: json['socketCnt'] as int,
       wifi: json['wifi'] as String,

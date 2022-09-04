@@ -22,7 +22,8 @@ abstract class StoreRepository {
     int storeId,
   );
 
-  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>> getMyRegisteredStores();
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>>
+      getMyRegisteredStores();
 
   Future<BaseResponse<int>> createStore(
     RegisteredStoreRequest registeredStoreRequest,
@@ -30,6 +31,10 @@ abstract class StoreRepository {
 
   Future<BaseResponse<dynamic>> updateStore(
     UpdateStoreRequest updateStoreRequest,
+  );
+
+  Future<BaseResponse<List<Store>>> getNearStoreList(
+    int storeId,
   );
 }
 
@@ -49,11 +54,12 @@ class StoreRepositoryImpl extends StoreRepository {
       storeFormDataClient.createStore(registeredStoreRequest);
 
   @override
-  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>> getMyRegisteredStores() =>
-      storeClient.getMyRegisteredStores();
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>>
+      getMyRegisteredStores() => storeClient.getMyRegisteredStores();
 
   @override
-  Future<BaseResponse<List<RecommendedStore>>> getRecommendedStores(String keyword) =>
+  Future<BaseResponse<List<RecommendedStore>>> getRecommendedStores(
+          String keyword) =>
       storeClient.getRecommendedStores(keyword);
 
   @override
@@ -61,11 +67,18 @@ class StoreRepositoryImpl extends StoreRepository {
       storeClient.getStoreDetail(storeId);
 
   @override
-  Future<BaseResponse<List<Store>>> getStores(String keyword) => storeClient.getStores(keyword);
+  Future<BaseResponse<List<Store>>> getStores(String keyword) =>
+      storeClient.getStores(keyword);
 
   @override
   Future<BaseResponse> updateStore(
     UpdateStoreRequest updateStoreRequest,
   ) =>
       storeFormDataClient.updateStore(updateStoreRequest);
+
+  @override
+  Future<BaseResponse<List<Store>>> getNearStoreList(
+    int storeId,
+  ) =>
+      storeClient.getNearStoreList(storeId);
 }

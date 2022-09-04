@@ -21,7 +21,7 @@ ReviewDetailScore _$ReviewDetailScoreFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ReviewDetailScore {
   int get reviewCnt => throw _privateConstructorUsedError;
-  int get recommendPercent => throw _privateConstructorUsedError;
+  double get recommendPercent => throw _privateConstructorUsedError;
   String get socket => throw _privateConstructorUsedError;
   int get socketCnt => throw _privateConstructorUsedError;
   String get wifi => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $ReviewDetailScoreCopyWith<$Res> {
       _$ReviewDetailScoreCopyWithImpl<$Res>;
   $Res call(
       {int reviewCnt,
-      int recommendPercent,
+      double recommendPercent,
       String socket,
       int socketCnt,
       String wifi,
@@ -85,7 +85,7 @@ class _$ReviewDetailScoreCopyWithImpl<$Res>
       recommendPercent: recommendPercent == freezed
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       socket: socket == freezed
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ abstract class _$$_ReviewDetailScoreCopyWith<$Res>
   @override
   $Res call(
       {int reviewCnt,
-      int recommendPercent,
+      double recommendPercent,
       String socket,
       int socketCnt,
       String wifi,
@@ -174,7 +174,7 @@ class __$$_ReviewDetailScoreCopyWithImpl<$Res>
       recommendPercent: recommendPercent == freezed
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       socket: socket == freezed
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
@@ -232,7 +232,7 @@ class _$_ReviewDetailScore implements _ReviewDetailScore {
   @override
   final int reviewCnt;
   @override
-  final int recommendPercent;
+  final double recommendPercent;
   @override
   final String socket;
   @override
@@ -304,7 +304,7 @@ class _$_ReviewDetailScore implements _ReviewDetailScore {
 abstract class _ReviewDetailScore implements ReviewDetailScore {
   factory _ReviewDetailScore(
       {required final int reviewCnt,
-      required final int recommendPercent,
+      required final double recommendPercent,
       required final String socket,
       required final int socketCnt,
       required final String wifi,
@@ -320,7 +320,7 @@ abstract class _ReviewDetailScore implements ReviewDetailScore {
   @override
   int get reviewCnt => throw _privateConstructorUsedError;
   @override
-  int get recommendPercent => throw _privateConstructorUsedError;
+  double get recommendPercent => throw _privateConstructorUsedError;
   @override
   String get socket => throw _privateConstructorUsedError;
   @override
