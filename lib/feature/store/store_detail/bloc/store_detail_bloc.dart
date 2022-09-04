@@ -25,6 +25,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   }) : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
+    on<StoreDetailTabChanged>(_onStoreDetailTabChanged);
   }
 
   final StoreRepository storeRepository;
@@ -136,5 +137,16 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         ),
       );
     }
+  }
+
+  FutureOr<void> _onStoreDetailTabChanged(
+    StoreDetailTabChanged event,
+    Emitter<StoreDetailState> emit,
+  ) {
+    emit(
+      StoreDetailTabChecked(
+        index: event.index,
+      ),
+    );
   }
 }

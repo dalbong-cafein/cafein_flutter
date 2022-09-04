@@ -1,7 +1,9 @@
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -39,6 +41,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   @override
   Widget build(BuildContext context) {
     final userData = context.watch<UserRepository>().getMemberData;
+    final width = MediaQuery.of(context).size.width;
 
     return BlocListener<StoreDetailBloc, StoreDetailState>(
       listener: (context, state) {
@@ -60,12 +63,32 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 color: AppColor.grey400,
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_border,
-                color: AppColor.grey400,
-              ),
+            BlocBuilder<StoreDetailBloc, StoreDetailState>(
+              buildWhen: (pre, next) => next is StoreDetailHeartChecked,
+              builder: (context, state) {
+                if (state is StoreDetailHeartChecked) {
+                  return IconButton(
+                    onPressed: () => context.read<StoreDetailBloc>().add(
+                          StoreDetailHeartRequested(
+                            isHeart: !state.isHeart,
+                            storeId: widget.storeId,
+                          ),
+                        ),
+                    icon: state.isHeart
+                        ? const Icon(
+                            Icons.favorite,
+                            size: 32,
+                            color: AppColor.orange500,
+                          )
+                        : const Icon(
+                            Icons.favorite_outline,
+                            size: 32,
+                            color: AppColor.grey300,
+                          ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ],
         ),
@@ -150,8 +173,142 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height: 240,
+                            child: ListView.separated(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                              ),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 8,
+                              itemBuilder: (context, index) {
+                                if (index % 3 == 0) {
+                                  return const ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                    child: CustomCachedNetworkImage(
+                                      imageUrl: CafeinConst.defaultStoreImage,
+                                      height: 200,
+                                      width: 160,
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  );
+                                } else if (index % 3 == 1) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                        child: CustomCachedNetworkImage(
+                                          imageUrl: CafeinConst.defaultStoreImage,
+                                          height: 96,
+                                          width: 96,
+                                        ),
+                                      ),
+                                      if (index + 1 < 8)
+                                        const ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                          child: CustomCachedNetworkImage(
+                                            imageUrl: CafeinConst.defaultStoreImage,
+                                            height: 96,
+                                            width: 96,
+                                          ),
+                                        ),
+                                    ],
+                                  );
+                                }
+                                return const SizedBox.shrink();
+                              },
+                              separatorBuilder: (context, index) {
+                                if (index % 3 == 2) {
+                                  return const SizedBox.shrink();
+                                }
+                                return const SizedBox(width: 8);
+                              },
+                            ),
+                          ),
                         ],
                       ),
+                    ),
+                  ),
+                  SliverAppBar(
+                    pinned: true,
+                    toolbarHeight: 44,
+                    automaticallyImplyLeading: false,
+                    titleSpacing: 0,
+                    centerTitle: false,
+                    title: Container(
+                      height: 44,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppColor.grey100,
+                          ),
+                        ),
+                      ),
+                      child: BlocBuilder<StoreDetailBloc, StoreDetailState>(
+                        buildWhen: (pre, next) => next is StoreDetailTabChecked,
+                        builder: (context, state) {
+                          final tabTitles = [
+                            '홈',
+                            '혼잡도',
+                            '카공 정보',
+                            '리뷰',
+                          ];
+                          int currentIndex = 0;
+                          if (state is StoreDetailTabChecked) {
+                            currentIndex = state.index;
+                          }
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(
+                              4,
+                              (index) => Expanded(
+                                child: InkWell(
+                                  onTap: () => context.read<StoreDetailBloc>().add(
+                                        StoreDetailTabChanged(
+                                          index: index,
+                                        ),
+                                      ),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        tabTitles[index],
+                                        style: index == currentIndex
+                                            ? AppStyle.subTitle15Bold
+                                            : AppStyle.subTitle15Medium.copyWith(
+                                                color: AppColor.grey400,
+                                              ),
+                                      ),
+                                      const Spacer(),
+                                      if (index == currentIndex)
+                                        Container(
+                                          height: 1,
+                                          width: (width - 32) / 4,
+                                          color: AppColor.grey800,
+                                        )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 1000,
                     ),
                   ),
                 ],

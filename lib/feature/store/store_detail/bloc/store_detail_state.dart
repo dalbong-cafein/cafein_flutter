@@ -60,3 +60,14 @@ class StoreDetailHeartChecked extends StoreDetailState {
   @override
   List<Object?> get props => [isHeart];
 }
+
+class StoreDetailTabChecked extends StoreDetailState {
+  const StoreDetailTabChecked({
+    required this.index,
+  });
+
+  final int index;
+
+  @override
+  List<Object?> get props => [index];
+}

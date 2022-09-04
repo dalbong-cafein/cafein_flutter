@@ -33,3 +33,14 @@ class StoreDetailHeartRequested extends StoreDetailEvent {
         storeId,
       ];
 }
+
+class StoreDetailTabChanged extends StoreDetailEvent {
+  const StoreDetailTabChanged({
+    required this.index,
+  });
+
+  final int index;
+
+  @override
+  List<Object?> get props => [index];
+}
