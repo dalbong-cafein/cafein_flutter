@@ -79,6 +79,60 @@ class RecommendStars extends StatelessWidget {
           ),
 
         ),
+        Padding(
+          padding: const EdgeInsets.only(left :16),
+          child: SizedBox(
+            height: 64,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+                itemCount: 1,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index){
+              return Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1,
+                      color : AppColor.grey300
+                  ),
+                  borderRadius: const BorderRadius.all(
+                      Radius.circular(8)
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    children: [
+                      const Icon(
+                          Icons.camera_alt,
+                        color : AppColor.grey400,
+                        size: 26,
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "0",
+                            style: AppStyle.subTitle14Medium.copyWith(
+                              color : AppColor.orange500
+                            ),
+                          ),
+                          Text(
+                            "/5",
+                            style: AppStyle.subTitle14Medium.copyWith(
+                                color : AppColor.grey400
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
         const CreatedReviewPolicy()
       ],
     );
