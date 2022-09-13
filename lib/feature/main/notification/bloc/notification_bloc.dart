@@ -37,15 +37,18 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     }
   }
 
-  FutureOr<void> _onNoticeDeleteRequested(NotificationDeleteRequested event,
-      Emitter<NotificationState> emit) async {
+  FutureOr<void> _onNoticeDeleteRequested(
+    NotificationDeleteRequested event,
+    Emitter<NotificationState> emit,
+  ) async {
     emit(const NotificationLoading());
     try {
-      await notificationRepository.deleteNotice(
-        _noticeList[event.notificationIndex].notificationId,
+      await notificationRepository.deleteAllNotice();
+      emit(
+        const NotificationLoaded(
+          notifications: [],
+        ),
       );
-      _noticeList.removeAt(event.notificationIndex);
-      emit(NotificationLoaded(notifications: [..._noticeList]));
     } catch (e) {
       emit(NotificationError(
         error: e,
@@ -55,16 +58,30 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   }
 
   FutureOr<void> _onNoticeReadRequested(
-      NotificationReadRequested event, Emitter<NotificationState> emit) async {
+    NotificationReadRequested event,
+    Emitter<NotificationState> emit,
+  ) async {
     emit(const NotificationLoading());
     try {
       await notificationRepository.readNotice(
         _noticeList[event.notificationIndex].notificationId,
       );
-      var cur = _noticeList;
-      cur[event.notificationIndex] =
-          _noticeList[event.notificationIndex].copyWith(isRead: true);
-      emit(NotificationLoaded(notifications: [...cur]));
+      final cur = _noticeList;
+      cur[event.notificationIndex] = _noticeList[event.notificationIndex].copyWith(
+        isRead: true,
+      );
+      _noticeList = [...cur];
+      emit(
+        NotificationLoaded(
+          notifications: [..._noticeList],
+        ),
+      );
+
+      emit(
+        NotificationOpened(
+          notification: _noticeList[event.notificationIndex],
+        ),
+      );
     } catch (e) {
       emit(NotificationError(
         error: e,

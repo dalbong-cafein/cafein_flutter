@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
@@ -30,6 +31,7 @@ import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
+import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
@@ -41,6 +43,8 @@ import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/registered_store/bloc/registered_store_bloc.dart';
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
+import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,16 +63,20 @@ abstract class CafeinRoute {
           create: (context) => LoginBloc(
             authRepository: context.read<AuthRepository>(),
             userRepository: context.read<UserRepository>(),
+            appRepository: context.read<AppRepository>(),
           ),
           child: const LoginPage(),
         );
         break;
       case InputPhoneNumberPage.routeName:
+        final returnPage = settings.arguments as String;
         page = BlocProvider(
           create: (context) => InputPhoneNumberBloc(
             authRepository: context.read<AuthRepository>(),
           ),
-          child: const InputPhoneNumberPage(),
+          child: InputPhoneNumberPage(
+            returnPage: returnPage,
+          ),
         );
         break;
       case InputCertificationCodePage.routeName:
@@ -195,11 +203,25 @@ abstract class CafeinRoute {
       case ApplyCouponFinishedPage.routeName:
         page = const ApplyCouponFinishedPage();
         break;
-      case CreatedReviewPage.routeName :
+      case CreatedReviewPage.routeName:
         page = const CreatedReviewPage();
         break;
+      case OnboardPage.routeName:
+        page = const OnboardPage();
+        break;
+      case StoreDetailPage.routeName:
+        final storeId = settings.arguments as int;
+        page = BlocProvider(
+          create: (context) => StoreDetailBloc(
+            storeRepository: context.read<StoreRepository>(),
+          ),
+          child: StoreDetailPage(storeId: storeId),
+        );
     }
 
-    return MaterialPageRoute(builder: (context) => page);
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) => page,
+    );
   }
 }

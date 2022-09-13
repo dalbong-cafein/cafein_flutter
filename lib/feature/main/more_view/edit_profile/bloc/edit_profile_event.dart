@@ -61,12 +61,5 @@ class EditProfileImageChanged extends EditProfileEvent {
 }
 
 class EditProfilePhoneNumberChanged extends EditProfileEvent {
-  const EditProfilePhoneNumberChanged({
-    required this.phoneNumber,
-  });
-
-  final String phoneNumber;
-
-  @override
-  List<Object?> get props => [phoneNumber];
+  const EditProfilePhoneNumberChanged();
 }

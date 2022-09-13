@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cafein_flutter/data/model/auth/social_login_request.dart';
 import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -16,6 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required this.authRepository,
     required this.userRepository,
+    required this.appRepository,
   }) : super(const LoginInitial()) {
     on<LoginSocialTokenRequested>(_onLoginSocialTokenRequested);
     on<LoginRequested>(_onLoginRequested);
@@ -23,6 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final AuthRepository authRepository;
   final UserRepository userRepository;
+  final AppRepository appRepository;
 
   FutureOr<void> _onLoginSocialTokenRequested(
     LoginSocialTokenRequested event,
@@ -89,10 +92,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         socialLoginRequest: event.socialLoginRequest,
       );
       userRepository.setMemberData = response.data;
+      final isOnboardSkip = appRepository.isOnboardSkip();
+
+      if (!isOnboardSkip) {
+        await appRepository.setOnboardSkip();
+      }
+
       emit(
         LoginSucceed(
           isCertifiedPhone: response.data.phoneNumber != null,
           isRegisteredNickname: response.data.nickname != null,
+          isOnboardSkip: isOnboardSkip,
         ),
       );
     } catch (e) {

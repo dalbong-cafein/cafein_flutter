@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.5+4
+version: 0.3.3+6
 
 environment:
   sdk: ">=2.17.5 <3.0.0"
@@ -39,6 +39,8 @@ dependencies:
   percent_indicator: ^4.2.2
   cached_network_image: ^3.2.1
   flutter_rating_bar: ^4.0.1
+  device_info_plus: ^4.1.2
+  package_info_plus: ^1.4.3
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +61,7 @@ flutter:
 
   assets:
     - asset/image/
+    - asset/image/onboard/
     - asset/icon/
     - asset/lottie/
     - asset/icon/marker/

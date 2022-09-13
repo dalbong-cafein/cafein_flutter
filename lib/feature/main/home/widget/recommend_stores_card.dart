@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/request_location_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
@@ -81,145 +82,154 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
                     shrinkWrap: true,
                     itemCount: 10,
                     itemBuilder: (listContext, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            StoreDetailPage.routeName,
+                            arguments: state.recommendStores[index].storeId,
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16),
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ...List.generate(
-                                      3,
-                                      (imageIndex) => Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 4,
-                                        ),
-                                        child: SizedBox(
-                                          width: 70,
-                                          height: 70,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(8),
-                                            child: SizedBox.fromSize(
-                                              size: const Size.fromRadius(48),
-                                              child:
-                                                  state.recommendStores[index].imageIdPair.length -
-                                                              1 <
-                                                          imageIndex
-                                                      ? loadAsset(AppImage.noImage)
-                                                      : Image.network(
-                                                          state.recommendStores[index]
-                                                              .imageIdPair[imageIndex].imageUrl,
-                                                          fit: BoxFit.cover,
-                                                        ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ...List.generate(
+                                        3,
+                                        (imageIndex) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 4,
+                                          ),
+                                          child: SizedBox(
+                                            width: 70,
+                                            height: 70,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(8),
+                                              child: SizedBox.fromSize(
+                                                size: const Size.fromRadius(48),
+                                                child: state.recommendStores[index].imageIdPair
+                                                                .length -
+                                                            1 <
+                                                        imageIndex
+                                                    ? loadAsset(AppImage.noImage)
+                                                    : Image.network(
+                                                        state.recommendStores[index]
+                                                            .imageIdPair[imageIndex].imageUrl,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Text(
-                                    state.recommendStores[index].storeName,
-                                    style: AppStyle.subTitle15Medium,
+                                    ],
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 150,
-                                      child: Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 8),
-                                                child: Row(
-                                                  children: [
-                                                    OpenCloseChip(
-                                                      isOpen: state.recommendStores[index]
-                                                              .businessInfo?.isOpen ??
-                                                          false,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(
-                                                        left: 4,
-                                                      ),
-                                                      child: ConfuseChip(
-                                                        confuseScore: state.recommendStores[index]
-                                                                    .congestionScoreAvg ==
-                                                                null
-                                                            ? 1
-                                                            : state.recommendStores[index]
-                                                                .congestionScoreAvg!,
-                                                        height: 18,
-                                                        textStyle: AppStyle.caption12Medium,
-                                                        width: 29,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 8),
-                                                child: StoreAdditionalInformationRow(
-                                                  textStyle: AppStyle.caption12Regular,
-                                                  distance: 150,
-                                                  recommendScore: state
-                                                          .recommendStores[index].recommendPercent
-                                                          ?.toInt() ??
-                                                      0,
-                                                  likeCount: state.recommendStores[index].heartCnt,
-                                                  iconSize: 20,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      state.recommendStores[index].storeName,
+                                      style: AppStyle.subTitle15Medium,
                                     ),
-                                    SizedBox(
-                                      width: 72,
-                                      height: 50,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          InkWell(
-                                            onTap: () => context.read<HomeBloc>().add(
-                                                  HomeStoreHeartRequested(
-                                                    index: index,
-                                                    isLike: !state.recommendStores[index].isHeart,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 150,
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 8),
+                                                  child: Row(
+                                                    children: [
+                                                      OpenCloseChip(
+                                                        isOpen: state.recommendStores[index]
+                                                                .businessInfo?.isOpen ??
+                                                            false,
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(
+                                                          left: 4,
+                                                        ),
+                                                        child: ConfuseChip(
+                                                          confuseScore: state.recommendStores[index]
+                                                                      .congestionScoreAvg ==
+                                                                  null
+                                                              ? 1
+                                                              : state.recommendStores[index]
+                                                                  .congestionScoreAvg!,
+                                                          height: 18,
+                                                          textStyle: AppStyle.caption12Medium,
+                                                          width: 29,
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                            child: state.recommendStores[index].isHeart
-                                                ? const Icon(
-                                                    Icons.favorite_border_rounded,
-                                                    color: AppColor.grey200,
-                                                  )
-                                                : const Icon(
-                                                    Icons.favorite_rounded,
-                                                    color: Colors.orange,
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 8),
+                                                  child: StoreAdditionalInformationRow(
+                                                    textStyle: AppStyle.caption12Regular,
+                                                    distance: 150,
+                                                    recommendScore: state
+                                                            .recommendStores[index].recommendPercent
+                                                            ?.toInt() ??
+                                                        0,
+                                                    likeCount:
+                                                        state.recommendStores[index].heartCnt,
+                                                    iconSize: 20,
                                                   ),
-                                          )
-                                        ],
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
+                                      SizedBox(
+                                        width: 72,
+                                        height: 50,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            InkWell(
+                                              onTap: () => context.read<HomeBloc>().add(
+                                                    HomeStoreHeartRequested(
+                                                      index: index,
+                                                      isLike: !state.recommendStores[index].isHeart,
+                                                    ),
+                                                  ),
+                                              child: state.recommendStores[index].isHeart
+                                                  ? const Icon(
+                                                      Icons.favorite_border_rounded,
+                                                      color: AppColor.grey200,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.favorite_rounded,
+                                                      color: Colors.orange,
+                                                    ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

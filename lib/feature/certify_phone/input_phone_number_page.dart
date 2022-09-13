@@ -1,6 +1,5 @@
 import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_bloc.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
-import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class InputPhoneNumberPage extends StatefulWidget {
   const InputPhoneNumberPage({
     super.key,
+    required this.returnPage,
   });
 
   static const routeName = 'InputPhoneNumberPage';
+
+  final String returnPage;
 
   @override
   State<InputPhoneNumberPage> createState() => _InputPhoneNumberPageState();
@@ -124,7 +126,7 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
                               InputCertificationCodePage.routeName,
                               arguments: InputCertificationCodePageArguments(
                                 phoneNumber: controller.text,
-                                returnPage: LoginPage.routeName,
+                                returnPage: widget.returnPage,
                               ),
                             )
                         : null,

@@ -37,11 +37,12 @@ class HomePage extends StatelessWidget {
         backgroundColor: AppColor.grey50,
         appBar: AppBar(
           backgroundColor: AppColor.grey50,
-          title: const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              "나의 카페",
-              style: AppStyle.title18Bold,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: loadAsset(
+              AppImage.cafeinLogo,
+              color: AppColor.grey500,
+              width: 100,
             ),
           ),
           centerTitle: false,
@@ -79,8 +80,9 @@ class HomePage extends StatelessWidget {
                   right: 16,
                   top: 16,
                 ),
-                child: InkWell( //TODO inkwell 없애야함
-                  onTap: (){
+                child: InkWell(
+                  //TODO inkwell 없애야함
+                  onTap: () {
                     Navigator.of(context).pushNamed(CreatedReviewPage.routeName);
                   },
                   child: Container(

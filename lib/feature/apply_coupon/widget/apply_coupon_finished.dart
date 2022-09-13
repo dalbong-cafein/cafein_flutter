@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class ApplyCouponFinishedPage extends StatelessWidget {
   const ApplyCouponFinishedPage({Key? key}) : super(key: key);
   static const routeName = 'ApplyCouponFinishedPage';
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -32,12 +33,18 @@ class ApplyCouponFinishedPage extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            Text("쿠폰 발송은 신청일 이후 월요일에",
-                style:
-                    AppStyle.body14Regular.copyWith(color: AppColor.grey600)),
-            Text("휴대전화번호로 발송됩니다.",
-                style:
-                    AppStyle.body14Regular.copyWith(color: AppColor.grey600)),
+            Text(
+              "쿠폰 발송은 신청일 이후 월요일에",
+              style: AppStyle.body14Regular.copyWith(
+                color: AppColor.grey600,
+              ),
+            ),
+            Text(
+              "휴대전화번호로 발송됩니다.",
+              style: AppStyle.body14Regular.copyWith(
+                color: AppColor.grey600,
+              ),
+            ),
           ],
         ),
       ),
@@ -48,10 +55,11 @@ class ApplyCouponFinishedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(MainPage.routeName);
-              },
+              onTap: () => Navigator.of(context).popUntil(
+                ModalRoute.withName(
+                  MainPage.routeName,
+                ),
+              ),
               child: Container(
                 width: width - 32,
                 decoration: const BoxDecoration(
@@ -63,25 +71,27 @@ class ApplyCouponFinishedPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       "확인",
-                      style: AppStyle.subTitle16Medium
-                          .copyWith(color: AppColor.white),
+                      style: AppStyle.subTitle16Medium.copyWith(
+                        color: AppColor.white,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             InkWell(
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(ReceivedCouponsPage.routeName);
-              },
+              onTap: () => Navigator.of(context).pushReplacementNamed(
+                ReceivedCouponsPage.routeName,
+              ),
               child: SizedBox(
                 width: width - 32,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 14),
                   child: Center(
-                    child: Text("신청한 쿠폰 내역 보러가기",
-                        style: AppStyle.subTitle15Medium),
+                    child: Text(
+                      "신청한 쿠폰 내역 보러가기",
+                      style: AppStyle.subTitle15Medium,
+                    ),
                   ),
                 ),
               ),

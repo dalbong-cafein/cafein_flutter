@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -52,11 +53,22 @@ class MyStoresCard extends StatelessWidget {
                             ),
                           ),
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 12, right: 12, top: 10, bottom: 10),
-                            child: Text(
-                              "카페 찾아보기",
-                              style: AppStyle.subTitle14Medium.copyWith(color: AppColor.orange500),
+                            padding: const EdgeInsets.only(
+                              left: 12,
+                              right: 12,
+                              top: 10,
+                              bottom: 10,
+                            ),
+                            child: InkWell(
+                              onTap: () => context.read<MainBloc>().add(
+                                    const MainTabChanged(index: 1),
+                                  ),
+                              child: Text(
+                                "카페 찾아보기",
+                                style: AppStyle.subTitle14Medium.copyWith(
+                                  color: AppColor.orange500,
+                                ),
+                              ),
                             ),
                           ),
                         ),

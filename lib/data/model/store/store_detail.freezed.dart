@@ -24,22 +24,21 @@ mixin _$StoreDetail {
   String get storeName => throw _privateConstructorUsedError;
   String get nicknameOfModMember => throw _privateConstructorUsedError;
   @JsonKey(name: 'memberImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'address')
   AddressInfo get addressInfo => throw _privateConstructorUsedError;
-  String get wifiPassword => throw _privateConstructorUsedError;
+  String? get wifiPassword => throw _privateConstructorUsedError;
   int get heartCnt => throw _privateConstructorUsedError;
   bool get isHeart => throw _privateConstructorUsedError;
   @JsonKey(name: 'businessHoursInfoDto')
   BusinessInfo get businessInfo => throw _privateConstructorUsedError;
   double get lngX => throw _privateConstructorUsedError;
   double get latY => throw _privateConstructorUsedError;
-  List<ImageIdPair> get reviewImageIdPairList =>
-      throw _privateConstructorUsedError;
-  List<ImageIdPair> get storeImageIdPairList =>
-      throw _privateConstructorUsedError;
+  List<ImageIdPair> get reviewImageList => throw _privateConstructorUsedError;
+  List<ImageIdPair> get storeImageList => throw _privateConstructorUsedError;
   @JsonKey(name: 'totalBusinessHoursResDto')
-  TotalBusinessInfo get totalBusinessInfo => throw _privateConstructorUsedError;
+  TotalBusinessInfo? get totalBusinessInfo =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,25 +56,25 @@ abstract class $StoreDetailCopyWith<$Res> {
       String storeName,
       String nicknameOfModMember,
       @JsonKey(name: 'memberImageDto')
-          ImageIdPair imageIdPair,
+          ImageIdPair? imageIdPair,
       @JsonKey(name: 'address')
           AddressInfo addressInfo,
-      String wifiPassword,
+      String? wifiPassword,
       int heartCnt,
       bool isHeart,
       @JsonKey(name: 'businessHoursInfoDto')
           BusinessInfo businessInfo,
       double lngX,
       double latY,
-      List<ImageIdPair> reviewImageIdPairList,
-      List<ImageIdPair> storeImageIdPairList,
+      List<ImageIdPair> reviewImageList,
+      List<ImageIdPair> storeImageList,
       @JsonKey(name: 'totalBusinessHoursResDto')
-          TotalBusinessInfo totalBusinessInfo});
+          TotalBusinessInfo? totalBusinessInfo});
 
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
+  $ImageIdPairCopyWith<$Res>? get imageIdPair;
   $AddressInfoCopyWith<$Res> get addressInfo;
   $BusinessInfoCopyWith<$Res> get businessInfo;
-  $TotalBusinessInfoCopyWith<$Res> get totalBusinessInfo;
+  $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo;
 }
 
 /// @nodoc
@@ -99,8 +98,8 @@ class _$StoreDetailCopyWithImpl<$Res> implements $StoreDetailCopyWith<$Res> {
     Object? businessInfo = freezed,
     Object? lngX = freezed,
     Object? latY = freezed,
-    Object? reviewImageIdPairList = freezed,
-    Object? storeImageIdPairList = freezed,
+    Object? reviewImageList = freezed,
+    Object? storeImageList = freezed,
     Object? totalBusinessInfo = freezed,
   }) {
     return _then(_value.copyWith(
@@ -119,7 +118,7 @@ class _$StoreDetailCopyWithImpl<$Res> implements $StoreDetailCopyWith<$Res> {
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
       addressInfo: addressInfo == freezed
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
@@ -127,7 +126,7 @@ class _$StoreDetailCopyWithImpl<$Res> implements $StoreDetailCopyWith<$Res> {
       wifiPassword: wifiPassword == freezed
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       heartCnt: heartCnt == freezed
           ? _value.heartCnt
           : heartCnt // ignore: cast_nullable_to_non_nullable
@@ -148,24 +147,28 @@ class _$StoreDetailCopyWithImpl<$Res> implements $StoreDetailCopyWith<$Res> {
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      reviewImageIdPairList: reviewImageIdPairList == freezed
-          ? _value.reviewImageIdPairList
-          : reviewImageIdPairList // ignore: cast_nullable_to_non_nullable
+      reviewImageList: reviewImageList == freezed
+          ? _value.reviewImageList
+          : reviewImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
-      storeImageIdPairList: storeImageIdPairList == freezed
-          ? _value.storeImageIdPairList
-          : storeImageIdPairList // ignore: cast_nullable_to_non_nullable
+      storeImageList: storeImageList == freezed
+          ? _value.storeImageList
+          : storeImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
       totalBusinessInfo: totalBusinessInfo == freezed
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
-              as TotalBusinessInfo,
+              as TotalBusinessInfo?,
     ));
   }
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair {
-    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair, (value) {
+  $ImageIdPairCopyWith<$Res>? get imageIdPair {
+    if (_value.imageIdPair == null) {
+      return null;
+    }
+
+    return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
       return _then(_value.copyWith(imageIdPair: value));
     });
   }
@@ -185,8 +188,12 @@ class _$StoreDetailCopyWithImpl<$Res> implements $StoreDetailCopyWith<$Res> {
   }
 
   @override
-  $TotalBusinessInfoCopyWith<$Res> get totalBusinessInfo {
-    return $TotalBusinessInfoCopyWith<$Res>(_value.totalBusinessInfo, (value) {
+  $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo {
+    if (_value.totalBusinessInfo == null) {
+      return null;
+    }
+
+    return $TotalBusinessInfoCopyWith<$Res>(_value.totalBusinessInfo!, (value) {
       return _then(_value.copyWith(totalBusinessInfo: value));
     });
   }
@@ -204,29 +211,29 @@ abstract class _$$_StoreDetailCopyWith<$Res>
       String storeName,
       String nicknameOfModMember,
       @JsonKey(name: 'memberImageDto')
-          ImageIdPair imageIdPair,
+          ImageIdPair? imageIdPair,
       @JsonKey(name: 'address')
           AddressInfo addressInfo,
-      String wifiPassword,
+      String? wifiPassword,
       int heartCnt,
       bool isHeart,
       @JsonKey(name: 'businessHoursInfoDto')
           BusinessInfo businessInfo,
       double lngX,
       double latY,
-      List<ImageIdPair> reviewImageIdPairList,
-      List<ImageIdPair> storeImageIdPairList,
+      List<ImageIdPair> reviewImageList,
+      List<ImageIdPair> storeImageList,
       @JsonKey(name: 'totalBusinessHoursResDto')
-          TotalBusinessInfo totalBusinessInfo});
+          TotalBusinessInfo? totalBusinessInfo});
 
   @override
-  $ImageIdPairCopyWith<$Res> get imageIdPair;
+  $ImageIdPairCopyWith<$Res>? get imageIdPair;
   @override
   $AddressInfoCopyWith<$Res> get addressInfo;
   @override
   $BusinessInfoCopyWith<$Res> get businessInfo;
   @override
-  $TotalBusinessInfoCopyWith<$Res> get totalBusinessInfo;
+  $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo;
 }
 
 /// @nodoc
@@ -252,8 +259,8 @@ class __$$_StoreDetailCopyWithImpl<$Res> extends _$StoreDetailCopyWithImpl<$Res>
     Object? businessInfo = freezed,
     Object? lngX = freezed,
     Object? latY = freezed,
-    Object? reviewImageIdPairList = freezed,
-    Object? storeImageIdPairList = freezed,
+    Object? reviewImageList = freezed,
+    Object? storeImageList = freezed,
     Object? totalBusinessInfo = freezed,
   }) {
     return _then(_$_StoreDetail(
@@ -272,7 +279,7 @@ class __$$_StoreDetailCopyWithImpl<$Res> extends _$StoreDetailCopyWithImpl<$Res>
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
       addressInfo: addressInfo == freezed
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
@@ -280,7 +287,7 @@ class __$$_StoreDetailCopyWithImpl<$Res> extends _$StoreDetailCopyWithImpl<$Res>
       wifiPassword: wifiPassword == freezed
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       heartCnt: heartCnt == freezed
           ? _value.heartCnt
           : heartCnt // ignore: cast_nullable_to_non_nullable
@@ -301,18 +308,18 @@ class __$$_StoreDetailCopyWithImpl<$Res> extends _$StoreDetailCopyWithImpl<$Res>
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      reviewImageIdPairList: reviewImageIdPairList == freezed
-          ? _value._reviewImageIdPairList
-          : reviewImageIdPairList // ignore: cast_nullable_to_non_nullable
+      reviewImageList: reviewImageList == freezed
+          ? _value._reviewImageList
+          : reviewImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
-      storeImageIdPairList: storeImageIdPairList == freezed
-          ? _value._storeImageIdPairList
-          : storeImageIdPairList // ignore: cast_nullable_to_non_nullable
+      storeImageList: storeImageList == freezed
+          ? _value._storeImageList
+          : storeImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
       totalBusinessInfo: totalBusinessInfo == freezed
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
-              as TotalBusinessInfo,
+              as TotalBusinessInfo?,
     ));
   }
 }
@@ -324,23 +331,19 @@ class _$_StoreDetail implements _StoreDetail {
       {required this.storeId,
       required this.storeName,
       required this.nicknameOfModMember,
-      @JsonKey(name: 'memberImageDto')
-          required this.imageIdPair,
-      @JsonKey(name: 'address')
-          required this.addressInfo,
-      required this.wifiPassword,
+      @JsonKey(name: 'memberImageDto') this.imageIdPair,
+      @JsonKey(name: 'address') required this.addressInfo,
+      this.wifiPassword,
       required this.heartCnt,
       required this.isHeart,
-      @JsonKey(name: 'businessHoursInfoDto')
-          required this.businessInfo,
+      @JsonKey(name: 'businessHoursInfoDto') required this.businessInfo,
       required this.lngX,
       required this.latY,
-      required final List<ImageIdPair> reviewImageIdPairList,
-      required final List<ImageIdPair> storeImageIdPairList,
-      @JsonKey(name: 'totalBusinessHoursResDto')
-          required this.totalBusinessInfo})
-      : _reviewImageIdPairList = reviewImageIdPairList,
-        _storeImageIdPairList = storeImageIdPairList;
+      required final List<ImageIdPair> reviewImageList,
+      required final List<ImageIdPair> storeImageList,
+      @JsonKey(name: 'totalBusinessHoursResDto') this.totalBusinessInfo})
+      : _reviewImageList = reviewImageList,
+        _storeImageList = storeImageList;
 
   factory _$_StoreDetail.fromJson(Map<String, dynamic> json) =>
       _$$_StoreDetailFromJson(json);
@@ -353,12 +356,12 @@ class _$_StoreDetail implements _StoreDetail {
   final String nicknameOfModMember;
   @override
   @JsonKey(name: 'memberImageDto')
-  final ImageIdPair imageIdPair;
+  final ImageIdPair? imageIdPair;
   @override
   @JsonKey(name: 'address')
   final AddressInfo addressInfo;
   @override
-  final String wifiPassword;
+  final String? wifiPassword;
   @override
   final int heartCnt;
   @override
@@ -370,27 +373,27 @@ class _$_StoreDetail implements _StoreDetail {
   final double lngX;
   @override
   final double latY;
-  final List<ImageIdPair> _reviewImageIdPairList;
+  final List<ImageIdPair> _reviewImageList;
   @override
-  List<ImageIdPair> get reviewImageIdPairList {
+  List<ImageIdPair> get reviewImageList {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_reviewImageIdPairList);
+    return EqualUnmodifiableListView(_reviewImageList);
   }
 
-  final List<ImageIdPair> _storeImageIdPairList;
+  final List<ImageIdPair> _storeImageList;
   @override
-  List<ImageIdPair> get storeImageIdPairList {
+  List<ImageIdPair> get storeImageList {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_storeImageIdPairList);
+    return EqualUnmodifiableListView(_storeImageList);
   }
 
   @override
   @JsonKey(name: 'totalBusinessHoursResDto')
-  final TotalBusinessInfo totalBusinessInfo;
+  final TotalBusinessInfo? totalBusinessInfo;
 
   @override
   String toString() {
-    return 'StoreDetail(storeId: $storeId, storeName: $storeName, nicknameOfModMember: $nicknameOfModMember, imageIdPair: $imageIdPair, addressInfo: $addressInfo, wifiPassword: $wifiPassword, heartCnt: $heartCnt, isHeart: $isHeart, businessInfo: $businessInfo, lngX: $lngX, latY: $latY, reviewImageIdPairList: $reviewImageIdPairList, storeImageIdPairList: $storeImageIdPairList, totalBusinessInfo: $totalBusinessInfo)';
+    return 'StoreDetail(storeId: $storeId, storeName: $storeName, nicknameOfModMember: $nicknameOfModMember, imageIdPair: $imageIdPair, addressInfo: $addressInfo, wifiPassword: $wifiPassword, heartCnt: $heartCnt, isHeart: $isHeart, businessInfo: $businessInfo, lngX: $lngX, latY: $latY, reviewImageList: $reviewImageList, storeImageList: $storeImageList, totalBusinessInfo: $totalBusinessInfo)';
   }
 
   @override
@@ -415,9 +418,9 @@ class _$_StoreDetail implements _StoreDetail {
             const DeepCollectionEquality().equals(other.lngX, lngX) &&
             const DeepCollectionEquality().equals(other.latY, latY) &&
             const DeepCollectionEquality()
-                .equals(other._reviewImageIdPairList, _reviewImageIdPairList) &&
+                .equals(other._reviewImageList, _reviewImageList) &&
             const DeepCollectionEquality()
-                .equals(other._storeImageIdPairList, _storeImageIdPairList) &&
+                .equals(other._storeImageList, _storeImageList) &&
             const DeepCollectionEquality()
                 .equals(other.totalBusinessInfo, totalBusinessInfo));
   }
@@ -437,8 +440,8 @@ class _$_StoreDetail implements _StoreDetail {
       const DeepCollectionEquality().hash(businessInfo),
       const DeepCollectionEquality().hash(lngX),
       const DeepCollectionEquality().hash(latY),
-      const DeepCollectionEquality().hash(_reviewImageIdPairList),
-      const DeepCollectionEquality().hash(_storeImageIdPairList),
+      const DeepCollectionEquality().hash(_reviewImageList),
+      const DeepCollectionEquality().hash(_storeImageList),
       const DeepCollectionEquality().hash(totalBusinessInfo));
 
   @JsonKey(ignore: true)
@@ -458,20 +461,20 @@ abstract class _StoreDetail implements StoreDetail {
       required final String storeName,
       required final String nicknameOfModMember,
       @JsonKey(name: 'memberImageDto')
-          required final ImageIdPair imageIdPair,
+          final ImageIdPair? imageIdPair,
       @JsonKey(name: 'address')
           required final AddressInfo addressInfo,
-      required final String wifiPassword,
+      final String? wifiPassword,
       required final int heartCnt,
       required final bool isHeart,
       @JsonKey(name: 'businessHoursInfoDto')
           required final BusinessInfo businessInfo,
       required final double lngX,
       required final double latY,
-      required final List<ImageIdPair> reviewImageIdPairList,
-      required final List<ImageIdPair> storeImageIdPairList,
+      required final List<ImageIdPair> reviewImageList,
+      required final List<ImageIdPair> storeImageList,
       @JsonKey(name: 'totalBusinessHoursResDto')
-          required final TotalBusinessInfo totalBusinessInfo}) = _$_StoreDetail;
+          final TotalBusinessInfo? totalBusinessInfo}) = _$_StoreDetail;
 
   factory _StoreDetail.fromJson(Map<String, dynamic> json) =
       _$_StoreDetail.fromJson;
@@ -484,12 +487,12 @@ abstract class _StoreDetail implements StoreDetail {
   String get nicknameOfModMember => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'memberImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'address')
   AddressInfo get addressInfo => throw _privateConstructorUsedError;
   @override
-  String get wifiPassword => throw _privateConstructorUsedError;
+  String? get wifiPassword => throw _privateConstructorUsedError;
   @override
   int get heartCnt => throw _privateConstructorUsedError;
   @override
@@ -502,14 +505,13 @@ abstract class _StoreDetail implements StoreDetail {
   @override
   double get latY => throw _privateConstructorUsedError;
   @override
-  List<ImageIdPair> get reviewImageIdPairList =>
-      throw _privateConstructorUsedError;
+  List<ImageIdPair> get reviewImageList => throw _privateConstructorUsedError;
   @override
-  List<ImageIdPair> get storeImageIdPairList =>
-      throw _privateConstructorUsedError;
+  List<ImageIdPair> get storeImageList => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'totalBusinessHoursResDto')
-  TotalBusinessInfo get totalBusinessInfo => throw _privateConstructorUsedError;
+  TotalBusinessInfo? get totalBusinessInfo =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_StoreDetailCopyWith<_$_StoreDetail> get copyWith =>
