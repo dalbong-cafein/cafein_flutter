@@ -22,3 +22,17 @@ class CreatedReviewPermissionChecked extends CreatedReviewState {
   @override
   List<Object?> get props => [permission, permissionStatus];
 }
+
+class CreatedReviewError extends CreatedReviewState{
+  const  CreatedReviewError({
+    required this.event,
+    required this.error,
+  });
+
+  final Function event;
+  final dynamic error;
+
+  @override
+  List<Object?> get props => [error];
+
+}
