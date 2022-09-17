@@ -70,6 +70,9 @@ flutter:
     - asset/icon/bottom/
     - asset/icon/size16/
     - asset/icon/size20/
+    - asset/icon/size24/
+    - asset/icon/size26/
+    - asset/icon/size32/
   fonts:
     - family: SpoqaHanSansNeo
       fonts:

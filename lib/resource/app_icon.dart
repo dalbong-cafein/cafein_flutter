@@ -27,7 +27,6 @@ abstract class AppIcon {
 
   static const news = "asset/icon/news_icon.svg";
 
-  static const roundedCamera = "asset/icon/camera_icon.svg";
   static const circleDelete = 'asset/icon/ic_close_circle.svg';
   static const circleDeleteGrey = 'asset/icon/ic_close_circle_grey300.svg';
 
@@ -131,4 +130,21 @@ abstract class AppIcon {
   static const trash = 'asset/icon/size24/ic_trash.svg';
   static const wc = 'asset/icon/size24/ic_trash.svg';
   static const wifi = 'asset/icon/size24/ic_wifi.svg';
+
+  static const cafe = 'asset/icon/size26/ic_cafe.svg';
+  static const cafeDoor = 'asset/icon/size26/ic_cafe_door.svg';
+  static const cameraCircle = 'asset/icon/size26/ic_camera_ circle.svg';
+  static const homeOff26 = 'asset/icon/size26/ic_home_off.svg';
+  static const homeOn26 = 'asset/icon/size26/ic_home_on.svg';
+  static const kakao = 'asset/icon/size26/ic_kakao.svg';
+  static const moreOff = 'asset/icon/size26/ic_more_off.svg';
+  static const moreOn = 'asset/icon/size26/ic_more_on.svg';
+  static const naver = 'asset/icon/size26/ic_naver.svg';
+
+  static const cameraL = 'asset/icon/size32/ic_camera_l.svg';
+  static const kakaoL = 'asset/icon/size32/ic_kakao_l.svg';
+  static const locationL = 'asset/icon/size32/ic_location_l.svg';
+  static const locationNearFillL = 'asset/icon/size32/ic_location_naer_fill_l.svg';
+  static const naverL = 'asset/icon/size32/ic_naver_l.svg';
+
 }
