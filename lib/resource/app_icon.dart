@@ -89,4 +89,12 @@ abstract class AppIcon {
   static const upS = 'asset/icon/size16/ic_up_s.svg';
   static const upXS = 'asset/icon/size16/ic_up_xs.svg';
 
+  static const call = 'asset/icon/size20/ic_call.svg';
+  static const clock = 'asset/icon/size20/ic_clock.svg';
+  static const notice = 'asset/icon/size20/ic_notice.svg';
+  static const reportS = 'asset/icon/size20/ic_report_s.svg';
+  static const star  = 'asset/icon/size20/ic_star.svg';
+  static const sticker = 'asset/icon/size20/ic_sticker.svg';
+  static const world = 'asset/icon/size20/ic_world.svg';
+
 }
