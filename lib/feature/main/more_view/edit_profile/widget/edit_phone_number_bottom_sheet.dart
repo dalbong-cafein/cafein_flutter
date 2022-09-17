@@ -68,7 +68,7 @@ class EditPhoneNumberBottomSheet extends StatelessWidget {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               style: TextButton.styleFrom(
-                primary: AppColor.grey700,
+                foregroundColor: AppColor.grey700,
                 textStyle: AppStyle.subTitle15Medium,
               ),
               child: const Text('다음에 하기'),

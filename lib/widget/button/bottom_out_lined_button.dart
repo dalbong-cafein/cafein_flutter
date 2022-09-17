@@ -21,8 +21,8 @@ class BottomOutLinedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          primary: AppColor.white,
-          onPrimary: AppColor.grey800,
+          foregroundColor: AppColor.grey800,
+          backgroundColor: AppColor.white,
           elevation: 0,
           shape: const RoundedRectangleBorder(
             side: BorderSide(

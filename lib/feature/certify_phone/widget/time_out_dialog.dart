@@ -49,8 +49,8 @@ class TimeOutDialog extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(false),
                           style: ElevatedButton.styleFrom(
-                            primary: AppColor.white,
-                            onPrimary: AppColor.grey800,
+                            foregroundColor: AppColor.grey800,
+                            backgroundColor: AppColor.white,
                             side: const BorderSide(
                               color: AppColor.grey400,
                               width: 1,
@@ -71,8 +71,8 @@ class TimeOutDialog extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(true),
                           style: ElevatedButton.styleFrom(
-                            primary: AppColor.orange400,
-                            onPrimary: AppColor.white,
+                            foregroundColor: AppColor.white,
+                            backgroundColor: AppColor.orange400,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),

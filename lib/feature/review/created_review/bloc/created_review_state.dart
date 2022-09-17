@@ -1,6 +1,5 @@
 part of 'created_review_bloc.dart';
 
-@immutable
 abstract class CreatedReviewState extends Equatable {
   const CreatedReviewState();
 }
@@ -23,8 +22,8 @@ class CreatedReviewPermissionChecked extends CreatedReviewState {
   List<Object?> get props => [permission, permissionStatus];
 }
 
-class CreatedReviewError extends CreatedReviewState{
-  const  CreatedReviewError({
+class CreatedReviewError extends CreatedReviewState {
+  const CreatedReviewError({
     required this.event,
     required this.error,
   });
@@ -34,5 +33,4 @@ class CreatedReviewError extends CreatedReviewState{
 
   @override
   List<Object?> get props => [error];
-
 }
