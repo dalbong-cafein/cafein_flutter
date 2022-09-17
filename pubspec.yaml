@@ -41,6 +41,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   device_info_plus: ^4.1.2
   package_info_plus: ^1.4.3
+  share_plus: ^4.0.10
 
 dev_dependencies:
   flutter_test:

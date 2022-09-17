@@ -28,8 +28,9 @@ mixin _$Store {
   int get heartCnt => throw _privateConstructorUsedError;
   bool get isHeart => throw _privateConstructorUsedError;
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
+  double? get distance => throw _privateConstructorUsedError;
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair> get imageIdPair => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'businessHoursInfoDto')
   BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
 
@@ -51,7 +52,8 @@ abstract class $StoreCopyWith<$Res> {
       int heartCnt,
       bool isHeart,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair> imageIdPair,
+      double? distance,
+      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair>? imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo});
 
   $BusinessInfoCopyWith<$Res>? get businessInfo;
@@ -75,6 +77,7 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
     Object? heartCnt = freezed,
     Object? isHeart = freezed,
     Object? congestionScoreAvg = freezed,
+    Object? distance = freezed,
     Object? imageIdPair = freezed,
     Object? businessInfo = freezed,
   }) {
@@ -111,10 +114,14 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as List<ImageIdPair>,
+              as List<ImageIdPair>?,
       businessInfo: businessInfo == freezed
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
@@ -148,7 +155,8 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
       int heartCnt,
       bool isHeart,
       double? congestionScoreAvg,
-      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair> imageIdPair,
+      double? distance,
+      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair>? imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo});
 
   @override
@@ -174,6 +182,7 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
     Object? heartCnt = freezed,
     Object? isHeart = freezed,
     Object? congestionScoreAvg = freezed,
+    Object? distance = freezed,
     Object? imageIdPair = freezed,
     Object? businessInfo = freezed,
   }) {
@@ -210,10 +219,14 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
+      distance: distance == freezed
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double?,
       imageIdPair: imageIdPair == freezed
           ? _value._imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as List<ImageIdPair>,
+              as List<ImageIdPair>?,
       businessInfo: businessInfo == freezed
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
@@ -234,10 +247,9 @@ class _$_Store implements _Store {
       required this.heartCnt,
       required this.isHeart,
       this.congestionScoreAvg,
-      @JsonKey(name: 'storeImageDtoList')
-          required final List<ImageIdPair> imageIdPair,
-      @JsonKey(name: 'businessHoursInfoDto')
-          this.businessInfo})
+      this.distance,
+      @JsonKey(name: 'storeImageDtoList') final List<ImageIdPair>? imageIdPair,
+      @JsonKey(name: 'businessHoursInfoDto') this.businessInfo})
       : _imageIdPair = imageIdPair;
 
   factory _$_Store.fromJson(Map<String, dynamic> json) =>
@@ -259,12 +271,16 @@ class _$_Store implements _Store {
   final bool isHeart;
   @override
   final double? congestionScoreAvg;
-  final List<ImageIdPair> _imageIdPair;
+  @override
+  final double? distance;
+  final List<ImageIdPair>? _imageIdPair;
   @override
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair> get imageIdPair {
+  List<ImageIdPair>? get imageIdPair {
+    final value = _imageIdPair;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageIdPair);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -273,7 +289,7 @@ class _$_Store implements _Store {
 
   @override
   String toString() {
-    return 'Store(storeId: $storeId, storeName: $storeName, recommendPercent: $recommendPercent, lngX: $lngX, latY: $latY, heartCnt: $heartCnt, isHeart: $isHeart, congestionScoreAvg: $congestionScoreAvg, imageIdPair: $imageIdPair, businessInfo: $businessInfo)';
+    return 'Store(storeId: $storeId, storeName: $storeName, recommendPercent: $recommendPercent, lngX: $lngX, latY: $latY, heartCnt: $heartCnt, isHeart: $isHeart, congestionScoreAvg: $congestionScoreAvg, distance: $distance, imageIdPair: $imageIdPair, businessInfo: $businessInfo)';
   }
 
   @override
@@ -291,6 +307,7 @@ class _$_Store implements _Store {
             const DeepCollectionEquality().equals(other.isHeart, isHeart) &&
             const DeepCollectionEquality()
                 .equals(other.congestionScoreAvg, congestionScoreAvg) &&
+            const DeepCollectionEquality().equals(other.distance, distance) &&
             const DeepCollectionEquality()
                 .equals(other._imageIdPair, _imageIdPair) &&
             const DeepCollectionEquality()
@@ -309,6 +326,7 @@ class _$_Store implements _Store {
       const DeepCollectionEquality().hash(heartCnt),
       const DeepCollectionEquality().hash(isHeart),
       const DeepCollectionEquality().hash(congestionScoreAvg),
+      const DeepCollectionEquality().hash(distance),
       const DeepCollectionEquality().hash(_imageIdPair),
       const DeepCollectionEquality().hash(businessInfo));
 
@@ -333,8 +351,9 @@ abstract class _Store implements Store {
       required final int heartCnt,
       required final bool isHeart,
       final double? congestionScoreAvg,
+      final double? distance,
       @JsonKey(name: 'storeImageDtoList')
-          required final List<ImageIdPair> imageIdPair,
+          final List<ImageIdPair>? imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto')
           final BusinessInfo? businessInfo}) = _$_Store;
 
@@ -357,8 +376,10 @@ abstract class _Store implements Store {
   @override
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @override
+  double? get distance => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair> get imageIdPair => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPair => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'businessHoursInfoDto')
   BusinessInfo? get businessInfo => throw _privateConstructorUsedError;

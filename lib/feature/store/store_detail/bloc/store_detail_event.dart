@@ -17,3 +17,30 @@ class StoreDetailRequested extends StoreDetailEvent {
   @override
   List<Object?> get props => [storeId];
 }
+
+class StoreDetailHeartRequested extends StoreDetailEvent {
+  const StoreDetailHeartRequested({
+    required this.isHeart,
+    required this.storeId,
+  });
+
+  final bool isHeart;
+  final int storeId;
+
+  @override
+  List<Object?> get props => [
+        isHeart,
+        storeId,
+      ];
+}
+
+class StoreDetailTabChanged extends StoreDetailEvent {
+  const StoreDetailTabChanged({
+    required this.index,
+  });
+
+  final int index;
+
+  @override
+  List<Object?> get props => [index];
+}

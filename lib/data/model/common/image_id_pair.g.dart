@@ -9,11 +9,13 @@ part of 'image_id_pair.dart';
 _$_StoreImagePair _$$_StoreImagePairFromJson(Map<String, dynamic> json) =>
     _$_StoreImagePair(
       imageId: json['imageId'] as int,
+      isGoogle: json['isGoogle'] as bool? ?? false,
       imageUrl: json['imageUrl'] as String,
     );
 
 Map<String, dynamic> _$$_StoreImagePairToJson(_$_StoreImagePair instance) =>
     <String, dynamic>{
       'imageId': instance.imageId,
+      'isGoogle': instance.isGoogle,
       'imageUrl': instance.imageUrl,
     };

@@ -7,6 +7,7 @@ part 'image_id_pair.freezed.dart';
 class ImageIdPair with _$ImageIdPair {
   factory ImageIdPair({
     required int imageId,
+    @Default(false) bool isGoogle,
     required String imageUrl,
   }) = _StoreImagePair;
 

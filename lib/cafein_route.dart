@@ -3,7 +3,9 @@ import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
+import 'package:cafein_flutter/data/repository/congestion_repository.dart';
 import 'package:cafein_flutter/data/repository/coupon_repository.dart';
+import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -34,6 +36,7 @@ import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
+import 'package:cafein_flutter/feature/received_coupons/bloc/received_coupons_bloc.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
@@ -48,8 +51,6 @@ import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'feature/received_coupons/bloc/received_coupons_bloc.dart';
 
 abstract class CafeinRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -128,8 +129,9 @@ abstract class CafeinRoute {
       case StickerPage.routeName:
         page = BlocProvider(
           create: (context) => StickerBloc(
-              stickerRepository: context.read<StickerRepository>(),
-              couponRepository: context.read<CouponRepository>()),
+            stickerRepository: context.read<StickerRepository>(),
+            couponRepository: context.read<CouponRepository>(),
+          ),
           child: const StickerPage(),
         );
         break;
@@ -190,14 +192,17 @@ abstract class CafeinRoute {
         break;
       case ReceivedCouponsPage.routeName:
         page = BlocProvider(
-          create: (context) =>
-              ReceivedCouponsBloc(couponRepository: context.read<CouponRepository>()),
+          create: (context) => ReceivedCouponsBloc(
+            couponRepository: context.read<CouponRepository>(),
+          ),
           child: const ReceivedCouponsPage(),
         );
         break;
       case ApplyCouponPage.routeName:
         page = BlocProvider(
-          create: (context) => ApplyCouponBloc(couponRepository: context.read<CouponRepository>()),
+          create: (context) => ApplyCouponBloc(
+            couponRepository: context.read<CouponRepository>(),
+          ),
           child: const ApplyCouponPage(),
         );
         break;
@@ -218,6 +223,9 @@ abstract class CafeinRoute {
         page = BlocProvider(
           create: (context) => StoreDetailBloc(
             storeRepository: context.read<StoreRepository>(),
+            reviewRepository: context.read<ReviewRepository>(),
+            congestionRepository: context.read<CongestionRepository>(),
+            heartRepository: context.read<HeartRepository>(),
           ),
           child: StoreDetailPage(storeId: storeId),
         );

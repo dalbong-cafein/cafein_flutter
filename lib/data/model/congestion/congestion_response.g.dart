@@ -9,8 +9,8 @@ part of 'congestion_response.dart';
 _$_CongestionResponse _$$_CongestionResponseFromJson(
         Map<String, dynamic> json) =>
     _$_CongestionResponse(
-      congestionCng: json['congestionCng'] as int,
-      congestionList: (json['congestionList'] as List<dynamic>)
+      congestionCnt: json['congestionCnt'] as int,
+      congestionList: (json['resDtoList'] as List<dynamic>)
           .map((e) => Congestion.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -18,6 +18,6 @@ _$_CongestionResponse _$$_CongestionResponseFromJson(
 Map<String, dynamic> _$$_CongestionResponseToJson(
         _$_CongestionResponse instance) =>
     <String, dynamic>{
-      'congestionCng': instance.congestionCng,
-      'congestionList': instance.congestionList,
+      'congestionCnt': instance.congestionCnt,
+      'resDtoList': instance.congestionList,
     };

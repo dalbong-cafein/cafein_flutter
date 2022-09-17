@@ -119,16 +119,17 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
                                               borderRadius: BorderRadius.circular(8),
                                               child: SizedBox.fromSize(
                                                 size: const Size.fromRadius(48),
-                                                child: state.recommendStores[index].imageIdPair
-                                                                .length -
-                                                            1 <
-                                                        imageIndex
-                                                    ? loadAsset(AppImage.noImage)
-                                                    : Image.network(
-                                                        state.recommendStores[index]
-                                                            .imageIdPair[imageIndex].imageUrl,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                                child:
+                                                    (state.recommendStores[index].imageIdPair ?? [])
+                                                                    .length -
+                                                                1 <
+                                                            imageIndex
+                                                        ? loadAsset(AppImage.noImage)
+                                                        : Image.network(
+                                                            state.recommendStores[index]
+                                                                .imageIdPair![imageIndex].imageUrl,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                               ),
                                             ),
                                           ),

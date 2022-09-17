@@ -33,5 +33,11 @@ abstract class StoreClient {
   );
 
   @GET('/stores/my-registered')
-  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>> getMyRegisteredStores();
+  Future<BaseResponse<StoreResponse<List<RegisteredStore>>>>
+      getMyRegisteredStores();
+
+  @GET('/stores/{storeId}/near-stores')
+  Future<BaseResponse<List<Store>>> getNearStoreList(
+    @Path() int storeId,
+  );
 }

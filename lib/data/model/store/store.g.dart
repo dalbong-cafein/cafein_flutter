@@ -15,8 +15,9 @@ _$_Store _$$_StoreFromJson(Map<String, dynamic> json) => _$_Store(
       heartCnt: json['heartCnt'] as int,
       isHeart: json['isHeart'] as bool,
       congestionScoreAvg: (json['congestionScoreAvg'] as num?)?.toDouble(),
-      imageIdPair: (json['storeImageDtoList'] as List<dynamic>)
-          .map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
+      distance: (json['distance'] as num?)?.toDouble(),
+      imageIdPair: (json['storeImageDtoList'] as List<dynamic>?)
+          ?.map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),
       businessInfo: json['businessHoursInfoDto'] == null
           ? null
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$_StoreToJson(_$_Store instance) => <String, dynamic>{
       'heartCnt': instance.heartCnt,
       'isHeart': instance.isHeart,
       'congestionScoreAvg': instance.congestionScoreAvg,
+      'distance': instance.distance,
       'storeImageDtoList': instance.imageIdPair,
       'businessHoursInfoDto': instance.businessInfo,
     };
