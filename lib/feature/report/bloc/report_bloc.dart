@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cafein_flutter/data/model/report/report_category.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 

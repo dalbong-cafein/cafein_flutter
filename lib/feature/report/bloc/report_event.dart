@@ -1,8 +1,10 @@
 part of 'report_bloc.dart';
 
-abstract class ReportEvent extends Equatable {}
+abstract class ReportEvent extends Equatable {
+  const ReportEvent();
+}
 
-class ReportListRequested extends ReportEvent {
+class ReportCategoryRequested extends ReportEvent {
   @override
   List<Object?> get props => [];
 }
@@ -14,7 +16,7 @@ class ReportRequested extends ReportEvent {
 
 class ReportItemClicked extends ReportEvent {
   final int clickedIndex;
-  ReportItemClicked({required this.clickedIndex});
+  const ReportItemClicked({required this.clickedIndex});
   @override
   List<Object?> get props =>[clickedIndex];
 }
