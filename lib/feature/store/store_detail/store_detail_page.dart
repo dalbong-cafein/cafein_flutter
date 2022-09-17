@@ -201,7 +201,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       ),
                               ),
                               const SizedBox(width: 4),
-                              Text(
+                              const Text(
                                 '오후 11:30에 영업 종료',
                               ),
                             ],
@@ -220,7 +220,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       ),
                               ),
                               const SizedBox(width: 4),
-                              Text(
+                              const Text(
                                 '오후 11:30에 영업 종료',
                               ),
                             ],
@@ -239,7 +239,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       ),
                               ),
                               const SizedBox(width: 4),
-                              Text(
+                              const Text(
                                 '오후 11:30에 영업 종료',
                               ),
                             ],

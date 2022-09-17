@@ -1,8 +1,6 @@
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
-import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_review_policy.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
