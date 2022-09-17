@@ -1,5 +1,8 @@
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_list_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_study_information_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
@@ -98,6 +101,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   SliverAppBar(
                     pinned: true,
                     toolbarHeight: 44,
+                    backgroundColor: AppColor.white,
                     automaticallyImplyLeading: false,
                     titleSpacing: 0,
                     centerTitle: false,
@@ -312,6 +316,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   const SliverToBoxAdapter(
                     child: SizedBox(
                       height: 280,
+                      child: Center(
+                        child: Text('혼잡도 카드'),
+                      ),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -320,10 +327,18 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 220,
+                  StoreStudyInformationCard(
+                    reviewDetailScore: state.reviewDetailScore,
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 12,
+                      color: AppColor.grey50,
                     ),
+                  ),
+                  StoreReviewRequestCard(
+                    reviewCount: state.reviewResponse.reviewCnt,
+                    storeName: state.storeDetail.storeName,
                   ),
                   SliverToBoxAdapter(
                     child: Container(
@@ -334,9 +349,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  const SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: SizedBox(
                       height: 200,
+                      child: StoreReviewListCard(
+                        reviewCount: state.reviewResponse.reviewCnt,
+                        reviews: state.reviewResponse.reviewData.reviewList,
+                      ),
                     ),
                   ),
                 ],

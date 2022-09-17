@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
+import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
+import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
@@ -50,9 +52,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         event.storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviewScoreDetail(
+      final reviewScoreResponse = reviewRepository.getStoreReviewScoreDetail(
         event.storeId,
       );
+
+      final reviewResponse = reviewRepository.getStoreReviews(event.storeId);
 
       final congestionResponse = congestionRepository.getCongestions(
         storeId: event.storeId,
@@ -62,8 +66,9 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       final responseList = await Future.wait<BaseResponse<dynamic>>([
         storeDetailResponse,
         nearStoresResponse,
-        reviewResponse,
+        reviewScoreResponse,
         congestionResponse,
+        reviewResponse,
       ]);
 
       for (final response in responseList) {
@@ -85,6 +90,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           storeList: responseList[1].data,
           reviewDetailScore: responseList[2].data,
           congestionResponse: responseList[3].data,
+          reviewResponse: responseList[4].data,
         ),
       );
 

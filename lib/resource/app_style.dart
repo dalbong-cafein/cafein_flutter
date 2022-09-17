@@ -114,6 +114,7 @@ abstract class AppStyle {
   static const caption12Regular = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const caption11Regular = TextStyle(

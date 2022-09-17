@@ -21,12 +21,14 @@ class StoreDetailLoaded extends StoreDetailState {
     required this.storeList,
     required this.reviewDetailScore,
     required this.congestionResponse,
+    required this.reviewResponse,
   });
 
   final StoreDetail storeDetail;
   final List<Store> storeList;
   final ReviewDetailScore reviewDetailScore;
   final CongestionResponse congestionResponse;
+  final ReviewResponse<StoreReviewListResponse> reviewResponse;
 
   @override
   List<Object?> get props => [
@@ -34,6 +36,7 @@ class StoreDetailLoaded extends StoreDetailState {
         storeList,
         reviewDetailScore,
         congestionResponse,
+        reviewResponse,
       ];
 }
 
