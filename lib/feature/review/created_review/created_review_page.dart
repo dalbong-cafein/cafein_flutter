@@ -14,17 +14,18 @@ class CreatedReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<CreatedReviewBloc>();
     final width = MediaQuery.of(context).size.width;
     return BlocListener<CreatedReviewBloc, CreatedReviewState>(
       listener: (context, state) async {
         if(state is CreatedReviewPermissionChecked){
           if(!state.permissionStatus.isGranted) {
             final result = await PermissionDialog.show(context);
-          if (result) {
-            openAppSettings();
-          }
-            return;
+            if (result) {
+              openAppSettings();
+            }
+              return;
+          }else{
+            //TODO 권한이 허용되어있는경우, 커스텀 갤러리 띄워야 함
           }
         }
       },

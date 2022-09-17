@@ -1,15 +1,19 @@
+import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_review_policy.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RecommendStars extends StatelessWidget {
   const RecommendStars({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<CreatedReviewBloc>();
     final width = MediaQuery.of(context).size.width;
     return Column(
       children: [
@@ -88,45 +92,54 @@ class RecommendStars extends StatelessWidget {
                 itemCount: 1,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index){
-              return Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1,
-                      color : AppColor.grey300
+              return InkWell(
+                onTap: (){
+                  bloc.add(
+                    const CreatedReviewPermissionRequested(
+                        permission: Permission.photos
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 1,
+                        color : AppColor.grey300
+                    ),
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(8)
+                    ),
                   ),
-                  borderRadius: const BorderRadius.all(
-                      Radius.circular(8)
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Column(
-                    children: [
-                      const Icon(
-                          Icons.camera_alt,
-                        color : AppColor.grey400,
-                        size: 26,
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "0",
-                            style: AppStyle.subTitle14Medium.copyWith(
-                              color : AppColor.orange500
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Column(
+                      children: [
+                        const Icon(
+                            Icons.camera_alt,
+                          color : AppColor.grey400,
+                          size: 26,
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "0",
+                              style: AppStyle.subTitle14Medium.copyWith(
+                                color : AppColor.orange500
+                              ),
                             ),
-                          ),
-                          Text(
-                            "/5",
-                            style: AppStyle.subTitle14Medium.copyWith(
-                                color : AppColor.grey400
-                            ),
-                          )
-                        ],
-                      )
-                    ],
+                            Text(
+                              "/5",
+                              style: AppStyle.subTitle14Medium.copyWith(
+                                  color : AppColor.grey400
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );
