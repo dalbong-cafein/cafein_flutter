@@ -38,6 +38,7 @@ import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/bloc/received_coupons_bloc.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
+import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
@@ -229,6 +230,10 @@ abstract class CafeinRoute {
           ),
           child: StoreDetailPage(storeId: storeId),
         );
+        break;
+      case ReportPage.routeName :
+        page = const ReportPage();
+        break;
     }
 
     return MaterialPageRoute(
