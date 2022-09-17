@@ -16,8 +16,8 @@ _$_Store _$$_StoreFromJson(Map<String, dynamic> json) => _$_Store(
       isHeart: json['isHeart'] as bool,
       congestionScoreAvg: (json['congestionScoreAvg'] as num?)?.toDouble(),
       distance: (json['distance'] as num?)?.toDouble(),
-      imageIdPair: (json['storeImageDtoList'] as List<dynamic>)
-          .map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
+      imageIdPair: (json['storeImageDtoList'] as List<dynamic>?)
+          ?.map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),
       businessInfo: json['businessHoursInfoDto'] == null
           ? null

@@ -21,17 +21,17 @@ TotalBusinessInfo _$TotalBusinessInfoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TotalBusinessInfo {
   @JsonKey(name: 'onMon')
-  BusinessInfo get onMonday => throw _privateConstructorUsedError;
+  BusinessInfo? get onMonday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onTue')
-  BusinessInfo get onTuesday => throw _privateConstructorUsedError;
+  BusinessInfo? get onTuesday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onWed')
-  BusinessInfo get onWednesday => throw _privateConstructorUsedError;
+  BusinessInfo? get onWednesday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onThe')
-  BusinessInfo get onThursday => throw _privateConstructorUsedError;
+  BusinessInfo? get onThursday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onFri')
-  BusinessInfo get onFriday => throw _privateConstructorUsedError;
+  BusinessInfo? get onFriday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onSat')
-  BusinessInfo get onSaturday => throw _privateConstructorUsedError;
+  BusinessInfo? get onSaturday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onSun')
   BusinessInfo? get onSunday => throw _privateConstructorUsedError;
   String get etcTime => throw _privateConstructorUsedError;
@@ -48,21 +48,21 @@ abstract class $TotalBusinessInfoCopyWith<$Res> {
           TotalBusinessInfo value, $Res Function(TotalBusinessInfo) then) =
       _$TotalBusinessInfoCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'onMon') BusinessInfo onMonday,
-      @JsonKey(name: 'onTue') BusinessInfo onTuesday,
-      @JsonKey(name: 'onWed') BusinessInfo onWednesday,
-      @JsonKey(name: 'onThe') BusinessInfo onThursday,
-      @JsonKey(name: 'onFri') BusinessInfo onFriday,
-      @JsonKey(name: 'onSat') BusinessInfo onSaturday,
+      {@JsonKey(name: 'onMon') BusinessInfo? onMonday,
+      @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
+      @JsonKey(name: 'onWed') BusinessInfo? onWednesday,
+      @JsonKey(name: 'onThe') BusinessInfo? onThursday,
+      @JsonKey(name: 'onFri') BusinessInfo? onFriday,
+      @JsonKey(name: 'onSat') BusinessInfo? onSaturday,
       @JsonKey(name: 'onSun') BusinessInfo? onSunday,
       String etcTime});
 
-  $BusinessInfoCopyWith<$Res> get onMonday;
-  $BusinessInfoCopyWith<$Res> get onTuesday;
-  $BusinessInfoCopyWith<$Res> get onWednesday;
-  $BusinessInfoCopyWith<$Res> get onThursday;
-  $BusinessInfoCopyWith<$Res> get onFriday;
-  $BusinessInfoCopyWith<$Res> get onSaturday;
+  $BusinessInfoCopyWith<$Res>? get onMonday;
+  $BusinessInfoCopyWith<$Res>? get onTuesday;
+  $BusinessInfoCopyWith<$Res>? get onWednesday;
+  $BusinessInfoCopyWith<$Res>? get onThursday;
+  $BusinessInfoCopyWith<$Res>? get onFriday;
+  $BusinessInfoCopyWith<$Res>? get onSaturday;
   $BusinessInfoCopyWith<$Res>? get onSunday;
 }
 
@@ -90,27 +90,27 @@ class _$TotalBusinessInfoCopyWithImpl<$Res>
       onMonday: onMonday == freezed
           ? _value.onMonday
           : onMonday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onTuesday: onTuesday == freezed
           ? _value.onTuesday
           : onTuesday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onWednesday: onWednesday == freezed
           ? _value.onWednesday
           : onWednesday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onThursday: onThursday == freezed
           ? _value.onThursday
           : onThursday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onFriday: onFriday == freezed
           ? _value.onFriday
           : onFriday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onSaturday: onSaturday == freezed
           ? _value.onSaturday
           : onSaturday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onSunday: onSunday == freezed
           ? _value.onSunday
           : onSunday // ignore: cast_nullable_to_non_nullable
@@ -123,43 +123,67 @@ class _$TotalBusinessInfoCopyWithImpl<$Res>
   }
 
   @override
-  $BusinessInfoCopyWith<$Res> get onMonday {
-    return $BusinessInfoCopyWith<$Res>(_value.onMonday, (value) {
+  $BusinessInfoCopyWith<$Res>? get onMonday {
+    if (_value.onMonday == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.onMonday!, (value) {
       return _then(_value.copyWith(onMonday: value));
     });
   }
 
   @override
-  $BusinessInfoCopyWith<$Res> get onTuesday {
-    return $BusinessInfoCopyWith<$Res>(_value.onTuesday, (value) {
+  $BusinessInfoCopyWith<$Res>? get onTuesday {
+    if (_value.onTuesday == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.onTuesday!, (value) {
       return _then(_value.copyWith(onTuesday: value));
     });
   }
 
   @override
-  $BusinessInfoCopyWith<$Res> get onWednesday {
-    return $BusinessInfoCopyWith<$Res>(_value.onWednesday, (value) {
+  $BusinessInfoCopyWith<$Res>? get onWednesday {
+    if (_value.onWednesday == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.onWednesday!, (value) {
       return _then(_value.copyWith(onWednesday: value));
     });
   }
 
   @override
-  $BusinessInfoCopyWith<$Res> get onThursday {
-    return $BusinessInfoCopyWith<$Res>(_value.onThursday, (value) {
+  $BusinessInfoCopyWith<$Res>? get onThursday {
+    if (_value.onThursday == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.onThursday!, (value) {
       return _then(_value.copyWith(onThursday: value));
     });
   }
 
   @override
-  $BusinessInfoCopyWith<$Res> get onFriday {
-    return $BusinessInfoCopyWith<$Res>(_value.onFriday, (value) {
+  $BusinessInfoCopyWith<$Res>? get onFriday {
+    if (_value.onFriday == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.onFriday!, (value) {
       return _then(_value.copyWith(onFriday: value));
     });
   }
 
   @override
-  $BusinessInfoCopyWith<$Res> get onSaturday {
-    return $BusinessInfoCopyWith<$Res>(_value.onSaturday, (value) {
+  $BusinessInfoCopyWith<$Res>? get onSaturday {
+    if (_value.onSaturday == null) {
+      return null;
+    }
+
+    return $BusinessInfoCopyWith<$Res>(_value.onSaturday!, (value) {
       return _then(_value.copyWith(onSaturday: value));
     });
   }
@@ -184,27 +208,27 @@ abstract class _$$_TotalBusinessInfoCopyWith<$Res>
       __$$_TotalBusinessInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'onMon') BusinessInfo onMonday,
-      @JsonKey(name: 'onTue') BusinessInfo onTuesday,
-      @JsonKey(name: 'onWed') BusinessInfo onWednesday,
-      @JsonKey(name: 'onThe') BusinessInfo onThursday,
-      @JsonKey(name: 'onFri') BusinessInfo onFriday,
-      @JsonKey(name: 'onSat') BusinessInfo onSaturday,
+      {@JsonKey(name: 'onMon') BusinessInfo? onMonday,
+      @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
+      @JsonKey(name: 'onWed') BusinessInfo? onWednesday,
+      @JsonKey(name: 'onThe') BusinessInfo? onThursday,
+      @JsonKey(name: 'onFri') BusinessInfo? onFriday,
+      @JsonKey(name: 'onSat') BusinessInfo? onSaturday,
       @JsonKey(name: 'onSun') BusinessInfo? onSunday,
       String etcTime});
 
   @override
-  $BusinessInfoCopyWith<$Res> get onMonday;
+  $BusinessInfoCopyWith<$Res>? get onMonday;
   @override
-  $BusinessInfoCopyWith<$Res> get onTuesday;
+  $BusinessInfoCopyWith<$Res>? get onTuesday;
   @override
-  $BusinessInfoCopyWith<$Res> get onWednesday;
+  $BusinessInfoCopyWith<$Res>? get onWednesday;
   @override
-  $BusinessInfoCopyWith<$Res> get onThursday;
+  $BusinessInfoCopyWith<$Res>? get onThursday;
   @override
-  $BusinessInfoCopyWith<$Res> get onFriday;
+  $BusinessInfoCopyWith<$Res>? get onFriday;
   @override
-  $BusinessInfoCopyWith<$Res> get onSaturday;
+  $BusinessInfoCopyWith<$Res>? get onSaturday;
   @override
   $BusinessInfoCopyWith<$Res>? get onSunday;
 }
@@ -235,27 +259,27 @@ class __$$_TotalBusinessInfoCopyWithImpl<$Res>
       onMonday: onMonday == freezed
           ? _value.onMonday
           : onMonday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onTuesday: onTuesday == freezed
           ? _value.onTuesday
           : onTuesday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onWednesday: onWednesday == freezed
           ? _value.onWednesday
           : onWednesday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onThursday: onThursday == freezed
           ? _value.onThursday
           : onThursday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onFriday: onFriday == freezed
           ? _value.onFriday
           : onFriday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onSaturday: onSaturday == freezed
           ? _value.onSaturday
           : onSaturday // ignore: cast_nullable_to_non_nullable
-              as BusinessInfo,
+              as BusinessInfo?,
       onSunday: onSunday == freezed
           ? _value.onSunday
           : onSunday // ignore: cast_nullable_to_non_nullable
@@ -272,12 +296,12 @@ class __$$_TotalBusinessInfoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TotalBusinessInfo implements _TotalBusinessInfo {
   _$_TotalBusinessInfo(
-      {@JsonKey(name: 'onMon') required this.onMonday,
-      @JsonKey(name: 'onTue') required this.onTuesday,
-      @JsonKey(name: 'onWed') required this.onWednesday,
-      @JsonKey(name: 'onThe') required this.onThursday,
-      @JsonKey(name: 'onFri') required this.onFriday,
-      @JsonKey(name: 'onSat') required this.onSaturday,
+      {@JsonKey(name: 'onMon') this.onMonday,
+      @JsonKey(name: 'onTue') this.onTuesday,
+      @JsonKey(name: 'onWed') this.onWednesday,
+      @JsonKey(name: 'onThe') this.onThursday,
+      @JsonKey(name: 'onFri') this.onFriday,
+      @JsonKey(name: 'onSat') this.onSaturday,
       @JsonKey(name: 'onSun') this.onSunday,
       required this.etcTime});
 
@@ -286,22 +310,22 @@ class _$_TotalBusinessInfo implements _TotalBusinessInfo {
 
   @override
   @JsonKey(name: 'onMon')
-  final BusinessInfo onMonday;
+  final BusinessInfo? onMonday;
   @override
   @JsonKey(name: 'onTue')
-  final BusinessInfo onTuesday;
+  final BusinessInfo? onTuesday;
   @override
   @JsonKey(name: 'onWed')
-  final BusinessInfo onWednesday;
+  final BusinessInfo? onWednesday;
   @override
   @JsonKey(name: 'onThe')
-  final BusinessInfo onThursday;
+  final BusinessInfo? onThursday;
   @override
   @JsonKey(name: 'onFri')
-  final BusinessInfo onFriday;
+  final BusinessInfo? onFriday;
   @override
   @JsonKey(name: 'onSat')
-  final BusinessInfo onSaturday;
+  final BusinessInfo? onSaturday;
   @override
   @JsonKey(name: 'onSun')
   final BusinessInfo? onSunday;
@@ -358,12 +382,12 @@ class _$_TotalBusinessInfo implements _TotalBusinessInfo {
 
 abstract class _TotalBusinessInfo implements TotalBusinessInfo {
   factory _TotalBusinessInfo(
-      {@JsonKey(name: 'onMon') required final BusinessInfo onMonday,
-      @JsonKey(name: 'onTue') required final BusinessInfo onTuesday,
-      @JsonKey(name: 'onWed') required final BusinessInfo onWednesday,
-      @JsonKey(name: 'onThe') required final BusinessInfo onThursday,
-      @JsonKey(name: 'onFri') required final BusinessInfo onFriday,
-      @JsonKey(name: 'onSat') required final BusinessInfo onSaturday,
+      {@JsonKey(name: 'onMon') final BusinessInfo? onMonday,
+      @JsonKey(name: 'onTue') final BusinessInfo? onTuesday,
+      @JsonKey(name: 'onWed') final BusinessInfo? onWednesday,
+      @JsonKey(name: 'onThe') final BusinessInfo? onThursday,
+      @JsonKey(name: 'onFri') final BusinessInfo? onFriday,
+      @JsonKey(name: 'onSat') final BusinessInfo? onSaturday,
       @JsonKey(name: 'onSun') final BusinessInfo? onSunday,
       required final String etcTime}) = _$_TotalBusinessInfo;
 
@@ -372,22 +396,22 @@ abstract class _TotalBusinessInfo implements TotalBusinessInfo {
 
   @override
   @JsonKey(name: 'onMon')
-  BusinessInfo get onMonday => throw _privateConstructorUsedError;
+  BusinessInfo? get onMonday => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'onTue')
-  BusinessInfo get onTuesday => throw _privateConstructorUsedError;
+  BusinessInfo? get onTuesday => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'onWed')
-  BusinessInfo get onWednesday => throw _privateConstructorUsedError;
+  BusinessInfo? get onWednesday => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'onThe')
-  BusinessInfo get onThursday => throw _privateConstructorUsedError;
+  BusinessInfo? get onThursday => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'onFri')
-  BusinessInfo get onFriday => throw _privateConstructorUsedError;
+  BusinessInfo? get onFriday => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'onSat')
-  BusinessInfo get onSaturday => throw _privateConstructorUsedError;
+  BusinessInfo? get onSaturday => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'onSun')
   BusinessInfo? get onSunday => throw _privateConstructorUsedError;

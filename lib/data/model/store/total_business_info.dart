@@ -7,12 +7,12 @@ part 'total_business_info.freezed.dart';
 @freezed
 class TotalBusinessInfo with _$TotalBusinessInfo {
   factory TotalBusinessInfo({
-    @JsonKey(name: 'onMon') required BusinessInfo onMonday,
-    @JsonKey(name: 'onTue') required BusinessInfo onTuesday,
-    @JsonKey(name: 'onWed') required BusinessInfo onWednesday,
-    @JsonKey(name: 'onThe') required BusinessInfo onThursday,
-    @JsonKey(name: 'onFri') required BusinessInfo onFriday,
-    @JsonKey(name: 'onSat') required BusinessInfo onSaturday,
+    @JsonKey(name: 'onMon') BusinessInfo? onMonday,
+    @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
+    @JsonKey(name: 'onWed') BusinessInfo? onWednesday,
+    @JsonKey(name: 'onThe') BusinessInfo? onThursday,
+    @JsonKey(name: 'onFri') BusinessInfo? onFriday,
+    @JsonKey(name: 'onSat') BusinessInfo? onSaturday,
     @JsonKey(name: 'onSun') BusinessInfo? onSunday,
     required String etcTime,
   }) = _TotalBusinessInfo;

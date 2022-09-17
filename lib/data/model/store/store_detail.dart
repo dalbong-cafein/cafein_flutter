@@ -23,6 +23,7 @@ class StoreDetail with _$StoreDetail {
     required double latY,
     required List<ImageIdPair> reviewImageList,
     required List<ImageIdPair> storeImageList,
+    double? congestionScoreAvg,
     @JsonKey(name: 'totalBusinessHoursResDto') TotalBusinessInfo? totalBusinessInfo,
   }) = _StoreDetail;
 

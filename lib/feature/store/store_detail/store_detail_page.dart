@@ -1,11 +1,6 @@
-import 'package:cafein_flutter/cafein_const.dart';
-import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
-import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
-import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
-import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +35,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userData = context.watch<UserRepository>().getMemberData;
     final width = MediaQuery.of(context).size.width;
 
     return BlocListener<StoreDetailBloc, StoreDetailState>(
@@ -98,143 +92,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             if (state is StoreDetailLoaded) {
               return CustomScrollView(
                 slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 8,
-                        right: 24,
-                        left: 16,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      CircleProfileImage(
-                                        imageUrl: userData?.imageIdPair?.imageUrl,
-                                        radius: 10,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        '${userData?.nickname}',
-                                        style: AppStyle.caption13SemiBold.copyWith(
-                                          color: AppColor.grey700,
-                                        ),
-                                      ),
-                                      Text(
-                                        '님의 제보',
-                                        style: AppStyle.caption13Regular.copyWith(
-                                          color: AppColor.grey600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    state.storeDetail.storeName,
-                                    style: AppStyle.title19Bold,
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    state.storeDetail.addressInfo.fullAddress,
-                                    style: AppStyle.caption13Regular.copyWith(
-                                      color: AppColor.grey600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Row(
-                                    children: [
-                                      OpenCloseChip(
-                                        isOpen: state.storeDetail.businessInfo.isOpen ?? false,
-                                      ),
-                                      if (state.storeDetail.businessInfo.closed != null)
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 8),
-                                          child: Text(
-                                            '${state.storeDetail.businessInfo.closed}에 종료',
-                                            style: AppStyle.caption13Regular,
-                                          ),
-                                        )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const ConfuseChip(
-                                confuseScore: 2,
-                                width: 44,
-                                height: 28,
-                                textStyle: AppStyle.subTitle16Medium,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 240,
-                            child: ListView.separated(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                              ),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 8,
-                              itemBuilder: (context, index) {
-                                if (index % 3 == 0) {
-                                  return const ClipRRect(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    child: CustomCachedNetworkImage(
-                                      imageUrl: CafeinConst.defaultStoreImage,
-                                      height: 200,
-                                      width: 160,
-                                      fit: BoxFit.fitHeight,
-                                    ),
-                                  );
-                                } else if (index % 3 == 1) {
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                        child: CustomCachedNetworkImage(
-                                          imageUrl: CafeinConst.defaultStoreImage,
-                                          height: 96,
-                                          width: 96,
-                                        ),
-                                      ),
-                                      if (index + 1 < 8)
-                                        const ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                          child: CustomCachedNetworkImage(
-                                            imageUrl: CafeinConst.defaultStoreImage,
-                                            height: 96,
-                                            width: 96,
-                                          ),
-                                        ),
-                                    ],
-                                  );
-                                }
-                                return const SizedBox.shrink();
-                              },
-                              separatorBuilder: (context, index) {
-                                if (index % 3 == 2) {
-                                  return const SizedBox.shrink();
-                                }
-                                return const SizedBox(width: 8);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  StoreDetailCard(
+                    storeDetail: state.storeDetail,
                   ),
                   SliverAppBar(
                     pinned: true,
@@ -306,9 +165,178 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       ),
                     ),
                   ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 20,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            '기본 정보',
+                            style: AppStyle.subTitle17SemiBold,
+                          ),
+                          const SizedBox(height: 16),
+                          Container(
+                            height: 120,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Text(
+                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
+                                style: (state.storeDetail.businessInfo.isOpen ?? false)
+                                    ? AppStyle.subTitle14Medium.copyWith(
+                                        color: AppColor.orange500,
+                                      )
+                                    : AppStyle.subTitle14Medium.copyWith(
+                                        color: AppColor.grey500,
+                                      ),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                '오후 11:30에 영업 종료',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Text(
+                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
+                                style: (state.storeDetail.businessInfo.isOpen ?? false)
+                                    ? AppStyle.subTitle14Medium.copyWith(
+                                        color: AppColor.orange500,
+                                      )
+                                    : AppStyle.subTitle14Medium.copyWith(
+                                        color: AppColor.grey500,
+                                      ),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                '오후 11:30에 영업 종료',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Text(
+                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
+                                style: (state.storeDetail.businessInfo.isOpen ?? false)
+                                    ? AppStyle.subTitle14Medium.copyWith(
+                                        color: AppColor.orange500,
+                                      )
+                                    : AppStyle.subTitle14Medium.copyWith(
+                                        color: AppColor.grey500,
+                                      ),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                '오후 11:30에 영업 종료',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            height: 1,
+                            color: AppColor.grey50,
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '잘못된 정보가 있다면 알려주세요',
+                                    style: AppStyle.caption13Regular.copyWith(
+                                      color: AppColor.grey600,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    '마지막 수정일',
+                                    style: AppStyle.caption11Regular.copyWith(
+                                      color: AppColor.grey500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 32,
+                                width: 80,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
+                                      side: BorderSide(
+                                        color: AppColor.grey400,
+                                      ),
+                                    ),
+                                    primary: AppColor.white,
+                                    onPrimary: AppColor.grey800,
+                                    textStyle: AppStyle.subTitle14Medium,
+                                  ),
+                                  child: const Text('정보 수정'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 12,
+                      color: AppColor.grey50,
+                    ),
+                  ),
                   const SliverToBoxAdapter(
                     child: SizedBox(
-                      height: 1000,
+                      height: 280,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 12,
+                      color: AppColor.grey50,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 220,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      height: 1,
+                      color: AppColor.grey50,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 200,
                     ),
                   ),
                 ],

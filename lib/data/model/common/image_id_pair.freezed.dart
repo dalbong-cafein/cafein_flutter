@@ -21,6 +21,7 @@ ImageIdPair _$ImageIdPairFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ImageIdPair {
   int get imageId => throw _privateConstructorUsedError;
+  bool get isGoogle => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +35,7 @@ abstract class $ImageIdPairCopyWith<$Res> {
   factory $ImageIdPairCopyWith(
           ImageIdPair value, $Res Function(ImageIdPair) then) =
       _$ImageIdPairCopyWithImpl<$Res>;
-  $Res call({int imageId, String imageUrl});
+  $Res call({int imageId, bool isGoogle, String imageUrl});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$ImageIdPairCopyWithImpl<$Res> implements $ImageIdPairCopyWith<$Res> {
   @override
   $Res call({
     Object? imageId = freezed,
+    Object? isGoogle = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -55,6 +57,10 @@ class _$ImageIdPairCopyWithImpl<$Res> implements $ImageIdPairCopyWith<$Res> {
           ? _value.imageId
           : imageId // ignore: cast_nullable_to_non_nullable
               as int,
+      isGoogle: isGoogle == freezed
+          ? _value.isGoogle
+          : isGoogle // ignore: cast_nullable_to_non_nullable
+              as bool,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$_StoreImagePairCopyWith<$Res>
           _$_StoreImagePair value, $Res Function(_$_StoreImagePair) then) =
       __$$_StoreImagePairCopyWithImpl<$Res>;
   @override
-  $Res call({int imageId, String imageUrl});
+  $Res call({int imageId, bool isGoogle, String imageUrl});
 }
 
 /// @nodoc
@@ -87,6 +93,7 @@ class __$$_StoreImagePairCopyWithImpl<$Res>
   @override
   $Res call({
     Object? imageId = freezed,
+    Object? isGoogle = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_$_StoreImagePair(
@@ -94,6 +101,10 @@ class __$$_StoreImagePairCopyWithImpl<$Res>
           ? _value.imageId
           : imageId // ignore: cast_nullable_to_non_nullable
               as int,
+      isGoogle: isGoogle == freezed
+          ? _value.isGoogle
+          : isGoogle // ignore: cast_nullable_to_non_nullable
+              as bool,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -105,7 +116,8 @@ class __$$_StoreImagePairCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_StoreImagePair implements _StoreImagePair {
-  _$_StoreImagePair({required this.imageId, required this.imageUrl});
+  _$_StoreImagePair(
+      {required this.imageId, this.isGoogle = false, required this.imageUrl});
 
   factory _$_StoreImagePair.fromJson(Map<String, dynamic> json) =>
       _$$_StoreImagePairFromJson(json);
@@ -113,11 +125,14 @@ class _$_StoreImagePair implements _StoreImagePair {
   @override
   final int imageId;
   @override
+  @JsonKey()
+  final bool isGoogle;
+  @override
   final String imageUrl;
 
   @override
   String toString() {
-    return 'ImageIdPair(imageId: $imageId, imageUrl: $imageUrl)';
+    return 'ImageIdPair(imageId: $imageId, isGoogle: $isGoogle, imageUrl: $imageUrl)';
   }
 
   @override
@@ -126,6 +141,7 @@ class _$_StoreImagePair implements _StoreImagePair {
         (other.runtimeType == runtimeType &&
             other is _$_StoreImagePair &&
             const DeepCollectionEquality().equals(other.imageId, imageId) &&
+            const DeepCollectionEquality().equals(other.isGoogle, isGoogle) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl));
   }
 
@@ -134,6 +150,7 @@ class _$_StoreImagePair implements _StoreImagePair {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(imageId),
+      const DeepCollectionEquality().hash(isGoogle),
       const DeepCollectionEquality().hash(imageUrl));
 
   @JsonKey(ignore: true)
@@ -150,6 +167,7 @@ class _$_StoreImagePair implements _StoreImagePair {
 abstract class _StoreImagePair implements ImageIdPair {
   factory _StoreImagePair(
       {required final int imageId,
+      final bool isGoogle,
       required final String imageUrl}) = _$_StoreImagePair;
 
   factory _StoreImagePair.fromJson(Map<String, dynamic> json) =
@@ -157,6 +175,8 @@ abstract class _StoreImagePair implements ImageIdPair {
 
   @override
   int get imageId => throw _privateConstructorUsedError;
+  @override
+  bool get isGoogle => throw _privateConstructorUsedError;
   @override
   String get imageUrl => throw _privateConstructorUsedError;
   @override

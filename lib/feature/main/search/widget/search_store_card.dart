@@ -25,7 +25,7 @@ class SearchStoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageDatas = [...store.imageIdPair];
+    final imageDatas = [...store.imageIdPair ?? []];
     if (imageDatas.length < 4) {
       final length = 4 - imageDatas.length;
       for (int i = 0; i < length; i++) {

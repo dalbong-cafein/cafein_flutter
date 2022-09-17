@@ -30,7 +30,7 @@ mixin _$Store {
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   double? get distance => throw _privateConstructorUsedError;
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair> get imageIdPair => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'businessHoursInfoDto')
   BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
 
@@ -53,7 +53,7 @@ abstract class $StoreCopyWith<$Res> {
       bool isHeart,
       double? congestionScoreAvg,
       double? distance,
-      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair> imageIdPair,
+      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair>? imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo});
 
   $BusinessInfoCopyWith<$Res>? get businessInfo;
@@ -121,7 +121,7 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
       imageIdPair: imageIdPair == freezed
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as List<ImageIdPair>,
+              as List<ImageIdPair>?,
       businessInfo: businessInfo == freezed
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
@@ -156,7 +156,7 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
       bool isHeart,
       double? congestionScoreAvg,
       double? distance,
-      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair> imageIdPair,
+      @JsonKey(name: 'storeImageDtoList') List<ImageIdPair>? imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo});
 
   @override
@@ -226,7 +226,7 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
       imageIdPair: imageIdPair == freezed
           ? _value._imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
-              as List<ImageIdPair>,
+              as List<ImageIdPair>?,
       businessInfo: businessInfo == freezed
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
@@ -248,10 +248,8 @@ class _$_Store implements _Store {
       required this.isHeart,
       this.congestionScoreAvg,
       this.distance,
-      @JsonKey(name: 'storeImageDtoList')
-          required final List<ImageIdPair> imageIdPair,
-      @JsonKey(name: 'businessHoursInfoDto')
-          this.businessInfo})
+      @JsonKey(name: 'storeImageDtoList') final List<ImageIdPair>? imageIdPair,
+      @JsonKey(name: 'businessHoursInfoDto') this.businessInfo})
       : _imageIdPair = imageIdPair;
 
   factory _$_Store.fromJson(Map<String, dynamic> json) =>
@@ -275,12 +273,14 @@ class _$_Store implements _Store {
   final double? congestionScoreAvg;
   @override
   final double? distance;
-  final List<ImageIdPair> _imageIdPair;
+  final List<ImageIdPair>? _imageIdPair;
   @override
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair> get imageIdPair {
+  List<ImageIdPair>? get imageIdPair {
+    final value = _imageIdPair;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageIdPair);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -353,7 +353,7 @@ abstract class _Store implements Store {
       final double? congestionScoreAvg,
       final double? distance,
       @JsonKey(name: 'storeImageDtoList')
-          required final List<ImageIdPair> imageIdPair,
+          final List<ImageIdPair>? imageIdPair,
       @JsonKey(name: 'businessHoursInfoDto')
           final BusinessInfo? businessInfo}) = _$_Store;
 
@@ -379,7 +379,7 @@ abstract class _Store implements Store {
   double? get distance => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair> get imageIdPair => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPair => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'businessHoursInfoDto')
   BusinessInfo? get businessInfo => throw _privateConstructorUsedError;

@@ -8,12 +8,24 @@ part of 'total_business_info.dart';
 
 _$_TotalBusinessInfo _$$_TotalBusinessInfoFromJson(Map<String, dynamic> json) =>
     _$_TotalBusinessInfo(
-      onMonday: BusinessInfo.fromJson(json['onMon'] as Map<String, dynamic>),
-      onTuesday: BusinessInfo.fromJson(json['onTue'] as Map<String, dynamic>),
-      onWednesday: BusinessInfo.fromJson(json['onWed'] as Map<String, dynamic>),
-      onThursday: BusinessInfo.fromJson(json['onThe'] as Map<String, dynamic>),
-      onFriday: BusinessInfo.fromJson(json['onFri'] as Map<String, dynamic>),
-      onSaturday: BusinessInfo.fromJson(json['onSat'] as Map<String, dynamic>),
+      onMonday: json['onMon'] == null
+          ? null
+          : BusinessInfo.fromJson(json['onMon'] as Map<String, dynamic>),
+      onTuesday: json['onTue'] == null
+          ? null
+          : BusinessInfo.fromJson(json['onTue'] as Map<String, dynamic>),
+      onWednesday: json['onWed'] == null
+          ? null
+          : BusinessInfo.fromJson(json['onWed'] as Map<String, dynamic>),
+      onThursday: json['onThe'] == null
+          ? null
+          : BusinessInfo.fromJson(json['onThe'] as Map<String, dynamic>),
+      onFriday: json['onFri'] == null
+          ? null
+          : BusinessInfo.fromJson(json['onFri'] as Map<String, dynamic>),
+      onSaturday: json['onSat'] == null
+          ? null
+          : BusinessInfo.fromJson(json['onSat'] as Map<String, dynamic>),
       onSunday: json['onSun'] == null
           ? null
           : BusinessInfo.fromJson(json['onSun'] as Map<String, dynamic>),
