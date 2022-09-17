@@ -14,76 +14,74 @@ class StoreReviewRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: InkWell(
-        onTap: () {
-          //TODO: 리뷰 작성 페이지 이동
-        },
-        child: SizedBox(
-          height: 240,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 20,
-            ),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: RichText(
-                    text: TextSpan(
-                      text: '리뷰 ',
-                      style: AppStyle.subTitle17SemiBold.copyWith(
-                        color: AppColor.grey800,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: '$reviewCount',
-                          style: AppStyle.subTitle17SemiBold.copyWith(
-                            color: AppColor.orange500,
-                          ),
-                        ),
-                      ],
+    return InkWell(
+      onTap: () {
+        //TODO: 리뷰 작성 페이지 이동
+      },
+      child: SizedBox(
+        height: 240,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 20,
+          ),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: RichText(
+                  text: TextSpan(
+                    text: '리뷰 ',
+                    style: AppStyle.subTitle17SemiBold.copyWith(
+                      color: AppColor.grey800,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  storeName,
-                  style: AppStyle.subTitle15Medium.copyWith(
-                    color: AppColor.orange500,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  '카공 카페로 어떤가요?',
-                  style: AppStyle.body14Regular,
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 36,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      _ReviewIconCoulmn(
-                        icon: AppImage.recBadGrey,
-                        title: '별로에요',
-                      ),
-                      _ReviewIconCoulmn(
-                        icon: AppImage.recNormalGrey,
-                        title: '그저그래요',
-                      ),
-                      _ReviewIconCoulmn(
-                        icon: AppImage.recGoodGrey,
-                        title: '추천해요',
+                    children: [
+                      TextSpan(
+                        text: '$reviewCount',
+                        style: AppStyle.subTitle17SemiBold.copyWith(
+                          color: AppColor.orange500,
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                storeName,
+                style: AppStyle.subTitle15Medium.copyWith(
+                  color: AppColor.orange500,
+                ),
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                '카공 카페로 어떤가요?',
+                style: AppStyle.body14Regular,
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 36,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    _ReviewIconCoulmn(
+                      icon: AppImage.recBadGrey,
+                      title: '별로에요',
+                    ),
+                    _ReviewIconCoulmn(
+                      icon: AppImage.recNormalGrey,
+                      title: '그저그래요',
+                    ),
+                    _ReviewIconCoulmn(
+                      icon: AppImage.recGoodGrey,
+                      title: '추천해요',
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

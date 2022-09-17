@@ -42,6 +42,7 @@ abstract class AppTheme {
     scaffoldBackgroundColor: AppColor.white,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
         backgroundColor: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.disabled)) {
             return AppColor.orange100;

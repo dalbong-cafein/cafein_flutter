@@ -1,4 +1,6 @@
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_list_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
@@ -24,6 +26,13 @@ class StoreDetailPage extends StatefulWidget {
 }
 
 class _StoreDetailPageState extends State<StoreDetailPage> {
+  final scrollController = ScrollController();
+
+  final storeDetailKey = GlobalKey();
+  final storeCongestionKey = GlobalKey();
+  final storeStudyKey = GlobalKey();
+  final storeReviewKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -36,9 +45,51 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     );
   }
 
+  void animateScroll(int index) {
+    double offset = 0;
+    final appBarHeight = AppBar().preferredSize.height;
+
+    if (index == 0) {
+      final renderBox = storeDetailKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    } else if (index == 1) {
+      final renderBox = storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    } else if (index == 2) {
+      final renderBox = storeStudyKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    } else if (index == 3) {
+      final renderBox = storeReviewKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    }
+
+    scrollController.animateTo(
+      offset - 44 - appBarHeight - 44 + scrollController.offset,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.linear,
+    );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
+    final tabTitles = [
+      '홈',
+      '혼잡도',
+      '카공 정보',
+      '리뷰',
+    ];
 
     return BlocListener<StoreDetailBloc, StoreDetailState>(
       listener: (context, state) {
@@ -48,6 +99,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             error: state.error,
             refresh: state.event,
           );
+        } else if (state is StoreDetailTabChecked) {
+          animateScroll(state.index);
         }
       },
       child: Scaffold(
@@ -94,6 +147,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           builder: (context, state) {
             if (state is StoreDetailLoaded) {
               return CustomScrollView(
+                controller: scrollController,
                 slivers: [
                   StoreDetailCard(
                     storeDetail: state.storeDetail,
@@ -120,16 +174,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       child: BlocBuilder<StoreDetailBloc, StoreDetailState>(
                         buildWhen: (pre, next) => next is StoreDetailTabChecked,
                         builder: (context, state) {
-                          final tabTitles = [
-                            '홈',
-                            '혼잡도',
-                            '카공 정보',
-                            '리뷰',
-                          ];
                           int currentIndex = 0;
                           if (state is StoreDetailTabChecked) {
                             currentIndex = state.index;
                           }
+
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: List.generate(
@@ -170,141 +219,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 20,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '기본 정보',
-                            style: AppStyle.subTitle17SemiBold,
-                          ),
-                          const SizedBox(height: 16),
-                          Container(
-                            height: 120,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Text(
-                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                                style: (state.storeDetail.businessInfo.isOpen ?? false)
-                                    ? AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      )
-                                    : AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.grey500,
-                                      ),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '오후 11:30에 영업 종료',
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Text(
-                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                                style: (state.storeDetail.businessInfo.isOpen ?? false)
-                                    ? AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      )
-                                    : AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.grey500,
-                                      ),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '오후 11:30에 영업 종료',
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Text(
-                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                                style: (state.storeDetail.businessInfo.isOpen ?? false)
-                                    ? AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      )
-                                    : AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.grey500,
-                                      ),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '오후 11:30에 영업 종료',
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                            ),
-                            height: 1,
-                            color: AppColor.grey50,
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '잘못된 정보가 있다면 알려주세요',
-                                    style: AppStyle.caption13Regular.copyWith(
-                                      color: AppColor.grey600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    '마지막 수정일',
-                                    style: AppStyle.caption11Regular.copyWith(
-                                      color: AppColor.grey500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 32,
-                                width: 80,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: AppColor.grey800,
-                                    padding: EdgeInsets.zero,
-                                    backgroundColor: AppColor.white,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                      side: BorderSide(
-                                        color: AppColor.grey400,
-                                      ),
-                                    ),
-                                    textStyle: AppStyle.subTitle14Medium,
-                                  ),
-                                  child: const Text('정보 수정'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    child: StoreDefaultInformationCard(
+                      key: storeDetailKey,
+                      storeDetail: state.storeDetail,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -313,12 +230,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 280,
-                      child: Center(
-                        child: Text('혼잡도 카드'),
-                      ),
+                  SliverToBoxAdapter(
+                    child: StoreCongestionCard(
+                      key: storeCongestionKey,
+                      congestionResponse: state.congestionResponse,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -327,8 +242,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  StoreStudyInformationCard(
-                    reviewDetailScore: state.reviewDetailScore,
+                  SliverToBoxAdapter(
+                    child: StoreStudyInformationCard(
+                      key: storeStudyKey,
+                      reviewDetailScore: state.reviewDetailScore,
+                    ),
                   ),
                   SliverToBoxAdapter(
                     child: Container(
@@ -336,9 +254,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  StoreReviewRequestCard(
-                    reviewCount: state.reviewResponse.reviewCnt,
-                    storeName: state.storeDetail.storeName,
+                  SliverToBoxAdapter(
+                    child: StoreReviewRequestCard(
+                      key: storeReviewKey,
+                      reviewCount: state.reviewResponse.reviewCnt,
+                      storeName: state.storeDetail.storeName,
+                    ),
                   ),
                   SliverToBoxAdapter(
                     child: Container(
