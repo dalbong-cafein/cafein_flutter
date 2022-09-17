@@ -64,4 +64,29 @@ abstract class AppIcon {
   static const notificationReport = 'asset/icon/ic_report_s.svg';
   static const notificationEvent = 'asset/icon/ic_star.svg';
   static const notificationSticker = 'asset/icon/ic_sticker.svg';
+
+  static const filterS = 'asset/icon/size16/ic_ filter_s.svg';
+  static const adminS = 'asset/icon/size16/ic_admin_s.svg';
+  static const appleS = 'asset/icon/size16/ic_apple_s.svg';
+  static const cafeinS = 'asset/icon/size16/ic_cafein_s.svg';
+  static const clearXS = 'asset/icon/size16/ic_clear_xs.svg';
+  static const createS = 'asset/icon/size16/ic_create_s.svg';
+  static const doneS = 'asset/icon/size16/ic_done_s.svg';
+  static const downXS = 'asset/icon/size16/ic_down_xs.svg';
+  static const heartS = 'asset/icon/size16/ic_heart_s.svg';
+  static const helpS = 'asset/icon/size16/ic_help.svg';
+  static const kakaoS = 'asset/icon/size16/ic_kakao_s.svg';
+  static const leftS = 'asset/icon/size16/ic_left_s.svg';
+  static const naverS = 'asset/icon/size16/ic_naver_s.svg';
+  static const nearMeS = 'asset/icon/size16/ic_near_me_s.svg';
+  static const newS = 'asset/icon/size16/ic_new_s.svg';
+  static const personS ='asset/icon/size16/ic_person_s.svg';
+  static const reportXS = 'asset/icon/size16/ic_report_xs.svg';
+  static const rightS = 'asset/icon/size16/ic_right_s.svg';
+  static const searchS = 'asset/icon/size16/ic_search_s.svg';
+  static const starS = 'asset/icon/size16/ic_star_s.svg';
+  static const swapVert = 'asset/icon/size16/ic_swap_vert.svg';
+  static const upS = 'asset/icon/size16/ic_up_s.svg';
+  static const upXS = 'asset/icon/size16/ic_up_xs.svg';
+
 }
