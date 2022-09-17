@@ -1,8 +1,6 @@
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
-import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_review_policy.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -47,16 +45,12 @@ class RecommendStars extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                      currentLength.toString(),
-                    style: AppStyle.caption12Medium.copyWith(
-                      color : AppColor.blue
-                    ),
+                    currentLength.toString(),
+                    style: AppStyle.caption12Medium.copyWith(color: AppColor.blue),
                   ),
                   Text(
-                      "/최대 $maxLength자",
-                    style: AppStyle.caption12Medium.copyWith(
-                      color : AppColor.grey400
-                    ),
+                    "/최대 $maxLength자",
+                    style: AppStyle.caption12Medium.copyWith(color: AppColor.grey400),
                   ),
                 ],
               ),
@@ -73,77 +67,65 @@ class RecommendStars extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 fillColor: AppColor.white,
-              hintText: "카페의 특별한 점이나 아쉬운 점을 최소 10글자 이상 남겨주세요(선택)",
-              hintStyle: AppStyle.body14Regular.copyWith(
-                color : AppColor.grey400
-              ),
-              filled: true,
+                hintText: "카페의 특별한 점이나 아쉬운 점을 최소 10글자 이상 남겨주세요(선택)",
+                hintStyle: AppStyle.body14Regular.copyWith(color: AppColor.grey400),
+                filled: true,
               ),
             ),
           ),
-
         ),
         Padding(
-          padding: const EdgeInsets.only(left :16),
+          padding: const EdgeInsets.only(left: 16),
           child: SizedBox(
             height: 64,
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.horizontal,
                 itemCount: 1,
                 shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index){
-              return InkWell(
-                onTap: (){
-                  bloc.add(
-                    const CreatedReviewPermissionRequested(
-                        permission: Permission.photos
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1,
-                        color : AppColor.grey300
-                    ),
-                    borderRadius: const BorderRadius.all(
-                        Radius.circular(8)
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Column(
-                      children: [
-                        const Icon(
-                            Icons.camera_alt,
-                          color : AppColor.grey400,
-                          size: 26,
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Row(
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      bloc.add(
+                        const CreatedReviewPermissionRequested(permission: Permission.photos),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: AppColor.grey300),
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: Column(
                           children: [
-                            Text(
-                              "0",
-                              style: AppStyle.subTitle14Medium.copyWith(
-                                color : AppColor.orange500
-                              ),
+                            const Icon(
+                              Icons.camera_alt,
+                              color: AppColor.grey400,
+                              size: 26,
                             ),
-                            Text(
-                              "/5",
-                              style: AppStyle.subTitle14Medium.copyWith(
-                                  color : AppColor.grey400
-                              ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "0",
+                                  style:
+                                      AppStyle.subTitle14Medium.copyWith(color: AppColor.orange500),
+                                ),
+                                Text(
+                                  "/5",
+                                  style:
+                                      AppStyle.subTitle14Medium.copyWith(color: AppColor.grey400),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            }),
+                  );
+                }),
           ),
         ),
         const CreatedReviewPolicy()
@@ -256,8 +238,7 @@ class RecommendStars extends StatelessWidget {
               padding: const EdgeInsets.only(left: 175),
               child: Text(
                 bottomText,
-                style:
-                    AppStyle.caption12Regular.copyWith(color: AppColor.grey600),
+                style: AppStyle.caption12Regular.copyWith(color: AppColor.grey600),
               ),
             ),
           ],

@@ -281,7 +281,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
+                                    foregroundColor: AppColor.grey800,
                                     padding: EdgeInsets.zero,
+                                    backgroundColor: AppColor.white,
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(8),
@@ -290,8 +292,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         color: AppColor.grey400,
                                       ),
                                     ),
-                                    primary: AppColor.white,
-                                    onPrimary: AppColor.grey800,
                                     textStyle: AppStyle.subTitle14Medium,
                                   ),
                                   child: const Text('정보 수정'),

@@ -65,8 +65,8 @@ class ErrorDialog extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: AppColor.white,
-              onPrimary: AppColor.grey800,
+              foregroundColor: AppColor.grey800,
+              backgroundColor: AppColor.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),

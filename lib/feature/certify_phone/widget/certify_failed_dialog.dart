@@ -35,8 +35,8 @@ class CertifyFailedDialog extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
                   style: ElevatedButton.styleFrom(
-                    primary: AppColor.white,
-                    onPrimary: AppColor.blue,
+                    foregroundColor: AppColor.blue,
+                    backgroundColor: AppColor.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),

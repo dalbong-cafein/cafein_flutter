@@ -196,11 +196,11 @@ class _InputCertificationCodePageState extends State<InputCertificationCodePage>
                   height: 34,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      foregroundColor: AppColor.grey600,
+                      backgroundColor: AppColor.grey100,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      primary: AppColor.grey100,
-                      onPrimary: AppColor.grey600,
                       textStyle: AppStyle.subTitle15Medium,
                       padding: EdgeInsets.zero,
                     ),

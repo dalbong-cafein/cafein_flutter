@@ -46,8 +46,8 @@ class NotificationDialog extends StatelessWidget {
                       height: 44,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: AppColor.white,
-                          onPrimary: AppColor.grey800,
+                          foregroundColor: AppColor.grey800,
+                          backgroundColor: AppColor.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

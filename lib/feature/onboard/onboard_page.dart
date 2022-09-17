@@ -59,14 +59,13 @@ class _OnboardPageState extends State<OnboardPage> {
                               child: SizedBox(
                                 height: 44,
                                 child: ElevatedButton(
-                                  onPressed: () => Navigator.of(context)
-                                      .pushNamedAndRemoveUntil(
+                                  onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
                                     MainPage.routeName,
                                     (route) => false,
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                    primary: AppColor.white,
-                                    onPrimary: AppColor.grey800,
+                                    foregroundColor: AppColor.grey800,
+                                    backgroundColor: AppColor.white,
                                     elevation: 0,
                                     textStyle: AppStyle.subTitle15Medium,
                                     side: const BorderSide(
@@ -93,8 +92,8 @@ class _OnboardPageState extends State<OnboardPage> {
                                     curve: Curves.linear,
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                    primary: AppColor.orange400,
-                                    onPrimary: AppColor.white,
+                                    foregroundColor: AppColor.white,
+                                    backgroundColor: AppColor.orange400,
                                     textStyle: AppStyle.subTitle15Medium,
                                     elevation: 0,
                                     shape: const RoundedRectangleBorder(
@@ -113,14 +112,13 @@ class _OnboardPageState extends State<OnboardPage> {
                           height: 44,
                           width: MediaQuery.of(context).size.width,
                           child: ElevatedButton(
-                            onPressed: () =>
-                                Navigator.of(context).pushNamedAndRemoveUntil(
+                            onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
                               MainPage.routeName,
                               (route) => false,
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: AppColor.orange400,
-                              onPrimary: AppColor.white,
+                              foregroundColor: AppColor.white,
+                              backgroundColor: AppColor.orange400,
                               textStyle: AppStyle.subTitle15Medium,
                               elevation: 0,
                               shape: const RoundedRectangleBorder(
