@@ -2,8 +2,10 @@ import 'package:cafein_flutter/feature/review/created_review/bloc/created_review
 import 'package:cafein_flutter/feature/review/created_review/widget/recommend_stars.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CreatedReviewPage extends StatelessWidget {
   const CreatedReviewPage({Key? key}) : super(key: key);
@@ -12,10 +14,19 @@ class CreatedReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<CreatedReviewBloc>();
     final width = MediaQuery.of(context).size.width;
     return BlocListener<CreatedReviewBloc, CreatedReviewState>(
-      listener: (context, state) {
-
+      listener: (context, state) async {
+        if(state is CreatedReviewPermissionChecked){
+          if(!state.permissionStatus.isGranted) {
+            final result = await PermissionDialog.show(context);
+          if (result) {
+            openAppSettings();
+          }
+            return;
+          }
+        }
       },
       child: Scaffold(
           appBar: AppBar(
