@@ -68,7 +68,8 @@ flutter:
     - asset/icon/marker/
     - asset/icon/sticker/
     - asset/icon/bottom/
-  
+    - asset/icon/size16/
+    - asset/icon/size20/
   fonts:
     - family: SpoqaHanSansNeo
       fonts:
