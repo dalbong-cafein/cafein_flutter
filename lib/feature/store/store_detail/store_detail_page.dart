@@ -2,6 +2,7 @@ import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_list_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_list_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_study_information_card.dart';
@@ -278,6 +279,18 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         reviews: state.reviewResponse.reviewData.reviewList,
                       ),
                     ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 12,
+                      color: AppColor.grey50,
+                    ),
+                  ),
+                  StoreListCard(
+                    storeList: state.storeList,
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 24),
                   ),
                 ],
               );
