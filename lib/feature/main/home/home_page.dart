@@ -7,6 +7,7 @@ import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
+import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -39,10 +40,16 @@ class HomePage extends StatelessWidget {
           backgroundColor: AppColor.grey50,
           title: Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: loadAsset(
-              AppImage.cafeinLogo,
-              color: AppColor.grey500,
-              width: 100,
+            child: InkWell(
+              onTap: (){
+                //TODO Inkwell 없애야함, 테스트용
+                Navigator.of(context).pushNamed(ReportPage.routeName);
+              },
+              child: loadAsset(
+                AppImage.cafeinLogo,
+                color: AppColor.grey500,
+                width: 100,
+              ),
             ),
           ),
           centerTitle: false,
