@@ -178,7 +178,9 @@ class _$_DetailEvaluation implements _DetailEvaluation {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DetailEvaluationToJson(this);
+    return _$$_DetailEvaluationToJson(
+      this,
+    );
   }
 }
 
@@ -193,13 +195,13 @@ abstract class _DetailEvaluation implements DetailEvaluation {
       _$_DetailEvaluation.fromJson;
 
   @override
-  int get socket => throw _privateConstructorUsedError;
+  int get socket;
   @override
-  int get wifi => throw _privateConstructorUsedError;
+  int get wifi;
   @override
-  int get restroom => throw _privateConstructorUsedError;
+  int get restroom;
   @override
-  int get tableSize => throw _privateConstructorUsedError;
+  int get tableSize;
   @override
   @JsonKey(ignore: true)
   _$$_DetailEvaluationCopyWith<_$_DetailEvaluation> get copyWith =>

@@ -1,5 +1,7 @@
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
 class StoreDefaultInformationCard extends StatelessWidget {
@@ -36,6 +38,11 @@ class StoreDefaultInformationCard extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
+              loadAsset(
+                AppIcon.clock,
+                color: AppColor.grey400,
+              ),
+              const SizedBox(width: 8),
               Text(
                 (storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
                 style: (storeDetail.businessInfo.isOpen ?? false)
@@ -55,38 +62,30 @@ class StoreDefaultInformationCard extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              Text(
-                (storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                style: (storeDetail.businessInfo.isOpen ?? false)
-                    ? AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.orange500,
-                      )
-                    : AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.grey500,
-                      ),
+              loadAsset(
+                AppIcon.call,
+                color: AppColor.grey400,
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: 8),
               Text(
-                '오후 11:30에 영업 종료',
+                '카페 전화번호',
+                style: AppStyle.body14Regular.copyWith(
+                  color: AppColor.blue,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 16),
           Row(
             children: [
-              Text(
-                (storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                style: (storeDetail.businessInfo.isOpen ?? false)
-                    ? AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.orange500,
-                      )
-                    : AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.grey500,
-                      ),
+              loadAsset(
+                AppIcon.world,
+                color: AppColor.grey400,
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: 8),
               Text(
-                '오후 11:30에 영업 종료',
+                '카페링크',
+                style: AppStyle.body14Regular,
               ),
             ],
           ),
@@ -99,48 +98,20 @@ class StoreDefaultInformationCard extends StatelessWidget {
             color: AppColor.grey50,
           ),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '잘못된 정보가 있다면 알려주세요',
-                    style: AppStyle.caption13Regular.copyWith(
-                      color: AppColor.grey600,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '마지막 수정일',
-                    style: AppStyle.caption11Regular.copyWith(
-                      color: AppColor.grey500,
-                    ),
-                  ),
-                ],
+              Text(
+                '잘못된 정보가 있다면 알려주세요',
+                style: AppStyle.caption13Regular.copyWith(
+                  color: AppColor.grey600,
+                ),
               ),
-              SizedBox(
-                height: 32,
-                width: 80,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: AppColor.grey800,
-                    padding: EdgeInsets.zero,
-                    backgroundColor: AppColor.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                      side: BorderSide(
-                        color: AppColor.grey400,
-                      ),
-                    ),
-                    textStyle: AppStyle.subTitle14Medium,
-                  ),
-                  child: const Text('정보 수정'),
+              const SizedBox(height: 8),
+              Text(
+                '마지막 수정일 ${ymdDotFormat(storeDetail.modDateTime)}',
+                style: AppStyle.caption11Regular.copyWith(
+                  color: AppColor.grey500,
                 ),
               ),
             ],

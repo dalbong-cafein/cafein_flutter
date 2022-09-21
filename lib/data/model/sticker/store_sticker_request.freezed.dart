@@ -129,7 +129,9 @@ class _$_StoreStickerRequest implements _StoreStickerRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StoreStickerRequestToJson(this);
+    return _$$_StoreStickerRequestToJson(
+      this,
+    );
   }
 }
 
@@ -141,7 +143,7 @@ abstract class _StoreStickerRequest implements StoreStickerRequest {
       _$_StoreStickerRequest.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
   @JsonKey(ignore: true)
   _$$_StoreStickerRequestCopyWith<_$_StoreStickerRequest> get copyWith =>

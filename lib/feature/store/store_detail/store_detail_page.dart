@@ -7,6 +7,7 @@ import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_li
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_study_information_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -106,11 +107,15 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: loadAsset(AppIcon.left),
+          ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(
-                Icons.share,
+              icon: loadAsset(
+                AppIcon.share,
                 color: AppColor.grey400,
               ),
             ),
@@ -126,14 +131,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           ),
                         ),
                     icon: state.isHeart
-                        ? const Icon(
-                            Icons.favorite,
-                            size: 32,
+                        ? loadAsset(
+                            AppIcon.heartFill,
                             color: AppColor.orange500,
                           )
-                        : const Icon(
-                            Icons.favorite_outline,
-                            size: 32,
+                        : loadAsset(
+                            AppIcon.heartLine,
                             color: AppColor.grey300,
                           ),
                   );
@@ -141,6 +144,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 return const SizedBox.shrink();
               },
             ),
+            const SizedBox(width: 8),
           ],
         ),
         body: BlocBuilder<StoreDetailBloc, StoreDetailState>(

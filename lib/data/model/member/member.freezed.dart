@@ -258,7 +258,9 @@ class _$_Member implements _Member {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MemberToJson(this);
+    return _$$_MemberToJson(
+      this,
+    );
   }
 }
 
@@ -275,22 +277,22 @@ abstract class _Member implements Member {
   factory _Member.fromJson(Map<String, dynamic> json) = _$_Member.fromJson;
 
   @override
-  int get memberId => throw _privateConstructorUsedError;
+  int get memberId;
   @override
-  String? get nickname => throw _privateConstructorUsedError;
+  String? get nickname;
   @override
   @JsonKey(name: 'imageDto')
-  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair;
   @override
   @JsonKey(name: 'phone')
-  String? get phoneNumber => throw _privateConstructorUsedError;
+  String? get phoneNumber;
   @override
-  String get email => throw _privateConstructorUsedError;
+  String get email;
   @override
   @JsonKey(name: 'birth')
-  String? get birthDay => throw _privateConstructorUsedError;
+  String? get birthDay;
   @override
-  String get joinDateTime => throw _privateConstructorUsedError;
+  String get joinDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_MemberCopyWith<_$_Member> get copyWith =>

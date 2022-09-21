@@ -148,7 +148,9 @@ class _$_AccountUniteRequest implements _AccountUniteRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AccountUniteRequestToJson(this);
+    return _$$_AccountUniteRequestToJson(
+      this,
+    );
   }
 }
 
@@ -161,9 +163,9 @@ abstract class _AccountUniteRequest implements AccountUniteRequest {
       _$_AccountUniteRequest.fromJson;
 
   @override
-  String get newOauthId => throw _privateConstructorUsedError;
+  String get newOauthId;
   @override
-  String get newAuthProvider => throw _privateConstructorUsedError;
+  String get newAuthProvider;
   @override
   @JsonKey(ignore: true)
   _$$_AccountUniteRequestCopyWith<_$_AccountUniteRequest> get copyWith =>

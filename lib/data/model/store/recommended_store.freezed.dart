@@ -183,7 +183,9 @@ class _$_RecommendedStore implements _RecommendedStore {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RecommendedStoreToJson(this);
+    return _$$_RecommendedStoreToJson(
+      this,
+    );
   }
 }
 
@@ -198,12 +200,12 @@ abstract class _RecommendedStore implements RecommendedStore {
       _$_RecommendedStore.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
   @JsonKey(name: 'address')
-  AddressInfo get addressInfo => throw _privateConstructorUsedError;
+  AddressInfo get addressInfo;
   @override
   @JsonKey(ignore: true)
   _$$_RecommendedStoreCopyWith<_$_RecommendedStore> get copyWith =>

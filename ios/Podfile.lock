@@ -11,7 +11,7 @@ PODS:
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
-  - kakao_flutter_sdk_common (1.2.1):
+  - kakao_flutter_sdk_common (1.2.2):
     - Flutter
   - naver_map_plugin (0.9.4):
     - Flutter
@@ -96,7 +96,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
-  kakao_flutter_sdk_common: 3113c6a6747b2a88b484a1de798debfb01e5c5c1
+  kakao_flutter_sdk_common: 2fcd2c17ef69300497b9369f390766dd9af0514c
   naver_map_plugin: d1d67733c56b20b88270d9da51218e18fa916232
   NMapsMap: f151761c088d6516064c59da03ab6503769486e6
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e

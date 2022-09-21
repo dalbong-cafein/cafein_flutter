@@ -147,7 +147,9 @@ class _$_MoreViewCountResponse implements _MoreViewCountResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MoreViewCountResponseToJson(this);
+    return _$$_MoreViewCountResponseToJson(
+      this,
+    );
   }
 }
 
@@ -160,9 +162,9 @@ abstract class _MoreViewCountResponse implements MoreViewCountResponse {
       _$_MoreViewCountResponse.fromJson;
 
   @override
-  int get storeCnt => throw _privateConstructorUsedError;
+  int get storeCnt;
   @override
-  int get reviewCnt => throw _privateConstructorUsedError;
+  int get reviewCnt;
   @override
   @JsonKey(ignore: true)
   _$$_MoreViewCountResponseCopyWith<_$_MoreViewCountResponse> get copyWith =>

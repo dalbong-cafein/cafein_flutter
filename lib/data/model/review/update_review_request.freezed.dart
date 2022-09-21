@@ -298,23 +298,23 @@ abstract class _UpdateReviewRequest implements UpdateReviewRequest {
       final List<int>? deleteImageIds}) = _$_UpdateReviewRequest;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
-  String get recommendation => throw _privateConstructorUsedError;
+  String get recommendation;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
-  String get socket => throw _privateConstructorUsedError;
+  String get socket;
   @override
-  String get wifi => throw _privateConstructorUsedError;
+  String get wifi;
   @override
-  String get restroom => throw _privateConstructorUsedError;
+  String get restroom;
   @override
-  String get tableSize => throw _privateConstructorUsedError;
+  String get tableSize;
   @override
-  List<String>? get updateImageFiles => throw _privateConstructorUsedError;
+  List<String>? get updateImageFiles;
   @override
-  List<int>? get deleteImageIds => throw _privateConstructorUsedError;
+  List<int>? get deleteImageIds;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateReviewRequestCopyWith<_$_UpdateReviewRequest> get copyWith =>

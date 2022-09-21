@@ -144,7 +144,9 @@ class _$_CouponRequest implements _CouponRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CouponRequestToJson(this);
+    return _$$_CouponRequestToJson(
+      this,
+    );
   }
 }
 
@@ -157,9 +159,9 @@ abstract class _CouponRequest implements CouponRequest {
       _$_CouponRequest.fromJson;
 
   @override
-  String get brandName => throw _privateConstructorUsedError;
+  String get brandName;
   @override
-  String get itemName => throw _privateConstructorUsedError;
+  String get itemName;
   @override
   @JsonKey(ignore: true)
   _$$_CouponRequestCopyWith<_$_CouponRequest> get copyWith =>

@@ -160,7 +160,9 @@ class _$_StoreImagePair implements _StoreImagePair {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StoreImagePairToJson(this);
+    return _$$_StoreImagePairToJson(
+      this,
+    );
   }
 }
 
@@ -174,11 +176,11 @@ abstract class _StoreImagePair implements ImageIdPair {
       _$_StoreImagePair.fromJson;
 
   @override
-  int get imageId => throw _privateConstructorUsedError;
+  int get imageId;
   @override
-  bool get isGoogle => throw _privateConstructorUsedError;
+  bool get isGoogle;
   @override
-  String get imageUrl => throw _privateConstructorUsedError;
+  String get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$_StoreImagePairCopyWith<_$_StoreImagePair> get copyWith =>

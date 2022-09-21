@@ -132,7 +132,9 @@ class _$_PhoneNumberRequest implements _PhoneNumberRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PhoneNumberRequestToJson(this);
+    return _$$_PhoneNumberRequestToJson(
+      this,
+    );
   }
 }
 
@@ -146,7 +148,7 @@ abstract class _PhoneNumberRequest implements PhoneNumberRequest {
 
   @override
   @JsonKey(name: 'phone')
-  String get phoneNumber => throw _privateConstructorUsedError;
+  String get phoneNumber;
   @override
   @JsonKey(ignore: true)
   _$$_PhoneNumberRequestCopyWith<_$_PhoneNumberRequest> get copyWith =>

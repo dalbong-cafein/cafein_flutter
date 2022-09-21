@@ -337,7 +337,9 @@ class _$_Store implements _Store {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StoreToJson(this);
+    return _$$_StoreToJson(
+      this,
+    );
   }
 }
 
@@ -360,29 +362,29 @@ abstract class _Store implements Store {
   factory _Store.fromJson(Map<String, dynamic> json) = _$_Store.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
-  double? get recommendPercent => throw _privateConstructorUsedError;
+  double? get recommendPercent;
   @override
-  double get lngX => throw _privateConstructorUsedError;
+  double get lngX;
   @override
-  double get latY => throw _privateConstructorUsedError;
+  double get latY;
   @override
-  int get heartCnt => throw _privateConstructorUsedError;
+  int get heartCnt;
   @override
-  bool get isHeart => throw _privateConstructorUsedError;
+  bool get isHeart;
   @override
-  double? get congestionScoreAvg => throw _privateConstructorUsedError;
+  double? get congestionScoreAvg;
   @override
-  double? get distance => throw _privateConstructorUsedError;
+  double? get distance;
   @override
   @JsonKey(name: 'storeImageDtoList')
-  List<ImageIdPair>? get imageIdPair => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPair;
   @override
   @JsonKey(name: 'businessHoursInfoDto')
-  BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
+  BusinessInfo? get businessInfo;
   @override
   @JsonKey(ignore: true)
   _$$_StoreCopyWith<_$_Store> get copyWith =>

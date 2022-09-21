@@ -342,7 +342,9 @@ class _$_UserReview implements _UserReview {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserReviewToJson(this);
+    return _$$_UserReviewToJson(
+      this,
+    );
   }
 }
 
@@ -366,30 +368,28 @@ abstract class _UserReview implements UserReview {
       _$_UserReview.fromJson;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
-  int get visitCnt => throw _privateConstructorUsedError;
+  int get visitCnt;
   @override
-  String get recommendation => throw _privateConstructorUsedError;
+  String get recommendation;
   @override
-  DetailEvaluation get detailEvaluation => throw _privateConstructorUsedError;
+  DetailEvaluation get detailEvaluation;
   @override
   @JsonKey(name: 'reviewImageDtoList')
-  List<ImageIdPair>? get reviewImageIdPairs =>
-      throw _privateConstructorUsedError;
+  List<ImageIdPair>? get reviewImageIdPairs;
   @override
   @JsonKey(name: 'storeImage')
-  List<ImageIdPair>? get storeImageIdPairs =>
-      throw _privateConstructorUsedError;
+  List<ImageIdPair>? get storeImageIdPairs;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_UserReviewCopyWith<_$_UserReview> get copyWith =>

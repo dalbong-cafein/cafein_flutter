@@ -297,7 +297,9 @@ class _$_ReviewDetailScore implements _ReviewDetailScore {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReviewDetailScoreToJson(this);
+    return _$$_ReviewDetailScoreToJson(
+      this,
+    );
   }
 }
 
@@ -318,25 +320,25 @@ abstract class _ReviewDetailScore implements ReviewDetailScore {
       _$_ReviewDetailScore.fromJson;
 
   @override
-  int get reviewCnt => throw _privateConstructorUsedError;
+  int get reviewCnt;
   @override
-  double get recommendPercent => throw _privateConstructorUsedError;
+  double get recommendPercent;
   @override
-  String get socket => throw _privateConstructorUsedError;
+  String get socket;
   @override
-  int get socketCnt => throw _privateConstructorUsedError;
+  int get socketCnt;
   @override
-  String get wifi => throw _privateConstructorUsedError;
+  String get wifi;
   @override
-  int get wifiCnt => throw _privateConstructorUsedError;
+  int get wifiCnt;
   @override
-  String get restroom => throw _privateConstructorUsedError;
+  String get restroom;
   @override
-  int get restroomCnt => throw _privateConstructorUsedError;
+  int get restroomCnt;
   @override
-  String get tableSize => throw _privateConstructorUsedError;
+  String get tableSize;
   @override
-  int get tableCnt => throw _privateConstructorUsedError;
+  int get tableCnt;
   @override
   @JsonKey(ignore: true)
   _$$_ReviewDetailScoreCopyWith<_$_ReviewDetailScore> get copyWith =>

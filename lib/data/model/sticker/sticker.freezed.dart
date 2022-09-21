@@ -187,7 +187,9 @@ class _$_Sticker implements _Sticker {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StickerToJson(this);
+    return _$$_StickerToJson(
+      this,
+    );
   }
 }
 
@@ -203,15 +205,15 @@ abstract class _Sticker implements Sticker {
   factory _Sticker.fromJson(Map<String, dynamic> json) = _$_Sticker.fromJson;
 
   @override
-  String get stickerType => throw _privateConstructorUsedError;
+  String get stickerType;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(name: 'expDateTime')
-  String get expiredDateTime => throw _privateConstructorUsedError;
+  String get expiredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_StickerCopyWith<_$_Sticker> get copyWith =>

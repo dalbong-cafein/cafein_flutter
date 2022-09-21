@@ -26,13 +26,17 @@ class StoreStudyInformationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   '카공 정보',
                   style: AppStyle.subTitle17SemiBold,
                 ),
-                const SizedBox(width: 8),
+                const Spacer(),
+                loadAsset(
+                  AppIcon.personS,
+                  color: AppColor.grey400,
+                ),
+                const SizedBox(width: 4),
                 Text(
                   '${reviewDetailScore.reviewCnt}명 참여',
                   style: AppStyle.caption13Regular.copyWith(
@@ -50,26 +54,36 @@ class StoreStudyInformationCard extends StatelessWidget {
                   Radius.circular(16),
                 ),
               ),
-              child: Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: '리뷰어 중 ',
-                    style: AppStyle.subTitle14Medium.copyWith(
-                      color: AppColor.grey800,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: '${reviewDetailScore.recommendPercent}%',
-                        style: AppStyle.subTitle15SemiBold.copyWith(
-                          color: AppColor.orange500,
-                        ),
-                      ),
-                      const TextSpan(
-                        text: '가 카공 카페로 추천했어요.',
-                      ),
-                    ],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  loadAsset(
+                    AppIcon.person,
+                    color: AppColor.orange500,
                   ),
-                ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: '리뷰어 중 ',
+                      style: AppStyle.subTitle14Medium.copyWith(
+                        color: AppColor.grey800,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '${reviewDetailScore.recommendPercent}%',
+                          style: AppStyle.subTitle15SemiBold.copyWith(
+                            color: AppColor.orange500,
+                          ),
+                        ),
+                        const TextSpan(
+                          text: '가 카공 카페로 추천했어요.',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
@@ -77,24 +91,28 @@ class StoreStudyInformationCard extends StatelessWidget {
               reviewCategory: ReviewCategory.socket,
               reviewScore: reviewDetailScore.socket,
               categoryReviewCount: reviewDetailScore.socketCnt,
+              icon: AppIcon.socket,
             ),
             const SizedBox(height: 16),
             _ReviewDetailRow(
               reviewCategory: ReviewCategory.restroom,
               reviewScore: reviewDetailScore.restroom,
               categoryReviewCount: reviewDetailScore.reviewCnt,
+              icon: AppIcon.restroom,
             ),
             const SizedBox(height: 16),
             _ReviewDetailRow(
               reviewCategory: ReviewCategory.table,
               reviewScore: reviewDetailScore.tableSize,
               categoryReviewCount: reviewDetailScore.tableCnt,
+              icon: AppIcon.table,
             ),
             const SizedBox(height: 16),
             _ReviewDetailRow(
               reviewCategory: ReviewCategory.wifi,
               reviewScore: reviewDetailScore.wifi,
               categoryReviewCount: reviewDetailScore.wifiCnt,
+              icon: AppIcon.wifi,
             ),
             const SizedBox(height: 12),
             Container(
@@ -128,11 +146,13 @@ class _ReviewDetailRow extends StatelessWidget {
     required this.reviewCategory,
     required this.reviewScore,
     required this.categoryReviewCount,
+    required this.icon,
   });
 
   final ReviewCategory reviewCategory;
   final String reviewScore;
   final int categoryReviewCount;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -144,9 +164,7 @@ class _ReviewDetailRow extends StatelessWidget {
           CircleAvatar(
             backgroundColor: AppColor.grey50,
             radius: 20,
-            child: loadAsset(
-              AppIcon.kakaoCircle,
-            ),
+            child: loadAsset(icon),
           ),
           const SizedBox(width: 16),
           Column(

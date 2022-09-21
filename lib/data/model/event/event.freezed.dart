@@ -176,7 +176,9 @@ class _$_Event implements _Event {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EventToJson(this);
+    return _$$_EventToJson(
+      this,
+    );
   }
 }
 
@@ -190,12 +192,12 @@ abstract class _Event implements Event {
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
   @override
-  int get eventId => throw _privateConstructorUsedError;
+  int get eventId;
   @override
-  int get boardId => throw _privateConstructorUsedError;
+  int get boardId;
   @override
   @JsonKey(name: 'eventImageDto')
-  ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair get imageIdPair;
   @override
   @JsonKey(ignore: true)
   _$$_EventCopyWith<_$_Event> get copyWith =>

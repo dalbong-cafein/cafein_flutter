@@ -412,33 +412,33 @@ abstract class _RegisteredStoreRequest implements RegisteredStoreRequest {
       required final String tableSize}) = _$_RegisteredStoreRequest;
 
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
-  AddressInfo get addressInfo => throw _privateConstructorUsedError;
+  AddressInfo get addressInfo;
   @override
-  String get phoneNumber => throw _privateConstructorUsedError;
+  String get phoneNumber;
   @override
-  String get wifiPassword => throw _privateConstructorUsedError;
+  String get wifiPassword;
   @override
-  String get webSite => throw _privateConstructorUsedError;
+  String get webSite;
   @override
-  double get lngX => throw _privateConstructorUsedError;
+  double get lngX;
   @override
-  double get latY => throw _privateConstructorUsedError;
+  double get latY;
   @override
-  List<String>? get imageFiles => throw _privateConstructorUsedError;
+  List<String>? get imageFiles;
   @override
-  TotalBusinessInfo get totalBusinessInfo => throw _privateConstructorUsedError;
+  TotalBusinessInfo get totalBusinessInfo;
   @override
-  String get recommendation => throw _privateConstructorUsedError;
+  String get recommendation;
   @override
-  String get socket => throw _privateConstructorUsedError;
+  String get socket;
   @override
-  String get wifi => throw _privateConstructorUsedError;
+  String get wifi;
   @override
-  String get restroom => throw _privateConstructorUsedError;
+  String get restroom;
   @override
-  String get tableSize => throw _privateConstructorUsedError;
+  String get tableSize;
   @override
   @JsonKey(ignore: true)
   _$$_RegisteredStoreRequestCopyWith<_$_RegisteredStoreRequest> get copyWith =>

@@ -17,7 +17,7 @@ _$_SocialLoginRequest _$$_SocialLoginRequestFromJson(
 Map<String, dynamic> _$$_SocialLoginRequestToJson(
         _$_SocialLoginRequest instance) =>
     <String, dynamic>{
-      'authProvider': _$AuthProviderEnumMap[instance.authProvider],
+      'authProvider': _$AuthProviderEnumMap[instance.authProvider]!,
       'authToken': instance.authToken,
       'username': instance.username,
     };

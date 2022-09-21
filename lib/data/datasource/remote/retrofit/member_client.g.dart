@@ -6,10 +6,13 @@ part of 'member_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _MemberClient implements MemberClient {
-  _MemberClient(this._dio, {this.baseUrl}) {
+  _MemberClient(
+    this._dio, {
+    this.baseUrl,
+  }) {
     baseUrl ??= 'https://api.cafeinofficial.com';
   }
 
@@ -19,18 +22,27 @@ class _MemberClient implements MemberClient {
 
   @override
   Future<BaseResponse<dynamic>> updatePhoneNumber(
-      memberId, phoneNumberRequest) async {
+    memberId,
+    phoneNumberRequest,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(phoneNumberRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(
-            Options(method: 'PATCH', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/members/${memberId}/phone',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'PATCH',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/members/${memberId}/phone',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -45,11 +57,18 @@ class _MemberClient implements MemberClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<Member>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/members/info',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<BaseResponse<Member>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/members/info',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<Member>.fromJson(
       _result.data!,
       (json) => Member.fromJson(json as Map<String, dynamic>),
@@ -64,11 +83,18 @@ class _MemberClient implements MemberClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<MoreViewCountResponse>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/members/storesAndReviews/count',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<BaseResponse<MoreViewCountResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/members/storesAndReviews/count',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<MoreViewCountResponse>.fromJson(
       _result.data!,
       (json) => MoreViewCountResponse.fromJson(json as Map<String, dynamic>),

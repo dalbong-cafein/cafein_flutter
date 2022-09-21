@@ -274,7 +274,9 @@ class _$_UpdateStoreRequest implements _UpdateStoreRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UpdateStoreRequestToJson(this);
+    return _$$_UpdateStoreRequestToJson(
+      this,
+    );
   }
 }
 
@@ -293,19 +295,19 @@ abstract class _UpdateStoreRequest implements UpdateStoreRequest {
       _$_UpdateStoreRequest.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get phoneNumber => throw _privateConstructorUsedError;
+  String get phoneNumber;
   @override
-  String get wifiPassword => throw _privateConstructorUsedError;
+  String get wifiPassword;
   @override
-  String get webSite => throw _privateConstructorUsedError;
+  String get webSite;
   @override
-  List<String>? get updateImageFiles => throw _privateConstructorUsedError;
+  List<String>? get updateImageFiles;
   @override
-  List<int>? get deleteImageIds => throw _privateConstructorUsedError;
+  List<int>? get deleteImageIds;
   @override
-  TotalBusinessInfo get totalBusinessInfo => throw _privateConstructorUsedError;
+  TotalBusinessInfo get totalBusinessInfo;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateStoreRequestCopyWith<_$_UpdateStoreRequest> get copyWith =>

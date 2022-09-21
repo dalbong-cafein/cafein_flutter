@@ -161,7 +161,9 @@ class _$_CongestionResponse implements _CongestionResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CongestionResponseToJson(this);
+    return _$$_CongestionResponseToJson(
+      this,
+    );
   }
 }
 
@@ -176,10 +178,10 @@ abstract class _CongestionResponse implements CongestionResponse {
       _$_CongestionResponse.fromJson;
 
   @override
-  int get congestionCnt => throw _privateConstructorUsedError;
+  int get congestionCnt;
   @override
   @JsonKey(name: 'resDtoList')
-  List<Congestion> get congestionList => throw _privateConstructorUsedError;
+  List<Congestion> get congestionList;
   @override
   @JsonKey(ignore: true)
   _$$_CongestionResponseCopyWith<_$_CongestionResponse> get copyWith =>

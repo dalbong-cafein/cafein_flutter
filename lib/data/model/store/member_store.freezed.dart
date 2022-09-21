@@ -275,7 +275,9 @@ class _$_MemberStore implements _MemberStore {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MemberStoreToJson(this);
+    return _$$_MemberStoreToJson(
+      this,
+    );
   }
 }
 
@@ -295,21 +297,21 @@ abstract class _MemberStore implements MemberStore {
       _$_MemberStore.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
-  double get lngX => throw _privateConstructorUsedError;
+  double get lngX;
   @override
-  double get latY => throw _privateConstructorUsedError;
+  double get latY;
   @override
-  double? get congestionScoreAvg => throw _privateConstructorUsedError;
+  double? get congestionScoreAvg;
   @override
   @JsonKey(name: 'businessHoursInfoDto')
-  BusinessInfo? get businessInfo => throw _privateConstructorUsedError;
+  BusinessInfo? get businessInfo;
   @override
   @JsonKey(name: 'storeImageDto')
-  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair;
   @override
   @JsonKey(ignore: true)
   _$$_MemberStoreCopyWith<_$_MemberStore> get copyWith =>

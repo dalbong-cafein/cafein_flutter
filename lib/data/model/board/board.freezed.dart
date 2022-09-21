@@ -211,7 +211,9 @@ class _$_Board implements _Board {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BoardToJson(this);
+    return _$$_BoardToJson(
+      this,
+    );
   }
 }
 
@@ -228,17 +230,17 @@ abstract class _Board implements Board {
   factory _Board.fromJson(Map<String, dynamic> json) = _$_Board.fromJson;
 
   @override
-  int get boardId => throw _privateConstructorUsedError;
+  int get boardId;
   @override
-  String get title => throw _privateConstructorUsedError;
+  String get title;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
   @JsonKey(name: 'boardImageDtoList')
-  List<ImageIdPair>? get imageIdPairs => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPairs;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_BoardCopyWith<_$_Board> get copyWith =>

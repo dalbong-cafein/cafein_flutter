@@ -162,7 +162,9 @@ class _$_SocialLoginRequest implements _SocialLoginRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SocialLoginRequestToJson(this);
+    return _$$_SocialLoginRequestToJson(
+      this,
+    );
   }
 }
 
@@ -176,11 +178,11 @@ abstract class _SocialLoginRequest implements SocialLoginRequest {
       _$_SocialLoginRequest.fromJson;
 
   @override
-  AuthProvider get authProvider => throw _privateConstructorUsedError;
+  AuthProvider get authProvider;
   @override
-  String get authToken => throw _privateConstructorUsedError;
+  String get authToken;
   @override
-  String? get username => throw _privateConstructorUsedError;
+  String? get username;
   @override
   @JsonKey(ignore: true)
   _$$_SocialLoginRequestCopyWith<_$_SocialLoginRequest> get copyWith =>
