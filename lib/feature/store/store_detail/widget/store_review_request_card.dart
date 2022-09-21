@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +8,21 @@ class StoreReviewRequestCard extends StatelessWidget {
     super.key,
     required this.reviewCount,
     required this.storeName,
+    required this.storeId,
   });
 
   final int reviewCount;
   final String storeName;
+  final int storeId;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //TODO: 리뷰 작성 페이지 이동
+        Navigator.of(context).pushNamed(
+          CreatedReviewPage.routeName,
+          arguments: storeId,
+        );
       },
       child: SizedBox(
         height: 240,

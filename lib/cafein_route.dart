@@ -211,8 +211,9 @@ abstract class CafeinRoute {
         page = const ApplyCouponFinishedPage();
         break;
       case CreatedReviewPage.routeName:
+        final storeId = settings.arguments as int;
         page = BlocProvider(
-          create: (context) =>CreatedReviewBloc(),
+          create: (context) => CreatedReviewBloc(),
           child: const CreatedReviewPage(),
         );
         break;
@@ -231,7 +232,7 @@ abstract class CafeinRoute {
           child: StoreDetailPage(storeId: storeId),
         );
         break;
-      case ReportPage.routeName :
+      case ReportPage.routeName:
         page = const ReportPage();
         break;
     }
