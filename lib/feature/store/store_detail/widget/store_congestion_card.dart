@@ -1,14 +1,28 @@
-import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
+import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StoreCongestionCard extends StatelessWidget {
+class StoreCongestionCard extends StatefulWidget {
   const StoreCongestionCard({
     super.key,
-    required this.congestionResponse,
   });
 
-  final CongestionResponse congestionResponse;
+  @override
+  State<StoreCongestionCard> createState() => _StoreCongestionCardState();
+}
+
+class _StoreCongestionCardState extends State<StoreCongestionCard> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => context.read<StoreDetailBloc>().add(
+            const StoreDetailCongestionRequested(),
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +34,7 @@ class StoreCongestionCard extends StatelessWidget {
           vertical: 20,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               '혼잡도',
@@ -33,7 +48,29 @@ class StoreCongestionCard extends StatelessWidget {
                   height: 36,
                   width: 88,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final result = await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => SizedBox(
+                          height: 440,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
+                            ),
+                            child: Column(
+                              children: List.generate(
+                                7,
+                                (index) => SizedBox(
+                                  height: 56,
+                                  child: Text('$index'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: AppColor.grey800,
                       backgroundColor: AppColor.white,
@@ -47,7 +84,17 @@ class StoreCongestionCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: Text('월요일'),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '월요일',
+                          style: AppStyle.subTitle14Medium,
+                        ),
+                        const SizedBox(width: 4),
+                        loadAsset(AppIcon.downXS),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

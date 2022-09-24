@@ -37,6 +37,8 @@ _$_StoreDetail _$$_StoreDetailFromJson(Map<String, dynamic> json) =>
               json['totalBusinessHoursResDto'] as Map<String, dynamic>),
       regDateTime: json['regDateTime'] as String,
       modDateTime: json['modDateTime'] as String,
+      phone: json['phone'] as String?,
+      website: json['website'] as String?,
     );
 
 Map<String, dynamic> _$$_StoreDetailToJson(_$_StoreDetail instance) =>
@@ -58,4 +60,6 @@ Map<String, dynamic> _$$_StoreDetailToJson(_$_StoreDetail instance) =>
       'totalBusinessHoursResDto': instance.totalBusinessInfo,
       'regDateTime': instance.regDateTime,
       'modDateTime': instance.modDateTime,
+      'phone': instance.phone,
+      'website': instance.website,
     };

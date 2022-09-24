@@ -40,9 +40,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     super.initState();
     Future.microtask(
       () => context.read<StoreDetailBloc>().add(
-            StoreDetailRequested(
-              storeId: widget.storeId,
-            ),
+            const StoreDetailRequested(),
           ),
     );
   }
@@ -127,7 +125,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     onPressed: () => context.read<StoreDetailBloc>().add(
                           StoreDetailHeartRequested(
                             isHeart: !state.isHeart,
-                            storeId: widget.storeId,
                           ),
                         ),
                     icon: state.isHeart
@@ -238,7 +235,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   SliverToBoxAdapter(
                     child: StoreCongestionCard(
                       key: storeCongestionKey,
-                      congestionResponse: state.congestionResponse,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -291,9 +287,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  StoreListCard(
-                    storeList: state.storeList,
-                  ),
+                  const StoreListCard(),
                   const SliverToBoxAdapter(
                     child: SizedBox(height: 24),
                   ),

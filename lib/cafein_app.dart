@@ -33,7 +33,6 @@ import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class CafeinApp extends StatelessWidget {
   const CafeinApp({

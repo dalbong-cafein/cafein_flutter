@@ -228,6 +228,7 @@ abstract class CafeinRoute {
             reviewRepository: context.read<ReviewRepository>(),
             congestionRepository: context.read<CongestionRepository>(),
             heartRepository: context.read<HeartRepository>(),
+            storeId: storeId,
           ),
           child: StoreDetailPage(storeId: storeId),
         );

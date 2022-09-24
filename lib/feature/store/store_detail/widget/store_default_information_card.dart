@@ -68,7 +68,7 @@ class StoreDefaultInformationCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                '카페 전화번호',
+                storeDetail.phone ?? '',
                 style: AppStyle.body14Regular.copyWith(
                   color: AppColor.blue,
                 ),
@@ -84,7 +84,7 @@ class StoreDefaultInformationCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                '카페링크',
+                storeDetail.website ?? '',
                 style: AppStyle.body14Regular,
               ),
             ],

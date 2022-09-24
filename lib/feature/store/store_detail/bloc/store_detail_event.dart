@@ -8,29 +8,43 @@ abstract class StoreDetailEvent extends Equatable {
 }
 
 class StoreDetailRequested extends StoreDetailEvent {
-  const StoreDetailRequested({
-    required this.storeId,
-  });
-
-  final int storeId;
-
-  @override
-  List<Object?> get props => [storeId];
+  const StoreDetailRequested();
 }
 
 class StoreDetailHeartRequested extends StoreDetailEvent {
   const StoreDetailHeartRequested({
     required this.isHeart,
-    required this.storeId,
   });
 
   final bool isHeart;
-  final int storeId;
 
   @override
   List<Object?> get props => [
         isHeart,
-        storeId,
+      ];
+}
+
+class StoreDetailCongestionRequested extends StoreDetailEvent {
+  const StoreDetailCongestionRequested();
+}
+
+class StoreDetailNearStoreRequested extends StoreDetailEvent {
+  const StoreDetailNearStoreRequested();
+}
+
+class StoreDetailNearStoreHeartRequested extends StoreDetailEvent {
+  const StoreDetailNearStoreHeartRequested({
+    required this.isHeart,
+    required this.index,
+  });
+
+  final bool isHeart;
+  final int index;
+
+  @override
+  List<Object?> get props => [
+        index,
+        isHeart,
       ];
 }
 

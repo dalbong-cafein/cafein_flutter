@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
@@ -24,10 +23,14 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     required this.reviewRepository,
     required this.congestionRepository,
     required this.heartRepository,
+    required this.storeId,
   }) : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
     on<StoreDetailTabChanged>(_onStoreDetailTabChanged);
+    on<StoreDetailNearStoreRequested>(_onStoreDetailNearStoreRequested);
+    on<StoreDetailCongestionRequested>(_onStoreDetailCongestionRequested);
+    on<StoreDetailNearStoreHeartRequested>(_onStoreDetailNearStoreHeartRequested);
   }
 
   final StoreRepository storeRepository;
@@ -35,7 +38,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   final ReviewRepository reviewRepository;
   final HeartRepository heartRepository;
 
+  final int storeId;
+
   bool isHeart = false;
+
+  List<Store> nearStoreList = [];
 
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
@@ -45,29 +52,18 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
 
     try {
       final storeDetailResponse = storeRepository.getStoreDetail(
-        event.storeId,
-      );
-
-      final nearStoresResponse = storeRepository.getNearStoreList(
-        event.storeId,
+        storeId,
       );
 
       final reviewScoreResponse = reviewRepository.getStoreReviewScoreDetail(
-        event.storeId,
+        storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviews(event.storeId);
-
-      final congestionResponse = congestionRepository.getCongestions(
-        storeId: event.storeId,
-        minusDays: 1,
-      );
+      final reviewResponse = reviewRepository.getStoreReviews(storeId);
 
       final responseList = await Future.wait<BaseResponse<dynamic>>([
         storeDetailResponse,
-        nearStoresResponse,
         reviewScoreResponse,
-        congestionResponse,
         reviewResponse,
       ]);
 
@@ -87,10 +83,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       emit(
         StoreDetailLoaded(
           storeDetail: responseList[0].data,
-          storeList: responseList[1].data,
-          reviewDetailScore: responseList[2].data,
-          congestionResponse: responseList[3].data,
-          reviewResponse: responseList[4].data,
+          reviewDetailScore: responseList[1].data,
+          reviewResponse: responseList[2].data,
         ),
       );
 
@@ -101,7 +95,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         ),
       );
     } catch (e) {
-      log(e.toString());
       emit(
         StoreDetailError(
           error: e,
@@ -120,11 +113,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     try {
       if (event.isHeart) {
         await heartRepository.createHeart(
-          event.storeId,
+          storeId,
         );
       } else {
         await heartRepository.deleteHeart(
-          event.storeId,
+          storeId,
         );
       }
 
@@ -154,5 +147,98 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         index: event.index,
       ),
     );
+  }
+
+  FutureOr<void> _onStoreDetailNearStoreRequested(
+    StoreDetailNearStoreRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    emit(const StoreDetailLoading());
+    try {
+      final nearStoresResponse = await storeRepository.getNearStoreList(
+        storeId,
+      );
+
+      nearStoreList = nearStoresResponse.data;
+      emit(
+        StoreDetailNearStoreLoaded(
+          storeList: nearStoreList,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onStoreDetailCongestionRequested(
+    StoreDetailCongestionRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    emit(const StoreDetailLoading());
+
+    try {
+      final congestionResponse = await congestionRepository.getCongestions(
+        storeId: storeId,
+        minusDays: 1,
+      );
+
+      emit(
+        StoreDetailCongestionLoaded(
+          congestionResponse: congestionResponse.data,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onStoreDetailNearStoreHeartRequested(
+    StoreDetailNearStoreHeartRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    emit(const StoreDetailLoading());
+    try {
+      final nearStoreId = nearStoreList[event.index].storeId;
+
+      if (event.isHeart) {
+        await heartRepository.createHeart(
+          nearStoreId,
+        );
+      } else {
+        await heartRepository.deleteHeart(
+          nearStoreId,
+        );
+      }
+
+      final cur = nearStoreList;
+      cur[event.index] = cur[event.index].copyWith(
+        isHeart: event.isHeart,
+      );
+
+      nearStoreList = [...cur];
+
+      emit(
+        StoreDetailNearStoreLoaded(
+          storeList: nearStoreList,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
   }
 }

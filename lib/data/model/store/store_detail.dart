@@ -27,6 +27,8 @@ class StoreDetail with _$StoreDetail {
     @JsonKey(name: 'totalBusinessHoursResDto') TotalBusinessInfo? totalBusinessInfo,
     required String regDateTime,
     required String modDateTime,
+    String? phone,
+    String? website,
   }) = _StoreDetail;
 
   factory StoreDetail.fromJson(Map<String, dynamic> json) => _$StoreDetailFromJson(json);
