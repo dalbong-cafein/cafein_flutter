@@ -11,8 +11,8 @@ class ReportInitial extends ReportState {
 
 class ReportCategoryLoaded extends ReportState {
   final List<ReportCategory> categories;
-
-  const ReportCategoryLoaded({required this.categories});
+  final int clickedCategory;
+  const ReportCategoryLoaded({required this.categories, required this.clickedCategory});
 
   @override
   List<Object?> get props => [categories];
