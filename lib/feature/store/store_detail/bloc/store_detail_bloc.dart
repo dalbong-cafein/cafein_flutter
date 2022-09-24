@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -13,6 +14,7 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 part 'store_detail_event.dart';
 part 'store_detail_state.dart';
@@ -43,6 +45,10 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   bool isHeart = false;
 
   List<Store> nearStoreList = [];
+
+  final today = '${DateFormat.E('ko_KR').format(
+    DateTime.now(),
+  )}요일';
 
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
@@ -182,14 +188,23 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     emit(const StoreDetailLoading());
 
     try {
+      final requestDayIndex = CafeinConst.krDays.indexOf(event.day);
+      final currentDayIndex = CafeinConst.krDays.indexOf(today);
+
+      int minusDay = currentDayIndex - requestDayIndex;
+      if (currentDayIndex >= 0) {
+        minusDay += 7;
+      }
+
       final congestionResponse = await congestionRepository.getCongestions(
         storeId: storeId,
-        minusDays: 1,
+        minusDays: minusDay,
       );
 
       emit(
         StoreDetailCongestionLoaded(
           congestionResponse: congestionResponse.data,
+          day: event.day,
         ),
       );
     } catch (e) {

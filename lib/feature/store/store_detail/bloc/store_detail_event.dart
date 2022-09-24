@@ -25,7 +25,16 @@ class StoreDetailHeartRequested extends StoreDetailEvent {
 }
 
 class StoreDetailCongestionRequested extends StoreDetailEvent {
-  const StoreDetailCongestionRequested();
+  const StoreDetailCongestionRequested({
+    required this.day,
+  });
+
+  final String day;
+
+  @override
+  List<Object?> get props => [
+        day,
+      ];
 }
 
 class StoreDetailNearStoreRequested extends StoreDetailEvent {
