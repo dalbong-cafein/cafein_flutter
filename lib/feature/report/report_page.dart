@@ -38,7 +38,7 @@ class ReportPage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16
+                    vertical: 16
                   ),
                   child: Row(
                     children: [
@@ -51,10 +51,16 @@ class ReportPage extends StatelessWidget {
                       ),
                       SizedBox(
                         width: (width - 44) / 2,
-                        child: loadAsset(
-                          AppIcon.doneOff,
-                          height: 24,
-                          width: 24
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end
+                          ,children: [
+                            loadAsset(
+                              AppIcon.doneOff,
+                              fit: BoxFit.scaleDown,
+                              height: 24,
+                              width: 24
+                            ),
+                          ],
                         ),
                       ),
 
