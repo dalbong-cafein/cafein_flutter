@@ -13,4 +13,19 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     on<ReportEvent>((event, emit) {
     });
   }
+
+  FutureOr<void> _onReportCategoryRequested(
+      ReportCategoryRequested event,
+      Emitter<ReportState> emit,
+      ) async {
+    emit(const ReportLoading());
+    try {
+
+    } catch (e) {
+      emit(ReportError(
+        error: e,
+        event: () => add(event),
+      ));
+    }
+  }
 }
