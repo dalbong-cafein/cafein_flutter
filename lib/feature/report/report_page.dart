@@ -53,6 +53,7 @@ class ReportPage extends StatelessWidget {
                   ListView.builder(
                       itemCount: state.categories.length,
                       physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
@@ -73,7 +74,10 @@ class ReportPage extends StatelessWidget {
                                     width: (width - 44) / 2,
                                     child: Text(
                                         state.categories[index].categoryName,
-                                        style: AppStyle.subTitle15Medium)),
+                                        style: AppStyle.subTitle15Medium.copyWith(
+                                          color : index == state.clickedCategory ?
+                                          AppColor.orange500 : AppColor.grey800
+                                        ))),
                                 SizedBox(
                                   width: (width - 44) / 2,
                                   child: Row(
@@ -95,7 +99,25 @@ class ReportPage extends StatelessWidget {
                             ),
                           ),
                         );
-                      })
+                      }),
+                  state.clickedCategory == state.categories.length -1 ?TextField(
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(12),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: AppColor.grey400),
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: AppColor.grey400),
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      fillColor: AppColor.white,
+                      hintText: "신고 이유를 작성해주세요",
+                      hintStyle: AppStyle.body14Regular.copyWith(color: AppColor.grey400),
+                      filled: true,
+                    ),
+                  ) : const SizedBox.shrink(),
                 ],
               ),
             );
