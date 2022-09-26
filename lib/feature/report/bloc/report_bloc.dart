@@ -27,7 +27,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     try {
       final categoryResponse = await reviewRepository.getReportCategories();
       final categories = categoryResponse.data;
-      emit(ReportCategoryLoaded(categories: [...categories], clickedCategory: categories.length));
+      emit(ReportCategoryLoaded(categories: [...categories], clickedCategory: categories.length -1));
     } catch (e) {
       emit(ReportError(
         error: e,

@@ -15,6 +15,7 @@ class ReportPage extends StatelessWidget {
 
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset : true,
       appBar: AppBar(),
       body: BlocConsumer<ReportBloc, ReportState>(
         listener: (context, state) {
@@ -31,94 +32,97 @@ class ReportPage extends StatelessWidget {
           if (state is ReportCategoryLoaded) {
             return Padding(
               padding: const EdgeInsets.only(top: 24, left: 24, right: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "신고하는 이유를 알려주세요",
-                    style:
-                        AppStyle.title21Bold.copyWith(color: AppColor.grey900),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    "신고 이유가 타당하지 않으면 반영되지 않을 수\n있습니다.",
-                    style: AppStyle.body14Regular
-                        .copyWith(color: AppColor.grey600),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  ListView.builder(
-                      itemCount: state.categories.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            if(state.clickedCategory == index){
-                              context.read<ReportBloc>().add(
-                                  ReportCategoryClicked(clickedIndex: state.categories.length));
-                            }else{
-                              context.read<ReportBloc>().add(
-                                  ReportCategoryClicked(clickedIndex: index));
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                    width: (width - 44) / 2,
-                                    child: Text(
-                                        state.categories[index].categoryName,
-                                        style: AppStyle.subTitle15Medium.copyWith(
-                                          color : index == state.clickedCategory ?
-                                          AppColor.orange500 : AppColor.grey800
-                                        ))),
-                                SizedBox(
-                                  width: (width - 44) / 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      index == state.clickedCategory
-                                          ? loadAsset(AppIcon.doneOn,
-                                              fit: BoxFit.scaleDown,
-                                              height: 24,
-                                              width: 24)
-                                          : loadAsset(AppIcon.doneOff,
-                                              fit: BoxFit.scaleDown,
-                                              height: 24,
-                                              width: 24),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                  state.clickedCategory == state.categories.length -1 ?TextField(
-                    maxLines: 5,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(12),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 1, color: AppColor.grey400),
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(width: 1, color: AppColor.grey400),
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      fillColor: AppColor.white,
-                      hintText: "신고 이유를 작성해주세요",
-                      hintStyle: AppStyle.body14Regular.copyWith(color: AppColor.grey400),
-                      filled: true,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "신고하는 이유를 알려주세요",
+                      style:
+                          AppStyle.title21Bold.copyWith(color: AppColor.grey900),
                     ),
-                  ) : const SizedBox.shrink(),
-                ],
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      "신고 이유가 타당하지 않으면 반영되지 않을 수\n있습니다.",
+                      style: AppStyle.body14Regular
+                          .copyWith(color: AppColor.grey600),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    ListView.builder(
+                        itemCount: state.categories.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              if(state.clickedCategory == index){
+                                context.read<ReportBloc>().add(
+                                    ReportCategoryClicked(clickedIndex: state.categories.length));
+                              }else{
+                                context.read<ReportBloc>().add(
+                                    ReportCategoryClicked(clickedIndex: index));
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                      width: (width - 44) * 0.8,
+                                      child: Text(
+                                          state.categories[index].categoryName,
+                                          style: AppStyle.subTitle15Medium.copyWith(
+                                            color : index == state.clickedCategory ?
+                                            AppColor.orange500 : AppColor.grey800
+                                          ))),
+                                  SizedBox(
+                                    width: (width - 44)  * 0.2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        index == state.clickedCategory
+                                            ? loadAsset(AppIcon.doneOn,
+                                                fit: BoxFit.scaleDown,
+                                                height: 24,
+                                                width: 24)
+                                            : loadAsset(AppIcon.doneOff,
+                                                fit: BoxFit.scaleDown,
+                                                height: 24,
+                                                width: 24),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                    state.clickedCategory == state.categories.length -1 ? TextField(
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(12),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: AppColor.grey400),
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: AppColor.grey400),
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        fillColor: AppColor.white,
+                        hintText: "신고 이유를 작성해주세요",
+                        hintStyle: AppStyle.body14Regular.copyWith(color: AppColor.grey400),
+                        filled: true,
+                      ),
+                    ) : const SizedBox.shrink(),
+
+                  ],
+                ),
               ),
             );
           } else {
