@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -7,13 +8,11 @@ class StoreReviewRequestCard extends StatelessWidget {
   const StoreReviewRequestCard({
     super.key,
     required this.reviewCount,
-    required this.storeName,
-    required this.storeId,
+    required this.storeDetail,
   });
 
   final int reviewCount;
-  final String storeName;
-  final int storeId;
+  final StoreDetail storeDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class StoreReviewRequestCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed(
           CreatedReviewPage.routeName,
-          arguments: storeId,
+          arguments: storeDetail,
         );
       },
       child: SizedBox(
@@ -54,7 +53,7 @@ class StoreReviewRequestCard extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                storeName,
+                storeDetail.storeName,
                 style: AppStyle.subTitle15Medium.copyWith(
                   color: AppColor.orange500,
                 ),

@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
@@ -211,10 +212,14 @@ abstract class CafeinRoute {
         page = const ApplyCouponFinishedPage();
         break;
       case CreatedReviewPage.routeName:
-        final storeId = settings.arguments as int;
+        final storeDetail = settings.arguments as StoreDetail;
         page = BlocProvider(
-          create: (context) => CreatedReviewBloc(),
-          child: const CreatedReviewPage(),
+          create: (context) => CreatedReviewBloc(
+            storeId: storeDetail.storeId,
+          ),
+          child: CreatedReviewPage(
+            storeDetail: storeDetail,
+          ),
         );
         break;
       case OnboardPage.routeName:

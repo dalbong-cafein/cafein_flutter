@@ -259,8 +259,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     child: StoreReviewRequestCard(
                       key: storeReviewKey,
                       reviewCount: state.reviewResponse.reviewCnt,
-                      storeName: state.storeDetail.storeName,
-                      storeId: state.storeDetail.storeId,
+                      storeDetail: state.storeDetail,
                     ),
                   ),
                   SliverToBoxAdapter(
