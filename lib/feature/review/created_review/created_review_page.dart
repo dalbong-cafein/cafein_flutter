@@ -1,13 +1,16 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_review_policy.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/photo_list_row.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/recommend_stars.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/score_character_button.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,6 +58,26 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
 
             return;
           }
+
+          final result = await Navigator.of(context).pushNamed(
+            GalleryPage.routeName,
+          );
+
+          if (result is! String) {
+            return;
+          }
+
+          bloc.add(
+            CreatedReviewPhotoRequested(
+              photoList: [result],
+            ),
+          );
+        } else if (state is CreatedReviewError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
         }
       },
       child: Scaffold(
@@ -194,6 +217,22 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                   ),
                   const SizedBox(height: 24),
                   const RecommendStars(),
+                  const SizedBox(height: 16),
+                  BlocBuilder<CreatedReviewBloc, CreatedReviewState>(
+                    buildWhen: (pre, next) => next is CreatedReviewPhotoSelected,
+                    builder: (context, state) {
+                      int itemCount = 1;
+                      List<String> photos = [];
+                      if (state is CreatedReviewPhotoSelected) {
+                        itemCount += state.photos.length;
+                        photos = [...state.photos];
+                      }
+                      return PhotoListRow(
+                        itemCount: itemCount,
+                        photos: photos,
+                      );
+                    },
+                  ),
                   const SizedBox(height: 32),
                   const CreatedReviewPolicy(),
                   const SizedBox(height: 8),

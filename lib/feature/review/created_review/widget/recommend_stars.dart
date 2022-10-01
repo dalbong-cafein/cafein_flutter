@@ -1,12 +1,9 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
-import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/util/review/get_review_string.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class RecommendStars extends StatelessWidget {
   const RecommendStars({Key? key}) : super(key: key);
@@ -94,62 +91,6 @@ class RecommendStars extends StatelessWidget {
                 color: AppColor.grey400,
               ),
               filled: true,
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        InkWell(
-          onTap: () => context.read<CreatedReviewBloc>().add(
-                const CreatedReviewPermissionRequested(
-                  permission: Permission.photos,
-                ),
-              ),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: 64,
-              height: 64,
-              margin: const EdgeInsets.only(left: 16),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: AppColor.grey300,
-                ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
-                child: Column(
-                  children: [
-                    loadAsset(
-                      AppIcon.cameraL,
-                      color: AppColor.grey400,
-                    ),
-                    const SizedBox(height: 2),
-                    Row(
-                      children: [
-                        Text(
-                          "0",
-                          style: AppStyle.subTitle14Medium.copyWith(
-                            color: AppColor.orange500,
-                          ),
-                        ),
-                        Text(
-                          "/5",
-                          style: AppStyle.subTitle14Medium.copyWith(
-                            color: AppColor.grey400,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
             ),
           ),
         ),

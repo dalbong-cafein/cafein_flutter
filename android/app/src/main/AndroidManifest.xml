@@ -5,6 +5,11 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
+        android:label="com.dalbong.cafein"
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
+    </application>
+    <application
         android:label="카페인"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

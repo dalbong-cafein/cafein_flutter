@@ -19,6 +19,8 @@ import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_blo
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
+import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
+import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
@@ -240,6 +242,12 @@ abstract class CafeinRoute {
         break;
       case ReportPage.routeName:
         page = const ReportPage();
+        break;
+      case GalleryPage.routeName:
+        page = BlocProvider(
+          create: (context) => GalleryBloc(),
+          child: const GalleryPage(),
+        );
         break;
     }
 

@@ -39,5 +39,23 @@ class CreatedReviewRequested extends CreatedReviewEvent {
 }
 
 class CreatedReviewPhotoRequested extends CreatedReviewEvent {
-  const CreatedReviewPhotoRequested();
+  const CreatedReviewPhotoRequested({
+    required this.photoList,
+  });
+
+  final List<String> photoList;
+
+  @override
+  List<Object?> get props => [photoList];
+}
+
+class CreatedReviewPhotoDeleteRequested extends CreatedReviewEvent {
+  const CreatedReviewPhotoDeleteRequested({
+    required this.photo,
+  });
+
+  final String photo;
+
+  @override
+  List<Object?> get props => [photo];
 }
