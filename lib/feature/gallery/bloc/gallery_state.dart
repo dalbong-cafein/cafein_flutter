@@ -18,13 +18,16 @@ class GalleryLoading extends GalleryState {
 class GalleryLoaded extends GalleryState {
   const GalleryLoaded({
     required this.recentAssets,
+    this.nextPage,
   });
 
   final List<AssetEntity> recentAssets;
+  final int? nextPage;
 
   @override
   List<Object?> get props => [
         recentAssets,
+        nextPage,
       ];
 }
 

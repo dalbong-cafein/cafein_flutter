@@ -45,6 +45,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
 
     emit(GalleryLoaded(
       recentAssets: [...assets],
+      nextPage: recentAssets.isNotEmpty ? 1 : null,
     ));
   }
 
