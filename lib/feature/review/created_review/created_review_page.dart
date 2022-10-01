@@ -63,13 +63,13 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
             GalleryPage.routeName,
           );
 
-          if (result is! String) {
+          if (result is! List<String>) {
             return;
           }
 
           bloc.add(
             CreatedReviewPhotoRequested(
-              photoList: [result],
+              photoList: [...result],
             ),
           );
         } else if (state is CreatedReviewError) {

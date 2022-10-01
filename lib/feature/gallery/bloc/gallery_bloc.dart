@@ -16,6 +16,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   List<AssetEntity> assets = [];
   List<AssetEntity> selectedAsset = [];
   int page = 0;
+  int currentCount = 0;
 
   FutureOr<void> _onGalleryPhotoRequested(
     GalleryPhotoRequested event,
@@ -50,5 +51,32 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   FutureOr<void> _onGalleryPhotoStateChanged(
     GalleryPhotoStateChanged event,
     Emitter<GalleryState> emit,
-  ) {}
+  ) {
+    if (!event.isChecked) {
+      currentCount -= 1;
+      selectedAsset.remove(assets[event.index]);
+    } else {
+      if (selectedAsset.length == 5) {
+        emit(GalleryPhotoChecked(
+          isLimited: true,
+          selectedCount: selectedAsset.length,
+          isChecked: event.isChecked,
+          currentCount: currentCount,
+          index: event.index,
+        ));
+
+        return null;
+      }
+
+      currentCount += 1;
+      selectedAsset.add(assets[event.index]);
+    }
+
+    emit(GalleryPhotoChecked(
+      selectedCount: selectedAsset.length,
+      isChecked: event.isChecked,
+      currentCount: currentCount,
+      index: event.index,
+    ));
+  }
 }

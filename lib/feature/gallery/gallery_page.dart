@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
+import 'package:cafein_flutter/feature/gallery/widget/gallery_limited_dialog.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -53,7 +54,9 @@ class _GalleryPageState extends State<GalleryPage> {
             error: state.error,
             refresh: state.event,
           );
-        } else if (state is GalleryPhotoChecked && state.isLimited) {}
+        } else if (state is GalleryPhotoChecked && state.isLimited) {
+          GalleryLimitedDialog.show(context);
+        }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -69,22 +72,45 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: const EdgeInsets.only(
                 top: 16,
               ),
-              child: Text(
-                '1',
-                style: AppStyle.subTitle14Medium.copyWith(
-                  color: AppColor.orange500,
-                ),
+              child: BlocBuilder<GalleryBloc, GalleryState>(
+                buildWhen: (pre, next) => next is GalleryPhotoChecked,
+                builder: (context, state) {
+                  if (state is GalleryPhotoChecked) {
+                    return Text(
+                      '${state.selectedCount}',
+                      style: AppStyle.subTitle14Medium.copyWith(
+                        color: AppColor.orange500,
+                      ),
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
               ),
             ),
             const SizedBox(width: 4),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 right: 16,
                 top: 16,
               ),
-              child: Text(
-                '완료',
-                style: AppStyle.subTitle14Medium,
+              child: InkWell(
+                onTap: () async {
+                  final navigator = Navigator.of(context);
+                  final assets = context.read<GalleryBloc>().selectedAsset;
+
+                  final imagePathList = <String>[];
+                  for (final asset in assets) {
+                    final file = await asset.originFile;
+                    imagePathList.add(file!.path);
+                  }
+
+                  navigator.pop(imagePathList);
+                },
+                child: const Text(
+                  '완료',
+                  style: AppStyle.subTitle14Medium,
+                ),
               ),
             ),
           ],
@@ -125,17 +151,33 @@ class _GalleryPageState extends State<GalleryPage> {
                       if (bytes == null) {
                         return const CustomCircleLoadingIndicator();
                       }
-                      return InkWell(
-                        onTap: () async {
-                          final navigator = Navigator.of(context);
-                          final imageFile = await state.recentAssets[index].originFile;
-                          navigator.pop(imageFile!.path);
+                      return BlocBuilder<GalleryBloc, GalleryState>(
+                        buildWhen: (pre, next) =>
+                            next is GalleryPhotoChecked && !next.isLimited && next.index == index,
+                        builder: (context, state) {
+                          bool check = false;
+                          int currentNumber = 0;
+                          if (state is GalleryPhotoChecked) {
+                            check = state.isChecked;
+                            currentNumber = state.currentCount;
+                          }
+                          return InkWell(
+                            onTap: () async {
+                              context.read<GalleryBloc>().add(
+                                    GalleryPhotoStateChanged(
+                                      index: index,
+                                      isChecked: !check,
+                                    ),
+                                  );
+                            },
+                            child: ImageThumbnail(
+                              imageData: bytes,
+                              check: check,
+                              index: index,
+                              currentNumber: currentNumber,
+                            ),
+                          );
                         },
-                        child: ImageThumbnail(
-                          imageData: bytes,
-                          check: false,
-                          index: index,
-                        ),
                       );
                     },
                   );
@@ -151,45 +193,70 @@ class _GalleryPageState extends State<GalleryPage> {
   }
 }
 
-class ImageThumbnail extends StatelessWidget {
+class ImageThumbnail extends StatefulWidget {
   const ImageThumbnail({
     Key? key,
     required this.imageData,
     required this.check,
     required this.index,
+    required this.currentNumber,
   }) : super(key: key);
 
   final Uint8List imageData;
   final bool check;
   final int index;
+  final int currentNumber;
 
   @override
+  State<ImageThumbnail> createState() => _ImageThumbnailState();
+}
+
+class _ImageThumbnailState extends State<ImageThumbnail> with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Stack(
       children: [
         Positioned.fill(
           child: Image.memory(
-            imageData,
+            widget.imageData,
             fit: BoxFit.cover,
             gaplessPlayback: true,
           ),
         ),
-        check
-            ? const Opacity(
-                opacity: 0.4,
-                child: SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
+        Positioned(
+          top: 4,
+          right: 4,
+          child: widget.check
+              ? CircleAvatar(
+                  radius: 10,
+                  backgroundColor: AppColor.orange500,
+                  foregroundColor: AppColor.white,
+                  child: Center(
+                    child: Text(
+                      '${widget.currentNumber}',
+                      style: AppStyle.caption13SemiBold,
+                    ),
+                  ),
+                )
+              : Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                    border: Border.all(
+                      color: AppColor.white,
+                    ),
+                    color: Colors.transparent,
+                  ),
                 ),
-              )
-            : const SizedBox.shrink(),
-        check
-            ? const Center(
-                child: Icon(
-                Icons.check,
-              ))
-            : const SizedBox.shrink(),
+        ),
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
