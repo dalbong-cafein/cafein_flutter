@@ -86,7 +86,18 @@ class MyStoresCard extends StatelessWidget {
                 color: Colors.white,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left : 16),
+                    child: Text(
+                      "나의 카페",
+                      style: AppStyle.subTitle17SemiBold,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: ListView.builder(
