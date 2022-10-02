@@ -26,6 +26,9 @@ class ReportPage extends StatelessWidget {
               refresh: state.event,
             );
           }
+          if(state is ReportLoaded){
+            Navigator.pop(context);
+          }
         },
         buildWhen: (pre, next) => next is ReportCategoryLoaded,
         builder: (context, state) {
