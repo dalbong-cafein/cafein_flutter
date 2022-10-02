@@ -60,6 +60,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     emit(const ReportLoading());
     try {
       await reviewRepository.createReportReview(event.clickedIndex);
+      emit(const ReportLoaded());
     } catch (e) {
       emit(ReportError(
         error: e,

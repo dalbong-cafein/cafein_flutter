@@ -15,7 +15,7 @@ class ReportPage extends StatelessWidget {
 
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      resizeToAvoidBottomInset : true,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(),
       body: BlocConsumer<ReportBloc, ReportState>(
         listener: (context, state) {
@@ -38,8 +38,8 @@ class ReportPage extends StatelessWidget {
                   children: [
                     Text(
                       "신고하는 이유를 알려주세요",
-                      style:
-                          AppStyle.title21Bold.copyWith(color: AppColor.grey900),
+                      style: AppStyle.title21Bold
+                          .copyWith(color: AppColor.grey900),
                     ),
                     const SizedBox(
                       height: 12,
@@ -60,10 +60,11 @@ class ReportPage extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
-                              if(state.clickedCategory == index){
+                              if (state.clickedCategory == index) {
                                 context.read<ReportBloc>().add(
-                                    ReportCategoryClicked(clickedIndex: state.categories.length));
-                              }else{
+                                    ReportCategoryClicked(
+                                        clickedIndex: state.categories.length));
+                              } else {
                                 context.read<ReportBloc>().add(
                                     ReportCategoryClicked(clickedIndex: index));
                               }
@@ -76,12 +77,14 @@ class ReportPage extends StatelessWidget {
                                       width: (width - 44) * 0.8,
                                       child: Text(
                                           state.categories[index].categoryName,
-                                          style: AppStyle.subTitle15Medium.copyWith(
-                                            color : index == state.clickedCategory ?
-                                            AppColor.orange500 : AppColor.grey800
-                                          ))),
+                                          style: AppStyle.subTitle15Medium
+                                              .copyWith(
+                                                  color: index ==
+                                                          state.clickedCategory
+                                                      ? AppColor.orange500
+                                                      : AppColor.grey800))),
                                   SizedBox(
-                                    width: (width - 44)  * 0.2,
+                                    width: (width - 44) * 0.2,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
@@ -102,25 +105,29 @@ class ReportPage extends StatelessWidget {
                             ),
                           );
                         }),
-                    state.clickedCategory == state.categories.length -1 ? TextField(
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(12),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1, color: AppColor.grey400),
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1, color: AppColor.grey400),
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-                        fillColor: AppColor.white,
-                        hintText: "신고 이유를 작성해주세요",
-                        hintStyle: AppStyle.body14Regular.copyWith(color: AppColor.grey400),
-                        filled: true,
-                      ),
-                    ) : const SizedBox.shrink(),
-
+                    state.clickedCategory == state.categories.length - 1
+                        ? TextField(
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(12),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColor.grey400),
+                                borderRadius: BorderRadius.circular(14.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColor.grey400),
+                                borderRadius: BorderRadius.circular(14.0),
+                              ),
+                              fillColor: AppColor.white,
+                              hintText: "신고 이유를 작성해주세요",
+                              hintStyle: AppStyle.body14Regular
+                                  .copyWith(color: AppColor.grey400),
+                              filled: true,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
                   ],
                 ),
               ),
@@ -133,7 +140,7 @@ class ReportPage extends StatelessWidget {
       bottomSheet: BlocBuilder<ReportBloc, ReportState>(
         buildWhen: (pre, next) => next is ReportCategoryLoaded,
         builder: (context, state) {
-          if(state is ReportCategoryLoaded){
+          if (state is ReportCategoryLoaded) {
             return SizedBox(
               height: 56,
               child: Row(
@@ -143,16 +150,20 @@ class ReportPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 9),
                     child: InkWell(
-                      onTap: (){
-                        if(state.clickedCategory == state.categories.length){
-
+                      onTap: () {
+                        if (state.clickedCategory != state.categories.length) {
+                          context.read<ReportBloc>().add(ReportRequested(
+                              clickedIndex: state.clickedCategory));
                         }
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-                          color: state.clickedCategory == state.categories.length ?
-                          AppColor.orange100 : AppColor.orange500,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(14.0)),
+                          color:
+                              state.clickedCategory == state.categories.length
+                                  ? AppColor.orange100
+                                  : AppColor.orange500,
                         ),
                         width: width - 32,
                         child: Padding(
@@ -171,10 +182,9 @@ class ReportPage extends StatelessWidget {
                 ],
               ),
             );
-          }else{
+          } else {
             return const SizedBox.shrink();
           }
-
         },
       ),
     );
