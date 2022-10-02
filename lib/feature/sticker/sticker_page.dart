@@ -61,26 +61,29 @@ class StickerPage extends StatelessWidget {
                     },
                   );
                 },
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColor.grey50,
-                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 12),
-                        loadAsset(
-                          CafeinConst.randomStickers[Random().nextInt(9)],
-                          width: 32,
-                        ),
-                        const SizedBox(width: 6),
-                        const Text(
-                          "스티커 받는 방법을 확인해 보세요",
-                          style: AppStyle.body14Regular,
-                        )
-                      ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColor.grey50,
+                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 12),
+                          loadAsset(
+                            CafeinConst.randomStickers[Random().nextInt(9)],
+                            width: 32,
+                          ),
+                          const SizedBox(width: 6),
+                          const Text(
+                            "스티커 받는 방법을 확인해 보세요",
+                            style: AppStyle.body14Regular,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
