@@ -142,20 +142,27 @@ class ReportPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 9),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(14.0)),
-                        color: state.clickedCategory == state.categories.length ?
-                        AppColor.orange100 : AppColor.orange500,
-                      ),
-                      width: width - 32,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: Center(
-                          child: Text(
-                            "신고하기",
-                            style: AppStyle.subTitle15Medium
-                                .copyWith(color: AppColor.white),
+                    child: InkWell(
+                      onTap: (){
+                        if(state.clickedCategory == state.categories.length){
+
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(14.0)),
+                          color: state.clickedCategory == state.categories.length ?
+                          AppColor.orange100 : AppColor.orange500,
+                        ),
+                        width: width - 32,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: Center(
+                            child: Text(
+                              "신고하기",
+                              style: AppStyle.subTitle15Medium
+                                  .copyWith(color: AppColor.white),
+                            ),
                           ),
                         ),
                       ),

@@ -14,6 +14,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   ReportBloc({required this.reviewRepository}) : super(ReportInitial()) {
     on<ReportCategoryRequested>(_onReportCategoryRequested);
     on<ReportCategoryClicked>(_onReportCategoryClicked);
+    on<ReportRequested>(_onReportRequested);
 
   }
 
@@ -44,6 +45,21 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       final categoryResponse = await reviewRepository.getReportCategories();
       final categories = categoryResponse.data;
       emit(ReportCategoryLoaded(categories: [...categories], clickedCategory: event.clickedIndex));
+    } catch (e) {
+      emit(ReportError(
+        error: e,
+        event: () => add(event),
+      ));
+    }
+  }
+
+  FutureOr<void> _onReportRequested(
+      ReportRequested event,
+      Emitter<ReportState> emit,
+      ) async {
+    emit(const ReportLoading());
+    try {
+      await reviewRepository.createReportReview(event.clickedIndex);
     } catch (e) {
       emit(ReportError(
         error: e,
