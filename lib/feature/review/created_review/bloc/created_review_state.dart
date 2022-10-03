@@ -11,6 +11,14 @@ class CreatedReviewInitial extends CreatedReviewState {
   const CreatedReviewInitial();
 }
 
+class CreatedReviewLoading extends CreatedReviewState {
+  const CreatedReviewLoading();
+}
+
+class CreatedReviewSucceed extends CreatedReviewState {
+  const CreatedReviewSucceed();
+}
+
 class CreatedReviewPermissionChecked extends CreatedReviewState {
   const CreatedReviewPermissionChecked({
     required this.permission,
@@ -30,13 +38,30 @@ class CreatedReviewPermissionChecked extends CreatedReviewState {
 
 class CreatedReviewScoreChecked extends CreatedReviewState {
   const CreatedReviewScoreChecked({
-    required this.recommendation,
+    this.recommendation,
+    required this.wifiScore,
+    required this.restroomScore,
+    required this.tableScore,
+    required this.socketScore,
+    required this.isValid,
   });
 
-  final ReviewRecommendation recommendation;
+  final ReviewRecommendation? recommendation;
+  final String wifiScore;
+  final String restroomScore;
+  final String tableScore;
+  final String socketScore;
+  final bool isValid;
 
   @override
-  List<Object?> get props => [recommendation];
+  List<Object?> get props => [
+        recommendation,
+        wifiScore,
+        restroomScore,
+        tableScore,
+        socketScore,
+        isValid,
+      ];
 }
 
 class CreatedReviewPhotoSelected extends CreatedReviewState {

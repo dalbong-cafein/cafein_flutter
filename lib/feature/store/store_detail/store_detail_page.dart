@@ -50,19 +50,23 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     final appBarHeight = AppBar().preferredSize.height;
 
     if (index == 0) {
-      final renderBox = storeDetailKey.currentContext!.findRenderObject() as RenderBox;
+      final renderBox =
+          storeDetailKey.currentContext!.findRenderObject() as RenderBox;
       final widgetOffset = renderBox.localToGlobal(Offset.zero);
       offset = widgetOffset.dy;
     } else if (index == 1) {
-      final renderBox = storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
+      final renderBox =
+          storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
       final widgetOffset = renderBox.localToGlobal(Offset.zero);
       offset = widgetOffset.dy;
     } else if (index == 2) {
-      final renderBox = storeStudyKey.currentContext!.findRenderObject() as RenderBox;
+      final renderBox =
+          storeStudyKey.currentContext!.findRenderObject() as RenderBox;
       final widgetOffset = renderBox.localToGlobal(Offset.zero);
       offset = widgetOffset.dy;
     } else if (index == 3) {
-      final renderBox = storeReviewKey.currentContext!.findRenderObject() as RenderBox;
+      final renderBox =
+          storeReviewKey.currentContext!.findRenderObject() as RenderBox;
       final widgetOffset = renderBox.localToGlobal(Offset.zero);
       offset = widgetOffset.dy;
     }
@@ -187,11 +191,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               4,
                               (index) => Expanded(
                                 child: InkWell(
-                                  onTap: () => context.read<StoreDetailBloc>().add(
-                                        StoreDetailTabChanged(
-                                          index: index,
-                                        ),
-                                      ),
+                                  onTap: () =>
+                                      context.read<StoreDetailBloc>().add(
+                                            StoreDetailTabChanged(
+                                              index: index,
+                                            ),
+                                          ),
                                   child: Column(
                                     children: [
                                       const SizedBox(height: 12),
@@ -199,7 +204,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         tabTitles[index],
                                         style: index == currentIndex
                                             ? AppStyle.subTitle15Bold
-                                            : AppStyle.subTitle15Medium.copyWith(
+                                            : AppStyle.subTitle15Medium
+                                                .copyWith(
                                                 color: AppColor.grey400,
                                               ),
                                       ),
@@ -272,12 +278,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 200,
-                      child: StoreReviewListCard(
-                        reviewCount: state.reviewResponse.reviewCnt,
-                        reviews: state.reviewResponse.reviewData.reviewList,
-                      ),
+                    child: StoreReviewListCard(
+                      reviewCount: state.reviewResponse.reviewCnt,
+                      reviews: state.reviewResponse.reviewData.reviewList,
                     ),
                   ),
                   SliverToBoxAdapter(

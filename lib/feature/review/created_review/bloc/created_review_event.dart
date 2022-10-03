@@ -27,11 +27,30 @@ class CreatedReviewScoreChanged extends CreatedReviewEvent {
 }
 
 class CreatedReviewScoreDetailChanged extends CreatedReviewEvent {
-  const CreatedReviewScoreDetailChanged();
+  const CreatedReviewScoreDetailChanged({
+    required this.reviewCategory,
+    required this.score,
+  });
+
+  final String score;
+  final ReviewCategory reviewCategory;
+
+  @override
+  List<Object?> get props => [
+        score,
+        reviewCategory,
+      ];
 }
 
 class CreatedReviewTextChanged extends CreatedReviewEvent {
-  const CreatedReviewTextChanged();
+  const CreatedReviewTextChanged({
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  List<Object?> get props => [text];
 }
 
 class CreatedReviewRequested extends CreatedReviewEvent {

@@ -1,12 +1,50 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
+import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/util/review/get_review_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class RecommendStars extends StatelessWidget {
-  const RecommendStars({Key? key}) : super(key: key);
+class RecommendStars extends StatefulWidget {
+  const RecommendStars({
+    Key? key,
+    required this.wifiScore,
+    required this.restroomScore,
+    required this.socketScore,
+    required this.tableScore,
+  }) : super(key: key);
+
+  final String wifiScore;
+  final String restroomScore;
+  final String socketScore;
+  final String tableScore;
+
+  @override
+  State<RecommendStars> createState() => _RecommendStarsState();
+}
+
+class _RecommendStarsState extends State<RecommendStars> {
+  final controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(
+      () => context.read<CreatedReviewBloc>().add(
+            CreatedReviewTextChanged(
+              text: controller.text,
+            ),
+          ),
+    );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,24 +57,24 @@ class RecommendStars extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-        const _TextAndStars(
+        _TextAndStars(
           reviewCategory: ReviewCategory.wifi,
-          bottomText: '',
+          score: widget.wifiScore,
         ),
         const SizedBox(height: 12),
-        const _TextAndStars(
+        _TextAndStars(
           reviewCategory: ReviewCategory.socket,
-          bottomText: '',
+          score: widget.socketScore,
         ),
         const SizedBox(height: 12),
-        const _TextAndStars(
+        _TextAndStars(
           reviewCategory: ReviewCategory.restroom,
-          bottomText: '',
+          score: widget.restroomScore,
         ),
         const SizedBox(height: 12),
-        const _TextAndStars(
+        _TextAndStars(
           reviewCategory: ReviewCategory.table,
-          bottomText: '',
+          score: widget.tableScore,
         ),
         const SizedBox(height: 36),
         Container(
@@ -44,6 +82,7 @@ class RecommendStars extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           height: 120,
           child: TextField(
+            controller: controller,
             buildCounter: (
               _, {
               required currentLength,
@@ -102,11 +141,11 @@ class RecommendStars extends StatelessWidget {
 class _TextAndStars extends StatelessWidget {
   const _TextAndStars({
     required this.reviewCategory,
-    required this.bottomText,
+    required this.score,
   });
 
   final ReviewCategory reviewCategory;
-  final String bottomText;
+  final String score;
 
   @override
   Widget build(BuildContext context) {
@@ -114,28 +153,35 @@ class _TextAndStars extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: 56,
       ),
-      child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 56,
-                child: Text(
-                  reviewCategory.name,
-                  style: AppStyle.subTitle15SemiBold,
-                ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: SizedBox(
+              width: 56,
+              child: Text(
+                reviewCategory.name,
+                style: AppStyle.subTitle15SemiBold,
               ),
-              const Spacer(),
-              SizedBox(
-                child: Row(
+            ),
+          ),
+          const Spacer(),
+          SizedBox(
+            height: 56,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     RatingBar.builder(
                       initialRating: 0,
-                      minRating: 0,
+                      minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: false,
                       itemCount: 4,
+                      glow: false,
                       itemPadding: const EdgeInsets.symmetric(
                         horizontal: 4.0,
                       ),
@@ -144,34 +190,32 @@ class _TextAndStars extends StatelessWidget {
                         color: AppColor.orange400,
                       ),
                       unratedColor: AppColor.grey200,
-                      onRatingUpdate: (rating) {
-                        final message = getReviewString(
-                          reviewCategory: reviewCategory,
-                          reviewScore: rating.toInt().toString(),
-                        );
-                      },
+                      onRatingUpdate: (rating) => context.read<CreatedReviewBloc>().add(
+                            CreatedReviewScoreDetailChanged(
+                              reviewCategory: reviewCategory,
+                              score: rating.toInt().toString(),
+                            ),
+                          ),
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 175),
-                child: Text(
-                  bottomText,
-                  style: AppStyle.caption12Regular.copyWith(
-                    color: AppColor.grey600,
+                if (score.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                    ),
+                    child: Text(
+                      getReviewString(
+                        reviewCategory: reviewCategory,
+                        reviewScore: score,
+                      ),
+                      style: AppStyle.caption12Regular.copyWith(
+                        color: AppColor.grey600,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ],
+              ],
+            ),
           )
         ],
       ),

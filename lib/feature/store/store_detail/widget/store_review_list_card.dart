@@ -39,34 +39,37 @@ class StoreReviewListCard extends StatelessWidget {
       );
     }
 
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: reviews.length > 3 ? 4 : reviews.length,
-      itemBuilder: (context, index) {
-        if (reviews.length > 3 && index == 3) {
-          return InkWell(
-            onTap: () {},
-            child: Container(
-              height: 60,
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: AppColor.grey100,
+    return SizedBox(
+      height: reviews.length * 196 + (reviews.length > 3 ? 60 : 0),
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: reviews.length > 3 ? 4 : reviews.length,
+        itemBuilder: (context, index) {
+          if (reviews.length > 3 && index == 3) {
+            return InkWell(
+              onTap: () {},
+              child: Container(
+                height: 60,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: AppColor.grey100,
+                    ),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    '리뷰 $reviewCount개 모두 보기',
                   ),
                 ),
               ),
-              child: Center(
-                child: Text(
-                  '리뷰 $reviewCount개 모두 보기',
-                ),
-              ),
-            ),
+            );
+          }
+          return _ReviewCard(
+            review: reviews[index],
           );
-        }
-        return _ReviewCard(
-          review: reviews[index],
-        );
-      },
+        },
+      ),
     );
   }
 }
@@ -187,10 +190,16 @@ class _ReviewCardState extends State<_ReviewCard> {
               height: 72,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, imageIndex) => CustomCachedNetworkImage(
-                  imageUrl: widget.review.imageIdPairs![imageIndex].imageUrl,
-                  height: 72,
-                  width: 72,
+                itemBuilder: (context, imageIndex) => ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                  child: CustomCachedNetworkImage(
+                    imageUrl: widget.review.imageIdPairs![imageIndex].imageUrl,
+                    height: 72,
+                    width: 72,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 separatorBuilder: (context, index) => const SizedBox(
                   width: 8,

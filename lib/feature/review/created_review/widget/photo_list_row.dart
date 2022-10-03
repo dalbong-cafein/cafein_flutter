@@ -63,7 +63,7 @@ class PhotoListRow extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "0",
+                              '${itemCount - 1}',
                               style: AppStyle.subTitle14Medium.copyWith(
                                 color: AppColor.orange500,
                               ),

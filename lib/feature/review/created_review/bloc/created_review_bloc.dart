@@ -1,9 +1,17 @@
 import 'dart:async';
+import 'dart:developer';
+import 'dart:io';
 
+import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
+import 'package:cafein_flutter/data/model/review/create_review_request.dart';
+import 'package:cafein_flutter/data/repository/review_repository.dart';
+import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:image/image.dart' as img;
 
 part 'created_review_event.dart';
 part 'created_review_state.dart';
@@ -11,16 +19,31 @@ part 'created_review_state.dart';
 class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
   CreatedReviewBloc({
     required this.storeId,
+    required this.reviewRepository,
+    required this.stickerRepository,
   }) : super(const CreatedReviewInitial()) {
     on<CreatedReviewPermissionRequested>(_onCreatedReviewPermissionRequested);
     on<CreatedReviewScoreChanged>(_onCreatedReviewScoreChanged);
+    on<CreatedReviewScoreDetailChanged>(_onCreatedReviewScoreDetailChanged);
+    on<CreatedReviewTextChanged>(_onCreatedReviewTextChanged);
     on<CreatedReviewRequested>(_onCreatedReviewRequested);
     on<CreatedReviewPhotoRequested>(_onCreatedReviewPhotoRequested);
     on<CreatedReviewPhotoDeleteRequested>(_onCreatedReviewPhotoDeleteRequested);
   }
 
   final int storeId;
+  final ReviewRepository reviewRepository;
+  final StickerRepository stickerRepository;
+
   List<String> photos = [];
+
+  String wifiScore = '';
+  String restroomScore = '';
+  String socketScore = '';
+  String tableScore = '';
+  String reviewText = '';
+
+  ReviewRecommendation? recommendation;
 
   FutureOr<void> _onCreatedReviewPermissionRequested(
     CreatedReviewPermissionRequested event,
@@ -39,9 +62,52 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     CreatedReviewScoreChanged event,
     Emitter<CreatedReviewState> emit,
   ) {
+    recommendation = event.recommendation;
     emit(
       CreatedReviewScoreChecked(
-        recommendation: event.recommendation,
+        recommendation: recommendation,
+        wifiScore: wifiScore,
+        restroomScore: restroomScore,
+        socketScore: socketScore,
+        tableScore: tableScore,
+        isValid: wifiScore.isNotEmpty &&
+            restroomScore.isNotEmpty &&
+            socketScore.isNotEmpty &&
+            tableScore.isNotEmpty,
+      ),
+    );
+  }
+
+  FutureOr<void> _onCreatedReviewScoreDetailChanged(
+    CreatedReviewScoreDetailChanged event,
+    Emitter<CreatedReviewState> emit,
+  ) {
+    switch (event.reviewCategory) {
+      case ReviewCategory.socket:
+        socketScore = event.score;
+        break;
+      case ReviewCategory.restroom:
+        restroomScore = event.score;
+        break;
+      case ReviewCategory.table:
+        tableScore = event.score;
+        break;
+      case ReviewCategory.wifi:
+        wifiScore = event.score;
+        break;
+    }
+
+    emit(
+      CreatedReviewScoreChecked(
+        recommendation: recommendation,
+        wifiScore: wifiScore,
+        restroomScore: restroomScore,
+        socketScore: socketScore,
+        tableScore: tableScore,
+        isValid: wifiScore.isNotEmpty &&
+            restroomScore.isNotEmpty &&
+            socketScore.isNotEmpty &&
+            tableScore.isNotEmpty,
       ),
     );
   }
@@ -49,18 +115,61 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
   FutureOr<void> _onCreatedReviewRequested(
     CreatedReviewRequested event,
     Emitter<CreatedReviewState> emit,
-  ) {
-    //  final cachePath = await getApplicationDocumentsDirectory();
+  ) async {
+    emit(const CreatedReviewLoading());
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final imagePathList = <String>[];
+      for (int i = 0; i < photos.length; i++) {
+        final decodeImageFile = img.decodeImage(
+          File(photos[i]).readAsBytesSync(),
+        )!;
 
-    //       final decodeImageFile = img.decodeImage(File(result).readAsBytesSync())!;
-    //       final thumbnail = img.copyResize(
-    //         decodeImageFile,
-    //         width: 1048,
-    //       );
-    //       File('${cachePath.path}/thumbnail.jpg').writeAsBytesSync(img.encodeJpg(thumbnail));
+        final thumbnail = img.copyResize(
+          decodeImageFile,
+          width: 1048,
+        );
 
-    //       log('변환 전: ${File(result).lengthSync() / (1024 * 1024)}');
-    //       log('변환 후: ${File('${cachePath.path}/thumbnail.jpg').lengthSync() / (1024 * 1024)}');
+        final filePath = '${dir.path}/requestImg${i + 1}.jpg';
+
+        File(filePath).writeAsBytesSync(
+          img.encodeJpg(thumbnail),
+        );
+
+        imagePathList.add(filePath);
+      }
+
+      final response = await reviewRepository.createReview(
+        CreateReivewRequest(
+          storeId: storeId,
+          content: reviewText,
+          recommendation: recommendation!.jsonValue,
+          restroom: restroomScore,
+          socket: socketScore,
+          tableSize: tableScore,
+          wifi: wifiScore,
+          imageFiles: imagePathList,
+        ),
+      );
+
+      if (response.code == -1) {
+        emit(
+          CreatedReviewError(
+            event: () => add(event),
+            error: Error(),
+          ),
+        );
+      }
+
+      emit(const CreatedReviewSucceed());
+    } catch (e) {
+      emit(
+        CreatedReviewError(
+          event: () => add(event),
+          error: e,
+        ),
+      );
+    }
   }
 
   FutureOr<void> _onCreatedReviewPhotoRequested(
@@ -87,5 +196,13 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
         photos: [...photos],
       ),
     );
+  }
+
+  FutureOr<void> _onCreatedReviewTextChanged(
+    CreatedReviewTextChanged event,
+    Emitter<CreatedReviewState> emit,
+  ) {
+    reviewText = event.text;
+    log(reviewText);
   }
 }

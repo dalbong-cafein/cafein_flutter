@@ -218,6 +218,8 @@ abstract class CafeinRoute {
         page = BlocProvider(
           create: (context) => CreatedReviewBloc(
             storeId: storeDetail.storeId,
+            reviewRepository: context.read<ReviewRepository>(),
+            stickerRepository: context.read<StickerRepository>(),
           ),
           child: CreatedReviewPage(
             storeDetail: storeDetail,
