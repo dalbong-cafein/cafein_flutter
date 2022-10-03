@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/report/report_category.dart';
+import 'package:cafein_flutter/data/model/report/report_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -16,6 +17,7 @@ abstract class ReportClient {
   @POST('/reviews/{reviewId}/reports')
   Future<BaseResponse<dynamic>> createReportReview(
     @Path() int reviewId,
+    @Body() ReportRequest reportRequest,
   );
 
   @GET('/reportCategorys')

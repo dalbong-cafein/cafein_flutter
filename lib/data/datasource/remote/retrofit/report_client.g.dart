@@ -21,11 +21,15 @@ class _ReportClient implements ReportClient {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<dynamic>> createReportReview(reviewId) async {
+  Future<BaseResponse<dynamic>> createReportReview(
+    reviewId,
+    reportRequest,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _data.addAll(reportRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'POST',

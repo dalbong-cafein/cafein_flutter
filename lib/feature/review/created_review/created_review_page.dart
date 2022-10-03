@@ -14,7 +14,6 @@ import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
-import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

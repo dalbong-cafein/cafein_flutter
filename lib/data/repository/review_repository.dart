@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/datasource/remote/form_data_client/review_fo
 import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
 import 'package:cafein_flutter/data/model/report/report_category.dart';
+import 'package:cafein_flutter/data/model/report/report_request.dart';
 import 'package:cafein_flutter/data/model/review/create_review_request.dart';
 import 'package:cafein_flutter/data/model/review/review.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -39,9 +40,10 @@ abstract class ReviewRepository {
     int reviewId,
   );
 
-  Future<BaseResponse<dynamic>> createReportReview(
-    int reviewId,
-  );
+  Future<BaseResponse<dynamic>> createReportReview({
+    required int reviewId,
+    required ReportRequest reportRequest,
+  });
 
   Future<BaseResponse<List<ReportCategory>>> getReportCategories();
 }
@@ -58,15 +60,13 @@ class ReviewRepositoryImpl implements ReviewRepository {
   });
 
   @override
-  Future<BaseResponse> createReportReview(int reviewId) =>
-      reportClient.createReportReview(reviewId);
-
-  @override
-  Future<BaseResponse<int>> createReview(CreateReivewRequest createReivewRequest) =>
+  Future<BaseResponse<int>> createReview(
+          CreateReivewRequest createReivewRequest) =>
       reviewFormDataClient.createReview(createReivewRequest);
 
   @override
-  Future<BaseResponse> deleteReview(int reviewId) => reviewClient.deleteReview(reviewId);
+  Future<BaseResponse> deleteReview(int reviewId) =>
+      reviewClient.deleteReview(reviewId);
 
   @override
   Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews({
@@ -83,11 +83,13 @@ class ReviewRepositoryImpl implements ReviewRepository {
       reportClient.getReportCategories();
 
   @override
-  Future<BaseResponse<ReviewDetailScore>> getStoreReviewScoreDetail(int storeId) =>
+  Future<BaseResponse<ReviewDetailScore>> getStoreReviewScoreDetail(
+          int storeId) =>
       reviewClient.getStoreReviewScoreDetail(storeId);
 
   @override
-  Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>> getStoreReviews(int storeId) =>
+  Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>> getStoreReviews(
+          int storeId) =>
       reviewClient.getStoreReviews(storeId);
 
   @override
@@ -99,4 +101,14 @@ class ReviewRepositoryImpl implements ReviewRepository {
     UpdateReviewRequest updateReviewRequest,
   ) =>
       reviewFormDataClient.updateReview(updateReviewRequest);
+
+  @override
+  Future<BaseResponse> createReportReview({
+    required int reviewId,
+    required ReportRequest reportRequest,
+  }) =>
+      reportClient.createReportReview(
+        reviewId,
+        reportRequest,
+      );
 }
