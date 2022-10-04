@@ -11,6 +11,7 @@ _$_StoreImagePair _$$_StoreImagePairFromJson(Map<String, dynamic> json) =>
       imageId: json['imageId'] as int,
       isGoogle: json['isGoogle'] as bool? ?? false,
       imageUrl: json['imageUrl'] as String,
+      isCafein: json['isCafein'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_StoreImagePairToJson(_$_StoreImagePair instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_StoreImagePairToJson(_$_StoreImagePair instance) =>
       'imageId': instance.imageId,
       'isGoogle': instance.isGoogle,
       'imageUrl': instance.imageUrl,
+      'isCafein': instance.isCafein,
     };

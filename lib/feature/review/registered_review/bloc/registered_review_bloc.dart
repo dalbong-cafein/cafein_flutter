@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
@@ -8,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'registered_review_event.dart';
 part 'registered_review_state.dart';
 
-class RegisteredReviewBloc extends Bloc<RegisteredReviewEvent, RegisteredReviewState> {
+class RegisteredReviewBloc
+    extends Bloc<RegisteredReviewEvent, RegisteredReviewState> {
   RegisteredReviewBloc({
     required this.reviewRepository,
   }) : super(const RegisteredReviewInitial()) {
@@ -43,6 +45,7 @@ class RegisteredReviewBloc extends Bloc<RegisteredReviewEvent, RegisteredReviewS
         reviewList: response.data.reviewData,
       ));
     } catch (e) {
+      log(e.toString());
       emit(
         RegisteredReviewError(
           error: e,

@@ -6,6 +6,7 @@ import 'package:cafein_flutter/data/model/report/report_category.dart';
 import 'package:cafein_flutter/data/model/report/report_request.dart';
 import 'package:cafein_flutter/data/model/review/create_review_request.dart';
 import 'package:cafein_flutter/data/model/review/review.dart';
+import 'package:cafein_flutter/data/model/review/review_list_response.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
 import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
@@ -29,9 +30,9 @@ abstract class ReviewRepository {
     int storeId,
   );
 
-  Future<BaseResponse<ReviewResponse<List<UserReview>>>> getUserReviews();
+  Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews();
 
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews({
+  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews({
     required int storeId,
     required int limit,
   });
@@ -69,7 +70,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
       reviewClient.deleteReview(reviewId);
 
   @override
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews({
+  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews({
     required int storeId,
     required int limit,
   }) =>
@@ -93,7 +94,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
       reviewClient.getStoreReviews(storeId);
 
   @override
-  Future<BaseResponse<ReviewResponse<List<UserReview>>>> getUserReviews() =>
+  Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews() =>
       reviewClient.getUserReviews();
 
   @override

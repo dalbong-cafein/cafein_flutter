@@ -81,14 +81,13 @@ class _ReviewClient implements ReviewClient {
   }
 
   @override
-  Future<BaseResponse<ReviewResponse<List<UserReview>>>>
-      getUserReviews() async {
+  Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<ReviewResponse<List<UserReview>>>>(Options(
+        _setStreamType<BaseResponse<ReviewListResponse<UserReview>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -100,21 +99,18 @@ class _ReviewClient implements ReviewClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<ReviewResponse<List<UserReview>>>.fromJson(
+    final value = BaseResponse<ReviewListResponse<UserReview>>.fromJson(
       _result.data!,
-      (json) => ReviewResponse<List<UserReview>>.fromJson(
+      (json) => ReviewListResponse<UserReview>.fromJson(
         json as Map<String, dynamic>,
-        (json) => (json as List<dynamic>)
-            .map<UserReview>(
-                (i) => UserReview.fromJson(i as Map<String, dynamic>))
-            .toList(),
+        (json) => UserReview.fromJson(json as Map<String, dynamic>),
       ),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews(
+  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews(
     storeId,
     limit,
   ) async {
@@ -123,7 +119,7 @@ class _ReviewClient implements ReviewClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<ReviewResponse<Review>>>(Options(
+        _setStreamType<BaseResponse<ReviewListResponse<Review>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -135,9 +131,9 @@ class _ReviewClient implements ReviewClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<ReviewResponse<Review>>.fromJson(
+    final value = BaseResponse<ReviewListResponse<Review>>.fromJson(
       _result.data!,
-      (json) => ReviewResponse<Review>.fromJson(
+      (json) => ReviewListResponse<Review>.fromJson(
         json as Map<String, dynamic>,
         (json) => Review.fromJson(json as Map<String, dynamic>),
       ),

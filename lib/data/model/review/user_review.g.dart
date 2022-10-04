@@ -16,12 +16,12 @@ _$_UserReview _$$_UserReviewFromJson(Map<String, dynamic> json) =>
       recommendation: json['recommendation'] as String,
       detailEvaluation: DetailEvaluation.fromJson(
           json['detailEvaluation'] as Map<String, dynamic>),
-      reviewImageIdPairs: (json['reviewImageDtoList'] as List<dynamic>?)
+      reviewImageIdPairs: (json['reviewImageDto'] as List<dynamic>?)
           ?.map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),
-      storeImageIdPairs: (json['storeImage'] as List<dynamic>?)
-          ?.map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      storeImageIdPairs: json['storeImage'] == null
+          ? null
+          : ImageIdPair.fromJson(json['storeImage'] as Map<String, dynamic>),
       registeredDateTime: json['regDateTime'] as String,
     );
 
@@ -34,7 +34,7 @@ Map<String, dynamic> _$$_UserReviewToJson(_$_UserReview instance) =>
       'visitCnt': instance.visitCnt,
       'recommendation': instance.recommendation,
       'detailEvaluation': instance.detailEvaluation,
-      'reviewImageDtoList': instance.reviewImageIdPairs,
+      'reviewImageDto': instance.reviewImageIdPairs,
       'storeImage': instance.storeImageIdPairs,
       'regDateTime': instance.registeredDateTime,
     };

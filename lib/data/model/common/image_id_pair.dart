@@ -7,9 +7,11 @@ part 'image_id_pair.freezed.dart';
 class ImageIdPair with _$ImageIdPair {
   factory ImageIdPair({
     required int imageId,
-    @Default(false) bool isGoogle,
+    @Default(false) bool? isGoogle,
     required String imageUrl,
+    @Default(false) bool? isCafein,
   }) = _StoreImagePair;
 
-  factory ImageIdPair.fromJson(Map<String, dynamic> json) => _$ImageIdPairFromJson(json);
+  factory ImageIdPair.fromJson(Map<String, dynamic> json) =>
+      _$ImageIdPairFromJson(json);
 }
