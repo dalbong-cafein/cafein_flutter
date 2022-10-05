@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cafein_flutter/data/model/common/image_type_pair.dart';
+import 'package:cafein_flutter/data/model/enum/image_type.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PhotoListRow extends StatelessWidget {
@@ -10,11 +13,16 @@ class PhotoListRow extends StatelessWidget {
     required this.itemCount,
     required this.photos,
     required this.onTapPhoto,
+    required this.deleteImage,
   });
 
   final int itemCount;
-  final List<String> photos;
+  final List<ImageTypePair> photos;
   final void Function() onTapPhoto;
+  final void Function(
+    String imageUrl,
+    ImageType imageType,
+  ) deleteImage;
 
   @override
   Widget build(BuildContext context) {
@@ -82,17 +90,27 @@ class PhotoListRow extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: Stack(
               children: [
-                Image.file(
-                  File(photos[index - 1]),
-                  height: 64,
-                  width: 64,
-                  fit: BoxFit.cover,
-                ),
+                photos[index - 1].imageType == ImageType.network
+                    ? CustomCachedNetworkImage(
+                        imageUrl: photos[index - 1].imageUrl,
+                        height: 64,
+                        width: 64,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        File(photos[index - 1].imageUrl),
+                        height: 64,
+                        width: 64,
+                        fit: BoxFit.cover,
+                      ),
                 Positioned(
                   top: 4,
                   right: 4,
                   child: InkWell(
-                    onTap: onTapPhoto,
+                    onTap: () => deleteImage(
+                      photos[index - 1].imageUrl,
+                      photos[index - 1].imageType,
+                    ),
                     child: loadAsset(
                       AppIcon.closeGrey800,
                     ),

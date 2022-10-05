@@ -267,17 +267,22 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
                     buildWhen: (pre, next) =>
                         pre.updateImageUrls != next.updateImageUrls ||
                         pre.deleteImageIds != next.deleteImageIds,
-                    builder: (context, state) {
-                      return PhotoListRow(
-                        itemCount: 1,
-                        photos: [],
-                        onTapPhoto: () => context.read<UpdatedReviewBloc>().add(
-                              const UpdatedReviewPermissionRequested(
-                                permission: Permission.photos,
-                              ),
+                    builder: (context, state) => PhotoListRow(
+                      itemCount: state.imageUrls.length + 1,
+                      photos: state.imageUrls,
+                      onTapPhoto: () => context.read<UpdatedReviewBloc>().add(
+                            const UpdatedReviewPermissionRequested(
+                              permission: Permission.photos,
                             ),
-                      );
-                    },
+                          ),
+                      deleteImage: (imageUrl, imageType) =>
+                          context.read<UpdatedReviewBloc>().add(
+                                UpdatedReviewImageDeleted(
+                                  imageType: imageType,
+                                  imageUrl: imageUrl,
+                                ),
+                              ),
+                    ),
                   ),
                   const SizedBox(height: 32),
                   const ReviewPolicyCard(),
@@ -294,11 +299,11 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
                           horizontal: 16,
                         ),
                         child: ElevatedButton(
-                          onPressed: !state.isValid
-                              ? null
-                              : () => context.read<UpdatedReviewBloc>().add(
+                          onPressed: state.isValid && !state.isLoading
+                              ? () => context.read<UpdatedReviewBloc>().add(
                                     const UpdatedReviewRequested(),
-                                  ),
+                                  )
+                              : null,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),

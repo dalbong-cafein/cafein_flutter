@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:cafein_flutter/data/model/common/image_type_pair.dart';
+import 'package:cafein_flutter/data/model/enum/image_type.dart';
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/update_review_request.dart';
@@ -8,7 +11,9 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:image/image.dart' as img;
 
 part 'updated_review_event.dart';
 part 'updated_review_state.dart';
@@ -24,9 +29,14 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
             socketScore: review.detailEvaluation.socket.toString(),
             tableScore: review.detailEvaluation.tableSize.toString(),
             reviewText: review.content,
-            imageUrls:
-                review.reviewImageIdPairs?.map((e) => e.imageUrl).toList() ??
-                    <String>[],
+            imageUrls: (review.reviewImageIdPairs ?? [])
+                .map(
+                  (e) => ImageTypePair(
+                    imageUrl: e.imageUrl,
+                    imageType: ImageType.network,
+                  ),
+                )
+                .toList(),
             updateImageUrls: const [],
             deleteImageIds: const [],
             reviewRecommendation: ReviewRecommendation.values
@@ -133,6 +143,17 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
     Emitter<UpdatedReviewState> emit,
   ) {
     emit(state.copyWith(
+      imageUrls: [
+        ...state.imageUrls,
+        ...event.photoList
+            .map(
+              (e) => ImageTypePair(
+                imageUrl: e,
+                imageType: ImageType.file,
+              ),
+            )
+            .toList(),
+      ],
       updateImageUrls: [
         ...state.updateImageUrls,
         ...event.photoList,
@@ -146,9 +167,16 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
     Emitter<UpdatedReviewState> emit,
   ) {
     final cur = state.imageUrls;
-    cur.remove(event.photo);
+
+    cur.remove(
+      ImageTypePair(
+        imageUrl: event.imageUrl,
+        imageType: event.imageType,
+      ),
+    );
+
     final deleteImageId = (review.reviewImageIdPairs ?? [])
-            .where((element) => element.imageUrl == event.photo)
+            .where((element) => element.imageUrl == event.imageUrl)
             .firstOrNull
             ?.imageId ??
         -1;
@@ -192,6 +220,28 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
     );
 
     try {
+      final dir = await getApplicationDocumentsDirectory();
+      final imagePathList = <String>[];
+      for (int i = 0; i < state.updateImageUrls.length; i++) {
+        final decodeImageFile = img.decodeImage(
+          File(state.updateImageUrls[i]).readAsBytesSync(),
+        )!;
+
+        final thumbnail = img.copyResize(
+          decodeImageFile,
+          width: 1048,
+        );
+
+        final fileName = state.updateImageUrls[i].split('/').last;
+        final filePath = '${dir.path}/$fileName.jpg';
+
+        File(filePath).writeAsBytesSync(
+          img.encodeJpg(thumbnail),
+        );
+
+        imagePathList.add(filePath);
+      }
+
       final response = await reviewRepository.updateReview(
         UpdateReviewRequest(
           reviewId: review.reviewId,
@@ -202,7 +252,7 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
           restroom: state.wifiScore,
           tableSize: state.tableScore,
           deleteImageIds: state.deleteImageIds,
-          updateImageFiles: state.updateImageUrls,
+          updateImageFiles: imagePathList,
         ),
       );
 
@@ -239,7 +289,6 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
     String? socketScore,
     String? tableScore,
     String? reviewText,
-    List<String>? imageUrls,
     ReviewRecommendation? reviewRecommendation,
   }) {
     if (review.detailEvaluation.wifi.toString() ==
@@ -252,9 +301,7 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
             (tableScore ?? state.tableScore) &&
         review.content == (reviewText ?? state.reviewText) &&
         review.recommendation ==
-            (reviewRecommendation ?? state.reviewRecommendation).jsonValue &&
-        (review.reviewImageIdPairs?.map((e) => e.imageUrl).toList() ?? []) ==
-            (imageUrls ?? state.imageUrls)) {
+            (reviewRecommendation ?? state.reviewRecommendation).jsonValue) {
       return false;
     }
     return true;

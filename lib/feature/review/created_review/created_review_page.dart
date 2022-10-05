@@ -1,4 +1,6 @@
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/common/image_type_pair.dart';
+import 'package:cafein_flutter/data/model/enum/image_type.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
@@ -278,12 +280,23 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                       }
                       return PhotoListRow(
                         itemCount: itemCount,
-                        photos: photos,
+                        photos: photos
+                            .map((e) => ImageTypePair(
+                                  imageUrl: e,
+                                  imageType: ImageType.file,
+                                ))
+                            .toList(),
                         onTapPhoto: () => context.read<CreatedReviewBloc>().add(
                               const CreatedReviewPermissionRequested(
                                 permission: Permission.photos,
                               ),
                             ),
+                        deleteImage: (imageUrl, imageType) =>
+                            context.read<CreatedReviewBloc>().add(
+                                  CreatedReviewPhotoDeleteRequested(
+                                    photo: imageUrl,
+                                  ),
+                                ),
                       );
                     },
                   ),

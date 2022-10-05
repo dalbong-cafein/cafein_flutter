@@ -23,7 +23,7 @@ class UpdatedReviewState extends Equatable {
   final String socketScore;
   final String tableScore;
   final String reviewText;
-  final List<String> imageUrls;
+  final List<ImageTypePair> imageUrls;
   final List<String> updateImageUrls;
   final List<int> deleteImageIds;
   final ReviewRecommendation reviewRecommendation;
@@ -39,7 +39,7 @@ class UpdatedReviewState extends Equatable {
     String? socketScore,
     String? tableScore,
     String? reviewText,
-    List<String>? imageUrls,
+    List<ImageTypePair>? imageUrls,
     List<String>? updateImageUrls,
     List<int>? deleteImageIds,
     ReviewRecommendation? reviewRecommendation,
@@ -47,7 +47,7 @@ class UpdatedReviewState extends Equatable {
     bool? isLoading,
     bool? isSucceed,
     PermissionStatus? permissionStatus,
-    dynamic? error,
+    dynamic error,
   }) =>
       UpdatedReviewState(
         wifiScore: wifiScore ?? this.wifiScore,
@@ -76,6 +76,7 @@ class UpdatedReviewState extends Equatable {
         imageUrls,
         deleteImageIds,
         reviewRecommendation,
+        updateImageUrls,
         isValid,
         isLoading,
         permissionStatus,

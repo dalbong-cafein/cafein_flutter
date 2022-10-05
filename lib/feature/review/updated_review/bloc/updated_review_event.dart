@@ -58,13 +58,18 @@ class UpdatedReviewImageChanged extends UpdatedReviewEvent {
 
 class UpdatedReviewImageDeleted extends UpdatedReviewEvent {
   const UpdatedReviewImageDeleted({
-    required this.photo,
+    required this.imageUrl,
+    required this.imageType,
   });
 
-  final String photo;
+  final String imageUrl;
+  final ImageType imageType;
 
   @override
-  List<Object?> get props => [photo];
+  List<Object?> get props => [
+        imageUrl,
+        imageType,
+      ];
 }
 
 class UpdatedReviewPermissionRequested extends UpdatedReviewEvent {
