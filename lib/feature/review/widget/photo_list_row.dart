@@ -1,21 +1,20 @@
 import 'dart:io';
 
-import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class PhotoListRow extends StatelessWidget {
   const PhotoListRow({
     super.key,
     required this.itemCount,
     required this.photos,
+    required this.onTapPhoto,
   });
 
   final int itemCount;
   final List<String> photos;
+  final void Function() onTapPhoto;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +26,7 @@ class PhotoListRow extends StatelessWidget {
         itemBuilder: (context, index) {
           if (index == 0) {
             return InkWell(
-              onTap: () => context.read<CreatedReviewBloc>().add(
-                    const CreatedReviewPermissionRequested(
-                      permission: Permission.photos,
-                    ),
-                  ),
+              onTap: onTapPhoto,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
@@ -97,11 +92,7 @@ class PhotoListRow extends StatelessWidget {
                   top: 4,
                   right: 4,
                   child: InkWell(
-                    onTap: () => context.read<CreatedReviewBloc>().add(
-                          CreatedReviewPhotoDeleteRequested(
-                            photo: photos[index - 1],
-                          ),
-                        ),
+                    onTap: onTapPhoto,
                     child: loadAsset(
                       AppIcon.closeGrey800,
                     ),

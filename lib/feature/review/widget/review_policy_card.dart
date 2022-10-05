@@ -1,8 +1,8 @@
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 
-class CreatedReviewPolicy extends StatelessWidget {
-  const CreatedReviewPolicy({Key? key}) : super(key: key);
+class ReviewPolicyCard extends StatelessWidget {
+  const ReviewPolicyCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

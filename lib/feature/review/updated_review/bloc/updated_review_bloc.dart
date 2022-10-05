@@ -36,7 +36,7 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
                 .first,
             isValid: false,
             isLoading: false,
-            permissionStatus: PermissionStatus.denied,
+            permissionStatus: null,
             error: null,
             isSucceed: false,
           ),

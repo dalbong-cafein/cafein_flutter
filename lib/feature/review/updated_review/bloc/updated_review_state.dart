@@ -12,7 +12,7 @@ class UpdatedReviewState extends Equatable {
     required this.updateImageUrls,
     required this.reviewRecommendation,
     required this.isValid,
-    required this.permissionStatus,
+    this.permissionStatus,
     required this.isLoading,
     required this.error,
     required this.isSucceed,
@@ -30,7 +30,7 @@ class UpdatedReviewState extends Equatable {
   final bool isValid;
   final bool isLoading;
   final bool isSucceed;
-  final PermissionStatus permissionStatus;
+  final PermissionStatus? permissionStatus;
   final dynamic error;
 
   UpdatedReviewState copyWith({

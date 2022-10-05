@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
@@ -46,6 +47,8 @@ import 'package:cafein_flutter/feature/review/created_review/bloc/created_review
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
@@ -86,7 +89,8 @@ abstract class CafeinRoute {
         );
         break;
       case InputCertificationCodePage.routeName:
-        final arguments = settings.arguments as InputCertificationCodePageArguments;
+        final arguments =
+            settings.arguments as InputCertificationCodePageArguments;
 
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
@@ -161,7 +165,8 @@ abstract class CafeinRoute {
         );
         break;
       case SignOffPage.routeName:
-        final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
+        final moreViewCountResponse =
+            settings.arguments as MoreViewCountResponse;
         page = BlocProvider(
           create: (context) => SignOffBloc(),
           child: SignOffPage(
@@ -249,6 +254,17 @@ abstract class CafeinRoute {
         page = BlocProvider(
           create: (context) => GalleryBloc(),
           child: const GalleryPage(),
+        );
+        break;
+
+      case UpdatedReviewPage.routeName:
+        final review = settings.arguments as UserReview;
+        page = BlocProvider(
+          create: (context) => UpdatedReviewBloc(
+            review: review,
+            reviewRepository: context.read<ReviewRepository>(),
+          ),
+          child: UpdatedReviewPage(review: review),
         );
         break;
     }

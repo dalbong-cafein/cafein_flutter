@@ -1,19 +1,24 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
-import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/util/review/get_review_string.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class RecommendStars extends StatefulWidget {
-  const RecommendStars({
+class ReviewDetailScoreCard extends StatefulWidget {
+  const ReviewDetailScoreCard({
     Key? key,
     required this.wifiScore,
     required this.restroomScore,
     required this.socketScore,
     required this.tableScore,
+    required this.textControllerListener,
+    required this.onRatingChanged,
+    this.initialRestroomScore,
+    this.initialSocketScore,
+    this.initialTableScore,
+    this.initialWifiScore,
+    this.initialText,
   }) : super(key: key);
 
   final String wifiScore;
@@ -21,22 +26,32 @@ class RecommendStars extends StatefulWidget {
   final String socketScore;
   final String tableScore;
 
+  final String? initialWifiScore;
+  final String? initialRestroomScore;
+  final String? initialSocketScore;
+  final String? initialTableScore;
+  final String? initialText;
+
+  final void Function(String text) textControllerListener;
+  final void Function(
+    ReviewCategory reviewCategory,
+    String score,
+  ) onRatingChanged;
+
   @override
-  State<RecommendStars> createState() => _RecommendStarsState();
+  State<ReviewDetailScoreCard> createState() => _ReviewDetailScoreCardState();
 }
 
-class _RecommendStarsState extends State<RecommendStars> {
-  final controller = TextEditingController();
+class _ReviewDetailScoreCardState extends State<ReviewDetailScoreCard> {
+  late final controller = TextEditingController(
+    text: widget.initialText,
+  );
 
   @override
   void initState() {
     super.initState();
     controller.addListener(
-      () => context.read<CreatedReviewBloc>().add(
-            CreatedReviewTextChanged(
-              text: controller.text,
-            ),
-          ),
+      () => widget.textControllerListener(controller.text),
     );
   }
 
@@ -60,21 +75,29 @@ class _RecommendStarsState extends State<RecommendStars> {
         _TextAndStars(
           reviewCategory: ReviewCategory.wifi,
           score: widget.wifiScore,
+          onRatingChanged: widget.onRatingChanged,
+          initialScore: widget.initialWifiScore,
         ),
         const SizedBox(height: 12),
         _TextAndStars(
           reviewCategory: ReviewCategory.socket,
           score: widget.socketScore,
+          onRatingChanged: widget.onRatingChanged,
+          initialScore: widget.initialSocketScore,
         ),
         const SizedBox(height: 12),
         _TextAndStars(
           reviewCategory: ReviewCategory.restroom,
           score: widget.restroomScore,
+          onRatingChanged: widget.onRatingChanged,
+          initialScore: widget.initialRestroomScore,
         ),
         const SizedBox(height: 12),
         _TextAndStars(
           reviewCategory: ReviewCategory.table,
           score: widget.tableScore,
+          onRatingChanged: widget.onRatingChanged,
+          initialScore: widget.initialTableScore,
         ),
         const SizedBox(height: 36),
         Container(
@@ -142,10 +165,17 @@ class _TextAndStars extends StatelessWidget {
   const _TextAndStars({
     required this.reviewCategory,
     required this.score,
+    required this.onRatingChanged,
+    this.initialScore,
   });
 
   final ReviewCategory reviewCategory;
   final String score;
+  final String? initialScore;
+  final void Function(
+    ReviewCategory reviewCategory,
+    String score,
+  ) onRatingChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +206,9 @@ class _TextAndStars extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     RatingBar.builder(
-                      initialRating: 0,
+                      initialRating: initialScore == null
+                          ? 0
+                          : int.parse(initialScore!).toDouble(),
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: false,
@@ -190,12 +222,10 @@ class _TextAndStars extends StatelessWidget {
                         color: AppColor.orange400,
                       ),
                       unratedColor: AppColor.grey200,
-                      onRatingUpdate: (rating) => context.read<CreatedReviewBloc>().add(
-                            CreatedReviewScoreDetailChanged(
-                              reviewCategory: reviewCategory,
-                              score: rating.toInt().toString(),
-                            ),
-                          ),
+                      onRatingUpdate: (rating) => onRatingChanged(
+                        reviewCategory,
+                        rating.toInt().toString(),
+                      ),
                     ),
                   ],
                 ),

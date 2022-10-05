@@ -1,6 +1,8 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -74,7 +76,24 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                       height: 32,
                       width: 52,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final bloc = context.read<RegisteredReviewBloc>();
+
+                          final result = await Navigator.of(context).pushNamed(
+                            UpdatedReviewPage.routeName,
+                            arguments: widget.review,
+                          );
+
+                          if (result is! bool) {
+                            return;
+                          }
+
+                          if (!result) {
+                            return;
+                          }
+
+                          bloc.add(const RegisteredReviewRequested());
+                        },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: AppColor.grey800,
                           backgroundColor: AppColor.white,
