@@ -324,7 +324,9 @@ class _$_StoreReview implements _StoreReview {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StoreReviewToJson(this);
+    return _$$_StoreReviewToJson(
+      this,
+    );
   }
 }
 
@@ -347,27 +349,27 @@ abstract class _StoreReview implements StoreReview {
       _$_StoreReview.fromJson;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
-  int get writerId => throw _privateConstructorUsedError;
+  int get writerId;
   @override
-  String get nicknameOfWriter => throw _privateConstructorUsedError;
+  String get nicknameOfWriter;
   @override
-  String? get profileImageUrl => throw _privateConstructorUsedError;
+  String? get profileImageUrl;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
-  int get visitCnt => throw _privateConstructorUsedError;
+  int get visitCnt;
   @override
-  String get recommendation => throw _privateConstructorUsedError;
+  String get recommendation;
   @override
-  DetailEvaluation get detailEvaluation => throw _privateConstructorUsedError;
+  DetailEvaluation get detailEvaluation;
   @override
   @JsonKey(name: 'reviewImageDtoList')
-  List<ImageIdPair>? get imageIdPairs => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPairs;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_StoreReviewCopyWith<_$_StoreReview> get copyWith =>

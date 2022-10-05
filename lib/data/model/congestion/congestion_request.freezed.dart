@@ -146,7 +146,9 @@ class _$_CongestionRequest implements _CongestionRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CongestionRequestToJson(this);
+    return _$$_CongestionRequestToJson(
+      this,
+    );
   }
 }
 
@@ -159,9 +161,9 @@ abstract class _CongestionRequest implements CongestionRequest {
       _$_CongestionRequest.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  int get congestionScore => throw _privateConstructorUsedError;
+  int get congestionScore;
   @override
   @JsonKey(ignore: true)
   _$$_CongestionRequestCopyWith<_$_CongestionRequest> get copyWith =>

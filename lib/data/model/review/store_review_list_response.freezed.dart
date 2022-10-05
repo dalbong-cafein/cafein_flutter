@@ -217,7 +217,9 @@ class _$_StoreReviewListResponse implements _StoreReviewListResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_StoreReviewListResponseToJson(this);
+    return _$$_StoreReviewListResponseToJson(
+      this,
+    );
   }
 }
 
@@ -234,15 +236,15 @@ abstract class _StoreReviewListResponse implements StoreReviewListResponse {
 
   @override
   @JsonKey(name: 'dtoList')
-  List<StoreReview> get reviewList => throw _privateConstructorUsedError;
+  List<StoreReview> get reviewList;
   @override
-  int get totalPage => throw _privateConstructorUsedError;
+  int get totalPage;
   @override
-  int get page => throw _privateConstructorUsedError;
+  int get page;
   @override
-  int get size => throw _privateConstructorUsedError;
+  int get size;
   @override
-  bool get last => throw _privateConstructorUsedError;
+  bool get last;
   @override
   @JsonKey(ignore: true)
   _$$_StoreReviewListResponseCopyWith<_$_StoreReviewListResponse>

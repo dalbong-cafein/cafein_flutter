@@ -18,22 +18,48 @@ class StoreDetailLoading extends StoreDetailState {
 class StoreDetailLoaded extends StoreDetailState {
   const StoreDetailLoaded({
     required this.storeDetail,
-    required this.storeList,
     required this.reviewDetailScore,
-    required this.congestionResponse,
+    required this.reviewResponse,
   });
 
   final StoreDetail storeDetail;
-  final List<Store> storeList;
   final ReviewDetailScore reviewDetailScore;
-  final CongestionResponse congestionResponse;
+  final ReviewResponse<StoreReviewListResponse> reviewResponse;
 
   @override
   List<Object?> get props => [
         storeDetail,
-        storeList,
         reviewDetailScore,
+        reviewResponse,
+      ];
+}
+
+class StoreDetailCongestionLoaded extends StoreDetailState {
+  const StoreDetailCongestionLoaded({
+    required this.congestionResponse,
+    required this.day,
+  });
+
+  final CongestionResponse congestionResponse;
+  final String day;
+
+  @override
+  List<Object?> get props => [
         congestionResponse,
+        day,
+      ];
+}
+
+class StoreDetailNearStoreLoaded extends StoreDetailState {
+  const StoreDetailNearStoreLoaded({
+    required this.storeList,
+  });
+
+  final List<Store> storeList;
+
+  @override
+  List<Object?> get props => [
+        storeList,
       ];
 }
 

@@ -55,13 +55,7 @@ abstract class CafeinConst {
     AppIcon.ediya
   ];
 
-  static const couponStoreNames = [
-    "스타벅스",
-    "파스쿠찌",
-    "탐앤탐스",
-    "투썸플레이스",
-    "이디야"
-  ];
+  static const couponStoreNames = ["스타벅스", "파스쿠찌", "탐앤탐스", "투썸플레이스", "이디야"];
 
   static const couponItemNames = [
     "아이스 카페 아메리카노 T",
@@ -71,4 +65,13 @@ abstract class CafeinConst {
     "카페 아메리카노(ICE)(EXTRA)"
   ];
 
+  static final krDays = [
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
+    '일요일',
+  ];
 }

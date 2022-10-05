@@ -25,6 +25,10 @@ class StoreDetail with _$StoreDetail {
     required List<ImageIdPair> storeImageList,
     double? congestionScoreAvg,
     @JsonKey(name: 'totalBusinessHoursResDto') TotalBusinessInfo? totalBusinessInfo,
+    required String regDateTime,
+    required String modDateTime,
+    String? phone,
+    String? website,
   }) = _StoreDetail;
 
   factory StoreDetail.fromJson(Map<String, dynamic> json) => _$StoreDetailFromJson(json);

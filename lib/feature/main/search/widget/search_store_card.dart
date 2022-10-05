@@ -116,10 +116,16 @@ class SearchStoreCard extends StatelessWidget {
                 children: [
                   ...List.generate(
                     3,
-                    (index) => CustomCachedNetworkImage(
-                      imageUrl: imageDatas[index].imageUrl,
-                      width: 70,
-                      height: 70,
+                    (index) => ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      child: CustomCachedNetworkImage(
+                        imageUrl: imageDatas[index].imageUrl,
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -128,10 +134,16 @@ class SearchStoreCard extends StatelessWidget {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        CustomCachedNetworkImage(
-                          imageUrl: imageDatas[3].imageUrl,
-                          width: 70,
-                          height: 70,
+                        ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          child: CustomCachedNetworkImage(
+                            imageUrl: imageDatas[3].imageUrl,
+                            width: 70,
+                            height: 70,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         if (imageDatas.length >= 5)
                           Container(

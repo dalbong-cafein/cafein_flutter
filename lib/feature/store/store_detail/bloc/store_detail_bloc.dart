@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
+import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
+import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
@@ -12,6 +14,7 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 part 'store_detail_event.dart';
 part 'store_detail_state.dart';
@@ -22,10 +25,14 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     required this.reviewRepository,
     required this.congestionRepository,
     required this.heartRepository,
+    required this.storeId,
   }) : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
     on<StoreDetailTabChanged>(_onStoreDetailTabChanged);
+    on<StoreDetailNearStoreRequested>(_onStoreDetailNearStoreRequested);
+    on<StoreDetailCongestionRequested>(_onStoreDetailCongestionRequested);
+    on<StoreDetailNearStoreHeartRequested>(_onStoreDetailNearStoreHeartRequested);
   }
 
   final StoreRepository storeRepository;
@@ -33,7 +40,15 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   final ReviewRepository reviewRepository;
   final HeartRepository heartRepository;
 
+  final int storeId;
+
   bool isHeart = false;
+
+  List<Store> nearStoreList = [];
+
+  final today = '${DateFormat.E('ko_KR').format(
+    DateTime.now(),
+  )}요일';
 
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
@@ -43,27 +58,19 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
 
     try {
       final storeDetailResponse = storeRepository.getStoreDetail(
-        event.storeId,
+        storeId,
       );
 
-      final nearStoresResponse = storeRepository.getNearStoreList(
-        event.storeId,
+      final reviewScoreResponse = reviewRepository.getStoreReviewScoreDetail(
+        storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviewScoreDetail(
-        event.storeId,
-      );
-
-      final congestionResponse = congestionRepository.getCongestions(
-        storeId: event.storeId,
-        minusDays: 1,
-      );
+      final reviewResponse = reviewRepository.getStoreReviews(storeId);
 
       final responseList = await Future.wait<BaseResponse<dynamic>>([
         storeDetailResponse,
-        nearStoresResponse,
+        reviewScoreResponse,
         reviewResponse,
-        congestionResponse,
       ]);
 
       for (final response in responseList) {
@@ -82,9 +89,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       emit(
         StoreDetailLoaded(
           storeDetail: responseList[0].data,
-          storeList: responseList[1].data,
-          reviewDetailScore: responseList[2].data,
-          congestionResponse: responseList[3].data,
+          reviewDetailScore: responseList[1].data,
+          reviewResponse: responseList[2].data,
         ),
       );
 
@@ -95,7 +101,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         ),
       );
     } catch (e) {
-      log(e.toString());
       emit(
         StoreDetailError(
           error: e,
@@ -114,11 +119,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     try {
       if (event.isHeart) {
         await heartRepository.createHeart(
-          event.storeId,
+          storeId,
         );
       } else {
         await heartRepository.deleteHeart(
-          event.storeId,
+          storeId,
         );
       }
 
@@ -148,5 +153,107 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         index: event.index,
       ),
     );
+  }
+
+  FutureOr<void> _onStoreDetailNearStoreRequested(
+    StoreDetailNearStoreRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    emit(const StoreDetailLoading());
+    try {
+      final nearStoresResponse = await storeRepository.getNearStoreList(
+        storeId,
+      );
+
+      nearStoreList = nearStoresResponse.data;
+      emit(
+        StoreDetailNearStoreLoaded(
+          storeList: nearStoreList,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onStoreDetailCongestionRequested(
+    StoreDetailCongestionRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    emit(const StoreDetailLoading());
+
+    try {
+      final requestDayIndex = CafeinConst.krDays.indexOf(event.day);
+      final currentDayIndex = CafeinConst.krDays.indexOf(today);
+
+      int minusDay = currentDayIndex - requestDayIndex;
+      if (currentDayIndex >= 0) {
+        minusDay += 7;
+      }
+
+      final congestionResponse = await congestionRepository.getCongestions(
+        storeId: storeId,
+        minusDays: minusDay,
+      );
+
+      emit(
+        StoreDetailCongestionLoaded(
+          congestionResponse: congestionResponse.data,
+          day: event.day,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onStoreDetailNearStoreHeartRequested(
+    StoreDetailNearStoreHeartRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    emit(const StoreDetailLoading());
+    try {
+      final nearStoreId = nearStoreList[event.index].storeId;
+
+      if (event.isHeart) {
+        await heartRepository.createHeart(
+          nearStoreId,
+        );
+      } else {
+        await heartRepository.deleteHeart(
+          nearStoreId,
+        );
+      }
+
+      final cur = nearStoreList;
+      cur[event.index] = cur[event.index].copyWith(
+        isHeart: event.isHeart,
+      );
+
+      nearStoreList = [...cur];
+
+      emit(
+        StoreDetailNearStoreLoaded(
+          storeList: nearStoreList,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
   }
 }

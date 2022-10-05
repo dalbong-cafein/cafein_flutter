@@ -173,13 +173,13 @@ abstract class _TokenData implements TokenData {
 
   @override
   @HiveField(0)
-  String get accessToken => throw _privateConstructorUsedError;
+  String get accessToken;
   @override
   @HiveField(1)
-  String get refreshToken => throw _privateConstructorUsedError;
+  String get refreshToken;
   @override
   @HiveField(2)
-  String get accessTokenType => throw _privateConstructorUsedError;
+  String get accessTokenType;
   @override
   @JsonKey(ignore: true)
   _$$_TokenDataCopyWith<_$_TokenData> get copyWith =>

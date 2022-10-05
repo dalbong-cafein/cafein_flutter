@@ -15,10 +15,11 @@ class UserReview with _$UserReview {
     required int visitCnt,
     required String recommendation,
     required DetailEvaluation detailEvaluation,
-    @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? reviewImageIdPairs,
-    @JsonKey(name: 'storeImage') List<ImageIdPair>? storeImageIdPairs,
+    @JsonKey(name: 'reviewImageDto') List<ImageIdPair>? reviewImageIdPairs,
+    @JsonKey(name: 'storeImage') ImageIdPair? storeImageIdPairs,
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _UserReview;
 
-  factory UserReview.fromJson(Map<String, dynamic> json) => _$UserReviewFromJson(json);
+  factory UserReview.fromJson(Map<String, dynamic> json) =>
+      _$UserReviewFromJson(json);
 }

@@ -266,7 +266,9 @@ class _$_Notification implements _Notification {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NotificationToJson(this);
+    return _$$_NotificationToJson(
+      this,
+    );
   }
 }
 
@@ -289,23 +291,23 @@ abstract class _Notification implements Notification {
 
   @override
   @JsonKey(name: 'noticeId')
-  int get notificationId => throw _privateConstructorUsedError;
+  int get notificationId;
   @override
   @JsonKey(name: 'noticeType')
-  String get notificationType => throw _privateConstructorUsedError;
+  String get notificationType;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
-  bool get isRead => throw _privateConstructorUsedError;
+  bool get isRead;
   @override
-  int? get stickerId => throw _privateConstructorUsedError;
+  int? get stickerId;
   @override
-  int? get couponId => throw _privateConstructorUsedError;
+  int? get couponId;
   @override
-  int? get boardId => throw _privateConstructorUsedError;
+  int? get boardId;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_NotificationCopyWith<_$_Notification> get copyWith =>

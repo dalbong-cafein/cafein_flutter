@@ -200,7 +200,9 @@ class _$_Coupon implements _Coupon {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CouponToJson(this);
+    return _$$_CouponToJson(
+      this,
+    );
   }
 }
 
@@ -216,16 +218,16 @@ abstract class _Coupon implements Coupon {
   factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
 
   @override
-  int get couponId => throw _privateConstructorUsedError;
+  int get couponId;
   @override
-  String get brandName => throw _privateConstructorUsedError;
+  String get brandName;
   @override
-  String get itemName => throw _privateConstructorUsedError;
+  String get itemName;
   @override
-  bool get status => throw _privateConstructorUsedError;
+  bool get status;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_CouponCopyWith<_$_Coupon> get copyWith =>

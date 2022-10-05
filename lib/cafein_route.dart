@@ -1,5 +1,7 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/model/review/user_review.dart';
+import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
@@ -18,6 +20,8 @@ import 'package:cafein_flutter/feature/certify_phone/bloc/input_phone_number_blo
 import 'package:cafein_flutter/feature/certify_phone/input_certification_code_page.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
+import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
+import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
@@ -44,6 +48,8 @@ import 'package:cafein_flutter/feature/review/created_review/bloc/created_review
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
@@ -84,7 +90,8 @@ abstract class CafeinRoute {
         );
         break;
       case InputCertificationCodePage.routeName:
-        final arguments = settings.arguments as InputCertificationCodePageArguments;
+        final arguments =
+            settings.arguments as InputCertificationCodePageArguments;
 
         page = BlocProvider(
           create: (context) => CertifyCodeBloc(
@@ -159,7 +166,8 @@ abstract class CafeinRoute {
         );
         break;
       case SignOffPage.routeName:
-        final moreViewCountResponse = settings.arguments as MoreViewCountResponse;
+        final moreViewCountResponse =
+            settings.arguments as MoreViewCountResponse;
         page = BlocProvider(
           create: (context) => SignOffBloc(),
           child: SignOffPage(
@@ -212,9 +220,16 @@ abstract class CafeinRoute {
         page = const ApplyCouponFinishedPage();
         break;
       case CreatedReviewPage.routeName:
+        final storeDetail = settings.arguments as StoreDetail;
         page = BlocProvider(
-          create: (context) =>CreatedReviewBloc(),
-          child: const CreatedReviewPage(),
+          create: (context) => CreatedReviewBloc(
+            storeId: storeDetail.storeId,
+            reviewRepository: context.read<ReviewRepository>(),
+            stickerRepository: context.read<StickerRepository>(),
+          ),
+          child: CreatedReviewPage(
+            storeDetail: storeDetail,
+          ),
         );
         break;
       case OnboardPage.routeName:
@@ -228,16 +243,33 @@ abstract class CafeinRoute {
             reviewRepository: context.read<ReviewRepository>(),
             congestionRepository: context.read<CongestionRepository>(),
             heartRepository: context.read<HeartRepository>(),
+            storeId: storeId,
           ),
           child: StoreDetailPage(storeId: storeId),
         );
         break;
-      case ReportPage.routeName :
+      case ReportPage.routeName:
         page = BlocProvider(
-          create: (context) =>ReportBloc(
-              reviewRepository:context.read<ReviewRepository>()
-          ),
+          create: (context) =>
+              ReportBloc(reviewRepository: context.read<ReviewRepository>()),
           child: const ReportPage(),
+        );
+        break;
+      case GalleryPage.routeName:
+        page = BlocProvider(
+          create: (context) => GalleryBloc(),
+          child: const GalleryPage(),
+        );
+        break;
+
+      case UpdatedReviewPage.routeName:
+        final review = settings.arguments as UserReview;
+        page = BlocProvider(
+          create: (context) => UpdatedReviewBloc(
+            review: review,
+            reviewRepository: context.read<ReviewRepository>(),
+          ),
+          child: UpdatedReviewPage(review: review),
         );
         break;
     }

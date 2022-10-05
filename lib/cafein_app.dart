@@ -130,6 +130,14 @@ class CafeinApp extends StatelessWidget {
                 displayColor: AppColor.grey800,
               ),
         ),
+        // localizationsDelegates: const [
+        //   GlobalMaterialLocalizations.delegate,
+        //   GlobalWidgetsLocalizations.delegate,
+        //   GlobalCupertinoLocalizations.delegate,
+        // ],
+        // supportedLocales: const [
+        //   Locale('ko', 'KR'),
+        // ],
         onGenerateRoute: CafeinRoute.onGenerateRoute,
         navigatorObservers: [
           CustomNavigatorLogger(),

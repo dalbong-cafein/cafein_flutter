@@ -1,4 +1,3 @@
-import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -103,15 +102,15 @@ class StoreDetailCard extends StatelessWidget {
                   vertical: 20,
                 ),
                 scrollDirection: Axis.horizontal,
-                itemCount: 8,
+                itemCount: storeDetail.storeImageList.length,
                 itemBuilder: (context, index) {
                   if (index % 3 == 0) {
-                    return const ClipRRect(
-                      borderRadius: BorderRadius.all(
+                    return ClipRRect(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
                       child: CustomCachedNetworkImage(
-                        imageUrl: CafeinConst.defaultStoreImage,
+                        imageUrl: storeDetail.storeImageList[index].imageUrl,
                         height: 200,
                         width: 160,
                         fit: BoxFit.fitHeight,
@@ -121,25 +120,27 @@ class StoreDetailCard extends StatelessWidget {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const ClipRRect(
-                          borderRadius: BorderRadius.all(
+                        ClipRRect(
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
                           child: CustomCachedNetworkImage(
-                            imageUrl: CafeinConst.defaultStoreImage,
+                            imageUrl: storeDetail.storeImageList[index].imageUrl,
                             height: 96,
                             width: 96,
+                            fit: BoxFit.cover,
                           ),
                         ),
                         if (index + 1 < 8)
-                          const ClipRRect(
-                            borderRadius: BorderRadius.all(
+                          ClipRRect(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(10),
                             ),
                             child: CustomCachedNetworkImage(
-                              imageUrl: CafeinConst.defaultStoreImage,
+                              imageUrl: storeDetail.storeImageList[index].imageUrl,
                               height: 96,
                               width: 96,
+                              fit: BoxFit.cover,
                             ),
                           ),
                       ],

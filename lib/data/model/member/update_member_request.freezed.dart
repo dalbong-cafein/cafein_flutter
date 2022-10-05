@@ -180,13 +180,13 @@ abstract class _UpdateMemberRequest implements UpdateMemberRequest {
       final int? deleteImageId}) = _$_UpdateMemberRequest;
 
   @override
-  int get memberId => throw _privateConstructorUsedError;
+  int get memberId;
   @override
-  String get nickName => throw _privateConstructorUsedError;
+  String get nickName;
   @override
-  String? get imageFile => throw _privateConstructorUsedError;
+  String? get imageFile;
   @override
-  int? get deleteImageId => throw _privateConstructorUsedError;
+  int? get deleteImageId;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateMemberRequestCopyWith<_$_UpdateMemberRequest> get copyWith =>

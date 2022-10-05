@@ -147,7 +147,9 @@ class _$_ReportCategory implements _ReportCategory {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReportCategoryToJson(this);
+    return _$$_ReportCategoryToJson(
+      this,
+    );
   }
 }
 
@@ -160,9 +162,9 @@ abstract class _ReportCategory implements ReportCategory {
       _$_ReportCategory.fromJson;
 
   @override
-  int get reportCategoryId => throw _privateConstructorUsedError;
+  int get reportCategoryId;
   @override
-  String get categoryName => throw _privateConstructorUsedError;
+  String get categoryName;
   @override
   @JsonKey(ignore: true)
   _$$_ReportCategoryCopyWith<_$_ReportCategory> get copyWith =>

@@ -160,7 +160,9 @@ class _$_BusinessInfo implements _BusinessInfo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BusinessInfoToJson(this);
+    return _$$_BusinessInfoToJson(
+      this,
+    );
   }
 }
 
@@ -174,11 +176,11 @@ abstract class _BusinessInfo implements BusinessInfo {
       _$_BusinessInfo.fromJson;
 
   @override
-  bool? get isOpen => throw _privateConstructorUsedError;
+  bool? get isOpen;
   @override
-  String? get closed => throw _privateConstructorUsedError;
+  String? get closed;
   @override
-  String get tmrOpen => throw _privateConstructorUsedError;
+  String get tmrOpen;
   @override
   @JsonKey(ignore: true)
   _$$_BusinessInfoCopyWith<_$_BusinessInfo> get copyWith =>

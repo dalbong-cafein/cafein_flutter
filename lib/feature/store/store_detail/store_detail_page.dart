@@ -1,6 +1,13 @@
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_list_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_list_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_study_information_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -21,21 +28,72 @@ class StoreDetailPage extends StatefulWidget {
 }
 
 class _StoreDetailPageState extends State<StoreDetailPage> {
+  final scrollController = ScrollController();
+
+  final storeDetailKey = GlobalKey();
+  final storeCongestionKey = GlobalKey();
+  final storeStudyKey = GlobalKey();
+  final storeReviewKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
     Future.microtask(
       () => context.read<StoreDetailBloc>().add(
-            StoreDetailRequested(
-              storeId: widget.storeId,
-            ),
+            const StoreDetailRequested(),
           ),
     );
+  }
+
+  void animateScroll(int index) {
+    double offset = 0;
+    final appBarHeight = AppBar().preferredSize.height;
+
+    if (index == 0) {
+      final renderBox =
+          storeDetailKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    } else if (index == 1) {
+      final renderBox =
+          storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    } else if (index == 2) {
+      final renderBox =
+          storeStudyKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    } else if (index == 3) {
+      final renderBox =
+          storeReviewKey.currentContext!.findRenderObject() as RenderBox;
+      final widgetOffset = renderBox.localToGlobal(Offset.zero);
+      offset = widgetOffset.dy;
+    }
+
+    scrollController.animateTo(
+      offset - 44 - appBarHeight - 44 + scrollController.offset,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.linear,
+    );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
+    final tabTitles = [
+      '홈',
+      '혼잡도',
+      '카공 정보',
+      '리뷰',
+    ];
 
     return BlocListener<StoreDetailBloc, StoreDetailState>(
       listener: (context, state) {
@@ -45,15 +103,21 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             error: state.error,
             refresh: state.event,
           );
+        } else if (state is StoreDetailTabChecked) {
+          animateScroll(state.index);
         }
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: loadAsset(AppIcon.left),
+          ),
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(
-                Icons.share,
+              icon: loadAsset(
+                AppIcon.share,
                 color: AppColor.grey400,
               ),
             ),
@@ -65,18 +129,15 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     onPressed: () => context.read<StoreDetailBloc>().add(
                           StoreDetailHeartRequested(
                             isHeart: !state.isHeart,
-                            storeId: widget.storeId,
                           ),
                         ),
                     icon: state.isHeart
-                        ? const Icon(
-                            Icons.favorite,
-                            size: 32,
+                        ? loadAsset(
+                            AppIcon.heartFill,
                             color: AppColor.orange500,
                           )
-                        : const Icon(
-                            Icons.favorite_outline,
-                            size: 32,
+                        : loadAsset(
+                            AppIcon.heartLine,
                             color: AppColor.grey300,
                           ),
                   );
@@ -84,6 +145,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 return const SizedBox.shrink();
               },
             ),
+            const SizedBox(width: 8),
           ],
         ),
         body: BlocBuilder<StoreDetailBloc, StoreDetailState>(
@@ -91,6 +153,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           builder: (context, state) {
             if (state is StoreDetailLoaded) {
               return CustomScrollView(
+                controller: scrollController,
                 slivers: [
                   StoreDetailCard(
                     storeDetail: state.storeDetail,
@@ -98,6 +161,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   SliverAppBar(
                     pinned: true,
                     toolbarHeight: 44,
+                    backgroundColor: AppColor.white,
                     automaticallyImplyLeading: false,
                     titleSpacing: 0,
                     centerTitle: false,
@@ -116,27 +180,23 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       child: BlocBuilder<StoreDetailBloc, StoreDetailState>(
                         buildWhen: (pre, next) => next is StoreDetailTabChecked,
                         builder: (context, state) {
-                          final tabTitles = [
-                            '홈',
-                            '혼잡도',
-                            '카공 정보',
-                            '리뷰',
-                          ];
                           int currentIndex = 0;
                           if (state is StoreDetailTabChecked) {
                             currentIndex = state.index;
                           }
+
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: List.generate(
                               4,
                               (index) => Expanded(
                                 child: InkWell(
-                                  onTap: () => context.read<StoreDetailBloc>().add(
-                                        StoreDetailTabChanged(
-                                          index: index,
-                                        ),
-                                      ),
+                                  onTap: () =>
+                                      context.read<StoreDetailBloc>().add(
+                                            StoreDetailTabChanged(
+                                              index: index,
+                                            ),
+                                          ),
                                   child: Column(
                                     children: [
                                       const SizedBox(height: 12),
@@ -144,7 +204,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         tabTitles[index],
                                         style: index == currentIndex
                                             ? AppStyle.subTitle15Bold
-                                            : AppStyle.subTitle15Medium.copyWith(
+                                            : AppStyle.subTitle15Medium
+                                                .copyWith(
                                                 color: AppColor.grey400,
                                               ),
                                       ),
@@ -166,141 +227,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 20,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '기본 정보',
-                            style: AppStyle.subTitle17SemiBold,
-                          ),
-                          const SizedBox(height: 16),
-                          Container(
-                            height: 120,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Text(
-                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                                style: (state.storeDetail.businessInfo.isOpen ?? false)
-                                    ? AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      )
-                                    : AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.grey500,
-                                      ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Text(
-                                '오후 11:30에 영업 종료',
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Text(
-                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                                style: (state.storeDetail.businessInfo.isOpen ?? false)
-                                    ? AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      )
-                                    : AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.grey500,
-                                      ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Text(
-                                '오후 11:30에 영업 종료',
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Text(
-                                (state.storeDetail.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-                                style: (state.storeDetail.businessInfo.isOpen ?? false)
-                                    ? AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      )
-                                    : AppStyle.subTitle14Medium.copyWith(
-                                        color: AppColor.grey500,
-                                      ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Text(
-                                '오후 11:30에 영업 종료',
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                            ),
-                            height: 1,
-                            color: AppColor.grey50,
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '잘못된 정보가 있다면 알려주세요',
-                                    style: AppStyle.caption13Regular.copyWith(
-                                      color: AppColor.grey600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    '마지막 수정일',
-                                    style: AppStyle.caption11Regular.copyWith(
-                                      color: AppColor.grey500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 32,
-                                width: 80,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: AppColor.grey800,
-                                    padding: EdgeInsets.zero,
-                                    backgroundColor: AppColor.white,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                      side: BorderSide(
-                                        color: AppColor.grey400,
-                                      ),
-                                    ),
-                                    textStyle: AppStyle.subTitle14Medium,
-                                  ),
-                                  child: const Text('정보 수정'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    child: StoreDefaultInformationCard(
+                      key: storeDetailKey,
+                      storeDetail: state.storeDetail,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -309,9 +238,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 280,
+                  SliverToBoxAdapter(
+                    child: StoreCongestionCard(
+                      key: storeCongestionKey,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -320,9 +249,23 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 220,
+                  SliverToBoxAdapter(
+                    child: StoreStudyInformationCard(
+                      key: storeStudyKey,
+                      reviewDetailScore: state.reviewDetailScore,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 12,
+                      color: AppColor.grey50,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: StoreReviewRequestCard(
+                      key: storeReviewKey,
+                      reviewCount: state.reviewResponse.reviewCnt,
+                      storeDetail: state.storeDetail,
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -334,10 +277,21 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       color: AppColor.grey50,
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 200,
+                  SliverToBoxAdapter(
+                    child: StoreReviewListCard(
+                      reviewCount: state.reviewResponse.reviewCnt,
+                      reviews: state.reviewResponse.reviewData.reviewList,
                     ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 12,
+                      color: AppColor.grey50,
+                    ),
+                  ),
+                  const StoreListCard(),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 24),
                   ),
                 ],
               );

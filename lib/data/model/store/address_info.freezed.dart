@@ -231,7 +231,9 @@ class _$_AddressInfo implements _AddressInfo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AddressInfoToJson(this);
+    return _$$_AddressInfoToJson(
+      this,
+    );
   }
 }
 
@@ -249,20 +251,20 @@ abstract class _AddressInfo implements AddressInfo {
 
   @override
   @JsonKey(name: 'siNm')
-  String get cityName => throw _privateConstructorUsedError;
+  String get cityName;
   @override
   @JsonKey(name: 'sggNm')
-  String get districtName => throw _privateConstructorUsedError;
+  String get districtName;
   @override
-  String get detail => throw _privateConstructorUsedError;
+  String get detail;
   @override
-  String get fullAddress => throw _privateConstructorUsedError;
+  String get fullAddress;
   @override
   @JsonKey(name: 'rnum')
-  String get roadNumber => throw _privateConstructorUsedError;
+  String get roadNumber;
   @override
   @JsonKey(name: 'rnm')
-  String get roadName => throw _privateConstructorUsedError;
+  String get roadName;
   @override
   @JsonKey(ignore: true)
   _$$_AddressInfoCopyWith<_$_AddressInfo> get copyWith =>

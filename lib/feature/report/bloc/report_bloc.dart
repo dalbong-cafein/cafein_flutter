@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:cafein_flutter/data/model/report/report_category.dart';
+import 'package:cafein_flutter/data/model/report/report_request.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'report_event.dart';
 
@@ -14,7 +15,6 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     on<ReportCategoryRequested>(_onReportCategoryRequested);
     on<ReportCategoryClicked>(_onReportCategoryClicked);
     on<ReportRequested>(_onReportRequested);
-
   }
 
   final ReviewRepository reviewRepository;
@@ -27,7 +27,8 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     try {
       final categoryResponse = await reviewRepository.getReportCategories();
       final categories = categoryResponse.data;
-      emit(ReportCategoryLoaded(categories: [...categories], clickedCategory: categories.length -1));
+      emit(ReportCategoryLoaded(
+          categories: [...categories], clickedCategory: categories.length - 1));
     } catch (e) {
       emit(ReportError(
         error: e,
@@ -35,15 +36,17 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       ));
     }
   }
+
   FutureOr<void> _onReportCategoryClicked(
-      ReportCategoryClicked event,
-      Emitter<ReportState> emit,
-      ) async {
+    ReportCategoryClicked event,
+    Emitter<ReportState> emit,
+  ) async {
     emit(const ReportLoading());
     try {
       final categoryResponse = await reviewRepository.getReportCategories();
       final categories = categoryResponse.data;
-      emit(ReportCategoryLoaded(categories: [...categories], clickedCategory: event.clickedIndex));
+      emit(ReportCategoryLoaded(
+          categories: [...categories], clickedCategory: event.clickedIndex));
     } catch (e) {
       emit(ReportError(
         error: e,
@@ -53,12 +56,20 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   }
 
   FutureOr<void> _onReportRequested(
-      ReportRequested event,
-      Emitter<ReportState> emit,
-      ) async {
+    ReportRequested event,
+    Emitter<ReportState> emit,
+  ) async {
     emit(const ReportLoading());
     try {
-      await reviewRepository.createReportReview(event.clickedIndex);
+      // TODO: 신고 로직 작성 필요
+      await reviewRepository.createReportReview(
+        reviewId: event.clickedIndex,
+        reportRequest: ReportRequest(
+          reviewId: -1,
+          reportCategoryId: -1,
+          content: '',
+        ),
+      );
       emit(const ReportLoaded());
     } catch (e) {
       emit(ReportError(

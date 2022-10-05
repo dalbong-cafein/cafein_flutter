@@ -189,7 +189,9 @@ class _$_Congestion implements _Congestion {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CongestionToJson(this);
+    return _$$_CongestionToJson(
+      this,
+    );
   }
 }
 
@@ -205,14 +207,14 @@ abstract class _Congestion implements Congestion {
       _$_Congestion.fromJson;
 
   @override
-  int get writerId => throw _privateConstructorUsedError;
+  int get writerId;
   @override
-  String get nicknameOfWriter => throw _privateConstructorUsedError;
+  String get nicknameOfWriter;
   @override
-  int get congestionScore => throw _privateConstructorUsedError;
+  int get congestionScore;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_CongestionCopyWith<_$_Congestion> get copyWith =>

@@ -9,7 +9,8 @@ class ReviewFormDataClient {
 
   const ReviewFormDataClient({required this.dio});
 
-  Future<BaseResponse<int>> createReview(CreateReivewRequest createReivewRequest) async {
+  Future<BaseResponse<int>> createReview(
+      CreateReivewRequest createReivewRequest) async {
     final formData = FormData.fromMap(
       {
         'storeId': createReivewRequest.storeId,
@@ -43,7 +44,8 @@ class ReviewFormDataClient {
     );
   }
 
-  Future<BaseResponse<dynamic>> updateReview(UpdateReviewRequest updateReviewRequest) async {
+  Future<BaseResponse<dynamic>> updateReview(
+      UpdateReviewRequest updateReviewRequest) async {
     final formData = FormData.fromMap(
       {
         'reviewId': updateReviewRequest.reviewId,
@@ -67,7 +69,7 @@ class ReviewFormDataClient {
           )
           .toList(),
     );
-    final response = await dio.post(
+    final response = await dio.put(
       '${CafeinConfig.baseUrl}/reviews/${updateReviewRequest.reviewId}',
       data: formData,
     );

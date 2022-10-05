@@ -129,7 +129,9 @@ class _$_ReviewStickerRequest implements _ReviewStickerRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReviewStickerRequestToJson(this);
+    return _$$_ReviewStickerRequestToJson(
+      this,
+    );
   }
 }
 
@@ -141,7 +143,7 @@ abstract class _ReviewStickerRequest implements ReviewStickerRequest {
       _$_ReviewStickerRequest.fromJson;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
   @JsonKey(ignore: true)
   _$$_ReviewStickerRequestCopyWith<_$_ReviewStickerRequest> get copyWith =>

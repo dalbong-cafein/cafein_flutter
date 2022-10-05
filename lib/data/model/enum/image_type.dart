@@ -1,0 +1,4 @@
+enum ImageType {
+  file,
+  network,
+}

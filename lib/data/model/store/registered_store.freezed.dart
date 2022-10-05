@@ -258,7 +258,9 @@ class _$_RegisteredStore implements _RegisteredStore {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RegisteredStoreToJson(this);
+    return _$$_RegisteredStoreToJson(
+      this,
+    );
   }
 }
 
@@ -278,20 +280,20 @@ abstract class _RegisteredStore implements RegisteredStore {
       _$_RegisteredStore.fromJson;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
   @JsonKey(name: 'businessHoursInfoDto')
-  BusinessInfo get businessInfo => throw _privateConstructorUsedError;
+  BusinessInfo get businessInfo;
   @override
-  double? get congestionScoreAvg => throw _privateConstructorUsedError;
+  double? get congestionScoreAvg;
   @override
   @JsonKey(name: 'storeImageDto')
-  ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
+  ImageIdPair? get imageIdPair;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_RegisteredStoreCopyWith<_$_RegisteredStore> get copyWith =>

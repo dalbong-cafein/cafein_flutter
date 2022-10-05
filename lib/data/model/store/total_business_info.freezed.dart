@@ -376,7 +376,9 @@ class _$_TotalBusinessInfo implements _TotalBusinessInfo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TotalBusinessInfoToJson(this);
+    return _$$_TotalBusinessInfoToJson(
+      this,
+    );
   }
 }
 
@@ -396,27 +398,27 @@ abstract class _TotalBusinessInfo implements TotalBusinessInfo {
 
   @override
   @JsonKey(name: 'onMon')
-  BusinessInfo? get onMonday => throw _privateConstructorUsedError;
+  BusinessInfo? get onMonday;
   @override
   @JsonKey(name: 'onTue')
-  BusinessInfo? get onTuesday => throw _privateConstructorUsedError;
+  BusinessInfo? get onTuesday;
   @override
   @JsonKey(name: 'onWed')
-  BusinessInfo? get onWednesday => throw _privateConstructorUsedError;
+  BusinessInfo? get onWednesday;
   @override
   @JsonKey(name: 'onThe')
-  BusinessInfo? get onThursday => throw _privateConstructorUsedError;
+  BusinessInfo? get onThursday;
   @override
   @JsonKey(name: 'onFri')
-  BusinessInfo? get onFriday => throw _privateConstructorUsedError;
+  BusinessInfo? get onFriday;
   @override
   @JsonKey(name: 'onSat')
-  BusinessInfo? get onSaturday => throw _privateConstructorUsedError;
+  BusinessInfo? get onSaturday;
   @override
   @JsonKey(name: 'onSun')
-  BusinessInfo? get onSunday => throw _privateConstructorUsedError;
+  BusinessInfo? get onSunday;
   @override
-  String get etcTime => throw _privateConstructorUsedError;
+  String get etcTime;
   @override
   @JsonKey(ignore: true)
   _$$_TotalBusinessInfoCopyWith<_$_TotalBusinessInfo> get copyWith =>

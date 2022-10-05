@@ -269,7 +269,9 @@ class _$_Review implements _Review {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReviewToJson(this);
+    return _$$_ReviewToJson(
+      this,
+    );
   }
 }
 
@@ -289,23 +291,23 @@ abstract class _Review implements Review {
   factory _Review.fromJson(Map<String, dynamic> json) = _$_Review.fromJson;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
-  int get writerId => throw _privateConstructorUsedError;
+  int get writerId;
   @override
-  String get nickNameOfWriter => throw _privateConstructorUsedError;
+  String get nickNameOfWriter;
   @override
-  String? get profileImageUrl => throw _privateConstructorUsedError;
+  String? get profileImageUrl;
   @override
-  int get visitCnt => throw _privateConstructorUsedError;
+  int get visitCnt;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
   @JsonKey(name: 'reviewImageDtoList')
-  List<ImageIdPair>? get imageIdPairs => throw _privateConstructorUsedError;
+  List<ImageIdPair>? get imageIdPairs;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_ReviewCopyWith<_$_Review> get copyWith =>

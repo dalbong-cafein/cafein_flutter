@@ -163,7 +163,9 @@ class _$_ReportRequest implements _ReportRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ReportRequestToJson(this);
+    return _$$_ReportRequestToJson(
+      this,
+    );
   }
 }
 
@@ -177,11 +179,11 @@ abstract class _ReportRequest implements ReportRequest {
       _$_ReportRequest.fromJson;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
-  int get reportCategoryId => throw _privateConstructorUsedError;
+  int get reportCategoryId;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
   @JsonKey(ignore: true)
   _$$_ReportRequestCopyWith<_$_ReportRequest> get copyWith =>

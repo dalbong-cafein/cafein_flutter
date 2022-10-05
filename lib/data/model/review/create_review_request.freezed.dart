@@ -270,21 +270,21 @@ abstract class _CreateReivewRequest implements CreateReivewRequest {
       final List<String>? imageFiles}) = _$_CreateReivewRequest;
 
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get recommendation => throw _privateConstructorUsedError;
+  String get recommendation;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
-  String get socket => throw _privateConstructorUsedError;
+  String get socket;
   @override
-  String get wifi => throw _privateConstructorUsedError;
+  String get wifi;
   @override
-  String get restroom => throw _privateConstructorUsedError;
+  String get restroom;
   @override
-  String get tableSize => throw _privateConstructorUsedError;
+  String get tableSize;
   @override
-  List<String>? get imageFiles => throw _privateConstructorUsedError;
+  List<String>? get imageFiles;
   @override
   @JsonKey(ignore: true)
   _$$_CreateReivewRequestCopyWith<_$_CreateReivewRequest> get copyWith =>

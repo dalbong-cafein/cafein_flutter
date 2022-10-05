@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/review/review.dart';
+import 'package:cafein_flutter/data/model/review/review_list_response.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
 import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
@@ -28,10 +29,10 @@ abstract class ReviewClient {
   );
 
   @GET('/members/reviews')
-  Future<BaseResponse<ReviewResponse<List<UserReview>>>> getUserReviews();
+  Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews();
 
   @GET('/stores/{storeId}/reviews/limit')
-  Future<BaseResponse<ReviewResponse<Review>>> getMyRegisteredReviews(
+  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews(
     @Path() int storeId,
     @Query('limit') int limit,
   );

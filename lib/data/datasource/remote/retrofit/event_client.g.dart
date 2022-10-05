@@ -6,10 +6,13 @@ part of 'event_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _EventClient implements EventClient {
-  _EventClient(this._dio, {this.baseUrl}) {
+  _EventClient(
+    this._dio, {
+    this.baseUrl,
+  }) {
     baseUrl ??= 'https://api.cafeinofficial.com';
   }
 
@@ -24,11 +27,18 @@ class _EventClient implements EventClient {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<Event>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/events/latest',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<BaseResponse<Event>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/events/latest',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<Event>.fromJson(
       _result.data!,
       (json) => Event.fromJson(json as Map<String, dynamic>),

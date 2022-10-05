@@ -27,12 +27,11 @@ mixin _$UserReview {
   int get visitCnt => throw _privateConstructorUsedError;
   String get recommendation => throw _privateConstructorUsedError;
   DetailEvaluation get detailEvaluation => throw _privateConstructorUsedError;
-  @JsonKey(name: 'reviewImageDtoList')
+  @JsonKey(name: 'reviewImageDto')
   List<ImageIdPair>? get reviewImageIdPairs =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'storeImage')
-  List<ImageIdPair>? get storeImageIdPairs =>
-      throw _privateConstructorUsedError;
+  ImageIdPair? get storeImageIdPairs => throw _privateConstructorUsedError;
   @JsonKey(name: 'regDateTime')
   String get registeredDateTime => throw _privateConstructorUsedError;
 
@@ -55,14 +54,12 @@ abstract class $UserReviewCopyWith<$Res> {
       int visitCnt,
       String recommendation,
       DetailEvaluation detailEvaluation,
-      @JsonKey(name: 'reviewImageDtoList')
-          List<ImageIdPair>? reviewImageIdPairs,
-      @JsonKey(name: 'storeImage')
-          List<ImageIdPair>? storeImageIdPairs,
-      @JsonKey(name: 'regDateTime')
-          String registeredDateTime});
+      @JsonKey(name: 'reviewImageDto') List<ImageIdPair>? reviewImageIdPairs,
+      @JsonKey(name: 'storeImage') ImageIdPair? storeImageIdPairs,
+      @JsonKey(name: 'regDateTime') String registeredDateTime});
 
   $DetailEvaluationCopyWith<$Res> get detailEvaluation;
+  $ImageIdPairCopyWith<$Res>? get storeImageIdPairs;
 }
 
 /// @nodoc
@@ -122,7 +119,7 @@ class _$UserReviewCopyWithImpl<$Res> implements $UserReviewCopyWith<$Res> {
       storeImageIdPairs: storeImageIdPairs == freezed
           ? _value.storeImageIdPairs
           : storeImageIdPairs // ignore: cast_nullable_to_non_nullable
-              as List<ImageIdPair>?,
+              as ImageIdPair?,
       registeredDateTime: registeredDateTime == freezed
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
@@ -134,6 +131,17 @@ class _$UserReviewCopyWithImpl<$Res> implements $UserReviewCopyWith<$Res> {
   $DetailEvaluationCopyWith<$Res> get detailEvaluation {
     return $DetailEvaluationCopyWith<$Res>(_value.detailEvaluation, (value) {
       return _then(_value.copyWith(detailEvaluation: value));
+    });
+  }
+
+  @override
+  $ImageIdPairCopyWith<$Res>? get storeImageIdPairs {
+    if (_value.storeImageIdPairs == null) {
+      return null;
+    }
+
+    return $ImageIdPairCopyWith<$Res>(_value.storeImageIdPairs!, (value) {
+      return _then(_value.copyWith(storeImageIdPairs: value));
     });
   }
 }
@@ -153,15 +161,14 @@ abstract class _$$_UserReviewCopyWith<$Res>
       int visitCnt,
       String recommendation,
       DetailEvaluation detailEvaluation,
-      @JsonKey(name: 'reviewImageDtoList')
-          List<ImageIdPair>? reviewImageIdPairs,
-      @JsonKey(name: 'storeImage')
-          List<ImageIdPair>? storeImageIdPairs,
-      @JsonKey(name: 'regDateTime')
-          String registeredDateTime});
+      @JsonKey(name: 'reviewImageDto') List<ImageIdPair>? reviewImageIdPairs,
+      @JsonKey(name: 'storeImage') ImageIdPair? storeImageIdPairs,
+      @JsonKey(name: 'regDateTime') String registeredDateTime});
 
   @override
   $DetailEvaluationCopyWith<$Res> get detailEvaluation;
+  @override
+  $ImageIdPairCopyWith<$Res>? get storeImageIdPairs;
 }
 
 /// @nodoc
@@ -221,9 +228,9 @@ class __$$_UserReviewCopyWithImpl<$Res> extends _$UserReviewCopyWithImpl<$Res>
           : reviewImageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
       storeImageIdPairs: storeImageIdPairs == freezed
-          ? _value._storeImageIdPairs
+          ? _value.storeImageIdPairs
           : storeImageIdPairs // ignore: cast_nullable_to_non_nullable
-              as List<ImageIdPair>?,
+              as ImageIdPair?,
       registeredDateTime: registeredDateTime == freezed
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
@@ -243,14 +250,13 @@ class _$_UserReview implements _UserReview {
       required this.visitCnt,
       required this.recommendation,
       required this.detailEvaluation,
-      @JsonKey(name: 'reviewImageDtoList')
+      @JsonKey(name: 'reviewImageDto')
           final List<ImageIdPair>? reviewImageIdPairs,
       @JsonKey(name: 'storeImage')
-          final List<ImageIdPair>? storeImageIdPairs,
+          this.storeImageIdPairs,
       @JsonKey(name: 'regDateTime')
           required this.registeredDateTime})
-      : _reviewImageIdPairs = reviewImageIdPairs,
-        _storeImageIdPairs = storeImageIdPairs;
+      : _reviewImageIdPairs = reviewImageIdPairs;
 
   factory _$_UserReview.fromJson(Map<String, dynamic> json) =>
       _$$_UserReviewFromJson(json);
@@ -271,7 +277,7 @@ class _$_UserReview implements _UserReview {
   final DetailEvaluation detailEvaluation;
   final List<ImageIdPair>? _reviewImageIdPairs;
   @override
-  @JsonKey(name: 'reviewImageDtoList')
+  @JsonKey(name: 'reviewImageDto')
   List<ImageIdPair>? get reviewImageIdPairs {
     final value = _reviewImageIdPairs;
     if (value == null) return null;
@@ -279,16 +285,9 @@ class _$_UserReview implements _UserReview {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<ImageIdPair>? _storeImageIdPairs;
   @override
   @JsonKey(name: 'storeImage')
-  List<ImageIdPair>? get storeImageIdPairs {
-    final value = _storeImageIdPairs;
-    if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final ImageIdPair? storeImageIdPairs;
   @override
   @JsonKey(name: 'regDateTime')
   final String registeredDateTime;
@@ -315,7 +314,7 @@ class _$_UserReview implements _UserReview {
             const DeepCollectionEquality()
                 .equals(other._reviewImageIdPairs, _reviewImageIdPairs) &&
             const DeepCollectionEquality()
-                .equals(other._storeImageIdPairs, _storeImageIdPairs) &&
+                .equals(other.storeImageIdPairs, storeImageIdPairs) &&
             const DeepCollectionEquality()
                 .equals(other.registeredDateTime, registeredDateTime));
   }
@@ -332,7 +331,7 @@ class _$_UserReview implements _UserReview {
       const DeepCollectionEquality().hash(recommendation),
       const DeepCollectionEquality().hash(detailEvaluation),
       const DeepCollectionEquality().hash(_reviewImageIdPairs),
-      const DeepCollectionEquality().hash(_storeImageIdPairs),
+      const DeepCollectionEquality().hash(storeImageIdPairs),
       const DeepCollectionEquality().hash(registeredDateTime));
 
   @JsonKey(ignore: true)
@@ -342,7 +341,9 @@ class _$_UserReview implements _UserReview {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserReviewToJson(this);
+    return _$$_UserReviewToJson(
+      this,
+    );
   }
 }
 
@@ -355,10 +356,10 @@ abstract class _UserReview implements UserReview {
       required final int visitCnt,
       required final String recommendation,
       required final DetailEvaluation detailEvaluation,
-      @JsonKey(name: 'reviewImageDtoList')
+      @JsonKey(name: 'reviewImageDto')
           final List<ImageIdPair>? reviewImageIdPairs,
       @JsonKey(name: 'storeImage')
-          final List<ImageIdPair>? storeImageIdPairs,
+          final ImageIdPair? storeImageIdPairs,
       @JsonKey(name: 'regDateTime')
           required final String registeredDateTime}) = _$_UserReview;
 
@@ -366,30 +367,28 @@ abstract class _UserReview implements UserReview {
       _$_UserReview.fromJson;
 
   @override
-  int get reviewId => throw _privateConstructorUsedError;
+  int get reviewId;
   @override
-  int get storeId => throw _privateConstructorUsedError;
+  int get storeId;
   @override
-  String get storeName => throw _privateConstructorUsedError;
+  String get storeName;
   @override
-  String get content => throw _privateConstructorUsedError;
+  String get content;
   @override
-  int get visitCnt => throw _privateConstructorUsedError;
+  int get visitCnt;
   @override
-  String get recommendation => throw _privateConstructorUsedError;
+  String get recommendation;
   @override
-  DetailEvaluation get detailEvaluation => throw _privateConstructorUsedError;
+  DetailEvaluation get detailEvaluation;
   @override
-  @JsonKey(name: 'reviewImageDtoList')
-  List<ImageIdPair>? get reviewImageIdPairs =>
-      throw _privateConstructorUsedError;
+  @JsonKey(name: 'reviewImageDto')
+  List<ImageIdPair>? get reviewImageIdPairs;
   @override
   @JsonKey(name: 'storeImage')
-  List<ImageIdPair>? get storeImageIdPairs =>
-      throw _privateConstructorUsedError;
+  ImageIdPair? get storeImageIdPairs;
   @override
   @JsonKey(name: 'regDateTime')
-  String get registeredDateTime => throw _privateConstructorUsedError;
+  String get registeredDateTime;
   @override
   @JsonKey(ignore: true)
   _$$_UserReviewCopyWith<_$_UserReview> get copyWith =>
