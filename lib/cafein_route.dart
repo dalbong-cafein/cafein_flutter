@@ -48,6 +48,8 @@ import 'package:cafein_flutter/feature/review/created_review/bloc/created_review
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
 import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
@@ -272,6 +274,18 @@ abstract class CafeinRoute {
           child: UpdatedReviewPage(review: review),
         );
         break;
+
+      case StoreReviewListPage.routeName:
+        final storeDetail = settings.arguments as StoreDetail;
+        page = BlocProvider(
+          create: (context) => StoreReviewBloc(
+            storeId: storeDetail.storeId,
+            reviewRepository: context.read<ReviewRepository>(),
+          ),
+          child: StoreReviewListPage(
+            storeDetail: storeDetail,
+          ),
+        );
     }
 
     return MaterialPageRoute(
