@@ -42,6 +42,7 @@ import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/bloc/received_coupons_bloc.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
+import 'package:cafein_flutter/feature/report/bloc/report_bloc.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
@@ -248,7 +249,11 @@ abstract class CafeinRoute {
         );
         break;
       case ReportPage.routeName:
-        page = const ReportPage();
+        page = BlocProvider(
+          create: (context) =>
+              ReportBloc(reviewRepository: context.read<ReviewRepository>()),
+          child: const ReportPage(),
+        );
         break;
       case GalleryPage.routeName:
         page = BlocProvider(

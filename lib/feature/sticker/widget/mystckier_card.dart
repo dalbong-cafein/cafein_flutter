@@ -49,7 +49,7 @@ class MyStickerCard extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 38, right: 38, top: 28),
+                padding: const EdgeInsets.only(left: 38, right: 38, top: 28, bottom: 24),
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
