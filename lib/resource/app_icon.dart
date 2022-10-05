@@ -20,7 +20,7 @@ abstract class AppIcon {
   static const heartGood = "asset/icon/heart_good_icon.svg";
   static const heartNormal = "asset/icon/heart_normal_icon.svg";
 
-  static const place = "asset/icon/place_icon.svg";
+  static const locationLOrange = 'asset/icon/size32/ic_location_l_orange.svg';
 
   static const socket = "asset/icon/socket_icon.svg";
   static const restroom = "asset/icon/restroom_icon.svg";
@@ -109,7 +109,7 @@ abstract class AppIcon {
   static const heartFill = 'asset/icon/size24/ic_heart_fill.svg';
   static const heartLine = 'asset/icon/size24/ic_heart_line.svg';
   static const heartOff = 'asset/icon/size24/ic_heart_off.svg';
-  static const hearOn = 'asset/icon/size24/ic_heart_on.svg';
+  static const heartOn = 'asset/icon/size24/ic_heart_on.svg';
   static const kakaoLogin = 'asset/icon/size24/ic_kakao_login.svg';
   static const left = 'asset/icon/size24/ic_left.svg';
   static const like = 'asset/icon/size24/ic_like.svg';
@@ -146,7 +146,5 @@ abstract class AppIcon {
   static const locationL = 'asset/icon/size32/ic_location_l.svg';
   static const locationNearFillL = 'asset/icon/size32/ic_location_naer_fill_l.svg';
   static const naverL = 'asset/icon/size32/ic_naver_l.svg';
-
-  static const rightSGrey400 = 'asset/icon/size16/ic_right_s_grey.svg';
 
 }

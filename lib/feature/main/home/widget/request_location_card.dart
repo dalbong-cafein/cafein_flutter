@@ -33,7 +33,7 @@ class RequestLocationCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(6),
                       child: Center(
-                        child: loadAsset(AppIcon.place,
+                        child: loadAsset(AppIcon.locationLOrange,
                             height: 32 * heightPercent, width: 32 * widthPercent),
                       ),
                     ),

@@ -215,14 +215,12 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
                                                     ),
                                                   ),
                                               child: state.recommendStores[index].isHeart
-                                                  ? const Icon(
-                                                      Icons.favorite_border_rounded,
-                                                      color: AppColor.grey200,
-                                                    )
-                                                  : const Icon(
-                                                      Icons.favorite_rounded,
-                                                      color: Colors.orange,
-                                                    ),
+                                                  ? loadAsset(
+                                                AppIcon.heartLine
+                                              )
+                                                  : loadAsset(
+                                                  AppIcon.heartOn
+                                              )
                                             )
                                           ],
                                         ),

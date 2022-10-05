@@ -121,11 +121,11 @@ class StickerCard extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: AppColor.grey400,
-                        ),
+                      children: [
+                        loadAsset(
+                          AppIcon.rightS,
+                          color : AppColor.grey400
+                        )
                       ],
                     ),
                   ),
