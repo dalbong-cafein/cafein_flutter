@@ -1,5 +1,5 @@
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
 class EditPhoneNumberBottomSheet extends StatelessWidget {
@@ -42,9 +42,9 @@ class EditPhoneNumberBottomSheet extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
-                  child: const Icon(
-                    CupertinoIcons.xmark,
-                  ),
+                  child: loadAsset(
+                    AppIcon.clear24S
+                  )
                 ),
               ],
             ),

@@ -202,7 +202,7 @@ class MyStoresCard extends StatelessWidget {
                                     style: AppStyle.body14Regular,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 3),
+                                    padding: const EdgeInsets.only(left: 3),
                                     child: loadAsset(
                                         AppIcon.rightS,
                                         color : AppColor.grey400

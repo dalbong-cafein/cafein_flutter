@@ -5,6 +5,7 @@ import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/calculate_distance.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
@@ -71,16 +72,14 @@ class SearchStoreCard extends StatelessWidget {
                         ),
                       ),
                   child: store.isHeart
-                      ? const Icon(
-                          Icons.favorite,
-                          size: 32,
-                          color: AppColor.orange500,
-                        )
-                      : const Icon(
-                          Icons.favorite_outline,
-                          size: 32,
-                          color: AppColor.grey300,
-                        ),
+                      ? loadAsset(
+                    AppIcon.heartOn,
+                    color : AppColor.orange500
+                  )
+                      : loadAsset(
+                    AppIcon.heartLine,
+                    color : AppColor.grey300
+                  )
                 ),
               ],
             ),

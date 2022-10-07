@@ -1,4 +1,7 @@
+import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../util/load_asset.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -123,7 +126,9 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
   Widget? _buildIcon(BuildContext context) {
     return RotationTransition(
       turns: _iconTurns,
-      child: const Icon(Icons.expand_more),
+      child: loadAsset(
+        AppIcon.downXS
+      ),
     );
   }
 

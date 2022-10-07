@@ -11,10 +11,10 @@ import 'package:cafein_flutter/feature/main/search/widget/search_keyword_tab.dar
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/get_marker_icon.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -172,7 +172,10 @@ class _SearchPageState extends State<SearchPage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Icon(CupertinoIcons.search),
+                      loadAsset(
+                        AppIcon.search,
+                        color : AppColor.grey700
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         '카페 이름, 구, 동, 역 등으로 검색',

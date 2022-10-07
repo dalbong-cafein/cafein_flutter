@@ -146,5 +146,6 @@ abstract class AppIcon {
   static const locationL = 'asset/icon/size32/ic_location_l.svg';
   static const locationNearFillL = 'asset/icon/size32/ic_location_naer_fill_l.svg';
   static const naverL = 'asset/icon/size32/ic_naver_l.svg';
+  static const starL = 'asset/icon/size32/ic_star_l.svg';
 
 }
