@@ -23,7 +23,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   StoreDetailBloc({
     required this.storeRepository,
     required this.reviewRepository,
-    required this.congestionRepository,
     required this.heartRepository,
     required this.storeId,
   }) : super(const StoreDetailInitial()) {
@@ -31,12 +30,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
     on<StoreDetailTabChanged>(_onStoreDetailTabChanged);
     on<StoreDetailNearStoreRequested>(_onStoreDetailNearStoreRequested);
-    on<StoreDetailCongestionRequested>(_onStoreDetailCongestionRequested);
-    on<StoreDetailNearStoreHeartRequested>(_onStoreDetailNearStoreHeartRequested);
+    on<StoreDetailNearStoreHeartRequested>(
+        _onStoreDetailNearStoreHeartRequested);
   }
 
   final StoreRepository storeRepository;
-  final CongestionRepository congestionRepository;
   final ReviewRepository reviewRepository;
   final HeartRepository heartRepository;
 
@@ -45,10 +43,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   bool isHeart = false;
 
   List<Store> nearStoreList = [];
-
-  final today = '${DateFormat.E('ko_KR').format(
-    DateTime.now(),
-  )}요일';
 
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
@@ -169,42 +163,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       emit(
         StoreDetailNearStoreLoaded(
           storeList: nearStoreList,
-        ),
-      );
-    } catch (e) {
-      emit(
-        StoreDetailError(
-          error: e,
-          event: () => add(event),
-        ),
-      );
-    }
-  }
-
-  FutureOr<void> _onStoreDetailCongestionRequested(
-    StoreDetailCongestionRequested event,
-    Emitter<StoreDetailState> emit,
-  ) async {
-    emit(const StoreDetailLoading());
-
-    try {
-      final requestDayIndex = CafeinConst.krDays.indexOf(event.day);
-      final currentDayIndex = CafeinConst.krDays.indexOf(today);
-
-      int minusDay = currentDayIndex - requestDayIndex;
-      if (currentDayIndex >= 0) {
-        minusDay += 7;
-      }
-
-      final congestionResponse = await congestionRepository.getCongestions(
-        storeId: storeId,
-        minusDays: minusDay,
-      );
-
-      emit(
-        StoreDetailCongestionLoaded(
-          congestionResponse: congestionResponse.data,
-          day: event.day,
         ),
       );
     } catch (e) {

@@ -16,24 +16,33 @@ class CreatedReviewLoading extends CreatedReviewState {
 }
 
 class CreatedReviewSucceed extends CreatedReviewState {
-  const CreatedReviewSucceed();
-}
-
-class CreatedReviewPermissionChecked extends CreatedReviewState {
-  const CreatedReviewPermissionChecked({
-    required this.permission,
-    required this.permissionStatus,
+  const CreatedReviewSucceed({
+    required this.isAvailable,
   });
 
-  final Permission permission;
-  final PermissionStatus permissionStatus;
+  final bool isAvailable;
 
   @override
-  List<Object?> get props => [
-        permission,
-        permissionStatus,
-        DateTime.now(),
-      ];
+  List<Object?> get props => [isAvailable];
+}
+
+class CreatedReviewStickerCountLoaded extends CreatedReviewState {
+  const CreatedReviewStickerCountLoaded({
+    required this.isAvailable,
+  });
+
+  final bool isAvailable;
+
+  @override
+  List<Object?> get props => [isAvailable];
+}
+
+class CreatedReviewStickerLoaded extends CreatedReviewState {
+  const CreatedReviewStickerLoaded();
+}
+
+class CreatedReviewStickerError extends CreatedReviewState {
+  const CreatedReviewStickerError();
 }
 
 class CreatedReviewScoreChecked extends CreatedReviewState {

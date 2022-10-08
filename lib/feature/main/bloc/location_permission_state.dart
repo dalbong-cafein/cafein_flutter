@@ -11,6 +11,10 @@ class LocationPermissionInitial extends LocationPermissionState {
   const LocationPermissionInitial();
 }
 
+class LocationPermissionLoading extends LocationPermissionState {
+  const LocationPermissionLoading();
+}
+
 class LocationPermissionChecked extends LocationPermissionState {
   const LocationPermissionChecked({
     required this.permissionStatus,
@@ -21,6 +25,5 @@ class LocationPermissionChecked extends LocationPermissionState {
   @override
   List<Object?> get props => [
         permissionStatus,
-        DateTime.now(),
       ];
 }

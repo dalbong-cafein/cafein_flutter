@@ -8,10 +8,14 @@ part 'gallery_event.dart';
 part 'gallery_state.dart';
 
 class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
-  GalleryBloc() : super(const GalleryInitial()) {
+  GalleryBloc({
+    required this.maxCount,
+  }) : super(const GalleryInitial()) {
     on<GalleryPhotoRequested>(_onGalleryPhotoRequested);
     on<GalleryPhotoStateChanged>(_onGalleryPhotoStateChanged);
   }
+
+  final int maxCount;
 
   List<AssetEntity> assets = [];
   List<AssetEntity> selectedAsset = [];

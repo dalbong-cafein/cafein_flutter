@@ -232,7 +232,8 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
           width: 1048,
         );
 
-        final fileName = state.updateImageUrls[i].split('/').last;
+        final fileName =
+            state.updateImageUrls[i].split('/').last.split('.').first;
         final filePath = '${dir.path}/$fileName.jpg';
 
         File(filePath).writeAsBytesSync(

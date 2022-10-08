@@ -7,8 +7,12 @@ import 'package:permission_handler/permission_handler.dart';
 part 'location_permission_event.dart';
 part 'location_permission_state.dart';
 
-class LocationPermissionBloc extends Bloc<LocationPermissionEvent, LocationPermissionState> {
-  LocationPermissionBloc() : super(const LocationPermissionInitial()) {
+class LocationPermissionBloc
+    extends Bloc<LocationPermissionEvent, LocationPermissionState> {
+  LocationPermissionBloc()
+      : super(
+          const LocationPermissionInitial(),
+        ) {
     on<LocationPermissionRequest>(_onLocationPermissionRequest);
   }
 
@@ -16,7 +20,12 @@ class LocationPermissionBloc extends Bloc<LocationPermissionEvent, LocationPermi
     LocationPermissionRequest event,
     Emitter<LocationPermissionState> emit,
   ) async {
+    emit(const LocationPermissionLoading());
+
     final status = await Permission.locationWhenInUse.request();
-    emit(LocationPermissionChecked(permissionStatus: status));
+
+    emit(LocationPermissionChecked(
+      permissionStatus: status,
+    ));
   }
 }

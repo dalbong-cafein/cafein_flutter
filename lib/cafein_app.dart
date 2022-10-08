@@ -28,6 +28,9 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
@@ -106,42 +109,56 @@ class CafeinApp extends StatelessWidget {
           ),
         ),
       ],
-      child: MaterialApp(
-        builder: (context, child) => MediaQuery(
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LocationPermissionBloc(),
+          ),
+          BlocProvider(
+            create: (context) => CameraPermissionBloc(),
+          ),
+          BlocProvider(
+            create: (context) => PhotoPermissionBloc(),
+          ),
+        ],
+        child: MaterialApp(
+          builder: (context, child) => MediaQuery(
             data: MediaQueryData.fromWindow(
               WidgetsBinding.instance.window,
             ).copyWith(
               boldText: false,
               textScaleFactor: 1.0,
             ),
-            child: child!),
-        useInheritedMediaQuery: true,
-        debugShowCheckedModeBanner: false,
-        initialRoute: SplashPage.routeName,
-        theme: AppTheme.light.copyWith(
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: AppColor.grey800,
-                displayColor: AppColor.grey800,
-              ),
+            child: child!,
+          ),
+          useInheritedMediaQuery: true,
+          debugShowCheckedModeBanner: false,
+          initialRoute: SplashPage.routeName,
+          theme: AppTheme.light.copyWith(
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: AppColor.grey800,
+                  displayColor: AppColor.grey800,
+                ),
+          ),
+          darkTheme: AppTheme.light.copyWith(
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: AppColor.grey800,
+                  displayColor: AppColor.grey800,
+                ),
+          ),
+          // localizationsDelegates: const [
+          //   GlobalMaterialLocalizations.delegate,
+          //   GlobalWidgetsLocalizations.delegate,
+          //   GlobalCupertinoLocalizations.delegate,
+          // ],
+          // supportedLocales: const [
+          //   Locale('ko', 'KR'),
+          // ],
+          onGenerateRoute: CafeinRoute.onGenerateRoute,
+          navigatorObservers: [
+            CustomNavigatorLogger(),
+          ],
         ),
-        darkTheme: AppTheme.light.copyWith(
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: AppColor.grey800,
-                displayColor: AppColor.grey800,
-              ),
-        ),
-        // localizationsDelegates: const [
-        //   GlobalMaterialLocalizations.delegate,
-        //   GlobalWidgetsLocalizations.delegate,
-        //   GlobalCupertinoLocalizations.delegate,
-        // ],
-        // supportedLocales: const [
-        //   Locale('ko', 'KR'),
-        // ],
-        onGenerateRoute: CafeinRoute.onGenerateRoute,
-        navigatorObservers: [
-          CustomNavigatorLogger(),
-        ],
       ),
     );
   }

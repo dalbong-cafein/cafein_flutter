@@ -34,22 +34,6 @@ class StoreDetailLoaded extends StoreDetailState {
       ];
 }
 
-class StoreDetailCongestionLoaded extends StoreDetailState {
-  const StoreDetailCongestionLoaded({
-    required this.congestionResponse,
-    required this.day,
-  });
-
-  final CongestionResponse congestionResponse;
-  final String day;
-
-  @override
-  List<Object?> get props => [
-        congestionResponse,
-        day,
-      ];
-}
-
 class StoreDetailNearStoreLoaded extends StoreDetailState {
   const StoreDetailNearStoreLoaded({
     required this.storeList,

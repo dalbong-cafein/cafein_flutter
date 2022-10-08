@@ -1,10 +1,14 @@
+import 'dart:html';
+
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_type_pair.dart';
 import 'package:cafein_flutter/data/model/enum/image_type.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
+import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/sticker_count_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_policy_card.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_succeed_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/photo_list_row.dart';
@@ -39,54 +43,99 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return BlocListener<CreatedReviewBloc, CreatedReviewState>(
-      listener: (context, state) async {
-        final bloc = context.read<CreatedReviewBloc>();
-        final navigator = Navigator.of(context);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CreatedReviewBloc, CreatedReviewState>(
+          listener: (context, state) async {
+            final bloc = context.read<CreatedReviewBloc>();
+            final navigator = Navigator.of(context);
 
-        if (state is CreatedReviewPermissionChecked) {
-          if (!state.permissionStatus.isGranted) {
-            final result = await PermissionDialog.show(context);
+            if (state is CreatedReviewError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            } else if (state is CreatedReviewStickerError) {
+            } else if (state is CreatedReviewSucceed) {
+              if (state.isAvailable) {
+                bloc.add(const CreatedReviewStickerRequested());
+              } else {
+                final result = await CreatedSucceedDialog.show(
+                  context,
+                  isCreatedSticker: false,
+                );
 
-            if (!result) {
-              return;
+                if (!result) {
+                  navigator.pop();
+                  return;
+                }
+
+                navigator.pushReplacementNamed(
+                  RegisteredReviewPage.routeName,
+                );
+              }
+            } else if (state is CreatedReviewStickerCountLoaded) {
+              if (!state.isAvailable) {
+                final result = await StickerCountDialog.show(context);
+                if (!result) {
+                  return;
+                }
+              }
+
+              bloc.add(CreatedReviewRequested(
+                isAvailable: state.isAvailable,
+              ));
+            } else if (state is CreatedReviewStickerLoaded) {
+              final result = await CreatedSucceedDialog.show(
+                context,
+                isCreatedSticker: true,
+              );
+
+              if (!result) {
+                navigator.pop();
+                return;
+              }
+
+              navigator.pushReplacementNamed(
+                RegisteredReviewPage.routeName,
+              );
             }
+          },
+        ),
+        BlocListener<PhotoPermissionBloc, PhotoPermissionState>(
+          listener: (context, state) async {
+            final bloc = context.read<CreatedReviewBloc>();
 
-            openAppSettings();
+            if (state is PhotoPermissionChecked) {
+              if (!state.permissionStatus.isGranted) {
+                final result = await PermissionDialog.show(context);
 
-            return;
-          }
+                if (!result) {
+                  return;
+                }
 
-          final result = await Navigator.of(context).pushNamed(
-            GalleryPage.routeName,
-          );
+                openAppSettings();
 
-          if (result is! List<String>) {
-            return;
-          }
+                return;
+              }
 
-          bloc.add(
-            CreatedReviewPhotoRequested(
-              photoList: [...result],
-            ),
-          );
-        } else if (state is CreatedReviewError) {
-          ErrorDialog.show(
-            context,
-            error: state.error,
-            refresh: state.event,
-          );
-        } else if (state is CreatedReviewSucceed) {
-          final result = await CreatedSucceedDialog.show(context);
-          if (!result) {
-            navigator.pop();
-          }
+              final result = await Navigator.of(context).pushNamed(
+                GalleryPage.routeName,
+                arguments: 5 - bloc.photos.length,
+              );
 
-          navigator.pushReplacementNamed(
-            RegisteredReviewPage.routeName,
-          );
-        }
-      },
+              if (result is! List<String>) {
+                return;
+              }
+
+              bloc.add(CreatedReviewPhotoRequested(
+                photoList: [...result],
+              ));
+            }
+          },
+        ),
+      ],
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
@@ -240,12 +289,14 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                       String socketScore = '';
                       String tableScore = '';
                       String restroomScore = '';
+
                       if (state is CreatedReviewScoreChecked) {
                         wifiScore = state.wifiScore;
                         socketScore = state.socketScore;
                         tableScore = state.tableScore;
                         restroomScore = state.restroomScore;
                       }
+
                       return ReviewDetailScoreCard(
                         wifiScore: wifiScore,
                         socketScore: socketScore,
@@ -286,11 +337,10 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                                   imageType: ImageType.file,
                                 ))
                             .toList(),
-                        onTapPhoto: () => context.read<CreatedReviewBloc>().add(
-                              const CreatedReviewPermissionRequested(
-                                permission: Permission.photos,
-                              ),
-                            ),
+                        onTapPhoto: () =>
+                            context.read<PhotoPermissionBloc>().add(
+                                  const PhotoPermissionRequested(),
+                                ),
                         deleteImage: (imageUrl, imageType) =>
                             context.read<CreatedReviewBloc>().add(
                                   CreatedReviewPhotoDeleteRequested(
@@ -327,7 +377,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                             onPressed: !isValid
                                 ? null
                                 : () => context.read<CreatedReviewBloc>().add(
-                                      const CreatedReviewRequested(),
+                                      const CreatedReviewStickerCountRequested(),
                                     ),
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

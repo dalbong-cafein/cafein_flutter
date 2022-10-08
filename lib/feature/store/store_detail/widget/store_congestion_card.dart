@@ -1,4 +1,4 @@
-import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_bottom_sheet.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -21,8 +21,8 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => context.read<StoreDetailBloc>().add(
-            StoreDetailCongestionRequested(
+      () => context.read<CongestionBloc>().add(
+            CongestionRequested(
               day: '${DateFormat.E('ko_KR').format(
                 DateTime.now(),
               )}요일',
@@ -40,10 +40,10 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
           horizontal: 16,
           vertical: 20,
         ),
-        child: BlocBuilder<StoreDetailBloc, StoreDetailState>(
-          buildWhen: (pre, next) => next is StoreDetailCongestionLoaded,
+        child: BlocBuilder<CongestionBloc, CongestionState>(
+          buildWhen: (pre, next) => next is CongestionLoaded,
           builder: (context, state) {
-            if (state is StoreDetailCongestionLoaded) {
+            if (state is CongestionLoaded) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,8 +60,9 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                         width: 88,
                         child: ElevatedButton(
                           onPressed: () async {
-                            final bloc = context.read<StoreDetailBloc>();
-                            final result = await StoreCongestionBottomSheet.show(
+                            final bloc = context.read<CongestionBloc>();
+                            final result =
+                                await StoreCongestionBottomSheet.show(
                               context,
                               selectedDay: state.day,
                             );
@@ -75,9 +76,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                             }
 
                             bloc.add(
-                              StoreDetailCongestionRequested(
-                                day: result,
-                              ),
+                              CongestionRequested(day: result),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -110,7 +109,19 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                         height: 36,
                         width: 116,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final bloc = context.read<CongestionBloc>();
+
+                            final result =
+                                await CongestionCreateDialog.show(context);
+                            if (result == -1) {
+                              return;
+                            }
+
+                            bloc.add(CongestionCreateRequested(
+                              score: result,
+                            ));
+                          },
                           style: ElevatedButton.styleFrom(
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -131,6 +142,35 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
 
             return const CustomCircleLoadingIndicator();
           },
+        ),
+      ),
+    );
+  }
+}
+
+class CongestionCreateDialog extends StatelessWidget {
+  const CongestionCreateDialog({Key? key}) : super(key: key);
+
+  static Future<int> show(BuildContext context) async {
+    final result = await showDialog<int?>(
+      context: context,
+      builder: (context) => const CongestionCreateDialog(),
+    );
+
+    return result ?? 1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: SizedBox(
+        height: 292,
+        width: 300,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [],
+          ),
         ),
       ),
     );

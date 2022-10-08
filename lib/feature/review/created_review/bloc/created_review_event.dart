@@ -7,14 +7,6 @@ abstract class CreatedReviewEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CreatedReviewPermissionRequested extends CreatedReviewEvent {
-  const CreatedReviewPermissionRequested({required this.permission});
-
-  final Permission permission;
-  @override
-  List<Object?> get props => [permission];
-}
-
 class CreatedReviewScoreChanged extends CreatedReviewEvent {
   const CreatedReviewScoreChanged({
     required this.recommendation,
@@ -54,7 +46,14 @@ class CreatedReviewTextChanged extends CreatedReviewEvent {
 }
 
 class CreatedReviewRequested extends CreatedReviewEvent {
-  const CreatedReviewRequested();
+  const CreatedReviewRequested({
+    required this.isAvailable,
+  });
+
+  final bool isAvailable;
+
+  @override
+  List<Object?> get props => [isAvailable];
 }
 
 class CreatedReviewPhotoRequested extends CreatedReviewEvent {
@@ -77,4 +76,12 @@ class CreatedReviewPhotoDeleteRequested extends CreatedReviewEvent {
 
   @override
   List<Object?> get props => [photo];
+}
+
+class CreatedReviewStickerCountRequested extends CreatedReviewEvent {
+  const CreatedReviewStickerCountRequested();
+}
+
+class CreatedReviewStickerRequested extends CreatedReviewEvent {
+  const CreatedReviewStickerRequested();
 }
