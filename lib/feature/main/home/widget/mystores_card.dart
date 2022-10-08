@@ -201,10 +201,12 @@ class MyStoresCard extends StatelessWidget {
                                     "나의 카페${state.memberStores.length}개 모두 보기",
                                     style: AppStyle.body14Regular,
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 3),
-                                    child: Icon(Icons.arrow_forward_ios_rounded,
-                                        color: AppColor.grey400, size: 16),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 3),
+                                    child: loadAsset(
+                                        AppIcon.rightS,
+                                        color : AppColor.grey400
+                                    )
                                   )
                                 ],
                               ),

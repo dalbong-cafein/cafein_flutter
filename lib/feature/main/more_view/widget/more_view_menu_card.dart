@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MoreViewMenuCard extends StatelessWidget {
@@ -42,10 +41,10 @@ class MoreViewMenuCard extends StatelessWidget {
             trailingWidget ??
                 Transform.rotate(
                   angle: pi,
-                  child: const Icon(
-                    CupertinoIcons.back,
-                    color: AppColor.grey400,
-                  ),
+                  child: loadAsset(
+                    AppIcon.leftS,
+                    color : AppColor.grey400
+                  )
                 ),
           ],
         ),

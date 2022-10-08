@@ -230,9 +230,9 @@ class _ReviewDetailRow extends StatelessWidget {
           const SizedBox(width: 4),
           RatingBarIndicator(
             rating: reviewScore.toDouble(),
-            itemBuilder: (context, index) => const Icon(
-              Icons.star,
-              color: AppColor.orange500,
+            itemBuilder: (context, index) => loadAsset(
+              AppIcon.starL,
+              color : AppColor.orange400
             ),
             itemCount: 4,
             itemSize: 12,

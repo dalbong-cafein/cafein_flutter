@@ -11,7 +11,6 @@ import 'package:cafein_flutter/widget/card/file_image_card.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,7 +90,10 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () => Navigator.of(context).pop(),
-            child: const Icon(CupertinoIcons.back),
+            child: loadAsset(
+              AppIcon.left,
+              color : AppColor.grey800
+            )
           ),
           title: const Text('프로필 설정'),
         ),

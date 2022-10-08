@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
 class MyCouponCardButton extends StatelessWidget {
@@ -31,14 +32,13 @@ class MyCouponCardButton extends StatelessWidget {
                 width: width / 2,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 24),
-                      child: Icon(
-                          Icons.arrow_forward_ios,
-                          color: AppColor.grey400,
-                          size: 16
-                      ),
+                      padding: const EdgeInsets.only(right: 24),
+                      child: loadAsset(
+                        AppIcon.right,
+                        color : AppColor.grey400
+                      )
                     ),
                   ],
                 ),
