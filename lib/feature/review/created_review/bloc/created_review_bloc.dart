@@ -1,16 +1,16 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/create_review_request.dart';
+import 'package:cafein_flutter/data/model/sticker/review_sticker_request.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
+import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:image/image.dart' as img;
 
 part 'created_review_event.dart';
@@ -22,13 +22,15 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     required this.reviewRepository,
     required this.stickerRepository,
   }) : super(const CreatedReviewInitial()) {
-    on<CreatedReviewPermissionRequested>(_onCreatedReviewPermissionRequested);
     on<CreatedReviewScoreChanged>(_onCreatedReviewScoreChanged);
     on<CreatedReviewScoreDetailChanged>(_onCreatedReviewScoreDetailChanged);
     on<CreatedReviewTextChanged>(_onCreatedReviewTextChanged);
     on<CreatedReviewRequested>(_onCreatedReviewRequested);
     on<CreatedReviewPhotoRequested>(_onCreatedReviewPhotoRequested);
     on<CreatedReviewPhotoDeleteRequested>(_onCreatedReviewPhotoDeleteRequested);
+    on<CreatedReviewStickerCountRequested>(
+        _onCreatedReviewStickerCountRequested);
+    on<CreatedReviewStickerRequested>(_onCreatedReviewStickerRequested);
   }
 
   final int storeId;
@@ -45,18 +47,7 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
 
   ReviewRecommendation? recommendation;
 
-  FutureOr<void> _onCreatedReviewPermissionRequested(
-    CreatedReviewPermissionRequested event,
-    Emitter<CreatedReviewState> emit,
-  ) async {
-    final status = await event.permission.request();
-    emit(
-      CreatedReviewPermissionChecked(
-        permission: event.permission,
-        permissionStatus: status,
-      ),
-    );
-  }
+  int createdReviewId = -1;
 
   FutureOr<void> _onCreatedReviewScoreChanged(
     CreatedReviewScoreChanged event,
@@ -130,7 +121,8 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
           width: 1048,
         );
 
-        final filePath = '${dir.path}/requestImg${i + 1}.jpg';
+        final fileName = photos[i].split('/').last.split('.').first;
+        final filePath = '${dir.path}/$fileName.jpg';
 
         File(filePath).writeAsBytesSync(
           img.encodeJpg(thumbnail),
@@ -161,7 +153,10 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
         );
       }
 
-      emit(const CreatedReviewSucceed());
+      createdReviewId = response.data;
+      emit(CreatedReviewSucceed(
+        isAvailable: event.isAvailable,
+      ));
     } catch (e) {
       emit(
         CreatedReviewError(
@@ -176,7 +171,7 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     CreatedReviewPhotoRequested event,
     Emitter<CreatedReviewState> emit,
   ) {
-    photos = [...event.photoList];
+    photos = [...photos, ...event.photoList];
 
     emit(
       CreatedReviewPhotoSelected(
@@ -203,6 +198,55 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     Emitter<CreatedReviewState> emit,
   ) {
     reviewText = event.text;
-    log(reviewText);
+  }
+
+  FutureOr<void> _onCreatedReviewStickerCountRequested(
+    CreatedReviewStickerCountRequested event,
+    Emitter<CreatedReviewState> emit,
+  ) async {
+    emit(const CreatedReviewLoading());
+
+    try {
+      final response = await stickerRepository.getStickerCount();
+
+      emit(
+        CreatedReviewStickerCountLoaded(
+          isAvailable: response.data >= 20,
+        ),
+      );
+    } catch (e) {
+      emit(
+        CreatedReviewError(
+          event: () => add(event),
+          error: e,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onCreatedReviewStickerRequested(
+    CreatedReviewStickerRequested event,
+    Emitter<CreatedReviewState> emit,
+  ) async {
+    emit(const CreatedReviewLoading());
+    try {
+      final response = await stickerRepository.createReviewSticker(
+        ReviewStickerRequest(reviewId: createdReviewId),
+      );
+
+      if (response.code == -1) {
+        emit(
+          const CreatedReviewStickerError(),
+        );
+
+        return;
+      }
+
+      emit(const CreatedReviewStickerLoaded());
+    } catch (e) {
+      emit(
+        const CreatedReviewStickerError(),
+      );
+    }
   }
 }
