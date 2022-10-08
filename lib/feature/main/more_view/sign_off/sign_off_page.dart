@@ -71,13 +71,13 @@ class SignOffPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 60),
                 Row(
-                  children: const [
-                    Icon(
-                      Icons.check_circle,
-                      color: AppColor.orange500,
+                  children: [
+                    loadAsset(
+                      AppIcon.checkCircleOn,
+                      color : AppColor.orange400
                     ),
-                    SizedBox(width: 12),
-                    Text(
+                    const SizedBox(width: 12),
+                    const Text(
                       '안내사항을 확인하고 회원탈퇴에 동의',
                       style: AppStyle.subTitle15SemiBold,
                     ),
@@ -127,13 +127,11 @@ class _InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(4),
-          child: Icon(
-            Icons.check,
-            color: AppColor.orange500,
-            size: 16,
-          ),
+        Padding(
+          padding: const EdgeInsets.all(4),
+          child: loadAsset(
+            AppIcon.doneOn
+          )
         ),
         const SizedBox(width: 12),
         Text(

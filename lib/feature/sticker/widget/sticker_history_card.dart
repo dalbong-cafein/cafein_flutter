@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/widget/no_sticker_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +54,9 @@ class StickerHistoryCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Icon(
-                            Icons.swap_vert,
-                            color: AppColor.grey500,
-                            size: 16,
+                          loadAsset(
+                            AppIcon.swapVert,
+                            color : AppColor.grey500
                           ),
                           const SizedBox(width: 4),
                           Text(

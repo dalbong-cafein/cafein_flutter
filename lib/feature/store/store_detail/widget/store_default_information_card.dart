@@ -54,7 +54,7 @@ class StoreDefaultInformationCard extends StatelessWidget {
                       ),
               ),
               const SizedBox(width: 4),
-              Text(
+              const Text(
                 '오후 11:30에 영업 종료',
               ),
             ],

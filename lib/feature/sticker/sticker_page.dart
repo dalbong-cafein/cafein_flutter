@@ -141,10 +141,8 @@ class StickerPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(
-                          Icons.error_outline,
-                          color: AppColor.grey600,
-                          size: 16,
+                        loadAsset(
+                          AppIcon.reportXS
                         ),
                         const SizedBox(width: 6),
                         Text(

@@ -61,12 +61,11 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   ) async {
     emit(const ReportLoading());
     try {
-      // TODO: 신고 로직 작성 필요
       await reviewRepository.createReportReview(
-        reviewId: event.clickedIndex,
+        reviewId: 1,
         reportRequest: ReportRequest(
-          reviewId: -1,
-          reportCategoryId: -1,
+          reviewId: 1,
+          reportCategoryId:event.clickedIndex,
           content: '',
         ),
       );

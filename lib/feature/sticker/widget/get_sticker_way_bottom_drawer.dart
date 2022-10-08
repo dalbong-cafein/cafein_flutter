@@ -42,10 +42,9 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: const Icon(
-                              Icons.clear,
-                              size: 24,
-                            ),
+                            child: loadAsset(
+                              AppIcon.clear24S
+                            )
                           ),
                         ),
                       ],

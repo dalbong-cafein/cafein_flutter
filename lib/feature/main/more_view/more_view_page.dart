@@ -16,10 +16,10 @@ import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -117,11 +117,11 @@ class _MoreViewPageState extends State<MoreViewPage> {
                           ),
                           const Spacer(),
                           Transform.rotate(
-                            angle: pi,
-                            child: const Icon(
-                              CupertinoIcons.back,
-                              color: AppColor.grey400,
-                            ),
+                              angle: pi,
+                              child: loadAsset(
+                                  AppIcon.leftS,
+                                  color : AppColor.grey400
+                              )
                           ),
                         ],
                       );
