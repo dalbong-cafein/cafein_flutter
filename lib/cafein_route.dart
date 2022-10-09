@@ -249,6 +249,7 @@ abstract class CafeinRoute {
             BlocProvider(
               create: (context) => CongestionBloc(
                 congestionRepository: context.read<CongestionRepository>(),
+                stickerRepository: context.read<StickerRepository>(),
                 storeId: storeId,
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
@@ -17,7 +18,12 @@ import 'package:permission_handler/permission_handler.dart';
 class StoreCongestionCard extends StatefulWidget {
   const StoreCongestionCard({
     super.key,
+    required this.latY,
+    required this.lngX,
   });
+
+  final double latY;
+  final double lngX;
 
   @override
   State<StoreCongestionCard> createState() => _StoreCongestionCardState();
@@ -56,7 +62,10 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
             return;
           }
 
-          bloc.add(const CongestionLocationRequested());
+          bloc.add(CongestionLocationRequested(
+            latY: widget.latY,
+            lngX: widget.lngX,
+          ));
         }
       },
       child: BlocConsumer<CongestionBloc, CongestionState>(

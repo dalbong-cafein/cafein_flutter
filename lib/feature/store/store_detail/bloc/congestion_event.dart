@@ -30,7 +30,19 @@ class CongestionCreateRequested extends CongestionEvent {
 }
 
 class CongestionLocationRequested extends CongestionEvent {
-  const CongestionLocationRequested();
+  const CongestionLocationRequested({
+    required this.latY,
+    required this.lngX,
+  });
+
+  final double latY;
+  final double lngX;
+
+  @override
+  List<Object?> get props => [
+        latY,
+        lngX,
+      ];
 }
 
 class CongestionStickerCountRequested extends CongestionEvent {
