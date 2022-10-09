@@ -28,7 +28,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  Completer<NaverMapController> naverMapController = Completer<NaverMapController>();
+  Completer<NaverMapController> naverMapController =
+      Completer<NaverMapController>();
   final pageController = PageController();
 
   final markers = <Marker>[];
@@ -36,14 +37,18 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    if (context.read<LocationPermissionBloc>().state == const LocationPermissionInitial()) {
+    if (context.read<LocationPermissionBloc>().state ==
+        const LocationPermissionInitial()) {
       Future.microtask(
         () => context.read<LocationPermissionBloc>().add(
-              const LocationPermissionRequest(),
+              const LocationPermissionRequest(
+                processType: ProcessType.searchRequest,
+              ),
             ),
       );
     } else {
-      final state = context.read<LocationPermissionBloc>().state as LocationPermissionChecked;
+      final state = context.read<LocationPermissionBloc>().state
+          as LocationPermissionChecked;
       final bloc = context.read<SearchBloc>();
       if (state.permissionStatus.isGranted) {
         bloc.add(const SearchLocationRequested());
@@ -128,7 +133,8 @@ class _SearchPageState extends State<SearchPage> {
         BlocListener<LocationPermissionBloc, LocationPermissionState>(
           listener: (context, state) async {
             final bloc = context.read<SearchBloc>();
-            if (state is LocationPermissionChecked) {
+            if (state is LocationPermissionChecked &&
+                state.processType == ProcessType.searchRequest) {
               if (state.permissionStatus.isGranted) {
                 bloc.add(const SearchLocationRequested());
 
@@ -172,10 +178,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      loadAsset(
-                        AppIcon.search,
-                        color : AppColor.grey700
-                      ),
+                      loadAsset(AppIcon.search, color: AppColor.grey700),
                       const SizedBox(width: 8),
                       Text(
                         '카페 이름, 구, 동, 역 등으로 검색',

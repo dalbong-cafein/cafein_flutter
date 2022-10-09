@@ -15,6 +15,7 @@ abstract class AppIcon {
   static const markerLikeNormal = "asset/icon/marker/marker_like_normal.png";
   static const markerNone = 'asset/icon/marker/marker_none.png';
   static const markerLikeNone = 'asset/icon/marker/marker_like_none.png';
+  static const markerOrange = 'asset/icon/marker/orange_marker.png';
 
   static const heartCrowded = "asset/icon/heart_crowded_icon.svg";
   static const heartGood = "asset/icon/heart_good_icon.svg";
@@ -36,15 +37,23 @@ abstract class AppIcon {
   static const appleCircle = 'asset/icon/ic_apple_s.svg';
   static const textBlank = 'asset/icon/ic_text_blank.svg';
 
-  static const americanoSticker = "asset/icon/sticker/americano_sticker_icon.svg";
-  static const eggSandwichSticker = "asset/icon/sticker/egg_sandwich_sticker_icon.svg";
-  static const greenDessertSticker = "asset/icon/sticker/green_dessert_sticker_icon.svg";
+  static const americanoSticker =
+      "asset/icon/sticker/americano_sticker_icon.svg";
+  static const eggSandwichSticker =
+      "asset/icon/sticker/egg_sandwich_sticker_icon.svg";
+  static const greenDessertSticker =
+      "asset/icon/sticker/green_dessert_sticker_icon.svg";
   static const latteSticker = "asset/icon/sticker/latte_sticker_icon.svg";
-  static const mintDrinkSticker = "asset/icon/sticker/mint_drink_sticker_icon.svg";
-  static const orangeDessertSticker = "asset/icon/sticker/orange_dessert_sticker_icon.svg";
-  static const orangeDrinkSticker = "asset/icon/sticker/orange_drink_sticker_icon.svg";
-  static const pinkDessertSticker = "asset/icon/sticker/pink_dessert_sticker_icon.svg";
-  static const pinkDrinkSticker = "asset/icon/sticker/pink_drink_sticker_icon.svg";
+  static const mintDrinkSticker =
+      "asset/icon/sticker/mint_drink_sticker_icon.svg";
+  static const orangeDessertSticker =
+      "asset/icon/sticker/orange_dessert_sticker_icon.svg";
+  static const orangeDrinkSticker =
+      "asset/icon/sticker/orange_drink_sticker_icon.svg";
+  static const pinkDessertSticker =
+      "asset/icon/sticker/pink_dessert_sticker_icon.svg";
+  static const pinkDrinkSticker =
+      "asset/icon/sticker/pink_drink_sticker_icon.svg";
   static const sandwichSticker = "asset/icon/sticker/sandwich_sticker_icon.svg";
 
   static const homeOn = 'asset/icon/bottom/ic_home_on.svg';
@@ -76,7 +85,7 @@ abstract class AppIcon {
   static const naverS = 'asset/icon/size16/ic_naver_s.svg';
   static const nearMeS = 'asset/icon/size16/ic_near_me_s.svg';
   static const newS = 'asset/icon/size16/ic_new_s.svg';
-  static const personS ='asset/icon/size16/ic_person_s.svg';
+  static const personS = 'asset/icon/size16/ic_person_s.svg';
   static const reportXS = 'asset/icon/size16/ic_report_xs.svg';
   static const rightS = 'asset/icon/size16/ic_right_s.svg';
   static const searchS = 'asset/icon/size16/ic_search_s.svg';
@@ -89,7 +98,7 @@ abstract class AppIcon {
   static const clock = 'asset/icon/size20/ic_clock.svg';
   static const notice = 'asset/icon/size20/ic_notice.svg';
   static const reportS = 'asset/icon/size20/ic_report_s.svg';
-  static const star  = 'asset/icon/size20/ic_star.svg';
+  static const star = 'asset/icon/size20/ic_star.svg';
   static const sticker = 'asset/icon/size20/ic_sticker.svg';
   static const world = 'asset/icon/size20/ic_world.svg';
 
@@ -97,7 +106,8 @@ abstract class AppIcon {
   static const camera = 'asset/icon/size24/ic_camera.svg';
   static const checkCircleOff = 'asset/icon/size24/ic_check_circle_off.svg';
   static const checkCircleOn = 'asset/icon/size24/ic_check_circle_on.svg';
-  static const checkRectangleOff = 'asset/icon/size24/ic_check_rectangle_off.svg';
+  static const checkRectangleOff =
+      'asset/icon/size24/ic_check_rectangle_off.svg';
   static const checkRectangleOn = 'asset/icon/size24/ic_check_rectangle_on.svg';
   static const clear24M = 'asset/icon/size24/ic_clear_24_m.svg';
   static const clear24S = 'asset/icon/size24/ic_clear_24_s.svg';
@@ -144,8 +154,8 @@ abstract class AppIcon {
   static const cameraL = 'asset/icon/size32/ic_camera_l.svg';
   static const kakaoL = 'asset/icon/size32/ic_kakao_l.svg';
   static const locationL = 'asset/icon/size32/ic_location_l.svg';
-  static const locationNearFillL = 'asset/icon/size32/ic_location_naer_fill_l.svg';
+  static const locationNearFillL =
+      'asset/icon/size32/ic_location_naer_fill_l.svg';
   static const naverL = 'asset/icon/size32/ic_naver_l.svg';
   static const starL = 'asset/icon/size32/ic_star_l.svg';
-
 }

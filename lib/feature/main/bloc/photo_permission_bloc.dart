@@ -7,6 +7,13 @@ import 'package:permission_handler/permission_handler.dart';
 part 'photo_permission_event.dart';
 part 'photo_permission_state.dart';
 
+enum PhotoProcessType {
+  createReview,
+  updateReview,
+  createProfile,
+  updateProfile,
+}
+
 class PhotoPermissionBloc
     extends Bloc<PhotoPermissionEvent, PhotoPermissionState> {
   PhotoPermissionBloc() : super(const PhotoPermissionInitial()) {
@@ -23,6 +30,7 @@ class PhotoPermissionBloc
 
     emit(PhotoPermissionChecked(
       permissionStatus: status,
+      processType: event.processType,
     ));
   }
 }

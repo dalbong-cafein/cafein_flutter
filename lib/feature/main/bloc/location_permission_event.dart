@@ -8,5 +8,12 @@ abstract class LocationPermissionEvent extends Equatable {
 }
 
 class LocationPermissionRequest extends LocationPermissionEvent {
-  const LocationPermissionRequest();
+  const LocationPermissionRequest({
+    required this.processType,
+  });
+
+  final ProcessType processType;
+
+  @override
+  List<Object?> get props => [processType];
 }

@@ -17,7 +17,7 @@ class CreatedSucceedWithoutStickerDialog extends StatelessWidget {
     return Dialog(
       child: SizedBox(
         width: 300,
-        height: 256,
+        height: 212,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 24,
@@ -27,7 +27,7 @@ class CreatedSucceedWithoutStickerDialog extends StatelessWidget {
             children: [
               const SizedBox(height: 12),
               const Text(
-                '리뷰 작성 완료',
+                '혼잡도 공유 완료',
                 style: AppStyle.subTitle17Bold,
               ),
               const SizedBox(height: 20),
@@ -53,14 +53,6 @@ class CreatedSucceedWithoutStickerDialog extends StatelessWidget {
                     textStyle: AppStyle.subTitle16Medium,
                   ),
                   child: const Text('확인'),
-                ),
-              ),
-              const SizedBox(height: 16),
-              InkWell(
-                onTap: () => Navigator.of(context).pop(true),
-                child: const Text(
-                  '리뷰 보러가기',
-                  style: AppStyle.subTitle14Medium,
                 ),
               ),
             ],

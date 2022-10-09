@@ -31,19 +31,32 @@ class GalleryLoaded extends GalleryState {
       ];
 }
 
+class GalleryCameraPhotoLoaded extends GalleryState {
+  const GalleryCameraPhotoLoaded({
+    required this.imageUrl,
+  });
+
+  final String imageUrl;
+
+  @override
+  List<Object?> get props => [
+        imageUrl,
+      ];
+}
+
 class GalleryPhotoChecked extends GalleryState {
   const GalleryPhotoChecked({
     this.isLimited = false,
     required this.selectedCount,
     required this.isChecked,
-    required this.currentCount,
     required this.index,
+    required this.selectedDataList,
   });
 
   final int selectedCount;
   final bool isLimited;
   final bool isChecked;
-  final int currentCount;
+  final List<AssetEntity> selectedDataList;
   final int index;
 
   @override
@@ -51,13 +64,13 @@ class GalleryPhotoChecked extends GalleryState {
         isLimited,
         selectedCount,
         isChecked,
-        currentCount,
         index,
+        selectedDataList,
       ];
 }
 
-class GalleryErorr extends GalleryState {
-  const GalleryErorr({
+class GalleryError extends GalleryState {
+  const GalleryError({
     required this.error,
     required this.event,
   });

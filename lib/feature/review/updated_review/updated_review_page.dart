@@ -2,6 +2,7 @@ import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
+import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/widget/updated_succeed_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_policy_card.dart';
@@ -38,37 +39,6 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<UpdatedReviewBloc, UpdatedReviewState>(
-          listenWhen: (pre, next) =>
-              pre.permissionStatus != next.permissionStatus,
-          listener: (context, state) async {
-            final bloc = context.read<UpdatedReviewBloc>();
-
-            if (!state.permissionStatus!.isGranted) {
-              final result = await PermissionDialog.show(context);
-
-              if (!result) {
-                return;
-              }
-
-              openAppSettings();
-
-              return;
-            }
-
-            final result = await Navigator.of(context).pushNamed(
-              GalleryPage.routeName,
-            );
-
-            if (result is! List<String>) {
-              return;
-            }
-
-            bloc.add(UpdatedReviewImageChanged(
-              photoList: [...result],
-            ));
-          },
-        ),
-        BlocListener<UpdatedReviewBloc, UpdatedReviewState>(
           listenWhen: (pre, next) => pre.isSucceed != next.isSucceed,
           listener: (context, state) async {
             final navigator = Navigator.of(context);
@@ -89,6 +59,39 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
                 const UpdatedReviewRequested(),
               ),
             );
+          },
+        ),
+        BlocListener<PhotoPermissionBloc, PhotoPermissionState>(
+          listener: (context, state) async {
+            final bloc = context.read<UpdatedReviewBloc>();
+
+            if (state is PhotoPermissionChecked &&
+                state.processType == PhotoProcessType.updateReview) {
+              if (!state.permissionStatus.isGranted) {
+                final result = await PermissionDialog.show(context);
+
+                if (!result) {
+                  return;
+                }
+
+                openAppSettings();
+
+                return;
+              }
+
+              final result = await Navigator.of(context).pushNamed(
+                GalleryPage.routeName,
+                arguments: 5 - bloc.state.imageUrls.length,
+              );
+
+              if (result is! List<String>) {
+                return;
+              }
+
+              bloc.add(UpdatedReviewImageChanged(
+                photoList: [...result],
+              ));
+            }
           },
         ),
       ],
@@ -270,11 +273,13 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
                     builder: (context, state) => PhotoListRow(
                       itemCount: state.imageUrls.length + 1,
                       photos: state.imageUrls,
-                      onTapPhoto: () => context.read<UpdatedReviewBloc>().add(
-                            const UpdatedReviewPermissionRequested(
-                              permission: Permission.photos,
-                            ),
-                          ),
+                      onTapPhoto: state.imageUrls.length < 5
+                          ? () => context.read<PhotoPermissionBloc>().add(
+                                const PhotoPermissionRequested(
+                                  processType: PhotoProcessType.updateReview,
+                                ),
+                              )
+                          : () {},
                       deleteImage: (imageUrl, imageType) =>
                           context.read<UpdatedReviewBloc>().add(
                                 UpdatedReviewImageDeleted(

@@ -241,6 +241,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   SliverToBoxAdapter(
                     child: StoreCongestionCard(
                       key: storeCongestionKey,
+                      latY: state.storeDetail.latY,
+                      lngX: state.storeDetail.lngX,
                     ),
                   ),
                   SliverToBoxAdapter(

@@ -21,6 +21,8 @@ abstract class StickerRepository {
   Future<BaseResponse<int>> getStickerCount();
 
   Future<BaseResponse<List<Sticker>>> getStickers();
+
+  Future<BaseResponse<bool>> isPossibleSticker(int storeId);
 }
 
 class StickerRepositoryImpl implements StickerRepository {
@@ -49,8 +51,14 @@ class StickerRepositoryImpl implements StickerRepository {
       stickerClient.createStoreSticker(stickerRequest);
 
   @override
-  Future<BaseResponse<int>> getStickerCount() => stickerClient.getStickerCount();
+  Future<BaseResponse<int>> getStickerCount() =>
+      stickerClient.getStickerCount();
 
   @override
-  Future<BaseResponse<List<Sticker>>> getStickers() => stickerClient.getStickers();
+  Future<BaseResponse<List<Sticker>>> getStickers() =>
+      stickerClient.getStickers();
+
+  @override
+  Future<BaseResponse<bool>> isPossibleSticker(int storeId) =>
+      stickerClient.isPossibleSticker(storeId);
 }

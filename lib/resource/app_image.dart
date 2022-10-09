@@ -41,9 +41,9 @@ abstract class AppImage {
   static const confGood = "asset/image/conf_normal_image.svg";
   static const confNormal = "asset/image/conf_normal_image.svg";
   static const confBad = "asset/image/conf_bad_image.svg";
-  static const confGoodGrey = "asset/image/conf_good_grey_image.svg";
-  static const confNormalGrey = "asset/image/conf_normal_grey_image.svg";
-  static const confBadGrey = "asset/image/conf_bad_grey_image.svg";
+  static const confGoodGrey = "asset/image/character/conf_good_off.png";
+  static const confNormalGrey = "asset/image/character/conf_normal_off.png";
+  static const confBadGrey = "asset/image/character/conf_bad_off.png";
 
   static const recGood = "asset/image/rec_good_image.svg";
   static const recNormal = "asset/image/rec_normal_image.svg";
@@ -62,4 +62,7 @@ abstract class AppImage {
   static const onboardB = 'asset/image/onboard/img_onboard_b.png';
   static const onboardC = 'asset/image/onboard/img_onboard_c.png';
   static const onboardD = 'asset/image/onboard/img_onboard_d.png';
+
+  static const characterQuestionS =
+      'asset/image/character/character_question_s.png';
 }

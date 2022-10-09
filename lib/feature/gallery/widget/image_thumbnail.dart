@@ -4,14 +4,17 @@ import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class ImageThumbnail extends StatefulWidget {
   const ImageThumbnail({
     Key? key,
+    required this.assetEntity,
     required this.imageData,
     required this.index,
   }) : super(key: key);
 
+  final AssetEntity assetEntity;
   final Uint8List imageData;
   final int index;
 
@@ -19,7 +22,8 @@ class ImageThumbnail extends StatefulWidget {
   State<ImageThumbnail> createState() => _ImageThumbnailState();
 }
 
-class _ImageThumbnailState extends State<ImageThumbnail> with AutomaticKeepAliveClientMixin {
+class _ImageThumbnailState extends State<ImageThumbnail>
+    with AutomaticKeepAliveClientMixin {
   bool check = false;
   int currentNumber = 0;
 
@@ -29,9 +33,13 @@ class _ImageThumbnailState extends State<ImageThumbnail> with AutomaticKeepAlive
     return BlocBuilder<GalleryBloc, GalleryState>(
       buildWhen: (pre, next) => next is GalleryPhotoChecked && !next.isLimited,
       builder: (context, state) {
-        if (state is GalleryPhotoChecked && state.index == widget.index) {
-          check = state.isChecked;
-          currentNumber = state.currentCount;
+        if (state is GalleryPhotoChecked) {
+          final currentIndex = state.selectedDataList.indexWhere(
+            (element) => element == widget.assetEntity,
+          );
+
+          currentNumber = currentIndex != -1 ? currentIndex + 1 : 0;
+          check = state.selectedDataList.contains(widget.assetEntity);
         }
 
         return InkWell(
@@ -53,7 +61,7 @@ class _ImageThumbnailState extends State<ImageThumbnail> with AutomaticKeepAlive
               Positioned(
                 top: 4,
                 right: 4,
-                child: check
+                child: check && currentNumber != 0
                     ? CircleAvatar(
                         radius: 10,
                         backgroundColor: AppColor.orange500,
