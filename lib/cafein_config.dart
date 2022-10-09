@@ -23,6 +23,8 @@ abstract class CafeinConfig {
   static late final OverlayImage markerNoneIcon;
   static late final OverlayImage markerLikeNoneIcon;
 
+  static late final OverlayImage orangeMarker;
+
   static late PackageInfo packageInfo;
 
   static Future<void> initializeApp() async {
@@ -62,9 +64,13 @@ abstract class CafeinConfig {
       assetName: AppIcon.markerNone,
       devicePixelRatio: window.devicePixelRatio,
     );
-
     markerLikeNoneIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeNone,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+
+    orangeMarker = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerOrange,
       devicePixelRatio: window.devicePixelRatio,
     );
 

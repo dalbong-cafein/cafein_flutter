@@ -44,7 +44,8 @@ class StoreReviewListCard extends StatelessWidget {
     }
 
     return SizedBox(
-      height: reviews.length * 196 + (reviews.length > 3 ? 60 : 0),
+      height: (reviews.length > 3 ? 3 : reviews.length) * 240 +
+          (reviews.length > 3 ? 72 : 0),
       child: ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: reviews.length > 3 ? 4 : reviews.length,
