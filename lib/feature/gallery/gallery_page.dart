@@ -1,14 +1,17 @@
 import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
 import 'package:cafein_flutter/feature/gallery/widget/gallery_limited_dialog.dart';
 import 'package:cafein_flutter/feature/gallery/widget/image_thumbnail.dart';
+import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class GalleryPage extends StatefulWidget {
@@ -43,23 +46,51 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GalleryBloc, GalleryState>(
-      listener: (context, state) {
-        if (state is GalleryErorr) {
-          ErrorDialog.show(
-            context,
-            error: state.error,
-            refresh: state.event,
-          );
-        } else if (state is GalleryPhotoChecked && state.isLimited) {
-          GalleryLimitedDialog.show(context);
-        } else if (state is GalleryLoaded) {
-          pagingController.value = PagingState(
-            itemList: state.recentAssets,
-            nextPageKey: state.nextPage,
-          );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<GalleryBloc, GalleryState>(
+          listener: (context, state) {
+            if (state is GalleryError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            } else if (state is GalleryPhotoChecked && state.isLimited) {
+              GalleryLimitedDialog.show(context);
+            } else if (state is GalleryLoaded) {
+              pagingController.value = PagingState(
+                itemList: state.recentAssets,
+                nextPageKey: state.nextPage,
+              );
+            } else if (state is GalleryCameraPhotoLoaded) {
+              Navigator.of(context).pop([state.imageUrl]);
+            }
+          },
+        ),
+        BlocListener<CameraPermissionBloc, CameraPermissionState>(
+          listener: (context, state) async {
+            final bloc = context.read<GalleryBloc>();
+
+            if (state is CameraPermissionChecked &&
+                state.processType == CameraProcessType.gallery) {
+              if (!state.permissionStatus.isGranted) {
+                final result = await PermissionDialog.show(context);
+
+                if (!result) {
+                  return;
+                }
+
+                openAppSettings();
+
+                return;
+              }
+
+              bloc.add(const GalleryCameraRequested());
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           leading: InkWell(
@@ -134,7 +165,11 @@ class _GalleryPageState extends State<GalleryPage> {
             itemBuilder: (context, item, index) {
               if (index == 0) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () => context.read<CameraPermissionBloc>().add(
+                        const CameraPermissionRequested(
+                          processType: CameraProcessType.gallery,
+                        ),
+                      ),
                   child: Container(
                     color: AppColor.grey100,
                     child: Center(
@@ -154,13 +189,15 @@ class _GalleryPageState extends State<GalleryPage> {
                     return const CustomCircleLoadingIndicator();
                   }
                   return ImageThumbnail(
+                    assetEntity: item,
                     imageData: bytes,
                     index: index,
                   );
                 },
               );
             },
-            firstPageProgressIndicatorBuilder: (_) => const CustomCircleLoadingIndicator(),
+            firstPageProgressIndicatorBuilder: (_) =>
+                const CustomCircleLoadingIndicator(),
             newPageProgressIndicatorBuilder: (_) => const SizedBox(
               height: 120,
               child: Center(

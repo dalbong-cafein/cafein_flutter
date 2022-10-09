@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 part 'gallery_event.dart';
@@ -13,12 +15,14 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   }) : super(const GalleryInitial()) {
     on<GalleryPhotoRequested>(_onGalleryPhotoRequested);
     on<GalleryPhotoStateChanged>(_onGalleryPhotoStateChanged);
+    on<GalleryCameraRequested>(_onGalleryCameraRequested);
   }
 
   final int maxCount;
 
   List<AssetEntity> assets = [];
   List<AssetEntity> selectedAsset = [];
+
   int page = 0;
   int currentCount = 0;
 
@@ -56,19 +60,21 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   FutureOr<void> _onGalleryPhotoStateChanged(
     GalleryPhotoStateChanged event,
     Emitter<GalleryState> emit,
-  ) {
+  ) async {
     if (!event.isChecked) {
       currentCount -= 1;
       selectedAsset.remove(assets[event.index]);
     } else {
-      if (selectedAsset.length == 5) {
-        emit(GalleryPhotoChecked(
-          isLimited: true,
-          selectedCount: selectedAsset.length,
-          isChecked: event.isChecked,
-          currentCount: currentCount,
-          index: event.index,
-        ));
+      if (selectedAsset.length == maxCount) {
+        emit(
+          GalleryPhotoChecked(
+            isLimited: true,
+            selectedCount: selectedAsset.length,
+            isChecked: event.isChecked,
+            index: event.index,
+            selectedDataList: [...selectedAsset],
+          ),
+        );
 
         return null;
       }
@@ -77,11 +83,32 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
       selectedAsset.add(assets[event.index]);
     }
 
-    emit(GalleryPhotoChecked(
-      selectedCount: selectedAsset.length,
-      isChecked: event.isChecked,
-      currentCount: currentCount,
-      index: event.index,
-    ));
+    emit(
+      GalleryPhotoChecked(
+        selectedCount: selectedAsset.length,
+        isChecked: event.isChecked,
+        index: event.index,
+        selectedDataList: [...selectedAsset],
+      ),
+    );
+  }
+
+  FutureOr<void> _onGalleryCameraRequested(
+    GalleryCameraRequested event,
+    Emitter<GalleryState> emit,
+  ) async {
+    final imagePicker = ImagePicker();
+    XFile? imageFile;
+    imageFile = await imagePicker.pickImage(
+      source: ImageSource.camera,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+
+    emit(
+      GalleryCameraPhotoLoaded(
+        imageUrl: imageFile!.path,
+      ),
+    );
   }
 }

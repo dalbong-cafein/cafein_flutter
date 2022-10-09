@@ -18,12 +18,15 @@ class PhotoPermissionLoading extends PhotoPermissionState {
 class PhotoPermissionChecked extends PhotoPermissionState {
   const PhotoPermissionChecked({
     required this.permissionStatus,
+    required this.processType,
   });
 
   final PermissionStatus permissionStatus;
+  final PhotoProcessType processType;
 
   @override
   List<Object?> get props => [
         permissionStatus,
+        processType,
       ];
 }

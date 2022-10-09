@@ -8,5 +8,12 @@ abstract class CameraPermissionEvent extends Equatable {
 }
 
 class CameraPermissionRequested extends CameraPermissionEvent {
-  const CameraPermissionRequested();
+  const CameraPermissionRequested({
+    required this.processType,
+  });
+
+  final CameraProcessType processType;
+
+  @override
+  List<Object?> get props => [processType];
 }

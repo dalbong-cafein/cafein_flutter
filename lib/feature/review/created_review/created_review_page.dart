@@ -119,7 +119,8 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
           listener: (context, state) async {
             final bloc = context.read<CreatedReviewBloc>();
 
-            if (state is PhotoPermissionChecked) {
+            if (state is PhotoPermissionChecked &&
+                state.processType == PhotoProcessType.createReview) {
               if (!state.permissionStatus.isGranted) {
                 final result = await PermissionDialog.show(context);
 
@@ -349,10 +350,13 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                                   imageType: ImageType.file,
                                 ))
                             .toList(),
-                        onTapPhoto: () =>
-                            context.read<PhotoPermissionBloc>().add(
-                                  const PhotoPermissionRequested(),
-                                ),
+                        onTapPhoto: photos.length < 5
+                            ? () => context.read<PhotoPermissionBloc>().add(
+                                  const PhotoPermissionRequested(
+                                    processType: PhotoProcessType.createReview,
+                                  ),
+                                )
+                            : () {},
                         deleteImage: (imageUrl, imageType) =>
                             context.read<CreatedReviewBloc>().add(
                                   CreatedReviewPhotoDeleteRequested(
