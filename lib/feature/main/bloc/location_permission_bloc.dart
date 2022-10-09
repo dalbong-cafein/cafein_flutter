@@ -7,6 +7,12 @@ import 'package:permission_handler/permission_handler.dart';
 part 'location_permission_event.dart';
 part 'location_permission_state.dart';
 
+enum ProcessType {
+  searchRequest,
+  currentLocation,
+  congestion,
+}
+
 class LocationPermissionBloc
     extends Bloc<LocationPermissionEvent, LocationPermissionState> {
   LocationPermissionBloc()
@@ -26,6 +32,7 @@ class LocationPermissionBloc
 
     emit(LocationPermissionChecked(
       permissionStatus: status,
+      processType: event.processType,
     ));
   }
 }
