@@ -62,4 +62,7 @@ abstract class AppImage {
   static const onboardB = 'asset/image/onboard/img_onboard_b.png';
   static const onboardC = 'asset/image/onboard/img_onboard_c.png';
   static const onboardD = 'asset/image/onboard/img_onboard_d.png';
+
+  static const characterQuestionS =
+      'asset/image/character/character_question_s.png';
 }

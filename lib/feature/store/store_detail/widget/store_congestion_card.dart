@@ -44,6 +44,63 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
           buildWhen: (pre, next) => next is CongestionLoaded,
           builder: (context, state) {
             if (state is CongestionLoaded) {
+              if (state.congestionResponse.congestionList.isEmpty) {
+                return Column(
+                  children: [
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        '혼잡도',
+                        style: AppStyle.subTitle17SemiBold,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    loadAsset(
+                      AppImage.characterQuestionS,
+                      width: 42,
+                      height: 42,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '제보된 혼잡도 정보가 없어요\n혼잡도 눌려주기를 눌러 카페의 혼잡도를 알려주세요',
+                      style: AppStyle.caption13Regular.copyWith(
+                        color: AppColor.grey600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 36,
+                      width: 116,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final bloc = context.read<CongestionBloc>();
+
+                          final result =
+                              await CongestionCreateDialog.show(context);
+                          if (result == -1) {
+                            return;
+                          }
+
+                          bloc.add(CongestionCreateRequested(
+                            score: result,
+                          ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          padding: EdgeInsets.zero,
+                          textStyle: AppStyle.subTitle14Medium,
+                        ),
+                        child: const Text('혼잡도 알려주기'),
+                      ),
+                    ),
+                  ],
+                );
+              }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,6 +193,65 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                       ),
                     ],
                   ),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                      ),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.congestionResponse.congestionList.length,
+                      itemBuilder: (context, index) => SizedBox(
+                        height: 56,
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: index == 0 ? 24 : 20,
+                              backgroundColor: index == 0
+                                  ? AppColor.green50
+                                  : AppColor.grey50,
+                              foregroundColor: index == 0
+                                  ? AppColor.green500
+                                  : AppColor.grey400,
+                              child: Center(
+                                child: Text(
+                                  getCongestionTitle(state.congestionResponse
+                                      .congestionList[index].congestionScore),
+                                  style: index == 0
+                                      ? AppStyle.subTitle15Medium
+                                      : AppStyle.caption13Medium,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${state.congestionResponse.congestionList[index].nicknameOfWriter}의 제보',
+                                    style: AppStyle.subTitle15Medium,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    state
+                                        .congestionResponse
+                                        .congestionList[index]
+                                        .registeredDateTime,
+                                    style: AppStyle.caption12Regular.copyWith(
+                                      color: AppColor.grey600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               );
             }
@@ -174,5 +290,15 @@ class CongestionCreateDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String getCongestionTitle(int score) {
+  if (score == 1) {
+    return '혼잡';
+  } else if (score == 2) {
+    return '보통';
+  } else {
+    return '여유';
   }
 }
