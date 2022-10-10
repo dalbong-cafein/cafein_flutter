@@ -11,6 +11,7 @@ import 'package:cafein_flutter/feature/main/search/widget/search_keyword_tab.dar
 import 'package:cafein_flutter/feature/main/search/widget/search_log_card.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_nolog_card.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_noresult_card.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_popular_word_tab.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_real_time_card.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -195,7 +196,7 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
         ),
-        body: true? SearchRealTimeCard() : Stack(
+        body: true? SearchNoResultCard() : Stack(
           alignment: Alignment.bottomCenter,
           children: [
             NaverMap(
