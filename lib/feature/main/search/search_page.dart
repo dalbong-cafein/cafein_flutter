@@ -8,6 +8,10 @@ import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_keyword_tab.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_log_card.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_nolog_card.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_noresult_card.dart';
+import 'package:cafein_flutter/feature/main/search/widget/search_real_time_card.dart';
 import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/get_marker_icon.dart';
@@ -191,7 +195,7 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
         ),
-        body: Stack(
+        body: true? SearchRealTimeCard() : Stack(
           alignment: Alignment.bottomCenter,
           children: [
             NaverMap(
