@@ -7,7 +7,6 @@ import 'package:cafein_flutter/data/model/review/create_review_request.dart';
 import 'package:cafein_flutter/data/model/sticker/review_sticker_request.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
-import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
