@@ -1,4 +1,4 @@
-import 'package:cafein_flutter/feature/main/map/widget/search_popular_word_tab.dart';
+import 'package:cafein_flutter/feature/main/map/widget/search/search_popular_word_tab.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/cupertino.dart';
