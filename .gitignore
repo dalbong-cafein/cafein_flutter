@@ -50,3 +50,5 @@ app.*.map.json
 # Generated file
 # **.g.dart
 # **.freezed.dart
+
+/ios/build/

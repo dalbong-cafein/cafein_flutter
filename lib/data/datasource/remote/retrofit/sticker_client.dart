@@ -36,4 +36,9 @@ abstract class StickerClient {
 
   @GET('/members/stickers')
   Future<BaseResponse<List<Sticker>>> getStickers();
+
+  @GET('/stores/{storeId}/stickers/congestionType/check-possible-issue')
+  Future<BaseResponse<bool>> isPossibleSticker(
+    @Path() int storeId,
+  );
 }

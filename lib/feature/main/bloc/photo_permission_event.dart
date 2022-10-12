@@ -8,5 +8,12 @@ abstract class PhotoPermissionEvent extends Equatable {
 }
 
 class PhotoPermissionRequested extends PhotoPermissionEvent {
-  const PhotoPermissionRequested();
+  const PhotoPermissionRequested({
+    required this.processType,
+  });
+
+  final PhotoProcessType processType;
+
+  @override
+  List<Object?> get props => [processType];
 }

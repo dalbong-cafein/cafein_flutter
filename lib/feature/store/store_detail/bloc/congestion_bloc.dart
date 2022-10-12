@@ -3,10 +3,15 @@ import 'dart:async';
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_request.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
+import 'package:cafein_flutter/data/model/sticker/congestion_sticker_request.dart';
 import 'package:cafein_flutter/data/repository/congestion_repository.dart';
+import 'package:cafein_flutter/data/repository/sticker_repository.dart';
+import 'package:cafein_flutter/util/calculate_distance.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 part 'congestion_event.dart';
 part 'congestion_state.dart';
@@ -14,14 +19,21 @@ part 'congestion_state.dart';
 class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
   CongestionBloc({
     required this.congestionRepository,
+    required this.stickerRepository,
     required this.storeId,
   }) : super(const CongestionInitial()) {
     on<CongestionRequested>(_onCongestionRequested);
     on<CongestionCreateRequested>(_onCongestionCreateRequested);
+    on<CongestionLocationRequested>(_onCongestionLocationRequested);
+    on<CongestionStickerCountRequested>(_onCongestionStickerCountRequested);
+    on<CongestionStickerRequested>(_onCongestionStickerRequested);
   }
 
   final CongestionRepository congestionRepository;
+  final StickerRepository stickerRepository;
   final int storeId;
+
+  int congestionId = -1;
 
   final today = '${DateFormat.E('ko_KR').format(
     DateTime.now(),
@@ -96,6 +108,70 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
           event: () => add(event),
         ),
       );
+    }
+  }
+
+  FutureOr<void> _onCongestionLocationRequested(
+    CongestionLocationRequested event,
+    Emitter<CongestionState> emit,
+  ) async {
+    final result = await Geolocator.getCurrentPosition();
+
+    final distance = calculateDistance(
+      currentLatLng: LatLng(result.latitude, result.longitude),
+      targetLatLng: LatLng(event.latY, event.lngX),
+    );
+
+    emit(
+      CongestionLocationChecked(
+        isAvailable: distance <= 100,
+      ),
+    );
+  }
+
+  FutureOr<void> _onCongestionStickerCountRequested(
+    CongestionStickerCountRequested event,
+    Emitter<CongestionState> emit,
+  ) async {
+    emit(const CongestionLoading());
+    try {
+      final response = await stickerRepository.isPossibleSticker(storeId);
+
+      emit(
+        CongestionStickerCountChecked(
+          isAvailable: response.data,
+        ),
+      );
+    } catch (e) {
+      emit(
+        CongestionError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onCongestionStickerRequested(
+    CongestionStickerRequested event,
+    Emitter<CongestionState> emit,
+  ) async {
+    emit(const CongestionLoading());
+    try {
+      final response = await stickerRepository.createCongestionSticker(
+        CongestionStickerRequest(
+          congestionId: congestionId,
+        ),
+      );
+
+      if (response.code == -1) {
+        emit(const CongestionStickerError());
+        return;
+      }
+
+      emit(const CongestionCreatedSucceed());
+    } catch (e) {
+      emit(const CongestionStickerError());
     }
   }
 }

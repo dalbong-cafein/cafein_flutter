@@ -19,12 +19,36 @@ class CongestionRequested extends CongestionEvent {
 }
 
 class CongestionCreateRequested extends CongestionEvent {
-  const CongestionCreateRequested({
-    required this.score,
-  });
+  const CongestionCreateRequested(
+      {required this.score, required this.isAvailable});
 
   final int score;
+  final bool isAvailable;
 
   @override
-  List<Object?> get props => [score];
+  List<Object?> get props => [score, isAvailable];
+}
+
+class CongestionLocationRequested extends CongestionEvent {
+  const CongestionLocationRequested({
+    required this.latY,
+    required this.lngX,
+  });
+
+  final double latY;
+  final double lngX;
+
+  @override
+  List<Object?> get props => [
+        latY,
+        lngX,
+      ];
+}
+
+class CongestionStickerCountRequested extends CongestionEvent {
+  const CongestionStickerCountRequested();
+}
+
+class CongestionStickerRequested extends CongestionEvent {
+  const CongestionStickerRequested();
 }

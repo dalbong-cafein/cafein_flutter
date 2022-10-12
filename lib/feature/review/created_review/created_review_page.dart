@@ -1,5 +1,3 @@
-
-
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_type_pair.dart';
 import 'package:cafein_flutter/data/model/enum/image_type.dart';
@@ -8,6 +6,7 @@ import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/created_succed_without_sticker_dialog.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/sticker_count_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_policy_card.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_succeed_dialog.dart';
@@ -15,6 +14,7 @@ import 'package:cafein_flutter/feature/review/widget/photo_list_row.dart';
 import 'package:cafein_flutter/feature/review/widget/review_detail_score_card.dart';
 import 'package:cafein_flutter/feature/review/widget/score_character_button.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
@@ -57,6 +57,8 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                 refresh: state.event,
               );
             } else if (state is CreatedReviewStickerError) {
+              await CreatedSucceedWithoutStickerDialog.show(context);
+              navigator.pop();
             } else if (state is CreatedReviewSucceed) {
               if (state.isAvailable) {
                 bloc.add(const CreatedReviewStickerRequested());
@@ -78,8 +80,18 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
             } else if (state is CreatedReviewStickerCountLoaded) {
               if (!state.isAvailable) {
                 final result = await StickerCountDialog.show(context);
-                if (!result) {
+                if (result == null) {
                   return;
+                }
+
+                if (result) {
+                  navigator.pushReplacementNamed(
+                    StickerPage.routeName,
+                  );
+                } else {
+                  bloc.add(CreatedReviewRequested(
+                    isAvailable: state.isAvailable,
+                  ));
                 }
               }
 
@@ -107,7 +119,8 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
           listener: (context, state) async {
             final bloc = context.read<CreatedReviewBloc>();
 
-            if (state is PhotoPermissionChecked) {
+            if (state is PhotoPermissionChecked &&
+                state.processType == PhotoProcessType.createReview) {
               if (!state.permissionStatus.isGranted) {
                 final result = await PermissionDialog.show(context);
 
@@ -337,10 +350,13 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                                   imageType: ImageType.file,
                                 ))
                             .toList(),
-                        onTapPhoto: () =>
-                            context.read<PhotoPermissionBloc>().add(
-                                  const PhotoPermissionRequested(),
-                                ),
+                        onTapPhoto: photos.length < 5
+                            ? () => context.read<PhotoPermissionBloc>().add(
+                                  const PhotoPermissionRequested(
+                                    processType: PhotoProcessType.createReview,
+                                  ),
+                                )
+                            : () {},
                         deleteImage: (imageUrl, imageType) =>
                             context.read<CreatedReviewBloc>().add(
                                   CreatedReviewPhotoDeleteRequested(
@@ -356,8 +372,8 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                   BlocBuilder<CreatedReviewBloc, CreatedReviewState>(
                     buildWhen: (pre, next) =>
                         next is CreatedReviewScoreChecked ||
-                        pre is CreatedReviewLoading &&
-                            next is CreatedReviewLoading,
+                        pre is CreatedReviewLoading ||
+                        next is CreatedReviewLoading,
                     builder: (context, state) {
                       bool isValid = false;
                       bool isLoading = false;

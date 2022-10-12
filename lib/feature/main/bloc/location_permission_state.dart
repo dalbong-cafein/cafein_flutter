@@ -18,12 +18,15 @@ class LocationPermissionLoading extends LocationPermissionState {
 class LocationPermissionChecked extends LocationPermissionState {
   const LocationPermissionChecked({
     required this.permissionStatus,
+    required this.processType,
   });
 
   final PermissionStatus permissionStatus;
+  final ProcessType processType;
 
   @override
   List<Object?> get props => [
         permissionStatus,
+        processType,
       ];
 }

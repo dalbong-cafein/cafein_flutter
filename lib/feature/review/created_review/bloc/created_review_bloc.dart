@@ -210,7 +210,7 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
 
       emit(
         CreatedReviewStickerCountLoaded(
-          isAvailable: response.data >= 20,
+          isAvailable: response.data <= 20,
         ),
       );
     } catch (e) {

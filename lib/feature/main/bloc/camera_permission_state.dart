@@ -18,12 +18,15 @@ class CameraPermissionLoading extends CameraPermissionState {
 class CameraPermissionChecked extends CameraPermissionState {
   const CameraPermissionChecked({
     required this.permissionStatus,
+    required this.processType,
   });
 
   final PermissionStatus permissionStatus;
+  final CameraProcessType processType;
 
   @override
   List<Object?> get props => [
         permissionStatus,
+        processType,
       ];
 }

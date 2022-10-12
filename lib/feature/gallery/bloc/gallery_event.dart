@@ -26,3 +26,7 @@ class GalleryPhotoStateChanged extends GalleryEvent {
         index,
       ];
 }
+
+class GalleryCameraRequested extends GalleryEvent {
+  const GalleryCameraRequested();
+}

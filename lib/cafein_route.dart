@@ -24,7 +24,6 @@ import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
-import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
@@ -250,6 +249,7 @@ abstract class CafeinRoute {
             BlocProvider(
               create: (context) => CongestionBloc(
                 congestionRepository: context.read<CongestionRepository>(),
+                stickerRepository: context.read<StickerRepository>(),
                 storeId: storeId,
               ),
             ),
