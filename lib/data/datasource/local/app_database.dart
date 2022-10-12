@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/data/datasource/local/preference/app_preference.dart';
 import 'package:cafein_flutter/data/datasource/local/preference/auth_preference.dart';
 import 'package:cafein_flutter/data/model/auth/token_data.dart';
+import 'package:cafein_flutter/data/model/common/search_data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AppDatabase {
@@ -21,9 +22,12 @@ class AppDatabase {
   Future<void> initDatabase() async {
     await Hive.initFlutter();
     Hive.registerAdapter(TokenDataAdapter());
+    Hive.registerAdapter(SearchDataAdapter());
+
     await Hive.openBox<TokenData>(authBoxKey).then(
       (value) => _authPreference = AuthPreference(box: value),
     );
+
     await Hive.openBox<dynamic>(appBoxKey).then(
       (value) => _appPreference = AppPreference(box: value),
     );

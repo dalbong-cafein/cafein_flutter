@@ -49,7 +49,7 @@ class _MapPageState extends State<MapPage> {
     } else {
       final state = context.read<LocationPermissionBloc>().state
           as LocationPermissionChecked;
-      final bloc = context.read<SearchBloc>();
+      final bloc = context.read<MapBloc>();
       if (state.permissionStatus.isGranted) {
         bloc.add(const MapLocationRequested());
       } else {
@@ -66,9 +66,9 @@ class _MapPageState extends State<MapPage> {
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<SearchBloc, MapState>(
+        BlocListener<MapBloc, MapState>(
           listener: (context, state) async {
-            final bloc = context.read<SearchBloc>();
+            final bloc = context.read<MapBloc>();
 
             if (state is MapError) {
               ErrorDialog.show(
@@ -132,7 +132,7 @@ class _MapPageState extends State<MapPage> {
         ),
         BlocListener<LocationPermissionBloc, LocationPermissionState>(
           listener: (context, state) async {
-            final bloc = context.read<SearchBloc>();
+            final bloc = context.read<MapBloc>();
             if (state is LocationPermissionChecked &&
                 state.processType == ProcessType.searchRequest) {
               if (state.permissionStatus.isGranted) {
@@ -206,7 +206,7 @@ class _MapPageState extends State<MapPage> {
               ),
               markers: markers,
             ),
-            BlocBuilder<SearchBloc, MapState>(
+            BlocBuilder<MapBloc, MapState>(
               buildWhen: (pre, next) => next is MapStoreLoaded,
               builder: (context, state) {
                 if (state is MapStoreLoaded) {

@@ -31,7 +31,7 @@ class SearchKeywordTab extends StatelessWidget {
               }
             }
 
-            context.read<SearchBloc>().add(
+            context.read<MapBloc>().add(
                   MapKeywordTaped(
                     searchKeyword: SearchKeyword.values[index],
                   ),

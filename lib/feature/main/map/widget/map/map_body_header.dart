@@ -42,7 +42,7 @@ class SearchBodyHeader extends StatelessWidget {
                   return;
                 }
 
-                context.read<SearchBloc>().add(const MapLocationRequested());
+                context.read<MapBloc>().add(const MapLocationRequested());
               },
               child: CircleAvatar(
                 radius: 25,

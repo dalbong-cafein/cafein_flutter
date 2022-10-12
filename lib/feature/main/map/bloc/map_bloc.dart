@@ -15,8 +15,8 @@ import 'package:naver_map_plugin/naver_map_plugin.dart';
 part 'map_event.dart';
 part 'map_state.dart';
 
-class SearchBloc extends Bloc<MapEvent, MapState> {
-  SearchBloc({
+class MapBloc extends Bloc<MapEvent, MapState> {
+  MapBloc({
     required this.userRepository,
     required this.storeRepository,
     required this.heartRepository,

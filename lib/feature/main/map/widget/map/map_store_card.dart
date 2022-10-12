@@ -65,7 +65,7 @@ class SearchStoreCard extends StatelessWidget {
                   style: AppStyle.subTitle16SemiBold,
                 ),
                 InkWell(
-                  onTap: () => context.read<SearchBloc>().add(
+                  onTap: () => context.read<MapBloc>().add(
                         MapStoreHeartRequested(
                           isLike: !store.isHeart,
                           index: index,
@@ -101,7 +101,7 @@ class SearchStoreCard extends StatelessWidget {
             StoreAdditionalInformationRow(
               textStyle: AppStyle.caption12Regular,
               distance: calculateDistance(
-                currentLatLng: context.watch<SearchBloc>().currentLatLng,
+                currentLatLng: context.watch<MapBloc>().currentLatLng,
                 targetLatLng: LatLng(store.latY, store.lngX),
               ),
               recommendScore: store.recommendPercent?.toInt() ?? 0,
