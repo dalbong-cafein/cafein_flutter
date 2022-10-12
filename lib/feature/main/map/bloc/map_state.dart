@@ -1,22 +1,22 @@
-part of 'search_bloc.dart';
+part of 'map_bloc.dart';
 
-abstract class SearchState extends Equatable {
-  const SearchState();
+abstract class MapState extends Equatable {
+  const MapState();
 
   @override
   List<Object?> get props => [];
 }
 
-class SearchInitial extends SearchState {
-  const SearchInitial();
+class MapInitial extends MapState {
+  const MapInitial();
 }
 
-class SearchLoading extends SearchState {
-  const SearchLoading();
+class MapLoading extends MapState {
+  const MapLoading();
 }
 
-class SearchError extends SearchState {
-  const SearchError({
+class MapError extends MapState {
+  const MapError({
     required this.error,
     required this.event,
   });
@@ -28,8 +28,8 @@ class SearchError extends SearchState {
   List<Object?> get props => [error];
 }
 
-class SearchStoreLoaded extends SearchState {
-  const SearchStoreLoaded({
+class MapStoreLoaded extends MapState {
+  const MapStoreLoaded({
     required this.stores,
   });
 
@@ -41,8 +41,8 @@ class SearchStoreLoaded extends SearchState {
       ];
 }
 
-class SearchLocationChecked extends SearchState {
-  const SearchLocationChecked({
+class MapLocationChecked extends MapState {
+  const MapLocationChecked({
     required this.location,
     required this.latitude,
     required this.longitude,

@@ -26,6 +26,7 @@ import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
+import 'package:cafein_flutter/feature/main/map/search_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
@@ -35,7 +36,6 @@ import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/sign_off_page.dart';
-import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
 import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/bloc/profile_bloc.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
@@ -131,8 +131,8 @@ abstract class CafeinRoute {
           returnPage: returnPage,
         );
         break;
-      case SearchKeywordPage.routeName:
-        page = const SearchKeywordPage();
+      case SearchPage.routeName:
+        page = const SearchPage();
         break;
       case StickerPage.routeName:
         page = BlocProvider(

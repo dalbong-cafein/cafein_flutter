@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
-import 'package:cafein_flutter/feature/main/search/search_keyword_page.dart';
-import 'package:cafein_flutter/feature/main/search/widget/search_body_header.dart';
-import 'package:cafein_flutter/feature/main/search/widget/search_keyword_tab.dart';
-import 'package:cafein_flutter/feature/main/search/widget/search_store_card.dart';
+import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
+import 'package:cafein_flutter/feature/main/map/search_page.dart';
+import 'package:cafein_flutter/feature/main/map/widget/search_body_header.dart';
+import 'package:cafein_flutter/feature/main/map/widget/search_keyword_tab.dart';
+import 'package:cafein_flutter/feature/main/map/widget/search_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/get_marker_icon.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -20,14 +20,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<MapPage> createState() => _MapPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _MapPageState extends State<MapPage> {
   Completer<NaverMapController> naverMapController =
       Completer<NaverMapController>();
   final pageController = PageController();
@@ -51,9 +51,9 @@ class _SearchPageState extends State<SearchPage> {
           as LocationPermissionChecked;
       final bloc = context.read<SearchBloc>();
       if (state.permissionStatus.isGranted) {
-        bloc.add(const SearchLocationRequested());
+        bloc.add(const MapLocationRequested());
       } else {
-        bloc.add(const SearchStoreRequested(
+        bloc.add(const MapStoreRequested(
           location: CafeinConst.defaultLocation,
         ));
       }
@@ -66,17 +66,17 @@ class _SearchPageState extends State<SearchPage> {
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<SearchBloc, SearchState>(
+        BlocListener<SearchBloc, MapState>(
           listener: (context, state) async {
             final bloc = context.read<SearchBloc>();
 
-            if (state is SearchError) {
+            if (state is MapError) {
               ErrorDialog.show(
                 context,
                 error: state.error,
                 refresh: state.event,
               );
-            } else if (state is SearchLocationChecked) {
+            } else if (state is MapLocationChecked) {
               final currentLatLng = LatLng(
                 state.latitude,
                 state.longitude,
@@ -86,9 +86,9 @@ class _SearchPageState extends State<SearchPage> {
               updateCurrentLocation(currentLatLng);
 
               bloc.add(
-                SearchStoreRequested(location: state.location),
+                MapStoreRequested(location: state.location),
               );
-            } else if (state is SearchStoreLoaded) {
+            } else if (state is MapStoreLoaded) {
               markers.clear();
               markers.addAll(
                 List.generate(
@@ -136,14 +136,14 @@ class _SearchPageState extends State<SearchPage> {
             if (state is LocationPermissionChecked &&
                 state.processType == ProcessType.searchRequest) {
               if (state.permissionStatus.isGranted) {
-                bloc.add(const SearchLocationRequested());
+                bloc.add(const MapLocationRequested());
 
                 return;
               }
 
               final result = await PermissionDialog.show(context);
               if (!result) {
-                bloc.add(const SearchStoreRequested(
+                bloc.add(const MapStoreRequested(
                   location: CafeinConst.defaultLocation,
                 ));
                 return;
@@ -162,7 +162,9 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               InkWell(
                 onTap: () async {
-                  Navigator.of(context).pushNamed(SearchKeywordPage.routeName);
+                  Navigator.of(context).pushNamed(
+                    SearchPage.routeName,
+                  );
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(
@@ -204,10 +206,10 @@ class _SearchPageState extends State<SearchPage> {
               ),
               markers: markers,
             ),
-            BlocBuilder<SearchBloc, SearchState>(
-              buildWhen: (pre, next) => next is SearchStoreLoaded,
+            BlocBuilder<SearchBloc, MapState>(
+              buildWhen: (pre, next) => next is MapStoreLoaded,
               builder: (context, state) {
-                if (state is SearchStoreLoaded) {
+                if (state is MapStoreLoaded) {
                   if (state.stores.isEmpty) {
                     return const Padding(
                       padding: EdgeInsets.only(bottom: 12),

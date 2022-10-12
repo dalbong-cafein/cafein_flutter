@@ -1,5 +1,5 @@
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
+import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
@@ -42,7 +42,7 @@ class SearchBodyHeader extends StatelessWidget {
                   return;
                 }
 
-                context.read<SearchBloc>().add(const SearchLocationRequested());
+                context.read<SearchBloc>().add(const MapLocationRequested());
               },
               child: CircleAvatar(
                 radius: 25,

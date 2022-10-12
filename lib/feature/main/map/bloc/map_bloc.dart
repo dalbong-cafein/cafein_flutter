@@ -12,19 +12,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
-part 'search_event.dart';
-part 'search_state.dart';
+part 'map_event.dart';
+part 'map_state.dart';
 
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
+class SearchBloc extends Bloc<MapEvent, MapState> {
   SearchBloc({
     required this.userRepository,
     required this.storeRepository,
     required this.heartRepository,
-  }) : super(const SearchInitial()) {
-    on<SearchLocationRequested>(_onSearchLocationRequested);
-    on<SearchStoreRequested>(_onSearchStoreRequested);
-    on<SearchStoreHeartRequested>(_onSearchStoreHeartRequested);
-    on<SearchKeywordTabed>(_onSearchKeywordTabed);
+  }) : super(const MapInitial()) {
+    on<MapLocationRequested>(_onSearchLocationRequested);
+    on<MapStoreRequested>(_onSearchStoreRequested);
+    on<MapStoreHeartRequested>(_onSearchStoreHeartRequested);
+    on<MapKeywordTaped>(_onSearchKeywordTabed);
   }
 
   final UserRepository userRepository;
@@ -38,8 +38,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   LatLng currentLatLng = CafeinConst.defaultLating;
 
   FutureOr<void> _onSearchLocationRequested(
-    SearchLocationRequested event,
-    Emitter<SearchState> emit,
+    MapLocationRequested event,
+    Emitter<MapState> emit,
   ) async {
     try {
       final result = await Geolocator.getCurrentPosition();
@@ -55,14 +55,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       );
 
       emit(
-        SearchLocationChecked(
+        MapLocationChecked(
           location: currentLocation,
           latitude: result.latitude,
           longitude: result.longitude,
         ),
       );
     } catch (e) {
-      emit(SearchError(
+      emit(MapError(
         error: e,
         event: () => add(event),
       ));
@@ -70,21 +70,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> _onSearchStoreRequested(
-    SearchStoreRequested event,
-    Emitter<SearchState> emit,
+    MapStoreRequested event,
+    Emitter<MapState> emit,
   ) async {
     if (event.location == currentLocation) {
       return;
     }
     currentLocation = event.location;
 
-    emit(const SearchLoading());
+    emit(const MapLoading());
     try {
       final response = await storeRepository.getStores(
         currentLocation,
       );
       if (response.code == -1) {
-        emit(SearchError(
+        emit(MapError(
           error: Error(),
           event: () => add(event),
         ));
@@ -94,11 +94,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       currentStores = [...response.data];
 
-      emit(SearchStoreLoaded(
+      emit(MapStoreLoaded(
         stores: [...currentStores],
       ));
     } catch (e) {
-      emit(SearchError(
+      emit(MapError(
         error: e,
         event: () => add(event),
       ));
@@ -106,8 +106,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> _onSearchStoreHeartRequested(
-    SearchStoreHeartRequested event,
-    Emitter<SearchState> emit,
+    MapStoreHeartRequested event,
+    Emitter<MapState> emit,
   ) async {
     try {
       final cur = currentStores;
@@ -128,11 +128,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       currentStores = [...cur];
 
-      emit(SearchStoreLoaded(
+      emit(MapStoreLoaded(
         stores: [...currentStores],
       ));
     } catch (e) {
-      emit(SearchError(
+      emit(MapError(
         error: e,
         event: () => add(event),
       ));
@@ -140,8 +140,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> _onSearchKeywordTabed(
-    SearchKeywordTabed event,
-    Emitter<SearchState> emit,
+    MapKeywordTaped event,
+    Emitter<MapState> emit,
   ) {
     var cur = currentStores;
     switch (event.searchKeyword) {
@@ -194,7 +194,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     currentStores = [...cur];
     emit(
-      SearchStoreLoaded(
+      MapStoreLoaded(
         stores: [...currentStores],
       ),
     );

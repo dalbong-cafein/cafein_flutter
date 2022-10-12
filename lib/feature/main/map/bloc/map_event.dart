@@ -1,14 +1,14 @@
-part of 'search_bloc.dart';
+part of 'map_bloc.dart';
 
-abstract class SearchEvent extends Equatable {
-  const SearchEvent();
+abstract class MapEvent extends Equatable {
+  const MapEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class SearchStoreRequested extends SearchEvent {
-  const SearchStoreRequested({
+class MapStoreRequested extends MapEvent {
+  const MapStoreRequested({
     required this.location,
   });
 
@@ -18,12 +18,12 @@ class SearchStoreRequested extends SearchEvent {
   List<Object?> get props => [location];
 }
 
-class SearchLocationRequested extends SearchEvent {
-  const SearchLocationRequested();
+class MapLocationRequested extends MapEvent {
+  const MapLocationRequested();
 }
 
-class SearchStoreHeartRequested extends SearchEvent {
-  const SearchStoreHeartRequested({
+class MapStoreHeartRequested extends MapEvent {
+  const MapStoreHeartRequested({
     required this.isLike,
     required this.index,
   });
@@ -35,8 +35,8 @@ class SearchStoreHeartRequested extends SearchEvent {
   List<Object?> get props => [isLike];
 }
 
-class SearchKeywordTabed extends SearchEvent {
-  const SearchKeywordTabed({
+class MapKeywordTaped extends MapEvent {
+  const MapKeywordTaped({
     required this.searchKeyword,
   });
 
