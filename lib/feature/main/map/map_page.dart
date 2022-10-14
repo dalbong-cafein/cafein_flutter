@@ -162,9 +162,13 @@ class _MapPageState extends State<MapPage> {
             children: [
               InkWell(
                 onTap: () async {
-                  Navigator.of(context).pushNamed(
+                  final result = await Navigator.of(context).pushNamed(
                     SearchPage.routeName,
                   );
+
+                  if (result == null) {
+                    return;
+                  }
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(

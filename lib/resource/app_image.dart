@@ -28,7 +28,7 @@ abstract class AppImage {
 
   static const couponPlus = "asset/image/coupon_plus_image.svg";
 
-  static const noResult = "asset/image/no_result_image.svg";
+  static const searchRunCharacter = "asset/image/no_result_image.svg";
 
   static const adCoupon = "asset/image/ad_coupon_image.svg";
 

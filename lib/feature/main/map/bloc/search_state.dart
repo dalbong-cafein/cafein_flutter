@@ -39,15 +39,43 @@ class SearchKeywordValidationChecked extends SearchState {
   List<Object?> get props => [isEmpty];
 }
 
-class SearchLoaded extends SearchState {
-  const SearchLoaded({
+class SearchKakaoLoaded extends SearchState {
+  const SearchKakaoLoaded({
     required this.storeList,
+    required this.keyword,
+    this.nextPage,
+  });
+
+  final List<KakaoStoreResponse> storeList;
+  final int? nextPage;
+  final String keyword;
+
+  @override
+  List<Object?> get props => [
+        storeList,
+        keyword,
+        nextPage,
+      ];
+}
+
+class SearchStoreLoading extends SearchState {
+  const SearchStoreLoading();
+}
+
+class SearchStoreLoaded extends SearchState {
+  const SearchStoreLoaded({
+    required this.storeList,
+    required this.keyword,
   });
 
   final List<Store> storeList;
+  final String keyword;
 
   @override
-  List<Object?> get props => [storeList];
+  List<Object?> get props => [
+        storeList,
+        keyword,
+      ];
 }
 
 class SearchRecentKeywordLoaded extends SearchState {

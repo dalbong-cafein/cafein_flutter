@@ -26,7 +26,6 @@ import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
-import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/search_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';

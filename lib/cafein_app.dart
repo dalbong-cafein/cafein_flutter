@@ -63,6 +63,7 @@ class CafeinApp extends StatelessWidget {
           create: (context) => StoreRepositoryImpl(
             storeFormDataClient: StoreFormDataClient(dio: DioUtil().dio),
             storeClient: StoreClient(DioUtil().dio),
+            kakaoApiClient: KakaoApiClient(dio: DioUtil().kakaoDio),
           ),
         ),
         RepositoryProvider<ReviewRepository>(

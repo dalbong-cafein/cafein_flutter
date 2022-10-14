@@ -1,6 +1,8 @@
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_form_data_client.dart';
+import 'package:cafein_flutter/data/datasource/remote/kakao/kakao_api_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
+import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
 import 'package:cafein_flutter/data/model/store/recommended_store.dart';
 import 'package:cafein_flutter/data/model/store/registered_store.dart';
 import 'package:cafein_flutter/data/model/store/registered_store_request.dart';
@@ -36,15 +38,23 @@ abstract class StoreRepository {
   Future<BaseResponse<List<Store>>> getNearStoreList(
     int storeId,
   );
+
+  Future<List<KakaoStoreResponse>> getKakaoStores({
+    required String query,
+    required int page,
+    int size = 20,
+  });
 }
 
 class StoreRepositoryImpl extends StoreRepository {
   final StoreClient storeClient;
   final StoreFormDataClient storeFormDataClient;
+  final KakaoApiClient kakaoApiClient;
 
   StoreRepositoryImpl({
     required this.storeClient,
     required this.storeFormDataClient,
+    required this.kakaoApiClient,
   });
 
   @override
@@ -81,4 +91,16 @@ class StoreRepositoryImpl extends StoreRepository {
     int storeId,
   ) =>
       storeClient.getNearStoreList(storeId);
+
+  @override
+  Future<List<KakaoStoreResponse>> getKakaoStores({
+    required String query,
+    required int page,
+    int size = 20,
+  }) =>
+      kakaoApiClient.getKakaoStores(
+        query: query,
+        page: page,
+        size: size,
+      );
 }
