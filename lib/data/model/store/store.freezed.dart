@@ -42,7 +42,8 @@ mixin _$Store {
 /// @nodoc
 abstract class $StoreCopyWith<$Res> {
   factory $StoreCopyWith(Store value, $Res Function(Store) then) =
-      _$StoreCopyWithImpl<$Res>;
+      _$StoreCopyWithImpl<$Res, Store>;
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -60,83 +61,87 @@ abstract class $StoreCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
+class _$StoreCopyWithImpl<$Res, $Val extends Store>
+    implements $StoreCopyWith<$Res> {
   _$StoreCopyWithImpl(this._value, this._then);
 
-  final Store _value;
   // ignore: unused_field
-  final $Res Function(Store) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
     Object? recommendPercent = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
-    Object? heartCnt = freezed,
-    Object? isHeart = freezed,
+    Object? lngX = null,
+    Object? latY = null,
+    Object? heartCnt = null,
+    Object? isHeart = null,
     Object? congestionScoreAvg = freezed,
     Object? distance = freezed,
     Object? imageIdPair = freezed,
     Object? businessInfo = freezed,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      recommendPercent: recommendPercent == freezed
+      recommendPercent: freezed == recommendPercent
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
               as double?,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      heartCnt: heartCnt == freezed
+      heartCnt: null == heartCnt
           ? _value.heartCnt
           : heartCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      isHeart: isHeart == freezed
+      isHeart: null == isHeart
           ? _value.isHeart
           : isHeart // ignore: cast_nullable_to_non_nullable
               as bool,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      distance: distance == freezed
+      distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      businessInfo: businessInfo == freezed
+      businessInfo: freezed == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get businessInfo {
     if (_value.businessInfo == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.businessInfo!, (value) {
-      return _then(_value.copyWith(businessInfo: value));
+      return _then(_value.copyWith(businessInfo: value) as $Val);
     });
   }
 }
@@ -146,6 +151,7 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
   factory _$$_StoreCopyWith(_$_Store value, $Res Function(_$_Store) then) =
       __$$_StoreCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -164,70 +170,68 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
+class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res, _$_Store>
     implements _$$_StoreCopyWith<$Res> {
   __$$_StoreCopyWithImpl(_$_Store _value, $Res Function(_$_Store) _then)
-      : super(_value, (v) => _then(v as _$_Store));
+      : super(_value, _then);
 
-  @override
-  _$_Store get _value => super._value as _$_Store;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
     Object? recommendPercent = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
-    Object? heartCnt = freezed,
-    Object? isHeart = freezed,
+    Object? lngX = null,
+    Object? latY = null,
+    Object? heartCnt = null,
+    Object? isHeart = null,
     Object? congestionScoreAvg = freezed,
     Object? distance = freezed,
     Object? imageIdPair = freezed,
     Object? businessInfo = freezed,
   }) {
     return _then(_$_Store(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      recommendPercent: recommendPercent == freezed
+      recommendPercent: freezed == recommendPercent
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
               as double?,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      heartCnt: heartCnt == freezed
+      heartCnt: null == heartCnt
           ? _value.heartCnt
           : heartCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      isHeart: isHeart == freezed
+      isHeart: null == isHeart
           ? _value.isHeart
           : isHeart // ignore: cast_nullable_to_non_nullable
               as bool,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      distance: distance == freezed
+      distance: freezed == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value._imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      businessInfo: businessInfo == freezed
+      businessInfo: freezed == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
@@ -297,41 +301,45 @@ class _$_Store implements _Store {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Store &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality()
-                .equals(other.recommendPercent, recommendPercent) &&
-            const DeepCollectionEquality().equals(other.lngX, lngX) &&
-            const DeepCollectionEquality().equals(other.latY, latY) &&
-            const DeepCollectionEquality().equals(other.heartCnt, heartCnt) &&
-            const DeepCollectionEquality().equals(other.isHeart, isHeart) &&
-            const DeepCollectionEquality()
-                .equals(other.congestionScoreAvg, congestionScoreAvg) &&
-            const DeepCollectionEquality().equals(other.distance, distance) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.recommendPercent, recommendPercent) ||
+                other.recommendPercent == recommendPercent) &&
+            (identical(other.lngX, lngX) || other.lngX == lngX) &&
+            (identical(other.latY, latY) || other.latY == latY) &&
+            (identical(other.heartCnt, heartCnt) ||
+                other.heartCnt == heartCnt) &&
+            (identical(other.isHeart, isHeart) || other.isHeart == isHeart) &&
+            (identical(other.congestionScoreAvg, congestionScoreAvg) ||
+                other.congestionScoreAvg == congestionScoreAvg) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
             const DeepCollectionEquality()
                 .equals(other._imageIdPair, _imageIdPair) &&
-            const DeepCollectionEquality()
-                .equals(other.businessInfo, businessInfo));
+            (identical(other.businessInfo, businessInfo) ||
+                other.businessInfo == businessInfo));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(recommendPercent),
-      const DeepCollectionEquality().hash(lngX),
-      const DeepCollectionEquality().hash(latY),
-      const DeepCollectionEquality().hash(heartCnt),
-      const DeepCollectionEquality().hash(isHeart),
-      const DeepCollectionEquality().hash(congestionScoreAvg),
-      const DeepCollectionEquality().hash(distance),
+      storeId,
+      storeName,
+      recommendPercent,
+      lngX,
+      latY,
+      heartCnt,
+      isHeart,
+      congestionScoreAvg,
+      distance,
       const DeepCollectionEquality().hash(_imageIdPair),
-      const DeepCollectionEquality().hash(businessInfo));
+      businessInfo);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreCopyWith<_$_Store> get copyWith =>
       __$$_StoreCopyWithImpl<_$_Store>(this, _$identity);
 

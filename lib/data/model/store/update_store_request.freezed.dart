@@ -38,7 +38,8 @@ mixin _$UpdateStoreRequest {
 abstract class $UpdateStoreRequestCopyWith<$Res> {
   factory $UpdateStoreRequestCopyWith(
           UpdateStoreRequest value, $Res Function(UpdateStoreRequest) then) =
-      _$UpdateStoreRequestCopyWithImpl<$Res>;
+      _$UpdateStoreRequestCopyWithImpl<$Res, UpdateStoreRequest>;
+  @useResult
   $Res call(
       {int storeId,
       String phoneNumber,
@@ -52,60 +53,63 @@ abstract class $UpdateStoreRequestCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UpdateStoreRequestCopyWithImpl<$Res>
+class _$UpdateStoreRequestCopyWithImpl<$Res, $Val extends UpdateStoreRequest>
     implements $UpdateStoreRequestCopyWith<$Res> {
   _$UpdateStoreRequestCopyWithImpl(this._value, this._then);
 
-  final UpdateStoreRequest _value;
   // ignore: unused_field
-  final $Res Function(UpdateStoreRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? phoneNumber = freezed,
-    Object? wifiPassword = freezed,
-    Object? webSite = freezed,
+    Object? storeId = null,
+    Object? phoneNumber = null,
+    Object? wifiPassword = null,
+    Object? webSite = null,
     Object? updateImageFiles = freezed,
     Object? deleteImageIds = freezed,
-    Object? totalBusinessInfo = freezed,
+    Object? totalBusinessInfo = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      wifiPassword: wifiPassword == freezed
+      wifiPassword: null == wifiPassword
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      webSite: webSite == freezed
+      webSite: null == webSite
           ? _value.webSite
           : webSite // ignore: cast_nullable_to_non_nullable
               as String,
-      updateImageFiles: updateImageFiles == freezed
+      updateImageFiles: freezed == updateImageFiles
           ? _value.updateImageFiles
           : updateImageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      deleteImageIds: deleteImageIds == freezed
+      deleteImageIds: freezed == deleteImageIds
           ? _value.deleteImageIds
           : deleteImageIds // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      totalBusinessInfo: totalBusinessInfo == freezed
+      totalBusinessInfo: null == totalBusinessInfo
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
               as TotalBusinessInfo,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TotalBusinessInfoCopyWith<$Res> get totalBusinessInfo {
     return $TotalBusinessInfoCopyWith<$Res>(_value.totalBusinessInfo, (value) {
-      return _then(_value.copyWith(totalBusinessInfo: value));
+      return _then(_value.copyWith(totalBusinessInfo: value) as $Val);
     });
   }
 }
@@ -117,6 +121,7 @@ abstract class _$$_UpdateStoreRequestCopyWith<$Res>
           $Res Function(_$_UpdateStoreRequest) then) =
       __$$_UpdateStoreRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String phoneNumber,
@@ -132,51 +137,49 @@ abstract class _$$_UpdateStoreRequestCopyWith<$Res>
 
 /// @nodoc
 class __$$_UpdateStoreRequestCopyWithImpl<$Res>
-    extends _$UpdateStoreRequestCopyWithImpl<$Res>
+    extends _$UpdateStoreRequestCopyWithImpl<$Res, _$_UpdateStoreRequest>
     implements _$$_UpdateStoreRequestCopyWith<$Res> {
   __$$_UpdateStoreRequestCopyWithImpl(
       _$_UpdateStoreRequest _value, $Res Function(_$_UpdateStoreRequest) _then)
-      : super(_value, (v) => _then(v as _$_UpdateStoreRequest));
+      : super(_value, _then);
 
-  @override
-  _$_UpdateStoreRequest get _value => super._value as _$_UpdateStoreRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? phoneNumber = freezed,
-    Object? wifiPassword = freezed,
-    Object? webSite = freezed,
+    Object? storeId = null,
+    Object? phoneNumber = null,
+    Object? wifiPassword = null,
+    Object? webSite = null,
     Object? updateImageFiles = freezed,
     Object? deleteImageIds = freezed,
-    Object? totalBusinessInfo = freezed,
+    Object? totalBusinessInfo = null,
   }) {
     return _then(_$_UpdateStoreRequest(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      wifiPassword: wifiPassword == freezed
+      wifiPassword: null == wifiPassword
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      webSite: webSite == freezed
+      webSite: null == webSite
           ? _value.webSite
           : webSite // ignore: cast_nullable_to_non_nullable
               as String,
-      updateImageFiles: updateImageFiles == freezed
+      updateImageFiles: freezed == updateImageFiles
           ? _value._updateImageFiles
           : updateImageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      deleteImageIds: deleteImageIds == freezed
+      deleteImageIds: freezed == deleteImageIds
           ? _value._deleteImageIds
           : deleteImageIds // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      totalBusinessInfo: totalBusinessInfo == freezed
+      totalBusinessInfo: null == totalBusinessInfo
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
               as TotalBusinessInfo,
@@ -240,34 +243,35 @@ class _$_UpdateStoreRequest implements _UpdateStoreRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpdateStoreRequest &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.wifiPassword, wifiPassword) &&
-            const DeepCollectionEquality().equals(other.webSite, webSite) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.wifiPassword, wifiPassword) ||
+                other.wifiPassword == wifiPassword) &&
+            (identical(other.webSite, webSite) || other.webSite == webSite) &&
             const DeepCollectionEquality()
                 .equals(other._updateImageFiles, _updateImageFiles) &&
             const DeepCollectionEquality()
                 .equals(other._deleteImageIds, _deleteImageIds) &&
-            const DeepCollectionEquality()
-                .equals(other.totalBusinessInfo, totalBusinessInfo));
+            (identical(other.totalBusinessInfo, totalBusinessInfo) ||
+                other.totalBusinessInfo == totalBusinessInfo));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(phoneNumber),
-      const DeepCollectionEquality().hash(wifiPassword),
-      const DeepCollectionEquality().hash(webSite),
+      storeId,
+      phoneNumber,
+      wifiPassword,
+      webSite,
       const DeepCollectionEquality().hash(_updateImageFiles),
       const DeepCollectionEquality().hash(_deleteImageIds),
-      const DeepCollectionEquality().hash(totalBusinessInfo));
+      totalBusinessInfo);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UpdateStoreRequestCopyWith<_$_UpdateStoreRequest> get copyWith =>
       __$$_UpdateStoreRequestCopyWithImpl<_$_UpdateStoreRequest>(
           this, _$identity);

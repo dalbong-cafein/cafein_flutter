@@ -41,7 +41,8 @@ mixin _$AddressInfo {
 abstract class $AddressInfoCopyWith<$Res> {
   factory $AddressInfoCopyWith(
           AddressInfo value, $Res Function(AddressInfo) then) =
-      _$AddressInfoCopyWithImpl<$Res>;
+      _$AddressInfoCopyWithImpl<$Res, AddressInfo>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'siNm') String cityName,
       @JsonKey(name: 'sggNm') String districtName,
@@ -52,48 +53,51 @@ abstract class $AddressInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AddressInfoCopyWithImpl<$Res> implements $AddressInfoCopyWith<$Res> {
+class _$AddressInfoCopyWithImpl<$Res, $Val extends AddressInfo>
+    implements $AddressInfoCopyWith<$Res> {
   _$AddressInfoCopyWithImpl(this._value, this._then);
 
-  final AddressInfo _value;
   // ignore: unused_field
-  final $Res Function(AddressInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cityName = freezed,
-    Object? districtName = freezed,
-    Object? detail = freezed,
-    Object? fullAddress = freezed,
-    Object? roadNumber = freezed,
-    Object? roadName = freezed,
+    Object? cityName = null,
+    Object? districtName = null,
+    Object? detail = null,
+    Object? fullAddress = null,
+    Object? roadNumber = null,
+    Object? roadName = null,
   }) {
     return _then(_value.copyWith(
-      cityName: cityName == freezed
+      cityName: null == cityName
           ? _value.cityName
           : cityName // ignore: cast_nullable_to_non_nullable
               as String,
-      districtName: districtName == freezed
+      districtName: null == districtName
           ? _value.districtName
           : districtName // ignore: cast_nullable_to_non_nullable
               as String,
-      detail: detail == freezed
+      detail: null == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
-      fullAddress: fullAddress == freezed
+      fullAddress: null == fullAddress
           ? _value.fullAddress
           : fullAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      roadNumber: roadNumber == freezed
+      roadNumber: null == roadNumber
           ? _value.roadNumber
           : roadNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      roadName: roadName == freezed
+      roadName: null == roadName
           ? _value.roadName
           : roadName // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -104,6 +108,7 @@ abstract class _$$_AddressInfoCopyWith<$Res>
           _$_AddressInfo value, $Res Function(_$_AddressInfo) then) =
       __$$_AddressInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'siNm') String cityName,
       @JsonKey(name: 'sggNm') String districtName,
@@ -114,46 +119,45 @@ abstract class _$$_AddressInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AddressInfoCopyWithImpl<$Res> extends _$AddressInfoCopyWithImpl<$Res>
+class __$$_AddressInfoCopyWithImpl<$Res>
+    extends _$AddressInfoCopyWithImpl<$Res, _$_AddressInfo>
     implements _$$_AddressInfoCopyWith<$Res> {
   __$$_AddressInfoCopyWithImpl(
       _$_AddressInfo _value, $Res Function(_$_AddressInfo) _then)
-      : super(_value, (v) => _then(v as _$_AddressInfo));
+      : super(_value, _then);
 
-  @override
-  _$_AddressInfo get _value => super._value as _$_AddressInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cityName = freezed,
-    Object? districtName = freezed,
-    Object? detail = freezed,
-    Object? fullAddress = freezed,
-    Object? roadNumber = freezed,
-    Object? roadName = freezed,
+    Object? cityName = null,
+    Object? districtName = null,
+    Object? detail = null,
+    Object? fullAddress = null,
+    Object? roadNumber = null,
+    Object? roadName = null,
   }) {
     return _then(_$_AddressInfo(
-      cityName: cityName == freezed
+      cityName: null == cityName
           ? _value.cityName
           : cityName // ignore: cast_nullable_to_non_nullable
               as String,
-      districtName: districtName == freezed
+      districtName: null == districtName
           ? _value.districtName
           : districtName // ignore: cast_nullable_to_non_nullable
               as String,
-      detail: detail == freezed
+      detail: null == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
-      fullAddress: fullAddress == freezed
+      fullAddress: null == fullAddress
           ? _value.fullAddress
           : fullAddress // ignore: cast_nullable_to_non_nullable
               as String,
-      roadNumber: roadNumber == freezed
+      roadNumber: null == roadNumber
           ? _value.roadNumber
           : roadNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      roadName: roadName == freezed
+      roadName: null == roadName
           ? _value.roadName
           : roadName // ignore: cast_nullable_to_non_nullable
               as String,
@@ -202,30 +206,27 @@ class _$_AddressInfo implements _AddressInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddressInfo &&
-            const DeepCollectionEquality().equals(other.cityName, cityName) &&
-            const DeepCollectionEquality()
-                .equals(other.districtName, districtName) &&
-            const DeepCollectionEquality().equals(other.detail, detail) &&
-            const DeepCollectionEquality()
-                .equals(other.fullAddress, fullAddress) &&
-            const DeepCollectionEquality()
-                .equals(other.roadNumber, roadNumber) &&
-            const DeepCollectionEquality().equals(other.roadName, roadName));
+            (identical(other.cityName, cityName) ||
+                other.cityName == cityName) &&
+            (identical(other.districtName, districtName) ||
+                other.districtName == districtName) &&
+            (identical(other.detail, detail) || other.detail == detail) &&
+            (identical(other.fullAddress, fullAddress) ||
+                other.fullAddress == fullAddress) &&
+            (identical(other.roadNumber, roadNumber) ||
+                other.roadNumber == roadNumber) &&
+            (identical(other.roadName, roadName) ||
+                other.roadName == roadName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(cityName),
-      const DeepCollectionEquality().hash(districtName),
-      const DeepCollectionEquality().hash(detail),
-      const DeepCollectionEquality().hash(fullAddress),
-      const DeepCollectionEquality().hash(roadNumber),
-      const DeepCollectionEquality().hash(roadName));
+  int get hashCode => Object.hash(runtimeType, cityName, districtName, detail,
+      fullAddress, roadNumber, roadName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AddressInfoCopyWith<_$_AddressInfo> get copyWith =>
       __$$_AddressInfoCopyWithImpl<_$_AddressInfo>(this, _$identity);
 

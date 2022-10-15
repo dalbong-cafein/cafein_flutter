@@ -38,7 +38,8 @@ mixin _$StoreReviewListResponse {
 abstract class $StoreReviewListResponseCopyWith<$Res> {
   factory $StoreReviewListResponseCopyWith(StoreReviewListResponse value,
           $Res Function(StoreReviewListResponse) then) =
-      _$StoreReviewListResponseCopyWithImpl<$Res>;
+      _$StoreReviewListResponseCopyWithImpl<$Res, StoreReviewListResponse>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'dtoList') List<StoreReview> reviewList,
       int totalPage,
@@ -48,44 +49,47 @@ abstract class $StoreReviewListResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StoreReviewListResponseCopyWithImpl<$Res>
+class _$StoreReviewListResponseCopyWithImpl<$Res,
+        $Val extends StoreReviewListResponse>
     implements $StoreReviewListResponseCopyWith<$Res> {
   _$StoreReviewListResponseCopyWithImpl(this._value, this._then);
 
-  final StoreReviewListResponse _value;
   // ignore: unused_field
-  final $Res Function(StoreReviewListResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewList = freezed,
-    Object? totalPage = freezed,
-    Object? page = freezed,
-    Object? size = freezed,
-    Object? last = freezed,
+    Object? reviewList = null,
+    Object? totalPage = null,
+    Object? page = null,
+    Object? size = null,
+    Object? last = null,
   }) {
     return _then(_value.copyWith(
-      reviewList: reviewList == freezed
+      reviewList: null == reviewList
           ? _value.reviewList
           : reviewList // ignore: cast_nullable_to_non_nullable
               as List<StoreReview>,
-      totalPage: totalPage == freezed
+      totalPage: null == totalPage
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
               as int,
-      page: page == freezed
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as int,
-      last: last == freezed
+      last: null == last
           ? _value.last
           : last // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -96,6 +100,7 @@ abstract class _$$_StoreReviewListResponseCopyWith<$Res>
           $Res Function(_$_StoreReviewListResponse) then) =
       __$$_StoreReviewListResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'dtoList') List<StoreReview> reviewList,
       int totalPage,
@@ -106,42 +111,40 @@ abstract class _$$_StoreReviewListResponseCopyWith<$Res>
 
 /// @nodoc
 class __$$_StoreReviewListResponseCopyWithImpl<$Res>
-    extends _$StoreReviewListResponseCopyWithImpl<$Res>
+    extends _$StoreReviewListResponseCopyWithImpl<$Res,
+        _$_StoreReviewListResponse>
     implements _$$_StoreReviewListResponseCopyWith<$Res> {
   __$$_StoreReviewListResponseCopyWithImpl(_$_StoreReviewListResponse _value,
       $Res Function(_$_StoreReviewListResponse) _then)
-      : super(_value, (v) => _then(v as _$_StoreReviewListResponse));
+      : super(_value, _then);
 
-  @override
-  _$_StoreReviewListResponse get _value =>
-      super._value as _$_StoreReviewListResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewList = freezed,
-    Object? totalPage = freezed,
-    Object? page = freezed,
-    Object? size = freezed,
-    Object? last = freezed,
+    Object? reviewList = null,
+    Object? totalPage = null,
+    Object? page = null,
+    Object? size = null,
+    Object? last = null,
   }) {
     return _then(_$_StoreReviewListResponse(
-      reviewList: reviewList == freezed
+      reviewList: null == reviewList
           ? _value._reviewList
           : reviewList // ignore: cast_nullable_to_non_nullable
               as List<StoreReview>,
-      totalPage: totalPage == freezed
+      totalPage: null == totalPage
           ? _value.totalPage
           : totalPage // ignore: cast_nullable_to_non_nullable
               as int,
-      page: page == freezed
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as int,
-      last: last == freezed
+      last: null == last
           ? _value.last
           : last // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -192,10 +195,11 @@ class _$_StoreReviewListResponse implements _StoreReviewListResponse {
             other is _$_StoreReviewListResponse &&
             const DeepCollectionEquality()
                 .equals(other._reviewList, _reviewList) &&
-            const DeepCollectionEquality().equals(other.totalPage, totalPage) &&
-            const DeepCollectionEquality().equals(other.page, page) &&
-            const DeepCollectionEquality().equals(other.size, size) &&
-            const DeepCollectionEquality().equals(other.last, last));
+            (identical(other.totalPage, totalPage) ||
+                other.totalPage == totalPage) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.size, size) || other.size == size) &&
+            (identical(other.last, last) || other.last == last));
   }
 
   @JsonKey(ignore: true)
@@ -203,13 +207,14 @@ class _$_StoreReviewListResponse implements _StoreReviewListResponse {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_reviewList),
-      const DeepCollectionEquality().hash(totalPage),
-      const DeepCollectionEquality().hash(page),
-      const DeepCollectionEquality().hash(size),
-      const DeepCollectionEquality().hash(last));
+      totalPage,
+      page,
+      size,
+      last);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreReviewListResponseCopyWith<_$_StoreReviewListResponse>
       get copyWith =>
           __$$_StoreReviewListResponseCopyWithImpl<_$_StoreReviewListResponse>(

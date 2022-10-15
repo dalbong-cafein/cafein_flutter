@@ -34,38 +34,42 @@ mixin _$BusinessInfo {
 abstract class $BusinessInfoCopyWith<$Res> {
   factory $BusinessInfoCopyWith(
           BusinessInfo value, $Res Function(BusinessInfo) then) =
-      _$BusinessInfoCopyWithImpl<$Res>;
+      _$BusinessInfoCopyWithImpl<$Res, BusinessInfo>;
+  @useResult
   $Res call({bool? isOpen, String? closed, String tmrOpen});
 }
 
 /// @nodoc
-class _$BusinessInfoCopyWithImpl<$Res> implements $BusinessInfoCopyWith<$Res> {
+class _$BusinessInfoCopyWithImpl<$Res, $Val extends BusinessInfo>
+    implements $BusinessInfoCopyWith<$Res> {
   _$BusinessInfoCopyWithImpl(this._value, this._then);
 
-  final BusinessInfo _value;
   // ignore: unused_field
-  final $Res Function(BusinessInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isOpen = freezed,
     Object? closed = freezed,
-    Object? tmrOpen = freezed,
+    Object? tmrOpen = null,
   }) {
     return _then(_value.copyWith(
-      isOpen: isOpen == freezed
+      isOpen: freezed == isOpen
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as bool?,
-      closed: closed == freezed
+      closed: freezed == closed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
               as String?,
-      tmrOpen: tmrOpen == freezed
+      tmrOpen: null == tmrOpen
           ? _value.tmrOpen
           : tmrOpen // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -76,36 +80,35 @@ abstract class _$$_BusinessInfoCopyWith<$Res>
           _$_BusinessInfo value, $Res Function(_$_BusinessInfo) then) =
       __$$_BusinessInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({bool? isOpen, String? closed, String tmrOpen});
 }
 
 /// @nodoc
 class __$$_BusinessInfoCopyWithImpl<$Res>
-    extends _$BusinessInfoCopyWithImpl<$Res>
+    extends _$BusinessInfoCopyWithImpl<$Res, _$_BusinessInfo>
     implements _$$_BusinessInfoCopyWith<$Res> {
   __$$_BusinessInfoCopyWithImpl(
       _$_BusinessInfo _value, $Res Function(_$_BusinessInfo) _then)
-      : super(_value, (v) => _then(v as _$_BusinessInfo));
+      : super(_value, _then);
 
-  @override
-  _$_BusinessInfo get _value => super._value as _$_BusinessInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isOpen = freezed,
     Object? closed = freezed,
-    Object? tmrOpen = freezed,
+    Object? tmrOpen = null,
   }) {
     return _then(_$_BusinessInfo(
-      isOpen: isOpen == freezed
+      isOpen: freezed == isOpen
           ? _value.isOpen
           : isOpen // ignore: cast_nullable_to_non_nullable
               as bool?,
-      closed: closed == freezed
+      closed: freezed == closed
           ? _value.closed
           : closed // ignore: cast_nullable_to_non_nullable
               as String?,
-      tmrOpen: tmrOpen == freezed
+      tmrOpen: null == tmrOpen
           ? _value.tmrOpen
           : tmrOpen // ignore: cast_nullable_to_non_nullable
               as String,
@@ -140,21 +143,18 @@ class _$_BusinessInfo implements _BusinessInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_BusinessInfo &&
-            const DeepCollectionEquality().equals(other.isOpen, isOpen) &&
-            const DeepCollectionEquality().equals(other.closed, closed) &&
-            const DeepCollectionEquality().equals(other.tmrOpen, tmrOpen));
+            (identical(other.isOpen, isOpen) || other.isOpen == isOpen) &&
+            (identical(other.closed, closed) || other.closed == closed) &&
+            (identical(other.tmrOpen, tmrOpen) || other.tmrOpen == tmrOpen));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(isOpen),
-      const DeepCollectionEquality().hash(closed),
-      const DeepCollectionEquality().hash(tmrOpen));
+  int get hashCode => Object.hash(runtimeType, isOpen, closed, tmrOpen);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BusinessInfoCopyWith<_$_BusinessInfo> get copyWith =>
       __$$_BusinessInfoCopyWithImpl<_$_BusinessInfo>(this, _$identity);
 

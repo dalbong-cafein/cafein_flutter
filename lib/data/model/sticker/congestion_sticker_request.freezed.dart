@@ -33,29 +33,33 @@ mixin _$CongestionStickerRequest {
 abstract class $CongestionStickerRequestCopyWith<$Res> {
   factory $CongestionStickerRequestCopyWith(CongestionStickerRequest value,
           $Res Function(CongestionStickerRequest) then) =
-      _$CongestionStickerRequestCopyWithImpl<$Res>;
+      _$CongestionStickerRequestCopyWithImpl<$Res, CongestionStickerRequest>;
+  @useResult
   $Res call({int congestionId});
 }
 
 /// @nodoc
-class _$CongestionStickerRequestCopyWithImpl<$Res>
+class _$CongestionStickerRequestCopyWithImpl<$Res,
+        $Val extends CongestionStickerRequest>
     implements $CongestionStickerRequestCopyWith<$Res> {
   _$CongestionStickerRequestCopyWithImpl(this._value, this._then);
 
-  final CongestionStickerRequest _value;
   // ignore: unused_field
-  final $Res Function(CongestionStickerRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? congestionId = freezed,
+    Object? congestionId = null,
   }) {
     return _then(_value.copyWith(
-      congestionId: congestionId == freezed
+      congestionId: null == congestionId
           ? _value.congestionId
           : congestionId // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -67,27 +71,26 @@ abstract class _$$_CongestionStickerRequestCopyWith<$Res>
           $Res Function(_$_CongestionStickerRequest) then) =
       __$$_CongestionStickerRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int congestionId});
 }
 
 /// @nodoc
 class __$$_CongestionStickerRequestCopyWithImpl<$Res>
-    extends _$CongestionStickerRequestCopyWithImpl<$Res>
+    extends _$CongestionStickerRequestCopyWithImpl<$Res,
+        _$_CongestionStickerRequest>
     implements _$$_CongestionStickerRequestCopyWith<$Res> {
   __$$_CongestionStickerRequestCopyWithImpl(_$_CongestionStickerRequest _value,
       $Res Function(_$_CongestionStickerRequest) _then)
-      : super(_value, (v) => _then(v as _$_CongestionStickerRequest));
+      : super(_value, _then);
 
-  @override
-  _$_CongestionStickerRequest get _value =>
-      super._value as _$_CongestionStickerRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? congestionId = freezed,
+    Object? congestionId = null,
   }) {
     return _then(_$_CongestionStickerRequest(
-      congestionId: congestionId == freezed
+      congestionId: null == congestionId
           ? _value.congestionId
           : congestionId // ignore: cast_nullable_to_non_nullable
               as int,
@@ -116,17 +119,17 @@ class _$_CongestionStickerRequest implements _CongestionStickerRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CongestionStickerRequest &&
-            const DeepCollectionEquality()
-                .equals(other.congestionId, congestionId));
+            (identical(other.congestionId, congestionId) ||
+                other.congestionId == congestionId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(congestionId));
+  int get hashCode => Object.hash(runtimeType, congestionId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CongestionStickerRequestCopyWith<_$_CongestionStickerRequest>
       get copyWith => __$$_CongestionStickerRequestCopyWithImpl<
           _$_CongestionStickerRequest>(this, _$identity);

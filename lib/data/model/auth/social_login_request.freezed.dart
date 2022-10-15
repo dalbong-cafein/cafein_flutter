@@ -34,39 +34,42 @@ mixin _$SocialLoginRequest {
 abstract class $SocialLoginRequestCopyWith<$Res> {
   factory $SocialLoginRequestCopyWith(
           SocialLoginRequest value, $Res Function(SocialLoginRequest) then) =
-      _$SocialLoginRequestCopyWithImpl<$Res>;
+      _$SocialLoginRequestCopyWithImpl<$Res, SocialLoginRequest>;
+  @useResult
   $Res call({AuthProvider authProvider, String authToken, String? username});
 }
 
 /// @nodoc
-class _$SocialLoginRequestCopyWithImpl<$Res>
+class _$SocialLoginRequestCopyWithImpl<$Res, $Val extends SocialLoginRequest>
     implements $SocialLoginRequestCopyWith<$Res> {
   _$SocialLoginRequestCopyWithImpl(this._value, this._then);
 
-  final SocialLoginRequest _value;
   // ignore: unused_field
-  final $Res Function(SocialLoginRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authProvider = freezed,
-    Object? authToken = freezed,
+    Object? authProvider = null,
+    Object? authToken = null,
     Object? username = freezed,
   }) {
     return _then(_value.copyWith(
-      authProvider: authProvider == freezed
+      authProvider: null == authProvider
           ? _value.authProvider
           : authProvider // ignore: cast_nullable_to_non_nullable
               as AuthProvider,
-      authToken: authToken == freezed
+      authToken: null == authToken
           ? _value.authToken
           : authToken // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -77,36 +80,35 @@ abstract class _$$_SocialLoginRequestCopyWith<$Res>
           $Res Function(_$_SocialLoginRequest) then) =
       __$$_SocialLoginRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AuthProvider authProvider, String authToken, String? username});
 }
 
 /// @nodoc
 class __$$_SocialLoginRequestCopyWithImpl<$Res>
-    extends _$SocialLoginRequestCopyWithImpl<$Res>
+    extends _$SocialLoginRequestCopyWithImpl<$Res, _$_SocialLoginRequest>
     implements _$$_SocialLoginRequestCopyWith<$Res> {
   __$$_SocialLoginRequestCopyWithImpl(
       _$_SocialLoginRequest _value, $Res Function(_$_SocialLoginRequest) _then)
-      : super(_value, (v) => _then(v as _$_SocialLoginRequest));
+      : super(_value, _then);
 
-  @override
-  _$_SocialLoginRequest get _value => super._value as _$_SocialLoginRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? authProvider = freezed,
-    Object? authToken = freezed,
+    Object? authProvider = null,
+    Object? authToken = null,
     Object? username = freezed,
   }) {
     return _then(_$_SocialLoginRequest(
-      authProvider: authProvider == freezed
+      authProvider: null == authProvider
           ? _value.authProvider
           : authProvider // ignore: cast_nullable_to_non_nullable
               as AuthProvider,
-      authToken: authToken == freezed
+      authToken: null == authToken
           ? _value.authToken
           : authToken // ignore: cast_nullable_to_non_nullable
               as String,
-      username: username == freezed
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -140,22 +142,22 @@ class _$_SocialLoginRequest implements _SocialLoginRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SocialLoginRequest &&
-            const DeepCollectionEquality()
-                .equals(other.authProvider, authProvider) &&
-            const DeepCollectionEquality().equals(other.authToken, authToken) &&
-            const DeepCollectionEquality().equals(other.username, username));
+            (identical(other.authProvider, authProvider) ||
+                other.authProvider == authProvider) &&
+            (identical(other.authToken, authToken) ||
+                other.authToken == authToken) &&
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(authProvider),
-      const DeepCollectionEquality().hash(authToken),
-      const DeepCollectionEquality().hash(username));
+  int get hashCode =>
+      Object.hash(runtimeType, authProvider, authToken, username);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SocialLoginRequestCopyWith<_$_SocialLoginRequest> get copyWith =>
       __$$_SocialLoginRequestCopyWithImpl<_$_SocialLoginRequest>(
           this, _$identity);

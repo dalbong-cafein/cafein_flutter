@@ -35,7 +35,8 @@ mixin _$Sticker {
 /// @nodoc
 abstract class $StickerCopyWith<$Res> {
   factory $StickerCopyWith(Sticker value, $Res Function(Sticker) then) =
-      _$StickerCopyWithImpl<$Res>;
+      _$StickerCopyWithImpl<$Res, Sticker>;
+  @useResult
   $Res call(
       {String stickerType,
       String storeName,
@@ -44,38 +45,41 @@ abstract class $StickerCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StickerCopyWithImpl<$Res> implements $StickerCopyWith<$Res> {
+class _$StickerCopyWithImpl<$Res, $Val extends Sticker>
+    implements $StickerCopyWith<$Res> {
   _$StickerCopyWithImpl(this._value, this._then);
 
-  final Sticker _value;
   // ignore: unused_field
-  final $Res Function(Sticker) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stickerType = freezed,
-    Object? storeName = freezed,
-    Object? registeredDateTime = freezed,
-    Object? expiredDateTime = freezed,
+    Object? stickerType = null,
+    Object? storeName = null,
+    Object? registeredDateTime = null,
+    Object? expiredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      stickerType: stickerType == freezed
+      stickerType: null == stickerType
           ? _value.stickerType
           : stickerType // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      expiredDateTime: expiredDateTime == freezed
+      expiredDateTime: null == expiredDateTime
           ? _value.expiredDateTime
           : expiredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -85,6 +89,7 @@ abstract class _$$_StickerCopyWith<$Res> implements $StickerCopyWith<$Res> {
           _$_Sticker value, $Res Function(_$_Sticker) then) =
       __$$_StickerCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String stickerType,
       String storeName,
@@ -93,35 +98,34 @@ abstract class _$$_StickerCopyWith<$Res> implements $StickerCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_StickerCopyWithImpl<$Res> extends _$StickerCopyWithImpl<$Res>
+class __$$_StickerCopyWithImpl<$Res>
+    extends _$StickerCopyWithImpl<$Res, _$_Sticker>
     implements _$$_StickerCopyWith<$Res> {
   __$$_StickerCopyWithImpl(_$_Sticker _value, $Res Function(_$_Sticker) _then)
-      : super(_value, (v) => _then(v as _$_Sticker));
+      : super(_value, _then);
 
-  @override
-  _$_Sticker get _value => super._value as _$_Sticker;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stickerType = freezed,
-    Object? storeName = freezed,
-    Object? registeredDateTime = freezed,
-    Object? expiredDateTime = freezed,
+    Object? stickerType = null,
+    Object? storeName = null,
+    Object? registeredDateTime = null,
+    Object? expiredDateTime = null,
   }) {
     return _then(_$_Sticker(
-      stickerType: stickerType == freezed
+      stickerType: null == stickerType
           ? _value.stickerType
           : stickerType // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      expiredDateTime: expiredDateTime == freezed
+      expiredDateTime: null == expiredDateTime
           ? _value.expiredDateTime
           : expiredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -162,26 +166,24 @@ class _$_Sticker implements _Sticker {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Sticker &&
-            const DeepCollectionEquality()
-                .equals(other.stickerType, stickerType) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.expiredDateTime, expiredDateTime));
+            (identical(other.stickerType, stickerType) ||
+                other.stickerType == stickerType) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime) &&
+            (identical(other.expiredDateTime, expiredDateTime) ||
+                other.expiredDateTime == expiredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(stickerType),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(registeredDateTime),
-      const DeepCollectionEquality().hash(expiredDateTime));
+      runtimeType, stickerType, storeName, registeredDateTime, expiredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StickerCopyWith<_$_Sticker> get copyWith =>
       __$$_StickerCopyWithImpl<_$_Sticker>(this, _$identity);
 

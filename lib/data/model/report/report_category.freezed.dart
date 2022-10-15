@@ -33,34 +33,37 @@ mixin _$ReportCategory {
 abstract class $ReportCategoryCopyWith<$Res> {
   factory $ReportCategoryCopyWith(
           ReportCategory value, $Res Function(ReportCategory) then) =
-      _$ReportCategoryCopyWithImpl<$Res>;
+      _$ReportCategoryCopyWithImpl<$Res, ReportCategory>;
+  @useResult
   $Res call({int reportCategoryId, String categoryName});
 }
 
 /// @nodoc
-class _$ReportCategoryCopyWithImpl<$Res>
+class _$ReportCategoryCopyWithImpl<$Res, $Val extends ReportCategory>
     implements $ReportCategoryCopyWith<$Res> {
   _$ReportCategoryCopyWithImpl(this._value, this._then);
 
-  final ReportCategory _value;
   // ignore: unused_field
-  final $Res Function(ReportCategory) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reportCategoryId = freezed,
-    Object? categoryName = freezed,
+    Object? reportCategoryId = null,
+    Object? categoryName = null,
   }) {
     return _then(_value.copyWith(
-      reportCategoryId: reportCategoryId == freezed
+      reportCategoryId: null == reportCategoryId
           ? _value.reportCategoryId
           : reportCategoryId // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryName: categoryName == freezed
+      categoryName: null == categoryName
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -71,31 +74,30 @@ abstract class _$$_ReportCategoryCopyWith<$Res>
           _$_ReportCategory value, $Res Function(_$_ReportCategory) then) =
       __$$_ReportCategoryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int reportCategoryId, String categoryName});
 }
 
 /// @nodoc
 class __$$_ReportCategoryCopyWithImpl<$Res>
-    extends _$ReportCategoryCopyWithImpl<$Res>
+    extends _$ReportCategoryCopyWithImpl<$Res, _$_ReportCategory>
     implements _$$_ReportCategoryCopyWith<$Res> {
   __$$_ReportCategoryCopyWithImpl(
       _$_ReportCategory _value, $Res Function(_$_ReportCategory) _then)
-      : super(_value, (v) => _then(v as _$_ReportCategory));
+      : super(_value, _then);
 
-  @override
-  _$_ReportCategory get _value => super._value as _$_ReportCategory;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reportCategoryId = freezed,
-    Object? categoryName = freezed,
+    Object? reportCategoryId = null,
+    Object? categoryName = null,
   }) {
     return _then(_$_ReportCategory(
-      reportCategoryId: reportCategoryId == freezed
+      reportCategoryId: null == reportCategoryId
           ? _value.reportCategoryId
           : reportCategoryId // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryName: categoryName == freezed
+      categoryName: null == categoryName
           ? _value.categoryName
           : categoryName // ignore: cast_nullable_to_non_nullable
               as String,
@@ -127,21 +129,19 @@ class _$_ReportCategory implements _ReportCategory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReportCategory &&
-            const DeepCollectionEquality()
-                .equals(other.reportCategoryId, reportCategoryId) &&
-            const DeepCollectionEquality()
-                .equals(other.categoryName, categoryName));
+            (identical(other.reportCategoryId, reportCategoryId) ||
+                other.reportCategoryId == reportCategoryId) &&
+            (identical(other.categoryName, categoryName) ||
+                other.categoryName == categoryName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(reportCategoryId),
-      const DeepCollectionEquality().hash(categoryName));
+  int get hashCode => Object.hash(runtimeType, reportCategoryId, categoryName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReportCategoryCopyWith<_$_ReportCategory> get copyWith =>
       __$$_ReportCategoryCopyWithImpl<_$_ReportCategory>(this, _$identity);
 

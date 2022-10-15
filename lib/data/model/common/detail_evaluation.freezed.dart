@@ -35,44 +35,47 @@ mixin _$DetailEvaluation {
 abstract class $DetailEvaluationCopyWith<$Res> {
   factory $DetailEvaluationCopyWith(
           DetailEvaluation value, $Res Function(DetailEvaluation) then) =
-      _$DetailEvaluationCopyWithImpl<$Res>;
+      _$DetailEvaluationCopyWithImpl<$Res, DetailEvaluation>;
+  @useResult
   $Res call({int socket, int wifi, int restroom, int tableSize});
 }
 
 /// @nodoc
-class _$DetailEvaluationCopyWithImpl<$Res>
+class _$DetailEvaluationCopyWithImpl<$Res, $Val extends DetailEvaluation>
     implements $DetailEvaluationCopyWith<$Res> {
   _$DetailEvaluationCopyWithImpl(this._value, this._then);
 
-  final DetailEvaluation _value;
   // ignore: unused_field
-  final $Res Function(DetailEvaluation) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
   }) {
     return _then(_value.copyWith(
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as int,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as int,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as int,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,41 +86,40 @@ abstract class _$$_DetailEvaluationCopyWith<$Res>
           _$_DetailEvaluation value, $Res Function(_$_DetailEvaluation) then) =
       __$$_DetailEvaluationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int socket, int wifi, int restroom, int tableSize});
 }
 
 /// @nodoc
 class __$$_DetailEvaluationCopyWithImpl<$Res>
-    extends _$DetailEvaluationCopyWithImpl<$Res>
+    extends _$DetailEvaluationCopyWithImpl<$Res, _$_DetailEvaluation>
     implements _$$_DetailEvaluationCopyWith<$Res> {
   __$$_DetailEvaluationCopyWithImpl(
       _$_DetailEvaluation _value, $Res Function(_$_DetailEvaluation) _then)
-      : super(_value, (v) => _then(v as _$_DetailEvaluation));
+      : super(_value, _then);
 
-  @override
-  _$_DetailEvaluation get _value => super._value as _$_DetailEvaluation;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
   }) {
     return _then(_$_DetailEvaluation(
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as int,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as int,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as int,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as int,
@@ -156,23 +158,22 @@ class _$_DetailEvaluation implements _DetailEvaluation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DetailEvaluation &&
-            const DeepCollectionEquality().equals(other.socket, socket) &&
-            const DeepCollectionEquality().equals(other.wifi, wifi) &&
-            const DeepCollectionEquality().equals(other.restroom, restroom) &&
-            const DeepCollectionEquality().equals(other.tableSize, tableSize));
+            (identical(other.socket, socket) || other.socket == socket) &&
+            (identical(other.wifi, wifi) || other.wifi == wifi) &&
+            (identical(other.restroom, restroom) ||
+                other.restroom == restroom) &&
+            (identical(other.tableSize, tableSize) ||
+                other.tableSize == tableSize));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(socket),
-      const DeepCollectionEquality().hash(wifi),
-      const DeepCollectionEquality().hash(restroom),
-      const DeepCollectionEquality().hash(tableSize));
+  int get hashCode =>
+      Object.hash(runtimeType, socket, wifi, restroom, tableSize);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DetailEvaluationCopyWith<_$_DetailEvaluation> get copyWith =>
       __$$_DetailEvaluationCopyWithImpl<_$_DetailEvaluation>(this, _$identity);
 

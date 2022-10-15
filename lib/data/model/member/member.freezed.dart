@@ -39,7 +39,8 @@ mixin _$Member {
 /// @nodoc
 abstract class $MemberCopyWith<$Res> {
   factory $MemberCopyWith(Member value, $Res Function(Member) then) =
-      _$MemberCopyWithImpl<$Res>;
+      _$MemberCopyWithImpl<$Res, Member>;
+  @useResult
   $Res call(
       {int memberId,
       String? nickname,
@@ -53,63 +54,67 @@ abstract class $MemberCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MemberCopyWithImpl<$Res> implements $MemberCopyWith<$Res> {
+class _$MemberCopyWithImpl<$Res, $Val extends Member>
+    implements $MemberCopyWith<$Res> {
   _$MemberCopyWithImpl(this._value, this._then);
 
-  final Member _value;
   // ignore: unused_field
-  final $Res Function(Member) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? memberId = freezed,
+    Object? memberId = null,
     Object? nickname = freezed,
     Object? imageIdPair = freezed,
     Object? phoneNumber = freezed,
-    Object? email = freezed,
+    Object? email = null,
     Object? birthDay = freezed,
-    Object? joinDateTime = freezed,
+    Object? joinDateTime = null,
   }) {
     return _then(_value.copyWith(
-      memberId: memberId == freezed
+      memberId: null == memberId
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickname: nickname == freezed
+      nickname: freezed == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      birthDay: birthDay == freezed
+      birthDay: freezed == birthDay
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as String?,
-      joinDateTime: joinDateTime == freezed
+      joinDateTime: null == joinDateTime
           ? _value.joinDateTime
           : joinDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageIdPairCopyWith<$Res>? get imageIdPair {
     if (_value.imageIdPair == null) {
       return null;
     }
 
     return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
-      return _then(_value.copyWith(imageIdPair: value));
+      return _then(_value.copyWith(imageIdPair: value) as $Val);
     });
   }
 }
@@ -119,6 +124,7 @@ abstract class _$$_MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
   factory _$$_MemberCopyWith(_$_Member value, $Res Function(_$_Member) then) =
       __$$_MemberCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int memberId,
       String? nickname,
@@ -133,50 +139,49 @@ abstract class _$$_MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_MemberCopyWithImpl<$Res> extends _$MemberCopyWithImpl<$Res>
+class __$$_MemberCopyWithImpl<$Res>
+    extends _$MemberCopyWithImpl<$Res, _$_Member>
     implements _$$_MemberCopyWith<$Res> {
   __$$_MemberCopyWithImpl(_$_Member _value, $Res Function(_$_Member) _then)
-      : super(_value, (v) => _then(v as _$_Member));
+      : super(_value, _then);
 
-  @override
-  _$_Member get _value => super._value as _$_Member;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? memberId = freezed,
+    Object? memberId = null,
     Object? nickname = freezed,
     Object? imageIdPair = freezed,
     Object? phoneNumber = freezed,
-    Object? email = freezed,
+    Object? email = null,
     Object? birthDay = freezed,
-    Object? joinDateTime = freezed,
+    Object? joinDateTime = null,
   }) {
     return _then(_$_Member(
-      memberId: memberId == freezed
+      memberId: null == memberId
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickname: nickname == freezed
+      nickname: freezed == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      birthDay: birthDay == freezed
+      birthDay: freezed == birthDay
           ? _value.birthDay
           : birthDay // ignore: cast_nullable_to_non_nullable
               as String?,
-      joinDateTime: joinDateTime == freezed
+      joinDateTime: null == joinDateTime
           ? _value.joinDateTime
           : joinDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -227,32 +232,29 @@ class _$_Member implements _Member {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Member &&
-            const DeepCollectionEquality().equals(other.memberId, memberId) &&
-            const DeepCollectionEquality().equals(other.nickname, nickname) &&
-            const DeepCollectionEquality()
-                .equals(other.imageIdPair, imageIdPair) &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.birthDay, birthDay) &&
-            const DeepCollectionEquality()
-                .equals(other.joinDateTime, joinDateTime));
+            (identical(other.memberId, memberId) ||
+                other.memberId == memberId) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
+            (identical(other.imageIdPair, imageIdPair) ||
+                other.imageIdPair == imageIdPair) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.birthDay, birthDay) ||
+                other.birthDay == birthDay) &&
+            (identical(other.joinDateTime, joinDateTime) ||
+                other.joinDateTime == joinDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(memberId),
-      const DeepCollectionEquality().hash(nickname),
-      const DeepCollectionEquality().hash(imageIdPair),
-      const DeepCollectionEquality().hash(phoneNumber),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(birthDay),
-      const DeepCollectionEquality().hash(joinDateTime));
+  int get hashCode => Object.hash(runtimeType, memberId, nickname, imageIdPair,
+      phoneNumber, email, birthDay, joinDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_MemberCopyWith<_$_Member> get copyWith =>
       __$$_MemberCopyWithImpl<_$_Member>(this, _$identity);
 

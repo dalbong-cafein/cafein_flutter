@@ -31,7 +31,8 @@ mixin _$TokenData {
 /// @nodoc
 abstract class $TokenDataCopyWith<$Res> {
   factory $TokenDataCopyWith(TokenData value, $Res Function(TokenData) then) =
-      _$TokenDataCopyWithImpl<$Res>;
+      _$TokenDataCopyWithImpl<$Res, TokenData>;
+  @useResult
   $Res call(
       {@HiveField(0) String accessToken,
       @HiveField(1) String refreshToken,
@@ -39,33 +40,36 @@ abstract class $TokenDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TokenDataCopyWithImpl<$Res> implements $TokenDataCopyWith<$Res> {
+class _$TokenDataCopyWithImpl<$Res, $Val extends TokenData>
+    implements $TokenDataCopyWith<$Res> {
   _$TokenDataCopyWithImpl(this._value, this._then);
 
-  final TokenData _value;
   // ignore: unused_field
-  final $Res Function(TokenData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accessToken = freezed,
-    Object? refreshToken = freezed,
-    Object? accessTokenType = freezed,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? accessTokenType = null,
   }) {
     return _then(_value.copyWith(
-      accessToken: accessToken == freezed
+      accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
               as String,
-      refreshToken: refreshToken == freezed
+      refreshToken: null == refreshToken
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
-      accessTokenType: accessTokenType == freezed
+      accessTokenType: null == accessTokenType
           ? _value.accessTokenType
           : accessTokenType // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -75,6 +79,7 @@ abstract class _$$_TokenDataCopyWith<$Res> implements $TokenDataCopyWith<$Res> {
           _$_TokenData value, $Res Function(_$_TokenData) then) =
       __$$_TokenDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@HiveField(0) String accessToken,
       @HiveField(1) String refreshToken,
@@ -82,31 +87,30 @@ abstract class _$$_TokenDataCopyWith<$Res> implements $TokenDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_TokenDataCopyWithImpl<$Res> extends _$TokenDataCopyWithImpl<$Res>
+class __$$_TokenDataCopyWithImpl<$Res>
+    extends _$TokenDataCopyWithImpl<$Res, _$_TokenData>
     implements _$$_TokenDataCopyWith<$Res> {
   __$$_TokenDataCopyWithImpl(
       _$_TokenData _value, $Res Function(_$_TokenData) _then)
-      : super(_value, (v) => _then(v as _$_TokenData));
+      : super(_value, _then);
 
-  @override
-  _$_TokenData get _value => super._value as _$_TokenData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accessToken = freezed,
-    Object? refreshToken = freezed,
-    Object? accessTokenType = freezed,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? accessTokenType = null,
   }) {
     return _then(_$_TokenData(
-      accessToken: accessToken == freezed
+      accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
               as String,
-      refreshToken: refreshToken == freezed
+      refreshToken: null == refreshToken
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
-      accessTokenType: accessTokenType == freezed
+      accessTokenType: null == accessTokenType
           ? _value.accessTokenType
           : accessTokenType // ignore: cast_nullable_to_non_nullable
               as String,
@@ -144,23 +148,21 @@ class _$_TokenData implements _TokenData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TokenData &&
-            const DeepCollectionEquality()
-                .equals(other.accessToken, accessToken) &&
-            const DeepCollectionEquality()
-                .equals(other.refreshToken, refreshToken) &&
-            const DeepCollectionEquality()
-                .equals(other.accessTokenType, accessTokenType));
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.accessTokenType, accessTokenType) ||
+                other.accessTokenType == accessTokenType));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(accessToken),
-      const DeepCollectionEquality().hash(refreshToken),
-      const DeepCollectionEquality().hash(accessTokenType));
+  int get hashCode =>
+      Object.hash(runtimeType, accessToken, refreshToken, accessTokenType);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TokenDataCopyWith<_$_TokenData> get copyWith =>
       __$$_TokenDataCopyWithImpl<_$_TokenData>(this, _$identity);
 }

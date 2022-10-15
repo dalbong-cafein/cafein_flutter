@@ -33,34 +33,37 @@ mixin _$KakaoStoreResponse {
 abstract class $KakaoStoreResponseCopyWith<$Res> {
   factory $KakaoStoreResponseCopyWith(
           KakaoStoreResponse value, $Res Function(KakaoStoreResponse) then) =
-      _$KakaoStoreResponseCopyWithImpl<$Res>;
+      _$KakaoStoreResponseCopyWithImpl<$Res, KakaoStoreResponse>;
+  @useResult
   $Res call({String placeName, String roadAddressName});
 }
 
 /// @nodoc
-class _$KakaoStoreResponseCopyWithImpl<$Res>
+class _$KakaoStoreResponseCopyWithImpl<$Res, $Val extends KakaoStoreResponse>
     implements $KakaoStoreResponseCopyWith<$Res> {
   _$KakaoStoreResponseCopyWithImpl(this._value, this._then);
 
-  final KakaoStoreResponse _value;
   // ignore: unused_field
-  final $Res Function(KakaoStoreResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? placeName = freezed,
-    Object? roadAddressName = freezed,
+    Object? placeName = null,
+    Object? roadAddressName = null,
   }) {
     return _then(_value.copyWith(
-      placeName: placeName == freezed
+      placeName: null == placeName
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
               as String,
-      roadAddressName: roadAddressName == freezed
+      roadAddressName: null == roadAddressName
           ? _value.roadAddressName
           : roadAddressName // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -71,31 +74,30 @@ abstract class _$$_KakaoStoreResponseCopyWith<$Res>
           $Res Function(_$_KakaoStoreResponse) then) =
       __$$_KakaoStoreResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String placeName, String roadAddressName});
 }
 
 /// @nodoc
 class __$$_KakaoStoreResponseCopyWithImpl<$Res>
-    extends _$KakaoStoreResponseCopyWithImpl<$Res>
+    extends _$KakaoStoreResponseCopyWithImpl<$Res, _$_KakaoStoreResponse>
     implements _$$_KakaoStoreResponseCopyWith<$Res> {
   __$$_KakaoStoreResponseCopyWithImpl(
       _$_KakaoStoreResponse _value, $Res Function(_$_KakaoStoreResponse) _then)
-      : super(_value, (v) => _then(v as _$_KakaoStoreResponse));
+      : super(_value, _then);
 
-  @override
-  _$_KakaoStoreResponse get _value => super._value as _$_KakaoStoreResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? placeName = freezed,
-    Object? roadAddressName = freezed,
+    Object? placeName = null,
+    Object? roadAddressName = null,
   }) {
     return _then(_$_KakaoStoreResponse(
-      placeName: placeName == freezed
+      placeName: null == placeName
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
               as String,
-      roadAddressName: roadAddressName == freezed
+      roadAddressName: null == roadAddressName
           ? _value.roadAddressName
           : roadAddressName // ignore: cast_nullable_to_non_nullable
               as String,
@@ -128,20 +130,19 @@ class _$_KakaoStoreResponse implements _KakaoStoreResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_KakaoStoreResponse &&
-            const DeepCollectionEquality().equals(other.placeName, placeName) &&
-            const DeepCollectionEquality()
-                .equals(other.roadAddressName, roadAddressName));
+            (identical(other.placeName, placeName) ||
+                other.placeName == placeName) &&
+            (identical(other.roadAddressName, roadAddressName) ||
+                other.roadAddressName == roadAddressName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(placeName),
-      const DeepCollectionEquality().hash(roadAddressName));
+  int get hashCode => Object.hash(runtimeType, placeName, roadAddressName);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_KakaoStoreResponseCopyWith<_$_KakaoStoreResponse> get copyWith =>
       __$$_KakaoStoreResponseCopyWithImpl<_$_KakaoStoreResponse>(
           this, _$identity);

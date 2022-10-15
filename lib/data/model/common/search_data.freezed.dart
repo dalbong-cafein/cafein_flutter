@@ -30,33 +30,37 @@ mixin _$SearchData {
 abstract class $SearchDataCopyWith<$Res> {
   factory $SearchDataCopyWith(
           SearchData value, $Res Function(SearchData) then) =
-      _$SearchDataCopyWithImpl<$Res>;
+      _$SearchDataCopyWithImpl<$Res, SearchData>;
+  @useResult
   $Res call({@HiveField(0) String keyword, @HiveField(1) String dateTime});
 }
 
 /// @nodoc
-class _$SearchDataCopyWithImpl<$Res> implements $SearchDataCopyWith<$Res> {
+class _$SearchDataCopyWithImpl<$Res, $Val extends SearchData>
+    implements $SearchDataCopyWith<$Res> {
   _$SearchDataCopyWithImpl(this._value, this._then);
 
-  final SearchData _value;
   // ignore: unused_field
-  final $Res Function(SearchData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? keyword = freezed,
-    Object? dateTime = freezed,
+    Object? keyword = null,
+    Object? dateTime = null,
   }) {
     return _then(_value.copyWith(
-      keyword: keyword == freezed
+      keyword: null == keyword
           ? _value.keyword
           : keyword // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -67,30 +71,30 @@ abstract class _$$_SearchDataCopyWith<$Res>
           _$_SearchData value, $Res Function(_$_SearchData) then) =
       __$$_SearchDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@HiveField(0) String keyword, @HiveField(1) String dateTime});
 }
 
 /// @nodoc
-class __$$_SearchDataCopyWithImpl<$Res> extends _$SearchDataCopyWithImpl<$Res>
+class __$$_SearchDataCopyWithImpl<$Res>
+    extends _$SearchDataCopyWithImpl<$Res, _$_SearchData>
     implements _$$_SearchDataCopyWith<$Res> {
   __$$_SearchDataCopyWithImpl(
       _$_SearchData _value, $Res Function(_$_SearchData) _then)
-      : super(_value, (v) => _then(v as _$_SearchData));
+      : super(_value, _then);
 
-  @override
-  _$_SearchData get _value => super._value as _$_SearchData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? keyword = freezed,
-    Object? dateTime = freezed,
+    Object? keyword = null,
+    Object? dateTime = null,
   }) {
     return _then(_$_SearchData(
-      keyword: keyword == freezed
+      keyword: null == keyword
           ? _value.keyword
           : keyword // ignore: cast_nullable_to_non_nullable
               as String,
-      dateTime: dateTime == freezed
+      dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -123,18 +127,17 @@ class _$_SearchData implements _SearchData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SearchData &&
-            const DeepCollectionEquality().equals(other.keyword, keyword) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            (identical(other.keyword, keyword) || other.keyword == keyword) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(keyword),
-      const DeepCollectionEquality().hash(dateTime));
+  int get hashCode => Object.hash(runtimeType, keyword, dateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SearchDataCopyWith<_$_SearchData> get copyWith =>
       __$$_SearchDataCopyWithImpl<_$_SearchData>(this, _$identity);
 }

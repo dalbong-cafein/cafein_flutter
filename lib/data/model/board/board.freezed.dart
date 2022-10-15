@@ -36,7 +36,8 @@ mixin _$Board {
 /// @nodoc
 abstract class $BoardCopyWith<$Res> {
   factory $BoardCopyWith(Board value, $Res Function(Board) then) =
-      _$BoardCopyWithImpl<$Res>;
+      _$BoardCopyWithImpl<$Res, Board>;
+  @useResult
   $Res call(
       {int boardId,
       String title,
@@ -46,43 +47,46 @@ abstract class $BoardCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BoardCopyWithImpl<$Res> implements $BoardCopyWith<$Res> {
+class _$BoardCopyWithImpl<$Res, $Val extends Board>
+    implements $BoardCopyWith<$Res> {
   _$BoardCopyWithImpl(this._value, this._then);
 
-  final Board _value;
   // ignore: unused_field
-  final $Res Function(Board) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? boardId = freezed,
-    Object? title = freezed,
-    Object? content = freezed,
+    Object? boardId = null,
+    Object? title = null,
+    Object? content = null,
     Object? imageIdPairs = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      boardId: boardId == freezed
+      boardId: null == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      imageIdPairs: imageIdPairs == freezed
+      imageIdPairs: freezed == imageIdPairs
           ? _value.imageIdPairs
           : imageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -91,6 +95,7 @@ abstract class _$$_BoardCopyWith<$Res> implements $BoardCopyWith<$Res> {
   factory _$$_BoardCopyWith(_$_Board value, $Res Function(_$_Board) then) =
       __$$_BoardCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int boardId,
       String title,
@@ -100,40 +105,38 @@ abstract class _$$_BoardCopyWith<$Res> implements $BoardCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_BoardCopyWithImpl<$Res> extends _$BoardCopyWithImpl<$Res>
+class __$$_BoardCopyWithImpl<$Res> extends _$BoardCopyWithImpl<$Res, _$_Board>
     implements _$$_BoardCopyWith<$Res> {
   __$$_BoardCopyWithImpl(_$_Board _value, $Res Function(_$_Board) _then)
-      : super(_value, (v) => _then(v as _$_Board));
+      : super(_value, _then);
 
-  @override
-  _$_Board get _value => super._value as _$_Board;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? boardId = freezed,
-    Object? title = freezed,
-    Object? content = freezed,
+    Object? boardId = null,
+    Object? title = null,
+    Object? content = null,
     Object? imageIdPairs = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_Board(
-      boardId: boardId == freezed
+      boardId: null == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      imageIdPairs: imageIdPairs == freezed
+      imageIdPairs: freezed == imageIdPairs
           ? _value._imageIdPairs
           : imageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -185,27 +188,23 @@ class _$_Board implements _Board {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Board &&
-            const DeepCollectionEquality().equals(other.boardId, boardId) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
+            (identical(other.boardId, boardId) || other.boardId == boardId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.content, content) || other.content == content) &&
             const DeepCollectionEquality()
                 .equals(other._imageIdPairs, _imageIdPairs) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(boardId),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(_imageIdPairs),
-      const DeepCollectionEquality().hash(registeredDateTime));
+  int get hashCode => Object.hash(runtimeType, boardId, title, content,
+      const DeepCollectionEquality().hash(_imageIdPairs), registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_BoardCopyWith<_$_Board> get copyWith =>
       __$$_BoardCopyWithImpl<_$_Board>(this, _$identity);
 

@@ -42,7 +42,8 @@ mixin _$Notification {
 abstract class $NotificationCopyWith<$Res> {
   factory $NotificationCopyWith(
           Notification value, $Res Function(Notification) then) =
-      _$NotificationCopyWithImpl<$Res>;
+      _$NotificationCopyWithImpl<$Res, Notification>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'noticeId') int notificationId,
       @JsonKey(name: 'noticeType') String notificationType,
@@ -55,58 +56,61 @@ abstract class $NotificationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NotificationCopyWithImpl<$Res> implements $NotificationCopyWith<$Res> {
+class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
+    implements $NotificationCopyWith<$Res> {
   _$NotificationCopyWithImpl(this._value, this._then);
 
-  final Notification _value;
   // ignore: unused_field
-  final $Res Function(Notification) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notificationId = freezed,
-    Object? notificationType = freezed,
-    Object? content = freezed,
-    Object? isRead = freezed,
+    Object? notificationId = null,
+    Object? notificationType = null,
+    Object? content = null,
+    Object? isRead = null,
     Object? stickerId = freezed,
     Object? couponId = freezed,
     Object? boardId = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      notificationId: notificationId == freezed
+      notificationId: null == notificationId
           ? _value.notificationId
           : notificationId // ignore: cast_nullable_to_non_nullable
               as int,
-      notificationType: notificationType == freezed
+      notificationType: null == notificationType
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      isRead: isRead == freezed
+      isRead: null == isRead
           ? _value.isRead
           : isRead // ignore: cast_nullable_to_non_nullable
               as bool,
-      stickerId: stickerId == freezed
+      stickerId: freezed == stickerId
           ? _value.stickerId
           : stickerId // ignore: cast_nullable_to_non_nullable
               as int?,
-      couponId: couponId == freezed
+      couponId: freezed == couponId
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as int?,
-      boardId: boardId == freezed
+      boardId: freezed == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
               as int?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -117,6 +121,7 @@ abstract class _$$_NotificationCopyWith<$Res>
           _$_Notification value, $Res Function(_$_Notification) then) =
       __$$_NotificationCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'noticeId') int notificationId,
       @JsonKey(name: 'noticeType') String notificationType,
@@ -130,56 +135,54 @@ abstract class _$$_NotificationCopyWith<$Res>
 
 /// @nodoc
 class __$$_NotificationCopyWithImpl<$Res>
-    extends _$NotificationCopyWithImpl<$Res>
+    extends _$NotificationCopyWithImpl<$Res, _$_Notification>
     implements _$$_NotificationCopyWith<$Res> {
   __$$_NotificationCopyWithImpl(
       _$_Notification _value, $Res Function(_$_Notification) _then)
-      : super(_value, (v) => _then(v as _$_Notification));
+      : super(_value, _then);
 
-  @override
-  _$_Notification get _value => super._value as _$_Notification;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? notificationId = freezed,
-    Object? notificationType = freezed,
-    Object? content = freezed,
-    Object? isRead = freezed,
+    Object? notificationId = null,
+    Object? notificationType = null,
+    Object? content = null,
+    Object? isRead = null,
     Object? stickerId = freezed,
     Object? couponId = freezed,
     Object? boardId = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_Notification(
-      notificationId: notificationId == freezed
+      notificationId: null == notificationId
           ? _value.notificationId
           : notificationId // ignore: cast_nullable_to_non_nullable
               as int,
-      notificationType: notificationType == freezed
+      notificationType: null == notificationType
           ? _value.notificationType
           : notificationType // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      isRead: isRead == freezed
+      isRead: null == isRead
           ? _value.isRead
           : isRead // ignore: cast_nullable_to_non_nullable
               as bool,
-      stickerId: stickerId == freezed
+      stickerId: freezed == stickerId
           ? _value.stickerId
           : stickerId // ignore: cast_nullable_to_non_nullable
               as int?,
-      couponId: couponId == freezed
+      couponId: freezed == couponId
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as int?,
-      boardId: boardId == freezed
+      boardId: freezed == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
               as int?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -233,34 +236,29 @@ class _$_Notification implements _Notification {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Notification &&
-            const DeepCollectionEquality()
-                .equals(other.notificationId, notificationId) &&
-            const DeepCollectionEquality()
-                .equals(other.notificationType, notificationType) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other.isRead, isRead) &&
-            const DeepCollectionEquality().equals(other.stickerId, stickerId) &&
-            const DeepCollectionEquality().equals(other.couponId, couponId) &&
-            const DeepCollectionEquality().equals(other.boardId, boardId) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.notificationId, notificationId) ||
+                other.notificationId == notificationId) &&
+            (identical(other.notificationType, notificationType) ||
+                other.notificationType == notificationType) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.isRead, isRead) || other.isRead == isRead) &&
+            (identical(other.stickerId, stickerId) ||
+                other.stickerId == stickerId) &&
+            (identical(other.couponId, couponId) ||
+                other.couponId == couponId) &&
+            (identical(other.boardId, boardId) || other.boardId == boardId) &&
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(notificationId),
-      const DeepCollectionEquality().hash(notificationType),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(isRead),
-      const DeepCollectionEquality().hash(stickerId),
-      const DeepCollectionEquality().hash(couponId),
-      const DeepCollectionEquality().hash(boardId),
-      const DeepCollectionEquality().hash(registeredDateTime));
+  int get hashCode => Object.hash(runtimeType, notificationId, notificationType,
+      content, isRead, stickerId, couponId, boardId, registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_NotificationCopyWith<_$_Notification> get copyWith =>
       __$$_NotificationCopyWithImpl<_$_Notification>(this, _$identity);
 

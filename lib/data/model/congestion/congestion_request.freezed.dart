@@ -33,34 +33,37 @@ mixin _$CongestionRequest {
 abstract class $CongestionRequestCopyWith<$Res> {
   factory $CongestionRequestCopyWith(
           CongestionRequest value, $Res Function(CongestionRequest) then) =
-      _$CongestionRequestCopyWithImpl<$Res>;
+      _$CongestionRequestCopyWithImpl<$Res, CongestionRequest>;
+  @useResult
   $Res call({int storeId, int congestionScore});
 }
 
 /// @nodoc
-class _$CongestionRequestCopyWithImpl<$Res>
+class _$CongestionRequestCopyWithImpl<$Res, $Val extends CongestionRequest>
     implements $CongestionRequestCopyWith<$Res> {
   _$CongestionRequestCopyWithImpl(this._value, this._then);
 
-  final CongestionRequest _value;
   // ignore: unused_field
-  final $Res Function(CongestionRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? congestionScore = freezed,
+    Object? storeId = null,
+    Object? congestionScore = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      congestionScore: congestionScore == freezed
+      congestionScore: null == congestionScore
           ? _value.congestionScore
           : congestionScore // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -71,31 +74,30 @@ abstract class _$$_CongestionRequestCopyWith<$Res>
           $Res Function(_$_CongestionRequest) then) =
       __$$_CongestionRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int storeId, int congestionScore});
 }
 
 /// @nodoc
 class __$$_CongestionRequestCopyWithImpl<$Res>
-    extends _$CongestionRequestCopyWithImpl<$Res>
+    extends _$CongestionRequestCopyWithImpl<$Res, _$_CongestionRequest>
     implements _$$_CongestionRequestCopyWith<$Res> {
   __$$_CongestionRequestCopyWithImpl(
       _$_CongestionRequest _value, $Res Function(_$_CongestionRequest) _then)
-      : super(_value, (v) => _then(v as _$_CongestionRequest));
+      : super(_value, _then);
 
-  @override
-  _$_CongestionRequest get _value => super._value as _$_CongestionRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? congestionScore = freezed,
+    Object? storeId = null,
+    Object? congestionScore = null,
   }) {
     return _then(_$_CongestionRequest(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      congestionScore: congestionScore == freezed
+      congestionScore: null == congestionScore
           ? _value.congestionScore
           : congestionScore // ignore: cast_nullable_to_non_nullable
               as int,
@@ -126,20 +128,18 @@ class _$_CongestionRequest implements _CongestionRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CongestionRequest &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality()
-                .equals(other.congestionScore, congestionScore));
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.congestionScore, congestionScore) ||
+                other.congestionScore == congestionScore));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(congestionScore));
+  int get hashCode => Object.hash(runtimeType, storeId, congestionScore);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CongestionRequestCopyWith<_$_CongestionRequest> get copyWith =>
       __$$_CongestionRequestCopyWithImpl<_$_CongestionRequest>(
           this, _$identity);

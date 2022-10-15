@@ -36,7 +36,8 @@ mixin _$Congestion {
 abstract class $CongestionCopyWith<$Res> {
   factory $CongestionCopyWith(
           Congestion value, $Res Function(Congestion) then) =
-      _$CongestionCopyWithImpl<$Res>;
+      _$CongestionCopyWithImpl<$Res, Congestion>;
+  @useResult
   $Res call(
       {int writerId,
       String nicknameOfWriter,
@@ -45,38 +46,41 @@ abstract class $CongestionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CongestionCopyWithImpl<$Res> implements $CongestionCopyWith<$Res> {
+class _$CongestionCopyWithImpl<$Res, $Val extends Congestion>
+    implements $CongestionCopyWith<$Res> {
   _$CongestionCopyWithImpl(this._value, this._then);
 
-  final Congestion _value;
   // ignore: unused_field
-  final $Res Function(Congestion) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? writerId = freezed,
-    Object? nicknameOfWriter = freezed,
-    Object? congestionScore = freezed,
-    Object? registeredDateTime = freezed,
+    Object? writerId = null,
+    Object? nicknameOfWriter = null,
+    Object? congestionScore = null,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      writerId: writerId == freezed
+      writerId: null == writerId
           ? _value.writerId
           : writerId // ignore: cast_nullable_to_non_nullable
               as int,
-      nicknameOfWriter: nicknameOfWriter == freezed
+      nicknameOfWriter: null == nicknameOfWriter
           ? _value.nicknameOfWriter
           : nicknameOfWriter // ignore: cast_nullable_to_non_nullable
               as String,
-      congestionScore: congestionScore == freezed
+      congestionScore: null == congestionScore
           ? _value.congestionScore
           : congestionScore // ignore: cast_nullable_to_non_nullable
               as int,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -87,6 +91,7 @@ abstract class _$$_CongestionCopyWith<$Res>
           _$_Congestion value, $Res Function(_$_Congestion) then) =
       __$$_CongestionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int writerId,
       String nicknameOfWriter,
@@ -95,36 +100,35 @@ abstract class _$$_CongestionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CongestionCopyWithImpl<$Res> extends _$CongestionCopyWithImpl<$Res>
+class __$$_CongestionCopyWithImpl<$Res>
+    extends _$CongestionCopyWithImpl<$Res, _$_Congestion>
     implements _$$_CongestionCopyWith<$Res> {
   __$$_CongestionCopyWithImpl(
       _$_Congestion _value, $Res Function(_$_Congestion) _then)
-      : super(_value, (v) => _then(v as _$_Congestion));
+      : super(_value, _then);
 
-  @override
-  _$_Congestion get _value => super._value as _$_Congestion;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? writerId = freezed,
-    Object? nicknameOfWriter = freezed,
-    Object? congestionScore = freezed,
-    Object? registeredDateTime = freezed,
+    Object? writerId = null,
+    Object? nicknameOfWriter = null,
+    Object? congestionScore = null,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_Congestion(
-      writerId: writerId == freezed
+      writerId: null == writerId
           ? _value.writerId
           : writerId // ignore: cast_nullable_to_non_nullable
               as int,
-      nicknameOfWriter: nicknameOfWriter == freezed
+      nicknameOfWriter: null == nicknameOfWriter
           ? _value.nicknameOfWriter
           : nicknameOfWriter // ignore: cast_nullable_to_non_nullable
               as String,
-      congestionScore: congestionScore == freezed
+      congestionScore: null == congestionScore
           ? _value.congestionScore
           : congestionScore // ignore: cast_nullable_to_non_nullable
               as int,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -164,26 +168,24 @@ class _$_Congestion implements _Congestion {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Congestion &&
-            const DeepCollectionEquality().equals(other.writerId, writerId) &&
-            const DeepCollectionEquality()
-                .equals(other.nicknameOfWriter, nicknameOfWriter) &&
-            const DeepCollectionEquality()
-                .equals(other.congestionScore, congestionScore) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.writerId, writerId) ||
+                other.writerId == writerId) &&
+            (identical(other.nicknameOfWriter, nicknameOfWriter) ||
+                other.nicknameOfWriter == nicknameOfWriter) &&
+            (identical(other.congestionScore, congestionScore) ||
+                other.congestionScore == congestionScore) &&
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(writerId),
-      const DeepCollectionEquality().hash(nicknameOfWriter),
-      const DeepCollectionEquality().hash(congestionScore),
-      const DeepCollectionEquality().hash(registeredDateTime));
+  int get hashCode => Object.hash(runtimeType, writerId, nicknameOfWriter,
+      congestionScore, registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CongestionCopyWith<_$_Congestion> get copyWith =>
       __$$_CongestionCopyWithImpl<_$_Congestion>(this, _$identity);
 

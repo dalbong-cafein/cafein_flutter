@@ -35,43 +35,47 @@ mixin _$ImageIdPair {
 abstract class $ImageIdPairCopyWith<$Res> {
   factory $ImageIdPairCopyWith(
           ImageIdPair value, $Res Function(ImageIdPair) then) =
-      _$ImageIdPairCopyWithImpl<$Res>;
+      _$ImageIdPairCopyWithImpl<$Res, ImageIdPair>;
+  @useResult
   $Res call({int imageId, bool? isGoogle, String imageUrl, bool? isCafein});
 }
 
 /// @nodoc
-class _$ImageIdPairCopyWithImpl<$Res> implements $ImageIdPairCopyWith<$Res> {
+class _$ImageIdPairCopyWithImpl<$Res, $Val extends ImageIdPair>
+    implements $ImageIdPairCopyWith<$Res> {
   _$ImageIdPairCopyWithImpl(this._value, this._then);
 
-  final ImageIdPair _value;
   // ignore: unused_field
-  final $Res Function(ImageIdPair) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageId = freezed,
+    Object? imageId = null,
     Object? isGoogle = freezed,
-    Object? imageUrl = freezed,
+    Object? imageUrl = null,
     Object? isCafein = freezed,
   }) {
     return _then(_value.copyWith(
-      imageId: imageId == freezed
+      imageId: null == imageId
           ? _value.imageId
           : imageId // ignore: cast_nullable_to_non_nullable
               as int,
-      isGoogle: isGoogle == freezed
+      isGoogle: freezed == isGoogle
           ? _value.isGoogle
           : isGoogle // ignore: cast_nullable_to_non_nullable
               as bool?,
-      imageUrl: imageUrl == freezed
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      isCafein: isCafein == freezed
+      isCafein: freezed == isCafein
           ? _value.isCafein
           : isCafein // ignore: cast_nullable_to_non_nullable
               as bool?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,41 +86,40 @@ abstract class _$$_StoreImagePairCopyWith<$Res>
           _$_StoreImagePair value, $Res Function(_$_StoreImagePair) then) =
       __$$_StoreImagePairCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int imageId, bool? isGoogle, String imageUrl, bool? isCafein});
 }
 
 /// @nodoc
 class __$$_StoreImagePairCopyWithImpl<$Res>
-    extends _$ImageIdPairCopyWithImpl<$Res>
+    extends _$ImageIdPairCopyWithImpl<$Res, _$_StoreImagePair>
     implements _$$_StoreImagePairCopyWith<$Res> {
   __$$_StoreImagePairCopyWithImpl(
       _$_StoreImagePair _value, $Res Function(_$_StoreImagePair) _then)
-      : super(_value, (v) => _then(v as _$_StoreImagePair));
+      : super(_value, _then);
 
-  @override
-  _$_StoreImagePair get _value => super._value as _$_StoreImagePair;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageId = freezed,
+    Object? imageId = null,
     Object? isGoogle = freezed,
-    Object? imageUrl = freezed,
+    Object? imageUrl = null,
     Object? isCafein = freezed,
   }) {
     return _then(_$_StoreImagePair(
-      imageId: imageId == freezed
+      imageId: null == imageId
           ? _value.imageId
           : imageId // ignore: cast_nullable_to_non_nullable
               as int,
-      isGoogle: isGoogle == freezed
+      isGoogle: freezed == isGoogle
           ? _value.isGoogle
           : isGoogle // ignore: cast_nullable_to_non_nullable
               as bool?,
-      imageUrl: imageUrl == freezed
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      isCafein: isCafein == freezed
+      isCafein: freezed == isCafein
           ? _value.isCafein
           : isCafein // ignore: cast_nullable_to_non_nullable
               as bool?,
@@ -157,23 +160,23 @@ class _$_StoreImagePair implements _StoreImagePair {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StoreImagePair &&
-            const DeepCollectionEquality().equals(other.imageId, imageId) &&
-            const DeepCollectionEquality().equals(other.isGoogle, isGoogle) &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.isCafein, isCafein));
+            (identical(other.imageId, imageId) || other.imageId == imageId) &&
+            (identical(other.isGoogle, isGoogle) ||
+                other.isGoogle == isGoogle) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.isCafein, isCafein) ||
+                other.isCafein == isCafein));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(imageId),
-      const DeepCollectionEquality().hash(isGoogle),
-      const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(isCafein));
+  int get hashCode =>
+      Object.hash(runtimeType, imageId, isGoogle, imageUrl, isCafein);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreImagePairCopyWith<_$_StoreImagePair> get copyWith =>
       __$$_StoreImagePairCopyWithImpl<_$_StoreImagePair>(this, _$identity);
 

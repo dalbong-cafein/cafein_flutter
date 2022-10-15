@@ -34,39 +34,42 @@ mixin _$ReportRequest {
 abstract class $ReportRequestCopyWith<$Res> {
   factory $ReportRequestCopyWith(
           ReportRequest value, $Res Function(ReportRequest) then) =
-      _$ReportRequestCopyWithImpl<$Res>;
+      _$ReportRequestCopyWithImpl<$Res, ReportRequest>;
+  @useResult
   $Res call({int reviewId, int reportCategoryId, String content});
 }
 
 /// @nodoc
-class _$ReportRequestCopyWithImpl<$Res>
+class _$ReportRequestCopyWithImpl<$Res, $Val extends ReportRequest>
     implements $ReportRequestCopyWith<$Res> {
   _$ReportRequestCopyWithImpl(this._value, this._then);
 
-  final ReportRequest _value;
   // ignore: unused_field
-  final $Res Function(ReportRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? reportCategoryId = freezed,
-    Object? content = freezed,
+    Object? reviewId = null,
+    Object? reportCategoryId = null,
+    Object? content = null,
   }) {
     return _then(_value.copyWith(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      reportCategoryId: reportCategoryId == freezed
+      reportCategoryId: null == reportCategoryId
           ? _value.reportCategoryId
           : reportCategoryId // ignore: cast_nullable_to_non_nullable
               as int,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -77,36 +80,35 @@ abstract class _$$_ReportRequestCopyWith<$Res>
           _$_ReportRequest value, $Res Function(_$_ReportRequest) then) =
       __$$_ReportRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int reviewId, int reportCategoryId, String content});
 }
 
 /// @nodoc
 class __$$_ReportRequestCopyWithImpl<$Res>
-    extends _$ReportRequestCopyWithImpl<$Res>
+    extends _$ReportRequestCopyWithImpl<$Res, _$_ReportRequest>
     implements _$$_ReportRequestCopyWith<$Res> {
   __$$_ReportRequestCopyWithImpl(
       _$_ReportRequest _value, $Res Function(_$_ReportRequest) _then)
-      : super(_value, (v) => _then(v as _$_ReportRequest));
+      : super(_value, _then);
 
-  @override
-  _$_ReportRequest get _value => super._value as _$_ReportRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? reportCategoryId = freezed,
-    Object? content = freezed,
+    Object? reviewId = null,
+    Object? reportCategoryId = null,
+    Object? content = null,
   }) {
     return _then(_$_ReportRequest(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      reportCategoryId: reportCategoryId == freezed
+      reportCategoryId: null == reportCategoryId
           ? _value.reportCategoryId
           : reportCategoryId // ignore: cast_nullable_to_non_nullable
               as int,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
@@ -142,22 +144,21 @@ class _$_ReportRequest implements _ReportRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReportRequest &&
-            const DeepCollectionEquality().equals(other.reviewId, reviewId) &&
-            const DeepCollectionEquality()
-                .equals(other.reportCategoryId, reportCategoryId) &&
-            const DeepCollectionEquality().equals(other.content, content));
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.reportCategoryId, reportCategoryId) ||
+                other.reportCategoryId == reportCategoryId) &&
+            (identical(other.content, content) || other.content == content));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(reviewId),
-      const DeepCollectionEquality().hash(reportCategoryId),
-      const DeepCollectionEquality().hash(content));
+  int get hashCode =>
+      Object.hash(runtimeType, reviewId, reportCategoryId, content);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReportRequestCopyWith<_$_ReportRequest> get copyWith =>
       __$$_ReportRequestCopyWithImpl<_$_ReportRequest>(this, _$identity);
 

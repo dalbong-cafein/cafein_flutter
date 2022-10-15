@@ -22,7 +22,7 @@ StoreDetail _$StoreDetailFromJson(Map<String, dynamic> json) {
 mixin _$StoreDetail {
   int get storeId => throw _privateConstructorUsedError;
   String get storeName => throw _privateConstructorUsedError;
-  String get nicknameOfModMember => throw _privateConstructorUsedError;
+  String? get nicknameOfModMember => throw _privateConstructorUsedError;
   @JsonKey(name: 'memberImageDto')
   ImageIdPair? get imageIdPair => throw _privateConstructorUsedError;
   @JsonKey(name: 'address')
@@ -55,11 +55,12 @@ mixin _$StoreDetail {
 abstract class $StoreDetailCopyWith<$Res> {
   factory $StoreDetailCopyWith(
           StoreDetail value, $Res Function(StoreDetail) then) =
-      _$StoreDetailCopyWithImpl<$Res>;
+      _$StoreDetailCopyWithImpl<$Res, StoreDetail>;
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
-      String nicknameOfModMember,
+      String? nicknameOfModMember,
       @JsonKey(name: 'memberImageDto')
           ImageIdPair? imageIdPair,
       @JsonKey(name: 'address')
@@ -88,148 +89,155 @@ abstract class $StoreDetailCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StoreDetailCopyWithImpl<$Res> implements $StoreDetailCopyWith<$Res> {
+class _$StoreDetailCopyWithImpl<$Res, $Val extends StoreDetail>
+    implements $StoreDetailCopyWith<$Res> {
   _$StoreDetailCopyWithImpl(this._value, this._then);
 
-  final StoreDetail _value;
   // ignore: unused_field
-  final $Res Function(StoreDetail) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
     Object? nicknameOfModMember = freezed,
     Object? imageIdPair = freezed,
-    Object? addressInfo = freezed,
+    Object? addressInfo = null,
     Object? wifiPassword = freezed,
-    Object? heartCnt = freezed,
-    Object? isHeart = freezed,
-    Object? businessInfo = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
-    Object? reviewImageList = freezed,
-    Object? storeImageList = freezed,
+    Object? heartCnt = null,
+    Object? isHeart = null,
+    Object? businessInfo = null,
+    Object? lngX = null,
+    Object? latY = null,
+    Object? reviewImageList = null,
+    Object? storeImageList = null,
     Object? congestionScoreAvg = freezed,
     Object? totalBusinessInfo = freezed,
-    Object? regDateTime = freezed,
-    Object? modDateTime = freezed,
+    Object? regDateTime = null,
+    Object? modDateTime = null,
     Object? phone = freezed,
     Object? website = freezed,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      nicknameOfModMember: nicknameOfModMember == freezed
+      nicknameOfModMember: freezed == nicknameOfModMember
           ? _value.nicknameOfModMember
           : nicknameOfModMember // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageIdPair: imageIdPair == freezed
+              as String?,
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      addressInfo: addressInfo == freezed
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
               as AddressInfo,
-      wifiPassword: wifiPassword == freezed
+      wifiPassword: freezed == wifiPassword
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
               as String?,
-      heartCnt: heartCnt == freezed
+      heartCnt: null == heartCnt
           ? _value.heartCnt
           : heartCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      isHeart: isHeart == freezed
+      isHeart: null == isHeart
           ? _value.isHeart
           : isHeart // ignore: cast_nullable_to_non_nullable
               as bool,
-      businessInfo: businessInfo == freezed
+      businessInfo: null == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      reviewImageList: reviewImageList == freezed
+      reviewImageList: null == reviewImageList
           ? _value.reviewImageList
           : reviewImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
-      storeImageList: storeImageList == freezed
+      storeImageList: null == storeImageList
           ? _value.storeImageList
           : storeImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      totalBusinessInfo: totalBusinessInfo == freezed
+      totalBusinessInfo: freezed == totalBusinessInfo
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
               as TotalBusinessInfo?,
-      regDateTime: regDateTime == freezed
+      regDateTime: null == regDateTime
           ? _value.regDateTime
           : regDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      modDateTime: modDateTime == freezed
+      modDateTime: null == modDateTime
           ? _value.modDateTime
           : modDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageIdPairCopyWith<$Res>? get imageIdPair {
     if (_value.imageIdPair == null) {
       return null;
     }
 
     return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
-      return _then(_value.copyWith(imageIdPair: value));
+      return _then(_value.copyWith(imageIdPair: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AddressInfoCopyWith<$Res> get addressInfo {
     return $AddressInfoCopyWith<$Res>(_value.addressInfo, (value) {
-      return _then(_value.copyWith(addressInfo: value));
+      return _then(_value.copyWith(addressInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res> get businessInfo {
     return $BusinessInfoCopyWith<$Res>(_value.businessInfo, (value) {
-      return _then(_value.copyWith(businessInfo: value));
+      return _then(_value.copyWith(businessInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo {
     if (_value.totalBusinessInfo == null) {
       return null;
     }
 
     return $TotalBusinessInfoCopyWith<$Res>(_value.totalBusinessInfo!, (value) {
-      return _then(_value.copyWith(totalBusinessInfo: value));
+      return _then(_value.copyWith(totalBusinessInfo: value) as $Val);
     });
   }
 }
@@ -241,10 +249,11 @@ abstract class _$$_StoreDetailCopyWith<$Res>
           _$_StoreDetail value, $Res Function(_$_StoreDetail) then) =
       __$$_StoreDetailCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
-      String nicknameOfModMember,
+      String? nicknameOfModMember,
       @JsonKey(name: 'memberImageDto')
           ImageIdPair? imageIdPair,
       @JsonKey(name: 'address')
@@ -277,111 +286,110 @@ abstract class _$$_StoreDetailCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_StoreDetailCopyWithImpl<$Res> extends _$StoreDetailCopyWithImpl<$Res>
+class __$$_StoreDetailCopyWithImpl<$Res>
+    extends _$StoreDetailCopyWithImpl<$Res, _$_StoreDetail>
     implements _$$_StoreDetailCopyWith<$Res> {
   __$$_StoreDetailCopyWithImpl(
       _$_StoreDetail _value, $Res Function(_$_StoreDetail) _then)
-      : super(_value, (v) => _then(v as _$_StoreDetail));
+      : super(_value, _then);
 
-  @override
-  _$_StoreDetail get _value => super._value as _$_StoreDetail;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
     Object? nicknameOfModMember = freezed,
     Object? imageIdPair = freezed,
-    Object? addressInfo = freezed,
+    Object? addressInfo = null,
     Object? wifiPassword = freezed,
-    Object? heartCnt = freezed,
-    Object? isHeart = freezed,
-    Object? businessInfo = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
-    Object? reviewImageList = freezed,
-    Object? storeImageList = freezed,
+    Object? heartCnt = null,
+    Object? isHeart = null,
+    Object? businessInfo = null,
+    Object? lngX = null,
+    Object? latY = null,
+    Object? reviewImageList = null,
+    Object? storeImageList = null,
     Object? congestionScoreAvg = freezed,
     Object? totalBusinessInfo = freezed,
-    Object? regDateTime = freezed,
-    Object? modDateTime = freezed,
+    Object? regDateTime = null,
+    Object? modDateTime = null,
     Object? phone = freezed,
     Object? website = freezed,
   }) {
     return _then(_$_StoreDetail(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      nicknameOfModMember: nicknameOfModMember == freezed
+      nicknameOfModMember: freezed == nicknameOfModMember
           ? _value.nicknameOfModMember
           : nicknameOfModMember // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageIdPair: imageIdPair == freezed
+              as String?,
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      addressInfo: addressInfo == freezed
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
               as AddressInfo,
-      wifiPassword: wifiPassword == freezed
+      wifiPassword: freezed == wifiPassword
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
               as String?,
-      heartCnt: heartCnt == freezed
+      heartCnt: null == heartCnt
           ? _value.heartCnt
           : heartCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      isHeart: isHeart == freezed
+      isHeart: null == isHeart
           ? _value.isHeart
           : isHeart // ignore: cast_nullable_to_non_nullable
               as bool,
-      businessInfo: businessInfo == freezed
+      businessInfo: null == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      reviewImageList: reviewImageList == freezed
+      reviewImageList: null == reviewImageList
           ? _value._reviewImageList
           : reviewImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
-      storeImageList: storeImageList == freezed
+      storeImageList: null == storeImageList
           ? _value._storeImageList
           : storeImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      totalBusinessInfo: totalBusinessInfo == freezed
+      totalBusinessInfo: freezed == totalBusinessInfo
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
               as TotalBusinessInfo?,
-      regDateTime: regDateTime == freezed
+      regDateTime: null == regDateTime
           ? _value.regDateTime
           : regDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      modDateTime: modDateTime == freezed
+      modDateTime: null == modDateTime
           ? _value.modDateTime
           : modDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      website: website == freezed
+      website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -395,7 +403,7 @@ class _$_StoreDetail implements _StoreDetail {
   _$_StoreDetail(
       {required this.storeId,
       required this.storeName,
-      required this.nicknameOfModMember,
+      this.nicknameOfModMember,
       @JsonKey(name: 'memberImageDto') this.imageIdPair,
       @JsonKey(name: 'address') required this.addressInfo,
       this.wifiPassword,
@@ -423,7 +431,7 @@ class _$_StoreDetail implements _StoreDetail {
   @override
   final String storeName;
   @override
-  final String nicknameOfModMember;
+  final String? nicknameOfModMember;
   @override
   @JsonKey(name: 'memberImageDto')
   final ImageIdPair? imageIdPair;
@@ -481,65 +489,68 @@ class _$_StoreDetail implements _StoreDetail {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StoreDetail &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality()
-                .equals(other.nicknameOfModMember, nicknameOfModMember) &&
-            const DeepCollectionEquality()
-                .equals(other.imageIdPair, imageIdPair) &&
-            const DeepCollectionEquality()
-                .equals(other.addressInfo, addressInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.wifiPassword, wifiPassword) &&
-            const DeepCollectionEquality().equals(other.heartCnt, heartCnt) &&
-            const DeepCollectionEquality().equals(other.isHeart, isHeart) &&
-            const DeepCollectionEquality()
-                .equals(other.businessInfo, businessInfo) &&
-            const DeepCollectionEquality().equals(other.lngX, lngX) &&
-            const DeepCollectionEquality().equals(other.latY, latY) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.nicknameOfModMember, nicknameOfModMember) ||
+                other.nicknameOfModMember == nicknameOfModMember) &&
+            (identical(other.imageIdPair, imageIdPair) ||
+                other.imageIdPair == imageIdPair) &&
+            (identical(other.addressInfo, addressInfo) ||
+                other.addressInfo == addressInfo) &&
+            (identical(other.wifiPassword, wifiPassword) ||
+                other.wifiPassword == wifiPassword) &&
+            (identical(other.heartCnt, heartCnt) ||
+                other.heartCnt == heartCnt) &&
+            (identical(other.isHeart, isHeart) || other.isHeart == isHeart) &&
+            (identical(other.businessInfo, businessInfo) ||
+                other.businessInfo == businessInfo) &&
+            (identical(other.lngX, lngX) || other.lngX == lngX) &&
+            (identical(other.latY, latY) || other.latY == latY) &&
             const DeepCollectionEquality()
                 .equals(other._reviewImageList, _reviewImageList) &&
             const DeepCollectionEquality()
                 .equals(other._storeImageList, _storeImageList) &&
-            const DeepCollectionEquality()
-                .equals(other.congestionScoreAvg, congestionScoreAvg) &&
-            const DeepCollectionEquality()
-                .equals(other.totalBusinessInfo, totalBusinessInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.regDateTime, regDateTime) &&
-            const DeepCollectionEquality()
-                .equals(other.modDateTime, modDateTime) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.website, website));
+            (identical(other.congestionScoreAvg, congestionScoreAvg) ||
+                other.congestionScoreAvg == congestionScoreAvg) &&
+            (identical(other.totalBusinessInfo, totalBusinessInfo) ||
+                other.totalBusinessInfo == totalBusinessInfo) &&
+            (identical(other.regDateTime, regDateTime) ||
+                other.regDateTime == regDateTime) &&
+            (identical(other.modDateTime, modDateTime) ||
+                other.modDateTime == modDateTime) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.website, website) || other.website == website));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        const DeepCollectionEquality().hash(storeId),
-        const DeepCollectionEquality().hash(storeName),
-        const DeepCollectionEquality().hash(nicknameOfModMember),
-        const DeepCollectionEquality().hash(imageIdPair),
-        const DeepCollectionEquality().hash(addressInfo),
-        const DeepCollectionEquality().hash(wifiPassword),
-        const DeepCollectionEquality().hash(heartCnt),
-        const DeepCollectionEquality().hash(isHeart),
-        const DeepCollectionEquality().hash(businessInfo),
-        const DeepCollectionEquality().hash(lngX),
-        const DeepCollectionEquality().hash(latY),
+        storeId,
+        storeName,
+        nicknameOfModMember,
+        imageIdPair,
+        addressInfo,
+        wifiPassword,
+        heartCnt,
+        isHeart,
+        businessInfo,
+        lngX,
+        latY,
         const DeepCollectionEquality().hash(_reviewImageList),
         const DeepCollectionEquality().hash(_storeImageList),
-        const DeepCollectionEquality().hash(congestionScoreAvg),
-        const DeepCollectionEquality().hash(totalBusinessInfo),
-        const DeepCollectionEquality().hash(regDateTime),
-        const DeepCollectionEquality().hash(modDateTime),
-        const DeepCollectionEquality().hash(phone),
-        const DeepCollectionEquality().hash(website)
+        congestionScoreAvg,
+        totalBusinessInfo,
+        regDateTime,
+        modDateTime,
+        phone,
+        website
       ]);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreDetailCopyWith<_$_StoreDetail> get copyWith =>
       __$$_StoreDetailCopyWithImpl<_$_StoreDetail>(this, _$identity);
 
@@ -555,7 +566,7 @@ abstract class _StoreDetail implements StoreDetail {
   factory _StoreDetail(
       {required final int storeId,
       required final String storeName,
-      required final String nicknameOfModMember,
+      final String? nicknameOfModMember,
       @JsonKey(name: 'memberImageDto')
           final ImageIdPair? imageIdPair,
       @JsonKey(name: 'address')
@@ -585,7 +596,7 @@ abstract class _StoreDetail implements StoreDetail {
   @override
   String get storeName;
   @override
-  String get nicknameOfModMember;
+  String? get nicknameOfModMember;
   @override
   @JsonKey(name: 'memberImageDto')
   ImageIdPair? get imageIdPair;

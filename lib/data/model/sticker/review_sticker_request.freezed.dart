@@ -32,29 +32,33 @@ mixin _$ReviewStickerRequest {
 abstract class $ReviewStickerRequestCopyWith<$Res> {
   factory $ReviewStickerRequestCopyWith(ReviewStickerRequest value,
           $Res Function(ReviewStickerRequest) then) =
-      _$ReviewStickerRequestCopyWithImpl<$Res>;
+      _$ReviewStickerRequestCopyWithImpl<$Res, ReviewStickerRequest>;
+  @useResult
   $Res call({int reviewId});
 }
 
 /// @nodoc
-class _$ReviewStickerRequestCopyWithImpl<$Res>
+class _$ReviewStickerRequestCopyWithImpl<$Res,
+        $Val extends ReviewStickerRequest>
     implements $ReviewStickerRequestCopyWith<$Res> {
   _$ReviewStickerRequestCopyWithImpl(this._value, this._then);
 
-  final ReviewStickerRequest _value;
   // ignore: unused_field
-  final $Res Function(ReviewStickerRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
+    Object? reviewId = null,
   }) {
     return _then(_value.copyWith(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +69,25 @@ abstract class _$$_ReviewStickerRequestCopyWith<$Res>
           $Res Function(_$_ReviewStickerRequest) then) =
       __$$_ReviewStickerRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int reviewId});
 }
 
 /// @nodoc
 class __$$_ReviewStickerRequestCopyWithImpl<$Res>
-    extends _$ReviewStickerRequestCopyWithImpl<$Res>
+    extends _$ReviewStickerRequestCopyWithImpl<$Res, _$_ReviewStickerRequest>
     implements _$$_ReviewStickerRequestCopyWith<$Res> {
   __$$_ReviewStickerRequestCopyWithImpl(_$_ReviewStickerRequest _value,
       $Res Function(_$_ReviewStickerRequest) _then)
-      : super(_value, (v) => _then(v as _$_ReviewStickerRequest));
+      : super(_value, _then);
 
-  @override
-  _$_ReviewStickerRequest get _value => super._value as _$_ReviewStickerRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
+    Object? reviewId = null,
   }) {
     return _then(_$_ReviewStickerRequest(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
@@ -113,16 +116,17 @@ class _$_ReviewStickerRequest implements _ReviewStickerRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReviewStickerRequest &&
-            const DeepCollectionEquality().equals(other.reviewId, reviewId));
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(reviewId));
+  int get hashCode => Object.hash(runtimeType, reviewId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReviewStickerRequestCopyWith<_$_ReviewStickerRequest> get copyWith =>
       __$$_ReviewStickerRequestCopyWithImpl<_$_ReviewStickerRequest>(
           this, _$identity);

@@ -10,7 +10,7 @@ _$_StoreDetail _$$_StoreDetailFromJson(Map<String, dynamic> json) =>
     _$_StoreDetail(
       storeId: json['storeId'] as int,
       storeName: json['storeName'] as String,
-      nicknameOfModMember: json['nicknameOfModMember'] as String,
+      nicknameOfModMember: json['nicknameOfModMember'] as String?,
       imageIdPair: json['memberImageDto'] == null
           ? null
           : ImageIdPair.fromJson(

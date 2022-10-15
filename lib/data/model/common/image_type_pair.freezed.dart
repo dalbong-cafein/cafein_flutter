@@ -28,34 +28,37 @@ mixin _$ImageTypePair {
 abstract class $ImageTypePairCopyWith<$Res> {
   factory $ImageTypePairCopyWith(
           ImageTypePair value, $Res Function(ImageTypePair) then) =
-      _$ImageTypePairCopyWithImpl<$Res>;
+      _$ImageTypePairCopyWithImpl<$Res, ImageTypePair>;
+  @useResult
   $Res call({String imageUrl, ImageType imageType});
 }
 
 /// @nodoc
-class _$ImageTypePairCopyWithImpl<$Res>
+class _$ImageTypePairCopyWithImpl<$Res, $Val extends ImageTypePair>
     implements $ImageTypePairCopyWith<$Res> {
   _$ImageTypePairCopyWithImpl(this._value, this._then);
 
-  final ImageTypePair _value;
   // ignore: unused_field
-  final $Res Function(ImageTypePair) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageUrl = freezed,
-    Object? imageType = freezed,
+    Object? imageUrl = null,
+    Object? imageType = null,
   }) {
     return _then(_value.copyWith(
-      imageUrl: imageUrl == freezed
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      imageType: imageType == freezed
+      imageType: null == imageType
           ? _value.imageType
           : imageType // ignore: cast_nullable_to_non_nullable
               as ImageType,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,31 +69,30 @@ abstract class _$$_ImageTypePairCopyWith<$Res>
           _$_ImageTypePair value, $Res Function(_$_ImageTypePair) then) =
       __$$_ImageTypePairCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String imageUrl, ImageType imageType});
 }
 
 /// @nodoc
 class __$$_ImageTypePairCopyWithImpl<$Res>
-    extends _$ImageTypePairCopyWithImpl<$Res>
+    extends _$ImageTypePairCopyWithImpl<$Res, _$_ImageTypePair>
     implements _$$_ImageTypePairCopyWith<$Res> {
   __$$_ImageTypePairCopyWithImpl(
       _$_ImageTypePair _value, $Res Function(_$_ImageTypePair) _then)
-      : super(_value, (v) => _then(v as _$_ImageTypePair));
+      : super(_value, _then);
 
-  @override
-  _$_ImageTypePair get _value => super._value as _$_ImageTypePair;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? imageUrl = freezed,
-    Object? imageType = freezed,
+    Object? imageUrl = null,
+    Object? imageType = null,
   }) {
     return _then(_$_ImageTypePair(
-      imageUrl: imageUrl == freezed
+      imageUrl: null == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      imageType: imageType == freezed
+      imageType: null == imageType
           ? _value.imageType
           : imageType // ignore: cast_nullable_to_non_nullable
               as ImageType,
@@ -118,18 +120,18 @@ class _$_ImageTypePair implements _ImageTypePair {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ImageTypePair &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.imageType, imageType));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.imageType, imageType) ||
+                other.imageType == imageType));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(imageType));
+  int get hashCode => Object.hash(runtimeType, imageUrl, imageType);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ImageTypePairCopyWith<_$_ImageTypePair> get copyWith =>
       __$$_ImageTypePairCopyWithImpl<_$_ImageTypePair>(this, _$identity);
 }

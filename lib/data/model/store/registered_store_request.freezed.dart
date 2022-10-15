@@ -40,7 +40,8 @@ mixin _$RegisteredStoreRequest {
 abstract class $RegisteredStoreRequestCopyWith<$Res> {
   factory $RegisteredStoreRequestCopyWith(RegisteredStoreRequest value,
           $Res Function(RegisteredStoreRequest) then) =
-      _$RegisteredStoreRequestCopyWithImpl<$Res>;
+      _$RegisteredStoreRequestCopyWithImpl<$Res, RegisteredStoreRequest>;
+  @useResult
   $Res call(
       {String storeName,
       AddressInfo addressInfo,
@@ -62,102 +63,107 @@ abstract class $RegisteredStoreRequestCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RegisteredStoreRequestCopyWithImpl<$Res>
+class _$RegisteredStoreRequestCopyWithImpl<$Res,
+        $Val extends RegisteredStoreRequest>
     implements $RegisteredStoreRequestCopyWith<$Res> {
   _$RegisteredStoreRequestCopyWithImpl(this._value, this._then);
 
-  final RegisteredStoreRequest _value;
   // ignore: unused_field
-  final $Res Function(RegisteredStoreRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeName = freezed,
-    Object? addressInfo = freezed,
-    Object? phoneNumber = freezed,
-    Object? wifiPassword = freezed,
-    Object? webSite = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
+    Object? storeName = null,
+    Object? addressInfo = null,
+    Object? phoneNumber = null,
+    Object? wifiPassword = null,
+    Object? webSite = null,
+    Object? lngX = null,
+    Object? latY = null,
     Object? imageFiles = freezed,
-    Object? totalBusinessInfo = freezed,
-    Object? recommendation = freezed,
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? totalBusinessInfo = null,
+    Object? recommendation = null,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
   }) {
     return _then(_value.copyWith(
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      addressInfo: addressInfo == freezed
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
               as AddressInfo,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      wifiPassword: wifiPassword == freezed
+      wifiPassword: null == wifiPassword
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      webSite: webSite == freezed
+      webSite: null == webSite
           ? _value.webSite
           : webSite // ignore: cast_nullable_to_non_nullable
               as String,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      imageFiles: imageFiles == freezed
+      imageFiles: freezed == imageFiles
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      totalBusinessInfo: totalBusinessInfo == freezed
+      totalBusinessInfo: null == totalBusinessInfo
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
               as TotalBusinessInfo,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AddressInfoCopyWith<$Res> get addressInfo {
     return $AddressInfoCopyWith<$Res>(_value.addressInfo, (value) {
-      return _then(_value.copyWith(addressInfo: value));
+      return _then(_value.copyWith(addressInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $TotalBusinessInfoCopyWith<$Res> get totalBusinessInfo {
     return $TotalBusinessInfoCopyWith<$Res>(_value.totalBusinessInfo, (value) {
-      return _then(_value.copyWith(totalBusinessInfo: value));
+      return _then(_value.copyWith(totalBusinessInfo: value) as $Val);
     });
   }
 }
@@ -169,6 +175,7 @@ abstract class _$$_RegisteredStoreRequestCopyWith<$Res>
           $Res Function(_$_RegisteredStoreRequest) then) =
       __$$_RegisteredStoreRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String storeName,
       AddressInfo addressInfo,
@@ -193,87 +200,85 @@ abstract class _$$_RegisteredStoreRequestCopyWith<$Res>
 
 /// @nodoc
 class __$$_RegisteredStoreRequestCopyWithImpl<$Res>
-    extends _$RegisteredStoreRequestCopyWithImpl<$Res>
+    extends _$RegisteredStoreRequestCopyWithImpl<$Res,
+        _$_RegisteredStoreRequest>
     implements _$$_RegisteredStoreRequestCopyWith<$Res> {
   __$$_RegisteredStoreRequestCopyWithImpl(_$_RegisteredStoreRequest _value,
       $Res Function(_$_RegisteredStoreRequest) _then)
-      : super(_value, (v) => _then(v as _$_RegisteredStoreRequest));
+      : super(_value, _then);
 
-  @override
-  _$_RegisteredStoreRequest get _value =>
-      super._value as _$_RegisteredStoreRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeName = freezed,
-    Object? addressInfo = freezed,
-    Object? phoneNumber = freezed,
-    Object? wifiPassword = freezed,
-    Object? webSite = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
+    Object? storeName = null,
+    Object? addressInfo = null,
+    Object? phoneNumber = null,
+    Object? wifiPassword = null,
+    Object? webSite = null,
+    Object? lngX = null,
+    Object? latY = null,
     Object? imageFiles = freezed,
-    Object? totalBusinessInfo = freezed,
-    Object? recommendation = freezed,
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? totalBusinessInfo = null,
+    Object? recommendation = null,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
   }) {
     return _then(_$_RegisteredStoreRequest(
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      addressInfo: addressInfo == freezed
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
               as AddressInfo,
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      wifiPassword: wifiPassword == freezed
+      wifiPassword: null == wifiPassword
           ? _value.wifiPassword
           : wifiPassword // ignore: cast_nullable_to_non_nullable
               as String,
-      webSite: webSite == freezed
+      webSite: null == webSite
           ? _value.webSite
           : webSite // ignore: cast_nullable_to_non_nullable
               as String,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      imageFiles: imageFiles == freezed
+      imageFiles: freezed == imageFiles
           ? _value._imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      totalBusinessInfo: totalBusinessInfo == freezed
+      totalBusinessInfo: null == totalBusinessInfo
           ? _value.totalBusinessInfo
           : totalBusinessInfo // ignore: cast_nullable_to_non_nullable
               as TotalBusinessInfo,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
@@ -347,48 +352,52 @@ class _$_RegisteredStoreRequest implements _RegisteredStoreRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RegisteredStoreRequest &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality()
-                .equals(other.addressInfo, addressInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.wifiPassword, wifiPassword) &&
-            const DeepCollectionEquality().equals(other.webSite, webSite) &&
-            const DeepCollectionEquality().equals(other.lngX, lngX) &&
-            const DeepCollectionEquality().equals(other.latY, latY) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.addressInfo, addressInfo) ||
+                other.addressInfo == addressInfo) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.wifiPassword, wifiPassword) ||
+                other.wifiPassword == wifiPassword) &&
+            (identical(other.webSite, webSite) || other.webSite == webSite) &&
+            (identical(other.lngX, lngX) || other.lngX == lngX) &&
+            (identical(other.latY, latY) || other.latY == latY) &&
             const DeepCollectionEquality()
                 .equals(other._imageFiles, _imageFiles) &&
-            const DeepCollectionEquality()
-                .equals(other.totalBusinessInfo, totalBusinessInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.recommendation, recommendation) &&
-            const DeepCollectionEquality().equals(other.socket, socket) &&
-            const DeepCollectionEquality().equals(other.wifi, wifi) &&
-            const DeepCollectionEquality().equals(other.restroom, restroom) &&
-            const DeepCollectionEquality().equals(other.tableSize, tableSize));
+            (identical(other.totalBusinessInfo, totalBusinessInfo) ||
+                other.totalBusinessInfo == totalBusinessInfo) &&
+            (identical(other.recommendation, recommendation) ||
+                other.recommendation == recommendation) &&
+            (identical(other.socket, socket) || other.socket == socket) &&
+            (identical(other.wifi, wifi) || other.wifi == wifi) &&
+            (identical(other.restroom, restroom) ||
+                other.restroom == restroom) &&
+            (identical(other.tableSize, tableSize) ||
+                other.tableSize == tableSize));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(addressInfo),
-      const DeepCollectionEquality().hash(phoneNumber),
-      const DeepCollectionEquality().hash(wifiPassword),
-      const DeepCollectionEquality().hash(webSite),
-      const DeepCollectionEquality().hash(lngX),
-      const DeepCollectionEquality().hash(latY),
+      storeName,
+      addressInfo,
+      phoneNumber,
+      wifiPassword,
+      webSite,
+      lngX,
+      latY,
       const DeepCollectionEquality().hash(_imageFiles),
-      const DeepCollectionEquality().hash(totalBusinessInfo),
-      const DeepCollectionEquality().hash(recommendation),
-      const DeepCollectionEquality().hash(socket),
-      const DeepCollectionEquality().hash(wifi),
-      const DeepCollectionEquality().hash(restroom),
-      const DeepCollectionEquality().hash(tableSize));
+      totalBusinessInfo,
+      recommendation,
+      socket,
+      wifi,
+      restroom,
+      tableSize);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RegisteredStoreRequestCopyWith<_$_RegisteredStoreRequest> get copyWith =>
       __$$_RegisteredStoreRequestCopyWithImpl<_$_RegisteredStoreRequest>(
           this, _$identity);

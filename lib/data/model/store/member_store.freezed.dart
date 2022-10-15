@@ -40,7 +40,8 @@ mixin _$MemberStore {
 abstract class $MemberStoreCopyWith<$Res> {
   factory $MemberStoreCopyWith(
           MemberStore value, $Res Function(MemberStore) then) =
-      _$MemberStoreCopyWithImpl<$Res>;
+      _$MemberStoreCopyWithImpl<$Res, MemberStore>;
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -55,74 +56,79 @@ abstract class $MemberStoreCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MemberStoreCopyWithImpl<$Res> implements $MemberStoreCopyWith<$Res> {
+class _$MemberStoreCopyWithImpl<$Res, $Val extends MemberStore>
+    implements $MemberStoreCopyWith<$Res> {
   _$MemberStoreCopyWithImpl(this._value, this._then);
 
-  final MemberStore _value;
   // ignore: unused_field
-  final $Res Function(MemberStore) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? lngX = null,
+    Object? latY = null,
     Object? congestionScoreAvg = freezed,
     Object? businessInfo = freezed,
     Object? imageIdPair = freezed,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      businessInfo: businessInfo == freezed
+      businessInfo: freezed == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get businessInfo {
     if (_value.businessInfo == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.businessInfo!, (value) {
-      return _then(_value.copyWith(businessInfo: value));
+      return _then(_value.copyWith(businessInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageIdPairCopyWith<$Res>? get imageIdPair {
     if (_value.imageIdPair == null) {
       return null;
     }
 
     return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
-      return _then(_value.copyWith(imageIdPair: value));
+      return _then(_value.copyWith(imageIdPair: value) as $Val);
     });
   }
 }
@@ -134,6 +140,7 @@ abstract class _$$_MemberStoreCopyWith<$Res>
           _$_MemberStore value, $Res Function(_$_MemberStore) then) =
       __$$_MemberStoreCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -150,51 +157,50 @@ abstract class _$$_MemberStoreCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MemberStoreCopyWithImpl<$Res> extends _$MemberStoreCopyWithImpl<$Res>
+class __$$_MemberStoreCopyWithImpl<$Res>
+    extends _$MemberStoreCopyWithImpl<$Res, _$_MemberStore>
     implements _$$_MemberStoreCopyWith<$Res> {
   __$$_MemberStoreCopyWithImpl(
       _$_MemberStore _value, $Res Function(_$_MemberStore) _then)
-      : super(_value, (v) => _then(v as _$_MemberStore));
+      : super(_value, _then);
 
-  @override
-  _$_MemberStore get _value => super._value as _$_MemberStore;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? lngX = freezed,
-    Object? latY = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? lngX = null,
+    Object? latY = null,
     Object? congestionScoreAvg = freezed,
     Object? businessInfo = freezed,
     Object? imageIdPair = freezed,
   }) {
     return _then(_$_MemberStore(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      lngX: lngX == freezed
+      lngX: null == lngX
           ? _value.lngX
           : lngX // ignore: cast_nullable_to_non_nullable
               as double,
-      latY: latY == freezed
+      latY: null == latY
           ? _value.latY
           : latY // ignore: cast_nullable_to_non_nullable
               as double,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      businessInfo: businessInfo == freezed
+      businessInfo: freezed == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
@@ -244,32 +250,27 @@ class _$_MemberStore implements _MemberStore {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MemberStore &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality().equals(other.lngX, lngX) &&
-            const DeepCollectionEquality().equals(other.latY, latY) &&
-            const DeepCollectionEquality()
-                .equals(other.congestionScoreAvg, congestionScoreAvg) &&
-            const DeepCollectionEquality()
-                .equals(other.businessInfo, businessInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.imageIdPair, imageIdPair));
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.lngX, lngX) || other.lngX == lngX) &&
+            (identical(other.latY, latY) || other.latY == latY) &&
+            (identical(other.congestionScoreAvg, congestionScoreAvg) ||
+                other.congestionScoreAvg == congestionScoreAvg) &&
+            (identical(other.businessInfo, businessInfo) ||
+                other.businessInfo == businessInfo) &&
+            (identical(other.imageIdPair, imageIdPair) ||
+                other.imageIdPair == imageIdPair));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(lngX),
-      const DeepCollectionEquality().hash(latY),
-      const DeepCollectionEquality().hash(congestionScoreAvg),
-      const DeepCollectionEquality().hash(businessInfo),
-      const DeepCollectionEquality().hash(imageIdPair));
+  int get hashCode => Object.hash(runtimeType, storeId, storeName, lngX, latY,
+      congestionScoreAvg, businessInfo, imageIdPair);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_MemberStoreCopyWith<_$_MemberStore> get copyWith =>
       __$$_MemberStoreCopyWithImpl<_$_MemberStore>(this, _$identity);
 

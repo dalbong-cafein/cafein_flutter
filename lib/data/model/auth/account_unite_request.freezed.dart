@@ -33,34 +33,37 @@ mixin _$AccountUniteRequest {
 abstract class $AccountUniteRequestCopyWith<$Res> {
   factory $AccountUniteRequestCopyWith(
           AccountUniteRequest value, $Res Function(AccountUniteRequest) then) =
-      _$AccountUniteRequestCopyWithImpl<$Res>;
+      _$AccountUniteRequestCopyWithImpl<$Res, AccountUniteRequest>;
+  @useResult
   $Res call({String newOauthId, String newAuthProvider});
 }
 
 /// @nodoc
-class _$AccountUniteRequestCopyWithImpl<$Res>
+class _$AccountUniteRequestCopyWithImpl<$Res, $Val extends AccountUniteRequest>
     implements $AccountUniteRequestCopyWith<$Res> {
   _$AccountUniteRequestCopyWithImpl(this._value, this._then);
 
-  final AccountUniteRequest _value;
   // ignore: unused_field
-  final $Res Function(AccountUniteRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newOauthId = freezed,
-    Object? newAuthProvider = freezed,
+    Object? newOauthId = null,
+    Object? newAuthProvider = null,
   }) {
     return _then(_value.copyWith(
-      newOauthId: newOauthId == freezed
+      newOauthId: null == newOauthId
           ? _value.newOauthId
           : newOauthId // ignore: cast_nullable_to_non_nullable
               as String,
-      newAuthProvider: newAuthProvider == freezed
+      newAuthProvider: null == newAuthProvider
           ? _value.newAuthProvider
           : newAuthProvider // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -71,31 +74,30 @@ abstract class _$$_AccountUniteRequestCopyWith<$Res>
           $Res Function(_$_AccountUniteRequest) then) =
       __$$_AccountUniteRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String newOauthId, String newAuthProvider});
 }
 
 /// @nodoc
 class __$$_AccountUniteRequestCopyWithImpl<$Res>
-    extends _$AccountUniteRequestCopyWithImpl<$Res>
+    extends _$AccountUniteRequestCopyWithImpl<$Res, _$_AccountUniteRequest>
     implements _$$_AccountUniteRequestCopyWith<$Res> {
   __$$_AccountUniteRequestCopyWithImpl(_$_AccountUniteRequest _value,
       $Res Function(_$_AccountUniteRequest) _then)
-      : super(_value, (v) => _then(v as _$_AccountUniteRequest));
+      : super(_value, _then);
 
-  @override
-  _$_AccountUniteRequest get _value => super._value as _$_AccountUniteRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newOauthId = freezed,
-    Object? newAuthProvider = freezed,
+    Object? newOauthId = null,
+    Object? newAuthProvider = null,
   }) {
     return _then(_$_AccountUniteRequest(
-      newOauthId: newOauthId == freezed
+      newOauthId: null == newOauthId
           ? _value.newOauthId
           : newOauthId // ignore: cast_nullable_to_non_nullable
               as String,
-      newAuthProvider: newAuthProvider == freezed
+      newAuthProvider: null == newAuthProvider
           ? _value.newAuthProvider
           : newAuthProvider // ignore: cast_nullable_to_non_nullable
               as String,
@@ -127,21 +129,19 @@ class _$_AccountUniteRequest implements _AccountUniteRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AccountUniteRequest &&
-            const DeepCollectionEquality()
-                .equals(other.newOauthId, newOauthId) &&
-            const DeepCollectionEquality()
-                .equals(other.newAuthProvider, newAuthProvider));
+            (identical(other.newOauthId, newOauthId) ||
+                other.newOauthId == newOauthId) &&
+            (identical(other.newAuthProvider, newAuthProvider) ||
+                other.newAuthProvider == newAuthProvider));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(newOauthId),
-      const DeepCollectionEquality().hash(newAuthProvider));
+  int get hashCode => Object.hash(runtimeType, newOauthId, newAuthProvider);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AccountUniteRequestCopyWith<_$_AccountUniteRequest> get copyWith =>
       __$$_AccountUniteRequestCopyWithImpl<_$_AccountUniteRequest>(
           this, _$identity);
