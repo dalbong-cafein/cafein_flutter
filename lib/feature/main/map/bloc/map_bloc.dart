@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
@@ -24,7 +25,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<MapLocationRequested>(_onSearchLocationRequested);
     on<MapStoreRequested>(_onSearchStoreRequested);
     on<MapStoreHeartRequested>(_onSearchStoreHeartRequested);
-    on<MapKeywordTaped>(_onSearchKeywordTabed);
+    on<MapKeywordTaped>(_onSearchKeywordTaped);
+    on<MapSearchResultChanged>(_onMapSearchResultChanged);
+    on<MapSearchKeywordDeleteRequested>(_onMapSearchKeywordDeleteRequested);
+    on<MapCurrentLocationRequested>(_onMapCurrentLocationRequested);
+    on<MapCameraPositionChanged>(_onMapCameraPositionChanged);
   }
 
   final UserRepository userRepository;
@@ -32,8 +37,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final HeartRepository heartRepository;
 
   String currentLocation = '';
+  String searchKeyword = '';
 
   List<Store> currentStores = [];
+
+  List<Store> searchResultStoreList = [];
+
+  bool isSearchResult = false;
 
   LatLng currentLatLng = CafeinConst.defaultLating;
 
@@ -56,6 +66,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       emit(
         MapLocationChecked(
+          isInitialChecked: true,
           location: currentLocation,
           latitude: result.latitude,
           longitude: result.longitude,
@@ -73,12 +84,16 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapStoreRequested event,
     Emitter<MapState> emit,
   ) async {
+    isSearchResult = false;
+
     if (event.location == currentLocation) {
       return;
     }
+
     currentLocation = event.location;
 
     emit(const MapLoading());
+
     try {
       final response = await storeRepository.getStores(
         currentLocation,
@@ -95,6 +110,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       currentStores = [...response.data];
 
       emit(MapStoreLoaded(
+        keyword: searchKeyword,
         stores: [...currentStores],
       ));
     } catch (e) {
@@ -129,6 +145,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       currentStores = [...cur];
 
       emit(MapStoreLoaded(
+        keyword: searchKeyword,
         stores: [...currentStores],
       ));
     } catch (e) {
@@ -139,64 +156,153 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     }
   }
 
-  FutureOr<void> _onSearchKeywordTabed(
+  FutureOr<void> _onSearchKeywordTaped(
     MapKeywordTaped event,
     Emitter<MapState> emit,
   ) {
-    var cur = currentStores;
+    var cur = isSearchResult ? searchResultStoreList : currentStores;
     switch (event.searchKeyword) {
       case SearchKeyword.business:
-        cur.sort(
-          (a, b) {
-            final isOpenA = a.businessInfo?.isOpen ?? false;
+        cur.sort((a, b) {
+          final isOpenA = a.businessInfo?.isOpen ?? false;
 
-            return isOpenA ? -1 : 1;
-          },
-        );
+          return isOpenA ? -1 : 1;
+        });
         break;
       case SearchKeyword.confuse:
-        cur.sort(
-          (a, b) {
-            final confuseScoreA = a.congestionScoreAvg ?? 0;
-            final confuseScoreB = b.congestionScoreAvg ?? 0;
+        cur.sort((a, b) {
+          final confuseScoreA = a.congestionScoreAvg ?? 0;
+          final confuseScoreB = b.congestionScoreAvg ?? 0;
 
-            return confuseScoreA < confuseScoreB ? -1 : 1;
-          },
-        );
+          return confuseScoreA < confuseScoreB ? -1 : 1;
+        });
         break;
       case SearchKeyword.close:
-        cur.sort(
-          (a, b) {
-            final distanceA = calculateDistance(
-              currentLatLng: currentLatLng,
-              targetLatLng: LatLng(a.latY, a.lngX),
-            );
-            final distanceB = calculateDistance(
-              currentLatLng: currentLatLng,
-              targetLatLng: LatLng(b.latY, b.lngX),
-            );
+        cur.sort((a, b) {
+          final distanceA = calculateDistance(
+            currentLatLng: currentLatLng,
+            targetLatLng: LatLng(a.latY, a.lngX),
+          );
+          final distanceB = calculateDistance(
+            currentLatLng: currentLatLng,
+            targetLatLng: LatLng(b.latY, b.lngX),
+          );
 
-            return distanceA < distanceB ? -1 : 1;
-          },
-        );
+          return distanceA < distanceB ? -1 : 1;
+        });
         break;
       case SearchKeyword.recommended:
-        cur.sort(
-          (a, b) {
-            final recommendedScoreA = a.recommendPercent ?? 0;
-            final recommendedScoreB = b.recommendPercent ?? 0;
+        cur.sort((a, b) {
+          final recommendedScoreA = a.recommendPercent ?? 0;
+          final recommendedScoreB = b.recommendPercent ?? 0;
 
-            return recommendedScoreA < recommendedScoreB ? -1 : 1;
-          },
-        );
+          return recommendedScoreA < recommendedScoreB ? -1 : 1;
+        });
         break;
     }
 
-    currentStores = [...cur];
+    if (isSearchResult) {
+      searchResultStoreList = [...cur];
+    } else {
+      currentStores = [...cur];
+    }
+
+    emit(
+      MapStoreLoaded(
+        keyword: searchKeyword,
+        stores: [
+          ...(isSearchResult ? searchResultStoreList : currentStores),
+        ],
+      ),
+    );
+  }
+
+  FutureOr<void> _onMapSearchResultChanged(
+    MapSearchResultChanged event,
+    Emitter<MapState> emit,
+  ) {
+    searchResultStoreList = event.storeList;
+    searchKeyword = event.keyword;
+
+    emit(
+      MapStoreLoaded(
+        stores: [...searchResultStoreList],
+        keyword: searchKeyword,
+      ),
+    );
+  }
+
+  FutureOr<void> _onMapSearchKeywordDeleteRequested(
+    MapSearchKeywordDeleteRequested event,
+    Emitter<MapState> emit,
+  ) {
+    searchKeyword = '';
+
     emit(
       MapStoreLoaded(
         stores: [...currentStores],
+        keyword: searchKeyword,
       ),
     );
+  }
+
+  FutureOr<void> _onMapCameraPositionChanged(
+    MapCameraPositionChanged event,
+    Emitter<MapState> emit,
+  ) async {
+    try {
+      final responseLocation = await userRepository.getCurrentLocation(
+        longitude: event.longitude,
+        latitude: event.latitude,
+      );
+
+      log(responseLocation);
+
+      emit(
+        MapCameraPositionChecked(
+          isDifferentLocation: currentLocation != responseLocation,
+          location: responseLocation,
+        ),
+      );
+    } catch (e) {
+      emit(
+        MapCameraPositionChecked(
+          isDifferentLocation: false,
+          location: currentLocation,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onMapCurrentLocationRequested(
+    MapCurrentLocationRequested event,
+    Emitter<MapState> emit,
+  ) async {
+    try {
+      final result = await Geolocator.getCurrentPosition();
+
+      final currentLocation = await userRepository.getCurrentLocation(
+        longitude: result.longitude,
+        latitude: result.latitude,
+      );
+
+      currentLatLng = LatLng(
+        result.latitude,
+        result.longitude,
+      );
+
+      emit(
+        MapLocationChecked(
+          location: currentLocation,
+          latitude: result.latitude,
+          longitude: result.longitude,
+        ),
+      );
+    } catch (e) {
+      emit(MapError(
+        error: e,
+        event: () => add(event),
+      ));
+    }
   }
 }

@@ -28,22 +28,11 @@ class SearchBodyHeader extends StatelessWidget {
           Positioned(
             left: 20,
             child: InkWell(
-              onTap: () async {
-                final state = context.read<LocationPermissionBloc>().state;
-                if (state is! LocationPermissionChecked) {
-                  return;
-                }
-                if (!state.permissionStatus.isGranted) {
-                  final result = await PermissionDialog.show(context);
-                  if (!result) {
-                    return;
-                  }
-                  openAppSettings();
-                  return;
-                }
-
-                context.read<MapBloc>().add(const MapLocationRequested());
-              },
+              onTap: () => context.read<LocationPermissionBloc>().add(
+                    const LocationPermissionRequest(
+                      processType: ProcessType.currentLocation,
+                    ),
+                  ),
               child: CircleAvatar(
                 radius: 25,
                 backgroundColor: AppColor.white,

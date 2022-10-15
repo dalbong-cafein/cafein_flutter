@@ -42,6 +42,10 @@ class DioUtil {
     dio.interceptors.add(CustomDioLogger(
       'kakaoDio',
       responseBody: false,
+      requestHeader: false,
+      requestBody: false,
+      responseHeader: false,
+      request: false,
     ));
 
     return dio;
@@ -56,6 +60,10 @@ class DioUtil {
     dio.interceptors.add(CustomDioLogger(
       'dio',
       responseBody: false,
+      requestHeader: false,
+      requestBody: false,
+      responseHeader: false,
+      request: false,
     ));
     dio.interceptors.add(
       QueuedInterceptorsWrapper(

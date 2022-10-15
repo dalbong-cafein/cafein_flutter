@@ -45,3 +45,40 @@ class MapKeywordTaped extends MapEvent {
   @override
   List<Object?> get props => [searchKeyword];
 }
+
+class MapSearchResultChanged extends MapEvent {
+  const MapSearchResultChanged({
+    required this.storeList,
+    required this.keyword,
+  });
+
+  final List<Store> storeList;
+  final String keyword;
+
+  @override
+  List<Object?> get props => [
+        storeList,
+        keyword,
+      ];
+}
+
+class MapSearchKeywordDeleteRequested extends MapEvent {
+  const MapSearchKeywordDeleteRequested();
+}
+
+class MapCurrentLocationRequested extends MapEvent {
+  const MapCurrentLocationRequested();
+}
+
+class MapCameraPositionChanged extends MapEvent {
+  const MapCameraPositionChanged({
+    required this.longitude,
+    required this.latitude,
+  });
+
+  final double latitude;
+  final double longitude;
+
+  @override
+  List<Object?> get props => [latitude, longitude];
+}

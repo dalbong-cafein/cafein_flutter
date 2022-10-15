@@ -31,13 +31,16 @@ class MapError extends MapState {
 class MapStoreLoaded extends MapState {
   const MapStoreLoaded({
     required this.stores,
+    required this.keyword,
   });
 
   final List<Store> stores;
+  final String keyword;
 
   @override
   List<Object?> get props => [
         stores,
+        keyword,
       ];
 }
 
@@ -46,16 +49,35 @@ class MapLocationChecked extends MapState {
     required this.location,
     required this.latitude,
     required this.longitude,
+    this.isInitialChecked = false,
   });
 
   final String location;
   final double latitude;
   final double longitude;
+  final bool isInitialChecked;
 
   @override
   List<Object?> get props => [
         location,
         latitude,
         longitude,
+        isInitialChecked,
+      ];
+}
+
+class MapCameraPositionChecked extends MapState {
+  const MapCameraPositionChecked({
+    required this.isDifferentLocation,
+    required this.location,
+  });
+
+  final bool isDifferentLocation;
+  final String location;
+
+  @override
+  List<Object?> get props => [
+        isDifferentLocation,
+        location,
       ];
 }

@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
+import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/widget/search/search_empty_result_card.dart';
 import 'package:cafein_flutter/feature/main/map/widget/search/search_empty_store_card.dart';
@@ -12,6 +13,16 @@ import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+
+class SearchPageResult {
+  final List<Store> storeList;
+  final String keyword;
+
+  const SearchPageResult({
+    required this.storeList,
+    required this.keyword,
+  });
+}
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -83,7 +94,12 @@ class _SearchPageState extends State<SearchPage> {
             return;
           }
 
-          navigator.pop(state.storeList);
+          navigator.pop(
+            SearchPageResult(
+              storeList: state.storeList,
+              keyword: state.keyword,
+            ),
+          );
         }
       },
       child: GestureDetector(

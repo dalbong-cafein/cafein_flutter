@@ -11,7 +11,7 @@ class AppPreference {
     required this.box,
   });
 
-  List<SearchData> getSearchKeyword() => box.get(searchKeywordKey) ?? [];
+  List<SearchData> getSearchKeyword() => List.from(box.get(searchKeywordKey));
 
   Future<void> putSearchKeyword(
     List<String> searchKeywords,

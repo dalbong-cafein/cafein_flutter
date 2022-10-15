@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
@@ -37,23 +38,24 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
-    if (context.read<LocationPermissionBloc>().state ==
-        const LocationPermissionInitial()) {
+    final locationBloc = context.read<LocationPermissionBloc>();
+
+    if (locationBloc.state == const LocationPermissionInitial()) {
       Future.microtask(
-        () => context.read<LocationPermissionBloc>().add(
-              const LocationPermissionRequest(
-                processType: ProcessType.searchRequest,
-              ),
-            ),
+        () => context
+            .read<LocationPermissionBloc>()
+            .add(const LocationPermissionRequest(
+              processType: ProcessType.searchRequest,
+            )),
       );
     } else {
-      final state = context.read<LocationPermissionBloc>().state
-          as LocationPermissionChecked;
-      final bloc = context.read<MapBloc>();
+      final state = locationBloc.state as LocationPermissionChecked;
+      final mapBloc = context.read<MapBloc>();
+
       if (state.permissionStatus.isGranted) {
-        bloc.add(const MapLocationRequested());
+        mapBloc.add(const MapLocationRequested());
       } else {
-        bloc.add(const MapStoreRequested(
+        mapBloc.add(const MapStoreRequested(
           location: CafeinConst.defaultLocation,
         ));
       }
@@ -85,9 +87,11 @@ class _MapPageState extends State<MapPage> {
               moveCurrentCamera(currentLatLng);
               updateCurrentLocation(currentLatLng);
 
-              bloc.add(
-                MapStoreRequested(location: state.location),
-              );
+              if (state.isInitialChecked) {
+                bloc.add(
+                  MapStoreRequested(location: state.location),
+                );
+              } else {}
             } else if (state is MapStoreLoaded) {
               markers.clear();
               markers.addAll(
@@ -133,15 +137,14 @@ class _MapPageState extends State<MapPage> {
         BlocListener<LocationPermissionBloc, LocationPermissionState>(
           listener: (context, state) async {
             final bloc = context.read<MapBloc>();
-            if (state is LocationPermissionChecked &&
-                state.processType == ProcessType.searchRequest) {
-              if (state.permissionStatus.isGranted) {
-                bloc.add(const MapLocationRequested());
 
-                return;
-              }
+            if (state is! LocationPermissionChecked) {
+              return;
+            }
 
+            if (!state.permissionStatus.isGranted) {
               final result = await PermissionDialog.show(context);
+
               if (!result) {
                 bloc.add(const MapStoreRequested(
                   location: CafeinConst.defaultLocation,
@@ -150,6 +153,19 @@ class _MapPageState extends State<MapPage> {
               }
 
               openAppSettings();
+            }
+
+            switch (state.processType) {
+              case ProcessType.searchRequest:
+                bloc.add(const MapLocationRequested());
+
+                break;
+              case ProcessType.currentLocation:
+                bloc.add(const MapCurrentLocationRequested());
+
+                break;
+              case ProcessType.congestion:
+                return;
             }
           },
         ),
@@ -162,6 +178,8 @@ class _MapPageState extends State<MapPage> {
             children: [
               InkWell(
                 onTap: () async {
+                  final bloc = context.read<MapBloc>();
+
                   final result = await Navigator.of(context).pushNamed(
                     SearchPage.routeName,
                   );
@@ -169,6 +187,13 @@ class _MapPageState extends State<MapPage> {
                   if (result == null) {
                     return;
                   }
+
+                  final searchResultData = result as SearchPageResult;
+
+                  bloc.add(MapSearchResultChanged(
+                    storeList: searchResultData.storeList,
+                    keyword: searchResultData.keyword,
+                  ));
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(
@@ -181,18 +206,45 @@ class _MapPageState extends State<MapPage> {
                     borderRadius: BorderRadius.circular(12),
                     color: AppColor.grey50,
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      loadAsset(AppIcon.search, color: AppColor.grey700),
-                      const SizedBox(width: 8),
-                      Text(
-                        '카페 이름, 구, 동, 역 등으로 검색',
-                        style: AppStyle.body15Regular.copyWith(
-                          color: AppColor.grey500,
-                        ),
-                      ),
-                    ],
+                  child: BlocBuilder<MapBloc, MapState>(
+                    buildWhen: (pre, next) => next is MapStoreLoaded,
+                    builder: (context, state) {
+                      if (state is MapStoreLoaded && state.keyword.isNotEmpty) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            loadAsset(AppIcon.search, color: AppColor.grey700),
+                            const SizedBox(width: 8),
+                            Text(
+                              state.keyword,
+                              style: AppStyle.body15Regular,
+                            ),
+                            const Spacer(),
+                            InkWell(
+                              onTap: () => context.read<MapBloc>().add(
+                                    const MapSearchKeywordDeleteRequested(),
+                                  ),
+                              child: loadAsset(
+                                AppIcon.circleDeleteGrey,
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          loadAsset(AppIcon.search, color: AppColor.grey700),
+                          const SizedBox(width: 8),
+                          Text(
+                            '카페 이름, 구, 동, 역 등으로 검색',
+                            style: AppStyle.body15Regular.copyWith(
+                              color: AppColor.grey500,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
@@ -209,6 +261,16 @@ class _MapPageState extends State<MapPage> {
                 target: CafeinConst.defaultLating,
               ),
               markers: markers,
+              onCameraChange: (latLng, reason, isAnimated) {
+                if (isAnimated == true && latLng != null) {
+                  context.read<MapBloc>().add(
+                        MapCameraPositionChanged(
+                          longitude: latLng.longitude,
+                          latitude: latLng.latitude,
+                        ),
+                      );
+                }
+              },
             ),
             BlocBuilder<MapBloc, MapState>(
               buildWhen: (pre, next) => next is MapStoreLoaded,
@@ -250,6 +312,51 @@ class _MapPageState extends State<MapPage> {
                   );
                 }
                 return const CustomCircleLoadingIndicator();
+              },
+            ),
+            BlocBuilder<MapBloc, MapState>(
+              buildWhen: (pre, next) =>
+                  next is MapCameraPositionChecked || next is MapStoreLoaded,
+              builder: (context, state) {
+                if (state is! MapCameraPositionChecked) {
+                  return const SizedBox.shrink();
+                }
+
+                if (!state.isDifferentLocation) {
+                  return const SizedBox.shrink();
+                }
+
+                return Positioned(
+                  top: 12,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: InkWell(
+                      onTap: () => context.read<MapBloc>().add(
+                            MapStoreRequested(
+                              location: state.location,
+                            ),
+                          ),
+                      child: Container(
+                        width: 144,
+                        height: 36,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          color: AppColor.orange500,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '이 지역에서 재검색',
+                            style: AppStyle.subTitle15Medium.copyWith(
+                              color: AppColor.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
               },
             ),
           ],
