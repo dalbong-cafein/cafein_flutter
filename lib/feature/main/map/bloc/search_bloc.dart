@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/common/search_data.dart';
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';

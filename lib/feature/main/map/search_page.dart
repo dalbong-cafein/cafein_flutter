@@ -27,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
   final pagingController =
       PagingController<int, KakaoStoreResponse>(firstPageKey: 1);
   final debouncer = Debouncer(
-    milliseconds: 1000,
+    milliseconds: 500,
   );
 
   bool isEditCompleted = false;
@@ -114,7 +114,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
               child: TextField(
                 controller: textController,
-                maxLength: 10,
+                maxLength: 20,
                 decoration: const InputDecoration(
                   counterText: '',
                   hintText: '카페 이름, 구, 동, 역 등으로 검색',

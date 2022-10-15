@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class SearchStoreResultCard extends StatelessWidget {
   const SearchStoreResultCard({
@@ -14,9 +15,6 @@ class SearchStoreResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: 검색어 필드랑 일치하는 텍스트 처리 필요
-    final storeName = store.placeName;
-
     return SizedBox(
       height: 64,
       child: Padding(
@@ -28,19 +26,16 @@ class SearchStoreResultCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(
+            RichText(
+              text: TextSpan(
+                children: highlightOccurrences(
+                  store.placeName,
                   keyword,
-                  style: AppStyle.subTitle16Medium.copyWith(
-                    color: AppColor.orange500,
-                  ),
                 ),
-                Text(
-                  storeName.replaceAll(keyword, ''),
-                  style: AppStyle.subTitle16Medium,
-                )
-              ],
+                style: AppStyle.subTitle16Medium.copyWith(
+                  color: AppColor.grey800,
+                ),
+              ),
             ),
             Text(
               store.roadAddressName,
@@ -52,5 +47,66 @@ class SearchStoreResultCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<TextSpan> highlightOccurrences(
+    String source,
+    String query,
+  ) {
+    var matches = <Match>[];
+    for (final token in query.trim().toLowerCase().split(' ')) {
+      matches.addAll(token.allMatches(source.toLowerCase()));
+    }
+
+    if (matches.isEmpty) {
+      return [TextSpan(text: source)];
+    }
+    matches.sort((a, b) => a.start.compareTo(b.start));
+
+    int lastMatchEnd = 0;
+    final List<TextSpan> children = [];
+    for (final match in matches) {
+      if (match.end <= lastMatchEnd) {
+        // already matched -> ignore
+      } else if (match.start <= lastMatchEnd) {
+        children.add(
+          TextSpan(
+            text: source.substring(lastMatchEnd, match.end),
+            style: AppStyle.subTitle16Medium.copyWith(
+              color: AppColor.orange500,
+            ),
+          ),
+        );
+      } else if (match.start > lastMatchEnd) {
+        children.add(
+          TextSpan(
+            text: source.substring(lastMatchEnd, match.start),
+          ),
+        );
+
+        children.add(
+          TextSpan(
+            text: source.substring(match.start, match.end),
+            style: AppStyle.subTitle16Medium.copyWith(
+              color: AppColor.orange500,
+            ),
+          ),
+        );
+      }
+
+      if (lastMatchEnd < match.end) {
+        lastMatchEnd = match.end;
+      }
+    }
+
+    if (lastMatchEnd < source.length) {
+      children.add(
+        TextSpan(
+          text: source.substring(lastMatchEnd, source.length),
+        ),
+      );
+    }
+
+    return children;
   }
 }

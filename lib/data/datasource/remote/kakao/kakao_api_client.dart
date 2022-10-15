@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
 import 'package:dio/dio.dart';
 
