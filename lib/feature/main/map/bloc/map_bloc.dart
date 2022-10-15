@@ -73,10 +73,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         ),
       );
     } catch (e) {
-      emit(MapError(
-        error: e,
-        event: () => add(event),
-      ));
+      emit(
+        MapLocationChecked(
+          isInitialChecked: true,
+          location: CafeinConst.defaultLocation,
+          latitude: CafeinConst.defaultLating.latitude,
+          longitude: CafeinConst.defaultLating.longitude,
+        ),
+      );
     }
   }
 

@@ -1,7 +1,9 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
+import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
+import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -25,23 +27,28 @@ class StoreReviewListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reviewCount == 0) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            loadAsset(AppIcon.textBlank),
-            const SizedBox(height: 16),
-            Text(
-              '작성된 리뷰가 없어요',
-              style: AppStyle.caption13Regular.copyWith(
-                color: AppColor.grey600,
+      return SizedBox(
+        height: 186,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              loadAsset(AppIcon.textBlank),
+              const SizedBox(height: 16),
+              Text(
+                '작성된 리뷰가 없어요',
+                style: AppStyle.caption13Regular.copyWith(
+                  color: AppColor.grey600,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
+
+    double boxHeight = 72;
 
     return SizedBox(
       height: (reviews.length > 3 ? 3 : reviews.length) * 240 +
@@ -135,22 +142,15 @@ class _ReviewCardState extends State<_ReviewCard> {
             ],
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 24,
-            width: 80,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: AppColor.orange500,
-                backgroundColor: AppColor.orange50,
-                textStyle: AppStyle.caption13Regular,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-              ),
-              onPressed: () => setState(() => isExpanded = !isExpanded),
-              child: const Text('추천해요'),
+          ReviewRecommendationButton(
+            reviewRecommendation: ReviewRecommendation.values
+                .where(
+                  (element) =>
+                      element.jsonValue == widget.review.recommendation,
+                )
+                .first,
+            onPressed: () => setState(
+              () => isExpanded = !isExpanded,
             ),
           ),
           AnimatedContainer(

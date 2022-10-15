@@ -73,7 +73,7 @@ class StoreStudyInformationCard extends StatelessWidget {
                       children: [
                         TextSpan(
                           text:
-                              '${reviewDetailScore.recommendPercent.round()}%',
+                              '${(reviewDetailScore.recommendPercent?.round() ?? 0)}%',
                           style: AppStyle.subTitle15SemiBold.copyWith(
                             color: AppColor.orange500,
                           ),

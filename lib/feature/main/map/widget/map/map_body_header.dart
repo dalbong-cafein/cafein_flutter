@@ -1,11 +1,8 @@
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
-import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class SearchBodyHeader extends StatelessWidget {
   const SearchBodyHeader({

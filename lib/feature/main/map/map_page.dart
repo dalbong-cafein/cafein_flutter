@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
@@ -87,11 +86,13 @@ class _MapPageState extends State<MapPage> {
               moveCurrentCamera(currentLatLng);
               updateCurrentLocation(currentLatLng);
 
-              if (state.isInitialChecked) {
-                bloc.add(
-                  MapStoreRequested(location: state.location),
-                );
-              } else {}
+              if (!state.isInitialChecked) {
+                return;
+              }
+
+              bloc.add(
+                MapStoreRequested(location: state.location),
+              );
             } else if (state is MapStoreLoaded) {
               markers.clear();
               markers.addAll(

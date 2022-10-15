@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_request.dart';
@@ -27,6 +28,7 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
     on<CongestionLocationRequested>(_onCongestionLocationRequested);
     on<CongestionStickerCountRequested>(_onCongestionStickerCountRequested);
     on<CongestionStickerRequested>(_onCongestionStickerRequested);
+    on<CongestionPossibleRequested>(_onCongestionPossibleRequested);
   }
 
   final CongestionRepository congestionRepository;
@@ -100,7 +102,13 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
         return;
       }
 
-      emit(const CongestionCreatedSucceed());
+      congestionId = response.data;
+
+      if (event.isAvailable) {
+        add(const CongestionStickerRequested());
+      } else {
+        emit(const CongestionCreatedSucceed());
+      }
     } catch (e) {
       emit(
         CongestionError(
@@ -135,20 +143,16 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
   ) async {
     emit(const CongestionLoading());
     try {
-      final response = await stickerRepository.isPossibleSticker(storeId);
+      final response = await stickerRepository.getStickerCount();
 
-      emit(
-        CongestionStickerCountChecked(
-          isAvailable: response.data,
-        ),
-      );
+      emit(CongestionStickerCountChecked(
+        isAvailable: response.data < 20,
+      ));
     } catch (e) {
-      emit(
-        CongestionError(
-          error: e,
-          event: () => add(event),
-        ),
-      );
+      emit(CongestionError(
+        error: e,
+        event: () => add(event),
+      ));
     }
   }
 
@@ -169,9 +173,30 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
         return;
       }
 
-      emit(const CongestionCreatedSucceed());
+      emit(const CongestionStickerCreatedSucceed());
     } catch (e) {
       emit(const CongestionStickerError());
+    }
+  }
+
+  FutureOr<void> _onCongestionPossibleRequested(
+    CongestionPossibleRequested event,
+    Emitter<CongestionState> emit,
+  ) async {
+    emit(const CongestionLoading());
+    try {
+      final response = await stickerRepository.isPossibleSticker(storeId);
+
+      emit(CongestionPossibleChecked(
+        isPossible: response.data,
+      ));
+    } catch (e) {
+      emit(
+        CongestionError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
     }
   }
 }

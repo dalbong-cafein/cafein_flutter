@@ -1,7 +1,9 @@
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_possible_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/created_succed_without_sticker_dialog.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/created_succeed_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/sticker_count_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_bottom_sheet.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -71,17 +73,31 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
         listener: (context, state) async {
           final bloc = context.read<CongestionBloc>();
           final navigator = Navigator.of(context);
+
           if (state is CongestionLocationChecked) {
             if (!state.isAvailable) {
               return;
             }
 
-            bloc.add(const CongestionStickerCountRequested());
+            bloc.add(const CongestionPossibleRequested());
           } else if (state is CongestionError) {
             ErrorDialog.show(
               context,
               error: state.error,
               refresh: state.event,
+            );
+          } else if (state is CongestionPossibleChecked) {
+            if (state.isPossible) {
+              bloc.add(const CongestionStickerCountRequested());
+            } else {
+              CongestionPossibleDialog.show(context);
+            }
+          } else if (state is CongestionCreatedSucceed) {
+            CreatedSucceedWithoutStickerDialog.show(context);
+          } else if (state is CongestionStickerCreatedSucceed) {
+            CreatedSucceedDialog.show(
+              context,
+              isCreatedSticker: true,
             );
           } else if (state is CongestionStickerCountChecked) {
             if (!state.isAvailable) {

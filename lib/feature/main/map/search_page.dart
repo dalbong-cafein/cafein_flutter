@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
   final pagingController =
       PagingController<int, KakaoStoreResponse>(firstPageKey: 1);
   final debouncer = Debouncer(
-    milliseconds: 500,
+    milliseconds: 100,
   );
 
   bool isEditCompleted = false;

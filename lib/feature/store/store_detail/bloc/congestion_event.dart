@@ -52,3 +52,7 @@ class CongestionStickerCountRequested extends CongestionEvent {
 class CongestionStickerRequested extends CongestionEvent {
   const CongestionStickerRequested();
 }
+
+class CongestionPossibleRequested extends CongestionEvent {
+  const CongestionPossibleRequested();
+}

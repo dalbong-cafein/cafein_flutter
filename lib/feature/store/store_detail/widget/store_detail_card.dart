@@ -95,67 +95,70 @@ class StoreDetailCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 240,
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                ),
-                scrollDirection: Axis.horizontal,
-                itemCount: storeDetail.storeImageList.length,
-                itemBuilder: (context, index) {
-                  if (index % 3 == 0) {
-                    return ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      child: CustomCachedNetworkImage(
-                        imageUrl: storeDetail.storeImageList[index].imageUrl,
-                        height: 200,
-                        width: 160,
-                        fit: BoxFit.fitHeight,
-                      ),
-                    );
-                  } else if (index % 3 == 1) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          child: CustomCachedNetworkImage(
-                            imageUrl: storeDetail.storeImageList[index].imageUrl,
-                            height: 96,
-                            width: 96,
-                            fit: BoxFit.cover,
-                          ),
+            if (storeDetail.storeImageList.isNotEmpty)
+              SizedBox(
+                height: 240,
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: storeDetail.storeImageList.length,
+                  itemBuilder: (context, index) {
+                    if (index % 3 == 0) {
+                      return ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
                         ),
-                        if (index + 1 < 8)
+                        child: CustomCachedNetworkImage(
+                          imageUrl: storeDetail.storeImageList[index].imageUrl,
+                          height: 200,
+                          width: 160,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      );
+                    } else if (index % 3 == 1) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           ClipRRect(
                             borderRadius: const BorderRadius.all(
                               Radius.circular(10),
                             ),
                             child: CustomCachedNetworkImage(
-                              imageUrl: storeDetail.storeImageList[index].imageUrl,
+                              imageUrl:
+                                  storeDetail.storeImageList[index].imageUrl,
                               height: 96,
                               width: 96,
                               fit: BoxFit.cover,
                             ),
                           ),
-                      ],
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-                separatorBuilder: (context, index) {
-                  if (index % 3 == 2) {
+                          if (index + 1 < 8)
+                            ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              child: CustomCachedNetworkImage(
+                                imageUrl:
+                                    storeDetail.storeImageList[index].imageUrl,
+                                height: 96,
+                                width: 96,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                        ],
+                      );
+                    }
                     return const SizedBox.shrink();
-                  }
-                  return const SizedBox(width: 8);
-                },
+                  },
+                  separatorBuilder: (context, index) {
+                    if (index % 3 == 2) {
+                      return const SizedBox.shrink();
+                    }
+                    return const SizedBox(width: 8);
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
