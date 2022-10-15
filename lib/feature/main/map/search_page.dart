@@ -182,9 +182,7 @@ class _SearchPageState extends State<SearchPage> {
                 );
               } else if (state is SearchKakaoLoaded) {
                 if (state.storeList.isEmpty) {
-                  return SearchEmptyStoreCard(
-                    keyword: state.keyword,
-                  );
+                  return const SizedBox.shrink();
                 }
 
                 return SafeArea(

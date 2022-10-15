@@ -48,8 +48,6 @@ class StoreReviewListCard extends StatelessWidget {
       );
     }
 
-    double boxHeight = 72;
-
     return SizedBox(
       height: (reviews.length > 3 ? 3 : reviews.length) * 240 +
           (reviews.length > 3 ? 72 : 0),

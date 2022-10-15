@@ -1,6 +1,4 @@
-import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/material.dart';
+part of '../store_congestion_card.dart';
 
 class CreatedSucceedDialog extends StatelessWidget {
   const CreatedSucceedDialog({
@@ -32,7 +30,7 @@ class CreatedSucceedDialog extends StatelessWidget {
         height: isCreatedSticker ? 280 : 140,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 24,
+            vertical: 16,
             horizontal: 16,
           ),
           child: Column(

@@ -1,5 +1,4 @@
-import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/material.dart';
+part of '../store_congestion_card.dart';
 
 class CreatedSucceedWithoutStickerDialog extends StatelessWidget {
   const CreatedSucceedWithoutStickerDialog({Key? key}) : super(key: key);

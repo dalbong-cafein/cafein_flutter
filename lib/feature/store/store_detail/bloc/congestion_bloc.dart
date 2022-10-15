@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_request.dart';
@@ -58,7 +57,7 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
 
       final response = await congestionRepository.getCongestions(
         storeId: storeId,
-        minusDays: minusDay,
+        minusDays: minusDay + 1,
       );
 
       emit(

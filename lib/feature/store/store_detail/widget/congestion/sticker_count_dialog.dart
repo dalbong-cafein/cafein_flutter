@@ -1,5 +1,4 @@
-import 'package:cafein_flutter/resource/resource.dart';
-import 'package:flutter/material.dart';
+part of '../store_congestion_card.dart';
 
 class StickerCountDialog extends StatelessWidget {
   const StickerCountDialog({Key? key}) : super(key: key);
