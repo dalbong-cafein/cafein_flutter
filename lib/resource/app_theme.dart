@@ -63,7 +63,7 @@ abstract class AppTheme {
         ),
       ),
     ),
-    fontFamily: 'SpoqaHanSansNeo',
+    fontFamily: 'Pretendard',
     splashColor: Colors.transparent,
     hoverColor: Colors.transparent,
     highlightColor: Colors.transparent,

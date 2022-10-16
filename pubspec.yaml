@@ -87,6 +87,7 @@ flutter:
           weight: 500
         - asset: font/spoqa_han_sans_neo/SpoqaHanSansNeo-Bold.ttf
           weight: 700
+
     - family: Montserrat
       fonts:
         - asset: font/montserrat/Montserrat-Regular.ttf
@@ -104,6 +105,29 @@ flutter:
           weight : 500
         - asset : font/gmarket_sans/GmarketSansTTFBold.ttf
           weight : 600
+
+    - family: Pretendard
+      fonts:
+        - asset : font/pretendard/Pretendard-ExtraLight.ttf
+          weight : 100
+        - asset : font/pretendard/Pretendard-Light.ttf
+          weight : 200
+        - asset : font/pretendard/Pretendard-Thin.ttf
+          weight : 300
+        - asset : font/pretendard/Pretendard-Regular.ttf
+          weight : 400
+        - asset : font/pretendard/Pretendard-Medium.ttf
+          weight : 500
+        - asset : font/pretendard/Pretendard-SemiBold.ttf
+          weight : 600
+        - asset : font/pretendard/Pretendard-Bold.ttf
+          weight : 700
+        - asset : font/pretendard/Pretendard-ExtraBold.ttf
+          weight : 800
+        - asset : font/pretendard/Pretendard-Black.ttf
+          weight : 900
+
+
 
 flutter_icons:
   android: true
