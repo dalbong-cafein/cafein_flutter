@@ -45,7 +45,8 @@ mixin _$UserReview {
 abstract class $UserReviewCopyWith<$Res> {
   factory $UserReviewCopyWith(
           UserReview value, $Res Function(UserReview) then) =
-      _$UserReviewCopyWithImpl<$Res>;
+      _$UserReviewCopyWithImpl<$Res, UserReview>;
+  @useResult
   $Res call(
       {int reviewId,
       int storeId,
@@ -63,85 +64,90 @@ abstract class $UserReviewCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserReviewCopyWithImpl<$Res> implements $UserReviewCopyWith<$Res> {
+class _$UserReviewCopyWithImpl<$Res, $Val extends UserReview>
+    implements $UserReviewCopyWith<$Res> {
   _$UserReviewCopyWithImpl(this._value, this._then);
 
-  final UserReview _value;
   // ignore: unused_field
-  final $Res Function(UserReview) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? content = freezed,
-    Object? visitCnt = freezed,
-    Object? recommendation = freezed,
-    Object? detailEvaluation = freezed,
+    Object? reviewId = null,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? content = null,
+    Object? visitCnt = null,
+    Object? recommendation = null,
+    Object? detailEvaluation = null,
     Object? reviewImageIdPairs = freezed,
     Object? storeImageIdPairs = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      visitCnt: visitCnt == freezed
+      visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      detailEvaluation: detailEvaluation == freezed
+      detailEvaluation: null == detailEvaluation
           ? _value.detailEvaluation
           : detailEvaluation // ignore: cast_nullable_to_non_nullable
               as DetailEvaluation,
-      reviewImageIdPairs: reviewImageIdPairs == freezed
+      reviewImageIdPairs: freezed == reviewImageIdPairs
           ? _value.reviewImageIdPairs
           : reviewImageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      storeImageIdPairs: storeImageIdPairs == freezed
+      storeImageIdPairs: freezed == storeImageIdPairs
           ? _value.storeImageIdPairs
           : storeImageIdPairs // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $DetailEvaluationCopyWith<$Res> get detailEvaluation {
     return $DetailEvaluationCopyWith<$Res>(_value.detailEvaluation, (value) {
-      return _then(_value.copyWith(detailEvaluation: value));
+      return _then(_value.copyWith(detailEvaluation: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageIdPairCopyWith<$Res>? get storeImageIdPairs {
     if (_value.storeImageIdPairs == null) {
       return null;
     }
 
     return $ImageIdPairCopyWith<$Res>(_value.storeImageIdPairs!, (value) {
-      return _then(_value.copyWith(storeImageIdPairs: value));
+      return _then(_value.copyWith(storeImageIdPairs: value) as $Val);
     });
   }
 }
@@ -153,6 +159,7 @@ abstract class _$$_UserReviewCopyWith<$Res>
           _$_UserReview value, $Res Function(_$_UserReview) then) =
       __$$_UserReviewCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int reviewId,
       int storeId,
@@ -172,66 +179,65 @@ abstract class _$$_UserReviewCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_UserReviewCopyWithImpl<$Res> extends _$UserReviewCopyWithImpl<$Res>
+class __$$_UserReviewCopyWithImpl<$Res>
+    extends _$UserReviewCopyWithImpl<$Res, _$_UserReview>
     implements _$$_UserReviewCopyWith<$Res> {
   __$$_UserReviewCopyWithImpl(
       _$_UserReview _value, $Res Function(_$_UserReview) _then)
-      : super(_value, (v) => _then(v as _$_UserReview));
+      : super(_value, _then);
 
-  @override
-  _$_UserReview get _value => super._value as _$_UserReview;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? content = freezed,
-    Object? visitCnt = freezed,
-    Object? recommendation = freezed,
-    Object? detailEvaluation = freezed,
+    Object? reviewId = null,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? content = null,
+    Object? visitCnt = null,
+    Object? recommendation = null,
+    Object? detailEvaluation = null,
     Object? reviewImageIdPairs = freezed,
     Object? storeImageIdPairs = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_UserReview(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      visitCnt: visitCnt == freezed
+      visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      detailEvaluation: detailEvaluation == freezed
+      detailEvaluation: null == detailEvaluation
           ? _value.detailEvaluation
           : detailEvaluation // ignore: cast_nullable_to_non_nullable
               as DetailEvaluation,
-      reviewImageIdPairs: reviewImageIdPairs == freezed
+      reviewImageIdPairs: freezed == reviewImageIdPairs
           ? _value._reviewImageIdPairs
           : reviewImageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      storeImageIdPairs: storeImageIdPairs == freezed
+      storeImageIdPairs: freezed == storeImageIdPairs
           ? _value.storeImageIdPairs
           : storeImageIdPairs // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -302,40 +308,44 @@ class _$_UserReview implements _UserReview {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserReview &&
-            const DeepCollectionEquality().equals(other.reviewId, reviewId) &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other.visitCnt, visitCnt) &&
-            const DeepCollectionEquality()
-                .equals(other.recommendation, recommendation) &&
-            const DeepCollectionEquality()
-                .equals(other.detailEvaluation, detailEvaluation) &&
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.visitCnt, visitCnt) ||
+                other.visitCnt == visitCnt) &&
+            (identical(other.recommendation, recommendation) ||
+                other.recommendation == recommendation) &&
+            (identical(other.detailEvaluation, detailEvaluation) ||
+                other.detailEvaluation == detailEvaluation) &&
             const DeepCollectionEquality()
                 .equals(other._reviewImageIdPairs, _reviewImageIdPairs) &&
-            const DeepCollectionEquality()
-                .equals(other.storeImageIdPairs, storeImageIdPairs) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.storeImageIdPairs, storeImageIdPairs) ||
+                other.storeImageIdPairs == storeImageIdPairs) &&
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(reviewId),
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(visitCnt),
-      const DeepCollectionEquality().hash(recommendation),
-      const DeepCollectionEquality().hash(detailEvaluation),
+      reviewId,
+      storeId,
+      storeName,
+      content,
+      visitCnt,
+      recommendation,
+      detailEvaluation,
       const DeepCollectionEquality().hash(_reviewImageIdPairs),
-      const DeepCollectionEquality().hash(storeImageIdPairs),
-      const DeepCollectionEquality().hash(registeredDateTime));
+      storeImageIdPairs,
+      registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UserReviewCopyWith<_$_UserReview> get copyWith =>
       __$$_UserReviewCopyWithImpl<_$_UserReview>(this, _$identity);
 

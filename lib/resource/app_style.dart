@@ -72,6 +72,7 @@ abstract class AppStyle {
   static const subTitle14Medium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const body16Regular = TextStyle(
@@ -89,6 +90,7 @@ abstract class AppStyle {
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 20 / 14,
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const caption13SemiBold = TextStyle(

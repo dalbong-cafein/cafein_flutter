@@ -33,29 +33,32 @@ mixin _$PhoneNumberRequest {
 abstract class $PhoneNumberRequestCopyWith<$Res> {
   factory $PhoneNumberRequestCopyWith(
           PhoneNumberRequest value, $Res Function(PhoneNumberRequest) then) =
-      _$PhoneNumberRequestCopyWithImpl<$Res>;
+      _$PhoneNumberRequestCopyWithImpl<$Res, PhoneNumberRequest>;
+  @useResult
   $Res call({@JsonKey(name: 'phone') String phoneNumber});
 }
 
 /// @nodoc
-class _$PhoneNumberRequestCopyWithImpl<$Res>
+class _$PhoneNumberRequestCopyWithImpl<$Res, $Val extends PhoneNumberRequest>
     implements $PhoneNumberRequestCopyWith<$Res> {
   _$PhoneNumberRequestCopyWithImpl(this._value, this._then);
 
-  final PhoneNumberRequest _value;
   // ignore: unused_field
-  final $Res Function(PhoneNumberRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? phoneNumber = freezed,
+    Object? phoneNumber = null,
   }) {
     return _then(_value.copyWith(
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,26 +69,25 @@ abstract class _$$_PhoneNumberRequestCopyWith<$Res>
           $Res Function(_$_PhoneNumberRequest) then) =
       __$$_PhoneNumberRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@JsonKey(name: 'phone') String phoneNumber});
 }
 
 /// @nodoc
 class __$$_PhoneNumberRequestCopyWithImpl<$Res>
-    extends _$PhoneNumberRequestCopyWithImpl<$Res>
+    extends _$PhoneNumberRequestCopyWithImpl<$Res, _$_PhoneNumberRequest>
     implements _$$_PhoneNumberRequestCopyWith<$Res> {
   __$$_PhoneNumberRequestCopyWithImpl(
       _$_PhoneNumberRequest _value, $Res Function(_$_PhoneNumberRequest) _then)
-      : super(_value, (v) => _then(v as _$_PhoneNumberRequest));
+      : super(_value, _then);
 
-  @override
-  _$_PhoneNumberRequest get _value => super._value as _$_PhoneNumberRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? phoneNumber = freezed,
+    Object? phoneNumber = null,
   }) {
     return _then(_$_PhoneNumberRequest(
-      phoneNumber: phoneNumber == freezed
+      phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
@@ -115,17 +117,17 @@ class _$_PhoneNumberRequest implements _PhoneNumberRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PhoneNumberRequest &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber));
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(phoneNumber));
+  int get hashCode => Object.hash(runtimeType, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PhoneNumberRequestCopyWith<_$_PhoneNumberRequest> get copyWith =>
       __$$_PhoneNumberRequestCopyWithImpl<_$_PhoneNumberRequest>(
           this, _$identity);

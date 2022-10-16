@@ -46,7 +46,8 @@ mixin _$TotalBusinessInfo {
 abstract class $TotalBusinessInfoCopyWith<$Res> {
   factory $TotalBusinessInfoCopyWith(
           TotalBusinessInfo value, $Res Function(TotalBusinessInfo) then) =
-      _$TotalBusinessInfoCopyWithImpl<$Res>;
+      _$TotalBusinessInfoCopyWithImpl<$Res, TotalBusinessInfo>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'onMon') BusinessInfo? onMonday,
       @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
@@ -67,14 +68,16 @@ abstract class $TotalBusinessInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TotalBusinessInfoCopyWithImpl<$Res>
+class _$TotalBusinessInfoCopyWithImpl<$Res, $Val extends TotalBusinessInfo>
     implements $TotalBusinessInfoCopyWith<$Res> {
   _$TotalBusinessInfoCopyWithImpl(this._value, this._then);
 
-  final TotalBusinessInfo _value;
   // ignore: unused_field
-  final $Res Function(TotalBusinessInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? onMonday = freezed,
@@ -84,118 +87,125 @@ class _$TotalBusinessInfoCopyWithImpl<$Res>
     Object? onFriday = freezed,
     Object? onSaturday = freezed,
     Object? onSunday = freezed,
-    Object? etcTime = freezed,
+    Object? etcTime = null,
   }) {
     return _then(_value.copyWith(
-      onMonday: onMonday == freezed
+      onMonday: freezed == onMonday
           ? _value.onMonday
           : onMonday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onTuesday: onTuesday == freezed
+      onTuesday: freezed == onTuesday
           ? _value.onTuesday
           : onTuesday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onWednesday: onWednesday == freezed
+      onWednesday: freezed == onWednesday
           ? _value.onWednesday
           : onWednesday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onThursday: onThursday == freezed
+      onThursday: freezed == onThursday
           ? _value.onThursday
           : onThursday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onFriday: onFriday == freezed
+      onFriday: freezed == onFriday
           ? _value.onFriday
           : onFriday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onSaturday: onSaturday == freezed
+      onSaturday: freezed == onSaturday
           ? _value.onSaturday
           : onSaturday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onSunday: onSunday == freezed
+      onSunday: freezed == onSunday
           ? _value.onSunday
           : onSunday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      etcTime: etcTime == freezed
+      etcTime: null == etcTime
           ? _value.etcTime
           : etcTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onMonday {
     if (_value.onMonday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onMonday!, (value) {
-      return _then(_value.copyWith(onMonday: value));
+      return _then(_value.copyWith(onMonday: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onTuesday {
     if (_value.onTuesday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onTuesday!, (value) {
-      return _then(_value.copyWith(onTuesday: value));
+      return _then(_value.copyWith(onTuesday: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onWednesday {
     if (_value.onWednesday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onWednesday!, (value) {
-      return _then(_value.copyWith(onWednesday: value));
+      return _then(_value.copyWith(onWednesday: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onThursday {
     if (_value.onThursday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onThursday!, (value) {
-      return _then(_value.copyWith(onThursday: value));
+      return _then(_value.copyWith(onThursday: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onFriday {
     if (_value.onFriday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onFriday!, (value) {
-      return _then(_value.copyWith(onFriday: value));
+      return _then(_value.copyWith(onFriday: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onSaturday {
     if (_value.onSaturday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onSaturday!, (value) {
-      return _then(_value.copyWith(onSaturday: value));
+      return _then(_value.copyWith(onSaturday: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res>? get onSunday {
     if (_value.onSunday == null) {
       return null;
     }
 
     return $BusinessInfoCopyWith<$Res>(_value.onSunday!, (value) {
-      return _then(_value.copyWith(onSunday: value));
+      return _then(_value.copyWith(onSunday: value) as $Val);
     });
   }
 }
@@ -207,6 +217,7 @@ abstract class _$$_TotalBusinessInfoCopyWith<$Res>
           $Res Function(_$_TotalBusinessInfo) then) =
       __$$_TotalBusinessInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'onMon') BusinessInfo? onMonday,
       @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
@@ -235,15 +246,13 @@ abstract class _$$_TotalBusinessInfoCopyWith<$Res>
 
 /// @nodoc
 class __$$_TotalBusinessInfoCopyWithImpl<$Res>
-    extends _$TotalBusinessInfoCopyWithImpl<$Res>
+    extends _$TotalBusinessInfoCopyWithImpl<$Res, _$_TotalBusinessInfo>
     implements _$$_TotalBusinessInfoCopyWith<$Res> {
   __$$_TotalBusinessInfoCopyWithImpl(
       _$_TotalBusinessInfo _value, $Res Function(_$_TotalBusinessInfo) _then)
-      : super(_value, (v) => _then(v as _$_TotalBusinessInfo));
+      : super(_value, _then);
 
-  @override
-  _$_TotalBusinessInfo get _value => super._value as _$_TotalBusinessInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? onMonday = freezed,
@@ -253,38 +262,38 @@ class __$$_TotalBusinessInfoCopyWithImpl<$Res>
     Object? onFriday = freezed,
     Object? onSaturday = freezed,
     Object? onSunday = freezed,
-    Object? etcTime = freezed,
+    Object? etcTime = null,
   }) {
     return _then(_$_TotalBusinessInfo(
-      onMonday: onMonday == freezed
+      onMonday: freezed == onMonday
           ? _value.onMonday
           : onMonday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onTuesday: onTuesday == freezed
+      onTuesday: freezed == onTuesday
           ? _value.onTuesday
           : onTuesday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onWednesday: onWednesday == freezed
+      onWednesday: freezed == onWednesday
           ? _value.onWednesday
           : onWednesday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onThursday: onThursday == freezed
+      onThursday: freezed == onThursday
           ? _value.onThursday
           : onThursday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onFriday: onFriday == freezed
+      onFriday: freezed == onFriday
           ? _value.onFriday
           : onFriday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onSaturday: onSaturday == freezed
+      onSaturday: freezed == onSaturday
           ? _value.onSaturday
           : onSaturday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      onSunday: onSunday == freezed
+      onSunday: freezed == onSunday
           ? _value.onSunday
           : onSunday // ignore: cast_nullable_to_non_nullable
               as BusinessInfo?,
-      etcTime: etcTime == freezed
+      etcTime: null == etcTime
           ? _value.etcTime
           : etcTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -342,34 +351,31 @@ class _$_TotalBusinessInfo implements _TotalBusinessInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TotalBusinessInfo &&
-            const DeepCollectionEquality().equals(other.onMonday, onMonday) &&
-            const DeepCollectionEquality().equals(other.onTuesday, onTuesday) &&
-            const DeepCollectionEquality()
-                .equals(other.onWednesday, onWednesday) &&
-            const DeepCollectionEquality()
-                .equals(other.onThursday, onThursday) &&
-            const DeepCollectionEquality().equals(other.onFriday, onFriday) &&
-            const DeepCollectionEquality()
-                .equals(other.onSaturday, onSaturday) &&
-            const DeepCollectionEquality().equals(other.onSunday, onSunday) &&
-            const DeepCollectionEquality().equals(other.etcTime, etcTime));
+            (identical(other.onMonday, onMonday) ||
+                other.onMonday == onMonday) &&
+            (identical(other.onTuesday, onTuesday) ||
+                other.onTuesday == onTuesday) &&
+            (identical(other.onWednesday, onWednesday) ||
+                other.onWednesday == onWednesday) &&
+            (identical(other.onThursday, onThursday) ||
+                other.onThursday == onThursday) &&
+            (identical(other.onFriday, onFriday) ||
+                other.onFriday == onFriday) &&
+            (identical(other.onSaturday, onSaturday) ||
+                other.onSaturday == onSaturday) &&
+            (identical(other.onSunday, onSunday) ||
+                other.onSunday == onSunday) &&
+            (identical(other.etcTime, etcTime) || other.etcTime == etcTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(onMonday),
-      const DeepCollectionEquality().hash(onTuesday),
-      const DeepCollectionEquality().hash(onWednesday),
-      const DeepCollectionEquality().hash(onThursday),
-      const DeepCollectionEquality().hash(onFriday),
-      const DeepCollectionEquality().hash(onSaturday),
-      const DeepCollectionEquality().hash(onSunday),
-      const DeepCollectionEquality().hash(etcTime));
+  int get hashCode => Object.hash(runtimeType, onMonday, onTuesday, onWednesday,
+      onThursday, onFriday, onSaturday, onSunday, etcTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TotalBusinessInfoCopyWith<_$_TotalBusinessInfo> get copyWith =>
       __$$_TotalBusinessInfoCopyWithImpl<_$_TotalBusinessInfo>(
           this, _$identity);

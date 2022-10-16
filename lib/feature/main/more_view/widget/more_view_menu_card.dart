@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
+import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoreViewMenuCard extends StatelessWidget {
   const MoreViewMenuCard({
@@ -20,6 +23,8 @@ class MoreViewMenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _authProvider = context.watch<UserRepository>().getAuthProvider;
+
     return InkWell(
       onTap: onTab,
       child: SizedBox(
@@ -36,15 +41,19 @@ class MoreViewMenuCard extends StatelessWidget {
             if (authProvider)
               Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: loadAsset(AppIcon.kakaoCircle),
+                child: loadAsset(
+                  _authProvider == AuthProvider.kakao.name
+                      ? AppIcon.kakaoCircle
+                      : AppIcon.appleCircle,
+                ),
               ),
             trailingWidget ??
                 Transform.rotate(
                   angle: pi,
                   child: loadAsset(
                     AppIcon.leftS,
-                    color : AppColor.grey400
-                  )
+                    color: AppColor.grey400,
+                  ),
                 ),
           ],
         ),

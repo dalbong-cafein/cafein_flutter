@@ -35,7 +35,8 @@ mixin _$Coupon {
 /// @nodoc
 abstract class $CouponCopyWith<$Res> {
   factory $CouponCopyWith(Coupon value, $Res Function(Coupon) then) =
-      _$CouponCopyWithImpl<$Res>;
+      _$CouponCopyWithImpl<$Res, Coupon>;
+  @useResult
   $Res call(
       {int couponId,
       String brandName,
@@ -45,43 +46,46 @@ abstract class $CouponCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
+class _$CouponCopyWithImpl<$Res, $Val extends Coupon>
+    implements $CouponCopyWith<$Res> {
   _$CouponCopyWithImpl(this._value, this._then);
 
-  final Coupon _value;
   // ignore: unused_field
-  final $Res Function(Coupon) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? couponId = freezed,
-    Object? brandName = freezed,
-    Object? itemName = freezed,
-    Object? status = freezed,
-    Object? registeredDateTime = freezed,
+    Object? couponId = null,
+    Object? brandName = null,
+    Object? itemName = null,
+    Object? status = null,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      couponId: couponId == freezed
+      couponId: null == couponId
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as int,
-      brandName: brandName == freezed
+      brandName: null == brandName
           ? _value.brandName
           : brandName // ignore: cast_nullable_to_non_nullable
               as String,
-      itemName: itemName == freezed
+      itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as bool,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -90,6 +94,7 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
   factory _$$_CouponCopyWith(_$_Coupon value, $Res Function(_$_Coupon) then) =
       __$$_CouponCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int couponId,
       String brandName,
@@ -99,40 +104,39 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
+class __$$_CouponCopyWithImpl<$Res>
+    extends _$CouponCopyWithImpl<$Res, _$_Coupon>
     implements _$$_CouponCopyWith<$Res> {
   __$$_CouponCopyWithImpl(_$_Coupon _value, $Res Function(_$_Coupon) _then)
-      : super(_value, (v) => _then(v as _$_Coupon));
+      : super(_value, _then);
 
-  @override
-  _$_Coupon get _value => super._value as _$_Coupon;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? couponId = freezed,
-    Object? brandName = freezed,
-    Object? itemName = freezed,
-    Object? status = freezed,
-    Object? registeredDateTime = freezed,
+    Object? couponId = null,
+    Object? brandName = null,
+    Object? itemName = null,
+    Object? status = null,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_Coupon(
-      couponId: couponId == freezed
+      couponId: null == couponId
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as int,
-      brandName: brandName == freezed
+      brandName: null == brandName
           ? _value.brandName
           : brandName // ignore: cast_nullable_to_non_nullable
               as String,
-      itemName: itemName == freezed
+      itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as bool,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -175,26 +179,25 @@ class _$_Coupon implements _Coupon {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Coupon &&
-            const DeepCollectionEquality().equals(other.couponId, couponId) &&
-            const DeepCollectionEquality().equals(other.brandName, brandName) &&
-            const DeepCollectionEquality().equals(other.itemName, itemName) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.couponId, couponId) ||
+                other.couponId == couponId) &&
+            (identical(other.brandName, brandName) ||
+                other.brandName == brandName) &&
+            (identical(other.itemName, itemName) ||
+                other.itemName == itemName) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(couponId),
-      const DeepCollectionEquality().hash(brandName),
-      const DeepCollectionEquality().hash(itemName),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(registeredDateTime));
+      runtimeType, couponId, brandName, itemName, status, registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CouponCopyWith<_$_Coupon> get copyWith =>
       __$$_CouponCopyWithImpl<_$_Coupon>(this, _$identity);
 

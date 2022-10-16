@@ -21,7 +21,7 @@ ReviewDetailScore _$ReviewDetailScoreFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ReviewDetailScore {
   int get reviewCnt => throw _privateConstructorUsedError;
-  double get recommendPercent => throw _privateConstructorUsedError;
+  double? get recommendPercent => throw _privateConstructorUsedError;
   String get socket => throw _privateConstructorUsedError;
   int get socketCnt => throw _privateConstructorUsedError;
   String get wifi => throw _privateConstructorUsedError;
@@ -41,10 +41,11 @@ mixin _$ReviewDetailScore {
 abstract class $ReviewDetailScoreCopyWith<$Res> {
   factory $ReviewDetailScoreCopyWith(
           ReviewDetailScore value, $Res Function(ReviewDetailScore) then) =
-      _$ReviewDetailScoreCopyWithImpl<$Res>;
+      _$ReviewDetailScoreCopyWithImpl<$Res, ReviewDetailScore>;
+  @useResult
   $Res call(
       {int reviewCnt,
-      double recommendPercent,
+      double? recommendPercent,
       String socket,
       int socketCnt,
       String wifi,
@@ -56,69 +57,71 @@ abstract class $ReviewDetailScoreCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ReviewDetailScoreCopyWithImpl<$Res>
+class _$ReviewDetailScoreCopyWithImpl<$Res, $Val extends ReviewDetailScore>
     implements $ReviewDetailScoreCopyWith<$Res> {
   _$ReviewDetailScoreCopyWithImpl(this._value, this._then);
 
-  final ReviewDetailScore _value;
   // ignore: unused_field
-  final $Res Function(ReviewDetailScore) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewCnt = freezed,
+    Object? reviewCnt = null,
     Object? recommendPercent = freezed,
-    Object? socket = freezed,
-    Object? socketCnt = freezed,
-    Object? wifi = freezed,
-    Object? wifiCnt = freezed,
-    Object? restroom = freezed,
-    Object? restroomCnt = freezed,
-    Object? tableSize = freezed,
-    Object? tableCnt = freezed,
+    Object? socket = null,
+    Object? socketCnt = null,
+    Object? wifi = null,
+    Object? wifiCnt = null,
+    Object? restroom = null,
+    Object? restroomCnt = null,
+    Object? tableSize = null,
+    Object? tableCnt = null,
   }) {
     return _then(_value.copyWith(
-      reviewCnt: reviewCnt == freezed
+      reviewCnt: null == reviewCnt
           ? _value.reviewCnt
           : reviewCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendPercent: recommendPercent == freezed
+      recommendPercent: freezed == recommendPercent
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
-              as double,
-      socket: socket == freezed
+              as double?,
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      socketCnt: socketCnt == freezed
+      socketCnt: null == socketCnt
           ? _value.socketCnt
           : socketCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      wifiCnt: wifiCnt == freezed
+      wifiCnt: null == wifiCnt
           ? _value.wifiCnt
           : wifiCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      restroomCnt: restroomCnt == freezed
+      restroomCnt: null == restroomCnt
           ? _value.restroomCnt
           : restroomCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-      tableCnt: tableCnt == freezed
+      tableCnt: null == tableCnt
           ? _value.tableCnt
           : tableCnt // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -129,9 +132,10 @@ abstract class _$$_ReviewDetailScoreCopyWith<$Res>
           $Res Function(_$_ReviewDetailScore) then) =
       __$$_ReviewDetailScoreCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int reviewCnt,
-      double recommendPercent,
+      double? recommendPercent,
       String socket,
       int socketCnt,
       String wifi,
@@ -144,66 +148,64 @@ abstract class _$$_ReviewDetailScoreCopyWith<$Res>
 
 /// @nodoc
 class __$$_ReviewDetailScoreCopyWithImpl<$Res>
-    extends _$ReviewDetailScoreCopyWithImpl<$Res>
+    extends _$ReviewDetailScoreCopyWithImpl<$Res, _$_ReviewDetailScore>
     implements _$$_ReviewDetailScoreCopyWith<$Res> {
   __$$_ReviewDetailScoreCopyWithImpl(
       _$_ReviewDetailScore _value, $Res Function(_$_ReviewDetailScore) _then)
-      : super(_value, (v) => _then(v as _$_ReviewDetailScore));
+      : super(_value, _then);
 
-  @override
-  _$_ReviewDetailScore get _value => super._value as _$_ReviewDetailScore;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewCnt = freezed,
+    Object? reviewCnt = null,
     Object? recommendPercent = freezed,
-    Object? socket = freezed,
-    Object? socketCnt = freezed,
-    Object? wifi = freezed,
-    Object? wifiCnt = freezed,
-    Object? restroom = freezed,
-    Object? restroomCnt = freezed,
-    Object? tableSize = freezed,
-    Object? tableCnt = freezed,
+    Object? socket = null,
+    Object? socketCnt = null,
+    Object? wifi = null,
+    Object? wifiCnt = null,
+    Object? restroom = null,
+    Object? restroomCnt = null,
+    Object? tableSize = null,
+    Object? tableCnt = null,
   }) {
     return _then(_$_ReviewDetailScore(
-      reviewCnt: reviewCnt == freezed
+      reviewCnt: null == reviewCnt
           ? _value.reviewCnt
           : reviewCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendPercent: recommendPercent == freezed
+      recommendPercent: freezed == recommendPercent
           ? _value.recommendPercent
           : recommendPercent // ignore: cast_nullable_to_non_nullable
-              as double,
-      socket: socket == freezed
+              as double?,
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      socketCnt: socketCnt == freezed
+      socketCnt: null == socketCnt
           ? _value.socketCnt
           : socketCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      wifiCnt: wifiCnt == freezed
+      wifiCnt: null == wifiCnt
           ? _value.wifiCnt
           : wifiCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      restroomCnt: restroomCnt == freezed
+      restroomCnt: null == restroomCnt
           ? _value.restroomCnt
           : restroomCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-      tableCnt: tableCnt == freezed
+      tableCnt: null == tableCnt
           ? _value.tableCnt
           : tableCnt // ignore: cast_nullable_to_non_nullable
               as int,
@@ -216,7 +218,7 @@ class __$$_ReviewDetailScoreCopyWithImpl<$Res>
 class _$_ReviewDetailScore implements _ReviewDetailScore {
   _$_ReviewDetailScore(
       {required this.reviewCnt,
-      required this.recommendPercent,
+      this.recommendPercent,
       required this.socket,
       required this.socketCnt,
       required this.wifi,
@@ -232,7 +234,7 @@ class _$_ReviewDetailScore implements _ReviewDetailScore {
   @override
   final int reviewCnt;
   @override
-  final double recommendPercent;
+  final double? recommendPercent;
   @override
   final String socket;
   @override
@@ -260,37 +262,43 @@ class _$_ReviewDetailScore implements _ReviewDetailScore {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ReviewDetailScore &&
-            const DeepCollectionEquality().equals(other.reviewCnt, reviewCnt) &&
-            const DeepCollectionEquality()
-                .equals(other.recommendPercent, recommendPercent) &&
-            const DeepCollectionEquality().equals(other.socket, socket) &&
-            const DeepCollectionEquality().equals(other.socketCnt, socketCnt) &&
-            const DeepCollectionEquality().equals(other.wifi, wifi) &&
-            const DeepCollectionEquality().equals(other.wifiCnt, wifiCnt) &&
-            const DeepCollectionEquality().equals(other.restroom, restroom) &&
-            const DeepCollectionEquality()
-                .equals(other.restroomCnt, restroomCnt) &&
-            const DeepCollectionEquality().equals(other.tableSize, tableSize) &&
-            const DeepCollectionEquality().equals(other.tableCnt, tableCnt));
+            (identical(other.reviewCnt, reviewCnt) ||
+                other.reviewCnt == reviewCnt) &&
+            (identical(other.recommendPercent, recommendPercent) ||
+                other.recommendPercent == recommendPercent) &&
+            (identical(other.socket, socket) || other.socket == socket) &&
+            (identical(other.socketCnt, socketCnt) ||
+                other.socketCnt == socketCnt) &&
+            (identical(other.wifi, wifi) || other.wifi == wifi) &&
+            (identical(other.wifiCnt, wifiCnt) || other.wifiCnt == wifiCnt) &&
+            (identical(other.restroom, restroom) ||
+                other.restroom == restroom) &&
+            (identical(other.restroomCnt, restroomCnt) ||
+                other.restroomCnt == restroomCnt) &&
+            (identical(other.tableSize, tableSize) ||
+                other.tableSize == tableSize) &&
+            (identical(other.tableCnt, tableCnt) ||
+                other.tableCnt == tableCnt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(reviewCnt),
-      const DeepCollectionEquality().hash(recommendPercent),
-      const DeepCollectionEquality().hash(socket),
-      const DeepCollectionEquality().hash(socketCnt),
-      const DeepCollectionEquality().hash(wifi),
-      const DeepCollectionEquality().hash(wifiCnt),
-      const DeepCollectionEquality().hash(restroom),
-      const DeepCollectionEquality().hash(restroomCnt),
-      const DeepCollectionEquality().hash(tableSize),
-      const DeepCollectionEquality().hash(tableCnt));
+      reviewCnt,
+      recommendPercent,
+      socket,
+      socketCnt,
+      wifi,
+      wifiCnt,
+      restroom,
+      restroomCnt,
+      tableSize,
+      tableCnt);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReviewDetailScoreCopyWith<_$_ReviewDetailScore> get copyWith =>
       __$$_ReviewDetailScoreCopyWithImpl<_$_ReviewDetailScore>(
           this, _$identity);
@@ -306,7 +314,7 @@ class _$_ReviewDetailScore implements _ReviewDetailScore {
 abstract class _ReviewDetailScore implements ReviewDetailScore {
   factory _ReviewDetailScore(
       {required final int reviewCnt,
-      required final double recommendPercent,
+      final double? recommendPercent,
       required final String socket,
       required final int socketCnt,
       required final String wifi,
@@ -322,7 +330,7 @@ abstract class _ReviewDetailScore implements ReviewDetailScore {
   @override
   int get reviewCnt;
   @override
-  double get recommendPercent;
+  double? get recommendPercent;
   @override
   String get socket;
   @override

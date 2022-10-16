@@ -34,36 +34,39 @@ mixin _$CongestionResponse {
 abstract class $CongestionResponseCopyWith<$Res> {
   factory $CongestionResponseCopyWith(
           CongestionResponse value, $Res Function(CongestionResponse) then) =
-      _$CongestionResponseCopyWithImpl<$Res>;
+      _$CongestionResponseCopyWithImpl<$Res, CongestionResponse>;
+  @useResult
   $Res call(
       {int congestionCnt,
       @JsonKey(name: 'resDtoList') List<Congestion> congestionList});
 }
 
 /// @nodoc
-class _$CongestionResponseCopyWithImpl<$Res>
+class _$CongestionResponseCopyWithImpl<$Res, $Val extends CongestionResponse>
     implements $CongestionResponseCopyWith<$Res> {
   _$CongestionResponseCopyWithImpl(this._value, this._then);
 
-  final CongestionResponse _value;
   // ignore: unused_field
-  final $Res Function(CongestionResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? congestionCnt = freezed,
-    Object? congestionList = freezed,
+    Object? congestionCnt = null,
+    Object? congestionList = null,
   }) {
     return _then(_value.copyWith(
-      congestionCnt: congestionCnt == freezed
+      congestionCnt: null == congestionCnt
           ? _value.congestionCnt
           : congestionCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      congestionList: congestionList == freezed
+      congestionList: null == congestionList
           ? _value.congestionList
           : congestionList // ignore: cast_nullable_to_non_nullable
               as List<Congestion>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -74,6 +77,7 @@ abstract class _$$_CongestionResponseCopyWith<$Res>
           $Res Function(_$_CongestionResponse) then) =
       __$$_CongestionResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int congestionCnt,
       @JsonKey(name: 'resDtoList') List<Congestion> congestionList});
@@ -81,26 +85,24 @@ abstract class _$$_CongestionResponseCopyWith<$Res>
 
 /// @nodoc
 class __$$_CongestionResponseCopyWithImpl<$Res>
-    extends _$CongestionResponseCopyWithImpl<$Res>
+    extends _$CongestionResponseCopyWithImpl<$Res, _$_CongestionResponse>
     implements _$$_CongestionResponseCopyWith<$Res> {
   __$$_CongestionResponseCopyWithImpl(
       _$_CongestionResponse _value, $Res Function(_$_CongestionResponse) _then)
-      : super(_value, (v) => _then(v as _$_CongestionResponse));
+      : super(_value, _then);
 
-  @override
-  _$_CongestionResponse get _value => super._value as _$_CongestionResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? congestionCnt = freezed,
-    Object? congestionList = freezed,
+    Object? congestionCnt = null,
+    Object? congestionList = null,
   }) {
     return _then(_$_CongestionResponse(
-      congestionCnt: congestionCnt == freezed
+      congestionCnt: null == congestionCnt
           ? _value.congestionCnt
           : congestionCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      congestionList: congestionList == freezed
+      congestionList: null == congestionList
           ? _value._congestionList
           : congestionList // ignore: cast_nullable_to_non_nullable
               as List<Congestion>,
@@ -140,21 +142,20 @@ class _$_CongestionResponse implements _CongestionResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CongestionResponse &&
-            const DeepCollectionEquality()
-                .equals(other.congestionCnt, congestionCnt) &&
+            (identical(other.congestionCnt, congestionCnt) ||
+                other.congestionCnt == congestionCnt) &&
             const DeepCollectionEquality()
                 .equals(other._congestionList, _congestionList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(congestionCnt),
+  int get hashCode => Object.hash(runtimeType, congestionCnt,
       const DeepCollectionEquality().hash(_congestionList));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CongestionResponseCopyWith<_$_CongestionResponse> get copyWith =>
       __$$_CongestionResponseCopyWithImpl<_$_CongestionResponse>(
           this, _$identity);

@@ -34,34 +34,38 @@ mixin _$MoreViewCountResponse {
 abstract class $MoreViewCountResponseCopyWith<$Res> {
   factory $MoreViewCountResponseCopyWith(MoreViewCountResponse value,
           $Res Function(MoreViewCountResponse) then) =
-      _$MoreViewCountResponseCopyWithImpl<$Res>;
+      _$MoreViewCountResponseCopyWithImpl<$Res, MoreViewCountResponse>;
+  @useResult
   $Res call({int storeCnt, int reviewCnt});
 }
 
 /// @nodoc
-class _$MoreViewCountResponseCopyWithImpl<$Res>
+class _$MoreViewCountResponseCopyWithImpl<$Res,
+        $Val extends MoreViewCountResponse>
     implements $MoreViewCountResponseCopyWith<$Res> {
   _$MoreViewCountResponseCopyWithImpl(this._value, this._then);
 
-  final MoreViewCountResponse _value;
   // ignore: unused_field
-  final $Res Function(MoreViewCountResponse) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeCnt = freezed,
-    Object? reviewCnt = freezed,
+    Object? storeCnt = null,
+    Object? reviewCnt = null,
   }) {
     return _then(_value.copyWith(
-      storeCnt: storeCnt == freezed
+      storeCnt: null == storeCnt
           ? _value.storeCnt
           : storeCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      reviewCnt: reviewCnt == freezed
+      reviewCnt: null == reviewCnt
           ? _value.reviewCnt
           : reviewCnt // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -72,32 +76,30 @@ abstract class _$$_MoreViewCountResponseCopyWith<$Res>
           $Res Function(_$_MoreViewCountResponse) then) =
       __$$_MoreViewCountResponseCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int storeCnt, int reviewCnt});
 }
 
 /// @nodoc
 class __$$_MoreViewCountResponseCopyWithImpl<$Res>
-    extends _$MoreViewCountResponseCopyWithImpl<$Res>
+    extends _$MoreViewCountResponseCopyWithImpl<$Res, _$_MoreViewCountResponse>
     implements _$$_MoreViewCountResponseCopyWith<$Res> {
   __$$_MoreViewCountResponseCopyWithImpl(_$_MoreViewCountResponse _value,
       $Res Function(_$_MoreViewCountResponse) _then)
-      : super(_value, (v) => _then(v as _$_MoreViewCountResponse));
+      : super(_value, _then);
 
-  @override
-  _$_MoreViewCountResponse get _value =>
-      super._value as _$_MoreViewCountResponse;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeCnt = freezed,
-    Object? reviewCnt = freezed,
+    Object? storeCnt = null,
+    Object? reviewCnt = null,
   }) {
     return _then(_$_MoreViewCountResponse(
-      storeCnt: storeCnt == freezed
+      storeCnt: null == storeCnt
           ? _value.storeCnt
           : storeCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      reviewCnt: reviewCnt == freezed
+      reviewCnt: null == reviewCnt
           ? _value.reviewCnt
           : reviewCnt // ignore: cast_nullable_to_non_nullable
               as int,
@@ -128,19 +130,19 @@ class _$_MoreViewCountResponse implements _MoreViewCountResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MoreViewCountResponse &&
-            const DeepCollectionEquality().equals(other.storeCnt, storeCnt) &&
-            const DeepCollectionEquality().equals(other.reviewCnt, reviewCnt));
+            (identical(other.storeCnt, storeCnt) ||
+                other.storeCnt == storeCnt) &&
+            (identical(other.reviewCnt, reviewCnt) ||
+                other.reviewCnt == reviewCnt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(storeCnt),
-      const DeepCollectionEquality().hash(reviewCnt));
+  int get hashCode => Object.hash(runtimeType, storeCnt, reviewCnt);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_MoreViewCountResponseCopyWith<_$_MoreViewCountResponse> get copyWith =>
       __$$_MoreViewCountResponseCopyWithImpl<_$_MoreViewCountResponse>(
           this, _$identity);

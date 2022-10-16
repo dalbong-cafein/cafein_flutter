@@ -1,7 +1,7 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
+import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/calculate_distance.dart';
@@ -26,11 +26,11 @@ class SearchStoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageDatas = [...store.imageIdPair ?? []];
-    if (imageDatas.length < 4) {
-      final length = 4 - imageDatas.length;
+    final imageList = [...store.imageIdPair ?? []];
+    if (imageList.length < 4) {
+      final length = 4 - imageList.length;
       for (int i = 0; i < length; i++) {
-        imageDatas.add(
+        imageList.add(
           ImageIdPair(
             imageId: -1,
             imageUrl: CafeinConst.defaultStoreImage,
@@ -65,21 +65,21 @@ class SearchStoreCard extends StatelessWidget {
                   style: AppStyle.subTitle16SemiBold,
                 ),
                 InkWell(
-                  onTap: () => context.read<SearchBloc>().add(
-                        SearchStoreHeartRequested(
+                  onTap: () => context.read<MapBloc>().add(
+                        MapStoreHeartRequested(
                           isLike: !store.isHeart,
                           index: index,
                         ),
                       ),
                   child: store.isHeart
                       ? loadAsset(
-                    AppIcon.heartOn,
-                    color : AppColor.orange500
-                  )
+                          AppIcon.heartOn,
+                          color: AppColor.orange500,
+                        )
                       : loadAsset(
-                    AppIcon.heartLine,
-                    color : AppColor.grey300
-                  )
+                          AppIcon.heartLine,
+                          color: AppColor.grey300,
+                        ),
                 ),
               ],
             ),
@@ -101,7 +101,7 @@ class SearchStoreCard extends StatelessWidget {
             StoreAdditionalInformationRow(
               textStyle: AppStyle.caption12Regular,
               distance: calculateDistance(
-                currentLatLng: context.watch<SearchBloc>().currentLatLng,
+                currentLatLng: context.watch<MapBloc>().currentLatLng,
                 targetLatLng: LatLng(store.latY, store.lngX),
               ),
               recommendScore: store.recommendPercent?.toInt() ?? 0,
@@ -120,7 +120,7 @@ class SearchStoreCard extends StatelessWidget {
                         Radius.circular(8),
                       ),
                       child: CustomCachedNetworkImage(
-                        imageUrl: imageDatas[index].imageUrl,
+                        imageUrl: imageList[index].imageUrl,
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
@@ -138,13 +138,13 @@ class SearchStoreCard extends StatelessWidget {
                             Radius.circular(8),
                           ),
                           child: CustomCachedNetworkImage(
-                            imageUrl: imageDatas[3].imageUrl,
+                            imageUrl: imageList[3].imageUrl,
                             width: 70,
                             height: 70,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        if (imageDatas.length >= 5)
+                        if (imageList.length >= 5)
                           Container(
                             width: 70,
                             height: 70,
@@ -156,7 +156,7 @@ class SearchStoreCard extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                '+${imageDatas.length - 4}',
+                                '+${imageList.length - 4}',
                                 style: AppStyle.subTitle15Medium.copyWith(
                                   color: AppColor.white,
                                 ),

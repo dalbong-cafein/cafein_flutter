@@ -40,7 +40,8 @@ mixin _$RegisteredStore {
 abstract class $RegisteredStoreCopyWith<$Res> {
   factory $RegisteredStoreCopyWith(
           RegisteredStore value, $Res Function(RegisteredStore) then) =
-      _$RegisteredStoreCopyWithImpl<$Res>;
+      _$RegisteredStoreCopyWithImpl<$Res, RegisteredStore>;
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -54,66 +55,70 @@ abstract class $RegisteredStoreCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RegisteredStoreCopyWithImpl<$Res>
+class _$RegisteredStoreCopyWithImpl<$Res, $Val extends RegisteredStore>
     implements $RegisteredStoreCopyWith<$Res> {
   _$RegisteredStoreCopyWithImpl(this._value, this._then);
 
-  final RegisteredStore _value;
   // ignore: unused_field
-  final $Res Function(RegisteredStore) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? businessInfo = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? businessInfo = null,
     Object? congestionScoreAvg = freezed,
     Object? imageIdPair = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      businessInfo: businessInfo == freezed
+      businessInfo: null == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $BusinessInfoCopyWith<$Res> get businessInfo {
     return $BusinessInfoCopyWith<$Res>(_value.businessInfo, (value) {
-      return _then(_value.copyWith(businessInfo: value));
+      return _then(_value.copyWith(businessInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageIdPairCopyWith<$Res>? get imageIdPair {
     if (_value.imageIdPair == null) {
       return null;
     }
 
     return $ImageIdPairCopyWith<$Res>(_value.imageIdPair!, (value) {
-      return _then(_value.copyWith(imageIdPair: value));
+      return _then(_value.copyWith(imageIdPair: value) as $Val);
     });
   }
 }
@@ -125,6 +130,7 @@ abstract class _$$_RegisteredStoreCopyWith<$Res>
           _$_RegisteredStore value, $Res Function(_$_RegisteredStore) then) =
       __$$_RegisteredStoreCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -141,46 +147,44 @@ abstract class _$$_RegisteredStoreCopyWith<$Res>
 
 /// @nodoc
 class __$$_RegisteredStoreCopyWithImpl<$Res>
-    extends _$RegisteredStoreCopyWithImpl<$Res>
+    extends _$RegisteredStoreCopyWithImpl<$Res, _$_RegisteredStore>
     implements _$$_RegisteredStoreCopyWith<$Res> {
   __$$_RegisteredStoreCopyWithImpl(
       _$_RegisteredStore _value, $Res Function(_$_RegisteredStore) _then)
-      : super(_value, (v) => _then(v as _$_RegisteredStore));
+      : super(_value, _then);
 
-  @override
-  _$_RegisteredStore get _value => super._value as _$_RegisteredStore;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? businessInfo = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? businessInfo = null,
     Object? congestionScoreAvg = freezed,
     Object? imageIdPair = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_RegisteredStore(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      businessInfo: businessInfo == freezed
+      businessInfo: null == businessInfo
           ? _value.businessInfo
           : businessInfo // ignore: cast_nullable_to_non_nullable
               as BusinessInfo,
-      congestionScoreAvg: congestionScoreAvg == freezed
+      congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
               as double?,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: freezed == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -228,31 +232,27 @@ class _$_RegisteredStore implements _RegisteredStore {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RegisteredStore &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality()
-                .equals(other.businessInfo, businessInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.congestionScoreAvg, congestionScoreAvg) &&
-            const DeepCollectionEquality()
-                .equals(other.imageIdPair, imageIdPair) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.businessInfo, businessInfo) ||
+                other.businessInfo == businessInfo) &&
+            (identical(other.congestionScoreAvg, congestionScoreAvg) ||
+                other.congestionScoreAvg == congestionScoreAvg) &&
+            (identical(other.imageIdPair, imageIdPair) ||
+                other.imageIdPair == imageIdPair) &&
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(businessInfo),
-      const DeepCollectionEquality().hash(congestionScoreAvg),
-      const DeepCollectionEquality().hash(imageIdPair),
-      const DeepCollectionEquality().hash(registeredDateTime));
+  int get hashCode => Object.hash(runtimeType, storeId, storeName, businessInfo,
+      congestionScoreAvg, imageIdPair, registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RegisteredStoreCopyWith<_$_RegisteredStore> get copyWith =>
       __$$_RegisteredStoreCopyWithImpl<_$_RegisteredStore>(this, _$identity);
 

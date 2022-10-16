@@ -50,18 +50,10 @@ class SignOffPage extends StatelessWidget {
                   style: AppStyle.title19SemiBold,
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    MoreViewCountCard(
-                      title: '내가 등록한 카페',
-                      value: moreViewCountResponse.storeCnt,
-                    ),
-                    const SizedBox(width: 8),
-                    MoreViewCountCard(
-                      title: '내가 쓴 리뷰',
-                      value: moreViewCountResponse.reviewCnt,
-                    ),
-                  ],
+                MoreViewCountCard(
+                  title: '내가 쓴 리뷰',
+                  isExpanded: true,
+                  value: moreViewCountResponse.reviewCnt,
                 ),
                 const SizedBox(height: 56),
                 Center(
@@ -74,7 +66,6 @@ class SignOffPage extends StatelessWidget {
                   children: [
                     loadAsset(
                       AppIcon.checkCircleOn,
-                      color : AppColor.orange400
                     ),
                     const SizedBox(width: 12),
                     const Text(
@@ -130,8 +121,8 @@ class _InfoRow extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(4),
           child: loadAsset(
-            AppIcon.doneOn
-          )
+            AppIcon.doneOn,
+          ),
         ),
         const SizedBox(width: 12),
         Text(

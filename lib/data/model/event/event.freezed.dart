@@ -33,7 +33,8 @@ mixin _$Event {
 /// @nodoc
 abstract class $EventCopyWith<$Res> {
   factory $EventCopyWith(Event value, $Res Function(Event) then) =
-      _$EventCopyWithImpl<$Res>;
+      _$EventCopyWithImpl<$Res, Event>;
+  @useResult
   $Res call(
       {int eventId,
       int boardId,
@@ -43,39 +44,43 @@ abstract class $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
+class _$EventCopyWithImpl<$Res, $Val extends Event>
+    implements $EventCopyWith<$Res> {
   _$EventCopyWithImpl(this._value, this._then);
 
-  final Event _value;
   // ignore: unused_field
-  final $Res Function(Event) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventId = freezed,
-    Object? boardId = freezed,
-    Object? imageIdPair = freezed,
+    Object? eventId = null,
+    Object? boardId = null,
+    Object? imageIdPair = null,
   }) {
     return _then(_value.copyWith(
-      eventId: eventId == freezed
+      eventId: null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as int,
-      boardId: boardId == freezed
+      boardId: null == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
               as int,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: null == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageIdPairCopyWith<$Res> get imageIdPair {
     return $ImageIdPairCopyWith<$Res>(_value.imageIdPair, (value) {
-      return _then(_value.copyWith(imageIdPair: value));
+      return _then(_value.copyWith(imageIdPair: value) as $Val);
     });
   }
 }
@@ -85,6 +90,7 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   factory _$$_EventCopyWith(_$_Event value, $Res Function(_$_Event) then) =
       __$$_EventCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int eventId,
       int boardId,
@@ -95,30 +101,28 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
+class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     implements _$$_EventCopyWith<$Res> {
   __$$_EventCopyWithImpl(_$_Event _value, $Res Function(_$_Event) _then)
-      : super(_value, (v) => _then(v as _$_Event));
+      : super(_value, _then);
 
-  @override
-  _$_Event get _value => super._value as _$_Event;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? eventId = freezed,
-    Object? boardId = freezed,
-    Object? imageIdPair = freezed,
+    Object? eventId = null,
+    Object? boardId = null,
+    Object? imageIdPair = null,
   }) {
     return _then(_$_Event(
-      eventId: eventId == freezed
+      eventId: null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as int,
-      boardId: boardId == freezed
+      boardId: null == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
               as int,
-      imageIdPair: imageIdPair == freezed
+      imageIdPair: null == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
               as ImageIdPair,
@@ -155,22 +159,19 @@ class _$_Event implements _Event {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Event &&
-            const DeepCollectionEquality().equals(other.eventId, eventId) &&
-            const DeepCollectionEquality().equals(other.boardId, boardId) &&
-            const DeepCollectionEquality()
-                .equals(other.imageIdPair, imageIdPair));
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.boardId, boardId) || other.boardId == boardId) &&
+            (identical(other.imageIdPair, imageIdPair) ||
+                other.imageIdPair == imageIdPair));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(eventId),
-      const DeepCollectionEquality().hash(boardId),
-      const DeepCollectionEquality().hash(imageIdPair));
+  int get hashCode => Object.hash(runtimeType, eventId, boardId, imageIdPair);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_EventCopyWith<_$_Event> get copyWith =>
       __$$_EventCopyWithImpl<_$_Event>(this, _$identity);
 

@@ -39,7 +39,8 @@ mixin _$Review {
 /// @nodoc
 abstract class $ReviewCopyWith<$Res> {
   factory $ReviewCopyWith(Review value, $Res Function(Review) then) =
-      _$ReviewCopyWithImpl<$Res>;
+      _$ReviewCopyWithImpl<$Res, Review>;
+  @useResult
   $Res call(
       {int reviewId,
       int writerId,
@@ -52,58 +53,61 @@ abstract class $ReviewCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
+class _$ReviewCopyWithImpl<$Res, $Val extends Review>
+    implements $ReviewCopyWith<$Res> {
   _$ReviewCopyWithImpl(this._value, this._then);
 
-  final Review _value;
   // ignore: unused_field
-  final $Res Function(Review) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? writerId = freezed,
-    Object? nickNameOfWriter = freezed,
+    Object? reviewId = null,
+    Object? writerId = null,
+    Object? nickNameOfWriter = null,
     Object? profileImageUrl = freezed,
-    Object? visitCnt = freezed,
-    Object? content = freezed,
+    Object? visitCnt = null,
+    Object? content = null,
     Object? imageIdPairs = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_value.copyWith(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      writerId: writerId == freezed
+      writerId: null == writerId
           ? _value.writerId
           : writerId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickNameOfWriter: nickNameOfWriter == freezed
+      nickNameOfWriter: null == nickNameOfWriter
           ? _value.nickNameOfWriter
           : nickNameOfWriter // ignore: cast_nullable_to_non_nullable
               as String,
-      profileImageUrl: profileImageUrl == freezed
+      profileImageUrl: freezed == profileImageUrl
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      visitCnt: visitCnt == freezed
+      visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      imageIdPairs: imageIdPairs == freezed
+      imageIdPairs: freezed == imageIdPairs
           ? _value.imageIdPairs
           : imageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -112,6 +116,7 @@ abstract class _$$_ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   factory _$$_ReviewCopyWith(_$_Review value, $Res Function(_$_Review) then) =
       __$$_ReviewCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int reviewId,
       int writerId,
@@ -124,55 +129,54 @@ abstract class _$$_ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
+class __$$_ReviewCopyWithImpl<$Res>
+    extends _$ReviewCopyWithImpl<$Res, _$_Review>
     implements _$$_ReviewCopyWith<$Res> {
   __$$_ReviewCopyWithImpl(_$_Review _value, $Res Function(_$_Review) _then)
-      : super(_value, (v) => _then(v as _$_Review));
+      : super(_value, _then);
 
-  @override
-  _$_Review get _value => super._value as _$_Review;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? writerId = freezed,
-    Object? nickNameOfWriter = freezed,
+    Object? reviewId = null,
+    Object? writerId = null,
+    Object? nickNameOfWriter = null,
     Object? profileImageUrl = freezed,
-    Object? visitCnt = freezed,
-    Object? content = freezed,
+    Object? visitCnt = null,
+    Object? content = null,
     Object? imageIdPairs = freezed,
-    Object? registeredDateTime = freezed,
+    Object? registeredDateTime = null,
   }) {
     return _then(_$_Review(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      writerId: writerId == freezed
+      writerId: null == writerId
           ? _value.writerId
           : writerId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickNameOfWriter: nickNameOfWriter == freezed
+      nickNameOfWriter: null == nickNameOfWriter
           ? _value.nickNameOfWriter
           : nickNameOfWriter // ignore: cast_nullable_to_non_nullable
               as String,
-      profileImageUrl: profileImageUrl == freezed
+      profileImageUrl: freezed == profileImageUrl
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      visitCnt: visitCnt == freezed
+      visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      imageIdPairs: imageIdPairs == freezed
+      imageIdPairs: freezed == imageIdPairs
           ? _value._imageIdPairs
           : imageIdPairs // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>?,
-      registeredDateTime: registeredDateTime == freezed
+      registeredDateTime: null == registeredDateTime
           ? _value.registeredDateTime
           : registeredDateTime // ignore: cast_nullable_to_non_nullable
               as String,
@@ -235,35 +239,39 @@ class _$_Review implements _Review {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Review &&
-            const DeepCollectionEquality().equals(other.reviewId, reviewId) &&
-            const DeepCollectionEquality().equals(other.writerId, writerId) &&
-            const DeepCollectionEquality()
-                .equals(other.nickNameOfWriter, nickNameOfWriter) &&
-            const DeepCollectionEquality()
-                .equals(other.profileImageUrl, profileImageUrl) &&
-            const DeepCollectionEquality().equals(other.visitCnt, visitCnt) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.writerId, writerId) ||
+                other.writerId == writerId) &&
+            (identical(other.nickNameOfWriter, nickNameOfWriter) ||
+                other.nickNameOfWriter == nickNameOfWriter) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl) &&
+            (identical(other.visitCnt, visitCnt) ||
+                other.visitCnt == visitCnt) &&
+            (identical(other.content, content) || other.content == content) &&
             const DeepCollectionEquality()
                 .equals(other._imageIdPairs, _imageIdPairs) &&
-            const DeepCollectionEquality()
-                .equals(other.registeredDateTime, registeredDateTime));
+            (identical(other.registeredDateTime, registeredDateTime) ||
+                other.registeredDateTime == registeredDateTime));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(reviewId),
-      const DeepCollectionEquality().hash(writerId),
-      const DeepCollectionEquality().hash(nickNameOfWriter),
-      const DeepCollectionEquality().hash(profileImageUrl),
-      const DeepCollectionEquality().hash(visitCnt),
-      const DeepCollectionEquality().hash(content),
+      reviewId,
+      writerId,
+      nickNameOfWriter,
+      profileImageUrl,
+      visitCnt,
+      content,
       const DeepCollectionEquality().hash(_imageIdPairs),
-      const DeepCollectionEquality().hash(registeredDateTime));
+      registeredDateTime);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ReviewCopyWith<_$_Review> get copyWith =>
       __$$_ReviewCopyWithImpl<_$_Review>(this, _$identity);
 

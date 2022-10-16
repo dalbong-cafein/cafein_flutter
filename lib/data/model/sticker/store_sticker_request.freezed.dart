@@ -32,29 +32,32 @@ mixin _$StoreStickerRequest {
 abstract class $StoreStickerRequestCopyWith<$Res> {
   factory $StoreStickerRequestCopyWith(
           StoreStickerRequest value, $Res Function(StoreStickerRequest) then) =
-      _$StoreStickerRequestCopyWithImpl<$Res>;
+      _$StoreStickerRequestCopyWithImpl<$Res, StoreStickerRequest>;
+  @useResult
   $Res call({int storeId});
 }
 
 /// @nodoc
-class _$StoreStickerRequestCopyWithImpl<$Res>
+class _$StoreStickerRequestCopyWithImpl<$Res, $Val extends StoreStickerRequest>
     implements $StoreStickerRequestCopyWith<$Res> {
   _$StoreStickerRequestCopyWithImpl(this._value, this._then);
 
-  final StoreStickerRequest _value;
   // ignore: unused_field
-  final $Res Function(StoreStickerRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
+    Object? storeId = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$_StoreStickerRequestCopyWith<$Res>
           $Res Function(_$_StoreStickerRequest) then) =
       __$$_StoreStickerRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int storeId});
 }
 
 /// @nodoc
 class __$$_StoreStickerRequestCopyWithImpl<$Res>
-    extends _$StoreStickerRequestCopyWithImpl<$Res>
+    extends _$StoreStickerRequestCopyWithImpl<$Res, _$_StoreStickerRequest>
     implements _$$_StoreStickerRequestCopyWith<$Res> {
   __$$_StoreStickerRequestCopyWithImpl(_$_StoreStickerRequest _value,
       $Res Function(_$_StoreStickerRequest) _then)
-      : super(_value, (v) => _then(v as _$_StoreStickerRequest));
+      : super(_value, _then);
 
-  @override
-  _$_StoreStickerRequest get _value => super._value as _$_StoreStickerRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
+    Object? storeId = null,
   }) {
     return _then(_$_StoreStickerRequest(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
@@ -113,16 +115,16 @@ class _$_StoreStickerRequest implements _StoreStickerRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StoreStickerRequest &&
-            const DeepCollectionEquality().equals(other.storeId, storeId));
+            (identical(other.storeId, storeId) || other.storeId == storeId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(storeId));
+  int get hashCode => Object.hash(runtimeType, storeId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreStickerRequestCopyWith<_$_StoreStickerRequest> get copyWith =>
       __$$_StoreStickerRequestCopyWithImpl<_$_StoreStickerRequest>(
           this, _$identity);

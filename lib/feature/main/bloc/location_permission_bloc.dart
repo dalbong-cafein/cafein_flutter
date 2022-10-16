@@ -11,6 +11,7 @@ enum ProcessType {
   searchRequest,
   currentLocation,
   congestion,
+  home,
 }
 
 class LocationPermissionBloc

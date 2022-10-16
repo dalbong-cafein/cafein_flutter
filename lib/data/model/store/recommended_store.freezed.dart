@@ -35,7 +35,8 @@ mixin _$RecommendedStore {
 abstract class $RecommendedStoreCopyWith<$Res> {
   factory $RecommendedStoreCopyWith(
           RecommendedStore value, $Res Function(RecommendedStore) then) =
-      _$RecommendedStoreCopyWithImpl<$Res>;
+      _$RecommendedStoreCopyWithImpl<$Res, RecommendedStore>;
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -45,40 +46,43 @@ abstract class $RecommendedStoreCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RecommendedStoreCopyWithImpl<$Res>
+class _$RecommendedStoreCopyWithImpl<$Res, $Val extends RecommendedStore>
     implements $RecommendedStoreCopyWith<$Res> {
   _$RecommendedStoreCopyWithImpl(this._value, this._then);
 
-  final RecommendedStore _value;
   // ignore: unused_field
-  final $Res Function(RecommendedStore) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? addressInfo = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? addressInfo = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      addressInfo: addressInfo == freezed
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
               as AddressInfo,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $AddressInfoCopyWith<$Res> get addressInfo {
     return $AddressInfoCopyWith<$Res>(_value.addressInfo, (value) {
-      return _then(_value.copyWith(addressInfo: value));
+      return _then(_value.copyWith(addressInfo: value) as $Val);
     });
   }
 }
@@ -90,6 +94,7 @@ abstract class _$$_RecommendedStoreCopyWith<$Res>
           _$_RecommendedStore value, $Res Function(_$_RecommendedStore) then) =
       __$$_RecommendedStoreCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String storeName,
@@ -101,31 +106,29 @@ abstract class _$$_RecommendedStoreCopyWith<$Res>
 
 /// @nodoc
 class __$$_RecommendedStoreCopyWithImpl<$Res>
-    extends _$RecommendedStoreCopyWithImpl<$Res>
+    extends _$RecommendedStoreCopyWithImpl<$Res, _$_RecommendedStore>
     implements _$$_RecommendedStoreCopyWith<$Res> {
   __$$_RecommendedStoreCopyWithImpl(
       _$_RecommendedStore _value, $Res Function(_$_RecommendedStore) _then)
-      : super(_value, (v) => _then(v as _$_RecommendedStore));
+      : super(_value, _then);
 
-  @override
-  _$_RecommendedStore get _value => super._value as _$_RecommendedStore;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? addressInfo = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? addressInfo = null,
   }) {
     return _then(_$_RecommendedStore(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      addressInfo: addressInfo == freezed
+      addressInfo: null == addressInfo
           ? _value.addressInfo
           : addressInfo // ignore: cast_nullable_to_non_nullable
               as AddressInfo,
@@ -162,22 +165,20 @@ class _$_RecommendedStore implements _RecommendedStore {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RecommendedStore &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality()
-                .equals(other.addressInfo, addressInfo));
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.addressInfo, addressInfo) ||
+                other.addressInfo == addressInfo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(addressInfo));
+  int get hashCode => Object.hash(runtimeType, storeId, storeName, addressInfo);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RecommendedStoreCopyWith<_$_RecommendedStore> get copyWith =>
       __$$_RecommendedStoreCopyWithImpl<_$_RecommendedStore>(this, _$identity);
 

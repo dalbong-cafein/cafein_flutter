@@ -34,7 +34,8 @@ mixin _$CreateReivewRequest {
 abstract class $CreateReivewRequestCopyWith<$Res> {
   factory $CreateReivewRequestCopyWith(
           CreateReivewRequest value, $Res Function(CreateReivewRequest) then) =
-      _$CreateReivewRequestCopyWithImpl<$Res>;
+      _$CreateReivewRequestCopyWithImpl<$Res, CreateReivewRequest>;
+  @useResult
   $Res call(
       {int storeId,
       String recommendation,
@@ -47,59 +48,61 @@ abstract class $CreateReivewRequestCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CreateReivewRequestCopyWithImpl<$Res>
+class _$CreateReivewRequestCopyWithImpl<$Res, $Val extends CreateReivewRequest>
     implements $CreateReivewRequestCopyWith<$Res> {
   _$CreateReivewRequestCopyWithImpl(this._value, this._then);
 
-  final CreateReivewRequest _value;
   // ignore: unused_field
-  final $Res Function(CreateReivewRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? recommendation = freezed,
-    Object? content = freezed,
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? storeId = null,
+    Object? recommendation = null,
+    Object? content = null,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
     Object? imageFiles = freezed,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-      imageFiles: imageFiles == freezed
+      imageFiles: freezed == imageFiles
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -110,6 +113,7 @@ abstract class _$$_CreateReivewRequestCopyWith<$Res>
           $Res Function(_$_CreateReivewRequest) then) =
       __$$_CreateReivewRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int storeId,
       String recommendation,
@@ -123,56 +127,54 @@ abstract class _$$_CreateReivewRequestCopyWith<$Res>
 
 /// @nodoc
 class __$$_CreateReivewRequestCopyWithImpl<$Res>
-    extends _$CreateReivewRequestCopyWithImpl<$Res>
+    extends _$CreateReivewRequestCopyWithImpl<$Res, _$_CreateReivewRequest>
     implements _$$_CreateReivewRequestCopyWith<$Res> {
   __$$_CreateReivewRequestCopyWithImpl(_$_CreateReivewRequest _value,
       $Res Function(_$_CreateReivewRequest) _then)
-      : super(_value, (v) => _then(v as _$_CreateReivewRequest));
+      : super(_value, _then);
 
-  @override
-  _$_CreateReivewRequest get _value => super._value as _$_CreateReivewRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? recommendation = freezed,
-    Object? content = freezed,
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? storeId = null,
+    Object? recommendation = null,
+    Object? content = null,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
     Object? imageFiles = freezed,
   }) {
     return _then(_$_CreateReivewRequest(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-      imageFiles: imageFiles == freezed
+      imageFiles: freezed == imageFiles
           ? _value._imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
@@ -227,14 +229,16 @@ class _$_CreateReivewRequest implements _CreateReivewRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateReivewRequest &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality()
-                .equals(other.recommendation, recommendation) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other.socket, socket) &&
-            const DeepCollectionEquality().equals(other.wifi, wifi) &&
-            const DeepCollectionEquality().equals(other.restroom, restroom) &&
-            const DeepCollectionEquality().equals(other.tableSize, tableSize) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.recommendation, recommendation) ||
+                other.recommendation == recommendation) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.socket, socket) || other.socket == socket) &&
+            (identical(other.wifi, wifi) || other.wifi == wifi) &&
+            (identical(other.restroom, restroom) ||
+                other.restroom == restroom) &&
+            (identical(other.tableSize, tableSize) ||
+                other.tableSize == tableSize) &&
             const DeepCollectionEquality()
                 .equals(other._imageFiles, _imageFiles));
   }
@@ -242,17 +246,18 @@ class _$_CreateReivewRequest implements _CreateReivewRequest {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(recommendation),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(socket),
-      const DeepCollectionEquality().hash(wifi),
-      const DeepCollectionEquality().hash(restroom),
-      const DeepCollectionEquality().hash(tableSize),
+      storeId,
+      recommendation,
+      content,
+      socket,
+      wifi,
+      restroom,
+      tableSize,
       const DeepCollectionEquality().hash(_imageFiles));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CreateReivewRequestCopyWith<_$_CreateReivewRequest> get copyWith =>
       __$$_CreateReivewRequestCopyWithImpl<_$_CreateReivewRequest>(
           this, _$identity);

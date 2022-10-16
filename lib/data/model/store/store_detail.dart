@@ -12,7 +12,7 @@ class StoreDetail with _$StoreDetail {
   factory StoreDetail({
     required int storeId,
     required String storeName,
-    required String nicknameOfModMember,
+    String? nicknameOfModMember,
     @JsonKey(name: 'memberImageDto') ImageIdPair? imageIdPair,
     @JsonKey(name: 'address') required AddressInfo addressInfo,
     String? wifiPassword,
@@ -24,12 +24,14 @@ class StoreDetail with _$StoreDetail {
     required List<ImageIdPair> reviewImageList,
     required List<ImageIdPair> storeImageList,
     double? congestionScoreAvg,
-    @JsonKey(name: 'totalBusinessHoursResDto') TotalBusinessInfo? totalBusinessInfo,
+    @JsonKey(name: 'totalBusinessHoursResDto')
+        TotalBusinessInfo? totalBusinessInfo,
     required String regDateTime,
     required String modDateTime,
     String? phone,
     String? website,
   }) = _StoreDetail;
 
-  factory StoreDetail.fromJson(Map<String, dynamic> json) => _$StoreDetailFromJson(json);
+  factory StoreDetail.fromJson(Map<String, dynamic> json) =>
+      _$StoreDetailFromJson(json);
 }

@@ -7,12 +7,12 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/home_page.dart';
+import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
+import 'package:cafein_flutter/feature/main/map/map_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/notification_page.dart';
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
-import 'package:cafein_flutter/feature/main/search/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,13 +33,13 @@ class MainPage extends StatelessWidget {
         ),
         child: const HomePage(),
       ),
-      BlocProvider<SearchBloc>(
-        create: (context) => SearchBloc(
+      BlocProvider<MapBloc>(
+        create: (context) => MapBloc(
           userRepository: context.read<UserRepository>(),
           storeRepository: context.read<StoreRepository>(),
           heartRepository: context.read<HeartRepository>(),
         ),
-        child: const SearchPage(),
+        child: const MapPage(),
       ),
       BlocProvider<NotificationBloc>(
         create: (context) => NotificationBloc(

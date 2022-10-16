@@ -1,8 +1,10 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
+import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
+import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -67,67 +69,54 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                 ],
               ),
               const Spacer(),
-              !isAvailableEdit
-                  ? loadAsset(
-                      AppIcon.optionVert,
-                      color: AppColor.grey400,
-                    )
-                  : SizedBox(
-                      height: 32,
-                      width: 52,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final bloc = context.read<RegisteredReviewBloc>();
+              if (isAvailableEdit)
+                SizedBox(
+                  height: 32,
+                  width: 52,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final bloc = context.read<RegisteredReviewBloc>();
 
-                          final result = await Navigator.of(context).pushNamed(
-                            UpdatedReviewPage.routeName,
-                            arguments: widget.review,
-                          );
+                      final result = await Navigator.of(context).pushNamed(
+                        UpdatedReviewPage.routeName,
+                        arguments: widget.review,
+                      );
 
-                          if (result is! bool) {
-                            return;
-                          }
+                      if (result is! bool) {
+                        return;
+                      }
 
-                          if (!result) {
-                            return;
-                          }
+                      if (!result) {
+                        return;
+                      }
 
-                          bloc.add(const RegisteredReviewRequested());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: AppColor.grey800,
-                          backgroundColor: AppColor.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          textStyle: AppStyle.subTitle15Medium,
-                          side: const BorderSide(
-                            color: AppColor.grey400,
-                            width: 1,
-                          ),
-                        ),
-                        child: const Text('수정'),
+                      bloc.add(const RegisteredReviewRequested());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: AppColor.grey800,
+                      backgroundColor: AppColor.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      textStyle: AppStyle.subTitle15Medium,
+                      side: const BorderSide(
+                        color: AppColor.grey400,
+                        width: 1,
                       ),
                     ),
+                    child: const Text('수정'),
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 24,
-            width: 80,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: AppColor.orange500,
-                backgroundColor: AppColor.orange50,
-                textStyle: AppStyle.caption13Regular,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-              ),
-              onPressed: () => setState(() => isExpanded = !isExpanded),
-              child: const Text('추천해요'),
+          ReviewRecommendationButton(
+            reviewRecommendation: ReviewRecommendation.values
+                .where((element) =>
+                    element.jsonValue == widget.review.recommendation)
+                .first,
+            onPressed: () => setState(
+              () => isExpanded = !isExpanded,
             ),
           ),
           AnimatedContainer(
@@ -230,10 +219,8 @@ class _ReviewDetailRow extends StatelessWidget {
           const SizedBox(width: 4),
           RatingBarIndicator(
             rating: reviewScore.toDouble(),
-            itemBuilder: (context, index) => loadAsset(
-              AppIcon.starL,
-              color : AppColor.orange400
-            ),
+            itemBuilder: (context, index) =>
+                loadAsset(AppIcon.starL, color: AppColor.orange400),
             itemCount: 4,
             itemSize: 12,
             unratedColor: AppColor.grey200,

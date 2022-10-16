@@ -1,11 +1,8 @@
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class SearchBodyHeader extends StatelessWidget {
   const SearchBodyHeader({
@@ -28,22 +25,11 @@ class SearchBodyHeader extends StatelessWidget {
           Positioned(
             left: 20,
             child: InkWell(
-              onTap: () async {
-                final state = context.read<LocationPermissionBloc>().state;
-                if (state is! LocationPermissionChecked) {
-                  return;
-                }
-                if (!state.permissionStatus.isGranted) {
-                  final result = await PermissionDialog.show(context);
-                  if (!result) {
-                    return;
-                  }
-                  openAppSettings();
-                  return;
-                }
-
-                context.read<SearchBloc>().add(const SearchLocationRequested());
-              },
+              onTap: () => context.read<LocationPermissionBloc>().add(
+                    const LocationPermissionRequest(
+                      processType: ProcessType.currentLocation,
+                    ),
+                  ),
               child: CircleAvatar(
                 radius: 25,
                 backgroundColor: AppColor.white,

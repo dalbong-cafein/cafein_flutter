@@ -61,6 +61,21 @@ class CongestionCreatedSucceed extends CongestionState {
   const CongestionCreatedSucceed();
 }
 
+class CongestionStickerCreatedSucceed extends CongestionState {
+  const CongestionStickerCreatedSucceed();
+}
+
+class CongestionPossibleChecked extends CongestionState {
+  const CongestionPossibleChecked({
+    required this.isPossible,
+  });
+
+  final bool isPossible;
+
+  @override
+  List<Object?> get props => [isPossible];
+}
+
 class CongestionError extends CongestionState {
   const CongestionError({
     required this.error,

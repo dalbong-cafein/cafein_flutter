@@ -7,7 +7,7 @@ part 'review_score_detail.freezed.dart';
 class ReviewDetailScore with _$ReviewDetailScore {
   factory ReviewDetailScore({
     required int reviewCnt,
-    required double recommendPercent,
+    double? recommendPercent,
     required String socket,
     required int socketCnt,
     required String wifi,

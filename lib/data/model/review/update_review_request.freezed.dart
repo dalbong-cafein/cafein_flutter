@@ -35,7 +35,8 @@ mixin _$UpdateReviewRequest {
 abstract class $UpdateReviewRequestCopyWith<$Res> {
   factory $UpdateReviewRequestCopyWith(
           UpdateReviewRequest value, $Res Function(UpdateReviewRequest) then) =
-      _$UpdateReviewRequestCopyWithImpl<$Res>;
+      _$UpdateReviewRequestCopyWithImpl<$Res, UpdateReviewRequest>;
+  @useResult
   $Res call(
       {int reviewId,
       String recommendation,
@@ -49,64 +50,66 @@ abstract class $UpdateReviewRequestCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UpdateReviewRequestCopyWithImpl<$Res>
+class _$UpdateReviewRequestCopyWithImpl<$Res, $Val extends UpdateReviewRequest>
     implements $UpdateReviewRequestCopyWith<$Res> {
   _$UpdateReviewRequestCopyWithImpl(this._value, this._then);
 
-  final UpdateReviewRequest _value;
   // ignore: unused_field
-  final $Res Function(UpdateReviewRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? recommendation = freezed,
-    Object? content = freezed,
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? reviewId = null,
+    Object? recommendation = null,
+    Object? content = null,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
     Object? updateImageFiles = freezed,
     Object? deleteImageIds = freezed,
   }) {
     return _then(_value.copyWith(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-      updateImageFiles: updateImageFiles == freezed
+      updateImageFiles: freezed == updateImageFiles
           ? _value.updateImageFiles
           : updateImageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      deleteImageIds: deleteImageIds == freezed
+      deleteImageIds: freezed == deleteImageIds
           ? _value.deleteImageIds
           : deleteImageIds // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -117,6 +120,7 @@ abstract class _$$_UpdateReviewRequestCopyWith<$Res>
           $Res Function(_$_UpdateReviewRequest) then) =
       __$$_UpdateReviewRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int reviewId,
       String recommendation,
@@ -131,61 +135,59 @@ abstract class _$$_UpdateReviewRequestCopyWith<$Res>
 
 /// @nodoc
 class __$$_UpdateReviewRequestCopyWithImpl<$Res>
-    extends _$UpdateReviewRequestCopyWithImpl<$Res>
+    extends _$UpdateReviewRequestCopyWithImpl<$Res, _$_UpdateReviewRequest>
     implements _$$_UpdateReviewRequestCopyWith<$Res> {
   __$$_UpdateReviewRequestCopyWithImpl(_$_UpdateReviewRequest _value,
       $Res Function(_$_UpdateReviewRequest) _then)
-      : super(_value, (v) => _then(v as _$_UpdateReviewRequest));
+      : super(_value, _then);
 
-  @override
-  _$_UpdateReviewRequest get _value => super._value as _$_UpdateReviewRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? reviewId = freezed,
-    Object? recommendation = freezed,
-    Object? content = freezed,
-    Object? socket = freezed,
-    Object? wifi = freezed,
-    Object? restroom = freezed,
-    Object? tableSize = freezed,
+    Object? reviewId = null,
+    Object? recommendation = null,
+    Object? content = null,
+    Object? socket = null,
+    Object? wifi = null,
+    Object? restroom = null,
+    Object? tableSize = null,
     Object? updateImageFiles = freezed,
     Object? deleteImageIds = freezed,
   }) {
     return _then(_$_UpdateReviewRequest(
-      reviewId: reviewId == freezed
+      reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
               as int,
-      recommendation: recommendation == freezed
+      recommendation: null == recommendation
           ? _value.recommendation
           : recommendation // ignore: cast_nullable_to_non_nullable
               as String,
-      content: content == freezed
+      content: null == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      socket: socket == freezed
+      socket: null == socket
           ? _value.socket
           : socket // ignore: cast_nullable_to_non_nullable
               as String,
-      wifi: wifi == freezed
+      wifi: null == wifi
           ? _value.wifi
           : wifi // ignore: cast_nullable_to_non_nullable
               as String,
-      restroom: restroom == freezed
+      restroom: null == restroom
           ? _value.restroom
           : restroom // ignore: cast_nullable_to_non_nullable
               as String,
-      tableSize: tableSize == freezed
+      tableSize: null == tableSize
           ? _value.tableSize
           : tableSize // ignore: cast_nullable_to_non_nullable
               as String,
-      updateImageFiles: updateImageFiles == freezed
+      updateImageFiles: freezed == updateImageFiles
           ? _value._updateImageFiles
           : updateImageFiles // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      deleteImageIds: deleteImageIds == freezed
+      deleteImageIds: freezed == deleteImageIds
           ? _value._deleteImageIds
           : deleteImageIds // ignore: cast_nullable_to_non_nullable
               as List<int>?,
@@ -251,14 +253,17 @@ class _$_UpdateReviewRequest implements _UpdateReviewRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpdateReviewRequest &&
-            const DeepCollectionEquality().equals(other.reviewId, reviewId) &&
-            const DeepCollectionEquality()
-                .equals(other.recommendation, recommendation) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality().equals(other.socket, socket) &&
-            const DeepCollectionEquality().equals(other.wifi, wifi) &&
-            const DeepCollectionEquality().equals(other.restroom, restroom) &&
-            const DeepCollectionEquality().equals(other.tableSize, tableSize) &&
+            (identical(other.reviewId, reviewId) ||
+                other.reviewId == reviewId) &&
+            (identical(other.recommendation, recommendation) ||
+                other.recommendation == recommendation) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.socket, socket) || other.socket == socket) &&
+            (identical(other.wifi, wifi) || other.wifi == wifi) &&
+            (identical(other.restroom, restroom) ||
+                other.restroom == restroom) &&
+            (identical(other.tableSize, tableSize) ||
+                other.tableSize == tableSize) &&
             const DeepCollectionEquality()
                 .equals(other._updateImageFiles, _updateImageFiles) &&
             const DeepCollectionEquality()
@@ -268,18 +273,19 @@ class _$_UpdateReviewRequest implements _UpdateReviewRequest {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(reviewId),
-      const DeepCollectionEquality().hash(recommendation),
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(socket),
-      const DeepCollectionEquality().hash(wifi),
-      const DeepCollectionEquality().hash(restroom),
-      const DeepCollectionEquality().hash(tableSize),
+      reviewId,
+      recommendation,
+      content,
+      socket,
+      wifi,
+      restroom,
+      tableSize,
       const DeepCollectionEquality().hash(_updateImageFiles),
       const DeepCollectionEquality().hash(_deleteImageIds));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UpdateReviewRequestCopyWith<_$_UpdateReviewRequest> get copyWith =>
       __$$_UpdateReviewRequestCopyWithImpl<_$_UpdateReviewRequest>(
           this, _$identity);

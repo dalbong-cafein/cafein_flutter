@@ -1,13 +1,20 @@
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
+import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/report/report_page.dart';
+import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
+import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
+import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class StoreReviewListCard extends StatelessWidget {
@@ -25,20 +32,23 @@ class StoreReviewListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reviewCount == 0) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            loadAsset(AppIcon.textBlank),
-            const SizedBox(height: 16),
-            Text(
-              '작성된 리뷰가 없어요',
-              style: AppStyle.caption13Regular.copyWith(
-                color: AppColor.grey600,
+      return SizedBox(
+        height: 186,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              loadAsset(AppIcon.textBlank),
+              const SizedBox(height: 16),
+              Text(
+                '작성된 리뷰가 없어요',
+                style: AppStyle.caption13Regular.copyWith(
+                  color: AppColor.grey600,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
@@ -95,9 +105,15 @@ class _ReviewCard extends StatefulWidget {
 
 class _ReviewCardState extends State<_ReviewCard> {
   bool isExpanded = false;
+  late final userData = context.watch<UserRepository>().getMemberData;
 
   @override
   Widget build(BuildContext context) {
+    final isAvailableEdit = DateTime.now()
+            .difference(DateTime.parse(widget.review.registeredDateTime))
+            .inDays <
+        3;
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -128,29 +144,63 @@ class _ReviewCardState extends State<_ReviewCard> {
                 ],
               ),
               const Spacer(),
-              const Icon(
-                Icons.more_vert,
-                color: AppColor.grey400,
-              ),
+              if (widget.review.writerId != userData?.memberId)
+                InkWell(
+                  onTap: () async {
+                    final navigator = Navigator.of(context);
+                    final result = await ReportBottomSheet.show(context);
+
+                    if (!result) {
+                      return;
+                    }
+
+                    navigator.pushNamed(
+                      ReportPage.routeName,
+                    );
+                  },
+                  child: loadAsset(
+                    AppIcon.optionVert,
+                    color: AppColor.grey400,
+                  ),
+                )
+              else
+                !isAvailableEdit
+                    ? const SizedBox.shrink()
+                    : SizedBox(
+                        height: 32,
+                        width: 52,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.of(context).pushNamed(
+                            UpdatedReviewPage.routeName,
+                            arguments: widget.review,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: AppColor.grey800,
+                            backgroundColor: AppColor.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            textStyle: AppStyle.subTitle15Medium,
+                            side: const BorderSide(
+                              color: AppColor.grey400,
+                              width: 1,
+                            ),
+                          ),
+                          child: const Text('수정'),
+                        ),
+                      ),
             ],
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 24,
-            width: 80,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: AppColor.orange500,
-                backgroundColor: AppColor.orange50,
-                textStyle: AppStyle.caption13Regular,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-              ),
-              onPressed: () => setState(() => isExpanded = !isExpanded),
-              child: const Text('추천해요'),
+          ReviewRecommendationButton(
+            reviewRecommendation: ReviewRecommendation.values
+                .where(
+                  (element) =>
+                      element.jsonValue == widget.review.recommendation,
+                )
+                .first,
+            onPressed: () => setState(
+              () => isExpanded = !isExpanded,
             ),
           ),
           AnimatedContainer(

@@ -1,6 +1,6 @@
 import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
-import 'package:cafein_flutter/feature/main/search/bloc/search_bloc.dart';
+import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,8 +31,8 @@ class SearchKeywordTab extends StatelessWidget {
               }
             }
 
-            context.read<SearchBloc>().add(
-                  SearchKeywordTabed(
+            context.read<MapBloc>().add(
+                  MapKeywordTaped(
                     searchKeyword: SearchKeyword.values[index],
                   ),
                 );

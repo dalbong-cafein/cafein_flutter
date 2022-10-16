@@ -30,45 +30,48 @@ mixin _$UpdateMemberRequest {
 abstract class $UpdateMemberRequestCopyWith<$Res> {
   factory $UpdateMemberRequestCopyWith(
           UpdateMemberRequest value, $Res Function(UpdateMemberRequest) then) =
-      _$UpdateMemberRequestCopyWithImpl<$Res>;
+      _$UpdateMemberRequestCopyWithImpl<$Res, UpdateMemberRequest>;
+  @useResult
   $Res call(
       {int memberId, String nickName, String? imageFile, int? deleteImageId});
 }
 
 /// @nodoc
-class _$UpdateMemberRequestCopyWithImpl<$Res>
+class _$UpdateMemberRequestCopyWithImpl<$Res, $Val extends UpdateMemberRequest>
     implements $UpdateMemberRequestCopyWith<$Res> {
   _$UpdateMemberRequestCopyWithImpl(this._value, this._then);
 
-  final UpdateMemberRequest _value;
   // ignore: unused_field
-  final $Res Function(UpdateMemberRequest) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? memberId = freezed,
-    Object? nickName = freezed,
+    Object? memberId = null,
+    Object? nickName = null,
     Object? imageFile = freezed,
     Object? deleteImageId = freezed,
   }) {
     return _then(_value.copyWith(
-      memberId: memberId == freezed
+      memberId: null == memberId
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickName: nickName == freezed
+      nickName: null == nickName
           ? _value.nickName
           : nickName // ignore: cast_nullable_to_non_nullable
               as String,
-      imageFile: imageFile == freezed
+      imageFile: freezed == imageFile
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as String?,
-      deleteImageId: deleteImageId == freezed
+      deleteImageId: freezed == deleteImageId
           ? _value.deleteImageId
           : deleteImageId // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -79,42 +82,41 @@ abstract class _$$_UpdateMemberRequestCopyWith<$Res>
           $Res Function(_$_UpdateMemberRequest) then) =
       __$$_UpdateMemberRequestCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int memberId, String nickName, String? imageFile, int? deleteImageId});
 }
 
 /// @nodoc
 class __$$_UpdateMemberRequestCopyWithImpl<$Res>
-    extends _$UpdateMemberRequestCopyWithImpl<$Res>
+    extends _$UpdateMemberRequestCopyWithImpl<$Res, _$_UpdateMemberRequest>
     implements _$$_UpdateMemberRequestCopyWith<$Res> {
   __$$_UpdateMemberRequestCopyWithImpl(_$_UpdateMemberRequest _value,
       $Res Function(_$_UpdateMemberRequest) _then)
-      : super(_value, (v) => _then(v as _$_UpdateMemberRequest));
+      : super(_value, _then);
 
-  @override
-  _$_UpdateMemberRequest get _value => super._value as _$_UpdateMemberRequest;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? memberId = freezed,
-    Object? nickName = freezed,
+    Object? memberId = null,
+    Object? nickName = null,
     Object? imageFile = freezed,
     Object? deleteImageId = freezed,
   }) {
     return _then(_$_UpdateMemberRequest(
-      memberId: memberId == freezed
+      memberId: null == memberId
           ? _value.memberId
           : memberId // ignore: cast_nullable_to_non_nullable
               as int,
-      nickName: nickName == freezed
+      nickName: null == nickName
           ? _value.nickName
           : nickName // ignore: cast_nullable_to_non_nullable
               as String,
-      imageFile: imageFile == freezed
+      imageFile: freezed == imageFile
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as String?,
-      deleteImageId: deleteImageId == freezed
+      deleteImageId: freezed == deleteImageId
           ? _value.deleteImageId
           : deleteImageId // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -150,23 +152,23 @@ class _$_UpdateMemberRequest implements _UpdateMemberRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpdateMemberRequest &&
-            const DeepCollectionEquality().equals(other.memberId, memberId) &&
-            const DeepCollectionEquality().equals(other.nickName, nickName) &&
-            const DeepCollectionEquality().equals(other.imageFile, imageFile) &&
-            const DeepCollectionEquality()
-                .equals(other.deleteImageId, deleteImageId));
+            (identical(other.memberId, memberId) ||
+                other.memberId == memberId) &&
+            (identical(other.nickName, nickName) ||
+                other.nickName == nickName) &&
+            (identical(other.imageFile, imageFile) ||
+                other.imageFile == imageFile) &&
+            (identical(other.deleteImageId, deleteImageId) ||
+                other.deleteImageId == deleteImageId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(memberId),
-      const DeepCollectionEquality().hash(nickName),
-      const DeepCollectionEquality().hash(imageFile),
-      const DeepCollectionEquality().hash(deleteImageId));
+  int get hashCode =>
+      Object.hash(runtimeType, memberId, nickName, imageFile, deleteImageId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UpdateMemberRequestCopyWith<_$_UpdateMemberRequest> get copyWith =>
       __$$_UpdateMemberRequestCopyWithImpl<_$_UpdateMemberRequest>(
           this, _$identity);
