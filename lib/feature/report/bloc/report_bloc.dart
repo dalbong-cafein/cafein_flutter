@@ -62,9 +62,9 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     emit(const ReportLoading());
     try {
       await reviewRepository.createReportReview(
-        reviewId: 1,
+        reviewId: 9,
         reportRequest: ReportRequest(
-          reviewId: 1,
+          reviewId: 9,
           reportCategoryId:event.clickedIndex,
           content: '',
         ),
