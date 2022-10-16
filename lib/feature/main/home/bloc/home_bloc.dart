@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/store/member_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
@@ -29,9 +30,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final UserRepository userRepository;
   final StoreRepository storeRepository;
 
-  bool isGranted = false;
-
   List<Store> currentRecommendedStores = [];
+
+  bool isGranted = false;
 
   FutureOr<void> _onHomeRequested(
     HomeRequested event,
@@ -61,38 +62,46 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeRecommendStoreRequested event,
     Emitter<HomeState> emit,
   ) async {
+    isGranted = event.isGranted;
     emit(const HomeLoading());
 
-    if (event.isGranted) {
-      isGranted = true;
-      try {
-        final result = await Geolocator.getCurrentPosition();
-
-        final currentLocation = await userRepository.getCurrentLocation(
-          longitude: result.longitude,
-          latitude: result.latitude,
-        );
-
-        final response = await storeRepository.getStores(currentLocation);
-        currentRecommendedStores = response.data;
-
-        emit(HomeRecommendStoreLoaded(
-          recommendStores: [...currentRecommendedStores],
-          isGranted: isGranted,
-        ));
-      } catch (e) {
-        emit(HomeError(
-          error: e,
-          event: () => add(event),
-        ));
-      }
-    } else {
+    if (!event.isGranted) {
       emit(
         HomeRecommendStoreLoaded(
           recommendStores: const [],
-          isGranted: isGranted,
+          isGranted: event.isGranted,
         ),
       );
+
+      return;
+    }
+
+    try {
+      final result = await Geolocator.getCurrentPosition();
+
+      late final String currentLocation;
+
+      try {
+        currentLocation = await userRepository.getCurrentLocation(
+          longitude: result.longitude,
+          latitude: result.latitude,
+        );
+      } catch (e) {
+        currentLocation = CafeinConst.defaultLocation;
+      }
+
+      final response = await storeRepository.getStores(currentLocation);
+      currentRecommendedStores = response.data;
+
+      emit(HomeRecommendStoreLoaded(
+        recommendStores: [...currentRecommendedStores],
+        isGranted: event.isGranted,
+      ));
+    } catch (e) {
+      emit(HomeError(
+        error: e,
+        event: () => add(event),
+      ));
     }
   }
 

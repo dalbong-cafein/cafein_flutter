@@ -69,48 +69,44 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                 ],
               ),
               const Spacer(),
-              !isAvailableEdit
-                  ? loadAsset(
-                      AppIcon.optionVert,
-                      color: AppColor.grey400,
-                    )
-                  : SizedBox(
-                      height: 32,
-                      width: 52,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final bloc = context.read<RegisteredReviewBloc>();
+              if (isAvailableEdit)
+                SizedBox(
+                  height: 32,
+                  width: 52,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final bloc = context.read<RegisteredReviewBloc>();
 
-                          final result = await Navigator.of(context).pushNamed(
-                            UpdatedReviewPage.routeName,
-                            arguments: widget.review,
-                          );
+                      final result = await Navigator.of(context).pushNamed(
+                        UpdatedReviewPage.routeName,
+                        arguments: widget.review,
+                      );
 
-                          if (result is! bool) {
-                            return;
-                          }
+                      if (result is! bool) {
+                        return;
+                      }
 
-                          if (!result) {
-                            return;
-                          }
+                      if (!result) {
+                        return;
+                      }
 
-                          bloc.add(const RegisteredReviewRequested());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: AppColor.grey800,
-                          backgroundColor: AppColor.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          textStyle: AppStyle.subTitle15Medium,
-                          side: const BorderSide(
-                            color: AppColor.grey400,
-                            width: 1,
-                          ),
-                        ),
-                        child: const Text('수정'),
+                      bloc.add(const RegisteredReviewRequested());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: AppColor.grey800,
+                      backgroundColor: AppColor.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      textStyle: AppStyle.subTitle15Medium,
+                      side: const BorderSide(
+                        color: AppColor.grey400,
+                        width: 1,
                       ),
                     ),
+                    child: const Text('수정'),
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 12),

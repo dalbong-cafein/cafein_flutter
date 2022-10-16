@@ -86,9 +86,16 @@ class _MoreViewPageState extends State<MoreViewPage> {
                       String userName = userData?.nickname ?? '';
                       String? imageUrl = userData?.imageIdPair?.imageUrl;
                       if (state is MoreViewProfileEdited) {
-                        userName = context.watch<UserRepository>().getMemberData?.nickname ?? '';
-                        imageUrl =
-                            context.watch<UserRepository>().getMemberData?.imageIdPair?.imageUrl;
+                        userName = context
+                                .watch<UserRepository>()
+                                .getMemberData
+                                ?.nickname ??
+                            '';
+                        imageUrl = context
+                            .watch<UserRepository>()
+                            .getMemberData
+                            ?.imageIdPair
+                            ?.imageUrl;
                       }
                       return Row(
                         children: [
@@ -118,11 +125,8 @@ class _MoreViewPageState extends State<MoreViewPage> {
                           const Spacer(),
                           Transform.rotate(
                               angle: pi,
-                              child: loadAsset(
-                                  AppIcon.leftS,
-                                  color : AppColor.grey400
-                              )
-                          ),
+                              child: loadAsset(AppIcon.leftS,
+                                  color: AppColor.grey400)),
                         ],
                       );
                     },
@@ -133,35 +137,20 @@ class _MoreViewPageState extends State<MoreViewPage> {
                   height: 74,
                   width: width - 48,
                   child: BlocBuilder<MoreViewBloc, MoreViewState>(
-                    buildWhen: (pre, next) => next is MoreViewStoreCntAndReviewCntLoaded,
+                    buildWhen: (pre, next) =>
+                        next is MoreViewStoreCntAndReviewCntLoaded,
                     builder: (context, state) {
                       if (state is MoreViewStoreCntAndReviewCntLoaded) {
-                        return Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  RegisteredStorePage.routeName,
-                                );
-                              },
-                              child: MoreViewCountCard(
-                                title: '내가 등록한 카페',
-                                value: state.storeCount,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  RegisteredReviewPage.routeName,
-                                );
-                              },
-                              child: MoreViewCountCard(
-                                title: '내가 쓴 리뷰',
-                                value: state.reviewCount,
-                              ),
-                            ),
-                          ],
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              RegisteredReviewPage.routeName,
+                            );
+                          },
+                          child: MoreViewCountCard(
+                            title: '작성한 리뷰',
+                            value: state.reviewCount,
+                          ),
                         );
                       }
 
@@ -260,7 +249,8 @@ class _MoreViewPageState extends State<MoreViewPage> {
                   color: AppColor.grey50,
                 ),
                 BlocBuilder<MoreViewBloc, MoreViewState>(
-                  buildWhen: (pre, next) => next is MoreViewStoreCntAndReviewCntLoaded,
+                  buildWhen: (pre, next) =>
+                      next is MoreViewStoreCntAndReviewCntLoaded,
                   builder: (context, state) {
                     return InkWell(
                       onTap: state is! MoreViewStoreCntAndReviewCntLoaded
