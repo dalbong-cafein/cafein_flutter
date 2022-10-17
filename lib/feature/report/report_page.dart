@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/feature/report/bloc/report_bloc.dart';
+import 'package:cafein_flutter/feature/report/widget/report_confirm_toast_dialog.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -12,7 +13,6 @@ class ReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<ReportBloc>().add(ReportCategoryRequested());
-
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -33,6 +33,7 @@ class ReportPage extends StatelessWidget {
         buildWhen: (pre, next) => next is ReportCategoryLoaded,
         builder: (context, state) {
           if (state is ReportCategoryLoaded) {
+
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(top: 24, left: 24, right: 20),
@@ -111,6 +112,11 @@ class ReportPage extends StatelessWidget {
                           }),
                       state.clickedCategory == state.categories.length - 1
                           ? TextField(
+                        onTap: (){
+                          context.read<ReportBloc>().add(
+                              ReportCategoryClicked(
+                                  clickedIndex: state.clickedCategory));
+                        },
                         scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                               maxLines: 5,
                               decoration: InputDecoration(
@@ -160,9 +166,11 @@ class ReportPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 9),
                     child: InkWell(
                       onTap: () {
+                        const ReportConfirmToastDialog();
                         if (state.clickedCategory != state.categories.length) {
                           context.read<ReportBloc>().add(ReportRequested(
                               clickedIndex: state.clickedCategory));
+
                         }
                       },
                       child: Container(
