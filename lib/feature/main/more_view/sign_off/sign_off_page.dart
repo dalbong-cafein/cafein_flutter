@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/widget/sign_off_dialog.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_card.dart';
@@ -25,14 +26,22 @@ class SignOffPage extends StatelessWidget {
     final userData = context.watch<UserRepository>().getMemberData;
 
     return BlocListener<SignOffBloc, SignOffState>(
-      listener: (context, state) {
+      listener: (context, state) async {
+        final navigator = Navigator.of(context);
+
         if (state is SignOffError) {
           ErrorDialog.show(
             context,
             error: state.error,
             refresh: state.event,
           );
-        } else if (state is SignOffSucceed) {}
+        } else if (state is SignOffSucceed) {
+          await SignOffDialog.show(context);
+          navigator.pushNamedAndRemoveUntil(
+            LoginPage.routeName,
+            (route) => false,
+          );
+        }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -61,7 +70,7 @@ class SignOffPage extends StatelessWidget {
                     AppImage.signOff,
                   ),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 56),
                 Row(
                   children: [
                     loadAsset(
@@ -93,9 +102,9 @@ class SignOffPage extends StatelessWidget {
                 const SizedBox(height: 32),
                 BottomOutLinedButton(
                   buttonTitle: '탈퇴하기',
-                  onTap: () {
-                    SignOffDialog.show(context);
-                  },
+                  onTap: () => context.read<SignOffBloc>().add(
+                        const SignOffRequested(),
+                      ),
                 ),
               ],
             ),

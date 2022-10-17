@@ -48,12 +48,11 @@ class MoreViewMenuCard extends StatelessWidget {
                 ),
               ),
             trailingWidget ??
-                Transform.rotate(
-                  angle: pi,
-                  child: loadAsset(
-                    AppIcon.leftS,
-                    color: AppColor.grey400,
-                  ),
+                loadAsset(
+                  AppIcon.right,
+                  color: AppColor.grey400,
+                  width: 16,
+                  height: 16,
                 ),
           ],
         ),

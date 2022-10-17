@@ -36,6 +36,8 @@ abstract class UserRepository {
     required double latitude,
   });
 
+  Future<BaseResponse<dynamic>> deleteMember();
+
   Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt();
 }
 
@@ -88,4 +90,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt() =>
       memberClient.getStoreCntAndReviewCnt();
+
+  @override
+  Future<BaseResponse> deleteMember() => memberClient.deleteMember();
 }

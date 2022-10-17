@@ -176,7 +176,9 @@ abstract class CafeinRoute {
         final moreViewCountResponse =
             settings.arguments as MoreViewCountResponse;
         page = BlocProvider(
-          create: (context) => SignOffBloc(),
+          create: (context) => SignOffBloc(
+            userRepository: context.read<UserRepository>(),
+          ),
           child: SignOffPage(
             moreViewCountResponse: moreViewCountResponse,
           ),

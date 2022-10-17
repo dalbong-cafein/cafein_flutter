@@ -26,4 +26,7 @@ abstract class MemberClient {
 
   @GET('/members/storesAndReviews/count')
   Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt();
+
+  @DELETE('/members')
+  Future<BaseResponse<dynamic>> deleteMember();
 }
