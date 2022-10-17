@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';

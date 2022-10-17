@@ -79,7 +79,8 @@ class _NoticePageState extends State<NoticePage> {
                             style: AppStyle.subTitle15Medium,
                           ),
                           Text(
-                            ymdDotFormat(state.boards[index].registeredDateTime),
+                            ymdDotFormat(
+                                state.boards[index].registeredDateTime),
                             style: AppStyle.caption13Regular.copyWith(
                               color: AppColor.grey400,
                             ),
@@ -92,6 +93,9 @@ class _NoticePageState extends State<NoticePage> {
                 itemCount: state.boards.length,
                 separatorBuilder: (context, index) => Container(
                   height: 1,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
                   width: width - 40,
                   color: AppColor.grey50,
                 ),

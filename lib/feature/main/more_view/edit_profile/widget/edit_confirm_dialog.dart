@@ -18,12 +18,12 @@ class EditConfirmDialog extends StatelessWidget {
     return Dialog(
       child: SizedBox(
         width: 300,
-        height: 140,
+        height: 132,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 28,
-            right: 24,
-            left: 24,
+            right: 16,
+            left: 16,
             bottom: 16,
           ),
           child: Column(

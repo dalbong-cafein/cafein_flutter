@@ -106,65 +106,70 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: CustomScrollView(
                     slivers: [
                       const SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 24,
-                        ),
+                        child: SizedBox(height: 24),
                       ),
                       SliverToBoxAdapter(
                         child: Align(
                           alignment: Alignment.center,
-                          child: SizedBox(
-                            height: 88,
-                            width: 88,
-                            child: Stack(
-                              children: [
-                                BlocBuilder<EditProfileBloc, EditProfileState>(
-                                  buildWhen: (pre, next) => next is EditProfileInformationChecked,
-                                  builder: (context, state) {
-                                    String? filePath;
+                          child: InkWell(
+                            onTap: () async {
+                              final bloc = context.read<EditProfileBloc>();
+                              final result =
+                                  await ImageChoiceDialog.show(context);
 
-                                    if (state is EditProfileInformationChecked) {
-                                      filePath = state.imagePath;
-                                    }
-
-                                    return EditProfileImageCard(
-                                      filePath: filePath,
-                                      imageUrl: userData?.imageIdPair?.imageUrl,
-                                    );
-                                  },
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  bottom: 0,
-                                  child: InkWell(
-                                    onTap: () async {
-                                      final bloc = context.read<EditProfileBloc>();
-                                      final result = await ImageChoiceDialog.show(context);
-
-                                      if (result.isCamera) {
-                                        bloc.add(
-                                          const EditProfilePermissionRequested(
-                                            permission: Permission.camera,
-                                          ),
-                                        );
-                                      } else if (result.isPhoto) {
-                                        bloc.add(
-                                          const EditProfilePermissionRequested(
-                                            permission: Permission.photos,
-                                          ),
-                                        );
-                                      } else if (result.isDefault) {
-                                        bloc.add(
-                                          const EditProfileImageChanged(
-                                            isDefault: true,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: loadAsset(AppIcon.camera),
+                              if (result.isCamera) {
+                                bloc.add(
+                                  const EditProfilePermissionRequested(
+                                    permission: Permission.camera,
                                   ),
-                                ),
-                              ],
+                                );
+                              } else if (result.isPhoto) {
+                                bloc.add(
+                                  const EditProfilePermissionRequested(
+                                    permission: Permission.photos,
+                                  ),
+                                );
+                              } else if (result.isDefault) {
+                                bloc.add(
+                                  const EditProfileImageChanged(
+                                    isDefault: true,
+                                  ),
+                                );
+                              }
+                            },
+                            child: SizedBox(
+                              height: 88,
+                              width: 88,
+                              child: Stack(
+                                children: [
+                                  BlocBuilder<EditProfileBloc,
+                                      EditProfileState>(
+                                    buildWhen: (pre, next) =>
+                                        next is EditProfileInformationChecked,
+                                    builder: (context, state) {
+                                      String? filePath;
+
+                                      if (state
+                                          is EditProfileInformationChecked) {
+                                        filePath = state.imagePath;
+                                      }
+
+                                      return EditProfileImageCard(
+                                        filePath: filePath,
+                                        imageUrl:
+                                            userData?.imageIdPair?.imageUrl,
+                                      );
+                                    },
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    bottom: 0,
+                                    child: loadAsset(
+                                      AppIcon.camera,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -186,7 +191,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
                           ),
-                          height: 56,
+                          height: 48,
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
@@ -221,9 +226,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               ),
                               const SizedBox(width: 4),
                               BlocBuilder<EditProfileBloc, EditProfileState>(
-                                buildWhen: (pre, next) => next is EditProfileInformationChecked,
+                                buildWhen: (pre, next) =>
+                                    next is EditProfileInformationChecked,
                                 builder: (context, state) {
-                                  int nicknameLength = userData!.nickname!.length;
+                                  int nicknameLength =
+                                      userData!.nickname!.length;
                                   if (state is EditProfileInformationChecked) {
                                     nicknameLength = state.nicknameLength;
                                   }
@@ -236,7 +243,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       children: [
                                         TextSpan(
                                           text: '/10자',
-                                          style: AppStyle.caption12Medium.copyWith(
+                                          style:
+                                              AppStyle.caption12Medium.copyWith(
                                             color: AppColor.grey400,
                                           ),
                                         ),
@@ -250,13 +258,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       BlocBuilder<EditProfileBloc, EditProfileState>(
-                        buildWhen: (pre, next) => next is EditProfileNicknameDupicatedChecked,
+                        buildWhen: (pre, next) =>
+                            next is EditProfileNicknameDupicatedChecked,
                         builder: (context, state) {
                           bool isDuplicated = false;
                           String text = '한글, 영문, 숫자만 입력 가능합니다.';
                           if (state is EditProfileNicknameDupicatedChecked) {
                             isDuplicated = state.isDuplicated;
-                            text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
+                            text = !state.isDuplicated
+                                ? '이미 사용 중인 닉네임입니다.'
+                                : '멋진 닉네임이네요!';
                           }
                           return SliverToBoxAdapter(
                             child: Align(
@@ -268,8 +279,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                                 child: Text(
                                   text,
-                                  style: AppStyle.body14Regular.copyWith(
-                                    color: !isDuplicated ? AppColor.red : AppColor.blue,
+                                  style: AppStyle.caption13Regular.copyWith(
+                                    color: !isDuplicated
+                                        ? AppColor.red
+                                        : AppColor.blue,
                                   ),
                                 ),
                               ),
@@ -280,7 +293,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       const SliverToBoxAdapter(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            top: 44,
+                            top: 20,
                             bottom: 12,
                           ),
                           child: Text(
@@ -295,7 +308,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             final navigator = Navigator.of(context);
                             final bloc = context.read<EditProfileBloc>();
 
-                            final result = await EditPhoneNumberBottomSheet.show(context);
+                            final result =
+                                await EditPhoneNumberBottomSheet.show(context);
 
                             if (!result) {
                               return;
@@ -327,10 +341,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: BlocBuilder<EditProfileBloc, EditProfileState>(
-                                buildWhen: (pre, next) => next is EditProfileInformationChecked,
+                              child: BlocBuilder<EditProfileBloc,
+                                  EditProfileState>(
+                                buildWhen: (pre, next) =>
+                                    next is EditProfileInformationChecked,
                                 builder: (context, state) {
-                                  String phoneNumber = userData?.phoneNumber ?? '';
+                                  String phoneNumber =
+                                      userData?.phoneNumber ?? '';
 
                                   if (state is EditProfileInformationChecked &&
                                       state.phoneNumber != null) {
@@ -375,7 +392,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ? () async {
                               FocusScope.of(context).unfocus();
                               final bloc = context.read<EditProfileBloc>();
-                              final result = await EditConfirmDialog.show(context);
+                              final result =
+                                  await EditConfirmDialog.show(context);
 
                               if (!result) {
                                 return;
@@ -386,7 +404,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               );
                             }
                           : null,
-                      child: isLoading ? const DotsLoadingIndicator() : const Text('수정하기'),
+                      child: isLoading
+                          ? const DotsLoadingIndicator()
+                          : const Text('수정하기'),
                     ),
                   );
                 },

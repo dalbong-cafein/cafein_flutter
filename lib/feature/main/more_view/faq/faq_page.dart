@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/widget/custom_expansion_tile.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/button/bottom_out_lined_button.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
@@ -31,6 +34,8 @@ class _FaqPageState extends State<FaqPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final bottomPadding = MediaQuery.of(context).viewPadding.bottom;
+
     return BlocListener<FaqBloc, FaqState>(
       listener: (context, state) {
         if (state is FaqError) {
@@ -63,6 +68,14 @@ class _FaqPageState extends State<FaqPage> {
                         vertical: 16,
                       ),
                       itemBuilder: (context, index) => CustomExpansionTile(
+                        tilePadding: EdgeInsets.zero,
+                        trailing: Transform.rotate(
+                          angle: pi * 3 / 2,
+                          child: loadAsset(
+                            AppIcon.left,
+                            width: 16,
+                          ),
+                        ),
                         title: RichText(
                           text: TextSpan(
                             text: 'Q  ',
@@ -79,6 +92,7 @@ class _FaqPageState extends State<FaqPage> {
                             ],
                           ),
                         ),
+                        childrenPadding: EdgeInsets.zero,
                         children: [
                           Container(
                             padding: const EdgeInsets.all(12),
@@ -86,7 +100,7 @@ class _FaqPageState extends State<FaqPage> {
                               borderRadius: BorderRadius.all(
                                 Radius.circular(8),
                               ),
-                              color: AppColor.grey50,
+                              color: AppColor.grey100,
                             ),
                             child: Text(
                               state.faqs[index].content,
@@ -98,7 +112,7 @@ class _FaqPageState extends State<FaqPage> {
                       separatorBuilder: (context, index) => Container(
                         height: 1,
                         width: width - 40,
-                        color: AppColor.grey50,
+                        color: AppColor.grey100,
                       ),
                       itemCount: state.faqs.length,
                     ),
@@ -119,7 +133,9 @@ class _FaqPageState extends State<FaqPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(
+              height: bottomPadding != 0 ? bottomPadding : 12,
+            ),
           ],
         ),
       ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
