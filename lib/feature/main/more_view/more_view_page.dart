@@ -64,221 +64,226 @@ class MoreViewPage extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () async {
-                    final bloc = context.read<MoreViewBloc>();
-                    await Navigator.of(context).pushNamed(
-                      EditProfilePage.routeName,
-                    );
-
-                    bloc.add(const MoreViewProfileChanged());
-                  },
-                  child: BlocBuilder<MoreViewBloc, MoreViewState>(
-                    buildWhen: (pre, next) => next is MoreViewProfileEdited,
-                    builder: (context, state) {
-                      String userName = userData?.nickname ?? '';
-                      String? imageUrl = userData?.imageIdPair?.imageUrl;
-                      if (state is MoreViewProfileEdited) {
-                        userName = context
-                                .watch<UserRepository>()
-                                .getMemberData
-                                ?.nickname ??
-                            '';
-                        imageUrl = context
-                            .watch<UserRepository>()
-                            .getMemberData
-                            ?.imageIdPair
-                            ?.imageUrl;
-                      }
-                      return Row(
-                        children: [
-                          CircleProfileImage(
-                            imageUrl: imageUrl,
-                            radius: 39,
-                          ),
-                          const SizedBox(width: 16),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                userName,
-                                style: AppStyle.subTitle17SemiBold,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                '카페인 ${DateTime.now().difference(
-                                      DateTime.parse(userData!.joinDateTime),
-                                    ).inDays}일차',
-                                style: AppStyle.caption13Regular.copyWith(
-                                  color: AppColor.grey400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Transform.rotate(
-                              angle: pi,
-                              child: loadAsset(AppIcon.leftS,
-                                  color: AppColor.grey400)),
-                        ],
+        body: RefreshIndicator(
+          onRefresh: () async => context.read<MoreViewBloc>().add(
+                const MoreViewCountRequested(),
+              ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      final bloc = context.read<MoreViewBloc>();
+                      await Navigator.of(context).pushNamed(
+                        EditProfilePage.routeName,
                       );
+
+                      bloc.add(const MoreViewProfileChanged());
                     },
+                    child: BlocBuilder<MoreViewBloc, MoreViewState>(
+                      buildWhen: (pre, next) => next is MoreViewProfileEdited,
+                      builder: (context, state) {
+                        String userName = userData?.nickname ?? '';
+                        String? imageUrl = userData?.imageIdPair?.imageUrl;
+                        if (state is MoreViewProfileEdited) {
+                          userName = context
+                                  .watch<UserRepository>()
+                                  .getMemberData
+                                  ?.nickname ??
+                              '';
+                          imageUrl = context
+                              .watch<UserRepository>()
+                              .getMemberData
+                              ?.imageIdPair
+                              ?.imageUrl;
+                        }
+                        return Row(
+                          children: [
+                            CircleProfileImage(
+                              imageUrl: imageUrl,
+                              radius: 39,
+                            ),
+                            const SizedBox(width: 16),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  userName,
+                                  style: AppStyle.subTitle17SemiBold,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '카페인 ${DateTime.now().difference(
+                                        DateTime.parse(userData!.joinDateTime),
+                                      ).inDays}일차',
+                                  style: AppStyle.caption13Regular.copyWith(
+                                    color: AppColor.grey400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            Transform.rotate(
+                                angle: pi,
+                                child: loadAsset(AppIcon.leftS,
+                                    color: AppColor.grey400)),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  height: 74,
-                  width: width - 48,
-                  child: BlocBuilder<MoreViewBloc, MoreViewState>(
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    height: 74,
+                    width: width - 48,
+                    child: BlocBuilder<MoreViewBloc, MoreViewState>(
+                      buildWhen: (pre, next) =>
+                          next is MoreViewStoreCntAndReviewCntLoaded,
+                      builder: (context, state) {
+                        if (state is MoreViewStoreCntAndReviewCntLoaded) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                RegisteredReviewPage.routeName,
+                              );
+                            },
+                            child: MoreViewCountCard(
+                              title: '작성한 리뷰',
+                              value: state.reviewCount,
+                            ),
+                          );
+                        }
+
+                        return const CustomCircleLoadingIndicator();
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 1,
+                    width: width - 40,
+                    color: AppColor.grey50,
+                  ),
+                  const SizedBox(height: 12),
+                  MoreViewMenuCard(
+                    title: '연결된 계정',
+                    isAuthProvider: true,
+                    trailingWidget: Text(
+                      '${context.watch<UserRepository>().getAuthProvider}',
+                      style: AppStyle.body14Regular.copyWith(
+                        color: AppColor.grey400,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    height: 1,
+                    width: width - 40,
+                    color: AppColor.grey50,
+                  ),
+                  const SizedBox(height: 12),
+                  MoreViewMenuCard(
+                    title: '공지사항',
+                    onTab: () => Navigator.of(context).pushNamed(
+                      NoticePage.routeName,
+                    ),
+                  ),
+                  MoreViewMenuCard(
+                    title: '자주 묻는 질문',
+                    onTab: () => Navigator.of(context).pushNamed(
+                      FaqPage.routeName,
+                    ),
+                  ),
+                  MoreViewMenuCard(
+                    title: '서비스 이용 약관',
+                    onTab: () {},
+                  ),
+                  MoreViewMenuCard(
+                    title: '개인정보 처리방침',
+                    onTab: () {},
+                  ),
+                  MoreViewMenuCard(
+                    title: '버전 정보',
+                    trailingWidget: Text(
+                      CafeinConfig.packageInfo.version,
+                      style: AppStyle.body14Regular.copyWith(
+                        color: AppColor.grey400,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    height: 1,
+                    width: width - 40,
+                    color: AppColor.grey50,
+                  ),
+                  const SizedBox(height: 12),
+                  InkWell(
+                    onTap: () async {
+                      final moreViewBloc = context.read<MoreViewBloc>();
+                      final result = await MoreViewSignOutDialog.show(context);
+                      if (!result) {
+                        return;
+                      }
+
+                      moreViewBloc.add(const MoreViewSignOutRequested());
+                    },
+                    child: SizedBox(
+                      height: 56,
+                      width: width - 40,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '로그아웃',
+                          style: AppStyle.subTitle15Medium.copyWith(
+                            color: AppColor.orange500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    height: 1,
+                    width: width - 40,
+                    color: AppColor.grey50,
+                  ),
+                  BlocBuilder<MoreViewBloc, MoreViewState>(
                     buildWhen: (pre, next) =>
                         next is MoreViewStoreCntAndReviewCntLoaded,
                     builder: (context, state) {
-                      if (state is MoreViewStoreCntAndReviewCntLoaded) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              RegisteredReviewPage.routeName,
-                            );
-                          },
-                          child: MoreViewCountCard(
-                            title: '작성한 리뷰',
-                            value: state.reviewCount,
-                          ),
-                        );
-                      }
-
-                      return const CustomCircleLoadingIndicator();
-                    },
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  height: 1,
-                  width: width - 40,
-                  color: AppColor.grey50,
-                ),
-                const SizedBox(height: 12),
-                MoreViewMenuCard(
-                  title: '연결된 계정',
-                  isAuthProvider: true,
-                  trailingWidget: Text(
-                    '${context.watch<UserRepository>().getAuthProvider}',
-                    style: AppStyle.body14Regular.copyWith(
-                      color: AppColor.grey400,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  height: 1,
-                  width: width - 40,
-                  color: AppColor.grey50,
-                ),
-                const SizedBox(height: 12),
-                MoreViewMenuCard(
-                  title: '공지사항',
-                  onTab: () => Navigator.of(context).pushNamed(
-                    NoticePage.routeName,
-                  ),
-                ),
-                MoreViewMenuCard(
-                  title: '자주 묻는 질문',
-                  onTab: () => Navigator.of(context).pushNamed(
-                    FaqPage.routeName,
-                  ),
-                ),
-                MoreViewMenuCard(
-                  title: '서비스 이용 약관',
-                  onTab: () {},
-                ),
-                MoreViewMenuCard(
-                  title: '개인정보 처리방침',
-                  onTab: () {},
-                ),
-                MoreViewMenuCard(
-                  title: '버전 정보',
-                  trailingWidget: Text(
-                    CafeinConfig.packageInfo.version,
-                    style: AppStyle.body14Regular.copyWith(
-                      color: AppColor.grey400,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  height: 1,
-                  width: width - 40,
-                  color: AppColor.grey50,
-                ),
-                const SizedBox(height: 12),
-                InkWell(
-                  onTap: () async {
-                    final moreViewBloc = context.read<MoreViewBloc>();
-                    final result = await MoreViewSignOutDialog.show(context);
-                    if (!result) {
-                      return;
-                    }
-
-                    moreViewBloc.add(const MoreViewSignOutRequested());
-                  },
-                  child: SizedBox(
-                    height: 56,
-                    width: width - 40,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '로그아웃',
-                        style: AppStyle.subTitle15Medium.copyWith(
-                          color: AppColor.orange500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  height: 1,
-                  width: width - 40,
-                  color: AppColor.grey50,
-                ),
-                BlocBuilder<MoreViewBloc, MoreViewState>(
-                  buildWhen: (pre, next) =>
-                      next is MoreViewStoreCntAndReviewCntLoaded,
-                  builder: (context, state) {
-                    return InkWell(
-                      onTap: state is! MoreViewStoreCntAndReviewCntLoaded
-                          ? null
-                          : () => Navigator.of(context).pushNamed(
-                                SignOffPage.routeName,
-                                arguments: MoreViewCountResponse(
-                                  storeCnt: state.storeCount,
-                                  reviewCnt: state.reviewCount,
+                      return InkWell(
+                        onTap: state is! MoreViewStoreCntAndReviewCntLoaded
+                            ? null
+                            : () => Navigator.of(context).pushNamed(
+                                  SignOffPage.routeName,
+                                  arguments: MoreViewCountResponse(
+                                    storeCnt: state.storeCount,
+                                    reviewCnt: state.reviewCount,
+                                  ),
                                 ),
+                        child: SizedBox(
+                          height: 56,
+                          width: MediaQuery.of(context).size.width - 40,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '탈퇴하기',
+                              style: AppStyle.caption13Medium.copyWith(
+                                color: AppColor.grey400,
                               ),
-                      child: SizedBox(
-                        height: 56,
-                        width: MediaQuery.of(context).size.width - 40,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '탈퇴하기',
-                            style: AppStyle.caption13Medium.copyWith(
-                              color: AppColor.grey400,
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-              ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
           ),
         ),

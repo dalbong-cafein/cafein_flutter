@@ -119,51 +119,56 @@ class NotificationPage extends StatelessWidget {
                   ),
                 );
               }
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                itemCount: state.notifications.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () => context.read<NotificationBloc>().add(
-                          NotificationReadRequested(notificationIndex: index),
-                        ),
-                    child: Container(
-                      color: state.notifications[index].isRead
-                          ? Colors.white
-                          : AppColor.grey50,
-                      height: 92,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          _getNotificationIcon(
-                              state.notifications[index].notificationType),
-                          const SizedBox(width: 12),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.notifications[index].notificationType,
-                                style: AppStyle.subTitle14Medium,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                state.notifications[index].content,
-                                style: AppStyle.body14Regular,
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+              return RefreshIndicator(
+                onRefresh: () async => context.read<NotificationBloc>().add(
+                      const NotificationRequested(),
                     ),
-                  );
-                },
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  itemCount: state.notifications.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () => context.read<NotificationBloc>().add(
+                            NotificationReadRequested(notificationIndex: index),
+                          ),
+                      child: Container(
+                        color: state.notifications[index].isRead
+                            ? Colors.white
+                            : AppColor.grey50,
+                        height: 92,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            _getNotificationIcon(
+                                state.notifications[index].notificationType),
+                            const SizedBox(width: 12),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.notifications[index].notificationType,
+                                  style: AppStyle.subTitle14Medium,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  state.notifications[index].content,
+                                  style: AppStyle.body14Regular,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               );
             }
             return const CustomCircleLoadingIndicator();
