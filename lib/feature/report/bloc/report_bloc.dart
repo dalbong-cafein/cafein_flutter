@@ -37,7 +37,28 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       ));
     }
   }
-
+  FutureOr<void> _onReportRequested(
+      ReportRequested event,
+      Emitter<ReportState> emit,
+      ) async {
+    emit(const ReportLoading());
+    try {
+      await reviewRepository.createReportReview(
+        reviewId: 9,
+        reportRequest: ReportRequest(
+          reviewId: 9,
+          reportCategoryId:event.clickedIndex,
+          content: '',
+        ),
+      );
+      emit(const ReportLoaded());
+    } catch (e) {
+      emit(ReportError(
+        error: e,
+        event: () => add(event),
+      ));
+    }
+  }
 
   FutureOr<void> _onReportCategoryRequested(
     ReportCategoryRequested event,
@@ -59,26 +80,4 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   }
 
 
-  FutureOr<void> _onReportRequested(
-    ReportRequested event,
-    Emitter<ReportState> emit,
-  ) async {
-    emit(const ReportLoading());
-    try {
-      await reviewRepository.createReportReview(
-        reviewId: 9,
-        reportRequest: ReportRequest(
-          reviewId: 9,
-          reportCategoryId:event.clickedIndex,
-          content: '',
-        ),
-      );
-      emit(const ReportLoaded());
-    } catch (e) {
-      emit(ReportError(
-        error: e,
-        event: () => add(event),
-      ));
-    }
-  }
 }
