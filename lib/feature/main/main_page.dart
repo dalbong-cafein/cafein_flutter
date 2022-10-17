@@ -33,14 +33,14 @@ class MainPage extends StatelessWidget {
         ),
         child: const HomePage(),
       ),
-      // BlocProvider<SearchBloc>(
-      //   create: (context) => SearchBloc(
-      //     userRepository: context.read<UserRepository>(),
-      //     storeRepository: context.read<StoreRepository>(),
-      //     heartRepository: context.read<HeartRepository>(),
-      //   ),
-      //   child: const SearchPage(),
-      // ),
+      BlocProvider<SearchBloc>(
+        create: (context) => SearchBloc(
+          userRepository: context.read<UserRepository>(),
+          storeRepository: context.read<StoreRepository>(),
+          heartRepository: context.read<HeartRepository>(),
+        ),
+        child: const SearchPage(),
+      ),
       BlocProvider<NotificationBloc>(
         create: (context) => NotificationBloc(
           notificationRepository: context.read<NotificationRepository>(),
