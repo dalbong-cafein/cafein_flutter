@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:cafein_flutter/feature/main/home/widget/request_location_card.da
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
@@ -135,7 +137,13 @@ class RecommendStoresCard extends StatelessWidget {
                                                                   .length -
                                                               1 <
                                                           imageIndex
-                                                      ? loadAsset(AppImage.noImage)
+                                                      ? const CustomCachedNetworkImage(
+                                                          imageUrl: CafeinConst
+                                                              .defaultStoreImage,
+                                                          height: 48,
+                                                          width: 48,
+                                                          fit: BoxFit.cover,
+                                                        )
                                                       : Image.network(
                                                           state
                                                               .recommendStores[
@@ -212,7 +220,8 @@ class RecommendStoresCard extends StatelessWidget {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            top: 8),
+                                                      top: 8,
+                                                    ),
                                                     child:
                                                         StoreAdditionalInformationRow(
                                                       textStyle: AppStyle
@@ -246,25 +255,28 @@ class RecommendStoresCard extends StatelessWidget {
                                                 CrossAxisAlignment.end,
                                             children: [
                                               InkWell(
-                                                  onTap: () => context
-                                                      .read<HomeBloc>()
-                                                      .add(
-                                                        HomeStoreHeartRequested(
-                                                          index: index,
-                                                          isLike: !state
-                                                              .recommendStores[
-                                                                  index]
-                                                              .isHeart,
-                                                        ),
+                                                onTap: () => context
+                                                    .read<HomeBloc>()
+                                                    .add(
+                                                      HomeStoreHeartRequested(
+                                                        index: index,
+                                                        isLike: !state
+                                                            .recommendStores[
+                                                                index]
+                                                            .isHeart,
                                                       ),
-                                                  child: state
-                                                          .recommendStores[
-                                                              index]
-                                                          .isHeart
-                                                      ? loadAsset(
-                                                          AppIcon.heartLine)
-                                                      : loadAsset(
-                                                          AppIcon.heartOn))
+                                                    ),
+                                                child: state
+                                                        .recommendStores[index]
+                                                        .isHeart
+                                                    ? loadAsset(
+                                                        AppIcon.heartOn,
+                                                      )
+                                                    : loadAsset(
+                                                        AppIcon.heartLine,
+                                                        color: AppColor.grey500,
+                                                      ),
+                                              )
                                             ],
                                           ),
                                         )
