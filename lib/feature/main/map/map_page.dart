@@ -165,7 +165,7 @@ class _MapPageState extends State<MapPage> {
                 bloc.add(const MapCurrentLocationRequested());
 
                 break;
-              case ProcessType.congestion:
+              default:
                 return;
             }
           },

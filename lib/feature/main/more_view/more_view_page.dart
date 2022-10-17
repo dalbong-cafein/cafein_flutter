@@ -14,7 +14,6 @@ import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_car
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
-import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
@@ -167,7 +166,7 @@ class _MoreViewPageState extends State<MoreViewPage> {
                 const SizedBox(height: 12),
                 MoreViewMenuCard(
                   title: '연결된 계정',
-                  authProvider: true,
+                  isAuthProvider: true,
                   trailingWidget: Text(
                     '${context.watch<UserRepository>().getAuthProvider}',
                     style: AppStyle.body14Regular.copyWith(
