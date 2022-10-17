@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/search_page.dart';
@@ -63,6 +65,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    log('---------- MapPage Build ----------');
     final width = MediaQuery.of(context).size.width;
 
     return MultiBlocListener(
@@ -167,6 +170,17 @@ class _MapPageState extends State<MapPage> {
                 break;
               default:
                 return;
+            }
+          },
+        ),
+        BlocListener<MainBloc, MainState>(
+          listenWhen: (pre, next) => next is MainNavigationSelected,
+          listener: (context, state) {
+            final bloc = context.read<MapBloc>();
+            if (state is MainNavigationSelected && state.index == 1) {
+              bloc.add(MapStoreRequested(
+                location: bloc.currentLocation,
+              ));
             }
           },
         ),
