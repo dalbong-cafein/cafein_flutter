@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
+import 'package:cafein_flutter/feature/store/favorite_store/favorite_store_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
@@ -228,18 +229,23 @@ class MyStoresCard extends StatelessWidget {
                                 top: 10,
                                 bottom: 10,
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "나의 카페${state.memberStores.length}개 모두 보기",
-                                    style: AppStyle.body14Regular,
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 3),
-                                      child: loadAsset(AppIcon.rightS,
-                                          color: AppColor.grey400))
-                                ],
+                              child: InkWell(
+                                onTap: (){
+                                  Navigator.of(context).pushNamed(FavoriteStorePage.routeName);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "나의 카페${state.memberStores.length}개 모두 보기",
+                                      style: AppStyle.body14Regular,
+                                    ),
+                                    Padding(
+                                        padding: const EdgeInsets.only(left: 3),
+                                        child: loadAsset(AppIcon.rightS,
+                                            color: AppColor.grey400))
+                                  ],
+                                ),
                               ),
                             )
                           ],
