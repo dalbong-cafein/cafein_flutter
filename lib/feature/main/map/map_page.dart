@@ -146,7 +146,9 @@ class _MapPageState extends State<MapPage> {
               return;
             }
 
-            if (!state.permissionStatus.isGranted) {
+            if ((state.processType == ProcessType.currentLocation ||
+                    state.processType == ProcessType.searchRequest) &&
+                !state.permissionStatus.isGranted) {
               final result = await PermissionDialog.show(context);
 
               if (!result) {

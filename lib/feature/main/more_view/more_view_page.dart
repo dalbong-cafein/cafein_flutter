@@ -4,6 +4,7 @@ import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_page.dart';
@@ -22,45 +23,44 @@ import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MoreViewPage extends StatefulWidget {
+class MoreViewPage extends StatelessWidget {
   const MoreViewPage({Key? key}) : super(key: key);
-
-  @override
-  State<MoreViewPage> createState() => _MoreViewPageState();
-}
-
-class _MoreViewPageState extends State<MoreViewPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => context.read<MoreViewBloc>().add(
-            const MoreViewCountRequested(),
-          ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final userData = context.watch<UserRepository>().getMemberData;
     final width = MediaQuery.of(context).size.width;
 
-    return BlocListener<MoreViewBloc, MoreViewState>(
-      listener: (context, state) {
-        if (state is MoreViewSignOuted) {
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            LoginPage.routeName,
-            (route) => false,
-          );
-        } else if (state is MoreViewError) {
-          ErrorDialog.show(
-            context,
-            error: state.error,
-            refresh: state.event,
-          );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<MoreViewBloc, MoreViewState>(
+          listener: (context, state) {
+            if (state is MoreViewSignOuted) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                LoginPage.routeName,
+                (route) => false,
+              );
+            } else if (state is MoreViewError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            }
+          },
+        ),
+        BlocListener<MainBloc, MainState>(
+          listenWhen: (pre, next) => next is MainNavigationSelected,
+          listener: (context, state) {
+            if (state is MainNavigationSelected && state.index == 3) {
+              context.read<MoreViewBloc>().add(
+                    const MoreViewCountRequested(),
+                  );
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(),
