@@ -60,7 +60,10 @@ class MainPage extends StatelessWidget {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
         if (state is MainNavigationSelected) {
-          return pages[state.index];
+          return IndexedStack(
+            index: state.index,
+            children: pages,
+          );
         }
         return const SizedBox.shrink();
       },

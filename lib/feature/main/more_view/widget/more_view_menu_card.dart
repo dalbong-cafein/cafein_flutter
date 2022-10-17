@@ -12,18 +12,18 @@ class MoreViewMenuCard extends StatelessWidget {
     Key? key,
     required this.title,
     this.onTab,
-    this.authProvider = false,
+    this.isAuthProvider = false,
     this.trailingWidget,
   }) : super(key: key);
 
   final String title;
   final void Function()? onTab;
-  final bool authProvider;
+  final bool isAuthProvider;
   final Widget? trailingWidget;
 
   @override
   Widget build(BuildContext context) {
-    final _authProvider = context.watch<UserRepository>().getAuthProvider;
+    final authProvider = context.watch<UserRepository>().getAuthProvider;
 
     return InkWell(
       onTap: onTab,
@@ -38,11 +38,11 @@ class MoreViewMenuCard extends StatelessWidget {
               style: AppStyle.subTitle15Medium,
             ),
             const Spacer(),
-            if (authProvider)
+            if (isAuthProvider)
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: loadAsset(
-                  _authProvider == AuthProvider.kakao.name
+                  authProvider == AuthProvider.kakao.name
                       ? AppIcon.kakaoCircle
                       : AppIcon.appleCircle,
                 ),

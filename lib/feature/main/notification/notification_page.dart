@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/data/model/enum/notification_type.dart';
+import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
@@ -19,32 +20,47 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<NotificationBloc>().add(const NotificationRequested());
-
-    return BlocListener<NotificationBloc, NotificationState>(
-      listener: (context, state) {
-        if (state is NotificationError) {
-          ErrorDialog.show(
-            context,
-            error: state.error,
-            refresh: state.event,
-          );
-        } else if (state is NotificationOpened) {
-          if (state.notification.notificationType == NotificationType.sticker.title) {
-            Navigator.of(context).pushNamed(
-              StickerPage.routeName,
-            );
-          } else if (state.notification.notificationType == NotificationType.coupon.title) {
-            Navigator.of(context).pushNamed(
-              ReceivedCouponsPage.routeName,
-            );
-          } else if (state.notification.notificationType == NotificationType.notice.title) {
-            Navigator.of(context).pushNamed(
-              NoticePage.routeName,
-            );
-          }
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<NotificationBloc, NotificationState>(
+          listener: (context, state) {
+            if (state is NotificationError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            } else if (state is NotificationOpened) {
+              if (state.notification.notificationType ==
+                  NotificationType.sticker.title) {
+                Navigator.of(context).pushNamed(
+                  StickerPage.routeName,
+                );
+              } else if (state.notification.notificationType ==
+                  NotificationType.coupon.title) {
+                Navigator.of(context).pushNamed(
+                  ReceivedCouponsPage.routeName,
+                );
+              } else if (state.notification.notificationType ==
+                  NotificationType.notice.title) {
+                Navigator.of(context).pushNamed(
+                  NoticePage.routeName,
+                );
+              }
+            }
+          },
+        ),
+        BlocListener<MainBloc, MainState>(
+          listenWhen: (pre, next) => next is MainNavigationSelected,
+          listener: (context, state) {
+            if (state is MainNavigationSelected && state.index == 2) {
+              context.read<NotificationBloc>().add(
+                    const NotificationRequested(),
+                  );
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(
@@ -103,48 +119,56 @@ class NotificationPage extends StatelessWidget {
                   ),
                 );
               }
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                itemCount: state.notifications.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () => context.read<NotificationBloc>().add(
-                          NotificationReadRequested(notificationIndex: index),
-                        ),
-                    child: Container(
-                      color: state.notifications[index].isRead ? Colors.white : AppColor.grey50,
-                      height: 92,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          _getNotificationIcon(state.notifications[index].notificationType),
-                          const SizedBox(width: 12),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.notifications[index].notificationType,
-                                style: AppStyle.subTitle14Medium,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                state.notifications[index].content,
-                                style: AppStyle.body14Regular,
-                                overflow: TextOverflow.ellipsis,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+              return RefreshIndicator(
+                onRefresh: () async => context.read<NotificationBloc>().add(
+                      const NotificationRequested(),
                     ),
-                  );
-                },
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  itemCount: state.notifications.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () => context.read<NotificationBloc>().add(
+                            NotificationReadRequested(notificationIndex: index),
+                          ),
+                      child: Container(
+                        color: state.notifications[index].isRead
+                            ? Colors.white
+                            : AppColor.grey50,
+                        height: 92,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            _getNotificationIcon(
+                                state.notifications[index].notificationType),
+                            const SizedBox(width: 12),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.notifications[index].notificationType,
+                                  style: AppStyle.subTitle14Medium,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  state.notifications[index].content,
+                                  style: AppStyle.body14Regular,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               );
             }
             return const CustomCircleLoadingIndicator();

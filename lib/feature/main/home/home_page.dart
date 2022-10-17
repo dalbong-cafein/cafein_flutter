@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
           title: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 //TODO Inkwell 없애야함, 테스트용
                 Navigator.of(context).pushNamed(ReportPage.routeName);
               },
@@ -71,70 +71,82 @@ class HomePage extends StatelessWidget {
                       )
                     : CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage(memberData?.imageIdPair?.imageUrl ?? 'url'),
+                        backgroundImage: NetworkImage(
+                            memberData?.imageIdPair?.imageUrl ?? 'url'),
                       ),
               ),
             ),
           ],
         ),
         bottomNavigationBar: const MainBottomNavigationBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                ),
-                child: InkWell(
-                  //TODO inkwell 없애야함
-                  onTap: () {
-                    Navigator.of(context).pushNamed(CreatedReviewPage.routeName);
-                  },
-                  child: Container(
-                    width: 328 * widthPercent,
-                    decoration: const BoxDecoration(
-                      color: AppColor.orange400,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16.0),
+        body: RefreshIndicator(
+          onRefresh: () async => context.read<HomeBloc>().add(
+                const HomeRequested(),
+              ),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 16,
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 32, top: 12, bottom: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "친구 초대하고",
-                            style: AppStyle.subTitle14Medium.copyWith(
-                              color: Colors.white,
+                      child: InkWell(
+                        //TODO inkwell 없애야함
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(CreatedReviewPage.routeName);
+                        },
+                        child: Container(
+                          width: 328 * widthPercent,
+                          decoration: const BoxDecoration(
+                            color: AppColor.orange400,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16.0),
                             ),
                           ),
-                          Text(
-                            "무료 아메리카노 받자",
-                            style: AppStyle.subTitle14Medium.copyWith(
-                              color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 32, top: 12, bottom: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "친구 초대하고",
+                                  style: AppStyle.subTitle14Medium.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "무료 아메리카노 받자",
+                                  style: AppStyle.subTitle14Medium.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
                             ),
-                          )
-                        ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const StickerCard(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const MyStoresCard(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    const RecommendStoresCard(),
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              const StickerCard(),
-              const SizedBox(
-                height: 16,
-              ),
-              const MyStoresCard(),
-              const SizedBox(
-                height: 32,
-              ),
-              const RecommendStoresCard(),
             ],
           ),
         ),

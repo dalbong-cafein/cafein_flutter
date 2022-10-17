@@ -1,9 +1,12 @@
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/request_location_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
@@ -13,41 +16,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class RecommendStoresCard extends StatefulWidget {
+class RecommendStoresCard extends StatelessWidget {
   const RecommendStoresCard({Key? key}) : super(key: key);
-
-  @override
-  State<RecommendStoresCard> createState() => _RecommendStoresCardState();
-}
-
-class _RecommendStoresCardState extends State<RecommendStoresCard> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => context.read<LocationPermissionBloc>().add(
-            const LocationPermissionRequest(
-              processType: ProcessType.home,
-            ),
-          ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    return BlocListener<LocationPermissionBloc, LocationPermissionState>(
-      listener: (context, state) {
-        if (state is LocationPermissionChecked &&
-            state.processType == ProcessType.home) {
-          context.read<HomeBloc>().add(
-                HomeRecommendStoreRequested(
-                  isGranted: state.permissionStatus.isGranted,
-                ),
-              );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LocationPermissionBloc, LocationPermissionState>(
+          listener: (context, state) {
+            if (state is LocationPermissionChecked &&
+                state.processType == ProcessType.home) {
+              context.read<HomeBloc>().add(
+                    HomeRecommendStoreRequested(
+                      isGranted: state.permissionStatus.isGranted,
+                    ),
+                  );
+            }
+          },
+        ),
+        BlocListener<MainBloc, MainState>(
+          listenWhen: (pre, next) => next is MainNavigationSelected,
+          listener: (context, state) {
+            if (state is MainNavigationSelected && state.index == 0) {
+              context.read<LocationPermissionBloc>().add(
+                    const LocationPermissionRequest(
+                      processType: ProcessType.home,
+                    ),
+                  );
+            }
+          },
+        ),
+      ],
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeError) {
@@ -135,7 +137,13 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
                                                                   .length -
                                                               1 <
                                                           imageIndex
-                                                      ? loadAsset(AppImage.noImage)
+                                                      ? const CustomCachedNetworkImage(
+                                                          imageUrl: CafeinConst
+                                                              .defaultStoreImage,
+                                                          height: 48,
+                                                          width: 48,
+                                                          fit: BoxFit.cover,
+                                                        )
                                                       : Image.network(
                                                           state
                                                               .recommendStores[
@@ -212,7 +220,8 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            top: 8),
+                                                      top: 8,
+                                                    ),
                                                     child:
                                                         StoreAdditionalInformationRow(
                                                       textStyle: AppStyle
@@ -246,25 +255,28 @@ class _RecommendStoresCardState extends State<RecommendStoresCard> {
                                                 CrossAxisAlignment.end,
                                             children: [
                                               InkWell(
-                                                  onTap: () => context
-                                                      .read<HomeBloc>()
-                                                      .add(
-                                                        HomeStoreHeartRequested(
-                                                          index: index,
-                                                          isLike: !state
-                                                              .recommendStores[
-                                                                  index]
-                                                              .isHeart,
-                                                        ),
+                                                onTap: () => context
+                                                    .read<HomeBloc>()
+                                                    .add(
+                                                      HomeStoreHeartRequested(
+                                                        index: index,
+                                                        isLike: !state
+                                                            .recommendStores[
+                                                                index]
+                                                            .isHeart,
                                                       ),
-                                                  child: state
-                                                          .recommendStores[
-                                                              index]
-                                                          .isHeart
-                                                      ? loadAsset(
-                                                          AppIcon.heartLine)
-                                                      : loadAsset(
-                                                          AppIcon.heartOn))
+                                                    ),
+                                                child: state
+                                                        .recommendStores[index]
+                                                        .isHeart
+                                                    ? loadAsset(
+                                                        AppIcon.heartOn,
+                                                      )
+                                                    : loadAsset(
+                                                        AppIcon.heartLine,
+                                                        color: AppColor.grey500,
+                                                      ),
+                                              )
                                             ],
                                           ),
                                         )

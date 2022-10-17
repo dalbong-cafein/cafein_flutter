@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
+import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -80,8 +81,10 @@ class _StoreListCardState extends State<StoreListCard> {
                             }
                           }
                           return InkWell(
-                            onTap: () => Navigator.of(context).pushNamed(
+                            onTap: () =>
+                                Navigator.of(context).pushNamedAndRemoveUntil(
                               StoreDetailPage.routeName,
+                              ModalRoute.withName(MainPage.routeName),
                               arguments: storeList[index].storeId,
                             ),
                             child: Container(

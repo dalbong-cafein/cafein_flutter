@@ -1,7 +1,9 @@
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,11 @@ class MyStoresCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      loadAsset(AppImage.noCafe, height: 42, width: 32),
+                      loadAsset(
+                        AppImage.noCafe,
+                        height: 42,
+                        width: 32,
+                      ),
                       const Padding(
                         padding: EdgeInsets.only(top: 10),
                         child: Text("등록된 나의 카페가 없어요"),
@@ -47,7 +53,10 @@ class MyStoresCard extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 12),
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: AppColor.orange500),
+                            border: Border.all(
+                              width: 1,
+                              color: AppColor.orange500,
+                            ),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(10.0),
                             ),
@@ -92,7 +101,7 @@ class MyStoresCard extends StatelessWidget {
                     height: 16,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left : 16),
+                    padding: EdgeInsets.only(left: 16),
                     child: Text(
                       "나의 카페",
                       style: AppStyle.subTitle17SemiBold,
@@ -103,7 +112,9 @@ class MyStoresCard extends StatelessWidget {
                     child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: state.memberStores.length >= 4 ? 4 : state.memberStores.length,
+                        itemCount: state.memberStores.length >= 4
+                            ? 4
+                            : state.memberStores.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(
@@ -122,10 +133,19 @@ class MyStoresCard extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(8),
                                       child: SizedBox.fromSize(
                                         size: const Size.fromRadius(48),
-                                        child: state.memberStores[index].imageIdPair == null
-                                            ? loadAsset(AppImage.noImage)
+                                        child: state.memberStores[index]
+                                                    .imageIdPair ==
+                                                null
+                                            ? const CustomCachedNetworkImage(
+                                                imageUrl: CafeinConst
+                                                    .defaultStoreImage,
+                                                height: 48,
+                                                width: 48,
+                                                fit: BoxFit.cover,
+                                              )
                                             : Image.network(
-                                                state.memberStores[index].imageIdPair!.imageUrl,
+                                                state.memberStores[index]
+                                                    .imageIdPair!.imageUrl,
                                                 fit: BoxFit.cover,
                                               ),
                                       ),
@@ -134,31 +154,44 @@ class MyStoresCard extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           state.memberStores[index].storeName,
                                           style: AppStyle.subTitle15Medium,
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 5),
+                                          padding:
+                                              const EdgeInsets.only(top: 5),
                                           child: Row(
                                             children: [
                                               OpenCloseChip(
                                                 isOpen: state
-                                                        .memberStores[index].businessInfo?.isOpen ??
+                                                        .memberStores[index]
+                                                        .businessInfo
+                                                        ?.isOpen ??
                                                     false,
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 6.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 6.0),
                                                 child: Text(
-                                                  state.memberStores[index].businessInfo?.isOpen ??
+                                                  state
+                                                              .memberStores[
+                                                                  index]
+                                                              .businessInfo
+                                                              ?.isOpen ??
                                                           false
                                                       ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
                                                       : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
-                                                  style: AppStyle.caption12Regular
-                                                      .copyWith(color: AppColor.grey600),
+                                                  style: AppStyle
+                                                      .caption12Regular
+                                                      .copyWith(
+                                                          color:
+                                                              AppColor.grey600),
                                                 ),
                                               )
                                             ],
@@ -169,7 +202,8 @@ class MyStoresCard extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   ConfuseChip(
-                                    confuseScore: state.memberStores[index].congestionScoreAvg,
+                                    confuseScore: state
+                                        .memberStores[index].congestionScoreAvg,
                                     height: 24,
                                     textStyle: AppStyle.subTitle15Medium,
                                     width: 42,
@@ -202,17 +236,14 @@ class MyStoresCard extends StatelessWidget {
                                     style: AppStyle.body14Regular,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 3),
-                                    child: loadAsset(
-                                        AppIcon.rightS,
-                                        color : AppColor.grey400
-                                    )
-                                  )
+                                      padding: const EdgeInsets.only(left: 3),
+                                      child: loadAsset(AppIcon.rightS,
+                                          color: AppColor.grey400))
                                 ],
                               ),
                             )
                           ],
-                        )
+                        ),
                 ],
               ),
             );
