@@ -22,7 +22,7 @@ class SearchEmptyResultCard extends StatelessWidget {
             height: 12,
           ),
           Text(
-            "카페 이름, 구, 역 등으로 검색하세요",
+            "카페 이름, 지하철, 지역 등으로 검색하세요",
             style: AppStyle.body14Regular.copyWith(
               color: AppColor.grey600,
             ),

@@ -105,6 +105,7 @@ class _SearchPageState extends State<SearchPage> {
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             toolbarHeight: 56,
             leading: InkWell(
@@ -128,21 +129,49 @@ class _SearchPageState extends State<SearchPage> {
                 borderRadius: BorderRadius.circular(12),
                 color: AppColor.grey50,
               ),
-              child: TextField(
-                controller: textController,
-                maxLength: 20,
-                decoration: const InputDecoration(
-                  counterText: '',
-                  hintText: '카페 이름, 구, 동, 역 등으로 검색',
-                ),
-                onEditingComplete: () {
-                  isEditCompleted = true;
-                  context.read<SearchBloc>().add(
-                        SearchStoreRequested(
-                          keyword: textController.text,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: textController,
+                      maxLength: 20,
+                      autofocus: true,
+                      decoration: const InputDecoration(
+                        counterText: '',
+                        hintText: '카페 이름, 지하철, 지역 등으로 검색',
+                      ),
+                      onEditingComplete: () {
+                        isEditCompleted = true;
+                        context.read<SearchBloc>().add(
+                              SearchStoreRequested(
+                                keyword: textController.text,
+                              ),
+                            );
+                      },
+                    ),
+                  ),
+                  BlocBuilder<SearchBloc, SearchState>(
+                    buildWhen: (pre, next) =>
+                        next is SearchKeywordValidationChecked,
+                    builder: (context, state) {
+                      bool isEmpty = true;
+                      if (state is SearchKeywordValidationChecked) {
+                        isEmpty = state.isEmpty;
+                      }
+
+                      if (isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+
+                      return InkWell(
+                        onTap: () => textController.clear(),
+                        child: loadAsset(
+                          AppIcon.circleDeleteGrey,
                         ),
                       );
-                },
+                    },
+                  ),
+                ],
               ),
             ),
           ),

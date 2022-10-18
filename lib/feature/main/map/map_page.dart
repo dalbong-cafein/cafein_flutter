@@ -256,7 +256,7 @@ class _MapPageState extends State<MapPage> {
                           loadAsset(AppIcon.search, color: AppColor.grey700),
                           const SizedBox(width: 8),
                           Text(
-                            '카페 이름, 구, 동, 역 등으로 검색',
+                            '카페 이름, 지하철, 지역 등으로 검색',
                             style: AppStyle.body15Regular.copyWith(
                               color: AppColor.grey500,
                             ),
