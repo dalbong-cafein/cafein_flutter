@@ -1,4 +1,5 @@
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' hide log;
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -20,6 +21,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('HomePage Build');
+
     final width = MediaQuery.of(context).size.width;
     final widthPercent = width / 360;
     final memberData = context.watch<UserRepository>().getMemberData;

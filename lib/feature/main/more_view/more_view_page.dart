@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -26,8 +28,9 @@ class MoreViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('********** MoreViewPage Build **********');
+
     final userData = context.watch<UserRepository>().getMemberData;
-    final width = MediaQuery.of(context).size.width;
 
     return MultiBlocListener(
       listeners: [
@@ -140,18 +143,16 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 24),
                   SizedBox(
                     height: 74,
-                    width: width - 48,
+                    width: double.infinity,
                     child: BlocBuilder<MoreViewBloc, MoreViewState>(
                       buildWhen: (pre, next) =>
                           next is MoreViewStoreCntAndReviewCntLoaded,
                       builder: (context, state) {
                         if (state is MoreViewStoreCntAndReviewCntLoaded) {
                           return InkWell(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                RegisteredReviewPage.routeName,
-                              );
-                            },
+                            onTap: () => Navigator.of(context).pushNamed(
+                              RegisteredReviewPage.routeName,
+                            ),
                             child: MoreViewCountCard(
                               title: '작성한 리뷰',
                               value: state.reviewCount,
@@ -166,7 +167,6 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Container(
                     height: 1,
-                    width: width - 40,
                     color: AppColor.grey100,
                   ),
                   const SizedBox(height: 12),
@@ -183,7 +183,6 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   Container(
                     height: 1,
-                    width: width - 40,
                     color: AppColor.grey100,
                   ),
                   const SizedBox(height: 12),
@@ -219,14 +218,15 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   Container(
                     height: 1,
-                    width: width - 40,
                     color: AppColor.grey100,
                   ),
                   const SizedBox(height: 12),
                   InkWell(
                     onTap: () async {
                       final moreViewBloc = context.read<MoreViewBloc>();
+
                       final result = await MoreViewSignOutDialog.show(context);
+
                       if (!result) {
                         return;
                       }
@@ -235,7 +235,6 @@ class MoreViewPage extends StatelessWidget {
                     },
                     child: SizedBox(
                       height: 56,
-                      width: width - 40,
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -250,7 +249,6 @@ class MoreViewPage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     height: 1,
-                    width: width - 40,
                     color: AppColor.grey100,
                   ),
                   BlocBuilder<MoreViewBloc, MoreViewState>(
@@ -269,7 +267,6 @@ class MoreViewPage extends StatelessWidget {
                                 ),
                         child: SizedBox(
                           height: 56,
-                          width: MediaQuery.of(context).size.width - 40,
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
