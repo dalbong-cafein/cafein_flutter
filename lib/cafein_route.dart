@@ -52,6 +52,7 @@ import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_blo
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
 import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
+import 'package:cafein_flutter/feature/splash/bloc/splash_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
@@ -70,7 +71,14 @@ abstract class CafeinRoute {
 
     switch (settings.name) {
       case SplashPage.routeName:
-        page = const SplashPage();
+        page = BlocProvider(
+          create: (context) => SplashBloc(
+            authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
+            appRepository: context.read<AppRepository>(),
+          ),
+          child: const SplashPage(),
+        );
         break;
       case LoginPage.routeName:
         page = BlocProvider(

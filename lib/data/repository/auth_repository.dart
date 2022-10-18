@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cafein_flutter/data/datasource/local/preference/auth_preference.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/auth_client.dart';
@@ -22,6 +24,8 @@ abstract class AuthRepository {
   });
 
   Future<BaseResponse<bool>> duplicateNickname(String nickname);
+
+  TokenData? getTokenData();
 
   Future<dynamic> signOut();
 }
@@ -55,10 +59,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }) =>
       authClient.login(socialLoginRequest).then(
         (value) {
-          final List<String> tokenDatas = value.response.headers['set-cookie'] ?? [];
+          final List<String> tokenDatas =
+              value.response.headers['set-cookie'] ?? [];
           if (tokenDatas.isNotEmpty) {
             final accessToken = tokenDatas.first.substring(12).split(';').first;
             final refreshToken = tokenDatas.last.substring(13).split(';').first;
+
             authPreference.setTokenData(
               TokenData(
                 accessToken: accessToken,
@@ -71,7 +77,8 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
   @override
-  Future<BaseResponse> refreshAccessToken() => authClient.refreshAccessToken().then(
+  Future<BaseResponse> refreshAccessToken() =>
+      authClient.refreshAccessToken().then(
         (value) {
           return value.data;
         },
@@ -83,4 +90,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<dynamic> signOut() => authPreference.box.clear();
+
+  @override
+  TokenData? getTokenData() => authPreference.getTokenData();
 }

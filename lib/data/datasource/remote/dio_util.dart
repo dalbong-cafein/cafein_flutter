@@ -55,9 +55,9 @@ class DioUtil {
     dio.interceptors.add(CustomDioLogger(
       'dio',
       request: false,
-      responseHeader: false,
+      responseHeader: true,
       requestBody: false,
-      requestHeader: false,
+      requestHeader: true,
       responseBody: false,
     ));
     dio.interceptors.add(
@@ -94,11 +94,15 @@ class DioUtil {
 
           if (options.headers['cookie'] != authorizationData) {
             options.headers['cookie'] = authorizationData;
-            return dio.fetch(options).then((r) => handler.resolve(r));
+            return dio.fetch(options).then(
+                  (r) => handler.resolve(r),
+                );
           }
 
-          return AuthClient(
-                  Dio()..interceptors.add(CustomDioLogger('refreshDio')))
+          return AuthClient(Dio()
+                ..interceptors.add(
+                  CustomDioLogger('refreshDio'),
+                ))
               .refreshAccessToken()
               .then(
             (value) async {
@@ -109,13 +113,22 @@ class DioUtil {
                     tokenDatas.first.substring(12).split(';').first;
 
                 await authPreference.setTokenData(
-                    TokenData(accessToken: accessToken, refreshToken: ''));
+                  TokenData(
+                    accessToken: accessToken,
+                    refreshToken:
+                        authPreference.getTokenData()?.refreshToken ?? '',
+                  ),
+                );
 
                 options.headers['cookie'] = 'accessToken=$accessToken';
               }
-              return dio.fetch(options).then((r) => handler.resolve(r));
+              return dio.fetch(options).then(
+                    (r) => handler.resolve(r),
+                  );
             },
-          ).onError((_, stackTrace) => handler.next(error));
+          ).onError(
+            (_, stackTrace) => handler.next(error),
+          );
         },
       ),
     );
