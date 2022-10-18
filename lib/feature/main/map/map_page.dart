@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
@@ -71,9 +70,6 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    log('---------- MapPage Build ----------');
-    final width = MediaQuery.of(context).size.width;
-
     return MultiBlocListener(
       listeners: [
         BlocListener<MapBloc, MapState>(
@@ -311,7 +307,7 @@ class _MapPageState extends State<MapPage> {
 
                   return SizedBox(
                     height: 248,
-                    width: width,
+                    width: double.infinity,
                     child: Column(
                       children: [
                         const SearchBodyHeader(
