@@ -1,5 +1,9 @@
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
+import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
+import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteStorePage extends StatelessWidget {
@@ -62,10 +66,100 @@ class FavoriteStorePage extends StatelessWidget {
           ),
           Container( height:1.0,
             width: width,
-            color:AppColor.grey100,)
+            color:AppColor.grey100,),
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index){
+            return favoriteStoreItem();
+          })
 
         ],
       ),
     );
+  }
+
+  Widget favoriteStoreItem(){
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 20, top: 8, bottom: 8),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 48,
+            height: 48,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(48),
+                child: const CustomCachedNetworkImage(
+                  imageUrl: CafeinConst
+                      .defaultStoreImage,
+                  height: 48,
+                  width: 48,
+                  fit: BoxFit.cover,
+                )
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          SizedBox(
+            width: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("망원타운", style: AppStyle.subTitle15Medium,),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    const OpenCloseChip(isOpen: true),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    const ConfuseChip(width: 29, height: 18, textStyle: AppStyle.caption12Medium, confuseScore: 1,),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    Text(
+                      "${_parseTime("23:00")}에 영업 종료",
+                      style: AppStyle.caption12Regular.copyWith(color: AppColor.grey600),
+
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          const Spacer(),
+          loadAsset(
+            AppIcon.heartOn,
+            height: 24,
+            width: 24
+          )
+        ],
+      ),
+    );
+  }
+  String _parseTime(String time) {
+    int hour = int.parse(time.substring(0, 2));
+    String minute = time.substring(3, 5);
+    if (time == "null") {
+      return "시간 정보가 없습니다";
+    } else if (hour > 12) {
+      hour = hour - 12;
+      if (hour <= 9) {
+        return "오후 0$hour:$minute";
+      }
+      return "오후 $hour:$minute";
+    } else {
+      if (hour <= 9) {
+        return "오전 0$hour:$minute";
+      }
+      return "오전 $hour:$minute";
+    }
   }
 }
