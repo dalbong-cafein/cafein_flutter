@@ -64,6 +64,12 @@ class _MapPageState extends State<MapPage> {
   }
 
   @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     log('---------- MapPage Build ----------');
     final width = MediaQuery.of(context).size.width;

@@ -144,7 +144,7 @@ class _CongestionListViewState extends State<CongestionListView> {
                     congestion: widget.congestionList[index],
                   );
                 } else {
-                  if (widget.congestionList.length >= 3 && index == 2) {
+                  if (widget.congestionList.length >= 2 && index == 2) {
                     return InkWell(
                       onTap: () => setState(() => isExpanded = !isExpanded),
                       child: Container(

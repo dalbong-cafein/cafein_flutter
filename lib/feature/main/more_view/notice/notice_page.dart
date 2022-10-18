@@ -93,7 +93,7 @@ class _NoticePageState extends State<NoticePage> {
                 itemCount: state.boards.length,
                 separatorBuilder: (context, index) => Container(
                   height: 1,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
                   width: width - 40,
