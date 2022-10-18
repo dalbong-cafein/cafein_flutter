@@ -16,6 +16,7 @@ import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -65,7 +66,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          appBar: AppBar(title: const Text('내정보')),
+          appBar: AppBar(
+            title: const Text('내정보'),
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: loadAsset(AppIcon.left),
+            ),
+          ),
           body: Column(
             children: [
               Expanded(
@@ -234,7 +241,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             margin: const EdgeInsets.only(
                               bottom: 24,
                             ),
-                            height: 56,
+                            height: 48,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               border: const Border.fromBorderSide(
@@ -288,28 +295,73 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     isValid = false;
                   }
 
-                  return SizedBox(
-                    height: 56,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: isValid
-                          ? () async {
-                              FocusScope.of(context).unfocus();
-                              final bloc = context.read<EditProfileBloc>();
-                              final result =
-                                  await EditConfirmDialog.show(context);
+                  return KeyboardVisibilityBuilder(
+                    builder: (context, isShow) {
+                      if (!isShow) {
+                        return SafeArea(
+                          child: Container(
+                            height: 56,
+                            margin: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              bottom: 16,
+                            ),
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: isValid
+                                  ? () async {
+                                      FocusScope.of(context).unfocus();
+                                      final bloc =
+                                          context.read<EditProfileBloc>();
+                                      final result =
+                                          await EditConfirmDialog.show(context);
 
-                              if (!result) {
-                                return;
-                              }
+                                      if (!result) {
+                                        return;
+                                      }
 
-                              bloc.add(const EditProfileRequested());
-                            }
-                          : null,
-                      child: isLoading
-                          ? const DotsLoadingIndicator()
-                          : const Text('수정하기'),
-                    ),
+                                      bloc.add(const EditProfileRequested());
+                                    }
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16),
+                                  ),
+                                ),
+                              ),
+                              child: isLoading
+                                  ? const DotsLoadingIndicator()
+                                  : const Text('수정하기'),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return SizedBox(
+                        height: 56,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: isValid
+                              ? () async {
+                                  FocusScope.of(context).unfocus();
+                                  final bloc = context.read<EditProfileBloc>();
+                                  final result =
+                                      await EditConfirmDialog.show(context);
+
+                                  if (!result) {
+                                    return;
+                                  }
+
+                                  bloc.add(const EditProfileRequested());
+                                }
+                              : null,
+                          child: isLoading
+                              ? const DotsLoadingIndicator()
+                              : const Text('수정하기'),
+                        ),
+                      );
+                    },
                   );
                 },
               )

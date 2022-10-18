@@ -46,6 +46,7 @@ dependencies:
   image: ^3.2.0
   path_provider: ^2.0.11
   collection: ^1.16.0
+  flutter_keyboard_visibility: ^5.4.0
 
 dev_dependencies:
   flutter_test:

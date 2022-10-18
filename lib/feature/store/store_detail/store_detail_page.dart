@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
@@ -88,8 +86,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    log('********** StoreDetailBuild **********');
-
     final tabTitles = [
       '홈',
       '혼잡도',
