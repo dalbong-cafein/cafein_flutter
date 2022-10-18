@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
@@ -86,7 +88,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    log('********** StoreDetailBuild **********');
 
     final tabTitles = [
       '홈',
@@ -213,7 +215,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       if (index == currentIndex)
                                         Container(
                                           height: 1,
-                                          width: (width - 32) / 4,
                                           color: AppColor.grey800,
                                         )
                                     ],
