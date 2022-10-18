@@ -93,6 +93,7 @@ class LoginPage extends StatelessWidget {
                   loadAsset(
                     AppImage.cafeinLogo,
                     color: AppColor.white,
+                    width: 200,
                   ),
                   const Spacer(),
                   InkWell(

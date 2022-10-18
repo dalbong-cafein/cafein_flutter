@@ -24,11 +24,18 @@ class ErrorDialog extends StatelessWidget {
 
   final dynamic error;
 
+  static bool isShow = false;
+
   static Future<void> show(
     BuildContext context, {
     required dynamic error,
     required Function refresh,
   }) async {
+    if (isShow) {
+      return;
+    }
+
+    isShow = true;
     final navigator = Navigator.of(context);
     final result = await showDialog<ErrorCallBack?>(
       context: context,
@@ -36,9 +43,13 @@ class ErrorDialog extends StatelessWidget {
         error: error,
       ),
     );
+
     if (result == null) {
       return;
     }
+
+    isShow = false;
+
     switch (result) {
       case ErrorCallBack.login:
         navigator.pushNamedAndRemoveUntil(

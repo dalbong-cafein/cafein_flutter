@@ -95,6 +95,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     }
 
     currentLocation = event.location;
+    searchKeyword = '';
 
     emit(const MapLoading());
 
@@ -259,8 +260,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         longitude: event.longitude,
         latitude: event.latitude,
       );
-
-      log(responseLocation);
 
       emit(
         MapCameraPositionChecked(

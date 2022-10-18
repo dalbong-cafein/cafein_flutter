@@ -112,6 +112,7 @@ class _MapPageState extends State<MapPage> {
                     icon: getMarkerIcon(
                       confuseScore: state.stores[index].congestionScoreAvg,
                       isLike: state.stores[index].isHeart,
+                      isSingle: state.stores.length == 1,
                     ),
                     onMarkerTab: (marker, iconSize) async {
                       if (marker?.position == null) {
@@ -135,6 +136,15 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
               );
+
+              if (state.stores.isNotEmpty) {
+                moveCurrentCamera(
+                  LatLng(
+                    state.stores.first.latY,
+                    state.stores.first.lngX,
+                  ),
+                );
+              }
 
               setState(() {});
             }
@@ -191,6 +201,7 @@ class _MapPageState extends State<MapPage> {
       ],
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
+        backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 112,
           title: Column(

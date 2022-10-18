@@ -17,6 +17,12 @@ abstract class AppIcon {
   static const markerLikeNone = 'asset/icon/marker/marker_like_none.png';
   static const markerOrange = 'asset/icon/marker/orange_marker.png';
 
+  static const markerSingleNone = 'asset/icon/marker/marker_single_none.png';
+  static const markerSingleBad = 'asset/icon/marker/marker_single_bad.png';
+  static const markerSingleNormal =
+      'asset/icon/marker/marker_single_normal.png';
+  static const markerSingleGood = 'asset/icon/marker/marker_single_good.png';
+
   static const heartCrowded = "asset/icon/heart_crowded_icon.svg";
   static const heartGood = "asset/icon/heart_good_icon.svg";
   static const heartNormal = "asset/icon/heart_normal_icon.svg";
