@@ -14,6 +14,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       : super(const FavoriteStoreInitial()) {
     on<FavoriteStoreRequested>(_onFavoriteStoreRequested);
     on<FavoriteStoreClicked>(_onFavoriteStoreClicked);
+    on<SortModeClicked>(_onSortModeClicked);
   }
 
   final HeartRepository heartRepository;
@@ -69,4 +70,11 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       ));
     }
   }
+  FutureOr<void> _onSortModeClicked(
+      SortModeClicked event,
+      Emitter<FavoriteStoreState> emit,
+      ){
+    emit(const SortModeSetting());
+  }
+
 }

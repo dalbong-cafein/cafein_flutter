@@ -21,3 +21,10 @@ class FavoriteStoreClicked extends FavoriteStoreEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SortModeClicked extends FavoriteStoreEvent {
+  const SortModeClicked();
+
+  @override
+  List<Object?> get props => [];
+}

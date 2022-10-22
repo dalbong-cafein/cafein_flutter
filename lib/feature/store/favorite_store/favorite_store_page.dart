@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/feature/store/favorite_store/widget/store_sort_mode_bottom_drawer.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
@@ -30,7 +31,15 @@ class FavoriteStorePage extends StatelessWidget {
       body: BlocConsumer<FavoriteStoreBloc, FavoriteStoreState>(
         buildWhen: (pre, next) => next is FavoriteStoreLoaded,
         listener: (context, state) {
-
+          if(state is SortModeSetting){
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (modalContext) {
+                return const StoreSortModeBottomDrawer();
+              },
+            );
+          }
         },
         builder: (context, state) {
           if (state is FavoriteStoreLoaded) {
@@ -50,7 +59,11 @@ class FavoriteStorePage extends StatelessWidget {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          context.read<FavoriteStoreBloc>().add(
+                            const SortModeClicked(),
+                          );
+                        },
                         child: Row(
                           children: [
                             Text("등록순",
