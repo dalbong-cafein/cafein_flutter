@@ -7,7 +7,6 @@ import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'bloc/favorite_store_bloc.dart';
 
 class FavoriteStorePage extends StatelessWidget {
@@ -31,7 +30,7 @@ class FavoriteStorePage extends StatelessWidget {
       body: BlocConsumer<FavoriteStoreBloc, FavoriteStoreState>(
         buildWhen: (pre, next) => next is FavoriteStoreLoaded,
         listener: (context, state) {
-          // TODO: implement listener
+
         },
         builder: (context, state) {
           if (state is FavoriteStoreLoaded) {
@@ -82,6 +81,7 @@ class FavoriteStorePage extends StatelessWidget {
                     itemCount: state.storeCount,
                     itemBuilder: (BuildContext context, int index) {
                       return favoriteStoreItem(
+                          state.stores[index].imageIdPair?.imageUrl ?? CafeinConst.defaultStoreImage,
                           state.stores[index].storeName,
                           state.stores[index].businessInfo?.isOpen ?? false,
                           state.stores[index].businessInfo?.tmrOpen ?? "00:00",
@@ -103,6 +103,7 @@ class FavoriteStorePage extends StatelessWidget {
   }
 
   Widget favoriteStoreItem(
+      String imageUrl,
       String storeName,
       bool isOpen,
       String openTime,
@@ -123,8 +124,8 @@ class FavoriteStorePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: SizedBox.fromSize(
                   size: const Size.fromRadius(48),
-                  child: const CustomCachedNetworkImage(
-                    imageUrl: CafeinConst.defaultStoreImage,
+                  child: CustomCachedNetworkImage(
+                    imageUrl: imageUrl,
                     height: 48,
                     width: 48,
                     fit: BoxFit.cover,
@@ -160,11 +161,9 @@ class FavoriteStorePage extends StatelessWidget {
                             confuseScore: storeConfuse,
                           )
                         : const SizedBox.shrink(),
-                    isOpen
-                        ? const SizedBox(
+                    const SizedBox(
                             width: 6,
-                          )
-                        : const SizedBox.shrink(),
+                          ),
                     Text(
                       isOpen
                           ? "${_parseTime(closeTime)}에 영업 종료"
