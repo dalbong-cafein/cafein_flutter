@@ -68,7 +68,7 @@ class RecommendStoresCard extends StatelessWidget {
             }
 
             if (state.recommendStores.isEmpty) {
-              return const Text('빈화면');
+              return const SizedBox.shrink();
             }
 
             return Column(
