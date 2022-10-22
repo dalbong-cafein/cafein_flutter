@@ -96,6 +96,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
           sortMode: sortMode
       ));
     }else{
+      sortMode = event.sortMode;
       if(event.sortMode == 0){
         try{
           final storeResponse = await heartRepository.getMyStores();

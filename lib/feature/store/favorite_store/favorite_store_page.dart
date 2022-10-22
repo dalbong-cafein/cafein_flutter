@@ -41,7 +41,7 @@ class FavoriteStorePage extends StatelessWidget {
               ),
               builder: (modalContext) {
 
-                return StoreSortModeBottomDrawer(bigContext: context, sortMode: 0,);
+                return StoreSortModeBottomDrawer(bigContext: context, sortMode: state.sortMode,);
               },
             );
           }

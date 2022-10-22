@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class StoreSortModeBottomDrawer extends StatelessWidget {
   final BuildContext bigContext;
   final int sortMode;
-  const StoreSortModeBottomDrawer({super.key, required this.bigContext, required this.sortMode});
+
+  const StoreSortModeBottomDrawer(
+      {super.key, required this.bigContext, required this.sortMode});
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +25,23 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   bigContext.read<FavoriteStoreBloc>().add(
-                    const SortModeChanged(sortMode: 0),
-                  );
+                        const SortModeChanged(sortMode: 0),
+                      );
                   Navigator.pop(context);
                 },
                 child: Row(
                   children: [
                     Text(
                       "등록순",
-                      style: AppStyle.subTitle15Medium
-                          .copyWith(color: sortMode == 0? AppColor.orange500 : AppColor.grey800),
+                      style: AppStyle.subTitle15Medium.copyWith(
+                          color: sortMode == 0
+                              ? AppColor.orange500
+                              : AppColor.grey800),
                     ),
                     const Spacer(),
-                    loadAsset(AppIcon.doneOn, width: 24, height: 24)
+                    sortMode == 0 ? loadAsset(AppIcon.doneOn, width: 24, height: 24): const SizedBox.shrink()
                   ],
                 ),
               ),
@@ -45,21 +49,23 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   bigContext.read<FavoriteStoreBloc>().add(
-                    const SortModeChanged(sortMode: 1),
-                  );
+                        const SortModeChanged(sortMode: 1),
+                      );
                   Navigator.pop(context);
                 },
                 child: Row(
                   children: [
                     Text(
                       "가까운순",
-                      style: AppStyle.subTitle15Medium
-                          .copyWith(color: sortMode == 1? AppColor.orange500 : AppColor.grey800),
+                      style: AppStyle.subTitle15Medium.copyWith(
+                          color: sortMode == 1
+                              ? AppColor.orange500
+                              : AppColor.grey800),
                     ),
                     const Spacer(),
-                    loadAsset(AppIcon.doneOn, width: 24, height: 24)
+                    sortMode == 1 ? loadAsset(AppIcon.doneOn, width: 24, height: 24) : const SizedBox.shrink()
                   ],
                 ),
               ),
@@ -67,21 +73,23 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   bigContext.read<FavoriteStoreBloc>().add(
-                    const SortModeChanged(sortMode: 2),
-                  );
+                        const SortModeChanged(sortMode: 2),
+                      );
                   Navigator.pop(context);
                 },
                 child: Row(
                   children: [
                     Text(
                       "혼잡도낮은순",
-                      style: AppStyle.subTitle15Medium
-                          .copyWith(color: sortMode == 2 ? AppColor.orange500: AppColor.grey800),
+                      style: AppStyle.subTitle15Medium.copyWith(
+                          color: sortMode == 2
+                              ? AppColor.orange500
+                              : AppColor.grey800),
                     ),
                     const Spacer(),
-                    loadAsset(AppIcon.doneOn, width: 24, height: 24)
+                    sortMode == 2 ? loadAsset(AppIcon.doneOn, width: 24, height: 24) : const SizedBox.shrink()
                   ],
                 ),
               ),
