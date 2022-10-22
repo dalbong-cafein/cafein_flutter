@@ -22,17 +22,21 @@ class FavoriteStoreLoaded extends FavoriteStoreState {
   const FavoriteStoreLoaded(
       {required this.stores,
       required this.storeCount,
-      required this.heartList});
+      required this.heartList,
+      required this.sortMode
+      });
 
   final List<MemberStore> stores;
   final int storeCount;
   final List<bool> heartList;
+  final int sortMode;
 
   @override
   List<Object?> get props => [
         [...stores],
         storeCount,
-        [...heartList]
+        [...heartList],
+        sortMode
       ];
 }
 

@@ -35,7 +35,11 @@ class FavoriteStorePage extends StatelessWidget {
             showModalBottomSheet(
               isScrollControlled: true,
               context: context,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               builder: (modalContext) {
+
                 return const StoreSortModeBottomDrawer();
               },
             );

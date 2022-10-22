@@ -15,12 +15,14 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
     on<FavoriteStoreRequested>(_onFavoriteStoreRequested);
     on<FavoriteStoreClicked>(_onFavoriteStoreClicked);
     on<SortModeClicked>(_onSortModeClicked);
+    on<SortModeChanged>(_onSortModeChanged);
   }
 
   final HeartRepository heartRepository;
   List<MemberStore> favoriteStores = [];
   List<bool> heartList = [];
   int favoriteStoreCount = 0;
+  int sortMode = 0;
 
   FutureOr<void> _onFavoriteStoreRequested(
     FavoriteStoreRequested event,
@@ -37,7 +39,9 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       emit(FavoriteStoreLoaded(
           stores: [...stores],
           storeCount: storeCount,
-          heartList: [...heartList]));
+          heartList: [...heartList],
+          sortMode: sortMode
+      ));
     } catch (e) {
       emit(FavoriteStoreError(
         error: e,
@@ -62,7 +66,9 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       emit(FavoriteStoreLoaded(
           stores: [...favoriteStores],
           storeCount: favoriteStoreCount,
-          heartList: [...heartList]));
+          heartList: [...heartList],
+          sortMode: sortMode
+      ));
     } catch (e) {
       emit(FavoriteStoreError(
         error: e,
@@ -75,6 +81,31 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       Emitter<FavoriteStoreState> emit,
       ){
     emit(const SortModeSetting());
+  }
+
+  FutureOr<void> _onSortModeChanged(
+      SortModeChanged event,
+      Emitter<FavoriteStoreState> emit,
+      ){
+
+    if(event.sortMode == sortMode){ //기존 모드와 똑같이 했을
+      emit(FavoriteStoreLoaded(
+          stores: [...favoriteStores],
+          storeCount: favoriteStoreCount,
+          heartList: [...heartList],
+          sortMode: sortMode
+      ));
+    }else{
+      if(event.sortMode == 0){
+        //등록순
+      }if(event.sortMode == 1){
+        //가까운순
+      }else{
+        //혼잡도 낮은 순
+      }
+    }
+
+
   }
 
 }
