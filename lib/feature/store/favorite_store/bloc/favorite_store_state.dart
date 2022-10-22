@@ -20,10 +20,10 @@ class FavoriteStoreLoading extends FavoriteStoreState{
 }
 
 class FavoriteStoreLoaded extends FavoriteStoreState{
-  const FavoriteStoreLoaded();
-
+  const FavoriteStoreLoaded({required this.stores});
+  final List<MemberStore> stores;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [stores];
 }
 
 class FavoriteStoreError extends FavoriteStoreState {
