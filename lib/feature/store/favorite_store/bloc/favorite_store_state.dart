@@ -41,8 +41,8 @@ class FavoriteStoreLoaded extends FavoriteStoreState {
 }
 
 class SortModeSetting extends FavoriteStoreState{
-  const SortModeSetting();
-
+  const SortModeSetting({required this.sortMode});
+  final int sortMode;
   @override
   List<Object?> get props => [];
 }

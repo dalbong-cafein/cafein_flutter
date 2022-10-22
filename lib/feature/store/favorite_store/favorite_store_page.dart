@@ -17,6 +17,7 @@ class FavoriteStorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     context.read<FavoriteStoreBloc>().add(
           const FavoriteStoreRequested(),
         );
@@ -40,7 +41,7 @@ class FavoriteStorePage extends StatelessWidget {
               ),
               builder: (modalContext) {
 
-                return const StoreSortModeBottomDrawer();
+                return StoreSortModeBottomDrawer(bigContext: context, sortMode: 0,);
               },
             );
           }
@@ -65,12 +66,12 @@ class FavoriteStorePage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           context.read<FavoriteStoreBloc>().add(
-                            const SortModeClicked(),
+                            SortModeClicked(sortMode: state.sortMode),
                           );
                         },
                         child: Row(
                           children: [
-                            Text("등록순",
+                            Text(CafeinConst.sortModeText[state.sortMode],
                                 style: AppStyle.caption13Medium
                                     .copyWith(color: AppColor.grey600)),
                             const SizedBox(

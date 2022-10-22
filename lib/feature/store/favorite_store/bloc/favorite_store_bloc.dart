@@ -80,13 +80,13 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       SortModeClicked event,
       Emitter<FavoriteStoreState> emit,
       ){
-    emit(const SortModeSetting());
+    emit(SortModeSetting(sortMode: event.sortMode));
   }
 
-  FutureOr<void> _onSortModeChanged(
+  Future<FutureOr<void>> _onSortModeChanged(
       SortModeChanged event,
       Emitter<FavoriteStoreState> emit,
-      ){
+      ) async {
 
     if(event.sortMode == sortMode){ //기존 모드와 똑같이 했을
       emit(FavoriteStoreLoaded(
@@ -97,11 +97,36 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       ));
     }else{
       if(event.sortMode == 0){
-        //등록순
+        try{
+          final storeResponse = await heartRepository.getMyStores();
+          final stores = storeResponse.data.storeData;
+          emit(FavoriteStoreLoaded(
+              stores: [...stores],
+              storeCount: favoriteStoreCount,
+              heartList: [...heartList],
+              sortMode: event.sortMode
+          ));
+        }catch(e){
+          emit(FavoriteStoreError(
+            error: e,
+            event: () => add(event),
+          ));
+        }
       }if(event.sortMode == 1){
         //가까운순
+        emit(FavoriteStoreLoaded(
+            stores: [...favoriteStores],
+            storeCount: favoriteStoreCount,
+            heartList: [...heartList],
+            sortMode: event.sortMode
+        ));
       }else{
-        //혼잡도 낮은 순
+        emit(FavoriteStoreLoaded(
+            stores: [...favoriteStores],
+            storeCount: favoriteStoreCount,
+            heartList: [...heartList],
+            sortMode: event.sortMode
+        ));
       }
     }
 

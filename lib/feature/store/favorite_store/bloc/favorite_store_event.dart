@@ -31,8 +31,8 @@ class SortModeChanged extends FavoriteStoreEvent{
 }
 
 class SortModeClicked extends FavoriteStoreEvent {
-  const SortModeClicked();
-
+  const SortModeClicked({required this.sortMode});
+  final int sortMode;
   @override
   List<Object?> get props => [];
 }

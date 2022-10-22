@@ -74,4 +74,6 @@ abstract class CafeinConst {
     '토요일',
     '일요일',
   ];
+
+  static final sortModeText = ["등록순", "가까운순", "혼잡도낮은순"];
 }
