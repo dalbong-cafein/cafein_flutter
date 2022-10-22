@@ -79,7 +79,7 @@ class FavoriteStorePage extends StatelessWidget {
                 ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: state.storeCount,
                     itemBuilder: (BuildContext context, int index) {
                       return favoriteStoreItem(
                           state.stores[index].storeName,

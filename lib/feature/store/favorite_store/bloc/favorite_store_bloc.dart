@@ -15,6 +15,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
   }
   final HeartRepository heartRepository;
   List<MemberStore> favoriteStores = [];
+  int favoriteStoreCount = 0;
   FutureOr<void> _onFavoriteStoreRequested(
       FavoriteStoreRequested event,
       Emitter<FavoriteStoreState> emit,
@@ -23,8 +24,10 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
     try {
       final storeResponse = await heartRepository.getMyStores();
       final stores = storeResponse.data.storeData;
+      final storeCount = storeResponse.data.storeCnt;
       favoriteStores = stores;
-      emit(FavoriteStoreLoaded(stores: [...stores]));
+      favoriteStoreCount = storeCount;
+      emit(FavoriteStoreLoaded(stores: [...stores], storeCount: storeCount));
     } catch (e) {
       emit(FavoriteStoreError(
         error: e,
@@ -41,7 +44,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
     emit(const FavoriteStoreLoading());
     try {
       heartRepository.deleteHeart(event.clickedStoreId);
-      emit(FavoriteStoreLoaded(stores: [...favoriteStores]));
+      emit(FavoriteStoreLoaded(stores: [...favoriteStores], storeCount: favoriteStoreCount));
     } catch (e) {
       emit(FavoriteStoreError(
         error: e,
