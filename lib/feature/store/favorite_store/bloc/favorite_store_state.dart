@@ -1,7 +1,6 @@
 part of 'favorite_store_bloc.dart';
 
-
-abstract class FavoriteStoreState extends Equatable{
+abstract class FavoriteStoreState extends Equatable {
   const FavoriteStoreState();
 }
 
@@ -12,19 +11,29 @@ class FavoriteStoreInitial extends FavoriteStoreState {
   List<Object?> get props => [];
 }
 
-class FavoriteStoreLoading extends FavoriteStoreState{
+class FavoriteStoreLoading extends FavoriteStoreState {
   const FavoriteStoreLoading();
 
   @override
   List<Object?> get props => [];
 }
 
-class FavoriteStoreLoaded extends FavoriteStoreState{
-  const FavoriteStoreLoaded({required this.stores, required this.storeCount});
+class FavoriteStoreLoaded extends FavoriteStoreState {
+  const FavoriteStoreLoaded(
+      {required this.stores,
+      required this.storeCount,
+      required this.heartList});
+
   final List<MemberStore> stores;
   final int storeCount;
+  final List<bool> heartList;
+
   @override
-  List<Object?> get props => [[...stores], storeCount];
+  List<Object?> get props => [
+        [...stores],
+        storeCount,
+        [...heartList]
+      ];
 }
 
 class FavoriteStoreError extends FavoriteStoreState {

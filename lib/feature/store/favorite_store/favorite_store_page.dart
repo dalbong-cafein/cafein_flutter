@@ -45,7 +45,7 @@ class FavoriteStorePage extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "총 12개",
+                        "총 ${state.storeCount}개",
                         style: AppStyle.subTitle14Medium
                             .copyWith(color: AppColor.grey600),
                       ),
@@ -88,8 +88,9 @@ class FavoriteStorePage extends StatelessWidget {
                           state.stores[index].businessInfo?.closed ?? "00:00",
                           state.stores[index].congestionScoreAvg ?? 0,
                           state.stores[index].storeId,
-                        context
-                      );
+                          context,
+                          index,
+                          state.heartList[index]);
                     })
               ],
             );
@@ -101,9 +102,16 @@ class FavoriteStorePage extends StatelessWidget {
     );
   }
 
-  Widget favoriteStoreItem(String storeName, bool isOpen, String openTime,
-      String closeTime, double storeConfuse , int storeId, BuildContext context) {
-    bool heartOn;
+  Widget favoriteStoreItem(
+      String storeName,
+      bool isOpen,
+      String openTime,
+      String closeTime,
+      double storeConfuse,
+      int storeId,
+      BuildContext context,
+      int index,
+      bool heartOn) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 20, top: 8, bottom: 8),
       child: Row(
@@ -171,14 +179,15 @@ class FavoriteStorePage extends StatelessWidget {
           ),
           const Spacer(),
           InkWell(
-            onTap: (){
-
-              context.read<FavoriteStoreBloc>().add(
-                FavoriteStoreClicked(clickedStoreId: storeId),
-              );
-            },
-              child: loadAsset(AppIcon.heartOn ,
-                  height: 24, width: 24))
+              onTap: () {
+                context.read<FavoriteStoreBloc>().add(
+                      FavoriteStoreClicked(
+                          clickedStoreId: storeId, clickedStoreIndex: index),
+                    );
+              },
+              child: heartOn
+                  ? loadAsset(AppIcon.heartOn, height: 24, width: 24)
+                  : loadAsset(AppIcon.heartLine, height: 24, width: 24, color : AppColor.grey100))
         ],
       ),
     );
