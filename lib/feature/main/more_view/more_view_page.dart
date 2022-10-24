@@ -210,12 +210,9 @@ class MoreViewPage extends StatelessWidget {
                   ),
                   MoreViewMenuCard(
                     title: '개인정보 처리방침',
-                    // onTab: () => Navigator.of(context).pushNamed(
-                    //   TermsDetailPage.routeName,
-                    //   arguments: '개인정보 처리방침',
-                    // ),
                     onTab: () => Navigator.of(context).pushNamed(
-                      TermsPage.routeName,
+                      TermsDetailPage.routeName,
+                      arguments: '개인정보 처리방침',
                     ),
                   ),
                   MoreViewMenuCard(
