@@ -40,6 +40,12 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       final userData = response.data;
       userRepository.setMemberData = response.data;
 
+      if (userData.isAgreeLocation == null) {
+        emit(const SplashTermsChecked());
+
+        return;
+      }
+
       if (userData.phoneNumber == null) {
         emit(const SplashPhoneChecked());
 

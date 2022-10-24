@@ -14,6 +14,8 @@ class Member with _$Member {
     required String email,
     @JsonKey(name: 'birth') String? birthDay,
     required String joinDateTime,
+    bool? isAgreeLocation,
+    bool? isAgreeMarketingPush,
   }) = _Member;
 
   factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);

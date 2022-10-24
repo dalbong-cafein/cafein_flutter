@@ -1,3 +1,5 @@
+import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/terms/bloc/terms_bloc.dart';
 import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -22,7 +24,13 @@ class TermsPage extends StatelessWidget {
             error: state.error,
             refresh: state.event,
           );
-        } else if (state is TermsLoaded) {}
+        } else if (state is TermsLoaded) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            InputPhoneNumberPage.routeName,
+            arguments: LoginPage.routeName,
+            (route) => false,
+          );
+        }
       },
       child: Scaffold(
         appBar: AppBar(automaticallyImplyLeading: false),
@@ -143,7 +151,11 @@ class TermsPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
-                              onPressed: !isValid ? null : () {},
+                              onPressed: !isValid
+                                  ? null
+                                  : () => context
+                                      .read<TermsBloc>()
+                                      .add(const TermsRequested()),
                               child: isLoading
                                   ? const DotsLoadingIndicator()
                                   : const Text('확인'),

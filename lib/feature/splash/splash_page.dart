@@ -4,6 +4,7 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/splash/bloc/splash_bloc.dart';
+import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +49,12 @@ class _SplashPageState extends State<SplashPage> {
       listener: (context, state) {
         final navigator = Navigator.of(context);
 
-        if (state is SplashLoginChecked) {
+        if (state is SplashTermsChecked) {
+          navigator.pushNamedAndRemoveUntil(
+            TermsPage.routeName,
+            (route) => false,
+          );
+        } else if (state is SplashLoginChecked) {
           navigator.pushNamedAndRemoveUntil(
             LoginPage.routeName,
             (route) => false,

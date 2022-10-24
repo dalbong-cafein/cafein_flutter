@@ -6,6 +6,7 @@ import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
+import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -30,7 +31,11 @@ class LoginPage extends StatelessWidget {
                 LoginRequested(socialLoginRequest: state.socialLoginRequest),
               );
         } else if (state is LoginSucceed) {
-          if (!state.isCertifiedPhone) {
+          if (!state.isTermsChecked) {
+            Navigator.of(context).pushNamed(
+              TermsPage.routeName,
+            );
+          } else if (!state.isCertifiedPhone) {
             Navigator.of(context).pushNamed(
               InputPhoneNumberPage.routeName,
               arguments: LoginPage.routeName,

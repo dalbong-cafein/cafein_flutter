@@ -105,6 +105,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           isCertifiedPhone: response.data.phoneNumber != null,
           isRegisteredNickname: response.data.nickname != null,
           isOnboardSkip: isOnboardSkip,
+          isTermsChecked: response.data.isAgreeLocation != null,
         ),
       );
     } catch (e) {

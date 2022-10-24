@@ -11,6 +11,10 @@ class SplashInitial extends SplashState {
   const SplashInitial();
 }
 
+class SplashTermsChecked extends SplashState {
+  const SplashTermsChecked();
+}
+
 class SplashLoginChecked extends SplashState {
   const SplashLoginChecked();
 }
