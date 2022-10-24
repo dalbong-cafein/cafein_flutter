@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
@@ -17,7 +15,6 @@ import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
 import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
-import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
@@ -31,8 +28,6 @@ class MoreViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('********** MoreViewPage Build **********');
-
     final userData = context.watch<UserRepository>().getMemberData;
 
     return MultiBlocListener(

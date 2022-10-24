@@ -46,7 +46,6 @@ class TermsPage extends StatelessWidget {
               bool isPersonalChecked = false;
               bool isLocationChecked = false;
               bool isMarketingChecked = false;
-              bool isValid = false;
 
               if (state is TermsChecked) {
                 isAllChecked = state.isAllChecked;
@@ -54,7 +53,6 @@ class TermsPage extends StatelessWidget {
                 isPersonalChecked = state.isPersonalChecked;
                 isLocationChecked = state.isLocationChecked;
                 isMarketingChecked = state.isMarketingChecked;
-                isValid = state.isValid;
               }
 
               return Column(

@@ -49,7 +49,7 @@ class DioUtil {
   Dio get dio {
     final dio = Dio(
       BaseOptions(
-        connectTimeout: 5000,
+        connectTimeout: 10000,
       ),
     );
     dio.interceptors.add(CustomDioLogger(
@@ -60,6 +60,7 @@ class DioUtil {
       requestHeader: true,
       responseBody: false,
     ));
+
     dio.interceptors.add(
       QueuedInterceptorsWrapper(
         onRequest: (options, handler) {
