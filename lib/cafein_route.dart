@@ -62,6 +62,9 @@ import 'package:cafein_flutter/feature/store/registered_store/registered_store_p
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
+import 'package:cafein_flutter/feature/terms/bloc/terms_bloc.dart';
+import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
+import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -319,6 +322,22 @@ abstract class CafeinRoute {
 
       case FavoriteStorePage.routeName:
         page = const FavoriteStorePage();
+        break;
+
+      case TermsDetailPage.routeName:
+        final title = settings.arguments as String;
+        page = TermsDetailPage(
+          title: title,
+        );
+        break;
+
+      case TermsPage.routeName:
+        page = BlocProvider(
+          create: (context) => TermsBloc(
+            userRepository: context.read<UserRepository>(),
+          ),
+          child: const TermsPage(),
+        );
         break;
     }
 

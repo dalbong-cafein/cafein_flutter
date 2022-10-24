@@ -6,6 +6,7 @@ import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
 import 'package:cafein_flutter/data/model/member/phone_number_request.dart';
+import 'package:cafein_flutter/data/model/member/terms_request.dart';
 import 'package:cafein_flutter/data/model/member/update_member_request.dart';
 
 abstract class UserRepository {
@@ -39,6 +40,8 @@ abstract class UserRepository {
   Future<BaseResponse<dynamic>> deleteMember();
 
   Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt();
+
+  Future<BaseResponse<dynamic>> agreeTerms(TermsRequest termsRequest);
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -93,4 +96,8 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<BaseResponse> deleteMember() => memberClient.deleteMember();
+
+  @override
+  Future<BaseResponse> agreeTerms(TermsRequest termsRequest) =>
+      memberClient.agreeTerms(termsRequest);
 }

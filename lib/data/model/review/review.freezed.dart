@@ -25,7 +25,7 @@ mixin _$Review {
   String get nickNameOfWriter => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
   int get visitCnt => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviewImageDtoList')
   List<ImageIdPair>? get imageIdPairs => throw _privateConstructorUsedError;
   @JsonKey(name: 'regDateTime')
@@ -47,7 +47,7 @@ abstract class $ReviewCopyWith<$Res> {
       String nickNameOfWriter,
       String? profileImageUrl,
       int visitCnt,
-      String content,
+      String? content,
       @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? imageIdPairs,
       @JsonKey(name: 'regDateTime') String registeredDateTime});
 }
@@ -70,7 +70,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
     Object? nickNameOfWriter = null,
     Object? profileImageUrl = freezed,
     Object? visitCnt = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? imageIdPairs = freezed,
     Object? registeredDateTime = null,
   }) {
@@ -95,10 +95,10 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imageIdPairs: freezed == imageIdPairs
           ? _value.imageIdPairs
           : imageIdPairs // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ abstract class _$$_ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
       String nickNameOfWriter,
       String? profileImageUrl,
       int visitCnt,
-      String content,
+      String? content,
       @JsonKey(name: 'reviewImageDtoList') List<ImageIdPair>? imageIdPairs,
       @JsonKey(name: 'regDateTime') String registeredDateTime});
 }
@@ -143,7 +143,7 @@ class __$$_ReviewCopyWithImpl<$Res>
     Object? nickNameOfWriter = null,
     Object? profileImageUrl = freezed,
     Object? visitCnt = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? imageIdPairs = freezed,
     Object? registeredDateTime = null,
   }) {
@@ -168,10 +168,10 @@ class __$$_ReviewCopyWithImpl<$Res>
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
               as int,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imageIdPairs: freezed == imageIdPairs
           ? _value._imageIdPairs
           : imageIdPairs // ignore: cast_nullable_to_non_nullable
@@ -193,7 +193,7 @@ class _$_Review implements _Review {
       required this.nickNameOfWriter,
       this.profileImageUrl,
       required this.visitCnt,
-      required this.content,
+      this.content,
       @JsonKey(name: 'reviewImageDtoList')
           final List<ImageIdPair>? imageIdPairs,
       @JsonKey(name: 'regDateTime')
@@ -214,7 +214,7 @@ class _$_Review implements _Review {
   @override
   final int visitCnt;
   @override
-  final String content;
+  final String? content;
   final List<ImageIdPair>? _imageIdPairs;
   @override
   @JsonKey(name: 'reviewImageDtoList')
@@ -290,7 +290,7 @@ abstract class _Review implements Review {
       required final String nickNameOfWriter,
       final String? profileImageUrl,
       required final int visitCnt,
-      required final String content,
+      final String? content,
       @JsonKey(name: 'reviewImageDtoList')
           final List<ImageIdPair>? imageIdPairs,
       @JsonKey(name: 'regDateTime')
@@ -309,7 +309,7 @@ abstract class _Review implements Review {
   @override
   int get visitCnt;
   @override
-  String get content;
+  String? get content;
   @override
   @JsonKey(name: 'reviewImageDtoList')
   List<ImageIdPair>? get imageIdPairs;

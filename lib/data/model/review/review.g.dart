@@ -12,7 +12,7 @@ _$_Review _$$_ReviewFromJson(Map<String, dynamic> json) => _$_Review(
       nickNameOfWriter: json['nickNameOfWriter'] as String,
       profileImageUrl: json['profileImageUrl'] as String?,
       visitCnt: json['visitCnt'] as int,
-      content: json['content'] as String,
+      content: json['content'] as String?,
       imageIdPairs: (json['reviewImageDtoList'] as List<dynamic>?)
           ?.map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),

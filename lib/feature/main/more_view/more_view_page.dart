@@ -16,6 +16,8 @@ import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_car
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
+import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
@@ -201,11 +203,20 @@ class MoreViewPage extends StatelessWidget {
                   ),
                   MoreViewMenuCard(
                     title: '서비스 이용 약관',
-                    onTab: () {},
+                    onTab: () => Navigator.of(context).pushNamed(
+                      TermsDetailPage.routeName,
+                      arguments: '이용약관',
+                    ),
                   ),
                   MoreViewMenuCard(
                     title: '개인정보 처리방침',
-                    onTab: () {},
+                    // onTab: () => Navigator.of(context).pushNamed(
+                    //   TermsDetailPage.routeName,
+                    //   arguments: '개인정보 처리방침',
+                    // ),
+                    onTab: () => Navigator.of(context).pushNamed(
+                      TermsPage.routeName,
+                    ),
                   ),
                   MoreViewMenuCard(
                     title: '버전 정보',
