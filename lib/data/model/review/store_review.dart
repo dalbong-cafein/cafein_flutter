@@ -12,7 +12,7 @@ class StoreReview with _$StoreReview {
     required int writerId,
     required String nicknameOfWriter,
     String? profileImageUrl,
-    required String content,
+    String? content,
     required int visitCnt,
     required String recommendation,
     required DetailEvaluation detailEvaluation,
@@ -20,5 +20,6 @@ class StoreReview with _$StoreReview {
     @JsonKey(name: 'regDateTime') required String registeredDateTime,
   }) = _StoreReview;
 
-  factory StoreReview.fromJson(Map<String, dynamic> json) => _$StoreReviewFromJson(json);
+  factory StoreReview.fromJson(Map<String, dynamic> json) =>
+      _$StoreReviewFromJson(json);
 }

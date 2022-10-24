@@ -19,15 +19,18 @@ class CongestionLoaded extends CongestionState {
   const CongestionLoaded({
     required this.congestionResponse,
     required this.day,
+    this.isInitialLoaded = false,
   });
 
   final CongestionResponse congestionResponse;
   final String day;
+  final bool isInitialLoaded;
 
   @override
   List<Object?> get props => [
         congestionResponse,
         day,
+        isInitialLoaded,
       ];
 }
 

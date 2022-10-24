@@ -8,6 +8,7 @@ import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_succed_without_sticker_dialog.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/sticker_count_dialog.dart';
+import 'package:cafein_flutter/feature/review/widget/review_back_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_policy_card.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_succeed_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/photo_list_row.dart';
@@ -155,7 +156,19 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
           appBar: AppBar(
             title: const Text("리뷰 작성"),
             leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () async {
+                final navigator = Navigator.of(context);
+                final result = await ReviewBackDialog.show(
+                  context,
+                  title: '작성',
+                );
+
+                if (!result) {
+                  return;
+                }
+
+                navigator.pop();
+              },
               icon: loadAsset(AppIcon.left),
             ),
           ),

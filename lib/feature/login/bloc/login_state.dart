@@ -36,17 +36,20 @@ class LoginSucceed extends LoginState {
     required this.isCertifiedPhone,
     required this.isRegisteredNickname,
     required this.isOnboardSkip,
+    required this.isTermsChecked,
   });
 
   final bool isCertifiedPhone;
   final bool isRegisteredNickname;
   final bool isOnboardSkip;
+  final bool isTermsChecked;
 
   @override
   List<Object?> get props => [
         isCertifiedPhone,
         isRegisteredNickname,
         isOnboardSkip,
+        isTermsChecked,
       ];
 }
 

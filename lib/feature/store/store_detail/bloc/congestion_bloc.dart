@@ -35,6 +35,7 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
   final int storeId;
 
   int congestionId = -1;
+  bool isInitialLoaded = true;
 
   final today = '${DateFormat.E('ko_KR').format(
     DateTime.now(),
@@ -57,15 +58,19 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
 
       final response = await congestionRepository.getCongestions(
         storeId: storeId,
-        minusDays: minusDay + 1,
+        minusDays: minusDay,
       );
 
       emit(
         CongestionLoaded(
+          isInitialLoaded: isInitialLoaded,
           congestionResponse: response.data,
           day: event.day,
         ),
       );
+      if (isInitialLoaded) {
+        isInitialLoaded = false;
+      }
     } catch (e) {
       emit(
         CongestionError(

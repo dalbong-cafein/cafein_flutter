@@ -43,6 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ? await UserApi.instance.loginWithKakaoTalk()
             : await UserApi.instance.loginWithKakaoAccount();
         oAuthAccessToken = oAuthToken.accessToken;
+        appRepository.setAuthProvider(AuthProvider.kakao.name);
       } catch (e) {
         emit(LoginError(
           error: e,
@@ -58,6 +59,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
         oAuthAccessToken = credential.identityToken;
         username = '${credential.familyName}${credential.givenName}';
+        appRepository.setAuthProvider(AuthProvider.apple.name);
       } catch (e) {
         emit(LoginError(
           error: e,
@@ -103,6 +105,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           isCertifiedPhone: response.data.phoneNumber != null,
           isRegisteredNickname: response.data.nickname != null,
           isOnboardSkip: isOnboardSkip,
+          isTermsChecked: response.data.isAgreeLocation != null,
         ),
       );
     } catch (e) {

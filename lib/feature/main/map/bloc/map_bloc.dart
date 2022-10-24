@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
@@ -95,6 +94,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     }
 
     currentLocation = event.location;
+    searchKeyword = '';
 
     emit(const MapLoading());
 
@@ -259,8 +259,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         longitude: event.longitude,
         latitude: event.latitude,
       );
-
-      log(responseLocation);
 
       emit(
         MapCameraPositionChecked(

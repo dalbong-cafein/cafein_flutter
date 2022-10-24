@@ -27,7 +27,7 @@ class KakaoApiClient {
   }) =>
       dio
           .get(
-        'https://dapi.kakao.com/v2/local/search/keyword.json?query=$query&category_group_code=CE7&page=$page&size=$size',
+        'https://dapi.kakao.com/v2/local/search/keyword.json?query=$query&category_group_code=CE7&page=$page&size=$size&x=126.9731314753&y=37.573898277022&radius=17000',
       )
           .then(
         (value) {

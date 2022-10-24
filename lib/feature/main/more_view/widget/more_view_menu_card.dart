@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
-import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +21,7 @@ class MoreViewMenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = context.watch<UserRepository>().getAuthProvider;
+    final authProvider = context.watch<AppRepository>().getAuthProvider();
 
     return InkWell(
       onTap: onTab,
@@ -48,12 +46,11 @@ class MoreViewMenuCard extends StatelessWidget {
                 ),
               ),
             trailingWidget ??
-                Transform.rotate(
-                  angle: pi,
-                  child: loadAsset(
-                    AppIcon.leftS,
-                    color: AppColor.grey400,
-                  ),
+                loadAsset(
+                  AppIcon.right,
+                  color: AppColor.grey400,
+                  width: 16,
+                  height: 16,
                 ),
           ],
         ),

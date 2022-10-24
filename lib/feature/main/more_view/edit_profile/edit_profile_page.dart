@@ -1,20 +1,22 @@
+import 'dart:developer';
+
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_confirm_dialog.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_confrim_toast_dialog.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_nickname_field.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_phone_number_bottom_sheet.dart';
 import 'package:cafein_flutter/feature/main/more_view/edit_profile/widget/edit_profile_image_card.dart';
 import 'package:cafein_flutter/feature/profile/widget/image_choice_dialog.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/util/debouncer.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -27,41 +29,11 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late final userData = context.watch<UserRepository>().getMemberData;
-
-  late final controller = TextEditingController(
-    text: userData?.nickname,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    final debouncer = Debouncer(milliseconds: 1000);
-
-    Future.microtask(
-      () => controller.addListener(
-        () {
-          context.read<EditProfileBloc>().add(
-                EditProfileNicknameChanged(
-                  nickname: controller.text,
-                ),
-              );
-          if (controller.text.isNotEmpty) {
-            debouncer.run(
-              () => context.read<EditProfileBloc>().add(
-                    EditProfileNicknameDuplicationRequested(
-                      nickname: controller.text,
-                    ),
-                  ),
-            );
-          }
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    log('EditPageBuild------');
+    final userData = context.watch<UserRepository>().getMemberData;
+
     return BlocListener<EditProfileBloc, EditProfileState>(
       listener: (context, state) async {
         final bloc = context.read<EditProfileBloc>();
@@ -96,75 +68,85 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('내정보'),
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: loadAsset(AppIcon.left),
+            ),
           ),
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
                   child: CustomScrollView(
                     slivers: [
                       const SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 24,
-                        ),
+                        child: SizedBox(height: 24),
                       ),
                       SliverToBoxAdapter(
                         child: Align(
                           alignment: Alignment.center,
-                          child: SizedBox(
-                            height: 88,
-                            width: 88,
-                            child: Stack(
-                              children: [
-                                BlocBuilder<EditProfileBloc, EditProfileState>(
-                                  buildWhen: (pre, next) => next is EditProfileInformationChecked,
-                                  builder: (context, state) {
-                                    String? filePath;
+                          child: InkWell(
+                            onTap: () async {
+                              final bloc = context.read<EditProfileBloc>();
+                              final result =
+                                  await ImageChoiceDialog.show(context);
 
-                                    if (state is EditProfileInformationChecked) {
-                                      filePath = state.imagePath;
-                                    }
-
-                                    return EditProfileImageCard(
-                                      filePath: filePath,
-                                      imageUrl: userData?.imageIdPair?.imageUrl,
-                                    );
-                                  },
-                                ),
-                                Positioned(
-                                  right: 0,
-                                  bottom: 0,
-                                  child: InkWell(
-                                    onTap: () async {
-                                      final bloc = context.read<EditProfileBloc>();
-                                      final result = await ImageChoiceDialog.show(context);
-
-                                      if (result.isCamera) {
-                                        bloc.add(
-                                          const EditProfilePermissionRequested(
-                                            permission: Permission.camera,
-                                          ),
-                                        );
-                                      } else if (result.isPhoto) {
-                                        bloc.add(
-                                          const EditProfilePermissionRequested(
-                                            permission: Permission.photos,
-                                          ),
-                                        );
-                                      } else if (result.isDefault) {
-                                        bloc.add(
-                                          const EditProfileImageChanged(
-                                            isDefault: true,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: loadAsset(AppIcon.camera),
+                              if (result.isCamera) {
+                                bloc.add(
+                                  const EditProfilePermissionRequested(
+                                    permission: Permission.camera,
                                   ),
-                                ),
-                              ],
+                                );
+                              } else if (result.isPhoto) {
+                                bloc.add(
+                                  const EditProfilePermissionRequested(
+                                    permission: Permission.photos,
+                                  ),
+                                );
+                              } else if (result.isDefault) {
+                                bloc.add(
+                                  const EditProfileImageChanged(
+                                    isDefault: true,
+                                  ),
+                                );
+                              }
+                            },
+                            child: SizedBox(
+                              height: 88,
+                              width: 88,
+                              child: Stack(
+                                children: [
+                                  BlocBuilder<EditProfileBloc,
+                                      EditProfileState>(
+                                    buildWhen: (pre, next) =>
+                                        next is EditProfileInformationChecked,
+                                    builder: (context, state) {
+                                      String? filePath;
+
+                                      if (state
+                                          is EditProfileInformationChecked) {
+                                        filePath = state.imagePath;
+                                      }
+
+                                      return EditProfileImageCard(
+                                        filePath: filePath,
+                                        imageUrl:
+                                            userData?.imageIdPair?.imageUrl,
+                                      );
+                                    },
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    bottom: 0,
+                                    child: loadAsset(
+                                      AppIcon.camera,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -181,82 +163,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ),
                         ),
                       ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                          ),
-                          height: 56,
-                          width: MediaQuery.of(context).size.width - 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            border: const Border.fromBorderSide(
-                              BorderSide(
-                                color: AppColor.grey400,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  maxLength: 10,
-                                  controller: controller,
-                                  autofocus: true,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'[ㄱ-ㅎ가-힣0-9a-zA-Z]'),
-                                    ),
-                                  ],
-                                  decoration: const InputDecoration(
-                                    counterText: '',
-                                    hintText: '닉네임을 입력해주세요',
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () => controller.clear(),
-                                child: loadAsset(AppIcon.circleDeleteGrey),
-                              ),
-                              const SizedBox(width: 4),
-                              BlocBuilder<EditProfileBloc, EditProfileState>(
-                                buildWhen: (pre, next) => next is EditProfileInformationChecked,
-                                builder: (context, state) {
-                                  int nicknameLength = userData!.nickname!.length;
-                                  if (state is EditProfileInformationChecked) {
-                                    nicknameLength = state.nicknameLength;
-                                  }
-                                  return RichText(
-                                    text: TextSpan(
-                                      text: '$nicknameLength',
-                                      style: AppStyle.caption12Medium.copyWith(
-                                        color: AppColor.orange500,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: '/10자',
-                                          style: AppStyle.caption12Medium.copyWith(
-                                            color: AppColor.grey400,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+                      EditNicknameField(
+                        initialName: userData?.nickname ?? '',
                       ),
                       BlocBuilder<EditProfileBloc, EditProfileState>(
-                        buildWhen: (pre, next) => next is EditProfileNicknameDupicatedChecked,
+                        buildWhen: (pre, next) =>
+                            next is EditProfileNicknameDupicatedChecked,
                         builder: (context, state) {
                           bool isDuplicated = false;
                           String text = '한글, 영문, 숫자만 입력 가능합니다.';
+
                           if (state is EditProfileNicknameDupicatedChecked) {
                             isDuplicated = state.isDuplicated;
-                            text = !state.isDuplicated ? '이미 사용 중인 닉네임입니다.' : '멋진 닉네임이네요!';
+                            text = !state.isDuplicated
+                                ? '이미 사용 중인 닉네임입니다.'
+                                : '멋진 닉네임이네요!';
                           }
                           return SliverToBoxAdapter(
                             child: Align(
@@ -268,8 +189,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                                 child: Text(
                                   text,
-                                  style: AppStyle.body14Regular.copyWith(
-                                    color: !isDuplicated ? AppColor.red : AppColor.blue,
+                                  style: AppStyle.caption13Regular.copyWith(
+                                    color: !isDuplicated
+                                        ? AppColor.red
+                                        : AppColor.blue,
                                   ),
                                 ),
                               ),
@@ -280,7 +203,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       const SliverToBoxAdapter(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            top: 44,
+                            top: 20,
                             bottom: 12,
                           ),
                           child: Text(
@@ -295,7 +218,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             final navigator = Navigator.of(context);
                             final bloc = context.read<EditProfileBloc>();
 
-                            final result = await EditPhoneNumberBottomSheet.show(context);
+                            final result =
+                                await EditPhoneNumberBottomSheet.show(context);
 
                             if (!result) {
                               return;
@@ -314,9 +238,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             padding: const EdgeInsets.symmetric(
                               horizontal: 16,
                             ),
-                            margin: const EdgeInsets.only(bottom: 24),
-                            height: 56,
-                            width: MediaQuery.of(context).size.width - 40,
+                            margin: const EdgeInsets.only(
+                              bottom: 24,
+                            ),
+                            height: 48,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               border: const Border.fromBorderSide(
@@ -327,10 +252,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: BlocBuilder<EditProfileBloc, EditProfileState>(
-                                buildWhen: (pre, next) => next is EditProfileInformationChecked,
+                              child: BlocBuilder<EditProfileBloc,
+                                  EditProfileState>(
+                                buildWhen: (pre, next) =>
+                                    next is EditProfileInformationChecked,
                                 builder: (context, state) {
-                                  String phoneNumber = userData?.phoneNumber ?? '';
+                                  String phoneNumber =
+                                      userData?.phoneNumber ?? '';
 
                                   if (state is EditProfileInformationChecked &&
                                       state.phoneNumber != null) {
@@ -367,27 +295,73 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     isValid = false;
                   }
 
-                  return SizedBox(
-                    height: 56,
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      onPressed: isValid
-                          ? () async {
-                              FocusScope.of(context).unfocus();
-                              final bloc = context.read<EditProfileBloc>();
-                              final result = await EditConfirmDialog.show(context);
+                  return KeyboardVisibilityBuilder(
+                    builder: (context, isShow) {
+                      if (!isShow) {
+                        return SafeArea(
+                          child: Container(
+                            height: 56,
+                            margin: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              bottom: 16,
+                            ),
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: isValid
+                                  ? () async {
+                                      FocusScope.of(context).unfocus();
+                                      final bloc =
+                                          context.read<EditProfileBloc>();
+                                      final result =
+                                          await EditConfirmDialog.show(context);
 
-                              if (!result) {
-                                return;
-                              }
+                                      if (!result) {
+                                        return;
+                                      }
 
-                              bloc.add(
-                                const EditProfileRequested(),
-                              );
-                            }
-                          : null,
-                      child: isLoading ? const DotsLoadingIndicator() : const Text('수정하기'),
-                    ),
+                                      bloc.add(const EditProfileRequested());
+                                    }
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16),
+                                  ),
+                                ),
+                              ),
+                              child: isLoading
+                                  ? const DotsLoadingIndicator()
+                                  : const Text('수정하기'),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return SizedBox(
+                        height: 56,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: isValid
+                              ? () async {
+                                  FocusScope.of(context).unfocus();
+                                  final bloc = context.read<EditProfileBloc>();
+                                  final result =
+                                      await EditConfirmDialog.show(context);
+
+                                  if (!result) {
+                                    return;
+                                  }
+
+                                  bloc.add(const EditProfileRequested());
+                                }
+                              : null,
+                          child: isLoading
+                              ? const DotsLoadingIndicator()
+                              : const Text('수정하기'),
+                        ),
+                      );
+                    },
                   );
                 },
               )

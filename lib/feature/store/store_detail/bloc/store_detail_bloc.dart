@@ -91,8 +91,9 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           isHeart: isHeart,
         ),
       );
-    } catch (e) {
+    } catch (e, st) {
       log(e.toString());
+      log(st.toString());
       emit(
         StoreDetailError(
           error: e,
@@ -143,6 +144,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     emit(
       StoreDetailTabChecked(
         index: event.index,
+        isTaped: event.isTaped,
       ),
     );
   }

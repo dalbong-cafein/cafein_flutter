@@ -16,6 +16,8 @@ _$_Member _$$_MemberFromJson(Map<String, dynamic> json) => _$_Member(
       email: json['email'] as String,
       birthDay: json['birth'] as String?,
       joinDateTime: json['joinDateTime'] as String,
+      isAgreeLocation: json['isAgreeLocation'] as bool?,
+      isAgreeMarketingPush: json['isAgreeMarketingPush'] as bool?,
     );
 
 Map<String, dynamic> _$$_MemberToJson(_$_Member instance) => <String, dynamic>{
@@ -26,4 +28,6 @@ Map<String, dynamic> _$$_MemberToJson(_$_Member instance) => <String, dynamic>{
       'email': instance.email,
       'birth': instance.birthDay,
       'joinDateTime': instance.joinDateTime,
+      'isAgreeLocation': instance.isAgreeLocation,
+      'isAgreeMarketingPush': instance.isAgreeMarketingPush,
     };

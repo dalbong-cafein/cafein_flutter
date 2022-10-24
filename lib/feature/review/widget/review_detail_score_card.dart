@@ -181,7 +181,7 @@ class _TextAndStars extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 56,
+        horizontal: 40,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +212,7 @@ class _TextAndStars extends StatelessWidget {
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: false,
-                      itemCount: 4,
+                      itemCount: 5,
                       glow: false,
                       itemPadding: const EdgeInsets.symmetric(
                         horizontal: 4.0,

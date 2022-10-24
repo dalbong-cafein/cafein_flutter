@@ -52,6 +52,7 @@ import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_blo
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
 import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
+import 'package:cafein_flutter/feature/splash/bloc/splash_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
@@ -61,6 +62,9 @@ import 'package:cafein_flutter/feature/store/registered_store/registered_store_p
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
+import 'package:cafein_flutter/feature/terms/bloc/terms_bloc.dart';
+import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
+import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -70,7 +74,14 @@ abstract class CafeinRoute {
 
     switch (settings.name) {
       case SplashPage.routeName:
-        page = const SplashPage();
+        page = BlocProvider(
+          create: (context) => SplashBloc(
+            authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
+            appRepository: context.read<AppRepository>(),
+          ),
+          child: const SplashPage(),
+        );
         break;
       case LoginPage.routeName:
         page = BlocProvider(
@@ -176,7 +187,9 @@ abstract class CafeinRoute {
         final moreViewCountResponse =
             settings.arguments as MoreViewCountResponse;
         page = BlocProvider(
-          create: (context) => SignOffBloc(),
+          create: (context) => SignOffBloc(
+            userRepository: context.read<UserRepository>(),
+          ),
           child: SignOffPage(
             moreViewCountResponse: moreViewCountResponse,
           ),
@@ -309,6 +322,22 @@ abstract class CafeinRoute {
 
       case FavoriteStorePage.routeName:
         page = const FavoriteStorePage();
+        break;
+
+      case TermsDetailPage.routeName:
+        final title = settings.arguments as String;
+        page = TermsDetailPage(
+          title: title,
+        );
+        break;
+
+      case TermsPage.routeName:
+        page = BlocProvider(
+          create: (context) => TermsBloc(
+            userRepository: context.read<UserRepository>(),
+          ),
+          child: const TermsPage(),
+        );
         break;
     }
 

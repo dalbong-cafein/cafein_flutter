@@ -1,12 +1,10 @@
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
-import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StoreDetailCard extends StatelessWidget {
   const StoreDetailCard({
@@ -18,8 +16,6 @@ class StoreDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData = context.watch<UserRepository>().getMemberData;
-
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -39,12 +35,12 @@ class StoreDetailCard extends StatelessWidget {
                     Row(
                       children: [
                         CircleProfileImage(
-                          imageUrl: userData?.imageIdPair?.imageUrl,
+                          imageUrl: storeDetail.imageIdPair?.imageUrl,
                           radius: 10,
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '${userData?.nickname}',
+                          storeDetail.nicknameOfModMember ?? '',
                           style: AppStyle.caption13SemiBold.copyWith(
                             color: AppColor.grey700,
                           ),
@@ -68,6 +64,7 @@ class StoreDetailCard extends StatelessWidget {
                       style: AppStyle.caption13Regular.copyWith(
                         color: AppColor.grey600,
                       ),
+                      maxLines: 2,
                     ),
                     const SizedBox(height: 12),
                     Row(
@@ -114,10 +111,11 @@ class StoreDetailCard extends StatelessWidget {
                           imageUrl: storeDetail.storeImageList[index].imageUrl,
                           height: 200,
                           width: 160,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.cover,
                         ),
                       );
                     } else if (index % 3 == 1) {
+                      final currentIndex = index;
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -126,21 +124,21 @@ class StoreDetailCard extends StatelessWidget {
                               Radius.circular(10),
                             ),
                             child: CustomCachedNetworkImage(
-                              imageUrl:
-                                  storeDetail.storeImageList[index].imageUrl,
+                              imageUrl: storeDetail
+                                  .storeImageList[currentIndex].imageUrl,
                               height: 96,
                               width: 96,
                               fit: BoxFit.cover,
                             ),
                           ),
-                          if (index + 1 < 8)
+                          if (index + 1 < storeDetail.storeImageList.length)
                             ClipRRect(
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                               child: CustomCachedNetworkImage(
-                                imageUrl:
-                                    storeDetail.storeImageList[index].imageUrl,
+                                imageUrl: storeDetail
+                                    .storeImageList[currentIndex + 1].imageUrl,
                                 height: 96,
                                 width: 96,
                                 fit: BoxFit.cover,

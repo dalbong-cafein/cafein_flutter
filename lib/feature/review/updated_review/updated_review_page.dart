@@ -5,6 +5,7 @@ import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/widget/updated_succeed_dialog.dart';
+import 'package:cafein_flutter/feature/review/widget/review_back_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_policy_card.dart';
 import 'package:cafein_flutter/feature/review/widget/photo_list_row.dart';
 import 'package:cafein_flutter/feature/review/widget/review_detail_score_card.dart';
@@ -101,7 +102,19 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
           appBar: AppBar(
             title: const Text("리뷰 수정"),
             leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () async {
+                final navigator = Navigator.of(context);
+                final result = await ReviewBackDialog.show(
+                  context,
+                  title: '수정',
+                );
+
+                if (!result) {
+                  return;
+                }
+
+                navigator.pop();
+              },
               icon: loadAsset(AppIcon.left),
             ),
           ),

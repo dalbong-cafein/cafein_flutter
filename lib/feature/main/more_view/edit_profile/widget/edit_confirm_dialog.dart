@@ -18,12 +18,12 @@ class EditConfirmDialog extends StatelessWidget {
     return Dialog(
       child: SizedBox(
         width: 300,
-        height: 140,
+        height: 132,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 28,
-            right: 24,
-            left: 24,
+            right: 16,
+            left: 16,
             bottom: 16,
           ),
           child: Column(
@@ -51,7 +51,7 @@ class EditConfirmDialog extends StatelessWidget {
                         ),
                       ),
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('아니요'),
+                      child: const Text('취소'),
                     ),
                   ),
                 ),
@@ -67,7 +67,7 @@ class EditConfirmDialog extends StatelessWidget {
                         textStyle: AppStyle.subTitle15Medium,
                       ),
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: const Text('네'),
+                      child: const Text('저장'),
                     ),
                   ),
                 ),

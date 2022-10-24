@@ -23,6 +23,9 @@ class SignOffError extends SignOffState {
 
   final Function event;
   final dynamic error;
+
+  @override
+  List<Object?> get props => [error];
 }
 
 class SignOffSucceed extends SignOffState {

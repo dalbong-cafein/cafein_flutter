@@ -8,7 +8,6 @@ import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.da
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
-import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -20,8 +19,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final widthPercent = width / 360;
     final memberData = context.watch<UserRepository>().getMemberData;
 
     return BlocListener<HomeBloc, HomeState>(
@@ -94,40 +91,36 @@ class HomePage extends StatelessWidget {
                         right: 16,
                         top: 16,
                       ),
-                      child: InkWell(
-                        //TODO inkwell 없애야함
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(CreatedReviewPage.routeName);
-                        },
-                        child: Container(
-                          width: 328 * widthPercent,
-                          decoration: const BoxDecoration(
-                            color: AppColor.orange400,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16.0),
-                            ),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: AppColor.orange400,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 32, top: 12, bottom: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "친구 초대하고",
-                                  style: AppStyle.subTitle14Medium.copyWith(
-                                    color: Colors.white,
-                                  ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 32,
+                            top: 12,
+                            bottom: 12,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "친구 초대하고",
+                                style: AppStyle.subTitle14Medium.copyWith(
+                                  color: Colors.white,
                                 ),
-                                Text(
-                                  "무료 아메리카노 받자",
-                                  style: AppStyle.subTitle14Medium.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                              Text(
+                                "무료 아메리카노 받자",
+                                style: AppStyle.subTitle14Medium.copyWith(
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),

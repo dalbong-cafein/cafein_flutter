@@ -31,4 +31,11 @@ class AppPreference {
   bool isOnboardSkip() => box.get(onboardKey) ?? false;
 
   Future<void> setOnboardSkip() => box.put(onboardKey, true);
+
+  Future<void> setAuthProvider(String authProvider) async => await box.put(
+        'auth_provider',
+        authProvider,
+      );
+
+  String? getAuthProvider() => box.get('auth_provider');
 }

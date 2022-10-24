@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
 import 'package:cafein_flutter/data/model/member/phone_number_request.dart';
+import 'package:cafein_flutter/data/model/member/terms_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -26,4 +27,12 @@ abstract class MemberClient {
 
   @GET('/members/storesAndReviews/count')
   Future<BaseResponse<MoreViewCountResponse>> getStoreCntAndReviewCnt();
+
+  @DELETE('/members')
+  Future<BaseResponse<dynamic>> deleteMember();
+
+  @PATCH('/members/agree-terms')
+  Future<BaseResponse<dynamic>> agreeTerms(
+    @Body() TermsRequest termsRequest,
+  );
 }

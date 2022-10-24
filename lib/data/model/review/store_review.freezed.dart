@@ -24,7 +24,7 @@ mixin _$StoreReview {
   int get writerId => throw _privateConstructorUsedError;
   String get nicknameOfWriter => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
   int get visitCnt => throw _privateConstructorUsedError;
   String get recommendation => throw _privateConstructorUsedError;
   DetailEvaluation get detailEvaluation => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $StoreReviewCopyWith<$Res> {
       int writerId,
       String nicknameOfWriter,
       String? profileImageUrl,
-      String content,
+      String? content,
       int visitCnt,
       String recommendation,
       DetailEvaluation detailEvaluation,
@@ -77,7 +77,7 @@ class _$StoreReviewCopyWithImpl<$Res, $Val extends StoreReview>
     Object? writerId = null,
     Object? nicknameOfWriter = null,
     Object? profileImageUrl = freezed,
-    Object? content = null,
+    Object? content = freezed,
     Object? visitCnt = null,
     Object? recommendation = null,
     Object? detailEvaluation = null,
@@ -101,10 +101,10 @@ class _$StoreReviewCopyWithImpl<$Res, $Val extends StoreReview>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
@@ -150,7 +150,7 @@ abstract class _$$_StoreReviewCopyWith<$Res>
       int writerId,
       String nicknameOfWriter,
       String? profileImageUrl,
-      String content,
+      String? content,
       int visitCnt,
       String recommendation,
       DetailEvaluation detailEvaluation,
@@ -176,7 +176,7 @@ class __$$_StoreReviewCopyWithImpl<$Res>
     Object? writerId = null,
     Object? nicknameOfWriter = null,
     Object? profileImageUrl = freezed,
-    Object? content = null,
+    Object? content = freezed,
     Object? visitCnt = null,
     Object? recommendation = null,
     Object? detailEvaluation = null,
@@ -200,10 +200,10 @@ class __$$_StoreReviewCopyWithImpl<$Res>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
@@ -236,7 +236,7 @@ class _$_StoreReview implements _StoreReview {
       required this.writerId,
       required this.nicknameOfWriter,
       this.profileImageUrl,
-      required this.content,
+      this.content,
       required this.visitCnt,
       required this.recommendation,
       required this.detailEvaluation,
@@ -258,7 +258,7 @@ class _$_StoreReview implements _StoreReview {
   @override
   final String? profileImageUrl;
   @override
-  final String content;
+  final String? content;
   @override
   final int visitCnt;
   @override
@@ -345,7 +345,7 @@ abstract class _StoreReview implements StoreReview {
       required final int writerId,
       required final String nicknameOfWriter,
       final String? profileImageUrl,
-      required final String content,
+      final String? content,
       required final int visitCnt,
       required final String recommendation,
       required final DetailEvaluation detailEvaluation,
@@ -366,7 +366,7 @@ abstract class _StoreReview implements StoreReview {
   @override
   String? get profileImageUrl;
   @override
-  String get content;
+  String? get content;
   @override
   int get visitCnt;
   @override
