@@ -8,11 +8,12 @@ class AddressInfo with _$AddressInfo {
   factory AddressInfo({
     @JsonKey(name: 'siNm') required String cityName,
     @JsonKey(name: 'sggNm') required String districtName,
-    required String detail,
+    String? detail,
     required String fullAddress,
     @JsonKey(name: 'rnum') required String roadNumber,
     @JsonKey(name: 'rnm') required String roadName,
   }) = _AddressInfo;
 
-  factory AddressInfo.fromJson(Map<String, dynamic> json) => _$AddressInfoFromJson(json);
+  factory AddressInfo.fromJson(Map<String, dynamic> json) =>
+      _$AddressInfoFromJson(json);
 }

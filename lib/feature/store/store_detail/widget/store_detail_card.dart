@@ -18,8 +18,6 @@ class StoreDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData = context.watch<UserRepository>().getMemberData;
-
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -39,12 +37,12 @@ class StoreDetailCard extends StatelessWidget {
                     Row(
                       children: [
                         CircleProfileImage(
-                          imageUrl: userData?.imageIdPair?.imageUrl,
+                          imageUrl: storeDetail.imageIdPair?.imageUrl,
                           radius: 10,
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '${userData?.nickname}',
+                          storeDetail.nicknameOfModMember ?? '',
                           style: AppStyle.caption13SemiBold.copyWith(
                             color: AppColor.grey700,
                           ),

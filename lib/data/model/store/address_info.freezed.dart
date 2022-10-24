@@ -24,7 +24,7 @@ mixin _$AddressInfo {
   String get cityName => throw _privateConstructorUsedError;
   @JsonKey(name: 'sggNm')
   String get districtName => throw _privateConstructorUsedError;
-  String get detail => throw _privateConstructorUsedError;
+  String? get detail => throw _privateConstructorUsedError;
   String get fullAddress => throw _privateConstructorUsedError;
   @JsonKey(name: 'rnum')
   String get roadNumber => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $AddressInfoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'siNm') String cityName,
       @JsonKey(name: 'sggNm') String districtName,
-      String detail,
+      String? detail,
       String fullAddress,
       @JsonKey(name: 'rnum') String roadNumber,
       @JsonKey(name: 'rnm') String roadName});
@@ -67,7 +67,7 @@ class _$AddressInfoCopyWithImpl<$Res, $Val extends AddressInfo>
   $Res call({
     Object? cityName = null,
     Object? districtName = null,
-    Object? detail = null,
+    Object? detail = freezed,
     Object? fullAddress = null,
     Object? roadNumber = null,
     Object? roadName = null,
@@ -81,10 +81,10 @@ class _$AddressInfoCopyWithImpl<$Res, $Val extends AddressInfo>
           ? _value.districtName
           : districtName // ignore: cast_nullable_to_non_nullable
               as String,
-      detail: null == detail
+      detail: freezed == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       fullAddress: null == fullAddress
           ? _value.fullAddress
           : fullAddress // ignore: cast_nullable_to_non_nullable
@@ -112,7 +112,7 @@ abstract class _$$_AddressInfoCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'siNm') String cityName,
       @JsonKey(name: 'sggNm') String districtName,
-      String detail,
+      String? detail,
       String fullAddress,
       @JsonKey(name: 'rnum') String roadNumber,
       @JsonKey(name: 'rnm') String roadName});
@@ -131,7 +131,7 @@ class __$$_AddressInfoCopyWithImpl<$Res>
   $Res call({
     Object? cityName = null,
     Object? districtName = null,
-    Object? detail = null,
+    Object? detail = freezed,
     Object? fullAddress = null,
     Object? roadNumber = null,
     Object? roadName = null,
@@ -145,10 +145,10 @@ class __$$_AddressInfoCopyWithImpl<$Res>
           ? _value.districtName
           : districtName // ignore: cast_nullable_to_non_nullable
               as String,
-      detail: null == detail
+      detail: freezed == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       fullAddress: null == fullAddress
           ? _value.fullAddress
           : fullAddress // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ class _$_AddressInfo implements _AddressInfo {
   _$_AddressInfo(
       {@JsonKey(name: 'siNm') required this.cityName,
       @JsonKey(name: 'sggNm') required this.districtName,
-      required this.detail,
+      this.detail,
       required this.fullAddress,
       @JsonKey(name: 'rnum') required this.roadNumber,
       @JsonKey(name: 'rnm') required this.roadName});
@@ -186,7 +186,7 @@ class _$_AddressInfo implements _AddressInfo {
   @JsonKey(name: 'sggNm')
   final String districtName;
   @override
-  final String detail;
+  final String? detail;
   @override
   final String fullAddress;
   @override
@@ -242,7 +242,7 @@ abstract class _AddressInfo implements AddressInfo {
   factory _AddressInfo(
       {@JsonKey(name: 'siNm') required final String cityName,
       @JsonKey(name: 'sggNm') required final String districtName,
-      required final String detail,
+      final String? detail,
       required final String fullAddress,
       @JsonKey(name: 'rnum') required final String roadNumber,
       @JsonKey(name: 'rnm') required final String roadName}) = _$_AddressInfo;
@@ -257,7 +257,7 @@ abstract class _AddressInfo implements AddressInfo {
   @JsonKey(name: 'sggNm')
   String get districtName;
   @override
-  String get detail;
+  String? get detail;
   @override
   String get fullAddress;
   @override
