@@ -17,7 +17,8 @@ class CustomCachedNetworkImage extends StatefulWidget {
   final BoxFit? fit;
 
   @override
-  State<CustomCachedNetworkImage> createState() => _CustomCachedNetworkImageState();
+  State<CustomCachedNetworkImage> createState() =>
+      _CustomCachedNetworkImageState();
 }
 
 class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
@@ -41,6 +42,7 @@ class _CustomCachedNetworkImageState extends State<CustomCachedNetworkImage> {
       fadeInDuration: const Duration(milliseconds: 200),
       fadeOutDuration: const Duration(milliseconds: 200),
       placeholderFadeInDuration: const Duration(milliseconds: 200),
+      cacheKey: imageUrl,
     );
   }
 }
