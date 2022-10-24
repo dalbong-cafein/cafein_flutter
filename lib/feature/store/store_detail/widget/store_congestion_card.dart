@@ -99,12 +99,24 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
               CongestionPossibleDialog.show(context);
             }
           } else if (state is CongestionCreatedSucceed) {
-            CreatedSucceedWithoutStickerDialog.show(context);
+            await CreatedSucceedWithoutStickerDialog.show(context);
+
+            bloc.add(CongestionRequested(
+              day: '${DateFormat.E('ko_KR').format(
+                DateTime.now(),
+              )}요일',
+            ));
           } else if (state is CongestionStickerCreatedSucceed) {
-            CreatedSucceedDialog.show(
+            await CreatedSucceedDialog.show(
               context,
               isCreatedSticker: true,
             );
+
+            bloc.add(CongestionRequested(
+              day: '${DateFormat.E('ko_KR').format(
+                DateTime.now(),
+              )}요일',
+            ));
           } else if (state is CongestionStickerCountChecked) {
             if (!state.isAvailable) {
               final result = await StickerCountDialog.show(context);

@@ -110,10 +110,11 @@ class StoreDetailCard extends StatelessWidget {
                           imageUrl: storeDetail.storeImageList[index].imageUrl,
                           height: 200,
                           width: 160,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.cover,
                         ),
                       );
                     } else if (index % 3 == 1) {
+                      final currentIndex = index;
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -122,21 +123,21 @@ class StoreDetailCard extends StatelessWidget {
                               Radius.circular(10),
                             ),
                             child: CustomCachedNetworkImage(
-                              imageUrl:
-                                  storeDetail.storeImageList[index].imageUrl,
+                              imageUrl: storeDetail
+                                  .storeImageList[currentIndex].imageUrl,
                               height: 96,
                               width: 96,
                               fit: BoxFit.cover,
                             ),
                           ),
-                          if (index + 1 < 8)
+                          if (index + 1 < storeDetail.storeImageList.length)
                             ClipRRect(
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                               child: CustomCachedNetworkImage(
-                                imageUrl:
-                                    storeDetail.storeImageList[index].imageUrl,
+                                imageUrl: storeDetail
+                                    .storeImageList[currentIndex + 1].imageUrl,
                                 height: 96,
                                 width: 96,
                                 fit: BoxFit.cover,
