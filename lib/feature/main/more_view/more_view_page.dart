@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
@@ -174,7 +175,7 @@ class MoreViewPage extends StatelessWidget {
                     title: '연결된 계정',
                     isAuthProvider: true,
                     trailingWidget: Text(
-                      '${context.watch<UserRepository>().getAuthProvider}',
+                      '${context.watch<AppRepository>().getAuthProvider()}',
                       style: AppStyle.body14Regular.copyWith(
                         color: AppColor.grey400,
                       ),

@@ -1,12 +1,10 @@
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
-import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StoreDetailCard extends StatelessWidget {
   const StoreDetailCard({

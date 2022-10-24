@@ -11,6 +11,10 @@ abstract class AppRepository {
   Future<void> putSearchKeyword(
     List<String> searchKeywords,
   );
+
+  String? getAuthProvider();
+
+  Future<void> setAuthProvider(String authProvider);
 }
 
 class AppRepositoryImpl implements AppRepository {
@@ -34,4 +38,11 @@ class AppRepositoryImpl implements AppRepository {
       appPreference.putSearchKeyword(
         searchKeywords,
       );
+
+  @override
+  String? getAuthProvider() => appPreference.getAuthProvider();
+
+  @override
+  Future<void> setAuthProvider(String authProvider) =>
+      appPreference.setAuthProvider(authProvider);
 }

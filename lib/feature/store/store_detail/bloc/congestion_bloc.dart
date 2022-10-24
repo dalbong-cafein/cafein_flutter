@@ -57,7 +57,7 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
 
       final response = await congestionRepository.getCongestions(
         storeId: storeId,
-        minusDays: minusDay + 1,
+        minusDays: minusDay,
       );
 
       emit(

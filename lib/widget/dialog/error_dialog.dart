@@ -45,11 +45,11 @@ class ErrorDialog extends StatelessWidget {
       ),
     );
 
+    isShow = false;
+
     if (result == null) {
       return;
     }
-
-    isShow = false;
 
     switch (result) {
       case ErrorCallBack.login:
