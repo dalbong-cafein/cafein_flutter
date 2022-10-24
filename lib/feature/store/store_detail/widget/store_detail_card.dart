@@ -64,6 +64,7 @@ class StoreDetailCard extends StatelessWidget {
                       style: AppStyle.caption13Regular.copyWith(
                         color: AppColor.grey600,
                       ),
+                      maxLines: 2,
                     ),
                     const SizedBox(height: 12),
                     Row(

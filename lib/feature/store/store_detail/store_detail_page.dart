@@ -43,6 +43,56 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             const StoreDetailRequested(),
           ),
     );
+
+    scrollController.addListener(
+      () {
+        final storeDetailRenderBox =
+            storeDetailKey.currentContext!.findRenderObject() as RenderBox;
+        final storeDetailOffset =
+            storeDetailRenderBox.localToGlobal(Offset.zero);
+
+        final storeCongestionRenderBox =
+            storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
+        final storeCongestionOffset =
+            storeCongestionRenderBox.localToGlobal(Offset.zero);
+
+        final storeStudyRenderBox =
+            storeStudyKey.currentContext!.findRenderObject() as RenderBox;
+        final storeStudyOffset = storeStudyRenderBox.localToGlobal(Offset.zero);
+
+        final storeReviewRenderBox =
+            storeReviewKey.currentContext!.findRenderObject() as RenderBox;
+        final storeReviewOffset =
+            storeReviewRenderBox.localToGlobal(Offset.zero);
+
+        int index = 0;
+        final appBarHeight = AppBar().preferredSize.height;
+
+        if (scrollController.offset <=
+            storeCongestionOffset.dy + 44 + appBarHeight + 44) {
+          index = 0;
+        } else if (scrollController.offset >=
+                storeCongestionOffset.dy + 44 + appBarHeight + 44 &&
+            scrollController.offset <
+                storeStudyOffset.dy + 44 + appBarHeight + 44) {
+          index = 1;
+        } else if (scrollController.offset >=
+                storeStudyOffset.dy + 44 + appBarHeight + 44 &&
+            scrollController.offset <
+                storeReviewOffset.dy + 44 + appBarHeight + 44) {
+          index = 2;
+        } else if (scrollController.offset >=
+            storeReviewOffset.dy + 44 + appBarHeight + 44) {
+          index = 3;
+        }
+        context.read<StoreDetailBloc>().add(
+              StoreDetailTabChanged(
+                index: index,
+                isTaped: false,
+              ),
+            );
+      },
+    );
   }
 
   void animateScroll(int index) {
@@ -102,6 +152,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             refresh: state.event,
           );
         } else if (state is StoreDetailTabChecked) {
+          if (!state.isTaped) {
+            return;
+          }
           animateScroll(state.index);
         }
       },
@@ -193,6 +246,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       context.read<StoreDetailBloc>().add(
                                             StoreDetailTabChanged(
                                               index: index,
+                                              isTaped: true,
                                             ),
                                           ),
                                   child: Column(

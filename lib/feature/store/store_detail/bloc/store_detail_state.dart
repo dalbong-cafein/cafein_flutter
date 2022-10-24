@@ -74,10 +74,15 @@ class StoreDetailHeartChecked extends StoreDetailState {
 class StoreDetailTabChecked extends StoreDetailState {
   const StoreDetailTabChecked({
     required this.index,
+    required this.isTaped,
   });
 
   final int index;
+  final bool isTaped;
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [
+        index,
+        isTaped,
+      ];
 }

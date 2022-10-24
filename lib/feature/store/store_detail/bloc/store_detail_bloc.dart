@@ -144,6 +144,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     emit(
       StoreDetailTabChecked(
         index: event.index,
+        isTaped: event.isTaped,
       ),
     );
   }

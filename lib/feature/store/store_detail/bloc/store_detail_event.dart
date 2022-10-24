@@ -47,10 +47,15 @@ class StoreDetailNearStoreHeartRequested extends StoreDetailEvent {
 class StoreDetailTabChanged extends StoreDetailEvent {
   const StoreDetailTabChanged({
     required this.index,
+    required this.isTaped,
   });
 
   final int index;
+  final bool isTaped;
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [
+        index,
+        isTaped,
+      ];
 }
