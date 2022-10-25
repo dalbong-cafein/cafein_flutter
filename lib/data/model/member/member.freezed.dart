@@ -30,6 +30,8 @@ mixin _$Member {
   @JsonKey(name: 'birth')
   String? get birthDay => throw _privateConstructorUsedError;
   String get joinDateTime => throw _privateConstructorUsedError;
+  bool? get isAgreeLocation => throw _privateConstructorUsedError;
+  bool? get isAgreeMarketingPush => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +50,9 @@ abstract class $MemberCopyWith<$Res> {
       @JsonKey(name: 'phone') String? phoneNumber,
       String email,
       @JsonKey(name: 'birth') String? birthDay,
-      String joinDateTime});
+      String joinDateTime,
+      bool? isAgreeLocation,
+      bool? isAgreeMarketingPush});
 
   $ImageIdPairCopyWith<$Res>? get imageIdPair;
 }
@@ -73,6 +77,8 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
     Object? email = null,
     Object? birthDay = freezed,
     Object? joinDateTime = null,
+    Object? isAgreeLocation = freezed,
+    Object? isAgreeMarketingPush = freezed,
   }) {
     return _then(_value.copyWith(
       memberId: null == memberId
@@ -103,6 +109,14 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
           ? _value.joinDateTime
           : joinDateTime // ignore: cast_nullable_to_non_nullable
               as String,
+      isAgreeLocation: freezed == isAgreeLocation
+          ? _value.isAgreeLocation
+          : isAgreeLocation // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isAgreeMarketingPush: freezed == isAgreeMarketingPush
+          ? _value.isAgreeMarketingPush
+          : isAgreeMarketingPush // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -132,7 +146,9 @@ abstract class _$$_MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
       @JsonKey(name: 'phone') String? phoneNumber,
       String email,
       @JsonKey(name: 'birth') String? birthDay,
-      String joinDateTime});
+      String joinDateTime,
+      bool? isAgreeLocation,
+      bool? isAgreeMarketingPush});
 
   @override
   $ImageIdPairCopyWith<$Res>? get imageIdPair;
@@ -155,6 +171,8 @@ class __$$_MemberCopyWithImpl<$Res>
     Object? email = null,
     Object? birthDay = freezed,
     Object? joinDateTime = null,
+    Object? isAgreeLocation = freezed,
+    Object? isAgreeMarketingPush = freezed,
   }) {
     return _then(_$_Member(
       memberId: null == memberId
@@ -185,6 +203,14 @@ class __$$_MemberCopyWithImpl<$Res>
           ? _value.joinDateTime
           : joinDateTime // ignore: cast_nullable_to_non_nullable
               as String,
+      isAgreeLocation: freezed == isAgreeLocation
+          ? _value.isAgreeLocation
+          : isAgreeLocation // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isAgreeMarketingPush: freezed == isAgreeMarketingPush
+          ? _value.isAgreeMarketingPush
+          : isAgreeMarketingPush // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -199,7 +225,9 @@ class _$_Member implements _Member {
       @JsonKey(name: 'phone') this.phoneNumber,
       required this.email,
       @JsonKey(name: 'birth') this.birthDay,
-      required this.joinDateTime});
+      required this.joinDateTime,
+      this.isAgreeLocation,
+      this.isAgreeMarketingPush});
 
   factory _$_Member.fromJson(Map<String, dynamic> json) =>
       _$$_MemberFromJson(json);
@@ -221,10 +249,14 @@ class _$_Member implements _Member {
   final String? birthDay;
   @override
   final String joinDateTime;
+  @override
+  final bool? isAgreeLocation;
+  @override
+  final bool? isAgreeMarketingPush;
 
   @override
   String toString() {
-    return 'Member(memberId: $memberId, nickname: $nickname, imageIdPair: $imageIdPair, phoneNumber: $phoneNumber, email: $email, birthDay: $birthDay, joinDateTime: $joinDateTime)';
+    return 'Member(memberId: $memberId, nickname: $nickname, imageIdPair: $imageIdPair, phoneNumber: $phoneNumber, email: $email, birthDay: $birthDay, joinDateTime: $joinDateTime, isAgreeLocation: $isAgreeLocation, isAgreeMarketingPush: $isAgreeMarketingPush)';
   }
 
   @override
@@ -244,13 +276,26 @@ class _$_Member implements _Member {
             (identical(other.birthDay, birthDay) ||
                 other.birthDay == birthDay) &&
             (identical(other.joinDateTime, joinDateTime) ||
-                other.joinDateTime == joinDateTime));
+                other.joinDateTime == joinDateTime) &&
+            (identical(other.isAgreeLocation, isAgreeLocation) ||
+                other.isAgreeLocation == isAgreeLocation) &&
+            (identical(other.isAgreeMarketingPush, isAgreeMarketingPush) ||
+                other.isAgreeMarketingPush == isAgreeMarketingPush));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, memberId, nickname, imageIdPair,
-      phoneNumber, email, birthDay, joinDateTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      memberId,
+      nickname,
+      imageIdPair,
+      phoneNumber,
+      email,
+      birthDay,
+      joinDateTime,
+      isAgreeLocation,
+      isAgreeMarketingPush);
 
   @JsonKey(ignore: true)
   @override
@@ -274,7 +319,9 @@ abstract class _Member implements Member {
       @JsonKey(name: 'phone') final String? phoneNumber,
       required final String email,
       @JsonKey(name: 'birth') final String? birthDay,
-      required final String joinDateTime}) = _$_Member;
+      required final String joinDateTime,
+      final bool? isAgreeLocation,
+      final bool? isAgreeMarketingPush}) = _$_Member;
 
   factory _Member.fromJson(Map<String, dynamic> json) = _$_Member.fromJson;
 
@@ -295,6 +342,10 @@ abstract class _Member implements Member {
   String? get birthDay;
   @override
   String get joinDateTime;
+  @override
+  bool? get isAgreeLocation;
+  @override
+  bool? get isAgreeMarketingPush;
   @override
   @JsonKey(ignore: true)
   _$$_MemberCopyWith<_$_Member> get copyWith =>

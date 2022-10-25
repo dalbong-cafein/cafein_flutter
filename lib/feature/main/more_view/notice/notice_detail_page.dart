@@ -39,7 +39,7 @@ class NoticeDetailPage extends StatelessWidget {
                 children: [
                   Text(
                     notice.title,
-                    style: AppStyle.subTitle15Medium,
+                    style: AppStyle.subTitle16Medium,
                   ),
                   Text(
                     ymdDotFormat(notice.registeredDateTime),

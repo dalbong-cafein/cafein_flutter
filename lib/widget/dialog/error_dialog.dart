@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:dio/dio.dart';
@@ -24,11 +25,18 @@ class ErrorDialog extends StatelessWidget {
 
   final dynamic error;
 
+  static bool isShow = false;
+
   static Future<void> show(
     BuildContext context, {
     required dynamic error,
     required Function refresh,
   }) async {
+    if (isShow) {
+      return;
+    }
+
+    isShow = true;
     final navigator = Navigator.of(context);
     final result = await showDialog<ErrorCallBack?>(
       context: context,
@@ -36,11 +44,16 @@ class ErrorDialog extends StatelessWidget {
         error: error,
       ),
     );
+
+    isShow = false;
+
     if (result == null) {
       return;
     }
+
     switch (result) {
       case ErrorCallBack.login:
+        AppDatabase().authPreference.box.clear();
         navigator.pushNamedAndRemoveUntil(
           LoginPage.routeName,
           (route) => false,

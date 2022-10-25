@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
+import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
@@ -15,6 +14,7 @@ import 'package:cafein_flutter/feature/main/more_view/widget/more_view_count_car
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_menu_card.dart';
 import 'package:cafein_flutter/feature/main/more_view/widget/more_view_sign_out_dialog.dart';
 import 'package:cafein_flutter/feature/review/registered_review/registered_review_page.dart';
+import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
@@ -29,7 +29,6 @@ class MoreViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userData = context.watch<UserRepository>().getMemberData;
-    final width = MediaQuery.of(context).size.width;
 
     return MultiBlocListener(
       listeners: [
@@ -63,14 +62,16 @@ class MoreViewPage extends StatelessWidget {
       ],
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
-        appBar: AppBar(),
+        appBar: AppBar(toolbarHeight: 44),
         body: RefreshIndicator(
           onRefresh: () async => context.read<MoreViewBloc>().add(
                 const MoreViewCountRequested(),
               ),
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -104,7 +105,7 @@ class MoreViewPage extends StatelessWidget {
                           children: [
                             CircleProfileImage(
                               imageUrl: imageUrl,
-                              radius: 39,
+                              radius: 28,
                             ),
                             const SizedBox(width: 16),
                             Column(
@@ -114,7 +115,7 @@ class MoreViewPage extends StatelessWidget {
                                   userName,
                                   style: AppStyle.subTitle17SemiBold,
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 6),
                                 Text(
                                   '카페인 ${DateTime.now().difference(
                                         DateTime.parse(userData!.joinDateTime),
@@ -126,10 +127,12 @@ class MoreViewPage extends StatelessWidget {
                               ],
                             ),
                             const Spacer(),
-                            Transform.rotate(
-                                angle: pi,
-                                child: loadAsset(AppIcon.leftS,
-                                    color: AppColor.grey400)),
+                            loadAsset(
+                              AppIcon.right,
+                              color: AppColor.grey400,
+                              width: 16,
+                              height: 16,
+                            ),
                           ],
                         );
                       },
@@ -138,18 +141,16 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 24),
                   SizedBox(
                     height: 74,
-                    width: width - 48,
+                    width: double.infinity,
                     child: BlocBuilder<MoreViewBloc, MoreViewState>(
                       buildWhen: (pre, next) =>
                           next is MoreViewStoreCntAndReviewCntLoaded,
                       builder: (context, state) {
                         if (state is MoreViewStoreCntAndReviewCntLoaded) {
                           return InkWell(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                RegisteredReviewPage.routeName,
-                              );
-                            },
+                            onTap: () => Navigator.of(context).pushNamed(
+                              RegisteredReviewPage.routeName,
+                            ),
                             child: MoreViewCountCard(
                               title: '작성한 리뷰',
                               value: state.reviewCount,
@@ -164,15 +165,14 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Container(
                     height: 1,
-                    width: width - 40,
-                    color: AppColor.grey50,
+                    color: AppColor.grey100,
                   ),
                   const SizedBox(height: 12),
                   MoreViewMenuCard(
                     title: '연결된 계정',
                     isAuthProvider: true,
                     trailingWidget: Text(
-                      '${context.watch<UserRepository>().getAuthProvider}',
+                      '${context.watch<AppRepository>().getAuthProvider()}',
                       style: AppStyle.body14Regular.copyWith(
                         color: AppColor.grey400,
                       ),
@@ -181,8 +181,7 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   Container(
                     height: 1,
-                    width: width - 40,
-                    color: AppColor.grey50,
+                    color: AppColor.grey100,
                   ),
                   const SizedBox(height: 12),
                   MoreViewMenuCard(
@@ -199,11 +198,17 @@ class MoreViewPage extends StatelessWidget {
                   ),
                   MoreViewMenuCard(
                     title: '서비스 이용 약관',
-                    onTab: () {},
+                    onTab: () => Navigator.of(context).pushNamed(
+                      TermsDetailPage.routeName,
+                      arguments: '이용약관',
+                    ),
                   ),
                   MoreViewMenuCard(
                     title: '개인정보 처리방침',
-                    onTab: () {},
+                    onTab: () => Navigator.of(context).pushNamed(
+                      TermsDetailPage.routeName,
+                      arguments: '개인정보 처리방침',
+                    ),
                   ),
                   MoreViewMenuCard(
                     title: '버전 정보',
@@ -217,14 +222,15 @@ class MoreViewPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   Container(
                     height: 1,
-                    width: width - 40,
-                    color: AppColor.grey50,
+                    color: AppColor.grey100,
                   ),
                   const SizedBox(height: 12),
                   InkWell(
                     onTap: () async {
                       final moreViewBloc = context.read<MoreViewBloc>();
+
                       final result = await MoreViewSignOutDialog.show(context);
+
                       if (!result) {
                         return;
                       }
@@ -233,7 +239,6 @@ class MoreViewPage extends StatelessWidget {
                     },
                     child: SizedBox(
                       height: 56,
-                      width: width - 40,
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -248,8 +253,7 @@ class MoreViewPage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     height: 1,
-                    width: width - 40,
-                    color: AppColor.grey50,
+                    color: AppColor.grey100,
                   ),
                   BlocBuilder<MoreViewBloc, MoreViewState>(
                     buildWhen: (pre, next) =>
@@ -267,7 +271,6 @@ class MoreViewPage extends StatelessWidget {
                                 ),
                         child: SizedBox(
                           height: 56,
-                          width: MediaQuery.of(context).size.width - 40,
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(

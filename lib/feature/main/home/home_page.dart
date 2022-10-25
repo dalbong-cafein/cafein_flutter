@@ -7,6 +7,7 @@ import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
+import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -18,8 +19,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final widthPercent = width / 360;
     final memberData = context.watch<UserRepository>().getMemberData;
 
     return BlocListener<HomeBloc, HomeState>(
@@ -88,7 +87,7 @@ class HomePage extends StatelessWidget {
                         top: 16,
                       ),
                       child: Container(
-                        width: 328 * widthPercent,
+                        width: double.infinity,
                         decoration: const BoxDecoration(
                           color: AppColor.orange400,
                           borderRadius: BorderRadius.all(
@@ -97,7 +96,10 @@ class HomePage extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 32, top: 12, bottom: 12),
+                            left: 32,
+                            top: 12,
+                            bottom: 12,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -36,15 +36,17 @@ class EditPhoneNumberBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   '휴대폰 번호를 변경하려면\n본인 인증이 필요해요',
-                  style: AppStyle.title19Bold,
+                  style: AppStyle.title19Bold.copyWith(
+                    height: 1.4,
+                  ),
                 ),
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
                   child: loadAsset(
-                    AppIcon.clear24S
-                  )
+                    AppIcon.clear24S,
+                  ),
                 ),
               ],
             ),
@@ -64,7 +66,7 @@ class EditPhoneNumberBottomSheet extends StatelessWidget {
                 child: const Text('본인 인증하기'),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               style: TextButton.styleFrom(

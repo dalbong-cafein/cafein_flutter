@@ -55,7 +55,8 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: BlocBuilder<RegisteredReviewBloc, RegisteredReviewState>(
+                  child:
+                      BlocBuilder<RegisteredReviewBloc, RegisteredReviewState>(
                     buildWhen: (pre, next) => next is RegisteredReviewLoaded,
                     builder: (context, state) {
                       int count = 0;
@@ -65,7 +66,8 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
                       return Text(
                         '총 $count개',
                         style: AppStyle.subTitle14Medium.copyWith(
-                          color: AppColor.grey600,
+                          color:
+                              count == 0 ? AppColor.grey300 : AppColor.grey600,
                         ),
                       );
                     },
@@ -76,7 +78,7 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
             Container(
               height: 1,
               width: width,
-              color: AppColor.grey50,
+              color: AppColor.grey100,
             ),
             Expanded(
               child: BlocBuilder<RegisteredReviewBloc, RegisteredReviewState>(
@@ -87,20 +89,25 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
                   }
 
                   if (state.reviewList.isEmpty) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          loadAsset(AppIcon.textBlank),
-                          const SizedBox(height: 16),
-                          Text(
-                            '등록된 리뷰가 없어요',
-                            style: AppStyle.caption13Regular.copyWith(
-                              color: AppColor.grey600,
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewPadding.bottom,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            loadAsset(AppIcon.textBlank),
+                            const SizedBox(height: 12),
+                            Text(
+                              '등록된 리뷰가 없어요',
+                              style: AppStyle.caption13Regular.copyWith(
+                                color: AppColor.grey600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   }

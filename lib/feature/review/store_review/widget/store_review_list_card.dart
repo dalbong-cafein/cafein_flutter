@@ -185,7 +185,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
           Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
-              widget.review.content,
+              widget.review.content ?? '',
               style: AppStyle.body14Regular,
             ),
           ),

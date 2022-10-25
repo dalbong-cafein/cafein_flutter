@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
@@ -64,10 +63,13 @@ class _MapPageState extends State<MapPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    log('---------- MapPage Build ----------');
-    final width = MediaQuery.of(context).size.width;
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<MapBloc, MapState>(
@@ -110,6 +112,7 @@ class _MapPageState extends State<MapPage> {
                     icon: getMarkerIcon(
                       confuseScore: state.stores[index].congestionScoreAvg,
                       isLike: state.stores[index].isHeart,
+                      isSingle: state.stores.length == 1,
                     ),
                     onMarkerTab: (marker, iconSize) async {
                       if (marker?.position == null) {
@@ -133,6 +136,15 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
               );
+
+              if (state.stores.isNotEmpty) {
+                moveCurrentCamera(
+                  LatLng(
+                    state.stores.first.latY,
+                    state.stores.first.lngX,
+                  ),
+                );
+              }
 
               setState(() {});
             }
@@ -189,6 +201,7 @@ class _MapPageState extends State<MapPage> {
       ],
       child: Scaffold(
         bottomNavigationBar: const MainBottomNavigationBar(),
+        backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 112,
           title: Column(
@@ -254,7 +267,7 @@ class _MapPageState extends State<MapPage> {
                           loadAsset(AppIcon.search, color: AppColor.grey700),
                           const SizedBox(width: 8),
                           Text(
-                            '카페 이름, 구, 동, 역 등으로 검색',
+                            '카페 이름, 지하철, 지역 등으로 검색',
                             style: AppStyle.body15Regular.copyWith(
                               color: AppColor.grey500,
                             ),
@@ -305,7 +318,7 @@ class _MapPageState extends State<MapPage> {
 
                   return SizedBox(
                     height: 248,
-                    width: width,
+                    width: double.infinity,
                     child: Column(
                       children: [
                         const SearchBodyHeader(

@@ -23,6 +23,11 @@ abstract class CafeinConfig {
   static late final OverlayImage markerNoneIcon;
   static late final OverlayImage markerLikeNoneIcon;
 
+  static late final OverlayImage markerSingleNone;
+  static late final OverlayImage markerSingleBad;
+  static late final OverlayImage markerSingleNormal;
+  static late final OverlayImage markerSingleGood;
+
   static late final OverlayImage orangeMarker;
 
   static late PackageInfo packageInfo;
@@ -66,6 +71,26 @@ abstract class CafeinConfig {
     );
     markerLikeNoneIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeNone,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+
+    markerSingleNone = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerSingleNone,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+
+    markerSingleBad = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerSingleBad,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+
+    markerSingleNormal = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerSingleNormal,
+      devicePixelRatio: window.devicePixelRatio,
+    );
+
+    markerSingleGood = await OverlayImage.fromAssetImage(
+      assetName: AppIcon.markerSingleGood,
       devicePixelRatio: window.devicePixelRatio,
     );
 

@@ -13,7 +13,7 @@ class AuthPreference {
         AppDatabase.tokenDataKey,
       );
 
-  Future<void> setTokenData(TokenData tokenData) => box.put(
+  Future<void> setTokenData(TokenData tokenData) async => await box.put(
         AppDatabase.tokenDataKey,
         tokenData,
       );

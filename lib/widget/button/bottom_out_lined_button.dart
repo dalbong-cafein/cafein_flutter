@@ -24,6 +24,7 @@ class BottomOutLinedButton extends StatelessWidget {
           foregroundColor: AppColor.grey800,
           backgroundColor: AppColor.white,
           elevation: 0,
+          textStyle: AppStyle.subTitle15Medium,
           shape: const RoundedRectangleBorder(
             side: BorderSide(
               color: AppColor.grey400,

@@ -10,7 +10,7 @@ _$_AddressInfo _$$_AddressInfoFromJson(Map<String, dynamic> json) =>
     _$_AddressInfo(
       cityName: json['siNm'] as String,
       districtName: json['sggNm'] as String,
-      detail: json['detail'] as String,
+      detail: json['detail'] as String?,
       fullAddress: json['fullAddress'] as String,
       roadNumber: json['rnum'] as String,
       roadName: json['rnm'] as String,

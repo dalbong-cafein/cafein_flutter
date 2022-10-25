@@ -124,7 +124,7 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
             margin: const EdgeInsets.only(
               top: 8,
             ),
-            width: 200,
+            width: 224,
             height: isExpanded ? 40 : 0,
             child: ListView(
               physics: const NeverScrollableScrollPhysics(),
@@ -136,6 +136,7 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                       categoryTitle: ReviewCategory.wifi.name,
                       reviewScore: widget.review.detailEvaluation.wifi,
                     ),
+                    const SizedBox(width: 8),
                     _ReviewDetailRow(
                       categoryTitle: ReviewCategory.socket.name,
                       reviewScore: widget.review.detailEvaluation.socket,
@@ -146,9 +147,10 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                 Row(
                   children: [
                     _ReviewDetailRow(
-                      categoryTitle: ReviewCategory.restroom.name,
+                      categoryTitle: '${ReviewCategory.restroom.name} ',
                       reviewScore: widget.review.detailEvaluation.restroom,
                     ),
+                    const SizedBox(width: 8),
                     _ReviewDetailRow(
                       categoryTitle: ReviewCategory.table.name,
                       reviewScore: widget.review.detailEvaluation.tableSize,
@@ -208,26 +210,26 @@ class _ReviewDetailRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      child: Row(
-        children: [
-          Text(
+    return Row(
+      children: [
+        SizedBox(
+          width: categoryTitle.length == 4 ? 42 : 34,
+          child: Text(
             categoryTitle,
             style: AppStyle.caption12Regular,
           ),
-          const SizedBox(width: 4),
-          RatingBarIndicator(
-            rating: reviewScore.toDouble(),
-            itemBuilder: (context, index) =>
-                loadAsset(AppIcon.starL, color: AppColor.orange400),
-            itemCount: 4,
-            itemSize: 12,
-            unratedColor: AppColor.grey200,
-            direction: Axis.horizontal,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 4),
+        RatingBarIndicator(
+          rating: reviewScore.toDouble(),
+          itemBuilder: (context, index) =>
+              loadAsset(AppIcon.starL, color: AppColor.orange400),
+          itemCount: 5,
+          itemSize: 12,
+          unratedColor: AppColor.grey200,
+          direction: Axis.horizontal,
+        ),
+      ],
     );
   }
 }

@@ -15,11 +15,18 @@ class MainBottomNavigationBar extends StatelessWidget {
       padding: EdgeInsets.only(bottom: bottomPadding),
       height: bottomPadding > 0 ? bottomPadding + 56 : 56,
       decoration: const BoxDecoration(
-        color: AppColor.white,
+        color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, -0.4),
+            blurRadius: 12,
+            color: Color.fromRGBO(0, 0, 0, 0.1),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,40 +77,37 @@ class _BottomTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: BlocBuilder<MainBloc, MainState>(
-        builder: (context, state) {
-          if (state is MainNavigationSelected) {
-            return Container(
-              height: height,
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(
-                    currentIndex == 0 ? 16 : 0,
-                  ),
-                  topRight: Radius.circular(
-                    currentIndex == 3 ? 16 : 0,
-                  ),
+    return BlocBuilder<MainBloc, MainState>(
+      builder: (context, state) {
+        if (state is MainNavigationSelected) {
+          return Container(
+            height: height,
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  currentIndex == 0 ? 16 : 0,
+                ),
+                topRight: Radius.circular(
+                  currentIndex == 3 ? 16 : 0,
                 ),
               ),
-              child: InkWell(
-                onTap: () => context.read<MainBloc>().add(
-                      MainTabChanged(
-                        index: currentIndex,
-                      ),
+            ),
+            child: InkWell(
+              onTap: () => context.read<MainBloc>().add(
+                    MainTabChanged(
+                      index: currentIndex,
                     ),
-                child: loadAsset(
-                  currentIndex == state.index ? onIcon : offIcon,
-                  fit: BoxFit.scaleDown,
-                ),
+                  ),
+              child: loadAsset(
+                currentIndex == state.index ? onIcon : offIcon,
+                fit: BoxFit.scaleDown,
               ),
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
+            ),
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }

@@ -12,7 +12,7 @@ _$_StoreReview _$$_StoreReviewFromJson(Map<String, dynamic> json) =>
       writerId: json['writerId'] as int,
       nicknameOfWriter: json['nicknameOfWriter'] as String,
       profileImageUrl: json['profileImageUrl'] as String?,
-      content: json['content'] as String,
+      content: json['content'] as String?,
       visitCnt: json['visitCnt'] as int,
       recommendation: json['recommendation'] as String,
       detailEvaluation: DetailEvaluation.fromJson(
