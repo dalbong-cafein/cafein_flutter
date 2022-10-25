@@ -74,4 +74,8 @@ abstract class CafeinConst {
     '토요일',
     '일요일',
   ];
+
+  static final sortModeText = ["등록순", "가까운순", "혼잡도낮은순"];
+
+  static const defaultStoreImageUrl = 'https://raw.githubusercontent.com/dalbong-cafein/cafein_flutter/develop/default_store_image.png';
 }

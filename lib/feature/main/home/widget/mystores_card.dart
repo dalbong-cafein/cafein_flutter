@@ -1,9 +1,9 @@
-import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
+import 'package:cafein_flutter/feature/store/favorite_store/favorite_store_page.dart';
+import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
@@ -116,99 +116,112 @@ class MyStoresCard extends StatelessWidget {
                             ? 4
                             : state.memberStores.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              left: 16,
-                              right: 16,
-                              top: 20,
-                            ),
-                            child: SizedBox(
-                              width: (width - 64) * 0.8,
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 48,
-                                    height: 48,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: SizedBox.fromSize(
-                                        size: const Size.fromRadius(48),
-                                        child: state.memberStores[index]
-                                                    .imageIdPair ==
-                                                null
-                                            ? const CustomCachedNetworkImage(
-                                                imageUrl: CafeinConst
-                                                    .defaultStoreImage,
-                                                height: 48,
-                                                width: 48,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.network(
-                                                state.memberStores[index]
-                                                    .imageIdPair!.imageUrl,
-                                                fit: BoxFit.cover,
-                                              ),
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  StoreDetailPage.routeName,
+                                  arguments: state.memberStores[index].storeId);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 16,
+                                right: 16,
+                                top: 20,
+                              ),
+                              child: SizedBox(
+                                width: (width - 64) * 0.8,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 48,
+                                      height: 48,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: SizedBox.fromSize(
+                                          size: const Size.fromRadius(48),
+                                          child: state.memberStores[index]
+                                                      .imageIdPair ==
+                                                  null
+                                              ? ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: SizedBox.fromSize(
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              48),
+                                                      child: loadAsset(
+                                                          AppImage.noImage,
+                                                          height: 48,
+                                                          width: 48)),
+                                                )
+                                              : Image.network(
+                                                  state.memberStores[index]
+                                                      .imageIdPair!.imageUrl,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 12),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          state.memberStores[index].storeName,
-                                          style: AppStyle.subTitle15Medium,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 5),
-                                          child: Row(
-                                            children: [
-                                              OpenCloseChip(
-                                                isOpen: state
-                                                        .memberStores[index]
-                                                        .businessInfo
-                                                        ?.isOpen ??
-                                                    false,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 6.0),
-                                                child: Text(
-                                                  state
-                                                              .memberStores[
-                                                                  index]
-                                                              .businessInfo
-                                                              ?.isOpen ??
-                                                          false
-                                                      ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
-                                                      : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
-                                                  style: AppStyle
-                                                      .caption12Regular
-                                                      .copyWith(
-                                                          color:
-                                                              AppColor.grey600),
-                                                ),
-                                              )
-                                            ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 12),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            state.memberStores[index].storeName,
+                                            style: AppStyle.subTitle15Medium,
                                           ),
-                                        )
-                                      ],
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 5),
+                                            child: Row(
+                                              children: [
+                                                OpenCloseChip(
+                                                  isOpen: state
+                                                          .memberStores[index]
+                                                          .businessInfo
+                                                          ?.isOpen ??
+                                                      false,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 6.0),
+                                                  child: Text(
+                                                    state
+                                                                .memberStores[
+                                                                    index]
+                                                                .businessInfo
+                                                                ?.isOpen ??
+                                                            false
+                                                        ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
+                                                        : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
+                                                    style: AppStyle
+                                                        .caption12Regular
+                                                        .copyWith(
+                                                            color: AppColor
+                                                                .grey600),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  const Spacer(),
-                                  ConfuseChip(
-                                    confuseScore: state
-                                        .memberStores[index].congestionScoreAvg,
-                                    height: 24,
-                                    textStyle: AppStyle.subTitle15Medium,
-                                    width: 42,
-                                  ),
-                                ],
+                                    const Spacer(),
+                                    ConfuseChip(
+                                      confuseScore: state.memberStores[index]
+                                          .congestionScoreAvg,
+                                      height: 24,
+                                      textStyle: AppStyle.subTitle15Medium,
+                                      width: 42,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -228,18 +241,24 @@ class MyStoresCard extends StatelessWidget {
                                 top: 10,
                                 bottom: 10,
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "나의 카페${state.memberStores.length}개 모두 보기",
-                                    style: AppStyle.body14Regular,
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 3),
-                                      child: loadAsset(AppIcon.rightS,
-                                          color: AppColor.grey400))
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(FavoriteStorePage.routeName);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "나의 카페${state.memberStores.length}개 모두 보기",
+                                      style: AppStyle.body14Regular,
+                                    ),
+                                    Padding(
+                                        padding: const EdgeInsets.only(left: 3),
+                                        child: loadAsset(AppIcon.rightS,
+                                            color: AppColor.grey400))
+                                  ],
+                                ),
                               ),
                             )
                           ],
