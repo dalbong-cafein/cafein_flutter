@@ -31,4 +31,36 @@ platform :ios do
             ipa_path: "./build/Runner/Runner.ipa"
         )
   end
+
+  desc "iOS App Store Deploy"
+    lane :app_store_deploy do |options|
+      build_app(
+        scheme: "Runner",
+        export_method: "app-store",
+        export_options: {
+            provisioningProfiles: {
+                "com.dalbong.cafein" => "cafein_app_store_profile",
+              }
+           }
+      )
+
+      api_key = app_store_connect_api_key(
+        key_id: "JVSAU2BT96",
+        issuer_id: "9c5fabfa-cd77-4406-ae4a-7a83bf75b8f5",
+        key_filepath: "./fastlane/AuthKey_JVSAU2BT96.p8",
+        duration: 1200, # optional (maximum 1200)
+        in_house: false # optional but may be required if using match/sigh
+      )
+
+      upload_to_app_store(
+          api_key: api_key,
+          automatic_release: false,
+          submit_for_review: false,
+          skip_metadata: true,
+          skip_screenshots: true,
+          skip_app_version_update: true,
+          precheck_include_in_app_purchases: false,
+      )
+
+    end
 end

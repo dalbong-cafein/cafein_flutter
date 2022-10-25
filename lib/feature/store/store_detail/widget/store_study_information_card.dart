@@ -116,25 +116,6 @@ class StoreStudyInformationCard extends StatelessWidget {
               icon: AppIcon.wifi,
             ),
             const SizedBox(height: 12),
-            Container(
-              height: 24,
-              width: 140,
-              margin: const EdgeInsets.only(
-                left: 56,
-              ),
-              decoration: const BoxDecoration(
-                color: AppColor.grey50,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8),
-                ),
-              ),
-              child: const Center(
-                child: Text(
-                  '와이파이 비밀번호 보기',
-                  style: AppStyle.caption12Regular,
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -157,59 +138,64 @@ class _ReviewDetailRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            backgroundColor: AppColor.grey50,
-            radius: 20,
-            child: loadAsset(icon),
-          ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                reviewCategory.name,
-                style: AppStyle.caption12Medium.copyWith(
-                  color: AppColor.grey600,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ),
+      child: SizedBox(
+        height: 40,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundColor: AppColor.grey50,
+              radius: 20,
+              child: loadAsset(icon),
+            ),
+            const SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  reviewCategory.name,
+                  style: AppStyle.caption12Medium.copyWith(
+                    color: AppColor.grey600,
+                  ),
+                ),
+                Text(
+                  getReviewString(
+                    reviewCategory: reviewCategory,
+                    reviewScore: reviewScore,
+                  ),
+                  style: AppStyle.subTitle15Medium,
+                ),
+              ],
+            ),
+            const Spacer(),
+            Container(
+              height: 24,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8),
+                ),
+                color: AppColor.orange50,
+              ),
+              child: Center(
+                child: Text(
+                  '$categoryReviewCount',
+                  style: AppStyle.subTitle15Medium.copyWith(
+                    color: AppColor.orange500,
+                  ),
                 ),
               ),
-              Text(
-                getReviewString(
-                  reviewCategory: reviewCategory,
-                  reviewScore: reviewScore,
-                ),
-                style: AppStyle.subTitle15Medium,
-              ),
-            ],
-          ),
-          const Spacer(),
-          Container(
-            height: 24,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 4,
             ),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8),
-              ),
-              color: AppColor.orange50,
-            ),
-            child: Center(
-              child: Text(
-                '$categoryReviewCount',
-                style: AppStyle.subTitle15Medium.copyWith(
-                  color: AppColor.orange500,
-                ),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

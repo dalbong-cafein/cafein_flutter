@@ -46,11 +46,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
     scrollController.addListener(
       () {
-        final storeDetailRenderBox =
-            storeDetailKey.currentContext!.findRenderObject() as RenderBox;
-        final storeDetailOffset =
-            storeDetailRenderBox.localToGlobal(Offset.zero);
-
         final storeCongestionRenderBox =
             storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
         final storeCongestionOffset =
@@ -165,13 +160,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             icon: loadAsset(AppIcon.left),
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: loadAsset(
-                AppIcon.share,
-                color: AppColor.grey400,
-              ),
-            ),
             BlocBuilder<StoreDetailBloc, StoreDetailState>(
               buildWhen: (pre, next) => next is StoreDetailHeartChecked,
               builder: (context, state) {

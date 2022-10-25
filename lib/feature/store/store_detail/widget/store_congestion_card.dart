@@ -250,8 +250,8 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                         const SizedBox(height: 24),
                         loadAsset(
                           AppImage.characterQuestionS,
-                          width: 42,
-                          height: 42,
+                          width: 40,
+                          height: 40,
                         ),
                         const SizedBox(height: 16),
                         Text(
@@ -286,8 +286,8 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                       const SizedBox(height: 24),
                       loadAsset(
                         AppImage.characterQuestionS,
-                        width: 42,
-                        height: 42,
+                        width: 40,
+                        height: 40,
                       ),
                       const SizedBox(height: 16),
                       Text(

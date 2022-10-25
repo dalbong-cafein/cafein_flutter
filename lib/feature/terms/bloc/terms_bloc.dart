@@ -44,7 +44,7 @@ class TermsBloc extends Bloc<TermsEvent, TermsState> {
     emit(const TermsLoading());
 
     try {
-      final response = await userRepository.agreeTerms(
+      await userRepository.agreeTerms(
         TermsRequest(
           isAgreeLocation: isMarketingChecked,
           isAgreeMarketingPush: isLocationChecked,
