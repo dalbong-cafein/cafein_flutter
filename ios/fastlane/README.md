@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Description of what the lane does
 
+### ios app_store_deploy
+
+```sh
+[bundle exec] fastlane ios app_store_deploy
+```
+
+iOS App Store Deploy
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
