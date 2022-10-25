@@ -70,7 +70,7 @@ class StoreDetailCard extends StatelessWidget {
                     Row(
                       children: [
                         OpenCloseChip(
-                          isOpen: storeDetail.businessInfo.isOpen ?? false,
+                          isOpen: storeDetail.businessInfo.isOpen,
                         ),
                         if (storeDetail.businessInfo.closed != null)
                           Padding(

@@ -161,8 +161,8 @@ class _BusinessHoursCardState extends State<_BusinessHoursCard> {
           ),
           const SizedBox(width: 8),
           Text(
-            (widget.businessInfo.isOpen ?? false) ? '영업 중' : '영업 종료',
-            style: (widget.businessInfo.isOpen ?? false)
+            (widget.businessInfo.isOpen) ? '영업 중' : '영업 종료',
+            style: (widget.businessInfo.isOpen)
                 ? AppStyle.subTitle14Medium.copyWith(
                     color: AppColor.orange500,
                   )
@@ -171,8 +171,8 @@ class _BusinessHoursCardState extends State<_BusinessHoursCard> {
                   ),
           ),
           const SizedBox(width: 4),
-          const Text(
-            '오후 11:30에 영업 종료',
+          Text(
+            '오후 ${widget.businessInfo.closed}에 영업 종료',
           ),
           loadAsset(
             AppIcon.downXS,

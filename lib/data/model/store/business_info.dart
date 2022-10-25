@@ -6,8 +6,9 @@ part 'business_info.freezed.dart';
 @freezed
 class BusinessInfo with _$BusinessInfo {
   factory BusinessInfo({
-    @Default(false) bool? isOpen,
+    @Default(false) bool isOpen,
     String? closed,
+    String? open,
     @Default('10:00') String tmrOpen,
   }) = _BusinessInfo;
 

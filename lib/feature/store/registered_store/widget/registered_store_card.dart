@@ -37,7 +37,8 @@ class RegisteredStoreCard extends StatelessWidget {
                 Radius.circular(8),
               ),
               child: CustomCachedNetworkImage(
-                imageUrl: store.imageIdPair?.imageUrl ?? CafeinConst.defaultStoreImage,
+                imageUrl: store.imageIdPair?.imageUrl ??
+                    CafeinConst.defaultStoreImage,
                 width: 64,
                 height: 64,
               ),
@@ -53,7 +54,7 @@ class RegisteredStoreCard extends StatelessWidget {
                 Row(
                   children: [
                     OpenCloseChip(
-                      isOpen: store.businessInfo.isOpen ?? false,
+                      isOpen: store.businessInfo.isOpen,
                     ),
                     const SizedBox(width: 4),
                     const ConfuseChip(
