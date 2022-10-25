@@ -53,7 +53,7 @@ class MyStickerCard extends StatelessWidget {
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 16,
+                    itemCount: 20,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,

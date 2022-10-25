@@ -37,23 +37,17 @@ class HomePage extends StatelessWidget {
           backgroundColor: AppColor.grey50,
           title: Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: InkWell(
-              onTap: () {
-                //TODO Inkwell 없애야함, 테스트용
-                Navigator.of(context).pushNamed(ReportPage.routeName);
-              },
-              child: loadAsset(
-                AppImage.cafeinLogo,
-                color: AppColor.grey500,
-                width: 100,
-              ),
+            child: loadAsset(
+              AppImage.cafeinLogo,
+              color: AppColor.grey500,
+              width: 100,
             ),
           ),
           centerTitle: false,
           actions: [
             Padding(
               padding: const EdgeInsets.only(
-                right: 24,
+                right: 20,
               ),
               child: SizedBox(
                 width: 32,
@@ -67,10 +61,11 @@ class HomePage extends StatelessWidget {
                         ),
                       )
                     : CircleAvatar(
-                        radius: 32,
+                        radius: 44,
                         backgroundImage: NetworkImage(
                             memberData?.imageIdPair?.imageUrl ?? 'url'),
                       ),
+
               ),
             ),
           ],

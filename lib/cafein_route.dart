@@ -1,3 +1,5 @@
+
+
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
@@ -56,6 +58,7 @@ import 'package:cafein_flutter/feature/splash/bloc/splash_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/feature/sticker/bloc/sticker_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
+import 'package:cafein_flutter/feature/store/favorite_store/bloc/favorite_store_bloc.dart';
 import 'package:cafein_flutter/feature/store/favorite_store/favorite_store_page.dart';
 import 'package:cafein_flutter/feature/store/registered_store/bloc/registered_store_bloc.dart';
 import 'package:cafein_flutter/feature/store/registered_store/registered_store_page.dart';
@@ -321,7 +324,11 @@ abstract class CafeinRoute {
         break;
 
       case FavoriteStorePage.routeName:
-        page = const FavoriteStorePage();
+        page = BlocProvider(create: (context) => FavoriteStoreBloc(
+          heartRepository: context.read<HeartRepository>()
+        ),
+        child: const FavoriteStorePage(),
+        );
         break;
 
       case TermsDetailPage.routeName:
