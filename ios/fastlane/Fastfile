@@ -37,6 +37,11 @@ platform :ios do
       build_app(
         scheme: "Runner",
         export_method: "app-store",
+        export_options: {
+            provisioningProfiles: {
+                "com.dalbong.cafein" => "cafein_app_store_profile",
+              }
+           }
       )
 
       api_key = app_store_connect_api_key(
