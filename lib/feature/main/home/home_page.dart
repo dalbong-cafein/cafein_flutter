@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
           actions: [
             Padding(
               padding: const EdgeInsets.only(
-                right: 24,
+                right: 20,
               ),
               child: SizedBox(
                 width: 32,
@@ -70,10 +70,11 @@ class HomePage extends StatelessWidget {
                         ),
                       )
                     : CircleAvatar(
-                        radius: 32,
+                        radius: 44,
                         backgroundImage: NetworkImage(
                             memberData?.imageIdPair?.imageUrl ?? 'url'),
                       ),
+
               ),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/feature/store/favorite_store/widget/store_sort_mode_bottom_drawer.dart';
+import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
@@ -98,17 +99,25 @@ class FavoriteStorePage extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: state.storeCount,
                     itemBuilder: (BuildContext context, int index) {
-                      return favoriteStoreItem(
-                          state.stores[index].imageIdPair?.imageUrl ?? CafeinConst.defaultStoreImage,
-                          state.stores[index].storeName,
-                          state.stores[index].businessInfo?.isOpen ?? false,
-                          state.stores[index].businessInfo?.tmrOpen ?? "00:00",
-                          state.stores[index].businessInfo?.closed ?? "00:00",
-                          state.stores[index].congestionScoreAvg ?? 0,
-                          state.stores[index].storeId,
-                          context,
-                          index,
-                          state.heartList[index]);
+                      return InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(
+                              StoreDetailPage.routeName,
+                              arguments: state.stores[index].storeId
+                          );
+                        },
+                        child: favoriteStoreItem(
+                            state.stores[index].imageIdPair?.imageUrl ?? CafeinConst.defaultStoreImage,
+                            state.stores[index].storeName,
+                            state.stores[index].businessInfo?.isOpen ?? false,
+                            state.stores[index].businessInfo?.tmrOpen ?? "00:00",
+                            state.stores[index].businessInfo?.closed ?? "00:00",
+                            state.stores[index].congestionScoreAvg ?? 0,
+                            state.stores[index].storeId,
+                            context,
+                            index,
+                            state.heartList[index]),
+                      );
                     })
               ],
             );
