@@ -1,12 +1,12 @@
 #!/bin/bash
 
 flutter clean
-python3 main.py
+#python3 main.py
 flutter pub get
-flutter build apk
-cd android
-bundle exec fastlane firebase_deploy
-cd ..
+#flutter build apk
+#cd android
+#bundle exec fastlane firebase_deploy
+#cd ..
 flutter build ipa
 cd ios
 bundle exec fastlane firebase_deploy
