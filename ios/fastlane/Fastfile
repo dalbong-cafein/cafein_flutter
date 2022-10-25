@@ -21,8 +21,15 @@ platform :ios do
         build_app(
           scheme: "Runner",
           archive_path: "../build/ios/archive/Runner.xcarchive",
-          export_method: "ad-hoc",
-          output_directory: "./build/Runner"
+          output_directory: "./build/Runner",
+          clean:true,
+          export_options: {
+              method: "ad-hoc",
+              signingStyle: 'manual',
+              provisioningProfiles: {
+                  "com.dalbong.cafein" => "cafein_ad_hoc_profile",
+                }
+             }
         )
 
         firebase_app_distribution(
@@ -36,8 +43,8 @@ platform :ios do
     lane :app_store_deploy do |options|
       build_app(
         scheme: "Runner",
-        export_method: "app-store",
         export_options: {
+            export_method: "app-store",
             provisioningProfiles: {
                 "com.dalbong.cafein" => "cafein_app_store_profile",
               }

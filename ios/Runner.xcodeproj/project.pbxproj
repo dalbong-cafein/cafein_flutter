@@ -548,7 +548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dalbong.cafein;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "dalbong cafein ad hoc";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = cafein_app_store_profile;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = cafein_ad_hoc_profile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
