@@ -16,7 +16,7 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: 208,
+      height: 170,
       width: width,
       child: Padding(
         padding: const EdgeInsets.only(left: 24, right: 20, top: 20),
@@ -42,30 +42,6 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
                     ),
                     const Spacer(),
                     sortMode == 0 ? loadAsset(AppIcon.doneOn, width: 24, height: 24): const SizedBox.shrink()
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: InkWell(
-                onTap: () {
-                  bigContext.read<FavoriteStoreBloc>().add(
-                        const SortModeChanged(sortMode: 1),
-                      );
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  children: [
-                    Text(
-                      "가까운순",
-                      style: AppStyle.subTitle15Medium.copyWith(
-                          color: sortMode == 1
-                              ? AppColor.orange500
-                              : AppColor.grey800),
-                    ),
-                    const Spacer(),
-                    sortMode == 1 ? loadAsset(AppIcon.doneOn, width: 24, height: 24) : const SizedBox.shrink()
                   ],
                 ),
               ),

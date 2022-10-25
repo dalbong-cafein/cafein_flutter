@@ -121,12 +121,10 @@ class MyStoresCard extends StatelessWidget {
                             : state.memberStores.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: (){
+                            onTap: () {
                               Navigator.of(context).pushNamed(
-                                StoreDetailPage.routeName,
-                                arguments: state.memberStores[index].storeId
-                              );
-
+                                  StoreDetailPage.routeName,
+                                  arguments: state.memberStores[index].storeId);
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(
@@ -148,12 +146,17 @@ class MyStoresCard extends StatelessWidget {
                                           child: state.memberStores[index]
                                                       .imageIdPair ==
                                                   null
-                                              ? const CustomCachedNetworkImage(
-                                                  imageUrl: CafeinConst
-                                                      .defaultStoreImage,
-                                                  height: 48,
-                                                  width: 48,
-                                                  fit: BoxFit.cover,
+                                              ? ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: SizedBox.fromSize(
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              48),
+                                                      child: loadAsset(
+                                                          AppImage.noImage,
+                                                          height: 48,
+                                                          width: 48)),
                                                 )
                                               : Image.network(
                                                   state.memberStores[index]
@@ -188,8 +191,9 @@ class MyStoresCard extends StatelessWidget {
                                                       false,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 6.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 6.0),
                                                   child: Text(
                                                     state
                                                                 .memberStores[
@@ -202,8 +206,8 @@ class MyStoresCard extends StatelessWidget {
                                                     style: AppStyle
                                                         .caption12Regular
                                                         .copyWith(
-                                                            color:
-                                                                AppColor.grey600),
+                                                            color: AppColor
+                                                                .grey600),
                                                   ),
                                                 )
                                               ],
@@ -214,8 +218,8 @@ class MyStoresCard extends StatelessWidget {
                                     ),
                                     const Spacer(),
                                     ConfuseChip(
-                                      confuseScore: state
-                                          .memberStores[index].congestionScoreAvg,
+                                      confuseScore: state.memberStores[index]
+                                          .congestionScoreAvg,
                                       height: 24,
                                       textStyle: AppStyle.subTitle15Medium,
                                       width: 42,
@@ -242,8 +246,9 @@ class MyStoresCard extends StatelessWidget {
                                 bottom: 10,
                               ),
                               child: InkWell(
-                                onTap: (){
-                                  Navigator.of(context).pushNamed(FavoriteStorePage.routeName);
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(FavoriteStorePage.routeName);
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

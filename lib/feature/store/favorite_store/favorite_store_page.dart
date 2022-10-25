@@ -146,7 +146,6 @@ class FavoriteStorePage extends StatelessWidget {
       BuildContext context,
       int index,
       bool heartOn) {
-    print(imageUrl + "이미지 url 입니다.");
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 20, top: 8, bottom: 8),
       child: Row(
