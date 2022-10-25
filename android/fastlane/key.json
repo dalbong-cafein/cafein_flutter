@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-8850222786248353152-64",
+  "private_key_id": "e61de6fb26d4272dbe7f2b65794d1df55bc49772",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzWQBPU1YFyUOz\nD6s+vN860GGoCHhEQ/36B3TzqIB8tGUZEIm1nx4GbNLnlSSgfQd8lxM2Yn+Sxfpg\np5QR6830ielSoY3sDJ2pOw0eZaAT3NKkphs0hS1IE4BuhpHwydE36hxhPqlCO82X\nNqILr+tg2AmN7aL/7wuDC8USCOQTcZve6oXKldMdkp7TRWlNw5G18SlDmaNMC6ZQ\n8PvoQgj/KLZqMfgmi1T0QyZZ+W7Yw2oT8ojsUcRmiy6uNgXlr8qPzH6X6qhak7i0\nbrlH0wmo13ZyH91GlK1GZ+CX3K8HVcYlzsilHl7Ok3J7kLSTahmwTd+c5cAXh/Wo\nxTHcAeA/AgMBAAECggEAWTZ0iQETUV2EZ5XrwRGCmWb+rO9Jo+uOcskyy+GNyHqT\nr5wiZE36SYfogXoW9h47kyYzUGI+w2vn2ByD80Yw9OuFPK1QQ5Mi+gN9yxkSP88g\nmPZnogB9PdU1lcUq43QAtqel5lmdKG1HH2j1woqHs2zDk+4ZnuXx/AXmycnSajjK\ntubaqHtUwEvC2lI4CwPk5YhczVL1mh0IfuMkjAu6WplIENK4bWHjblgSqdo+OTIC\nrgOuHS3VnZaEIF429Iz8WoIPNoWmzHdOCAnrdSXJszUlXf0j+NPwAHKh6xcpfdlD\n2EoWxRvVEA0OTA6XBONzrN0xMKhgwxdG//SJ9HMVwQKBgQDu9bchl3M04L90n28E\nYa1U57rOtfXpZr/gxc5UHHd4VPnWj5YCr9nBgSRp6/+qgmu1BgC1Mb9hNEMZ7uKn\nLSTEzn7bRqC49cjsTY/WRidJJ15GF2NA/tAyCJ9mFiyI5dIBxwf2WZUe//NZVuFV\nxs8RolQW4ijwzQFOn5EG3QtjAwKBgQDAIwwtnNFZGtWHAXonIIMr9T8RUiYfMBit\nQ21C2Os+wgbmDoqMHDYv3/aVt1A1pC1lxdZ3j+J2tQtxu5nMgx0Dj29cIrMOua4B\nngdhKR0HfKUo6rSNyM4GG0XqaR28zT+nleNJiaWQoO/lLkIpT3HQ1N0W9bcU7v5w\nEplsEmXrFQKBgCiSMWiTpSzKJ9duJlQxHVO4EGB+RmU9W8CW9QQU3Tfh/ZUvRcHp\nB2iyO3N8bSkPAah3f3FEJAEl9WqWw4asxHxhruod4LXmjRmJxa0UtiDWfUwbNm/X\nk5ObIS0dAKyxkGla2IA8D3R28mMtvA5rNccBr5M/DMJtnBY0Q1RN/VvvAoGAfQJQ\nmhy92MuswfokD/EHZ0JZlltskj4o0BJetG+OH3b+JhCv9Bkm6F8/gImUllILd3wQ\n3hmvrqx8lbMJjhaAeiCIw9mPxrTokgTPqFenm4dtrgGHF/jekvqLsshRoNWp5M+Q\n4fe80Szk6KgARAB8fPMCJj4YsHYO9bwkNjyCM0ECgYBOpHdQ5AwiCxiyDr7MUEgV\nKfAQG60UkRtGP/s+mK1YfZnRUtJrLbt8ud8z3VM9AlEY1iARES5H19vZQK4zpoOA\nLc4A3aoeJq8TE67HkMuFb5m4H0VOtkG6ou3T1k/TbzBCEa+DfuRj/SM0/hH1ONm4\n7m/SIw5hqIJpOh5HwbnFHg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fastlane-cafein@pc-api-8850222786248353152-64.iam.gserviceaccount.com",
+  "client_id": "109065341245629605895",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fastlane-cafein%40pc-api-8850222786248353152-64.iam.gserviceaccount.com"
+}

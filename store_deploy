@@ -1,0 +1,15 @@
+#!/bin/bash
+
+flutter clean
+flutter pub get
+dart pub get
+
+flutter build appbundle -t lib/main.dart --obfuscate --split-debug-info=build/app/outputs/symbols
+
+cd android
+bundle exec fastlane play_store_deploy
+cd ..
+
+flutter build ios --release -t lib/main.dart --obfuscate --split-debug-info=build/app/outputs/symbols --no-codesign
+cd ios
+bundle exec fastlane app_store_deploy
