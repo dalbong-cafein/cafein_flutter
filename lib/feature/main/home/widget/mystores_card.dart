@@ -1,13 +1,9 @@
-import 'package:cafein_flutter/cafein_const.dart';
-import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
-import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/store/favorite_store/favorite_store_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:flutter/material.dart';
