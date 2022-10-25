@@ -18,11 +18,11 @@ class FavoriteStorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     context.read<FavoriteStoreBloc>().add(
           const FavoriteStoreRequested(),
         );
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -33,7 +33,7 @@ class FavoriteStorePage extends StatelessWidget {
       body: BlocConsumer<FavoriteStoreBloc, FavoriteStoreState>(
         buildWhen: (pre, next) => next is FavoriteStoreLoaded,
         listener: (context, state) {
-          if(state is SortModeSetting){
+          if (state is SortModeSetting) {
             showModalBottomSheet(
               isScrollControlled: true,
               context: context,
@@ -41,8 +41,10 @@ class FavoriteStorePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               builder: (modalContext) {
-
-                return StoreSortModeBottomDrawer(bigContext: context, sortMode: state.sortMode,);
+                return StoreSortModeBottomDrawer(
+                  bigContext: context,
+                  sortMode: state.sortMode,
+                );
               },
             );
           }
@@ -67,8 +69,8 @@ class FavoriteStorePage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           context.read<FavoriteStoreBloc>().add(
-                            SortModeClicked(sortMode: state.sortMode),
-                          );
+                                SortModeClicked(sortMode: state.sortMode),
+                              );
                         },
                         child: Row(
                           children: [
@@ -94,31 +96,35 @@ class FavoriteStorePage extends StatelessWidget {
                   width: width,
                   color: AppColor.grey100,
                 ),
-                ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: state.storeCount,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: (){
-                          Navigator.of(context).pushNamed(
-                              StoreDetailPage.routeName,
-                              arguments: state.stores[index].storeId
-                          );
-                        },
-                        child: favoriteStoreItem(
-                            state.stores[index].imageIdPair?.imageUrl ?? CafeinConst.defaultStoreImage,
-                            state.stores[index].storeName,
-                            state.stores[index].businessInfo?.isOpen ?? false,
-                            state.stores[index].businessInfo?.tmrOpen ?? "00:00",
-                            state.stores[index].businessInfo?.closed ?? "00:00",
-                            state.stores[index].congestionScoreAvg ?? 0,
-                            state.stores[index].storeId,
-                            context,
-                            index,
-                            state.heartList[index]),
-                      );
-                    })
+                SizedBox(
+                  height: height - 160,
+                  width: width,
+                  child: ListView.builder(
+                      itemCount: state.storeCount,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                StoreDetailPage.routeName,
+                                arguments: state.stores[index].storeId);
+                          },
+                          child: favoriteStoreItem(
+                              state.stores[index].imageIdPair?.imageUrl ??
+                                  CafeinConst.defaultStoreImage,
+                              state.stores[index].storeName,
+                              state.stores[index].businessInfo?.isOpen ?? false,
+                              state.stores[index].businessInfo?.tmrOpen ??
+                                  "00:00",
+                              state.stores[index].businessInfo?.closed ??
+                                  "00:00",
+                              state.stores[index].congestionScoreAvg ?? 0,
+                              state.stores[index].storeId,
+                              context,
+                              index,
+                              state.heartList[index]),
+                        );
+                      }),
+                )
               ],
             );
           } else {
@@ -140,6 +146,7 @@ class FavoriteStorePage extends StatelessWidget {
       BuildContext context,
       int index,
       bool heartOn) {
+    print(imageUrl + "이미지 url 입니다.");
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 20, top: 8, bottom: 8),
       child: Row(
@@ -147,17 +154,25 @@ class FavoriteStorePage extends StatelessWidget {
           SizedBox(
             width: 48,
             height: 48,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: SizedBox.fromSize(
-                  size: const Size.fromRadius(48),
-                  child: CustomCachedNetworkImage(
-                    imageUrl: imageUrl,
-                    height: 48,
-                    width: 48,
-                    fit: BoxFit.cover,
-                  )),
-            ),
+            child: imageUrl == CafeinConst.defaultStoreImage
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: SizedBox.fromSize(
+                        size: const Size.fromRadius(48),
+                        child:
+                            loadAsset(AppImage.noImage, height: 48, width: 48)),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: SizedBox.fromSize(
+                        size: const Size.fromRadius(48),
+                        child: CustomCachedNetworkImage(
+                          imageUrl: imageUrl,
+                          height: 48,
+                          width: 48,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
           ),
           const SizedBox(
             width: 16,
@@ -188,8 +203,12 @@ class FavoriteStorePage extends StatelessWidget {
                             confuseScore: storeConfuse,
                           )
                         : const SizedBox.shrink(),
-                    const SizedBox(
+                    isOpen
+                        ? const SizedBox(
                             width: 6,
+                          )
+                        : const SizedBox(
+                            width: 3,
                           ),
                     Text(
                       isOpen
@@ -213,7 +232,8 @@ class FavoriteStorePage extends StatelessWidget {
               },
               child: heartOn
                   ? loadAsset(AppIcon.heartOn, height: 24, width: 24)
-                  : loadAsset(AppIcon.heartLine, height: 24, width: 24, color : AppColor.grey100))
+                  : loadAsset(AppIcon.heartLine,
+                      height: 24, width: 24, color: AppColor.grey100))
         ],
       ),
     );

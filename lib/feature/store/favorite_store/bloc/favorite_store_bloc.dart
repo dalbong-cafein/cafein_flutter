@@ -88,7 +88,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       Emitter<FavoriteStoreState> emit,
       ) async {
 
-    if(event.sortMode == sortMode){ //기존 모드와 똑같이 했을
+    if(event.sortMode == sortMode){
       emit(FavoriteStoreLoaded(
           stores: [...favoriteStores],
           storeCount: favoriteStoreCount,
@@ -114,7 +114,6 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
           ));
         }
       }if(event.sortMode == 1){
-        //가까운순
         emit(FavoriteStoreLoaded(
             stores: [...favoriteStores],
             storeCount: favoriteStoreCount,
@@ -122,6 +121,8 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
             sortMode: event.sortMode
         ));
       }else{
+        favoriteStores.sort((a,b) =>
+            (a.congestionScoreAvg ?? 4).compareTo(b.congestionScoreAvg ?? 4));
         emit(FavoriteStoreLoaded(
             stores: [...favoriteStores],
             storeCount: favoriteStoreCount,
