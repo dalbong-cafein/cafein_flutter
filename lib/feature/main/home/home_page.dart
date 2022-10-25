@@ -7,7 +7,6 @@ import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
-import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -65,7 +64,6 @@ class HomePage extends StatelessWidget {
                         backgroundImage: NetworkImage(
                             memberData?.imageIdPair?.imageUrl ?? 'url'),
                       ),
-
               ),
             ),
           ],

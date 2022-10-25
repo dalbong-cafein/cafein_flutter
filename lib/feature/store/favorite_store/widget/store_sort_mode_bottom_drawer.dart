@@ -1,7 +1,6 @@
 import 'package:cafein_flutter/feature/store/favorite_store/bloc/favorite_store_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,7 +40,9 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
                               : AppColor.grey800),
                     ),
                     const Spacer(),
-                    sortMode == 0 ? loadAsset(AppIcon.doneOn, width: 24, height: 24): const SizedBox.shrink()
+                    sortMode == 0
+                        ? loadAsset(AppIcon.doneOn, width: 24, height: 24)
+                        : const SizedBox.shrink()
                   ],
                 ),
               ),
@@ -65,7 +66,9 @@ class StoreSortModeBottomDrawer extends StatelessWidget {
                               : AppColor.grey800),
                     ),
                     const Spacer(),
-                    sortMode == 2 ? loadAsset(AppIcon.doneOn, width: 24, height: 24) : const SizedBox.shrink()
+                    sortMode == 2
+                        ? loadAsset(AppIcon.doneOn, width: 24, height: 24)
+                        : const SizedBox.shrink()
                   ],
                 ),
               ),

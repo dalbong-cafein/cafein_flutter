@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:cafein_flutter/data/model/store/member_store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'favorite_store_event.dart';
 
@@ -40,8 +40,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
           stores: [...stores],
           storeCount: storeCount,
           heartList: [...heartList],
-          sortMode: sortMode
-      ));
+          sortMode: sortMode));
     } catch (e) {
       emit(FavoriteStoreError(
         error: e,
@@ -67,8 +66,7 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
           stores: [...favoriteStores],
           storeCount: favoriteStoreCount,
           heartList: [...heartList],
-          sortMode: sortMode
-      ));
+          sortMode: sortMode));
     } catch (e) {
       emit(FavoriteStoreError(
         error: e,
@@ -76,63 +74,57 @@ class FavoriteStoreBloc extends Bloc<FavoriteStoreEvent, FavoriteStoreState> {
       ));
     }
   }
+
   FutureOr<void> _onSortModeClicked(
-      SortModeClicked event,
-      Emitter<FavoriteStoreState> emit,
-      ){
+    SortModeClicked event,
+    Emitter<FavoriteStoreState> emit,
+  ) {
     emit(SortModeSetting(sortMode: event.sortMode));
   }
 
   Future<FutureOr<void>> _onSortModeChanged(
-      SortModeChanged event,
-      Emitter<FavoriteStoreState> emit,
-      ) async {
-
-    if(event.sortMode == sortMode){
+    SortModeChanged event,
+    Emitter<FavoriteStoreState> emit,
+  ) async {
+    if (event.sortMode == sortMode) {
       emit(FavoriteStoreLoaded(
           stores: [...favoriteStores],
           storeCount: favoriteStoreCount,
           heartList: [...heartList],
-          sortMode: sortMode
-      ));
-    }else{
+          sortMode: sortMode));
+    } else {
       sortMode = event.sortMode;
-      if(event.sortMode == 0){
-        try{
+      if (event.sortMode == 0) {
+        try {
           final storeResponse = await heartRepository.getMyStores();
           final stores = storeResponse.data.storeData;
           emit(FavoriteStoreLoaded(
               stores: [...stores],
               storeCount: favoriteStoreCount,
               heartList: [...heartList],
-              sortMode: event.sortMode
-          ));
-        }catch(e){
+              sortMode: event.sortMode));
+        } catch (e) {
           emit(FavoriteStoreError(
             error: e,
             event: () => add(event),
           ));
         }
-      }if(event.sortMode == 1){
+      }
+      if (event.sortMode == 1) {
         emit(FavoriteStoreLoaded(
             stores: [...favoriteStores],
             storeCount: favoriteStoreCount,
             heartList: [...heartList],
-            sortMode: event.sortMode
-        ));
-      }else{
-        favoriteStores.sort((a,b) =>
+            sortMode: event.sortMode));
+      } else {
+        favoriteStores.sort((a, b) =>
             (a.congestionScoreAvg ?? 4).compareTo(b.congestionScoreAvg ?? 4));
         emit(FavoriteStoreLoaded(
             stores: [...favoriteStores],
             storeCount: favoriteStoreCount,
             heartList: [...heartList],
-            sortMode: event.sortMode
-        ));
+            sortMode: event.sortMode));
       }
     }
-
-
   }
-
 }
