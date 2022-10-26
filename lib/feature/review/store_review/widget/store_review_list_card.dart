@@ -52,7 +52,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
           Row(
             children: [
               CircleProfileImage(
-                imageUrl: userData?.imageIdPair?.imageUrl,
+                imageUrl: widget.review.profileImageUrl,
                 radius: 18,
               ),
               const SizedBox(width: 8),
@@ -60,7 +60,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userData?.nickname ?? '',
+                    widget.review.nicknameOfWriter,
                   ),
                   Text(
                     '${ymdDotFormatShort(widget.review.registeredDateTime)} ${widget.review.visitCnt}번째 방문',

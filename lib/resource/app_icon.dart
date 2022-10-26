@@ -164,4 +164,6 @@ abstract class AppIcon {
       'asset/icon/size32/ic_location_naer_fill_l.svg';
   static const naverL = 'asset/icon/size32/ic_naver_l.svg';
   static const starL = 'asset/icon/size32/ic_star_l.svg';
+
+  static const homeCafeinLogo = 'asset/icon/home_cafein_logo.svg';
 }

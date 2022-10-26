@@ -43,8 +43,10 @@ platform :ios do
     lane :app_store_deploy do |options|
       build_app(
         scheme: "Runner",
+        clean:true,
         export_options: {
             export_method: "app-store",
+            signingStyle: 'manual',
             provisioningProfiles: {
                 "com.dalbong.cafein" => "cafein_app_store_profile",
               }
