@@ -52,3 +52,5 @@ app.*.map.json
 # **.freezed.dart
 
 /ios/build/
+/ios/Runner.app.dSYM.zip
+/ios/Runner.ipa
