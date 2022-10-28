@@ -104,13 +104,13 @@ class NotificationPage extends StatelessWidget {
                     children: [
                       loadAsset(
                         AppIcon.notificationOff,
-                        width: 80,
-                        height: 80,
+                        width: 56,
+                        height: 56,
                         color: AppColor.grey200,
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        '새로운 알림이 없습니다',
+                        '새로운 알림이 없어요',
                         style: AppStyle.caption13Regular.copyWith(
                           color: AppColor.grey600,
                         ),
