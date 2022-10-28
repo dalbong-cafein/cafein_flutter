@@ -15,20 +15,17 @@ class NoticeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('공지사항'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color: AppColor.grey50,
-            height: 90,
-            width: width,
-            child: Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: AppColor.grey50,
+              width: double.infinity,
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 24,
@@ -40,7 +37,10 @@ class NoticeDetailPage extends StatelessWidget {
                   Text(
                     notice.title,
                     style: AppStyle.subTitle16Medium,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
+                  const SizedBox(height: 8),
                   Text(
                     ymdDotFormat(notice.registeredDateTime),
                     style: AppStyle.caption13Regular.copyWith(
@@ -50,18 +50,20 @@ class NoticeDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
+            const SizedBox(
+              height: 16,
             ),
-            child: Text(
-              notice.content,
-              style: AppStyle.body14Regular,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: Text(
+                notice.content,
+                style: AppStyle.body14Regular,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
