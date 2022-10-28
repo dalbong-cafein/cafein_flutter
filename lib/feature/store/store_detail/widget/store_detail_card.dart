@@ -56,7 +56,7 @@ class StoreDetailCard extends StatelessWidget {
                     const SizedBox(height: 12),
                     Text(
                       storeDetail.storeName,
-                      style: AppStyle.title19Bold,
+                      style: AppStyle.title19SemiBold,
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -84,11 +84,12 @@ class StoreDetailCard extends StatelessWidget {
                     )
                   ],
                 ),
-                const ConfuseChip(
-                  confuseScore: 2,
+                ConfuseChip(
+                  confuseScore: storeDetail.congestionScoreAvg,
                   width: 44,
                   height: 28,
                   textStyle: AppStyle.subTitle16Medium,
+                  borderRadius: 8,
                 ),
               ],
             ),

@@ -73,11 +73,11 @@ class StoreReviewRequestCard extends StatelessWidget {
                   children: const [
                     _ReviewIconCoulmn(
                       icon: AppImage.recBadGrey,
-                      title: '별로에요',
+                      title: '아쉬워요',
                     ),
                     _ReviewIconCoulmn(
                       icon: AppImage.recNormalGrey,
-                      title: '그저그래요',
+                      title: '무난해요',
                     ),
                     _ReviewIconCoulmn(
                       icon: AppImage.recGoodGrey,
@@ -108,7 +108,7 @@ class _ReviewIconCoulmn extends StatelessWidget {
     return Column(
       children: [
         loadAsset(
-          AppImage.recBadGrey,
+          icon,
           width: 56,
           height: 56,
         ),

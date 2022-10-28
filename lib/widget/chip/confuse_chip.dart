@@ -8,12 +8,14 @@ class ConfuseChip extends StatelessWidget {
     required this.width,
     required this.height,
     required this.textStyle,
+    this.borderRadius = 4.0,
   }) : super(key: key);
 
   final double? confuseScore;
   final double width;
   final double height;
   final TextStyle textStyle;
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,11 @@ class ConfuseChip extends StatelessWidget {
       return Container(
         width: width,
         height: height,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColor.green50,
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(borderRadius),
+          ),
         ),
         child: Center(
           child: Text(
