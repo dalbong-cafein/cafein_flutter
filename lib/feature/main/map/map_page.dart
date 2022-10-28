@@ -137,7 +137,8 @@ class _MapPageState extends State<MapPage> {
                 ),
               );
 
-              if (state.stores.isNotEmpty) {
+              // 검색 후 첫번째 결과로 카메라 이동
+              if (state.stores.isNotEmpty && state.keyword.isNotEmpty) {
                 moveCurrentCamera(
                   LatLng(
                     state.stores.first.latY,
@@ -204,6 +205,7 @@ class _MapPageState extends State<MapPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 112,
+          titleSpacing: 0,
           title: Column(
             children: [
               InkWell(

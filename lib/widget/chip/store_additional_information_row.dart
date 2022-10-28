@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 
 class StoreAdditionalInformationRow extends StatelessWidget {
@@ -21,10 +22,11 @@ class StoreAdditionalInformationRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          Icons.near_me_rounded,
+        loadAsset(
+          AppIcon.nearMeS,
           color: AppColor.grey500,
-          size: iconSize,
+          width: iconSize,
+          height: iconSize,
         ),
         const SizedBox(width: 2),
         Text(
@@ -32,10 +34,11 @@ class StoreAdditionalInformationRow extends StatelessWidget {
           style: textStyle,
         ),
         const SizedBox(width: 4),
-        Icon(
-          Icons.thumb_up_alt_rounded,
+        loadAsset(
+          AppIcon.like,
           color: AppColor.orange400,
-          size: iconSize,
+          width: iconSize,
+          height: iconSize,
         ),
         const SizedBox(width: 2),
         Text(
@@ -43,10 +46,11 @@ class StoreAdditionalInformationRow extends StatelessWidget {
           style: textStyle,
         ),
         const SizedBox(width: 4),
-        Icon(
-          Icons.favorite_rounded,
+        loadAsset(
+          AppIcon.heartS,
           color: AppColor.orange400,
-          size: iconSize,
+          width: iconSize,
+          height: iconSize,
         ),
         const SizedBox(width: 2),
         Text(
