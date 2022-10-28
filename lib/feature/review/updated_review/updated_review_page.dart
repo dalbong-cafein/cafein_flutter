@@ -196,7 +196,7 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
                                 recommendation: ReviewRecommendation.bad,
                               )),
                               child: ScoreCharacterButton(
-                                message: '별로에요',
+                                message: '아쉬워요',
                                 onIcon: AppImage.recBad,
                                 offIcon: AppImage.recBadGrey,
                                 isChecked: isBad,
@@ -208,7 +208,7 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
                                 recommendation: ReviewRecommendation.normal,
                               )),
                               child: ScoreCharacterButton(
-                                message: '그저그래요',
+                                message: '무난해요',
                                 onIcon: AppImage.recNormal,
                                 offIcon: AppImage.recNormalGrey,
                                 isChecked: isNormal,
