@@ -22,8 +22,14 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
 
   int totalCount = 0;
 
+  int nextPage = 1;
+
+  bool hasNext = true;
+
+  bool isPhotoReview = false;
+
   List<StoreReview> totalReviews = [];
-  List<StoreReview>? photoReviews;
+  List<StoreReview> photoReviews = [];
 
   FutureOr<void> _onStoreReviewRequested(
     StoreReviewRequested event,
@@ -32,7 +38,11 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
     emit(const StoreReviewLoading());
 
     try {
-      final response = await reviewRepository.getStoreReviews(storeId);
+      final response = await reviewRepository.getStoreReviews(
+        storeId: storeId,
+        page: nextPage++,
+        size: 20,
+      );
 
       if (response.code == -1) {
         emit(
@@ -45,14 +55,25 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
         return;
       }
 
+      hasNext = response.data.reviewData.reviewList.length >= 20;
+
       totalReviews = [...response.data.reviewData.reviewList];
+
       totalCount = response.data.reviewCnt;
+
+      photoReviews = totalReviews
+          .where(
+            (e) => (e.imageIdPairs ?? []).isNotEmpty,
+          )
+          .toList();
 
       emit(
         StoreReviewLoaded(
-          storeReviewList: [...totalReviews],
+          storeReviewList:
+              !isPhotoReview ? [...totalReviews] : [...photoReviews],
           totalCount: totalCount,
-          isPhotoReview: false,
+          isPhotoReview: isPhotoReview,
+          nextPage: hasNext ? nextPage : null,
         ),
       );
     } catch (e) {
@@ -69,26 +90,13 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
     StoreReviewTypeChanged event,
     Emitter<StoreReviewState> emit,
   ) {
-    if (!event.isPhotoReviews) {
-      emit(StoreReviewLoaded(
-        storeReviewList: [...totalReviews],
-        totalCount: totalCount,
-        isPhotoReview: event.isPhotoReviews,
-      ));
-
-      return null;
-    }
-
-    photoReviews ??= totalReviews
-        .where(
-          (e) => (e.imageIdPairs ?? []).isNotEmpty,
-        )
-        .toList();
+    isPhotoReview = event.isPhotoReviews;
 
     emit(StoreReviewLoaded(
-      storeReviewList: [...photoReviews!],
+      storeReviewList: !isPhotoReview ? [...totalReviews] : [...photoReviews],
       totalCount: totalCount,
-      isPhotoReview: event.isPhotoReviews,
+      isPhotoReview: isPhotoReview,
+      nextPage: hasNext ? nextPage : null,
     ));
   }
 }

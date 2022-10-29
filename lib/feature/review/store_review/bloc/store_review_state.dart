@@ -20,17 +20,20 @@ class StoreReviewLoaded extends StoreReviewState {
     required this.storeReviewList,
     required this.totalCount,
     required this.isPhotoReview,
+    this.nextPage,
   });
 
   final List<StoreReview> storeReviewList;
   final int totalCount;
   final bool isPhotoReview;
+  final int? nextPage;
 
   @override
   List<Object?> get props => [
         storeReviewList,
         totalCount,
         isPhotoReview,
+        nextPage,
       ];
 }
 

@@ -55,7 +55,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviews(storeId);
+      final reviewResponse = reviewRepository.getStoreReviews(
+        storeId: storeId,
+        page: 1,
+        size: 3,
+      );
 
       final responseList = await Future.wait<BaseResponse<dynamic>>([
         storeDetailResponse,

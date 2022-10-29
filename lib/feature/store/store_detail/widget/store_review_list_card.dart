@@ -53,41 +53,39 @@ class StoreReviewListCard extends StatelessWidget {
       );
     }
 
-    return SizedBox(
-      height: (reviews.length > 3 ? 3 : reviews.length) * 240 +
-          (reviews.length > 3 ? 72 : 0),
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: reviews.length > 3 ? 4 : reviews.length,
-        itemBuilder: (context, index) {
-          if (reviews.length > 3 && index == 3) {
-            return InkWell(
-              onTap: () => Navigator.of(context).pushNamed(
-                StoreReviewListPage.routeName,
-                arguments: storeDetail,
-              ),
-              child: Container(
-                height: 60,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: AppColor.grey100,
-                    ),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    '리뷰 $reviewCount개 모두 보기',
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: reviewCount > 3 ? 4 : reviews.length,
+      itemBuilder: (context, index) {
+        if (reviewCount > 3 && index == 3) {
+          return InkWell(
+            onTap: () => Navigator.of(context).pushNamed(
+              StoreReviewListPage.routeName,
+              arguments: storeDetail,
+            ),
+            child: Container(
+              height: 60,
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: AppColor.grey100,
                   ),
                 ),
               ),
-            );
-          }
-          return _ReviewCard(
-            review: reviews[index],
+              child: Center(
+                child: Text(
+                  '리뷰 $reviewCount개 모두 보기',
+                ),
+              ),
+            ),
           );
-        },
-      ),
+        }
+        return _ReviewCard(
+          review: reviews[index],
+        );
+      },
     );
   }
 }

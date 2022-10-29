@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class StoreReviewListPage extends StatefulWidget {
   const StoreReviewListPage({
@@ -24,14 +26,25 @@ class StoreReviewListPage extends StatefulWidget {
 }
 
 class _StoreReviewListPageState extends State<StoreReviewListPage> {
+  final pagingController = PagingController<int, StoreReview>(
+    firstPageKey: 0,
+  );
+
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => context.read<StoreReviewBloc>().add(
+
+    pagingController.addPageRequestListener(
+      (_) => context.read<StoreReviewBloc>().add(
             const StoreReviewRequested(),
           ),
     );
+  }
+
+  @override
+  void dispose() {
+    pagingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,6 +56,12 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
             context,
             error: state.error,
             refresh: state.event,
+          );
+        } else if (state is StoreReviewLoaded) {
+          pagingController.value = PagingState(
+            itemList: state.storeReviewList,
+            nextPageKey: state.nextPage,
+            error: null,
           );
         }
       },
@@ -69,12 +88,10 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
                 right: 16,
               ),
               child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    CreatedReviewPage.routeName,
-                    arguments: widget.storeDetail,
-                  );
-                },
+                onTap: () => Navigator.of(context).pushNamed(
+                  CreatedReviewPage.routeName,
+                  arguments: widget.storeDetail,
+                ),
                 child: Text(
                   '리뷰쓰기',
                   style: AppStyle.subTitle14Medium.copyWith(
@@ -85,22 +102,22 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
             ),
           ],
         ),
-        body: BlocBuilder<StoreReviewBloc, StoreReviewState>(
-          buildWhen: (pre, next) => next is StoreReviewLoaded,
-          builder: (context, state) {
-            if (state is! StoreReviewLoaded) {
-              return const CustomCircleLoadingIndicator();
-            }
+        body: Column(
+          children: [
+            SizedBox(
+              height: 42,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  children: [
+                    BlocBuilder<StoreReviewBloc, StoreReviewState>(
+                      buildWhen: (pre, next) => next is StoreReviewLoaded,
+                      builder: (context, state) {
+                        if (state is! StoreReviewLoaded) {
+                          return const CustomCircleLoadingIndicator();
+                        }
 
-            return Column(
-              children: [
-                SizedBox(
-                  height: 42,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        InkWell(
+                        return InkWell(
                           onTap: () => context.read<StoreReviewBloc>().add(
                                 StoreReviewTypeChanged(
                                   isPhotoReviews: !state.isPhotoReview,
@@ -111,28 +128,61 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
                                 ? AppIcon.checkRectangleOn
                                 : AppIcon.checkRectangleOff,
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          '사진 리뷰만',
-                          style: AppStyle.subTitle14Medium,
-                        ),
-                      ],
+                        );
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      '사진 리뷰만',
+                      style: AppStyle.subTitle14Medium,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: PagedListView(
+                pagingController: pagingController,
+                builderDelegate: PagedChildBuilderDelegate<StoreReview>(
+                  itemBuilder: (context, item, index) => StoreReviewListCard(
+                    review: item,
+                    index: index,
+                  ),
+                  firstPageProgressIndicatorBuilder: (context) =>
+                      const CustomCircleLoadingIndicator(),
+                  firstPageErrorIndicatorBuilder: (context) =>
+                      const SizedBox.shrink(),
+                  newPageErrorIndicatorBuilder: (context) =>
+                      const SizedBox.shrink(),
+                  newPageProgressIndicatorBuilder: (context) =>
+                      const CustomCircleLoadingIndicator(),
+                  noMoreItemsIndicatorBuilder: (context) =>
+                      const SizedBox.shrink(),
+                  noItemsFoundIndicatorBuilder: (context) => Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewPadding.bottom,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          loadAsset(AppIcon.textBlank),
+                          const SizedBox(height: 12),
+                          Text(
+                            '작성한 리뷰가 없어요',
+                            style: AppStyle.caption13Regular.copyWith(
+                              color: AppColor.grey600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: state.storeReviewList.length,
-                    itemBuilder: (context, index) => StoreReviewListCard(
-                      review: state.storeReviewList[index],
-                      index: index,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         ),
       ),
     );

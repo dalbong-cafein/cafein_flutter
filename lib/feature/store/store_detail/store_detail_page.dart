@@ -64,18 +64,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
       final storeStudyPosition = getPosition(storeStudyKey);
       final storeReviewPosition = getPosition(storeReviewKey);
 
-      final currentOffset = scrollController.offset;
-
       int index = 0;
 
-      if (currentOffset <=
-          storeCongestionPosition + currentOffset - 88 - appBarHeight) {
+      if (0 <= storeCongestionPosition - 88 - appBarHeight) {
         index = 0;
-      } else if (currentOffset <=
-          storeStudyPosition + currentOffset - 88 - appBarHeight) {
+      } else if (0 <= storeStudyPosition - 88 - appBarHeight) {
         index = 1;
-      } else if (currentOffset <=
-          storeReviewPosition + currentOffset - 88 - appBarHeight) {
+      } else if (0 <= storeReviewPosition - 88 - appBarHeight) {
         index = 2;
       } else {
         index = 3;
