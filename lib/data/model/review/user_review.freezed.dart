@@ -23,7 +23,7 @@ mixin _$UserReview {
   int get reviewId => throw _privateConstructorUsedError;
   int get storeId => throw _privateConstructorUsedError;
   String get storeName => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
   int get visitCnt => throw _privateConstructorUsedError;
   String get recommendation => throw _privateConstructorUsedError;
   DetailEvaluation get detailEvaluation => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $UserReviewCopyWith<$Res> {
       {int reviewId,
       int storeId,
       String storeName,
-      String content,
+      String? content,
       int visitCnt,
       String recommendation,
       DetailEvaluation detailEvaluation,
@@ -79,7 +79,7 @@ class _$UserReviewCopyWithImpl<$Res, $Val extends UserReview>
     Object? reviewId = null,
     Object? storeId = null,
     Object? storeName = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? visitCnt = null,
     Object? recommendation = null,
     Object? detailEvaluation = null,
@@ -100,10 +100,10 @@ class _$UserReviewCopyWithImpl<$Res, $Val extends UserReview>
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
@@ -164,7 +164,7 @@ abstract class _$$_UserReviewCopyWith<$Res>
       {int reviewId,
       int storeId,
       String storeName,
-      String content,
+      String? content,
       int visitCnt,
       String recommendation,
       DetailEvaluation detailEvaluation,
@@ -192,7 +192,7 @@ class __$$_UserReviewCopyWithImpl<$Res>
     Object? reviewId = null,
     Object? storeId = null,
     Object? storeName = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? visitCnt = null,
     Object? recommendation = null,
     Object? detailEvaluation = null,
@@ -213,10 +213,10 @@ class __$$_UserReviewCopyWithImpl<$Res>
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       visitCnt: null == visitCnt
           ? _value.visitCnt
           : visitCnt // ignore: cast_nullable_to_non_nullable
@@ -252,7 +252,7 @@ class _$_UserReview implements _UserReview {
       {required this.reviewId,
       required this.storeId,
       required this.storeName,
-      required this.content,
+      this.content,
       required this.visitCnt,
       required this.recommendation,
       required this.detailEvaluation,
@@ -274,7 +274,7 @@ class _$_UserReview implements _UserReview {
   @override
   final String storeName;
   @override
-  final String content;
+  final String? content;
   @override
   final int visitCnt;
   @override
@@ -362,7 +362,7 @@ abstract class _UserReview implements UserReview {
       {required final int reviewId,
       required final int storeId,
       required final String storeName,
-      required final String content,
+      final String? content,
       required final int visitCnt,
       required final String recommendation,
       required final DetailEvaluation detailEvaluation,
@@ -383,7 +383,7 @@ abstract class _UserReview implements UserReview {
   @override
   String get storeName;
   @override
-  String get content;
+  String? get content;
   @override
   int get visitCnt;
   @override

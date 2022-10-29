@@ -21,6 +21,8 @@ abstract class ReviewClient {
   @GET('/stores/{storeId}/reviews')
   Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>> getStoreReviews(
     @Path() int storeId,
+    @Query('page') int page,
+    @Query('size') int size,
   );
 
   @GET('/stores/{storeId}/detail-review-score')
@@ -32,7 +34,7 @@ abstract class ReviewClient {
   Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews();
 
   @GET('/stores/{storeId}/reviews/limit')
-  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews(
+  Future<BaseResponse<ReviewListResponse<Review>>> getStoreReviewsLimit(
     @Path() int storeId,
     @Query('limit') int limit,
   );

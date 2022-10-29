@@ -10,6 +10,7 @@ import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StoreDefaultInformationCard extends StatelessWidget {
   const StoreDefaultInformationCard({
@@ -69,34 +70,60 @@ class StoreDefaultInformationCard extends StatelessWidget {
             businessInfo: storeDetail.businessInfo,
             totalBusinessInfo: storeDetail.totalBusinessInfo,
           ),
-          Row(
-            children: [
-              loadAsset(
-                AppIcon.call,
-                color: AppColor.grey400,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                storeDetail.phone ?? '',
-                style: AppStyle.body14Regular.copyWith(
-                  color: AppColor.blue,
+          InkWell(
+            onTap: () {
+              if (storeDetail.phone == null) {
+                return;
+              }
+
+              launchUrl(
+                Uri.parse(
+                  'tel:${storeDetail.phone!.replaceAll('-', '')}',
                 ),
-              ),
-            ],
+              );
+            },
+            child: Row(
+              children: [
+                loadAsset(
+                  AppIcon.call,
+                  color: AppColor.grey400,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  storeDetail.phone ?? '',
+                  style: AppStyle.body14Regular.copyWith(
+                    color: AppColor.blue,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              loadAsset(
-                AppIcon.world,
-                color: AppColor.grey400,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                storeDetail.website ?? '',
-                style: AppStyle.body14Regular,
-              ),
-            ],
+          InkWell(
+            onTap: () {
+              if (storeDetail.website == null) {
+                return;
+              }
+
+              launchUrl(
+                Uri.parse(
+                  storeDetail.website!,
+                ),
+              );
+            },
+            child: Row(
+              children: [
+                loadAsset(
+                  AppIcon.world,
+                  color: AppColor.grey400,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  storeDetail.website ?? '',
+                  style: AppStyle.body14Regular,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           Container(

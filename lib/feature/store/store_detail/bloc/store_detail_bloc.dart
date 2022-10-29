@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -39,6 +38,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
 
   bool isHeart = false;
 
+  String storeName = '';
+
   List<Store> nearStoreList = [];
 
   FutureOr<void> _onStoreDetailRequested(
@@ -56,7 +57,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviews(storeId);
+      final reviewResponse = reviewRepository.getStoreReviews(
+        storeId: storeId,
+        page: 1,
+        size: 3,
+      );
 
       final responseList = await Future.wait<BaseResponse<dynamic>>([
         storeDetailResponse,
@@ -86,14 +91,14 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       );
 
       isHeart = (responseList[0].data as StoreDetail).isHeart;
+      storeName = (responseList[0].data as StoreDetail).storeName;
+
       emit(
         StoreDetailHeartChecked(
           isHeart: isHeart,
         ),
       );
-    } catch (e, st) {
-      log(e.toString());
-      log(st.toString());
+    } catch (e) {
       emit(
         StoreDetailError(
           error: e,

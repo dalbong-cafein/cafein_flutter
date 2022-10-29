@@ -43,7 +43,7 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('내가 쓴 리뷰'),
+          title: const Text('작성한 리뷰'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +101,7 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
                             loadAsset(AppIcon.textBlank),
                             const SizedBox(height: 12),
                             Text(
-                              '등록된 리뷰가 없어요',
+                              '작성한 리뷰가 없어요',
                               style: AppStyle.caption13Regular.copyWith(
                                 color: AppColor.grey600,
                               ),

@@ -47,9 +47,11 @@ class SearchStoreCard extends StatelessWidget {
         );
       },
       child: Container(
-        height: 170,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.symmetric(horizontal: 6),
+        height: 180,
+        width: double.infinity,
+        margin: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColor.white,
@@ -83,6 +85,7 @@ class SearchStoreCard extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
             Row(
               children: [
                 OpenCloseChip(
@@ -97,7 +100,7 @@ class SearchStoreCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             StoreAdditionalInformationRow(
               textStyle: AppStyle.caption12Regular,
               distance: calculateDistance(
@@ -106,9 +109,9 @@ class SearchStoreCard extends StatelessWidget {
               ),
               recommendScore: store.recommendPercent?.toInt() ?? 0,
               likeCount: store.heartCnt,
-              iconSize: 20,
+              iconSize: 16,
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

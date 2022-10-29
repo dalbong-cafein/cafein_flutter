@@ -22,9 +22,12 @@ abstract class ReviewRepository {
     CreateReivewRequest createReivewRequest,
   );
 
-  Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>> getStoreReviews(
-    int storeId,
-  );
+  Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>>
+      getStoreReviews({
+    required int storeId,
+    required int page,
+    required int size,
+  });
 
   Future<BaseResponse<ReviewDetailScore>> getStoreReviewScoreDetail(
     int storeId,
@@ -32,7 +35,7 @@ abstract class ReviewRepository {
 
   Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews();
 
-  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews({
+  Future<BaseResponse<ReviewListResponse<Review>>> getStoreReviewsLimit({
     required int storeId,
     required int limit,
   });
@@ -70,11 +73,11 @@ class ReviewRepositoryImpl implements ReviewRepository {
       reviewClient.deleteReview(reviewId);
 
   @override
-  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews({
+  Future<BaseResponse<ReviewListResponse<Review>>> getStoreReviewsLimit({
     required int storeId,
     required int limit,
   }) =>
-      reviewClient.getMyRegisteredReviews(
+      reviewClient.getStoreReviewsLimit(
         storeId,
         limit,
       );
@@ -87,11 +90,6 @@ class ReviewRepositoryImpl implements ReviewRepository {
   Future<BaseResponse<ReviewDetailScore>> getStoreReviewScoreDetail(
           int storeId) =>
       reviewClient.getStoreReviewScoreDetail(storeId);
-
-  @override
-  Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>> getStoreReviews(
-          int storeId) =>
-      reviewClient.getStoreReviews(storeId);
 
   @override
   Future<BaseResponse<ReviewListResponse<UserReview>>> getUserReviews() =>
@@ -112,4 +110,17 @@ class ReviewRepositoryImpl implements ReviewRepository {
         reviewId,
         reportRequest,
       );
+
+  @override
+  Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>>
+      getStoreReviews({
+    required int storeId,
+    required int page,
+    required int size,
+  }) =>
+          reviewClient.getStoreReviews(
+            storeId,
+            page,
+            size,
+          );
 }

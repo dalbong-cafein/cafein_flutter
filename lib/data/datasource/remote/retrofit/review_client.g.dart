@@ -22,9 +22,15 @@ class _ReviewClient implements ReviewClient {
 
   @override
   Future<BaseResponse<ReviewResponse<StoreReviewListResponse>>> getStoreReviews(
-      storeId) async {
+    storeId,
+    page,
+    size,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'size': size,
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -110,7 +116,7 @@ class _ReviewClient implements ReviewClient {
   }
 
   @override
-  Future<BaseResponse<ReviewListResponse<Review>>> getMyRegisteredReviews(
+  Future<BaseResponse<ReviewListResponse<Review>>> getStoreReviewsLimit(
     storeId,
     limit,
   ) async {

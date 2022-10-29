@@ -11,7 +11,7 @@ class UserReview with _$UserReview {
     required int reviewId,
     required int storeId,
     required String storeName,
-    required String content,
+    String? content,
     required int visitCnt,
     required String recommendation,
     required DetailEvaluation detailEvaluation,

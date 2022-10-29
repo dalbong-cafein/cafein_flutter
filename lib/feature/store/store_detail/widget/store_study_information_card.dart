@@ -15,6 +15,10 @@ class StoreStudyInformationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if ((reviewDetailScore.recommendPercent ?? 0) == 0) {
+      return const SizedBox.shrink();
+    }
+
     return SizedBox(
       height: 404,
       child: Padding(

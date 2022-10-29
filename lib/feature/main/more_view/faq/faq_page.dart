@@ -49,6 +49,10 @@ class _FaqPageState extends State<FaqPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('자주 묻는 질문'),
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: loadAsset(AppIcon.left),
+          ),
         ),
         body: Column(
           children: [

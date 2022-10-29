@@ -1,5 +1,3 @@
-
-
 import 'package:cafein_flutter/data/model/board/board.dart';
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
@@ -324,10 +322,10 @@ abstract class CafeinRoute {
         break;
 
       case FavoriteStorePage.routeName:
-        page = BlocProvider(create: (context) => FavoriteStoreBloc(
-          heartRepository: context.read<HeartRepository>()
-        ),
-        child: const FavoriteStorePage(),
+        page = BlocProvider(
+          create: (context) => FavoriteStoreBloc(
+              heartRepository: context.read<HeartRepository>()),
+          child: const FavoriteStorePage(),
         );
         break;
 
