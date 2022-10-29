@@ -11,7 +11,7 @@ _$_UserReview _$$_UserReviewFromJson(Map<String, dynamic> json) =>
       reviewId: json['reviewId'] as int,
       storeId: json['storeId'] as int,
       storeName: json['storeName'] as String,
-      content: json['content'] as String,
+      content: json['content'] as String?,
       visitCnt: json['visitCnt'] as int,
       recommendation: json['recommendation'] as String,
       detailEvaluation: DetailEvaluation.fromJson(

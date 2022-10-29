@@ -28,7 +28,7 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
             restroomScore: review.detailEvaluation.restroom.toString(),
             socketScore: review.detailEvaluation.socket.toString(),
             tableScore: review.detailEvaluation.tableSize.toString(),
-            reviewText: review.content,
+            reviewText: review.content ?? '',
             imageUrls: (review.reviewImageIdPairs ?? [])
                 .map(
                   (e) => ImageTypePair(

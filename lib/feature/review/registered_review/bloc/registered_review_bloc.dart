@@ -44,8 +44,8 @@ class RegisteredReviewBloc
         reviewCount: response.data.reviewCnt,
         reviewList: response.data.reviewData,
       ));
-    } catch (e) {
-      log(e.toString());
+    } catch (e, st) {
+      log(st.toString());
       emit(
         RegisteredReviewError(
           error: e,
