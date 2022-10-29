@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -91,9 +90,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           isHeart: isHeart,
         ),
       );
-    } catch (e, st) {
-      log(e.toString());
-      log(st.toString());
+    } catch (e) {
       emit(
         StoreDetailError(
           error: e,

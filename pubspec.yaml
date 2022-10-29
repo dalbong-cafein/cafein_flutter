@@ -48,6 +48,7 @@ dependencies:
   collection: ^1.16.0
   flutter_keyboard_visibility: ^5.4.0
   webview_flutter: ^3.0.4
+  bloc_concurrency: ^0.2.0
 
 dev_dependencies:
   flutter_test:

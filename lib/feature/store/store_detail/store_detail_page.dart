@@ -35,6 +35,17 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   final storeStudyKey = GlobalKey();
   final storeReviewKey = GlobalKey();
 
+  bool isScrolled = false;
+
+  final tabTitles = [
+    '홈',
+    '혼잡도',
+    '카공 정보',
+    '리뷰',
+  ];
+
+  final appBarHeight = AppBar().preferredSize.height;
+
   @override
   void initState() {
     super.initState();
@@ -44,83 +55,66 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           ),
     );
 
-    scrollController.addListener(
-      () {
-        final storeCongestionRenderBox =
-            storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
-        final storeCongestionOffset =
-            storeCongestionRenderBox.localToGlobal(Offset.zero);
+    scrollController.addListener(() {
+      if (isScrolled) {
+        return;
+      }
 
-        final storeStudyRenderBox =
-            storeStudyKey.currentContext!.findRenderObject() as RenderBox;
-        final storeStudyOffset = storeStudyRenderBox.localToGlobal(Offset.zero);
+      final storeCongestionPosition = getPosition(storeCongestionKey);
+      final storeStudyPosition = getPosition(storeStudyKey);
+      final storeReviewPosition = getPosition(storeReviewKey);
 
-        final storeReviewRenderBox =
-            storeReviewKey.currentContext!.findRenderObject() as RenderBox;
-        final storeReviewOffset =
-            storeReviewRenderBox.localToGlobal(Offset.zero);
+      final currentOffset = scrollController.offset;
 
-        int index = 0;
-        final appBarHeight = AppBar().preferredSize.height;
+      int index = 0;
 
-        if (scrollController.offset <=
-            storeCongestionOffset.dy + 44 + appBarHeight + 44) {
-          index = 0;
-        } else if (scrollController.offset >=
-                storeCongestionOffset.dy + 44 + appBarHeight + 44 &&
-            scrollController.offset <
-                storeStudyOffset.dy + 44 + appBarHeight + 44) {
-          index = 1;
-        } else if (scrollController.offset >=
-                storeStudyOffset.dy + 44 + appBarHeight + 44 &&
-            scrollController.offset <
-                storeReviewOffset.dy + 44 + appBarHeight + 44) {
-          index = 2;
-        } else if (scrollController.offset >=
-            storeReviewOffset.dy + 44 + appBarHeight + 44) {
-          index = 3;
-        }
-        context.read<StoreDetailBloc>().add(
-              StoreDetailTabChanged(
-                index: index,
-                isTaped: false,
-              ),
-            );
-      },
-    );
+      if (currentOffset <=
+          storeCongestionPosition + currentOffset - 88 - appBarHeight) {
+        index = 0;
+      } else if (currentOffset <=
+          storeStudyPosition + currentOffset - 88 - appBarHeight) {
+        index = 1;
+      } else if (currentOffset <=
+          storeReviewPosition + currentOffset - 88 - appBarHeight) {
+        index = 2;
+      } else {
+        index = 3;
+      }
+
+      context.read<StoreDetailBloc>().add(StoreDetailTabChanged(
+            index: index,
+            isTaped: false,
+          ));
+    });
   }
 
-  void animateScroll(int index) {
+  void animateScroll(int index) async {
+    isScrolled = true;
     double offset = 0;
-    final appBarHeight = AppBar().preferredSize.height;
 
     if (index == 0) {
-      final renderBox =
-          storeDetailKey.currentContext!.findRenderObject() as RenderBox;
-      final widgetOffset = renderBox.localToGlobal(Offset.zero);
-      offset = widgetOffset.dy;
+      offset = getPosition(storeDetailKey);
     } else if (index == 1) {
-      final renderBox =
-          storeCongestionKey.currentContext!.findRenderObject() as RenderBox;
-      final widgetOffset = renderBox.localToGlobal(Offset.zero);
-      offset = widgetOffset.dy;
+      offset = getPosition(storeCongestionKey);
     } else if (index == 2) {
-      final renderBox =
-          storeStudyKey.currentContext!.findRenderObject() as RenderBox;
-      final widgetOffset = renderBox.localToGlobal(Offset.zero);
-      offset = widgetOffset.dy;
+      offset = getPosition(storeStudyKey);
     } else if (index == 3) {
-      final renderBox =
-          storeReviewKey.currentContext!.findRenderObject() as RenderBox;
-      final widgetOffset = renderBox.localToGlobal(Offset.zero);
-      offset = widgetOffset.dy;
+      offset = getPosition(storeReviewKey);
     }
 
-    scrollController.animateTo(
-      offset - 44 - appBarHeight - 44 + scrollController.offset,
+    await scrollController.animateTo(
+      offset + scrollController.offset - 44 - appBarHeight - 44,
       duration: const Duration(milliseconds: 200),
       curve: Curves.linear,
     );
+
+    isScrolled = false;
+  }
+
+  double getPosition(GlobalKey key) {
+    final renderBox = key.currentContext!.findRenderObject() as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    return offset.dy;
   }
 
   @override
@@ -131,13 +125,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final tabTitles = [
-      '홈',
-      '혼잡도',
-      '카공 정보',
-      '리뷰',
-    ];
-
     return BlocListener<StoreDetailBloc, StoreDetailState>(
       listener: (context, state) {
         if (state is StoreDetailError) {
@@ -150,6 +137,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           if (!state.isTaped) {
             return;
           }
+
           animateScroll(state.index);
         }
       },
@@ -166,9 +154,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 if (state is StoreDetailHeartChecked) {
                   return IconButton(
                     onPressed: () => context.read<StoreDetailBloc>().add(
-                          StoreDetailHeartRequested(
-                            isHeart: !state.isHeart,
-                          ),
+                          StoreDetailHeartRequested(isHeart: !state.isHeart),
                         ),
                     icon: state.isHeart
                         ? loadAsset(
