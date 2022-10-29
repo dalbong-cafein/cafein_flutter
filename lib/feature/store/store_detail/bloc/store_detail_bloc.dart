@@ -38,6 +38,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
 
   bool isHeart = false;
 
+  String storeName = '';
+
   List<Store> nearStoreList = [];
 
   FutureOr<void> _onStoreDetailRequested(
@@ -89,6 +91,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       );
 
       isHeart = (responseList[0].data as StoreDetail).isHeart;
+      storeName = (responseList[0].data as StoreDetail).storeName;
+
       emit(
         StoreDetailHeartChecked(
           isHeart: isHeart,

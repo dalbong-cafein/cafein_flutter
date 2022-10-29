@@ -142,6 +142,20 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             onPressed: () => Navigator.of(context).pop(),
             icon: loadAsset(AppIcon.left),
           ),
+          title: BlocBuilder<StoreDetailBloc, StoreDetailState>(
+            buildWhen: (pre, next) => next is StoreDetailTabChecked,
+            builder: (context, state) {
+              if (state is! StoreDetailTabChecked) {
+                return const SizedBox.shrink();
+              }
+
+              if (state.index < 1) {
+                return const SizedBox.shrink();
+              }
+
+              return Text(context.watch<StoreDetailBloc>().storeName);
+            },
+          ),
           actions: [
             BlocBuilder<StoreDetailBloc, StoreDetailState>(
               buildWhen: (pre, next) => next is StoreDetailHeartChecked,
@@ -313,8 +327,16 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     ),
                   ),
                   const StoreListCard(),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: 24),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      child: loadAsset(
+                        AppImage.eventBanner,
+                      ),
+                    ),
                   ),
                 ],
               );

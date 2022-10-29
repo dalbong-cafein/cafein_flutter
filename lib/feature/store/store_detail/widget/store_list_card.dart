@@ -45,197 +45,196 @@ class _StoreListCardState extends State<StoreListCard> {
           child: BlocBuilder<StoreDetailBloc, StoreDetailState>(
             buildWhen: (pre, next) => next is StoreDetailNearStoreLoaded,
             builder: (context, state) {
-              if (state is StoreDetailNearStoreLoaded) {
-                final storeList = state.storeList;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
-                        '근처에 있는 카공 카페를 찾아봤어요',
-                        style: AppStyle.subTitle17SemiBold,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Expanded(
-                      child: ListView.separated(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final imageList = [
-                            ...storeList[index].imageIdPair ?? []
-                          ];
-                          if (imageList.length < 3) {
-                            final length = 3 - imageList.length;
-                            for (int i = 0; i < length; i++) {
-                              imageList.add(
-                                ImageIdPair(
-                                  imageId: -1,
-                                  imageUrl: CafeinConst.defaultStoreImage,
-                                ),
-                              );
-                            }
-                          }
-                          return InkWell(
-                            onTap: () =>
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                              StoreDetailPage.routeName,
-                              ModalRoute.withName(MainPage.routeName),
-                              arguments: storeList[index].storeId,
-                            ),
-                            child: Container(
-                              height: 176,
-                              width: 256,
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: AppColor.white,
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 16,
-                                    offset: Offset(2, 2),
-                                    color: Color.fromRGBO(
-                                      0,
-                                      0,
-                                      0,
-                                      0.1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 70,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        ...List.generate(
-                                          imageList.length,
-                                          (imageIndex) => ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                            child: CustomCachedNetworkImage(
-                                              imageUrl: imageList[imageIndex]
-                                                  .imageUrl,
-                                              width: 70,
-                                              height: 70,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    storeList[index].storeName,
-                                    style: AppStyle.subTitle15Medium,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  OpenCloseChip(
-                                                    isOpen: storeList[index]
-                                                            .businessInfo
-                                                            ?.isOpen ??
-                                                        false,
-                                                  ),
-                                                  const SizedBox(width: 4),
-                                                  ConfuseChip(
-                                                    confuseScore:
-                                                        storeList[index]
-                                                            .congestionScoreAvg,
-                                                    height: 18,
-                                                    width: 29,
-                                                    textStyle: AppStyle
-                                                        .caption12Medium,
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 4),
-                                              StoreAdditionalInformationRow(
-                                                textStyle:
-                                                    AppStyle.caption12Regular,
-                                                distance: calculateDistance(
-                                                  currentLatLng: LatLng(
-                                                    storeList[index].latY,
-                                                    storeList[index].lngX,
-                                                  ),
-                                                  targetLatLng: LatLng(
-                                                    storeList[index].latY,
-                                                    storeList[index].lngX,
-                                                  ),
-                                                ),
-                                                recommendScore: storeList[index]
-                                                        .recommendPercent
-                                                        ?.toInt() ??
-                                                    0,
-                                                likeCount:
-                                                    storeList[index].heartCnt,
-                                                iconSize: 16,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () => context
-                                              .read<StoreDetailBloc>()
-                                              .add(
-                                                StoreDetailNearStoreHeartRequested(
-                                                  index: index,
-                                                  isHeart:
-                                                      !storeList[index].isHeart,
-                                                ),
-                                              ),
-                                          child: storeList[index].isHeart
-                                              ? loadAsset(
-                                                  AppIcon.heartFill,
-                                                  color: AppColor.orange500,
-                                                )
-                                              : loadAsset(
-                                                  AppIcon.heartLine,
-                                                  color: AppColor.grey300,
-                                                ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                          width: 12,
-                        ),
-                        itemCount: storeList.length,
-                      ),
-                    ),
-                  ],
-                );
+              if (state is! StoreDetailNearStoreLoaded) {
+                return const CustomCircleLoadingIndicator();
               }
-              return const CustomCircleLoadingIndicator();
+
+              final storeList = state.storeList;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      '근처에 있는 카공 카페를 찾아봤어요',
+                      style: AppStyle.subTitle17SemiBold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final imageList = [
+                          ...storeList[index].imageIdPair ?? []
+                        ];
+
+                        if (imageList.length < 3) {
+                          final length = 3 - imageList.length;
+                          for (int i = 0; i < length; i++) {
+                            imageList.add(
+                              ImageIdPair(
+                                imageId: -1,
+                                imageUrl: CafeinConst.defaultStoreImage,
+                              ),
+                            );
+                          }
+                        }
+
+                        return InkWell(
+                          onTap: () =>
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                            StoreDetailPage.routeName,
+                            ModalRoute.withName(MainPage.routeName),
+                            arguments: storeList[index].storeId,
+                          ),
+                          child: Container(
+                            height: 172,
+                            width: 256,
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: AppColor.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 16,
+                                  offset: Offset(2, 2),
+                                  color: Color.fromRGBO(
+                                    0,
+                                    0,
+                                    0,
+                                    0.1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 70,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ...List.generate(
+                                        imageList.length,
+                                        (imageIndex) => ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(8),
+                                          ),
+                                          child: CustomCachedNetworkImage(
+                                            imageUrl:
+                                                imageList[imageIndex].imageUrl,
+                                            width: 70,
+                                            height: 70,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  storeList[index].storeName,
+                                  style: AppStyle.subTitle15Medium,
+                                ),
+                                const SizedBox(height: 8),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                OpenCloseChip(
+                                                  isOpen: storeList[index]
+                                                          .businessInfo
+                                                          ?.isOpen ??
+                                                      false,
+                                                ),
+                                                const SizedBox(width: 4),
+                                                ConfuseChip(
+                                                  confuseScore: storeList[index]
+                                                      .congestionScoreAvg,
+                                                  height: 18,
+                                                  width: 29,
+                                                  textStyle:
+                                                      AppStyle.caption12Medium,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 8),
+                                            StoreAdditionalInformationRow(
+                                              textStyle:
+                                                  AppStyle.caption12Regular,
+                                              distance: calculateDistance(
+                                                currentLatLng: LatLng(
+                                                  storeList[index].latY,
+                                                  storeList[index].lngX,
+                                                ),
+                                                targetLatLng: LatLng(
+                                                  storeList[index].latY,
+                                                  storeList[index].lngX,
+                                                ),
+                                              ),
+                                              recommendScore: storeList[index]
+                                                      .recommendPercent
+                                                      ?.toInt() ??
+                                                  0,
+                                              likeCount:
+                                                  storeList[index].heartCnt,
+                                              iconSize: 16,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () =>
+                                            context.read<StoreDetailBloc>().add(
+                                                  StoreDetailNearStoreHeartRequested(
+                                                    index: index,
+                                                    isHeart: !storeList[index]
+                                                        .isHeart,
+                                                  ),
+                                                ),
+                                        child: storeList[index].isHeart
+                                            ? loadAsset(
+                                                AppIcon.heartFill,
+                                                color: AppColor.orange500,
+                                              )
+                                            : loadAsset(
+                                                AppIcon.heartLine,
+                                                color: AppColor.grey300,
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const SizedBox(
+                        width: 12,
+                      ),
+                      itemCount: storeList.length,
+                    ),
+                  ),
+                ],
+              );
             },
           ),
         ),

@@ -65,4 +65,6 @@ abstract class AppImage {
 
   static const characterQuestionS =
       'asset/image/character/character_question_s.png';
+
+  static const eventBanner = 'asset/image/img_event_banner.png';
 }
