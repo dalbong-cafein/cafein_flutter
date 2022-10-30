@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/data/repository/auth_repository.dart';
+import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/notification_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
@@ -30,6 +31,7 @@ class MainPage extends StatelessWidget {
           heartRepository: context.read<HeartRepository>(),
           userRepository: context.read<UserRepository>(),
           storeRepository: context.read<StoreRepository>(),
+          boardRepository: context.read<BoardRepository>(),
         ),
         child: const HomePage(),
       ),
