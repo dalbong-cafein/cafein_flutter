@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/datasource/local/preference/auth_preference.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/member_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/kakao/kakao_api_client.dart';
@@ -48,11 +49,13 @@ class UserRepositoryImpl extends UserRepository {
   final MemberClient memberClient;
   final MemberFormDataClient memberFormDataClient;
   final KakaoApiClient kakaoApiClient;
+  final AuthPreference authPreference;
 
   UserRepositoryImpl({
     required this.memberClient,
     required this.memberFormDataClient,
     required this.kakaoApiClient,
+    required this.authPreference,
   });
 
   @override
@@ -95,7 +98,11 @@ class UserRepositoryImpl extends UserRepository {
       memberClient.getStoreCntAndReviewCnt();
 
   @override
-  Future<BaseResponse> deleteMember() => memberClient.deleteMember();
+  Future<BaseResponse> deleteMember() =>
+      memberClient.deleteMember().then((value) async {
+        await authPreference.clearTokenData();
+        return value;
+      });
 
   @override
   Future<BaseResponse> agreeTerms(TermsRequest termsRequest) =>

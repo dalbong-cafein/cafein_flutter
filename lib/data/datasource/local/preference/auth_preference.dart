@@ -17,4 +17,6 @@ class AuthPreference {
         AppDatabase.tokenDataKey,
         tokenData,
       );
+
+  Future<void> clearTokenData() async => await box.clear();
 }
