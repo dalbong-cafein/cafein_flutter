@@ -57,6 +57,7 @@ class CafeinApp extends StatelessWidget {
             memberClient: MemberClient(DioUtil().dio),
             memberFormDataClient: MemberFormDataClient(dio: DioUtil().dio),
             kakaoApiClient: KakaoApiClient(dio: DioUtil().kakaoDio),
+            authPreference: AppDatabase().authPreference,
           ),
         ),
         RepositoryProvider<StoreRepository>(
