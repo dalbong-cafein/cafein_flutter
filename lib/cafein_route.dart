@@ -1,4 +1,4 @@
-import 'package:cafein_flutter/data/model/board/board.dart';
+
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';

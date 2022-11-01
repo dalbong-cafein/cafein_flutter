@@ -1,7 +1,6 @@
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
-import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,13 @@ class HomeEventBanner extends StatelessWidget {
     return BlocConsumer<HomeBloc, HomeState>(
       buildWhen: (previous, current) => current is HomeLoaded,
       listener: (context, state) {
-
+        if (state is HomeError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
+        }
       },
       builder: (context, state) {
         if(state is HomeLoaded){
