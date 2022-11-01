@@ -10,3 +10,9 @@ abstract class NoticeEvent extends Equatable {
 class NoticeRequested extends NoticeEvent {
   const NoticeRequested();
 }
+
+
+class NoticeDetailRequested extends NoticeEvent {
+  final int clickedBoardId;
+  const NoticeDetailRequested({required this.clickedBoardId});
+}

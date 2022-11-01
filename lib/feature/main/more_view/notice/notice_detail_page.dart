@@ -1,7 +1,9 @@
 import 'package:cafein_flutter/data/model/board/board.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NoticeDetailPage extends StatelessWidget {
   const NoticeDetailPage({
@@ -15,6 +17,9 @@ class NoticeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<NoticeBloc>().add(
+      const NoticeDetailRequested(clickedBoardId: 1),
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('공지사항'),
