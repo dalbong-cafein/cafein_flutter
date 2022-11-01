@@ -174,8 +174,12 @@ abstract class CafeinRoute {
         break;
       case NoticeDetailPage.routeName:
         final boardId = settings.arguments as int;
-        page = BlocProvider(create: (context) => NoticeBloc(boardRepository: context.read<BoardRepository>()),
-          child: NoticeDetailPage(boardId: boardId,),
+        page = BlocProvider(
+          create: (context) =>
+              NoticeBloc(boardRepository: context.read<BoardRepository>()),
+          child: NoticeDetailPage(
+            boardId: boardId,
+          ),
         );
         break;
       case FaqPage.routeName:
