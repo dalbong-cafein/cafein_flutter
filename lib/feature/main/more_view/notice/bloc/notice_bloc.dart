@@ -14,6 +14,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     required this.boardRepository,
   }) : super(const NoticeInitial()) {
     on<NoticeRequested>(_onNoticeRequested);
+    on<NoticeDetailRequested>(_onNoticeDetailRequested);
   }
 
   final BoardRepository boardRepository;
