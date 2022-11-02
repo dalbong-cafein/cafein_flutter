@@ -17,4 +17,9 @@ abstract class BoardClient {
   Future<BaseResponse<List<Board>>> getBoards(
     @Query('boardCategoryId') int categoryId,
   );
+
+  @GET('/boards/{boardId}')
+  Future<BaseResponse<Board>> getBoard(
+    @Path() int boardId,
+  );
 }
