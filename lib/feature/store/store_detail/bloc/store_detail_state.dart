@@ -20,17 +20,20 @@ class StoreDetailLoaded extends StoreDetailState {
     required this.storeDetail,
     required this.reviewDetailScore,
     required this.reviewResponse,
+    required this.latestEvent,
   });
 
   final StoreDetail storeDetail;
   final ReviewDetailScore reviewDetailScore;
   final ReviewResponse<StoreReviewListResponse> reviewResponse;
+  final Event latestEvent;
 
   @override
   List<Object?> get props => [
         storeDetail,
         reviewDetailScore,
         reviewResponse,
+        latestEvent,
       ];
 }
 

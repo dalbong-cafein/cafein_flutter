@@ -18,9 +18,8 @@ abstract class BoardClient {
     @Query('boardCategoryId') int categoryId,
   );
 
-
   @GET('/boards/{boardId}')
   Future<BaseResponse<Board>> getBoard(
-      @Path() int boardId,
-      );
+    @Path() int boardId,
+  );
 }

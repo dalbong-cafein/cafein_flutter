@@ -1,7 +1,9 @@
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_event_banner.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_list_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_list_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
@@ -328,13 +330,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   ),
                   const StoreListCard(),
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pushNamed(
+                        NoticeDetailPage.routeName,
+                        arguments: state.latestEvent.boardId,
                       ),
-                      child: loadAsset(
-                        AppImage.eventBanner,
+                      child: StoreDetailEventBanner(
+                        imageUrl: state.latestEvent.imageIdPair.imageUrl,
                       ),
                     ),
                   ),

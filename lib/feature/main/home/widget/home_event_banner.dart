@@ -22,23 +22,23 @@ class HomeEventBanner extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if(state is HomeLoaded){
+        if (state is HomeLoaded) {
           return InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.of(context).pushNamed(
                 NoticeDetailPage.routeName,
-                arguments: state.homeEventBoardId ,
+                arguments: state.homeEventBoardId,
               );
             },
             child: SizedBox(
               width: width - 32,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20), // Image border
+                borderRadius: BorderRadius.circular(16),
                 child: Image.network(state.homeEventImageUrl),
               ),
             ),
           );
-        }else{
+        } else {
           return const SizedBox.shrink();
         }
       },

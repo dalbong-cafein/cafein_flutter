@@ -131,7 +131,14 @@ class _ReviewCardState extends State<_ReviewCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.review.nicknameOfWriter,
+                    widget.review.nicknameOfWriter.substring(
+                      0,
+                      (widget.review.nicknameOfWriter.length < 20)
+                          ? widget.review.nicknameOfWriter.length
+                          : 20,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   Text(
                     '${ymdDotFormatShort(widget.review.registeredDateTime)} ${widget.review.visitCnt}번째 방문',
