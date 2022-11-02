@@ -63,7 +63,7 @@ class _NoticePageState extends State<NoticePage> {
                 itemBuilder: (context, index) => InkWell(
                   onTap: () => Navigator.of(context).pushNamed(
                     NoticeDetailPage.routeName,
-                    arguments: state.boards[index],
+                    arguments: state.boards[index].boardId ,
                   ),
                   child: Container(
                     padding: const EdgeInsets.symmetric(

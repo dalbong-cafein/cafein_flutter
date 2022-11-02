@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/store/member_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
+import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -19,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.heartRepository,
     required this.userRepository,
     required this.storeRepository,
+    required this.boardRepository,
   }) : super(const HomeInitial()) {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
@@ -29,6 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final StickerRepository stickerRepository;
   final UserRepository userRepository;
   final StoreRepository storeRepository;
+  final BoardRepository boardRepository;
 
   List<Store> currentRecommendedStores = [];
 
@@ -42,13 +45,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       final stickerResponse = await stickerRepository.getStickerCount();
       final heartResponse = await heartRepository.getMyStores();
+      final boardResponse = await boardRepository.getLatestEvent();
 
       final stickerCnt = stickerResponse.data;
       final memberStoreList = heartResponse.data.storeData;
+      final homeEventImageUrl = boardResponse.data.imageIdPair.imageUrl;
+      final homeEventBoardId = boardResponse.data.boardId;
 
       emit(HomeLoaded(
         stickerCnt: stickerCnt,
         memberStores: [...memberStoreList],
+        homeEventImageUrl: homeEventImageUrl,
+        homeEventBoardId: homeEventBoardId
       ));
     } catch (e) {
       emit(HomeError(

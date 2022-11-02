@@ -14,6 +14,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     required this.boardRepository,
   }) : super(const NoticeInitial()) {
     on<NoticeRequested>(_onNoticeRequested);
+    on<NoticeDetailRequested>(_onNoticeDetailRequested);
   }
 
   final BoardRepository boardRepository;
@@ -41,6 +42,41 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
 
       emit(
         NoticeLoaded(boards: response.data),
+      );
+    } catch (e) {
+      emit(
+        NoticeError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+
+  FutureOr<void> _onNoticeDetailRequested(
+      NoticeDetailRequested event,
+      Emitter<NoticeState> emit,
+      ) async {
+    emit(const NoticeLoading());
+    try {
+      final response = await boardRepository.getBoard(
+        event.clickedBoardId
+      );
+
+      if (response.code == -1) {
+        emit(
+          NoticeError(
+            error: Error(),
+            event: () => add(event),
+          ),
+        );
+
+        return;
+      }
+
+      emit(
+        NoticeDetailLoaded(board: response.data)
       );
     } catch (e) {
       emit(

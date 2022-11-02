@@ -26,6 +26,15 @@ class NoticeLoaded extends NoticeState {
   List<Object?> get props => [boards];
 }
 
+class NoticeDetailLoaded extends NoticeState {
+  final Board board;
+
+  const NoticeDetailLoaded({required this.board});
+
+  @override
+  List<Object?> get props => [board];
+}
+
 class NoticeError extends NoticeState {
   const NoticeError({
     required this.error,

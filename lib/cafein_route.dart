@@ -1,4 +1,4 @@
-import 'package:cafein_flutter/data/model/board/board.dart';
+
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
@@ -173,8 +173,14 @@ abstract class CafeinRoute {
         );
         break;
       case NoticeDetailPage.routeName:
-        final notice = settings.arguments as Board;
-        page = NoticeDetailPage(notice: notice);
+        final boardId = settings.arguments as int;
+        page = BlocProvider(
+          create: (context) =>
+              NoticeBloc(boardRepository: context.read<BoardRepository>()),
+          child: NoticeDetailPage(
+            boardId: boardId,
+          ),
+        );
         break;
       case FaqPage.routeName:
         page = BlocProvider(
