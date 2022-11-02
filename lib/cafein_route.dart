@@ -1,4 +1,3 @@
-
 import 'package:cafein_flutter/data/model/common/more_view_count_response.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
@@ -33,6 +32,7 @@ import 'package:cafein_flutter/feature/main/more_view/edit_profile/edit_profile_
 import 'package:cafein_flutter/feature/main/more_view/faq/bloc/faq_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/faq/faq_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_detail_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/sign_off/bloc/sign_off_bloc.dart';
@@ -175,11 +175,11 @@ abstract class CafeinRoute {
       case NoticeDetailPage.routeName:
         final boardId = settings.arguments as int;
         page = BlocProvider(
-          create: (context) =>
-              NoticeBloc(boardRepository: context.read<BoardRepository>()),
-          child: NoticeDetailPage(
-            boardId: boardId,
+          create: (context) => NoticeDetailBloc(
+            boardRepository: context.read<BoardRepository>(),
+            noticeId: boardId,
           ),
+          child: const NoticeDetailPage(),
         );
         break;
       case FaqPage.routeName:
@@ -271,6 +271,7 @@ abstract class CafeinRoute {
                 storeRepository: context.read<StoreRepository>(),
                 reviewRepository: context.read<ReviewRepository>(),
                 heartRepository: context.read<HeartRepository>(),
+                boardRepository: context.read<BoardRepository>(),
                 storeId: storeId,
               ),
             ),
@@ -287,8 +288,9 @@ abstract class CafeinRoute {
         break;
       case ReportPage.routeName:
         page = BlocProvider(
-          create: (context) =>
-              ReportBloc(reviewRepository: context.read<ReviewRepository>()),
+          create: (context) => ReportBloc(
+            reviewRepository: context.read<ReviewRepository>(),
+          ),
           child: const ReportPage(),
         );
         break;

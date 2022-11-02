@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
 import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -20,6 +22,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     required this.storeRepository,
     required this.reviewRepository,
     required this.heartRepository,
+    required this.boardRepository,
     required this.storeId,
   }) : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
@@ -33,6 +36,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   final StoreRepository storeRepository;
   final ReviewRepository reviewRepository;
   final HeartRepository heartRepository;
+  final BoardRepository boardRepository;
 
   final int storeId;
 
@@ -63,10 +67,13 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         size: 3,
       );
 
+      final eventResponse = boardRepository.getLatestEvent();
+
       final responseList = await Future.wait<BaseResponse<dynamic>>([
         storeDetailResponse,
         reviewScoreResponse,
         reviewResponse,
+        eventResponse,
       ]);
 
       for (final response in responseList) {
@@ -87,6 +94,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           storeDetail: responseList[0].data,
           reviewDetailScore: responseList[1].data,
           reviewResponse: responseList[2].data,
+          latestEvent: responseList[3].data,
         ),
       );
 
