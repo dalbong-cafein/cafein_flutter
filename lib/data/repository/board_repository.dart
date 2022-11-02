@@ -9,6 +9,10 @@ abstract class BoardRepository {
     int categoryId,
   );
 
+  Future<BaseResponse<Board>> getBoard(
+      int boardId,
+      );
+
   Future<BaseResponse<Event>> getLatestEvent();
 }
 
@@ -26,6 +30,12 @@ class BoardRepositoryImpl implements BoardRepository {
     int categoryId,
   ) =>
       boardClient.getBoards(categoryId);
+
+  @override
+  Future<BaseResponse<Board>> getBoard(
+      int boardId,
+      ) =>
+      boardClient.getBoard(boardId);
 
   @override
   Future<BaseResponse<Event>> getLatestEvent() => eventClient.getLatestEvent();

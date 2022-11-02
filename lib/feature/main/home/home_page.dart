@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
+import 'package:cafein_flutter/feature/main/home/widget/home_event_banner.dart';
 import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
@@ -76,27 +77,27 @@ class HomePage extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: Column(
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.only(
+                      padding: EdgeInsets.only(
                         left: 16,
                         right: 16,
                         top: 16,
                       ),
-                      child: loadAsset(AppImage.eventBanner),
+                      child: HomeEventBanner(),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 16,
                     ),
-                    const StickerCard(),
-                    const SizedBox(
+                    StickerCard(),
+                    SizedBox(
                       height: 16,
                     ),
-                    const MyStoresCard(),
-                    const SizedBox(
+                    MyStoresCard(),
+                    SizedBox(
                       height: 32,
                     ),
-                    const RecommendStoresCard(),
+                    RecommendStoresCard(),
                   ],
                 ),
               ),
