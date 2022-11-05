@@ -31,10 +31,11 @@ class HomeEventBanner extends StatelessWidget {
               );
             },
             child: SizedBox(
+              height: 64,
               width: width - 32,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(state.homeEventImageUrl),
+                child: Image.network(state.homeEventImageUrl, fit: BoxFit.fitWidth,),
               ),
             ),
           );
