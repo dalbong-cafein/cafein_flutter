@@ -90,7 +90,7 @@ class RecommendStoresCard extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 10,
-                      itemBuilder: (listContext, index) {
+                      itemBuilder: (lis3tContext, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.of(context).pushNamed(

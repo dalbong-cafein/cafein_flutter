@@ -95,7 +95,15 @@ class StickerPage extends StatelessWidget {
             const MyStickerCard(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(height: 1.0, color: AppColor.grey100),
+              child: Container(
+
+                  decoration: const BoxDecoration(
+                    color: AppColor.grey100,
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(10.0)
+                    ),
+                  ),
+                  height: 1.0,),
             ),
             const SizedBox(
               height: 24,
