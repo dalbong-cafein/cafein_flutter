@@ -98,7 +98,7 @@ class HomePage extends StatelessWidget {
                     ),
                     MyStoresCard(),
                     SizedBox(
-                      height: 32,
+                      height: 16,
                     ),
                     RecommendStoresCard(),
                   ],

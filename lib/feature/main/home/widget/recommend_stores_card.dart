@@ -75,12 +75,10 @@ class RecommendStoresCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20, top: 16),
                   child: Text(
                     "근처에 있는 카공 카페를 찾아봤어요",
-                    style: AppStyle.subTitle17SemiBold.copyWith(
-                      height: 1
-                    ),
+                    style: AppStyle.subTitle17SemiBold.copyWith(height: 1),
                   ),
                 ),
                 Padding(
@@ -121,9 +119,11 @@ class RecommendStoresCard extends StatelessWidget {
                                         ...List.generate(
                                           3,
                                           (imageIndex) => Padding(
-                                            padding: imageIndex == 1 ?const EdgeInsets.symmetric(
-                                              horizontal: 6,
-                                            ) : const EdgeInsets.only(),
+                                            padding: imageIndex == 1
+                                                ? const EdgeInsets.symmetric(
+                                                    horizontal: 6,
+                                                  )
+                                                : const EdgeInsets.only(),
                                             child: SizedBox(
                                               width: 70,
                                               height: 70,
@@ -167,7 +167,8 @@ class RecommendStoresCard extends StatelessWidget {
                                     ),
                                     Text(
                                       state.recommendStores[index].storeName,
-                                      style: AppStyle.subTitle15Medium.copyWith(height: 1),
+                                      style: AppStyle.subTitle15Medium
+                                          .copyWith(height: 1),
                                     ),
                                     const SizedBox(
                                       height: 3,
@@ -211,7 +212,9 @@ class RecommendStoresCard extends StatelessWidget {
                                                                   .congestionScoreAvg!,
                                                           height: 18,
                                                           textStyle: AppStyle
-                                                              .caption12Medium.copyWith(height: 1),
+                                                              .caption12Medium
+                                                              .copyWith(
+                                                                  height: 1),
                                                           width: 29,
                                                         ),
                                                       )
@@ -221,21 +224,21 @@ class RecommendStoresCard extends StatelessWidget {
                                                     height: 8,
                                                   ),
                                                   StoreAdditionalInformationRow(
-                                                      textStyle: AppStyle
-                                                    .caption12Regular.copyWith(height: 1),
-                                                      distance: 150,
-                                                      recommendScore: state
-                                                        .recommendStores[
-                                                            index]
-                                                        .recommendPercent
-                                                        ?.toInt() ??
-                                                    0,
-                                                      likeCount: state
-                                                    .recommendStores[
-                                                        index]
-                                                    .heartCnt,
-                                                      iconSize: 16,
-                                                    )
+                                                    textStyle: AppStyle
+                                                        .caption12Regular
+                                                        .copyWith(height: 1),
+                                                    distance: 150,
+                                                    recommendScore: state
+                                                            .recommendStores[
+                                                                index]
+                                                            .recommendPercent
+                                                            ?.toInt() ??
+                                                        0,
+                                                    likeCount: state
+                                                        .recommendStores[index]
+                                                        .heartCnt,
+                                                    iconSize: 16,
+                                                  )
                                                 ],
                                               ),
                                             ],
