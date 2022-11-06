@@ -31,7 +31,7 @@ class HomeEventBanner extends StatelessWidget {
               );
             },
             child: SizedBox(
-              height: 64,
+              height: (width - 32) /5,
               width: width - 32,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
