@@ -74,18 +74,20 @@ class RecommendStoresCard extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
                   child: Text(
                     "근처에 있는 카공 카페를 찾아봤어요",
-                    style: AppStyle.subTitle17SemiBold,
+                    style: AppStyle.subTitle17SemiBold.copyWith(
+                      height: 1
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 4),
                   child: SizedBox(
                     width: width,
-                    height: 180,
+                    height: 172,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -165,10 +167,10 @@ class RecommendStoresCard extends StatelessWidget {
                                     ),
                                     Text(
                                       state.recommendStores[index].storeName,
-                                      style: AppStyle.subTitle15Medium,
+                                      style: AppStyle.subTitle15Medium.copyWith(height: 1),
                                     ),
                                     const SizedBox(
-                                      height: 8,
+                                      height: 3,
                                     ),
                                     Row(
                                       children: [
@@ -209,7 +211,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                                   .congestionScoreAvg!,
                                                           height: 18,
                                                           textStyle: AppStyle
-                                                              .caption12Medium,
+                                                              .caption12Medium.copyWith(height: 1),
                                                           width: 29,
                                                         ),
                                                       )
@@ -220,7 +222,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                   ),
                                                   StoreAdditionalInformationRow(
                                                       textStyle: AppStyle
-                                                    .caption12Regular,
+                                                    .caption12Regular.copyWith(height: 1),
                                                       distance: 150,
                                                       recommendScore: state
                                                         .recommendStores[

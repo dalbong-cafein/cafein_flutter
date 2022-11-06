@@ -32,22 +32,45 @@ class MyStoresCard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 31, bottom: 31),
+                  padding: const EdgeInsets.only(bottom: 31),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            "나의 카페",
+                            style: AppStyle.subTitle17SemiBold.copyWith(
+                              height: 1
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
                       loadAsset(
                         AppImage.noCafe,
                         height: 42,
                         width: 32,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text("등록된 나의 카페가 없어요"),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text("카페의 하트를 눌러 나의 카페로 등록해 보세요"),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          "등록된 나의 카페가 없어요\n카페의 하트를 눌러 나의 카페로 등록해 보세요",
+                          textAlign: TextAlign.center,
+                          style: AppStyle.caption13Regular.copyWith(
+                            color: AppColor.grey600,
+                            height: 1.5,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 12),
@@ -61,21 +84,22 @@ class MyStoresCard extends StatelessWidget {
                               Radius.circular(10.0),
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 12,
-                              right: 12,
-                              top: 10,
-                              bottom: 10,
+                          child: InkWell(
+                            onTap: () => context.read<MainBloc>().add(
+                              const MainTabChanged(index: 1),
                             ),
-                            child: InkWell(
-                              onTap: () => context.read<MainBloc>().add(
-                                    const MainTabChanged(index: 1),
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 12,
+                                right: 12,
+                                top: 10,
+                                bottom: 10,
+                              ),
                               child: Text(
                                 "카페 찾아보기",
                                 style: AppStyle.subTitle14Medium.copyWith(
                                   color: AppColor.orange500,
+                                  height: 1
                                 ),
                               ),
                             ),
@@ -123,15 +147,17 @@ class MyStoresCard extends StatelessWidget {
                                   arguments: state.memberStores[index].storeId);
                             },
                             child: Padding(
-                              padding:index == 0 ? const EdgeInsets.only(
-                                left: 16,
-                                right: 16,
-                                top: 16,
-                              ):const EdgeInsets.only(
-                                left: 16,
-                                right: 16,
-                                top: 20,
-                              ),
+                              padding: index == 0
+                                  ? const EdgeInsets.only(
+                                      left: 16,
+                                      right: 16,
+                                      top: 16,
+                                    )
+                                  : const EdgeInsets.only(
+                                      left: 16,
+                                      right: 16,
+                                      top: 20,
+                                    ),
                               child: SizedBox(
                                 width: (width - 64) * 0.8,
                                 child: Row(
@@ -191,9 +217,8 @@ class MyStoresCard extends StatelessWidget {
                                                     false,
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 6.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 6.0),
                                                 child: Text(
                                                   state
                                                               .memberStores[
@@ -206,8 +231,8 @@ class MyStoresCard extends StatelessWidget {
                                                   style: AppStyle
                                                       .caption12Regular
                                                       .copyWith(
-                                                          color: AppColor
-                                                              .grey600),
+                                                          color:
+                                                              AppColor.grey600),
                                                 ),
                                               )
                                             ],
@@ -240,9 +265,7 @@ class MyStoresCard extends StatelessWidget {
                               color: AppColor.grey100,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20
-                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
                               child: InkWell(
                                 onTap: () {
                                   Navigator.of(context)
