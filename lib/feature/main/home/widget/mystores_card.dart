@@ -123,7 +123,11 @@ class MyStoresCard extends StatelessWidget {
                                   arguments: state.memberStores[index].storeId);
                             },
                             child: Padding(
-                              padding: const EdgeInsets.only(
+                              padding:index == 0 ? const EdgeInsets.only(
+                                left: 16,
+                                right: 16,
+                                top: 16,
+                              ):const EdgeInsets.only(
                                 left: 16,
                                 right: 16,
                                 top: 20,
@@ -174,40 +178,39 @@ class MyStoresCard extends StatelessWidget {
                                             state.memberStores[index].storeName,
                                             style: AppStyle.subTitle15Medium,
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 5),
-                                            child: Row(
-                                              children: [
-                                                OpenCloseChip(
-                                                  isOpen: state
-                                                          .memberStores[index]
-                                                          .businessInfo
-                                                          ?.isOpen ??
-                                                      false,
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            children: [
+                                              OpenCloseChip(
+                                                isOpen: state
+                                                        .memberStores[index]
+                                                        .businessInfo
+                                                        ?.isOpen ??
+                                                    false,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 6.0),
+                                                child: Text(
+                                                  state
+                                                              .memberStores[
+                                                                  index]
+                                                              .businessInfo
+                                                              ?.isOpen ??
+                                                          false
+                                                      ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
+                                                      : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
+                                                  style: AppStyle
+                                                      .caption12Regular
+                                                      .copyWith(
+                                                          color: AppColor
+                                                              .grey600),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 6.0),
-                                                  child: Text(
-                                                    state
-                                                                .memberStores[
-                                                                    index]
-                                                                .businessInfo
-                                                                ?.isOpen ??
-                                                            false
-                                                        ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
-                                                        : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
-                                                    style: AppStyle
-                                                        .caption12Regular
-                                                        .copyWith(
-                                                            color: AppColor
-                                                                .grey600),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                              )
+                                            ],
                                           )
                                         ],
                                       ),
@@ -237,9 +240,8 @@ class MyStoresCard extends StatelessWidget {
                               color: AppColor.grey100,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10,
-                                bottom: 10,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20
                               ),
                               child: InkWell(
                                 onTap: () {
@@ -250,7 +252,7 @@ class MyStoresCard extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "나의 카페${state.memberStores.length}개 모두 보기",
+                                      "나의 카페 ${state.memberStores.length}개 모두 보기",
                                       style: AppStyle.body14Regular,
                                     ),
                                     Padding(
