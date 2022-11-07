@@ -40,7 +40,7 @@ class StickerCard extends StatelessWidget {
                 ),
                 color: Colors.white),
             child: Padding(
-              padding: const EdgeInsets.only(top: 18, bottom: 18),
+              padding: const EdgeInsets.only(top: 14, bottom: 14),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -74,7 +74,7 @@ class StickerCard extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        const Text("내가 모은 스티커",
+                                        const Text("모은 스티커",
                                             style: AppStyle.subTitle15SemiBold),
                                         Padding(
                                           padding:

@@ -14,7 +14,7 @@ class StickerBottomSheet extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(
           top: 8,
-          bottom: bottomPadding > 0 ? bottomPadding + 16 : 16,
+          bottom: bottomPadding > 0 ? bottomPadding + 14 : 14,
           left: 16,
         ),
         child: Container(

@@ -36,7 +36,7 @@ class MyStickerCard extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
-                      "내가 모은 스티커",
+                      "모은 스티커",
                       style: AppStyle.subTitle17SemiBold,
                     ),
                   ),

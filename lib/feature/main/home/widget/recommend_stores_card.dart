@@ -74,23 +74,23 @@ class RecommendStoresCard extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 16),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 16),
                   child: Text(
                     "근처에 있는 카공 카페를 찾아봤어요",
-                    style: AppStyle.subTitle17SemiBold,
+                    style: AppStyle.subTitle17SemiBold.copyWith(height: 1),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 4),
                   child: SizedBox(
                     width: width,
-                    height: 180,
+                    height: 172,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 10,
-                      itemBuilder: (listContext, index) {
+                      itemBuilder: (lis3tContext, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.of(context).pushNamed(
@@ -119,9 +119,11 @@ class RecommendStoresCard extends StatelessWidget {
                                         ...List.generate(
                                           3,
                                           (imageIndex) => Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                            ),
+                                            padding: imageIndex == 1
+                                                ? const EdgeInsets.symmetric(
+                                                    horizontal: 6,
+                                                  )
+                                                : const EdgeInsets.only(),
                                             child: SizedBox(
                                               width: 70,
                                               height: 70,
@@ -160,12 +162,16 @@ class RecommendStoresCard extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        state.recommendStores[index].storeName,
-                                        style: AppStyle.subTitle15Medium,
-                                      ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      state.recommendStores[index].storeName,
+                                      style: AppStyle.subTitle15Medium
+                                          .copyWith(height: 1),
+                                    ),
+                                    const SizedBox(
+                                      height: 3,
                                     ),
                                     Row(
                                       children: [
@@ -177,68 +183,61 @@ class RecommendStoresCard extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        OpenCloseChip(
-                                                          isOpen: state
+                                                  Row(
+                                                    children: [
+                                                      OpenCloseChip(
+                                                        isOpen: state
+                                                                .recommendStores[
+                                                                    index]
+                                                                .businessInfo
+                                                                ?.isOpen ??
+                                                            false,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 4,
+                                                        ),
+                                                        child: ConfuseChip(
+                                                          confuseScore: state
+                                                                      .recommendStores[
+                                                                          index]
+                                                                      .congestionScoreAvg ==
+                                                                  null
+                                                              ? 1
+                                                              : state
                                                                   .recommendStores[
                                                                       index]
-                                                                  .businessInfo
-                                                                  ?.isOpen ??
-                                                              false,
+                                                                  .congestionScoreAvg!,
+                                                          height: 18,
+                                                          textStyle: AppStyle
+                                                              .caption12Medium
+                                                              .copyWith(
+                                                                  height: 1),
+                                                          width: 29,
                                                         ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            left: 4,
-                                                          ),
-                                                          child: ConfuseChip(
-                                                            confuseScore: state
-                                                                        .recommendStores[
-                                                                            index]
-                                                                        .congestionScoreAvg ==
-                                                                    null
-                                                                ? 1
-                                                                : state
-                                                                    .recommendStores[
-                                                                        index]
-                                                                    .congestionScoreAvg!,
-                                                            height: 18,
-                                                            textStyle: AppStyle
-                                                                .caption12Medium,
-                                                            width: 29,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
+                                                      )
+                                                    ],
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                      top: 8,
-                                                    ),
-                                                    child:
-                                                        StoreAdditionalInformationRow(
-                                                      textStyle: AppStyle
-                                                          .caption12Regular,
-                                                      distance: 150,
-                                                      recommendScore: state
-                                                              .recommendStores[
-                                                                  index]
-                                                              .recommendPercent
-                                                              ?.toInt() ??
-                                                          0,
-                                                      likeCount: state
-                                                          .recommendStores[
-                                                              index]
-                                                          .heartCnt,
-                                                      iconSize: 20,
-                                                    ),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  StoreAdditionalInformationRow(
+                                                    textStyle: AppStyle
+                                                        .caption12Regular
+                                                        .copyWith(height: 1),
+                                                    distance: 150,
+                                                    recommendScore: state
+                                                            .recommendStores[
+                                                                index]
+                                                            .recommendPercent
+                                                            ?.toInt() ??
+                                                        0,
+                                                    likeCount: state
+                                                        .recommendStores[index]
+                                                        .heartCnt,
+                                                    iconSize: 16,
                                                   )
                                                 ],
                                               ),
@@ -291,6 +290,9 @@ class RecommendStoresCard extends StatelessWidget {
                       },
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 30,
                 )
               ],
             );
