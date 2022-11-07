@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
@@ -104,15 +105,27 @@ class StoreDetailCard extends StatelessWidget {
                   itemCount: storeDetail.storeImageList.length,
                   itemBuilder: (context, index) {
                     if (index % 3 == 0) {
-                      return ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
+                      return InkWell(
+                        onTap: () => Navigator.of(context).pushNamed(
+                          ImageDetailPage.routeName,
+                          arguments: ImageDetailPageArguments(
+                            initialPage: index,
+                            imageUrls: storeDetail.storeImageList
+                                .map((e) => e.imageUrl)
+                                .toList(),
+                          ),
                         ),
-                        child: CustomCachedNetworkImage(
-                          imageUrl: storeDetail.storeImageList[index].imageUrl,
-                          height: 200,
-                          width: 160,
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          child: CustomCachedNetworkImage(
+                            imageUrl:
+                                storeDetail.storeImageList[index].imageUrl,
+                            height: 200,
+                            width: 160,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       );
                     } else if (index % 3 == 1) {
