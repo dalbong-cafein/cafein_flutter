@@ -65,31 +65,41 @@ class NotificationPage extends StatelessWidget {
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(
           centerTitle: false,
-          titleSpacing: 16,
-          title: const Text(
-            '알림',
-            style: AppStyle.title19Bold,
+          title: const Padding(
+            padding: EdgeInsets.only(left : 20),
+            child: Text(
+              '알림',
+              style: AppStyle.title19Bold,
+            ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: IconButton(
-                onPressed: () async {
-                  final bloc = context.read<NotificationBloc>();
-                  final result = await NotificationDialog.show(context);
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    final bloc = context.read<NotificationBloc>();
+                    final result = await NotificationDialog.show(context);
 
-                  if (!result) {
-                    return;
-                  }
+                    if (!result) {
+                      return;
+                    }
 
-                  bloc.add(
-                    const NotificationDeleteRequested(),
-                  );
-                },
-                icon: SvgPicture.asset(
-                  AppIcon.trash,
+                    bloc.add(
+                      const NotificationDeleteRequested(),
+                    );
+                  },
+                  icon: SvgPicture.asset(
+                    AppIcon.trash,
+                    width: 24,
+                    height: 24,
+                    color: AppColor.grey700,
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  width: 14,
+                )
+              ],
             )
           ],
         ),
