@@ -198,9 +198,7 @@ class StickerPage extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is StickerLoaded) {
-            if (true
-            //state.stickerCnt >= 20
-            ) {
+            if (state.stickerCnt >= 20) {
               return InkWell(
                 onTap: () => Navigator.of(context).pushNamed(
                   ApplyCouponPage.routeName,

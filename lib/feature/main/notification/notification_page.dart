@@ -75,25 +75,43 @@ class NotificationPage extends StatelessWidget {
                   '알림',
                   style: AppStyle.title19Bold,
                 ),
-                InkWell(
-                  onTap: () async {
-                    final bloc = context.read<NotificationBloc>();
-                    final result = await NotificationDialog.show(context);
+                BlocBuilder<NotificationBloc, NotificationState>(
+                  builder: (context, state) {
+                    if (state is NotificationLoaded) {
+                      return InkWell(
+                        onTap: () async {
+                          if (state.notifications.isNotEmpty) {
+                            final bloc = context.read<NotificationBloc>();
+                            final result =
+                                await NotificationDialog.show(context);
 
-                    if (!result) {
-                      return;
+                            if (!result) {
+                              return;
+                            }
+
+                            bloc.add(
+                              const NotificationDeleteRequested(),
+                            );
+                          } else {}
+                        },
+                        child: SvgPicture.asset(
+                          AppIcon.trash,
+                          width: 24,
+                          height: 24,
+                          color: state.notifications.isNotEmpty
+                              ? AppColor.grey700
+                              : AppColor.grey300,
+                        ),
+                      );
+                    } else {
+                      return SvgPicture.asset(
+                        AppIcon.trash,
+                        width: 24,
+                        height: 24,
+                        color: AppColor.grey700,
+                      );
                     }
-
-                    bloc.add(
-                      const NotificationDeleteRequested(),
-                    );
                   },
-                  child: SvgPicture.asset(
-                    AppIcon.trash,
-                    width: 24,
-                    height: 24,
-                    color: AppColor.grey700,
-                  ),
                 ),
               ],
             ),
@@ -138,10 +156,25 @@ class NotificationPage extends StatelessWidget {
                               NotificationReadRequested(
                                   notificationIndex: index),
                             ),
-                        Navigator.of(context).pushNamed(
-                          NoticeDetailPage.routeName,
-                          arguments: state.notifications[index].boardId,
-                        )
+                        if (state.notifications[index].notificationType ==
+                            "스티커")
+                          {
+                            Navigator.of(context)
+                                .pushNamed(StickerPage.routeName)
+                          },
+                        if (state.notifications[index].notificationType ==
+                            "공지사항")
+                          {
+                            Navigator.of(context).pushNamed(
+                              NoticeDetailPage.routeName,
+                              arguments: state.notifications[index].boardId,
+                            )
+                          },
+                        if (state.notifications[index].notificationType == "쿠폰")
+                          {
+                            Navigator.of(context)
+                                .pushNamed(ReceivedCouponsPage.routeName)
+                          }
                       },
                       child: Container(
                         color: state.notifications[index].isRead

@@ -72,8 +72,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       );
       _noticeList = [...cur];
 
-
-
     } catch (e) {
       emit(NotificationError(
         error: e,
