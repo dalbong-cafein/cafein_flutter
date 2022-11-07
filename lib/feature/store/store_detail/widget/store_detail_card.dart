@@ -133,29 +133,52 @@ class StoreDetailCard extends StatelessWidget {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
+                          InkWell(
+                            onTap: () => Navigator.of(context).pushNamed(
+                              ImageDetailPage.routeName,
+                              arguments: ImageDetailPageArguments(
+                                initialPage: index,
+                                imageUrls: storeDetail.storeImageList
+                                    .map((e) => e.imageUrl)
+                                    .toList(),
+                              ),
                             ),
-                            child: CustomCachedNetworkImage(
-                              imageUrl: storeDetail
-                                  .storeImageList[currentIndex].imageUrl,
-                              height: 96,
-                              width: 96,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          if (index + 1 < storeDetail.storeImageList.length)
-                            ClipRRect(
+                            child: ClipRRect(
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                               child: CustomCachedNetworkImage(
                                 imageUrl: storeDetail
-                                    .storeImageList[currentIndex + 1].imageUrl,
+                                    .storeImageList[currentIndex].imageUrl,
                                 height: 96,
                                 width: 96,
                                 fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          if (index + 1 < storeDetail.storeImageList.length)
+                            InkWell(
+                              onTap: () => Navigator.of(context).pushNamed(
+                                ImageDetailPage.routeName,
+                                arguments: ImageDetailPageArguments(
+                                  initialPage: index + 1,
+                                  imageUrls: storeDetail.storeImageList
+                                      .map((e) => e.imageUrl)
+                                      .toList(),
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                child: CustomCachedNetworkImage(
+                                  imageUrl: storeDetail
+                                      .storeImageList[currentIndex + 1]
+                                      .imageUrl,
+                                  height: 96,
+                                  width: 96,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                         ],
