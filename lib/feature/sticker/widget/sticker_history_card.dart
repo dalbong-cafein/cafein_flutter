@@ -36,7 +36,7 @@ class StickerHistoryCard extends StatelessWidget {
                     child: const Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: Text(
-                        "스티커 히스토리",
+                        "스티커 내역",
                         style: AppStyle.subTitle17SemiBold,
                       ),
                     ),
@@ -60,8 +60,8 @@ class StickerHistoryCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            isNewFirst ? "오래된 순" : "최근 순",
-                            style: AppStyle.subTitle14Medium.copyWith(color: AppColor.grey600),
+                            isNewFirst ? "오래된순" : "최근순",
+                            style: AppStyle.subTitle14Medium.copyWith(color: AppColor.grey500),
                           ),
                           const SizedBox(width: 20)
                         ],
@@ -103,12 +103,18 @@ class StickerHistoryCard extends StatelessWidget {
                               children: [
                                 Text(
                                   state.stickers[index].stickerType,
-                                  style: AppStyle.subTitle15Medium,
+                                  style: AppStyle.subTitle15Medium.copyWith(height: 1),
+                                ),
+                                const SizedBox(
+                                  height: 3,
                                 ),
                                 Text(
                                   state.stickers[index].storeName,
                                   style:
-                                      AppStyle.caption12Regular.copyWith(color: AppColor.grey400),
+                                      AppStyle.caption12Regular.copyWith(color: AppColor.grey400, height: 1),
+                                ),
+                                const SizedBox(
+                                  height: 4,
                                 ),
                                 Text(
                                   "유효기간 "
@@ -118,7 +124,9 @@ class StickerHistoryCard extends StatelessWidget {
                                       color: isExpire(state.stickers[index].expiredDateTime
                                               .substring(0, 10))
                                           ? AppColor.orange500
-                                          : AppColor.grey800),
+                                          : AppColor.grey800,
+                                    height: 1
+                                  ),
                                 )
                               ],
                             )

@@ -27,8 +27,8 @@ abstract class AppIcon {
   static const heartGood = "asset/icon/heart_good_icon.svg";
   static const heartNormal = "asset/icon/heart_normal_icon.svg";
 
-  static const locationLOrange = 'asset/icon/size32/ic_location_l_orange.svg';
 
+  static const placeCircle = 'asset/icon/ic_place_circle.svg';
   static const socket = "asset/icon/socket_icon.svg";
   static const restroom = "asset/icon/restroom_icon.svg";
 

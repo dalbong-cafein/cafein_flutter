@@ -48,22 +48,25 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(
                 right: 20,
               ),
-              child: SizedBox(
-                width: 32,
-                height: 32,
-                child: memberData?.imageIdPair?.imageUrl == null
-                    ? CircleAvatar(
-                        child: loadAsset(
-                          CafeinConst.defaultProfiles[Random().nextInt(2)],
-                          width: 32,
-                          height: 32,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: memberData?.imageIdPair?.imageUrl == null
+                      ? CircleAvatar(
+                          child: loadAsset(
+                            CafeinConst.defaultProfiles[Random().nextInt(2)],
+                            width: 32,
+                            height: 32,
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 44,
+                          backgroundImage: NetworkImage(
+                              memberData?.imageIdPair?.imageUrl ?? 'url'),
                         ),
-                      )
-                    : CircleAvatar(
-                        radius: 44,
-                        backgroundImage: NetworkImage(
-                            memberData?.imageIdPair?.imageUrl ?? 'url'),
-                      ),
+                ),
               ),
             ),
           ],
@@ -95,7 +98,7 @@ class HomePage extends StatelessWidget {
                     ),
                     MyStoresCard(),
                     SizedBox(
-                      height: 32,
+                      height: 16,
                     ),
                     RecommendStoresCard(),
                   ],

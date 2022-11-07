@@ -20,11 +20,13 @@ class MyCouponCardButton extends StatelessWidget {
             children: [
               SizedBox(
                 width: width / 2,
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
                   child: Text(
                     "받은 쿠폰을 확인해보세요",
-                    style: AppStyle.subTitle16Medium,
+                    style: AppStyle.subTitle16Medium.copyWith(
+                      height: 1
+                    ),
                   ),
                 ),
               ),
@@ -36,8 +38,10 @@ class MyCouponCardButton extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 24),
                       child: loadAsset(
-                        AppIcon.right,
-                        color : AppColor.grey400
+                        AppIcon.rightS,
+                        color : AppColor.grey400,
+                        width: 16,
+                        height: 16
                       )
                     ),
                   ],

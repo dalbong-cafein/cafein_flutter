@@ -95,7 +95,15 @@ class StickerPage extends StatelessWidget {
             const MyStickerCard(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(height: 1.0, color: AppColor.grey100),
+              child: Container(
+
+                  decoration: const BoxDecoration(
+                    color: AppColor.grey100,
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(10.0)
+                    ),
+                  ),
+                  height: 1.0,),
             ),
             const SizedBox(
               height: 24,
@@ -142,7 +150,10 @@ class StickerPage extends StatelessWidget {
                     Row(
                       children: [
                         loadAsset(
-                          AppIcon.reportXS
+                          AppIcon.reportXS,
+                          color: AppColor.grey600,
+                          height: 16,
+                          width: 16
                         ),
                         const SizedBox(width: 6),
                         Text(
@@ -167,6 +178,7 @@ class StickerPage extends StatelessWidget {
                               warningTexts[index],
                               style: AppStyle.caption13Regular.copyWith(
                                 color: AppColor.grey500,
+                                height: 1.5
                               ),
                             ),
                           );
@@ -174,6 +186,9 @@ class StickerPage extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 48,
             )
           ],
         ),
@@ -190,7 +205,9 @@ class StickerPage extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is StickerLoaded) {
-            if (state.stickerCnt >= 20) {
+            if (true
+            //state.stickerCnt >= 20
+            ) {
               return InkWell(
                 onTap: () => Navigator.of(context).pushNamed(
                   ApplyCouponPage.routeName,
