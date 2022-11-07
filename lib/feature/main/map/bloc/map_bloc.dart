@@ -218,6 +218,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         stores: [
           ...(isSearchResult ? searchResultStoreList : currentStores),
         ],
+        isGoingToFirst: true,
       ),
     );
   }
