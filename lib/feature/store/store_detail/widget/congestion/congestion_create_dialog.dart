@@ -29,7 +29,16 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: loadAsset(
+                    AppIcon.clear24M,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
               const Text(
                 '지금 카페의 혼잡도는 어떤가요?',
                 style: AppStyle.subTitle17Bold,
@@ -60,8 +69,8 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                     child: _CongestionScoreColumn(
                       isChecked: score == 2,
                       title: '괜찮아요',
-                      offIcon: AppImage.confGoodGrey,
-                      onIcon: AppImage.confGood,
+                      offIcon: AppImage.confNormalGrey,
+                      onIcon: AppImage.confNormal,
                     ),
                   ),
                   InkWell(
@@ -69,8 +78,8 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                     child: _CongestionScoreColumn(
                       isChecked: score == 1,
                       title: '북적거려요',
-                      offIcon: AppImage.confGoodGrey,
-                      onIcon: AppImage.confGood,
+                      offIcon: AppImage.confBadGrey,
+                      onIcon: AppImage.confBad,
                     ),
                   ),
                 ],
@@ -91,7 +100,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                     ),
                     textStyle: AppStyle.subTitle16Medium,
                   ),
-                  child: const Text('확인'),
+                  child: const Text('알려주기'),
                 ),
               ),
             ],
