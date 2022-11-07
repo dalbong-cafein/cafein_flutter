@@ -139,13 +139,10 @@ class RecommendStoresCard extends StatelessWidget {
                                                                   .length -
                                                               1 <
                                                           imageIndex
-                                                      ? const CustomCachedNetworkImage(
-                                                          imageUrl: CafeinConst
-                                                              .defaultStoreImage,
-                                                          height: 48,
-                                                          width: 48,
-                                                          fit: BoxFit.cover,
-                                                        )
+                                                      ? loadAsset(
+                                                      AppImage.noImage,
+                                                      height: 48,
+                                                      width: 48)
                                                       : Image.network(
                                                           state
                                                               .recommendStores[
