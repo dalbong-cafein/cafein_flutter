@@ -71,17 +71,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         isRead: true,
       );
       _noticeList = [...cur];
-      emit(
-        NotificationLoaded(
-          notifications: [..._noticeList],
-        ),
-      );
 
-      emit(
-        NotificationOpened(
-          notification: _noticeList[event.notificationIndex],
-        ),
-      );
+
+
     } catch (e) {
       emit(NotificationError(
         error: e,

@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/data/model/enum/notification_type.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/widget/notification_dialog.dart';
@@ -66,7 +67,7 @@ class NotificationPage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: false,
           title: Padding(
-            padding: const EdgeInsets.only(left : 20, right : 20),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,7 +76,6 @@ class NotificationPage extends StatelessWidget {
                   style: AppStyle.title19Bold,
                 ),
                 InkWell(
-
                   onTap: () async {
                     final bloc = context.read<NotificationBloc>();
                     final result = await NotificationDialog.show(context);
@@ -95,11 +95,9 @@ class NotificationPage extends StatelessWidget {
                     color: AppColor.grey700,
                   ),
                 ),
-
               ],
             ),
           ),
-
         ),
         body: BlocBuilder<NotificationBloc, NotificationState>(
           buildWhen: (pre, next) => next is NotificationLoaded,
@@ -132,13 +130,19 @@ class NotificationPage extends StatelessWidget {
                       const NotificationRequested(),
                     ),
                 child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
                   itemCount: state.notifications.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () => context.read<NotificationBloc>().add(
-                            NotificationReadRequested(notificationIndex: index),
-                          ),
+                      onTap: () => {
+                        context.read<NotificationBloc>().add(
+                              NotificationReadRequested(
+                                  notificationIndex: index),
+                            ),
+                        Navigator.of(context).pushNamed(
+                          NoticeDetailPage.routeName,
+                          arguments: state.notifications[index].boardId,
+                        )
+                      },
                       child: Container(
                         color: state.notifications[index].isRead
                             ? Colors.white
@@ -154,7 +158,7 @@ class NotificationPage extends StatelessWidget {
                           children: [
                             _getNotificationIcon(
                                 state.notifications[index].notificationType),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 8),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +167,7 @@ class NotificationPage extends StatelessWidget {
                                   state.notifications[index].notificationType,
                                   style: AppStyle.subTitle14Medium,
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 5),
                                 Text(
                                   state.notifications[index].content,
                                   style: AppStyle.body14Regular,
