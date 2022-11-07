@@ -65,19 +65,18 @@ class NotificationPage extends StatelessWidget {
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(
           centerTitle: false,
-          title: const Padding(
-            padding: EdgeInsets.only(left : 20),
-            child: Text(
-              '알림',
-              style: AppStyle.title19Bold,
-            ),
-          ),
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+          title: Padding(
+            padding: const EdgeInsets.only(left : 20, right : 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  onPressed: () async {
+                const Text(
+                  '알림',
+                  style: AppStyle.title19Bold,
+                ),
+                InkWell(
+
+                  onTap: () async {
                     final bloc = context.read<NotificationBloc>();
                     final result = await NotificationDialog.show(context);
 
@@ -89,19 +88,18 @@ class NotificationPage extends StatelessWidget {
                       const NotificationDeleteRequested(),
                     );
                   },
-                  icon: SvgPicture.asset(
+                  child: SvgPicture.asset(
                     AppIcon.trash,
                     width: 24,
                     height: 24,
                     color: AppColor.grey700,
                   ),
                 ),
-                const SizedBox(
-                  width: 14,
-                )
+
               ],
-            )
-          ],
+            ),
+          ),
+
         ),
         body: BlocBuilder<NotificationBloc, NotificationState>(
           buildWhen: (pre, next) => next is NotificationLoaded,
