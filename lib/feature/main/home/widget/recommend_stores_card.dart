@@ -183,7 +183,9 @@ class RecommendStoresCard extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
+
                                                   Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
                                                       OpenCloseChip(
                                                         isOpen: state

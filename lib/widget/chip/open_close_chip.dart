@@ -12,7 +12,6 @@ class OpenCloseChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 18,
       width: isOpen ? 37 : 47,
       decoration: BoxDecoration(
         border: Border.all(
@@ -21,11 +20,15 @@ class OpenCloseChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
         color: AppColor.white,
       ),
-      child: Center(
-        child: Text(
-          isOpen ? '영업중' : '영업종료',
-          style: AppStyle.caption11Regular.copyWith(
-            color: isOpen ? AppColor.orange500 : AppColor.grey500,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 1.5, bottom: 3),
+        child: Center(
+          child: Text(
+            isOpen ? '영업중' : '영업종료',
+            style: AppStyle.caption11Regular.copyWith(
+              height: 1,
+              color: isOpen ? AppColor.orange500 : AppColor.grey500,
+            ),
           ),
         ),
       ),
