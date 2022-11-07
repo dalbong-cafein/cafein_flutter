@@ -16,20 +16,21 @@ class CreatedSucceedWithoutStickerDialog extends StatelessWidget {
     return Dialog(
       child: SizedBox(
         width: 300,
-        height: 212,
+        height: 204,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 16,
+          padding: const EdgeInsets.only(
+            top: 30,
+            left: 16,
+            right: 16,
+            bottom: 16,
           ),
           child: Column(
             children: [
-              const SizedBox(height: 12),
               const Text(
                 '혼잡도 공유 완료',
                 style: AppStyle.subTitle17Bold,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
               Text(
                 '일시적인 에러가 발생하여 스티커가\n지급되지 않았습니다. 누락된 스티커는\n1일 이내로 지급될 예정입니다.',
                 style: AppStyle.body14Regular.copyWith(

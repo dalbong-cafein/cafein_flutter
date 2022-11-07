@@ -32,15 +32,18 @@ class MapStoreLoaded extends MapState {
   const MapStoreLoaded({
     required this.stores,
     required this.keyword,
+    this.isGoingToFirst = false,
   });
 
   final List<Store> stores;
   final String keyword;
+  final bool isGoingToFirst;
 
   @override
   List<Object?> get props => [
         stores,
         keyword,
+        isGoingToFirst,
       ];
 }
 

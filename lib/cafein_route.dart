@@ -21,6 +21,7 @@ import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dar
 import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/feature/gallery/bloc/gallery_bloc.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
+import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
@@ -352,6 +353,13 @@ abstract class CafeinRoute {
           child: const TermsPage(),
         );
         break;
+
+      case ImageDetailPage.routeName:
+        final arg = settings.arguments as ImageDetailPageArguments;
+        page = ImageDetailPage(
+          imageUrls: arg.imageUrls,
+          initialPage: arg.initialPage,
+        );
     }
 
     return MaterialPageRoute(

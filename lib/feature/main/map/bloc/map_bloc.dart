@@ -164,7 +164,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapKeywordTaped event,
     Emitter<MapState> emit,
   ) {
-    var cur = isSearchResult ? searchResultStoreList : currentStores;
+    emit(const MapLoading());
+    final cur = isSearchResult ? searchResultStoreList : currentStores;
     switch (event.searchKeyword) {
       case SearchKeyword.business:
         cur.sort((a, b) {
@@ -217,6 +218,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         stores: [
           ...(isSearchResult ? searchResultStoreList : currentStores),
         ],
+        isGoingToFirst: true,
       ),
     );
   }

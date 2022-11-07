@@ -2,6 +2,7 @@ import 'package:cafein_flutter/data/model/congestion/congestion.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_impossible_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_bottom_sheet.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
@@ -82,6 +83,8 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
 
           if (state is CongestionLocationChecked) {
             if (!state.isAvailable) {
+              CongestionImpossibleDialog.show(context);
+
               return;
             }
 

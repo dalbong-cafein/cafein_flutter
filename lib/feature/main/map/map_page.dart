@@ -147,6 +147,14 @@ class _MapPageState extends State<MapPage> {
                 );
               }
 
+              if (state.isGoingToFirst) {
+                pageController.animateToPage(
+                  0,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.linear,
+                );
+              }
+
               setState(() {});
             }
           },
