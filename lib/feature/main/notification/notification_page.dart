@@ -160,7 +160,7 @@ class NotificationPage extends StatelessWidget {
                             "스티커")
                           {
                             Navigator.of(context)
-                                .pushNamed(StickerPage.routeName)
+                                .pushNamed(StickerPage.routeName, arguments: true)
                           },
                         if (state.notifications[index].notificationType ==
                             "공지사항")

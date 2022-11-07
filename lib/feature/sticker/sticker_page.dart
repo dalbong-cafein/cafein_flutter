@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StickerPage extends StatelessWidget {
-  const StickerPage({Key? key}) : super(key: key);
-
+  const StickerPage({required this.isNotice , Key? key}) : super(key: key);
+  final bool isNotice;
   static const routeName = 'StickerPage';
   static const List<String> warningTexts = [
     "· 스티커 20개를 모으면 아메리카노 1잔 무료 쿠폰을 드립니다.",
@@ -30,6 +30,8 @@ class StickerPage extends StatelessWidget {
     "· 쿠폰은 신청일 이후 돌아오는 월요일에 일괄 발송합니다.",
     "· 신청한 쿠폰은 인증된 휴대폰번호로 발송됩니다."
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,7 @@ class StickerPage extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            const MyStickerCard(),
+            MyStickerCard(isNotice: isNotice,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(

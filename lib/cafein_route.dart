@@ -156,12 +156,13 @@ abstract class CafeinRoute {
         );
         break;
       case StickerPage.routeName:
+        final isNotice = settings.arguments as bool;
         page = BlocProvider(
           create: (context) => StickerBloc(
             stickerRepository: context.read<StickerRepository>(),
             couponRepository: context.read<CouponRepository>(),
           ),
-          child: const StickerPage(),
+          child: StickerPage(isNotice: isNotice,),
         );
         break;
 

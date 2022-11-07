@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyStickerCard extends StatelessWidget {
-  const MyStickerCard({Key? key}) : super(key: key);
-
+  const MyStickerCard({required this.isNotice , Key? key}) : super(key: key);
+  final bool isNotice;
   @override
   Widget build(BuildContext context) {
     bool isBuild = false;
@@ -28,6 +28,7 @@ class MyStickerCard extends StatelessWidget {
       buildWhen: (pre, next) => next is StickerLoaded && !isBuild,
       builder: (context, state) {
         if (state is StickerLoaded) {
+
           isBuild = true;
           return Column(
             children: [
@@ -63,7 +64,7 @@ class MyStickerCard extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       if (index + 1 <= state.stickerCnt) {
                         return loadAsset(
-                            CafeinConst.randomStickers[Random().nextInt(9)],
+                            isNotice ? CafeinConst.randomStickers[index % CafeinConst.randomStickers.length] : CafeinConst.randomStickers[Random().nextInt(9)],
                             height: 60,
                             width: 60);
                       }
