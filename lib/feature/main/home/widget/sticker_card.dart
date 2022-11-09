@@ -31,7 +31,7 @@ class StickerCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(StickerPage.routeName);
+            Navigator.of(context).pushNamed(StickerPage.routeName, arguments: false);
           },
           child: Container(
             decoration: const BoxDecoration(

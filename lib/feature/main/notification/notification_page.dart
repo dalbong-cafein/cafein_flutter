@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/data/model/enum/notification_type.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/widget/notification_dialog.dart';
@@ -65,33 +66,56 @@ class NotificationPage extends StatelessWidget {
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(
           centerTitle: false,
-          titleSpacing: 16,
-          title: const Text(
-            '알림',
-            style: AppStyle.title19Bold,
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: IconButton(
-                onPressed: () async {
-                  final bloc = context.read<NotificationBloc>();
-                  final result = await NotificationDialog.show(context);
-
-                  if (!result) {
-                    return;
-                  }
-
-                  bloc.add(
-                    const NotificationDeleteRequested(),
-                  );
-                },
-                icon: SvgPicture.asset(
-                  AppIcon.trash,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '알림',
+                  style: AppStyle.title19Bold,
                 ),
-              ),
-            )
-          ],
+                BlocBuilder<NotificationBloc, NotificationState>(
+                  builder: (context, state) {
+                    if (state is NotificationLoaded) {
+                      return InkWell(
+                        onTap: () async {
+                          if (state.notifications.isNotEmpty) {
+                            final bloc = context.read<NotificationBloc>();
+                            final result =
+                                await NotificationDialog.show(context);
+
+                            if (!result) {
+                              return;
+                            }
+
+                            bloc.add(
+                              const NotificationDeleteRequested(),
+                            );
+                          } else {}
+                        },
+                        child: SvgPicture.asset(
+                          AppIcon.trash,
+                          width: 24,
+                          height: 24,
+                          color: state.notifications.isNotEmpty
+                              ? AppColor.grey700
+                              : AppColor.grey300,
+                        ),
+                      );
+                    } else {
+                      return SvgPicture.asset(
+                        AppIcon.trash,
+                        width: 24,
+                        height: 24,
+                        color: AppColor.grey700,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
         body: BlocBuilder<NotificationBloc, NotificationState>(
           buildWhen: (pre, next) => next is NotificationLoaded,
@@ -124,13 +148,34 @@ class NotificationPage extends StatelessWidget {
                       const NotificationRequested(),
                     ),
                 child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
                   itemCount: state.notifications.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () => context.read<NotificationBloc>().add(
-                            NotificationReadRequested(notificationIndex: index),
-                          ),
+                      onTap: () => {
+                        context.read<NotificationBloc>().add(
+                              NotificationReadRequested(
+                                  notificationIndex: index),
+                            ),
+                        if (state.notifications[index].notificationType ==
+                            "스티커")
+                          {
+                            Navigator.of(context)
+                                .pushNamed(StickerPage.routeName, arguments: true)
+                          },
+                        if (state.notifications[index].notificationType ==
+                            "공지사항")
+                          {
+                            Navigator.of(context).pushNamed(
+                              NoticeDetailPage.routeName,
+                              arguments: state.notifications[index].boardId,
+                            )
+                          },
+                        if (state.notifications[index].notificationType == "쿠폰")
+                          {
+                            Navigator.of(context)
+                                .pushNamed(ReceivedCouponsPage.routeName)
+                          }
+                      },
                       child: Container(
                         color: state.notifications[index].isRead
                             ? Colors.white
@@ -146,7 +191,7 @@ class NotificationPage extends StatelessWidget {
                           children: [
                             _getNotificationIcon(
                                 state.notifications[index].notificationType),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 8),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +200,7 @@ class NotificationPage extends StatelessWidget {
                                   state.notifications[index].notificationType,
                                   style: AppStyle.subTitle14Medium,
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 5),
                                 Text(
                                   state.notifications[index].content,
                                   style: AppStyle.body14Regular,

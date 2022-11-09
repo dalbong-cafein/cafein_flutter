@@ -12,7 +12,7 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
     final bottomPadding = MediaQuery.of(context).viewPadding.bottom;
 
     return SizedBox(
-      height: bottomPadding > 0 ? height * 0.6 + bottomPadding : height * 0.6,
+      height: bottomPadding > 0 ? height * 0.9 + bottomPadding : height * 0.9,
       child: Column(
         children: [
           SizedBox(
