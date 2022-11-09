@@ -35,6 +35,11 @@ class _MapPageState extends State<MapPage> {
 
   final markers = <Marker>[];
 
+  late final imageWidth =
+      (MediaQuery.of(context).size.width - 40 - 24 - 18) / 4;
+
+  late final columnHeight = imageWidth + 100 + 50 + 28;
+
   @override
   void initState() {
     super.initState();
@@ -327,9 +332,10 @@ class _MapPageState extends State<MapPage> {
                   }
 
                   return SizedBox(
-                    height: 248,
+                    height: columnHeight,
                     width: double.infinity,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         const SearchBodyHeader(
                           isCardView: true,
@@ -342,6 +348,7 @@ class _MapPageState extends State<MapPage> {
                             itemBuilder: (context, index) => SearchStoreCard(
                               store: state.stores[index],
                               index: index,
+                              imageWidth: imageWidth,
                             ),
                             itemCount: state.stores.length,
                           ),

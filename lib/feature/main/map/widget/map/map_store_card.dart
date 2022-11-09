@@ -19,10 +19,12 @@ class SearchStoreCard extends StatelessWidget {
     Key? key,
     required this.store,
     required this.index,
+    required this.imageWidth,
   }) : super(key: key);
 
   final Store store;
   final int index;
+  final double imageWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +42,11 @@ class SearchStoreCard extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          StoreDetailPage.routeName,
-          arguments: store.storeId,
-        );
-      },
+      onTap: () => Navigator.of(context).pushNamed(
+        StoreDetailPage.routeName,
+        arguments: store.storeId,
+      ),
       child: Container(
-        height: 180,
         width: double.infinity,
         margin: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -55,7 +54,7 @@ class SearchStoreCard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColor.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           children: [
@@ -124,15 +123,15 @@ class SearchStoreCard extends StatelessWidget {
                       ),
                       child: CustomCachedNetworkImage(
                         imageUrl: imageList[index].imageUrl,
-                        width: 70,
-                        height: 70,
+                        width: imageWidth,
+                        height: imageWidth,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: 70,
-                    height: 70,
+                    width: imageWidth,
+                    height: imageWidth,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
@@ -142,15 +141,15 @@ class SearchStoreCard extends StatelessWidget {
                           ),
                           child: CustomCachedNetworkImage(
                             imageUrl: imageList[3].imageUrl,
-                            width: 70,
-                            height: 70,
+                            width: imageWidth,
+                            height: imageWidth,
                             fit: BoxFit.cover,
                           ),
                         ),
                         if (imageList.length >= 5)
                           Container(
-                            width: 70,
-                            height: 70,
+                            width: imageWidth,
+                            height: imageWidth,
                             decoration: BoxDecoration(
                               color: AppColor.black.withOpacity(0.48),
                               borderRadius: const BorderRadius.all(
