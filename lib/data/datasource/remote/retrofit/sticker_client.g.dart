@@ -169,7 +169,7 @@ class _StickerClient implements StickerClient {
     )
             .compose(
               _dio.options,
-              'stickers/check-possible-issue',
+              '/stickers/check-possible-issue',
               queryParameters: queryParameters,
               data: _data,
             )

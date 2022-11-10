@@ -123,8 +123,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
               return;
             }
 
-            if (state.reason == '') {
-            } else if (state.reason == '보유 가능한 스티커 수량 초과') {
+            if (state.reason == '보유 가능한 스티커 수량 초과') {
               final result = await StickerCountDialog.show(context);
 
               if (result == null) {
@@ -135,9 +134,23 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                 navigator.pushReplacementNamed(
                   StickerPage.routeName,
                 );
+
+                return;
               }
 
-              return;
+              // ignore: use_build_context_synchronously
+              final score = await CongestionCreateDialog.show(context);
+
+              if (score == -1) {
+                return;
+              }
+
+              bloc.add(
+                CongestionCreateRequested(
+                  isAvailable: false,
+                  score: score,
+                ),
+              );
             } else if (state.reason == '하루 최대 스티커 발급 수량 초과') {
               final result = await CongestionStickerMaxDialog.show(context);
 

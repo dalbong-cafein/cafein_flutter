@@ -38,6 +38,6 @@ abstract class StickerClient {
   @GET('/members/stickers')
   Future<BaseResponse<List<Sticker>>> getStickers();
 
-  @GET('stickers/check-possible-issue')
+  @GET('/stickers/check-possible-issue')
   Future<BaseResponse<StickerPossible>> isPossibleSticker();
 }

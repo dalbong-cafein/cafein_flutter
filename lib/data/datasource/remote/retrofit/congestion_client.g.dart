@@ -90,7 +90,7 @@ class _CongestionClient implements CongestionClient {
     )
             .compose(
               _dio.options,
-              'stores/${storeId}/congestion/check-possible-registration',
+              '/stores/${storeId}/congestion/check-possible-registration',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -26,7 +26,7 @@ abstract class CongestionClient {
     @Query('minusDays') int minusDays,
   );
 
-  @GET('stores/{storeId}/congestion/check-possible-registration')
+  @GET('/stores/{storeId}/congestion/check-possible-registration')
   Future<BaseResponse<RegistrationPossible>> isPossible(
     @Path() int storeId,
   );

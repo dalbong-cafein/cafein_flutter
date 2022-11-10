@@ -26,9 +26,10 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     on<CreatedReviewRequested>(_onCreatedReviewRequested);
     on<CreatedReviewPhotoRequested>(_onCreatedReviewPhotoRequested);
     on<CreatedReviewPhotoDeleteRequested>(_onCreatedReviewPhotoDeleteRequested);
-    on<CreatedReviewStickerCountRequested>(
-        _onCreatedReviewStickerCountRequested);
     on<CreatedReviewStickerRequested>(_onCreatedReviewStickerRequested);
+    on<CreatedReviewPossibleRequested>(_onCreatedReviewPossibleRequested);
+    on<CreatedReviewStickerPossibleRequested>(
+        _onCreatedReviewStickerPossibleRequested);
   }
 
   final int storeId;
@@ -59,7 +60,8 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
         restroomScore: restroomScore,
         socketScore: socketScore,
         tableScore: tableScore,
-        isValid: wifiScore.isNotEmpty &&
+        isValid: recommendation != null &&
+            wifiScore.isNotEmpty &&
             restroomScore.isNotEmpty &&
             socketScore.isNotEmpty &&
             tableScore.isNotEmpty,
@@ -93,7 +95,8 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
         restroomScore: restroomScore,
         socketScore: socketScore,
         tableScore: tableScore,
-        isValid: wifiScore.isNotEmpty &&
+        isValid: recommendation != null &&
+            wifiScore.isNotEmpty &&
             restroomScore.isNotEmpty &&
             socketScore.isNotEmpty &&
             tableScore.isNotEmpty,
@@ -189,30 +192,6 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     reviewText = event.text;
   }
 
-  FutureOr<void> _onCreatedReviewStickerCountRequested(
-    CreatedReviewStickerCountRequested event,
-    Emitter<CreatedReviewState> emit,
-  ) async {
-    emit(const CreatedReviewLoading());
-
-    try {
-      final response = await stickerRepository.getStickerCount();
-
-      emit(
-        CreatedReviewStickerCountLoaded(
-          isAvailable: response.data <= 20,
-        ),
-      );
-    } catch (e) {
-      emit(
-        CreatedReviewError(
-          event: () => add(event),
-          error: e,
-        ),
-      );
-    }
-  }
-
   FutureOr<void> _onCreatedReviewStickerRequested(
     CreatedReviewStickerRequested event,
     Emitter<CreatedReviewState> emit,
@@ -235,6 +214,50 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     } catch (e) {
       emit(
         const CreatedReviewStickerError(),
+      );
+    }
+  }
+
+  FutureOr<void> _onCreatedReviewPossibleRequested(
+    CreatedReviewPossibleRequested event,
+    Emitter<CreatedReviewState> emit,
+  ) async {
+    emit(const CreatedReviewLoading());
+    try {
+      final response = await reviewRepository.isPossible(storeId);
+
+      emit(CreatedReviewPossibleChecked(
+        isAvailable: response.data.isPossibleRegistration,
+        reason: response.data.reason,
+      ));
+    } catch (e) {
+      emit(
+        CreatedReviewError(
+          event: () => add(event),
+          error: e,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onCreatedReviewStickerPossibleRequested(
+    CreatedReviewStickerPossibleRequested event,
+    Emitter<CreatedReviewState> emit,
+  ) async {
+    emit(const CreatedReviewLoading());
+    try {
+      final response = await stickerRepository.isPossibleSticker();
+
+      emit(CreatedReviewStickerPossibleChecked(
+        isAvailable: response.data.isPossibleIssue,
+        reason: response.data.reason,
+      ));
+    } catch (e) {
+      emit(
+        CreatedReviewError(
+          event: () => add(event),
+          error: e,
+        ),
       );
     }
   }
