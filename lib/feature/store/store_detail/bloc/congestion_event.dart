@@ -45,14 +45,14 @@ class CongestionLocationRequested extends CongestionEvent {
       ];
 }
 
-class CongestionStickerCountRequested extends CongestionEvent {
-  const CongestionStickerCountRequested();
-}
-
 class CongestionStickerRequested extends CongestionEvent {
   const CongestionStickerRequested();
 }
 
 class CongestionPossibleRequested extends CongestionEvent {
   const CongestionPossibleRequested();
+}
+
+class CongestionStickerPossibleRequested extends CongestionEvent {
+  const CongestionStickerPossibleRequested();
 }

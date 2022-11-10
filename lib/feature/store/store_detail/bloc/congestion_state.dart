@@ -45,17 +45,6 @@ class CongestionLocationChecked extends CongestionState {
   List<Object?> get props => [isAvailable];
 }
 
-class CongestionStickerCountChecked extends CongestionState {
-  const CongestionStickerCountChecked({
-    required this.isAvailable,
-  });
-
-  final bool isAvailable;
-
-  @override
-  List<Object?> get props => [isAvailable];
-}
-
 class CongestionStickerError extends CongestionState {
   const CongestionStickerError();
 }
@@ -71,12 +60,33 @@ class CongestionStickerCreatedSucceed extends CongestionState {
 class CongestionPossibleChecked extends CongestionState {
   const CongestionPossibleChecked({
     required this.isPossible,
+    this.reason,
   });
 
   final bool isPossible;
+  final String? reason;
 
   @override
-  List<Object?> get props => [isPossible];
+  List<Object?> get props => [
+        isPossible,
+        reason,
+      ];
+}
+
+class CongestionStickerPossibleChecked extends CongestionState {
+  const CongestionStickerPossibleChecked({
+    required this.isPossible,
+    this.reason,
+  });
+
+  final bool isPossible;
+  final String? reason;
+
+  @override
+  List<Object?> get props => [
+        isPossible,
+        reason,
+      ];
 }
 
 class CongestionError extends CongestionState {

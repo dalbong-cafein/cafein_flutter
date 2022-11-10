@@ -17,9 +17,9 @@ _$_TotalBusinessInfo _$$_TotalBusinessInfoFromJson(Map<String, dynamic> json) =>
       onWednesday: json['onWed'] == null
           ? null
           : BusinessInfo.fromJson(json['onWed'] as Map<String, dynamic>),
-      onThursday: json['onThe'] == null
+      onThursday: json['onThu'] == null
           ? null
-          : BusinessInfo.fromJson(json['onThe'] as Map<String, dynamic>),
+          : BusinessInfo.fromJson(json['onThu'] as Map<String, dynamic>),
       onFriday: json['onFri'] == null
           ? null
           : BusinessInfo.fromJson(json['onFri'] as Map<String, dynamic>),
@@ -38,7 +38,7 @@ Map<String, dynamic> _$$_TotalBusinessInfoToJson(
       'onMon': instance.onMonday,
       'onTue': instance.onTuesday,
       'onWed': instance.onWednesday,
-      'onThe': instance.onThursday,
+      'onThu': instance.onThursday,
       'onFri': instance.onFriday,
       'onSat': instance.onSaturday,
       'onSun': instance.onSunday,

@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/sticker/congestion_sticker_request.dart';
 import 'package:cafein_flutter/data/model/sticker/review_sticker_request.dart';
 import 'package:cafein_flutter/data/model/sticker/sticker.dart';
+import 'package:cafein_flutter/data/model/sticker/sticker_possible.dart';
 import 'package:cafein_flutter/data/model/sticker/store_sticker_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
@@ -37,8 +38,6 @@ abstract class StickerClient {
   @GET('/members/stickers')
   Future<BaseResponse<List<Sticker>>> getStickers();
 
-  @GET('/stores/{storeId}/stickers/congestionType/check-possible-issue')
-  Future<BaseResponse<bool>> isPossibleSticker(
-    @Path() int storeId,
-  );
+  @GET('stickers/check-possible-issue')
+  Future<BaseResponse<StickerPossible>> isPossibleSticker();
 }

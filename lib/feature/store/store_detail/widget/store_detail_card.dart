@@ -60,12 +60,16 @@ class StoreDetailCard extends StatelessWidget {
                       style: AppStyle.title19SemiBold,
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      storeDetail.addressInfo.fullAddress,
-                      style: AppStyle.caption13Regular.copyWith(
-                        color: AppColor.grey600,
+                    SizedBox(
+                      width: 300,
+                      child: Text(
+                        storeDetail.addressInfo.fullAddress,
+                        style: AppStyle.caption13Regular.copyWith(
+                          color: AppColor.grey600,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
                     ),
                     const SizedBox(height: 12),
                     Row(

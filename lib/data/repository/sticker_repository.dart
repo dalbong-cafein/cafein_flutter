@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/datasource/remote/retrofit/sticker_client.da
 import 'package:cafein_flutter/data/model/sticker/congestion_sticker_request.dart';
 import 'package:cafein_flutter/data/model/sticker/review_sticker_request.dart';
 import 'package:cafein_flutter/data/model/sticker/sticker.dart';
+import 'package:cafein_flutter/data/model/sticker/sticker_possible.dart';
 import 'package:cafein_flutter/data/model/sticker/store_sticker_request.dart';
 
 abstract class StickerRepository {
@@ -22,7 +23,7 @@ abstract class StickerRepository {
 
   Future<BaseResponse<List<Sticker>>> getStickers();
 
-  Future<BaseResponse<bool>> isPossibleSticker(int storeId);
+  Future<BaseResponse<StickerPossible>> isPossibleSticker();
 }
 
 class StickerRepositoryImpl implements StickerRepository {
@@ -59,6 +60,6 @@ class StickerRepositoryImpl implements StickerRepository {
       stickerClient.getStickers();
 
   @override
-  Future<BaseResponse<bool>> isPossibleSticker(int storeId) =>
-      stickerClient.isPossibleSticker(storeId);
+  Future<BaseResponse<StickerPossible>> isPossibleSticker() =>
+      stickerClient.isPossibleSticker();
 }

@@ -2,6 +2,7 @@ import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/form_data_client/review_form_data_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/report_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/review_client.dart';
+import 'package:cafein_flutter/data/model/common/registration_possible.dart';
 import 'package:cafein_flutter/data/model/report/report_category.dart';
 import 'package:cafein_flutter/data/model/report/report_request.dart';
 import 'package:cafein_flutter/data/model/review/create_review_request.dart';
@@ -50,6 +51,8 @@ abstract class ReviewRepository {
   });
 
   Future<BaseResponse<List<ReportCategory>>> getReportCategories();
+
+  Future<BaseResponse<RegistrationPossible>> isPossible(int storeId);
 }
 
 class ReviewRepositoryImpl implements ReviewRepository {
@@ -123,4 +126,8 @@ class ReviewRepositoryImpl implements ReviewRepository {
             page,
             size,
           );
+
+  @override
+  Future<BaseResponse<RegistrationPossible>> isPossible(int storeId) =>
+      reviewClient.isPossible(storeId);
 }
