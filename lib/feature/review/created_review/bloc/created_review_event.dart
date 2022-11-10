@@ -78,8 +78,12 @@ class CreatedReviewPhotoDeleteRequested extends CreatedReviewEvent {
   List<Object?> get props => [photo];
 }
 
-class CreatedReviewStickerCountRequested extends CreatedReviewEvent {
-  const CreatedReviewStickerCountRequested();
+class CreatedReviewPossibleRequested extends CreatedReviewEvent {
+  const CreatedReviewPossibleRequested();
+}
+
+class CreatedReviewStickerPossibleRequested extends CreatedReviewEvent {
+  const CreatedReviewStickerPossibleRequested();
 }
 
 class CreatedReviewStickerRequested extends CreatedReviewEvent {

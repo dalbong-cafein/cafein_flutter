@@ -3,6 +3,7 @@ import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_impossible_dialog.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_bottom_sheet.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
@@ -10,6 +11,7 @@ import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
+import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,9 +99,84 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
             );
           } else if (state is CongestionPossibleChecked) {
             if (state.isPossible) {
-              bloc.add(const CongestionStickerCountRequested());
+              bloc.add(const CongestionStickerPossibleRequested());
+
+              return;
+            }
+
+            CongestionPossibleDialog.show(context);
+          } else if (state is CongestionStickerPossibleChecked) {
+            if (state.isPossible) {
+              final result = await CongestionCreateDialog.show(context);
+
+              if (result == -1) {
+                return;
+              }
+
+              bloc.add(
+                CongestionCreateRequested(
+                  isAvailable: true,
+                  score: result,
+                ),
+              );
+
+              return;
+            }
+
+            if (state.reason == '보유 가능한 스티커 수량 초과') {
+              final result = await StickerCountDialog.show(context);
+
+              if (result == null) {
+                return;
+              }
+
+              if (result) {
+                navigator.pushReplacementNamed(
+                  StickerPage.routeName,
+                );
+
+                return;
+              }
+
+              // ignore: use_build_context_synchronously
+              final score = await CongestionCreateDialog.show(context);
+
+              if (score == -1) {
+                return;
+              }
+
+              bloc.add(
+                CongestionCreateRequested(
+                  isAvailable: false,
+                  score: score,
+                ),
+              );
+            } else if (state.reason == '하루 최대 스티커 발급 수량 초과') {
+              final result = await CongestionStickerMaxDialog.show(context);
+
+              if (!result) {
+                return;
+              }
+
+              // ignore: use_build_context_synchronously
+              final score = await CongestionCreateDialog.show(context);
+
+              if (score == -1) {
+                return;
+              }
+
+              bloc.add(
+                CongestionCreateRequested(
+                  isAvailable: false,
+                  score: score,
+                ),
+              );
             } else {
-              CongestionPossibleDialog.show(context);
+              ErrorDialog.show(
+                context,
+                error: Error(),
+                refresh: () {},
+              );
             }
           } else if (state is CongestionCreatedSucceed) {
             await CreatedSucceedWithoutStickerDialog.show(context);
@@ -120,33 +197,6 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                 DateTime.now(),
               )}요일',
             ));
-          } else if (state is CongestionStickerCountChecked) {
-            if (!state.isAvailable) {
-              final result = await StickerCountDialog.show(context);
-
-              if (result == null) {
-                return;
-              }
-
-              if (result) {
-                navigator.pushReplacementNamed(
-                  StickerPage.routeName,
-                );
-
-                return;
-              }
-            }
-
-            // ignore: use_build_context_synchronously
-            final result = await CongestionCreateDialog.show(context);
-            if (result == -1) {
-              return;
-            }
-
-            bloc.add(CongestionCreateRequested(
-              score: result,
-              isAvailable: state.isAvailable,
-            ));
           } else if (state is CongestionStickerError) {
             CreatedSucceedWithoutStickerDialog.show(context);
           }
@@ -165,11 +215,14 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                     ),
                     child: Column(
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.topLeft,
-                          child: Text(
-                            '혼잡도',
-                            style: AppStyle.subTitle17SemiBold,
+                          child: InkWell(
+                            onTap: () => CongestionPossibleDialog.show(context),
+                            child: const Text(
+                              '혼잡도',
+                              style: AppStyle.subTitle17SemiBold,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 24),
@@ -229,23 +282,42 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                             SizedBox(
                               height: 36,
                               width: 116,
-                              child: ElevatedButton(
-                                onPressed: () =>
-                                    context.read<LocationPermissionBloc>().add(
-                                          const LocationPermissionRequest(
-                                            processType: ProcessType.congestion,
-                                          ),
+                              child:
+                                  BlocBuilder<CongestionBloc, CongestionState>(
+                                buildWhen: (pre, next) =>
+                                    pre is CongestionLoading ||
+                                    next is CongestionLoading,
+                                builder: (context, state) {
+                                  bool isLoading = false;
+
+                                  if (state is CongestionLoading) {
+                                    isLoading = true;
+                                  }
+                                  return ElevatedButton(
+                                    onPressed: isLoading
+                                        ? null
+                                        : () => context
+                                            .read<LocationPermissionBloc>()
+                                            .add(
+                                              const LocationPermissionRequest(
+                                                processType:
+                                                    ProcessType.congestion,
+                                              ),
+                                            ),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
                                         ),
-                                style: ElevatedButton.styleFrom(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
+                                      ),
+                                      padding: EdgeInsets.zero,
+                                      textStyle: AppStyle.subTitle14Medium,
                                     ),
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  textStyle: AppStyle.subTitle14Medium,
-                                ),
-                                child: const Text('혼잡도 알려주기'),
+                                    child: isLoading
+                                        ? const DotsLoadingIndicator()
+                                        : const Text('혼잡도 알려주기'),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -279,11 +351,14 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                   ),
                   child: Column(
                     children: [
-                      const Align(
+                      Align(
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          '혼잡도',
-                          style: AppStyle.subTitle17SemiBold,
+                        child: InkWell(
+                          onTap: () => CongestionPossibleDialog.show(context),
+                          child: const Text(
+                            '혼잡도',
+                            style: AppStyle.subTitle17SemiBold,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -304,23 +379,40 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                       SizedBox(
                         height: 36,
                         width: 116,
-                        child: ElevatedButton(
-                          onPressed: () =>
-                              context.read<LocationPermissionBloc>().add(
-                                    const LocationPermissionRequest(
-                                      processType: ProcessType.congestion,
-                                    ),
+                        child: BlocBuilder<CongestionBloc, CongestionState>(
+                          buildWhen: (pre, next) =>
+                              pre is CongestionLoading ||
+                              next is CongestionLoading,
+                          builder: (context, state) {
+                            bool isLoading = false;
+
+                            if (state is CongestionLoading) {
+                              isLoading = true;
+                            }
+                            return ElevatedButton(
+                              onPressed: isLoading
+                                  ? null
+                                  : () => context
+                                      .read<LocationPermissionBloc>()
+                                      .add(
+                                        const LocationPermissionRequest(
+                                          processType: ProcessType.congestion,
+                                        ),
+                                      ),
+                              style: ElevatedButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
                                   ),
-                          style: ElevatedButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                ),
+                                padding: EdgeInsets.zero,
+                                textStyle: AppStyle.subTitle14Medium,
                               ),
-                            ),
-                            padding: EdgeInsets.zero,
-                            textStyle: AppStyle.subTitle14Medium,
-                          ),
-                          child: const Text('혼잡도 알려주기'),
+                              child: isLoading
+                                  ? const DotsLoadingIndicator()
+                                  : const Text('혼잡도 알려주기'),
+                            );
+                          },
                         ),
                       ),
                     ],

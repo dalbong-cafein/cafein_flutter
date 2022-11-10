@@ -350,6 +350,10 @@ class _MapPageState extends State<MapPage> {
                               index: index,
                               imageWidth: imageWidth,
                             ),
+                            onPageChanged: (index) {
+                              final marker = markers[index];
+                              moveCurrentCamera(marker.position!);
+                            },
                             itemCount: state.stores.length,
                           ),
                         ),

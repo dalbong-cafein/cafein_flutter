@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
@@ -9,8 +8,8 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:image/image.dart' as img;
 
 part 'created_review_event.dart';
 part 'created_review_state.dart';
@@ -27,9 +26,10 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     on<CreatedReviewRequested>(_onCreatedReviewRequested);
     on<CreatedReviewPhotoRequested>(_onCreatedReviewPhotoRequested);
     on<CreatedReviewPhotoDeleteRequested>(_onCreatedReviewPhotoDeleteRequested);
-    on<CreatedReviewStickerCountRequested>(
-        _onCreatedReviewStickerCountRequested);
     on<CreatedReviewStickerRequested>(_onCreatedReviewStickerRequested);
+    on<CreatedReviewPossibleRequested>(_onCreatedReviewPossibleRequested);
+    on<CreatedReviewStickerPossibleRequested>(
+        _onCreatedReviewStickerPossibleRequested);
   }
 
   final int storeId;
@@ -60,7 +60,8 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
         restroomScore: restroomScore,
         socketScore: socketScore,
         tableScore: tableScore,
-        isValid: wifiScore.isNotEmpty &&
+        isValid: recommendation != null &&
+            wifiScore.isNotEmpty &&
             restroomScore.isNotEmpty &&
             socketScore.isNotEmpty &&
             tableScore.isNotEmpty,
@@ -94,7 +95,8 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
         restroomScore: restroomScore,
         socketScore: socketScore,
         tableScore: tableScore,
-        isValid: wifiScore.isNotEmpty &&
+        isValid: recommendation != null &&
+            wifiScore.isNotEmpty &&
             restroomScore.isNotEmpty &&
             socketScore.isNotEmpty &&
             tableScore.isNotEmpty,
@@ -111,25 +113,16 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
       final dir = await getApplicationDocumentsDirectory();
       final imagePathList = <String>[];
       for (int i = 0; i < photos.length; i++) {
-        final decodeImageFile = img.decodeImage(
-          File(photos[i]).readAsBytesSync(),
-        )!;
-
-        final thumbnail = img.copyResize(
-          decodeImageFile,
-          width: 1048,
-        );
-
         final fileName = photos[i].split('/').last.split('.').first;
         final filePath = '${dir.path}/$fileName.jpg';
-
-        File(filePath).writeAsBytesSync(
-          img.encodeJpg(thumbnail),
+        await FlutterImageCompress.compressAndGetFile(
+          photos[i],
+          filePath,
+          quality: 80,
         );
 
         imagePathList.add(filePath);
       }
-
       final response = await reviewRepository.createReview(
         CreateReivewRequest(
           storeId: storeId,
@@ -199,30 +192,6 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     reviewText = event.text;
   }
 
-  FutureOr<void> _onCreatedReviewStickerCountRequested(
-    CreatedReviewStickerCountRequested event,
-    Emitter<CreatedReviewState> emit,
-  ) async {
-    emit(const CreatedReviewLoading());
-
-    try {
-      final response = await stickerRepository.getStickerCount();
-
-      emit(
-        CreatedReviewStickerCountLoaded(
-          isAvailable: response.data <= 20,
-        ),
-      );
-    } catch (e) {
-      emit(
-        CreatedReviewError(
-          event: () => add(event),
-          error: e,
-        ),
-      );
-    }
-  }
-
   FutureOr<void> _onCreatedReviewStickerRequested(
     CreatedReviewStickerRequested event,
     Emitter<CreatedReviewState> emit,
@@ -245,6 +214,50 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     } catch (e) {
       emit(
         const CreatedReviewStickerError(),
+      );
+    }
+  }
+
+  FutureOr<void> _onCreatedReviewPossibleRequested(
+    CreatedReviewPossibleRequested event,
+    Emitter<CreatedReviewState> emit,
+  ) async {
+    emit(const CreatedReviewLoading());
+    try {
+      final response = await reviewRepository.isPossible(storeId);
+
+      emit(CreatedReviewPossibleChecked(
+        isAvailable: response.data.isPossibleRegistration,
+        reason: response.data.reason,
+      ));
+    } catch (e) {
+      emit(
+        CreatedReviewError(
+          event: () => add(event),
+          error: e,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onCreatedReviewStickerPossibleRequested(
+    CreatedReviewStickerPossibleRequested event,
+    Emitter<CreatedReviewState> emit,
+  ) async {
+    emit(const CreatedReviewLoading());
+    try {
+      final response = await stickerRepository.isPossibleSticker();
+
+      emit(CreatedReviewStickerPossibleChecked(
+        isAvailable: response.data.isPossibleIssue,
+        reason: response.data.reason,
+      ));
+    } catch (e) {
+      emit(
+        CreatedReviewError(
+          event: () => add(event),
+          error: e,
+        ),
       );
     }
   }

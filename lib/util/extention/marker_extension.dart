@@ -3,6 +3,7 @@ import 'package:naver_map_plugin/naver_map_plugin.dart';
 extension MarkerCopyWith on Marker {
   Marker copyWith({
     void Function(Marker? marker, Map<String, int?> iconSize)? onMarkerTab,
+    OverlayImage? icon,
   }) =>
       Marker(
         markerId: markerId,
@@ -10,8 +11,8 @@ extension MarkerCopyWith on Marker {
         infoWindow: infoWindow,
         alpha: alpha,
         flat: flat,
-        onMarkerTab: onMarkerTab,
-        icon: icon,
+        onMarkerTab: onMarkerTab ?? this.onMarkerTab,
+        icon: icon ?? this.icon,
         captionText: captionText,
         captionTextSize: captionTextSize,
         captionColor: captionColor,

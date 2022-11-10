@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/common/registration_possible.dart';
 import 'package:cafein_flutter/data/model/review/review.dart';
 import 'package:cafein_flutter/data/model/review/review_list_response.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -42,5 +43,10 @@ abstract class ReviewClient {
   @DELETE('/reviews/{reviewId}')
   Future<BaseResponse<dynamic>> deleteReview(
     @Path() int reviewId,
+  );
+
+  @GET('/stores/{storeId}/reviews/check-possible-registration')
+  Future<BaseResponse<RegistrationPossible>> isPossible(
+    @Path() int storeId,
   );
 }

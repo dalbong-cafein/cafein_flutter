@@ -6,6 +6,8 @@ import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/created_review/bloc/created_review_bloc.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/created_review_impossible_dialog.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/created_review_max_dialog.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_succed_without_sticker_dialog.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/sticker_count_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_back_dialog.dart';
@@ -77,9 +79,25 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                   RegisteredReviewPage.routeName,
                 );
               }
-            } else if (state is CreatedReviewStickerCountLoaded) {
-              if (!state.isAvailable) {
+            } else if (state is CreatedReviewPossibleChecked) {
+              if (state.isAvailable) {
+                bloc.add(const CreatedReviewStickerPossibleRequested());
+
+                return;
+              }
+
+              CreatedReviewImpossibleDialog.show(context);
+            } else if (state is CreatedReviewStickerPossibleChecked) {
+              if (state.isAvailable) {
+                bloc.add(const CreatedReviewRequested(
+                  isAvailable: true,
+                ));
+
+                return;
+              }
+              if (state.reason == '보유 가능한 스티커 수량 초과') {
                 final result = await StickerCountDialog.show(context);
+
                 if (result == null) {
                   return;
                 }
@@ -88,16 +106,30 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                   navigator.pushReplacementNamed(
                     StickerPage.routeName,
                   );
-                } else {
-                  bloc.add(CreatedReviewRequested(
-                    isAvailable: state.isAvailable,
-                  ));
-                }
-              }
 
-              bloc.add(CreatedReviewRequested(
-                isAvailable: state.isAvailable,
-              ));
+                  return;
+                }
+
+                bloc.add(const CreatedReviewRequested(
+                  isAvailable: false,
+                ));
+              } else if (state.reason == '하루 최대 스티커 발급 수량 초과') {
+                final result = await CreatedReviewMaxDialog.show(context);
+
+                if (!result) {
+                  return;
+                }
+
+                bloc.add(const CreatedReviewRequested(
+                  isAvailable: false,
+                ));
+              } else {
+                ErrorDialog.show(
+                  context,
+                  error: Error(),
+                  refresh: () {},
+                );
+              }
             } else if (state is CreatedReviewStickerLoaded) {
               final result = await CreatedSucceedDialog.show(
                 context,
@@ -401,7 +433,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                           onPressed: !isValid
                               ? null
                               : () => context.read<CreatedReviewBloc>().add(
-                                    const CreatedReviewStickerCountRequested(),
+                                    const CreatedReviewPossibleRequested(),
                                   ),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(

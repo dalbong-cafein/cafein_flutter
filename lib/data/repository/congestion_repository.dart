@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/congestion_client.dart';
+import 'package:cafein_flutter/data/model/common/registration_possible.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_request.dart';
 import 'package:cafein_flutter/data/model/congestion/congestion_response.dart';
 
@@ -12,6 +13,8 @@ abstract class CongestionRepository {
     required int storeId,
     required int minusDays,
   });
+
+  Future<BaseResponse<RegistrationPossible>> isPossible(int storeId);
 }
 
 class CongestionRepositoryImpl implements CongestionRepository {
@@ -33,4 +36,8 @@ class CongestionRepositoryImpl implements CongestionRepository {
     required int minusDays,
   }) =>
       congestionClient.getCongestions(storeId, minusDays);
+
+  @override
+  Future<BaseResponse<RegistrationPossible>> isPossible(int storeId) =>
+      congestionClient.isPossible(storeId);
 }

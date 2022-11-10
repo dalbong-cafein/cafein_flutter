@@ -1,15 +1,16 @@
-part of '../store_congestion_card.dart';
+import 'package:cafein_flutter/resource/resource.dart';
+import 'package:flutter/material.dart';
 
-class StickerCountDialog extends StatelessWidget {
-  const StickerCountDialog({Key? key}) : super(key: key);
+class CongestionStickerMaxDialog extends StatelessWidget {
+  const CongestionStickerMaxDialog({super.key});
 
-  static Future<bool?> show(BuildContext context) async {
+  static Future<bool> show(BuildContext context) async {
     final result = await showDialog<bool?>(
       context: context,
-      builder: (context) => const StickerCountDialog(),
+      builder: (context) => const CongestionStickerMaxDialog(),
     );
 
-    return result;
+    return result ?? false;
   }
 
   @override
@@ -29,28 +30,11 @@ class StickerCountDialog extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               const Text(
-                '스티커 20개를 모두 모았어요',
+                '스티커는 하루에 최대 3개까지\n모을 수 있어요',
                 style: AppStyle.subTitle17Bold,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                '스티커는 20개 이상 모을 수 없습니다. 쿠폰은\n신청한 뒤에 스터커를 받을 수 있습니다.',
-                style: AppStyle.body14Regular.copyWith(
-                  color: AppColor.grey600,
-                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              InkWell(
-                onTap: () => Navigator.of(context).pop(true),
-                child: Text(
-                  '쿠폰 신청하기',
-                  style: AppStyle.subTitle15Medium.copyWith(
-                    color: AppColor.orange500,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
               SizedBox(
                 width: 268,
                 height: 44,
@@ -84,7 +68,7 @@ class StickerCountDialog extends StatelessWidget {
                           textStyle: AppStyle.subTitle15Medium,
                           padding: EdgeInsets.zero,
                         ),
-                        onPressed: () => Navigator.of(context).pop(false),
+                        onPressed: () => Navigator.of(context).pop(true),
                         child: const Text('무시하고 알려주기'),
                       ),
                     ),

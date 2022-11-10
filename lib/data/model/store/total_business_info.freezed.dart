@@ -26,7 +26,7 @@ mixin _$TotalBusinessInfo {
   BusinessInfo? get onTuesday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onWed')
   BusinessInfo? get onWednesday => throw _privateConstructorUsedError;
-  @JsonKey(name: 'onThe')
+  @JsonKey(name: 'onThu')
   BusinessInfo? get onThursday => throw _privateConstructorUsedError;
   @JsonKey(name: 'onFri')
   BusinessInfo? get onFriday => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $TotalBusinessInfoCopyWith<$Res> {
       {@JsonKey(name: 'onMon') BusinessInfo? onMonday,
       @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
       @JsonKey(name: 'onWed') BusinessInfo? onWednesday,
-      @JsonKey(name: 'onThe') BusinessInfo? onThursday,
+      @JsonKey(name: 'onThu') BusinessInfo? onThursday,
       @JsonKey(name: 'onFri') BusinessInfo? onFriday,
       @JsonKey(name: 'onSat') BusinessInfo? onSaturday,
       @JsonKey(name: 'onSun') BusinessInfo? onSunday,
@@ -222,7 +222,7 @@ abstract class _$$_TotalBusinessInfoCopyWith<$Res>
       {@JsonKey(name: 'onMon') BusinessInfo? onMonday,
       @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
       @JsonKey(name: 'onWed') BusinessInfo? onWednesday,
-      @JsonKey(name: 'onThe') BusinessInfo? onThursday,
+      @JsonKey(name: 'onThu') BusinessInfo? onThursday,
       @JsonKey(name: 'onFri') BusinessInfo? onFriday,
       @JsonKey(name: 'onSat') BusinessInfo? onSaturday,
       @JsonKey(name: 'onSun') BusinessInfo? onSunday,
@@ -308,7 +308,7 @@ class _$_TotalBusinessInfo implements _TotalBusinessInfo {
       {@JsonKey(name: 'onMon') this.onMonday,
       @JsonKey(name: 'onTue') this.onTuesday,
       @JsonKey(name: 'onWed') this.onWednesday,
-      @JsonKey(name: 'onThe') this.onThursday,
+      @JsonKey(name: 'onThu') this.onThursday,
       @JsonKey(name: 'onFri') this.onFriday,
       @JsonKey(name: 'onSat') this.onSaturday,
       @JsonKey(name: 'onSun') this.onSunday,
@@ -327,7 +327,7 @@ class _$_TotalBusinessInfo implements _TotalBusinessInfo {
   @JsonKey(name: 'onWed')
   final BusinessInfo? onWednesday;
   @override
-  @JsonKey(name: 'onThe')
+  @JsonKey(name: 'onThu')
   final BusinessInfo? onThursday;
   @override
   @JsonKey(name: 'onFri')
@@ -393,7 +393,7 @@ abstract class _TotalBusinessInfo implements TotalBusinessInfo {
       {@JsonKey(name: 'onMon') final BusinessInfo? onMonday,
       @JsonKey(name: 'onTue') final BusinessInfo? onTuesday,
       @JsonKey(name: 'onWed') final BusinessInfo? onWednesday,
-      @JsonKey(name: 'onThe') final BusinessInfo? onThursday,
+      @JsonKey(name: 'onThu') final BusinessInfo? onThursday,
       @JsonKey(name: 'onFri') final BusinessInfo? onFriday,
       @JsonKey(name: 'onSat') final BusinessInfo? onSaturday,
       @JsonKey(name: 'onSun') final BusinessInfo? onSunday,
@@ -412,7 +412,7 @@ abstract class _TotalBusinessInfo implements TotalBusinessInfo {
   @JsonKey(name: 'onWed')
   BusinessInfo? get onWednesday;
   @override
-  @JsonKey(name: 'onThe')
+  @JsonKey(name: 'onThu')
   BusinessInfo? get onThursday;
   @override
   @JsonKey(name: 'onFri')

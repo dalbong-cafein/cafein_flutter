@@ -26,15 +26,36 @@ class CreatedReviewSucceed extends CreatedReviewState {
   List<Object?> get props => [isAvailable];
 }
 
-class CreatedReviewStickerCountLoaded extends CreatedReviewState {
-  const CreatedReviewStickerCountLoaded({
+class CreatedReviewPossibleChecked extends CreatedReviewState {
+  const CreatedReviewPossibleChecked({
     required this.isAvailable,
+    this.reason,
   });
 
   final bool isAvailable;
+  final String? reason;
 
   @override
-  List<Object?> get props => [isAvailable];
+  List<Object?> get props => [
+        isAvailable,
+        reason,
+      ];
+}
+
+class CreatedReviewStickerPossibleChecked extends CreatedReviewState {
+  const CreatedReviewStickerPossibleChecked({
+    required this.isAvailable,
+    this.reason,
+  });
+
+  final bool isAvailable;
+  final String? reason;
+
+  @override
+  List<Object?> get props => [
+        isAvailable,
+        reason,
+      ];
 }
 
 class CreatedReviewStickerLoaded extends CreatedReviewState {

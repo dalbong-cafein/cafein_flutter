@@ -10,7 +10,7 @@ class TotalBusinessInfo with _$TotalBusinessInfo {
     @JsonKey(name: 'onMon') BusinessInfo? onMonday,
     @JsonKey(name: 'onTue') BusinessInfo? onTuesday,
     @JsonKey(name: 'onWed') BusinessInfo? onWednesday,
-    @JsonKey(name: 'onThe') BusinessInfo? onThursday,
+    @JsonKey(name: 'onThu') BusinessInfo? onThursday,
     @JsonKey(name: 'onFri') BusinessInfo? onFriday,
     @JsonKey(name: 'onSat') BusinessInfo? onSaturday,
     @JsonKey(name: 'onSun') BusinessInfo? onSunday,

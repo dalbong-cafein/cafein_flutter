@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
@@ -41,62 +42,67 @@ abstract class CafeinConfig {
     );
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     await AppDatabase().initDatabase();
+
+    final devicePixelRatio = Platform.isAndroid
+        ? window.devicePixelRatio * 2
+        : window.devicePixelRatio;
+
     markerBadIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerBad,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerGoodIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerGood,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerNormalIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerNormal,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerLikeBadIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeBad,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerLikeNormalIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeNormal,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerLikeGoodIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeGood,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerNoneIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerNone,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
     markerLikeNoneIcon = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerLikeNone,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleNone = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerSingleNone,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleBad = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerSingleBad,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleNormal = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerSingleNormal,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleGood = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerSingleGood,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
 
     orangeMarker = await OverlayImage.fromAssetImage(
       assetName: AppIcon.markerOrange,
-      devicePixelRatio: window.devicePixelRatio,
+      devicePixelRatio: devicePixelRatio,
     );
 
     packageInfo = await PackageInfo.fromPlatform();

@@ -85,7 +85,7 @@ class StickerCountDialog extends StatelessWidget {
                           textStyle: AppStyle.subTitle15Medium,
                           padding: EdgeInsets.zero,
                         ),
-                        onPressed: () => Navigator.of(context).pop(true),
+                        onPressed: () => Navigator.of(context).pop(false),
                         child: const Text('무시하고 작성하기'),
                       ),
                     ),

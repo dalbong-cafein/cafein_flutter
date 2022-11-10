@@ -25,9 +25,10 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
     on<CongestionRequested>(_onCongestionRequested);
     on<CongestionCreateRequested>(_onCongestionCreateRequested);
     on<CongestionLocationRequested>(_onCongestionLocationRequested);
-    on<CongestionStickerCountRequested>(_onCongestionStickerCountRequested);
     on<CongestionStickerRequested>(_onCongestionStickerRequested);
     on<CongestionPossibleRequested>(_onCongestionPossibleRequested);
+    on<CongestionStickerPossibleRequested>(
+        _onCongestionStickerPossibleRequested);
   }
 
   final CongestionRepository congestionRepository;
@@ -127,36 +128,27 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
     CongestionLocationRequested event,
     Emitter<CongestionState> emit,
   ) async {
-    final result = await Geolocator.getCurrentPosition();
-
-    final distance = calculateDistance(
-      currentLatLng: LatLng(result.latitude, result.longitude),
-      targetLatLng: LatLng(event.latY, event.lngX),
-    );
-
-    emit(
-      CongestionLocationChecked(
-        isAvailable: distance <= 100,
-      ),
-    );
-  }
-
-  FutureOr<void> _onCongestionStickerCountRequested(
-    CongestionStickerCountRequested event,
-    Emitter<CongestionState> emit,
-  ) async {
     emit(const CongestionLoading());
     try {
-      final response = await stickerRepository.getStickerCount();
+      final result = await Geolocator.getCurrentPosition();
 
-      emit(CongestionStickerCountChecked(
-        isAvailable: response.data < 20,
-      ));
+      final distance = calculateDistance(
+        currentLatLng: LatLng(result.latitude, result.longitude),
+        targetLatLng: LatLng(event.latY, event.lngX),
+      );
+
+      emit(
+        CongestionLocationChecked(
+          isAvailable: distance <= 100,
+        ),
+      );
     } catch (e) {
-      emit(CongestionError(
-        error: e,
-        event: () => add(event),
-      ));
+      emit(
+        CongestionError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
     }
   }
 
@@ -189,10 +181,33 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
   ) async {
     emit(const CongestionLoading());
     try {
-      final response = await stickerRepository.isPossibleSticker(storeId);
+      final response = await congestionRepository.isPossible(storeId);
 
       emit(CongestionPossibleChecked(
-        isPossible: response.data,
+        isPossible: response.data.isPossibleRegistration,
+        reason: response.data.reason,
+      ));
+    } catch (e) {
+      emit(
+        CongestionError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onCongestionStickerPossibleRequested(
+    CongestionStickerPossibleRequested event,
+    Emitter<CongestionState> emit,
+  ) async {
+    emit(const CongestionLoading());
+    try {
+      final response = await stickerRepository.isPossibleSticker();
+
+      emit(CongestionStickerPossibleChecked(
+        isPossible: response.data.isPossibleIssue,
+        reason: response.data.reason,
       ));
     } catch (e) {
       emit(
