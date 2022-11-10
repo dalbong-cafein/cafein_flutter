@@ -187,7 +187,7 @@ class _ReviewClient implements ReviewClient {
     )
             .compose(
               _dio.options,
-              '/stores/1/reviews/check-possible-registration',
+              '/stores/${storeId}/reviews/check-possible-registration',
               queryParameters: queryParameters,
               data: _data,
             )

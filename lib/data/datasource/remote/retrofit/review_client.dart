@@ -45,7 +45,7 @@ abstract class ReviewClient {
     @Path() int reviewId,
   );
 
-  @GET('/stores/1/reviews/check-possible-registration')
+  @GET('/stores/{storeId}/reviews/check-possible-registration')
   Future<BaseResponse<RegistrationPossible>> isPossible(
     @Path() int storeId,
   );
