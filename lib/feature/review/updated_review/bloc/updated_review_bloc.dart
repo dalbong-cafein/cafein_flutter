@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cafein_flutter/data/model/common/image_type_pair.dart';
 import 'package:cafein_flutter/data/model/enum/image_type.dart';
@@ -11,9 +10,9 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:image/image.dart' as img;
 
 part 'updated_review_event.dart';
 part 'updated_review_state.dart';
@@ -223,21 +222,14 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
       final dir = await getApplicationDocumentsDirectory();
       final imagePathList = <String>[];
       for (int i = 0; i < state.updateImageUrls.length; i++) {
-        final decodeImageFile = img.decodeImage(
-          File(state.updateImageUrls[i]).readAsBytesSync(),
-        )!;
-
-        final thumbnail = img.copyResize(
-          decodeImageFile,
-          width: 1048,
-        );
-
         final fileName =
             state.updateImageUrls[i].split('/').last.split('.').first;
         final filePath = '${dir.path}/$fileName.jpg';
 
-        File(filePath).writeAsBytesSync(
-          img.encodeJpg(thumbnail),
+        await FlutterImageCompress.compressAndGetFile(
+          state.updateImageUrls[i],
+          filePath,
+          quality: 80,
         );
 
         imagePathList.add(filePath);

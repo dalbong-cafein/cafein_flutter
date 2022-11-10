@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
@@ -9,8 +8,8 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:image/image.dart' as img;
 
 part 'created_review_event.dart';
 part 'created_review_state.dart';
@@ -111,25 +110,16 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
       final dir = await getApplicationDocumentsDirectory();
       final imagePathList = <String>[];
       for (int i = 0; i < photos.length; i++) {
-        final decodeImageFile = img.decodeImage(
-          File(photos[i]).readAsBytesSync(),
-        )!;
-
-        final thumbnail = img.copyResize(
-          decodeImageFile,
-          width: 1048,
-        );
-
         final fileName = photos[i].split('/').last.split('.').first;
         final filePath = '${dir.path}/$fileName.jpg';
-
-        File(filePath).writeAsBytesSync(
-          img.encodeJpg(thumbnail),
+        await FlutterImageCompress.compressAndGetFile(
+          photos[i],
+          filePath,
+          quality: 80,
         );
 
         imagePathList.add(filePath);
       }
-
       final response = await reviewRepository.createReview(
         CreateReivewRequest(
           storeId: storeId,
