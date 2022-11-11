@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
@@ -13,6 +14,7 @@ import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -84,6 +86,9 @@ class StoreReviewListCard extends StatelessWidget {
         }
         return _ReviewCard(
           review: reviews[index],
+          storeId: storeDetail.storeId,
+          storeName: storeDetail.storeName,
+          storeImageIdPair: storeDetail.storeImageList.firstOrNull,
         );
       },
     );
@@ -93,9 +98,15 @@ class StoreReviewListCard extends StatelessWidget {
 class _ReviewCard extends StatefulWidget {
   const _ReviewCard({
     required this.review,
+    required this.storeId,
+    required this.storeName,
+    this.storeImageIdPair,
   });
 
   final StoreReview review;
+  final int storeId;
+  final String storeName;
+  final ImageIdPair? storeImageIdPair;
 
   @override
   State<_ReviewCard> createState() => _ReviewCardState();
@@ -177,7 +188,12 @@ class _ReviewCardState extends State<_ReviewCard> {
                         child: ElevatedButton(
                           onPressed: () => Navigator.of(context).pushNamed(
                             UpdatedReviewPage.routeName,
-                            arguments: widget.review,
+                            arguments: UpdateReviewPageArgument(
+                              storeId: widget.storeId,
+                              storeName: widget.storeName,
+                              review: widget.review,
+                              storeImageIdPair: widget.storeImageIdPair,
+                            ),
                           ),
                           style: ElevatedButton.styleFrom(
                             foregroundColor: AppColor.grey800,

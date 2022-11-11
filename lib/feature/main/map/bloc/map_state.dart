@@ -33,17 +33,20 @@ class MapStoreLoaded extends MapState {
     required this.stores,
     required this.keyword,
     this.isGoingToFirst = false,
+    this.focusedIndex,
   });
 
   final List<Store> stores;
   final String keyword;
   final bool isGoingToFirst;
+  final int? focusedIndex;
 
   @override
   List<Object?> get props => [
         stores,
         keyword,
         isGoingToFirst,
+        focusedIndex,
       ];
 }
 

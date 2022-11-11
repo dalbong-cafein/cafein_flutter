@@ -55,6 +55,13 @@ class SearchStoreCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColor.white,
           borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.2),
+              spreadRadius: 4,
+              blurRadius: 12,
+            ),
+          ],
         ),
         child: Column(
           children: [

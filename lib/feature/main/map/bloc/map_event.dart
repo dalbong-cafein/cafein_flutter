@@ -70,6 +70,17 @@ class MapCurrentLocationRequested extends MapEvent {
   const MapCurrentLocationRequested();
 }
 
+class MapFocusChanged extends MapEvent {
+  const MapFocusChanged({
+    required this.focusedIndex,
+  });
+
+  final int focusedIndex;
+
+  @override
+  List<Object?> get props => [focusedIndex];
+}
+
 class MapCameraPositionChanged extends MapEvent {
   const MapCameraPositionChanged({
     required this.longitude,
