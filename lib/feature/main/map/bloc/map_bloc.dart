@@ -29,6 +29,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<MapSearchKeywordDeleteRequested>(_onMapSearchKeywordDeleteRequested);
     on<MapCurrentLocationRequested>(_onMapCurrentLocationRequested);
     on<MapCameraPositionChanged>(_onMapCameraPositionChanged);
+    on<MapFocusChanged>(_onMapFocusChanged);
   }
 
   final UserRepository userRepository;
@@ -308,5 +309,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         event: () => add(event),
       ));
     }
+  }
+
+  FutureOr<void> _onMapFocusChanged(
+    MapFocusChanged event,
+    Emitter<MapState> emit,
+  ) {
+    emit(const MapLoading());
+
+    emit(
+      MapStoreLoaded(
+        stores:
+            isSearchResult ? [...searchResultStoreList] : [...currentStores],
+        keyword: searchKeyword,
+        focusedIndex: event.focusedIndex,
+      ),
+    );
   }
 }

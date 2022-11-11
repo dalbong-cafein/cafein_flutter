@@ -30,10 +30,26 @@ class SearchBodyHeader extends StatelessWidget {
                       processType: ProcessType.currentLocation,
                     ),
                   ),
-              child: CircleAvatar(
-                radius: 25,
-                backgroundColor: AppColor.white,
-                child: loadAsset(AppIcon.locationArrow),
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25),
+                  ),
+                  color: AppColor.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(16, 0, 0, 0),
+                      spreadRadius: 12,
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: loadAsset(
+                  AppIcon.locationArrow,
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
           ),

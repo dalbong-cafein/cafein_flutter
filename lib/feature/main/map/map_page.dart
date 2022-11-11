@@ -40,6 +40,8 @@ class _MapPageState extends State<MapPage> {
 
   late final columnHeight = imageWidth + 100 + 50 + 28;
 
+  bool isTapped = false;
+
   @override
   void initState() {
     super.initState();
@@ -117,30 +119,40 @@ class _MapPageState extends State<MapPage> {
                     icon: getMarkerIcon(
                       confuseScore: state.stores[index].congestionScoreAvg,
                       isLike: state.stores[index].isHeart,
-                      isSingle: state.stores.length == 1,
+                      isSingle: state.focusedIndex == null
+                          ? state.stores.length == 1
+                          : (index == state.focusedIndex ? true : false),
                     ),
                     onMarkerTab: (marker, iconSize) async {
                       if (marker?.position == null) {
                         return;
                       }
 
-                      // 마커 눌렀을 때 맵 이동
-                      moveCurrentCamera(marker!.position!);
-
-                      final moveIndex = state.stores.indexWhere(
-                        (store) => '${store.storeId}' == marker.markerId,
+                      final focusIndex = state.stores.indexWhere(
+                        (store) => '${store.storeId}' == marker!.markerId,
                       );
 
-                      if (moveIndex == -1) {
-                        return;
-                      }
-
-                      // 카드 페이지 이동
-                      moveToCurrentStoreCard(moveIndex);
+                      context
+                          .read<MapBloc>()
+                          .add(MapFocusChanged(focusedIndex: focusIndex));
                     },
                   ),
                 ),
               );
+
+              if (state.focusedIndex != null) {
+                final marker = markers[state.focusedIndex!];
+
+                // 마커 눌렀을 때 맵 이동
+                moveCurrentCamera(marker.position!);
+
+                isTapped = true;
+
+                // 카드 페이지 이동
+                await moveToCurrentStoreCard(state.focusedIndex!);
+
+                isTapped = false;
+              }
 
               // 검색 후 첫번째 결과로 카메라 이동
               if (state.stores.isNotEmpty && state.keyword.isNotEmpty) {
@@ -351,8 +363,13 @@ class _MapPageState extends State<MapPage> {
                               imageWidth: imageWidth,
                             ),
                             onPageChanged: (index) {
-                              final marker = markers[index];
-                              moveCurrentCamera(marker.position!);
+                              if (isTapped) {
+                                return;
+                              }
+
+                              context
+                                  .read<MapBloc>()
+                                  .add(MapFocusChanged(focusedIndex: index));
                             },
                             itemCount: state.stores.length,
                           ),
@@ -448,7 +465,8 @@ class _MapPageState extends State<MapPage> {
     controller.locationOverlay!.setPosition(latLng);
   }
 
-  void moveToCurrentStoreCard(int moveIndex) => pageController.animateToPage(
+  Future<void> moveToCurrentStoreCard(int moveIndex) async =>
+      await pageController.animateToPage(
         moveIndex,
         duration: const Duration(milliseconds: 500),
         curve: Curves.linear,
