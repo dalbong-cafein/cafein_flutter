@@ -7,6 +7,7 @@ import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -147,6 +148,10 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
                   itemBuilder: (context, item, index) => StoreReviewListCard(
                     review: item,
                     index: index,
+                    storeId: widget.storeDetail.storeId,
+                    storeName: widget.storeDetail.storeName,
+                    storeImageIdPair:
+                        widget.storeDetail.storeImageList.firstOrNull,
                   ),
                   firstPageProgressIndicatorBuilder: (context) =>
                       const CustomCircleLoadingIndicator(),

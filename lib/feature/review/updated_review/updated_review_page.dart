@@ -1,5 +1,7 @@
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
+import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
@@ -19,6 +21,20 @@ import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+class UpdateReviewPageArgument {
+  final int storeId;
+  final String storeName;
+  final ImageIdPair? storeImageIdPair;
+  final StoreReview review;
+
+  UpdateReviewPageArgument({
+    required this.storeId,
+    required this.storeName,
+    required this.review,
+    this.storeImageIdPair,
+  });
+}
 
 class UpdatedReviewPage extends StatefulWidget {
   const UpdatedReviewPage({

@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
@@ -21,10 +22,16 @@ class StoreReviewListCard extends StatefulWidget {
     Key? key,
     required this.review,
     required this.index,
+    required this.storeId,
+    required this.storeName,
+    this.storeImageIdPair,
   }) : super(key: key);
 
   final StoreReview review;
   final int index;
+  final int storeId;
+  final String storeName;
+  final ImageIdPair? storeImageIdPair;
 
   @override
   State<StoreReviewListCard> createState() => _StoreReviewListCardState();
@@ -60,7 +67,12 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.review.nicknameOfWriter,
+                    widget.review.nicknameOfWriter.substring(
+                      0,
+                      (widget.review.nicknameOfWriter.length < 20)
+                          ? widget.review.nicknameOfWriter.length
+                          : 20,
+                    ),
                   ),
                   Text(
                     '${ymdDotFormatShort(widget.review.registeredDateTime)} ${widget.review.visitCnt}번째 방문',
@@ -103,7 +115,12 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                             final result =
                                 await Navigator.of(context).pushNamed(
                               UpdatedReviewPage.routeName,
-                              arguments: widget.review,
+                              arguments: UpdateReviewPageArgument(
+                                storeId: widget.storeId,
+                                storeName: widget.storeName,
+                                review: widget.review,
+                                storeImageIdPair: widget.storeImageIdPair,
+                              ),
                             );
 
                             if (result is! bool) {

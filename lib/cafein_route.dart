@@ -162,7 +162,9 @@ abstract class CafeinRoute {
             stickerRepository: context.read<StickerRepository>(),
             couponRepository: context.read<CouponRepository>(),
           ),
-          child: StickerPage(isNotice: isNotice,),
+          child: StickerPage(
+            isNotice: isNotice,
+          ),
         );
         break;
 
@@ -308,7 +310,25 @@ abstract class CafeinRoute {
         break;
 
       case UpdatedReviewPage.routeName:
-        final review = settings.arguments as UserReview;
+        final arg = settings.arguments;
+
+        late final UserReview review;
+        if (arg is UserReview) {
+          review = arg;
+        } else if (arg is UpdateReviewPageArgument) {
+          review = UserReview(
+            reviewId: arg.review.reviewId,
+            storeId: arg.storeId,
+            storeName: arg.storeName,
+            visitCnt: arg.review.visitCnt,
+            recommendation: arg.review.recommendation,
+            detailEvaluation: arg.review.detailEvaluation,
+            registeredDateTime: arg.review.registeredDateTime,
+            content: arg.review.content,
+            reviewImageIdPairs: arg.review.imageIdPairs,
+            storeImageIdPairs: arg.storeImageIdPair,
+          );
+        }
         page = BlocProvider(
           create: (context) => UpdatedReviewBloc(
             review: review,
