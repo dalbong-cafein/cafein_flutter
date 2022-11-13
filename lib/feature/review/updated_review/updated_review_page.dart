@@ -6,7 +6,6 @@ import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/feature/gallery/gallery_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/bloc/updated_review_bloc.dart';
-import 'package:cafein_flutter/feature/review/updated_review/widget/updated_succeed_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_back_dialog.dart';
 import 'package:cafein_flutter/feature/review/widget/review_policy_card.dart';
 import 'package:cafein_flutter/feature/review/widget/photo_list_row.dart';
@@ -17,6 +16,7 @@ import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/toast_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,7 +59,10 @@ class _UpdatedReviewPageState extends State<UpdatedReviewPage> {
           listener: (context, state) async {
             final navigator = Navigator.of(context);
 
-            await UpdatedSucceedDialog.show(context);
+            await ToastDialog.show(
+              context,
+              title: '리뷰가 수정되었습니다',
+            );
             navigator.pop(true);
           },
         ),
