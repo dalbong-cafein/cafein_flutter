@@ -144,7 +144,7 @@ class _MapPageState extends State<MapPage> {
                 final marker = markers[state.focusedIndex!];
 
                 // 마커 눌렀을 때 맵 이동
-                moveCurrentCamera(marker.position!);
+                await moveCurrentCamera(marker.position!);
 
                 isTapped = true;
 
@@ -155,7 +155,9 @@ class _MapPageState extends State<MapPage> {
               }
 
               // 검색 후 첫번째 결과로 카메라 이동
-              if (state.stores.isNotEmpty && state.keyword.isNotEmpty) {
+              if (state.focusedIndex == null &&
+                  state.stores.isNotEmpty &&
+                  state.keyword.isNotEmpty) {
                 moveCurrentCamera(
                   LatLng(
                     state.stores.first.latY,
@@ -171,9 +173,8 @@ class _MapPageState extends State<MapPage> {
                   curve: Curves.linear,
                 );
               }
-
-              setState(() {});
             }
+            setState(() {});
           },
         ),
         BlocListener<LocationPermissionBloc, LocationPermissionState>(
@@ -443,7 +444,7 @@ class _MapPageState extends State<MapPage> {
   Future<void> moveCurrentCamera(LatLng latLng) async {
     final controller = await naverMapController.future;
     if (Platform.isAndroid) {
-      controller.moveCamera(
+      await controller.moveCamera(
         CameraUpdate.toCameraPosition(
           CameraPosition(
             target: latLng,
@@ -451,7 +452,7 @@ class _MapPageState extends State<MapPage> {
         ),
       );
     } else if (Platform.isIOS) {
-      controller.moveCamera(
+      await controller.moveCamera(
         CameraUpdate.scrollTo(latLng),
       );
     }

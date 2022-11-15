@@ -21,7 +21,7 @@ class OpenCloseChip extends StatelessWidget {
         color: AppColor.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 1.5, bottom: 3),
+        padding: const EdgeInsets.only(top: 3, bottom: 3),
         child: Center(
           child: Text(
             isOpen ? '영업중' : '영업종료',

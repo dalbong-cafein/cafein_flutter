@@ -259,8 +259,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       const Spacer(),
                                       if (index == currentIndex)
                                         Container(
-                                          height: 1,
-                                          color: AppColor.grey800,
+                                          height: 2,
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(1),
+                                            ),
+                                            color: AppColor.grey800,
+                                          ),
                                         )
                                     ],
                                   ),
@@ -305,7 +310,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      height: 12,
+                      height: 10,
                       color: AppColor.grey50,
                     ),
                   ),

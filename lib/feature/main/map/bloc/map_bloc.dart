@@ -96,6 +96,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     currentLocation = event.location;
     searchKeyword = '';
+    isSearchResult = false;
 
     emit(const MapLoading());
 
@@ -131,7 +132,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     try {
-      final cur = currentStores;
+      final cur = isSearchResult ? searchResultStoreList : currentStores;
 
       if (event.isLike) {
         await heartRepository.createHeart(
@@ -147,11 +148,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         isHeart: event.isLike,
       );
 
-      currentStores = [...cur];
+      if (isSearchResult) {
+        searchResultStoreList = [...cur];
+      } else {
+        currentStores = [...cur];
+      }
 
       emit(MapStoreLoaded(
         keyword: searchKeyword,
-        stores: [...currentStores],
+        stores: [
+          ...(isSearchResult ? searchResultStoreList : currentStores),
+        ],
       ));
     } catch (e) {
       emit(MapError(
@@ -230,6 +237,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ) {
     searchResultStoreList = event.storeList;
     searchKeyword = event.keyword;
+    isSearchResult = true;
 
     emit(
       MapStoreLoaded(
@@ -244,6 +252,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) {
     searchKeyword = '';
+    isSearchResult = false;
 
     emit(
       MapStoreLoaded(

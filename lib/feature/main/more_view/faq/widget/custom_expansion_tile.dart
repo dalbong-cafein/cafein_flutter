@@ -1,7 +1,4 @@
-import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../util/load_asset.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -60,16 +57,16 @@ class CustomExpansionTile extends StatefulWidget {
 
 class _CustomExpansionTileState extends State<CustomExpansionTile>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
+  static final Animatable<double> _easeOutTween =
+      CurveTween(curve: Curves.easeOut);
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
 
   final ColorTween _headerColorTween = ColorTween();
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
   late AnimationController _controller;
-  late Animation<double> _iconTurns;
   late Animation<double> _heightFactor;
   late Animation<Color?> _headerColor;
   late Animation<Color?> _iconColor;
@@ -82,12 +79,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     super.initState();
     _controller = AnimationController(duration: _kExpand, vsync: this);
     _heightFactor = _controller.drive(_easeInTween);
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
     _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
     _iconColor = _controller.drive(_iconColorTween.chain(_easeInTween));
-    _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
+    _backgroundColor =
+        _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded = PageStorage.of(context)?.readState(context) as bool? ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) as bool? ??
+        widget.initiallyExpanded;
     if (_isExpanded) _controller.value = 1.0;
   }
 
@@ -113,54 +111,40 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     widget.onExpansionChanged?.call(_isExpanded);
   }
 
-  ListTileControlAffinity _effectiveAffinity(ListTileControlAffinity? affinity) {
-    switch (affinity ?? ListTileControlAffinity.trailing) {
-      case ListTileControlAffinity.leading:
-        return ListTileControlAffinity.leading;
-      case ListTileControlAffinity.trailing:
-      case ListTileControlAffinity.platform:
-        return ListTileControlAffinity.trailing;
-    }
-  }
-
-  Widget? _buildIcon(BuildContext context) {
-    return RotationTransition(
-      turns: _iconTurns,
-      child: loadAsset(
-        AppIcon.downXS
-      ),
-    );
-  }
-
-  Widget? _buildLeadingIcon(BuildContext context) {
-    if (_effectiveAffinity(widget.controlAffinity) != ListTileControlAffinity.leading) return null;
-    return _buildIcon(context);
-  }
-
-  Widget? _buildTrailingIcon(BuildContext context) {
-    if (_effectiveAffinity(widget.controlAffinity) != ListTileControlAffinity.trailing) return null;
-    return _buildIcon(context);
-  }
-
   Widget _buildChildren(BuildContext context, Widget? child) {
-    final ExpansionTileThemeData expansionTileTheme = ExpansionTileTheme.of(context);
+    final ExpansionTileThemeData expansionTileTheme =
+        ExpansionTileTheme.of(context);
 
     return Container(
-      color: _backgroundColor.value ?? expansionTileTheme.backgroundColor ?? Colors.transparent,
+      color: _backgroundColor.value ??
+          expansionTileTheme.backgroundColor ??
+          Colors.transparent,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTileTheme.merge(
+            contentPadding: EdgeInsets.zero,
+            minVerticalPadding: 0,
             iconColor: _iconColor.value ?? expansionTileTheme.iconColor,
             textColor: _headerColor.value,
-            child: ListTile(
+            child: InkWell(
               onTap: _handleTap,
-              contentPadding: widget.tilePadding ?? expansionTileTheme.tilePadding,
-              leading: widget.leading ?? _buildLeadingIcon(context),
-              title: widget.title,
-              subtitle: widget.subtitle,
-              trailing: widget.trailing ?? _buildTrailingIcon(context),
+              child: SizedBox(
+                child: Row(
+                  children: [widget.title],
+                ),
+              ),
             ),
+
+            // ListTile(
+            //   minVerticalPadding: 0,
+            //   onTap: _handleTap,
+            //   contentPadding: EdgeInsets.zero,
+            //   leading: widget.leading ?? _buildLeadingIcon(context),
+            //   title: widget.title,
+            //   subtitle: widget.subtitle,
+            //   trailing: widget.trailing ?? _buildTrailingIcon(context),
+            // ),
           ),
           ClipRect(
             child: Align(
@@ -178,7 +162,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
 
   @override
   Widget build(BuildContext context) {
-    final ExpansionTileThemeData expansionTileTheme = ExpansionTileTheme.of(context);
+    final ExpansionTileThemeData expansionTileTheme =
+        ExpansionTileTheme.of(context);
     final bool closed = !_isExpanded && _controller.isDismissed;
     final bool shouldRemoveChildren = closed && !widget.maintainState;
 
@@ -187,9 +172,12 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
       child: TickerMode(
         enabled: !closed,
         child: Padding(
-          padding: widget.childrenPadding ?? expansionTileTheme.childrenPadding ?? EdgeInsets.zero,
+          padding: widget.childrenPadding ??
+              expansionTileTheme.childrenPadding ??
+              EdgeInsets.zero,
           child: Column(
-            crossAxisAlignment: widget.expandedCrossAxisAlignment ?? CrossAxisAlignment.center,
+            crossAxisAlignment:
+                widget.expandedCrossAxisAlignment ?? CrossAxisAlignment.center,
             children: widget.children,
           ),
         ),
