@@ -372,7 +372,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        '제보된 혼잡도 정보가 없어요\n혼잡도 눌려주기를 눌러 카페의 혼잡도를 알려주세요',
+                        '제보된 혼잡도 정보가 없어요\n혼잡도 알려주기를 눌러 카페의 혼잡도를 알려주세요',
                         style: AppStyle.caption13Regular.copyWith(
                           color: AppColor.grey600,
                         ),

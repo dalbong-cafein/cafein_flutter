@@ -1,7 +1,9 @@
+import 'package:cafein_flutter/feature/main/map/bloc/search_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchEmptyStoreCard extends StatelessWidget {
   const SearchEmptyStoreCard({
@@ -14,6 +16,9 @@ class SearchEmptyStoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final boardId = context.watch<SearchBloc>().boardId;
+    final imageUrl = context.watch<SearchBloc>().eventImageUrl;
+
     return CustomScrollView(
       physics: const NeverScrollableScrollPhysics(),
       slivers: [
@@ -44,38 +49,26 @@ class SearchEmptyStoreCard extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 24,
-                ),
-                margin: const EdgeInsets.only(
-                  right: 16,
-                  left: 16,
-                  bottom: 36,
-                ),
-                width: width - 32,
-                decoration: const BoxDecoration(
-                  color: AppColor.green500,
-                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "친구 초대하고\n무료 아메리카노 쿠폰 받자",
-                      style: AppStyle.subTitle14Medium.copyWith(
-                        color: AppColor.white,
+              if (boardId != 0)
+                SafeArea(
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pushNamed(
+                      NoticeDetailPage.routeName,
+                      arguments: boardId,
+                    ),
+                    child: SizedBox(
+                      height: (width - 32) / 5,
+                      width: width - 32,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
-                    const Spacer(),
-                    loadAsset(
-                      AppImage.adCoupon,
-                      fit: BoxFit.scaleDown,
-                    )
-                  ],
+                  ),
                 ),
-              )
             ],
           ),
         ),

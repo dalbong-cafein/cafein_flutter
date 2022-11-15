@@ -286,7 +286,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     try {
       final result = await Geolocator.getCurrentPosition();
 
-      final currentLocation = await userRepository.getCurrentLocation(
+      final userCurrentLocation = await userRepository.getCurrentLocation(
         longitude: result.longitude,
         latitude: result.latitude,
       );
@@ -295,6 +295,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         result.latitude,
         result.longitude,
       );
+
+      currentLocation = userCurrentLocation;
 
       emit(
         MapLocationChecked(

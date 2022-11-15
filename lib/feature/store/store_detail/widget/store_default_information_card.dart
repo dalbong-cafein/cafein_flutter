@@ -198,9 +198,10 @@ class _BusinessHoursCardState extends State<_BusinessHoursCard> {
                   ),
           ),
           const SizedBox(width: 4),
-          Text(
-            '오후 ${widget.businessInfo.closed}에 영업 종료',
-          ),
+          if (widget.businessInfo.closed != null)
+            Text(
+              '오후 ${widget.businessInfo.closed}에 영업 종료',
+            ),
           loadAsset(
             AppIcon.downXS,
             width: 20,
