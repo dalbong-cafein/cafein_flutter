@@ -15,6 +15,17 @@ class StoreDetailLoading extends StoreDetailState {
   const StoreDetailLoading();
 }
 
+class StoreDetailScrollChecked extends StoreDetailState {
+  const StoreDetailScrollChecked({
+    required this.offset,
+  });
+
+  final double offset;
+
+  @override
+  List<Object?> get props => [offset];
+}
+
 class StoreDetailLoaded extends StoreDetailState {
   const StoreDetailLoaded({
     required this.storeDetail,
