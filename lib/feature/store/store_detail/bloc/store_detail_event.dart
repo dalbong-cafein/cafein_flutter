@@ -11,6 +11,17 @@ class StoreDetailRequested extends StoreDetailEvent {
   const StoreDetailRequested();
 }
 
+class StoreDetailScrollChanged extends StoreDetailEvent {
+  const StoreDetailScrollChanged({
+    required this.offset,
+  });
+
+  final double offset;
+
+  @override
+  List<Object?> get props => [offset];
+}
+
 class StoreDetailHeartRequested extends StoreDetailEvent {
   const StoreDetailHeartRequested({
     required this.isHeart,

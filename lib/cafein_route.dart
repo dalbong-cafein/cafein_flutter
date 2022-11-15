@@ -151,6 +151,7 @@ abstract class CafeinRoute {
           create: (context) => SearchBloc(
             storeRepository: context.read<StoreRepository>(),
             appRepository: context.read<AppRepository>(),
+            boardRepository: context.read<BoardRepository>(),
           ),
           child: const SearchPage(),
         );

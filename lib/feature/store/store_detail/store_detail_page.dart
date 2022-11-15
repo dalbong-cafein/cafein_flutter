@@ -37,6 +37,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   final storeStudyKey = GlobalKey();
   final storeReviewKey = GlobalKey();
 
+  final storeTitleKey = GlobalKey();
+
   bool isScrolled = false;
 
   final tabTitles = [
@@ -51,13 +53,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
   @override
   void initState() {
     super.initState();
+    final bloc = context.read<StoreDetailBloc>();
+
     Future.microtask(
-      () => context.read<StoreDetailBloc>().add(
-            const StoreDetailRequested(),
-          ),
+      () => bloc.add(
+        const StoreDetailRequested(),
+      ),
     );
 
     scrollController.addListener(() {
+      bloc.add(StoreDetailScrollChanged(
+        offset: scrollController.offset,
+      ));
+
       if (isScrolled) {
         return;
       }
@@ -78,10 +86,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
         index = 3;
       }
 
-      context.read<StoreDetailBloc>().add(StoreDetailTabChanged(
-            index: index,
-            isTaped: false,
-          ));
+      bloc.add(StoreDetailTabChanged(
+        index: index,
+        isTaped: false,
+      ));
     });
   }
 
@@ -145,17 +153,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             icon: loadAsset(AppIcon.left),
           ),
           title: BlocBuilder<StoreDetailBloc, StoreDetailState>(
-            buildWhen: (pre, next) => next is StoreDetailTabChecked,
+            buildWhen: (pre, next) => next is StoreDetailScrollChecked,
             builder: (context, state) {
-              if (state is! StoreDetailTabChecked) {
+              if (state is! StoreDetailScrollChecked) {
                 return const SizedBox.shrink();
               }
 
-              if (state.index < 1) {
+              if (state.offset <= 68) {
                 return const SizedBox.shrink();
               }
 
-              return Text(context.watch<StoreDetailBloc>().storeName);
+              return Text(
+                context.watch<StoreDetailBloc>().storeName,
+              );
             },
           ),
           actions: [
@@ -249,8 +259,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       const Spacer(),
                                       if (index == currentIndex)
                                         Container(
-                                          height: 1,
-                                          color: AppColor.grey800,
+                                          height: 2,
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(1),
+                                            ),
+                                            color: AppColor.grey800,
+                                          ),
                                         )
                                     ],
                                   ),
@@ -295,7 +310,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      height: 12,
+                      height: 10,
                       color: AppColor.grey50,
                     ),
                   ),

@@ -46,9 +46,9 @@ class ConfuseChip extends StatelessWidget {
       return Container(
         width: width,
         height: height,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColor.amber50,
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         ),
         child: Center(
           child: Text(
@@ -63,9 +63,9 @@ class ConfuseChip extends StatelessWidget {
       return Container(
         width: width,
         height: height,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColor.scarlet50,
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         ),
         child: Center(
           child: Text(

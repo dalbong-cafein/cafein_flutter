@@ -58,3 +58,7 @@ class SearchRecentKeywordDeleted extends SearchEvent {
 class SearchRecentKeywordAllDeleted extends SearchEvent {
   const SearchRecentKeywordAllDeleted();
 }
+
+class SearchRecentEventRequested extends SearchEvent {
+  const SearchRecentEventRequested();
+}

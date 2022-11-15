@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/model/common/search_data.dart';
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
+import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc({
     required this.storeRepository,
     required this.appRepository,
+    required this.boardRepository,
   }) : super(const SearchInitial()) {
     on<SearchKeywordChanged>(_onSearchKeywordChanged);
     on<SearchKakaoStoreRequested>(_onSearchKakaoStoreRequested);
@@ -22,12 +24,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchRecentKeywordDeleted>(_onSearchRecentKeywordDeleted);
     on<SearchRecentKeywordAllDeleted>(_onSearchRecentKeywordAllDeleted);
     on<SearchStoreRequested>(_onSearchStoreRequested);
+    on<SearchRecentEventRequested>(_onSearchRecentEventRequested);
 
     add(const SearchRecentKeywordRequested());
+    add(const SearchRecentEventRequested());
   }
 
   final StoreRepository storeRepository;
   final AppRepository appRepository;
+  final BoardRepository boardRepository;
+
+  int boardId = 0;
+  String eventImageUrl = '';
 
   String keyword = '';
 
@@ -185,6 +193,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           event: () => add(event),
         ),
       );
+    }
+  }
+
+  FutureOr<void> _onSearchRecentEventRequested(
+    SearchRecentEventRequested event,
+    Emitter<SearchState> emit,
+  ) async {
+    final response = await boardRepository.getLatestEvent();
+    if (response.code != -1) {
+      boardId = response.data.boardId;
+      eventImageUrl = response.data.imageIdPair.imageUrl;
     }
   }
 }

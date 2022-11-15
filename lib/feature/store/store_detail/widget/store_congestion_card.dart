@@ -2,7 +2,6 @@ import 'package:cafein_flutter/data/model/congestion/congestion.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
-import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_impossible_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_bottom_sheet.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -10,6 +9,7 @@ import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/toast_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:cafein_flutter/widget/indicator/dots_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +85,10 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
 
           if (state is CongestionLocationChecked) {
             if (!state.isAvailable) {
-              CongestionImpossibleDialog.show(context);
+              ToastDialog.show(
+                context,
+                title: '혼잡도는 카페 근처에서\n알려줄 수 있어요',
+              );
 
               return;
             }
@@ -369,7 +372,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        '제보된 혼잡도 정보가 없어요\n혼잡도 눌려주기를 눌러 카페의 혼잡도를 알려주세요',
+                        '제보된 혼잡도 정보가 없어요\n혼잡도 알려주기를 눌러 카페의 혼잡도를 알려주세요',
                         style: AppStyle.caption13Regular.copyWith(
                           color: AppColor.grey600,
                         ),

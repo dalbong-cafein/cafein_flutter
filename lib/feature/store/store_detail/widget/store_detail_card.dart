@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/datetime/am_pm_format.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
@@ -39,7 +40,7 @@ class StoreDetailCard extends StatelessWidget {
                           imageUrl: storeDetail.imageIdPair?.imageUrl,
                           radius: 10,
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 6),
                         Text(
                           storeDetail.nicknameOfModMember ?? '',
                           style: AppStyle.caption13SemiBold.copyWith(
@@ -71,7 +72,7 @@ class StoreDetailCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         OpenCloseChip(
@@ -81,7 +82,7 @@ class StoreDetailCard extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 8),
                             child: Text(
-                              '${storeDetail.businessInfo.closed}에 종료',
+                              '${amPmFormat(storeDetail.businessInfo.closed!)}에 종료',
                               style: AppStyle.caption13Regular,
                             ),
                           )

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
@@ -31,9 +30,7 @@ class RegisteredReviewBloc
         emit(
           RegisteredReviewError(
             error: Error(),
-            event: () => add(
-              event,
-            ),
+            event: () => add(event),
           ),
         );
 
@@ -44,8 +41,7 @@ class RegisteredReviewBloc
         reviewCount: response.data.reviewCnt,
         reviewList: response.data.reviewData,
       ));
-    } catch (e, st) {
-      log(st.toString());
+    } catch (e) {
       emit(
         RegisteredReviewError(
           error: e,

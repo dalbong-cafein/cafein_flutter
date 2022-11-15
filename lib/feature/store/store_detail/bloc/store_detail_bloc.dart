@@ -31,6 +31,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     on<StoreDetailNearStoreRequested>(_onStoreDetailNearStoreRequested);
     on<StoreDetailNearStoreHeartRequested>(
         _onStoreDetailNearStoreHeartRequested);
+    on<StoreDetailScrollChanged>(_onStoreDetailScrollChanged);
   }
 
   final StoreRepository storeRepository;
@@ -226,5 +227,12 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         ),
       );
     }
+  }
+
+  FutureOr<void> _onStoreDetailScrollChanged(
+    StoreDetailScrollChanged event,
+    Emitter<StoreDetailState> emit,
+  ) {
+    emit(StoreDetailScrollChecked(offset: event.offset));
   }
 }
