@@ -34,7 +34,7 @@ class RequestLocationCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 12),
                     child: Text(
-                      "카페를 찾고 있나요? 위치 접근을\n허용하시면 근처 카페를 추천해드릴게요",
+                      "카페를 찾고 있나요? 위치 접근을\n허용하시면 근처 카페를 추천해 드해릴게요",
                       style: AppStyle.subTitle14Medium
                           .copyWith(color: AppColor.grey700, height: 1.5),
                     ),
