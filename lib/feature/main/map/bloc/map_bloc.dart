@@ -45,6 +45,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   bool isSearchResult = false;
 
+  int? focusedIndex;
+
   LatLng currentLatLng = CafeinConst.defaultLating;
 
   FutureOr<void> _onSearchLocationRequested(
@@ -132,6 +134,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     try {
+      focusedIndex = event.index;
       final cur = isSearchResult ? searchResultStoreList : currentStores;
 
       if (event.isLike) {
@@ -156,6 +159,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       emit(MapStoreLoaded(
         keyword: searchKeyword,
+        focusedIndex: focusedIndex,
         stores: [
           ...(isSearchResult ? searchResultStoreList : currentStores),
         ],
