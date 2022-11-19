@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/cafein_route.dart';
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/remote/dio_util.dart';
@@ -34,6 +35,7 @@ import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -148,17 +150,10 @@ class CafeinApp extends StatelessWidget {
                   displayColor: AppColor.grey800,
                 ),
           ),
-          // localizationsDelegates: const [
-          //   GlobalMaterialLocalizations.delegate,
-          //   GlobalWidgetsLocalizations.delegate,
-          //   GlobalCupertinoLocalizations.delegate,
-          // ],
-          // supportedLocales: const [
-          //   Locale('ko', 'KR'),
-          // ],
           onGenerateRoute: CafeinRoute.onGenerateRoute,
           navigatorObservers: [
             CustomNavigatorLogger(),
+            FirebaseAnalyticsObserver(analytics: analytics)
           ],
         ),
       ),
