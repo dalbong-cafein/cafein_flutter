@@ -12,6 +12,7 @@ enum ProcessType {
   currentLocation,
   congestion,
   home,
+  mapFilter,
 }
 
 class LocationPermissionBloc

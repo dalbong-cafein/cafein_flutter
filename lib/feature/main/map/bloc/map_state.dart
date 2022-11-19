@@ -28,6 +28,17 @@ class MapError extends MapState {
   List<Object?> get props => [error];
 }
 
+class MapFilterKeywordChecked extends MapState {
+  const MapFilterKeywordChecked({
+    required this.filterKeyword,
+  });
+
+  final MapFilterKeyword filterKeyword;
+
+  @override
+  List<Object?> get props => [filterKeyword];
+}
+
 class MapStoreLoaded extends MapState {
   const MapStoreLoaded({
     required this.stores,

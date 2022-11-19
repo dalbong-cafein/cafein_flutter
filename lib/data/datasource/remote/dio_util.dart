@@ -54,13 +54,13 @@ class DioUtil {
     );
     dio.interceptors.add(CustomDioLogger(
       'dio',
-      request: false,
-      responseHeader: false,
-      requestBody: false,
-      requestHeader: false,
-      responseBody: false,
-      error: false,
-      compact: false,
+      // request: false,
+      // responseHeader: false,
+      // requestBody: false,
+      // requestHeader: false,
+      // responseBody: false,
+      // error: false,
+      // compact: false,
     ));
 
     dio.interceptors.add(

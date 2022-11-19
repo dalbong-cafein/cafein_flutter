@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cafein_flutter/cafein_const.dart';
-import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
+import 'package:cafein_flutter/data/model/enum/map_filter_keyword.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
@@ -136,11 +136,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       if (event.isLike) {
         await heartRepository.createHeart(
-          currentStores[event.index].storeId,
+          cur[event.index].storeId,
         );
       } else {
         await heartRepository.deleteHeart(
-          currentStores[event.index].storeId,
+          cur[event.index].storeId,
         );
       }
 
@@ -175,14 +175,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     emit(const MapLoading());
     final cur = isSearchResult ? searchResultStoreList : currentStores;
     switch (event.searchKeyword) {
-      case SearchKeyword.business:
+      case MapFilterKeyword.business:
         cur.sort((a, b) {
           final isOpenA = a.businessInfo?.isOpen ?? false;
 
           return isOpenA ? -1 : 1;
         });
         break;
-      case SearchKeyword.confuse:
+      case MapFilterKeyword.confuse:
         cur.sort((a, b) {
           final confuseScoreA = a.congestionScoreAvg ?? 0;
           final confuseScoreB = b.congestionScoreAvg ?? 0;
@@ -190,7 +190,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           return confuseScoreA < confuseScoreB ? -1 : 1;
         });
         break;
-      case SearchKeyword.close:
+      case MapFilterKeyword.close:
         cur.sort((a, b) {
           final distanceA = calculateDistance(
             currentLatLng: currentLatLng,
@@ -204,7 +204,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           return distanceA < distanceB ? -1 : 1;
         });
         break;
-      case SearchKeyword.recommended:
+      case MapFilterKeyword.recommended:
         cur.sort((a, b) {
           final recommendedScoreA = a.recommendPercent ?? 0;
           final recommendedScoreB = b.recommendPercent ?? 0;
@@ -219,6 +219,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     } else {
       currentStores = [...cur];
     }
+
+    emit(
+      MapFilterKeywordChecked(
+        filterKeyword: event.searchKeyword,
+      ),
+    );
 
     emit(
       MapStoreLoaded(

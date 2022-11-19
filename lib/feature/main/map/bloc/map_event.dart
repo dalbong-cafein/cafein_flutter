@@ -40,7 +40,7 @@ class MapKeywordTaped extends MapEvent {
     required this.searchKeyword,
   });
 
-  final SearchKeyword searchKeyword;
+  final MapFilterKeyword searchKeyword;
 
   @override
   List<Object?> get props => [searchKeyword];
