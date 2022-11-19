@@ -15,6 +15,10 @@ class MapLoading extends MapState {
   const MapLoading();
 }
 
+class MapStoreLoading extends MapState {
+  const MapStoreLoading();
+}
+
 class MapError extends MapState {
   const MapError({
     required this.error,
@@ -45,12 +49,14 @@ class MapStoreLoaded extends MapState {
     required this.keyword,
     this.isGoingToFirst = false,
     this.focusedIndex,
+    this.isMoveCamera = false,
   });
 
   final List<Store> stores;
   final String keyword;
   final bool isGoingToFirst;
   final int? focusedIndex;
+  final bool isMoveCamera;
 
   @override
   List<Object?> get props => [
@@ -58,6 +64,7 @@ class MapStoreLoaded extends MapState {
         keyword,
         isGoingToFirst,
         focusedIndex,
+        isMoveCamera,
       ];
 }
 

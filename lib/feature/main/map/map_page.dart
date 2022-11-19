@@ -150,7 +150,9 @@ class _MapPageState extends State<MapPage> {
                 isTapped = true;
 
                 // 카드 페이지 이동
-                await moveToCurrentStoreCard(state.focusedIndex!);
+                if (state.isMoveCamera) {
+                  await moveToCurrentStoreCard(state.focusedIndex!);
+                }
 
                 isTapped = false;
               }
@@ -342,7 +344,10 @@ class _MapPageState extends State<MapPage> {
               },
             ),
             BlocBuilder<MapBloc, MapState>(
-              buildWhen: (pre, next) => next is MapStoreLoaded,
+              buildWhen: (pre, next) =>
+                  pre is MapStoreLoading ||
+                  next is MapStoreLoading ||
+                  next is MapStoreLoaded,
               builder: (context, state) {
                 if (state is MapStoreLoaded) {
                   if (state.stores.isEmpty) {
@@ -412,9 +417,7 @@ class _MapPageState extends State<MapPage> {
                     alignment: Alignment.topCenter,
                     child: InkWell(
                       onTap: () => context.read<MapBloc>().add(
-                            MapStoreRequested(
-                              location: state.location,
-                            ),
+                            MapStoreRequested(location: state.location),
                           ),
                       child: Container(
                         width: 144,

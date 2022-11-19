@@ -41,10 +41,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   List<Store> currentStores = [];
 
-  List<Store> searchResultStoreList = [];
-
-  bool isSearchResult = false;
-
   int? focusedIndex;
 
   LatLng currentLatLng = CafeinConst.defaultLating;
@@ -53,6 +49,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapLocationRequested event,
     Emitter<MapState> emit,
   ) async {
+    emit(const MapLoading());
     try {
       final result = await Geolocator.getCurrentPosition();
 
@@ -90,22 +87,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapStoreRequested event,
     Emitter<MapState> emit,
   ) async {
-    isSearchResult = false;
-
-    if (event.location == currentLocation) {
-      return;
-    }
-
+    emit(const MapStoreLoading());
     currentLocation = event.location;
-    searchKeyword = '';
-    isSearchResult = false;
-
-    emit(const MapLoading());
 
     try {
       final response = await storeRepository.getStores(
-        currentLocation,
+        searchKeyword.isNotEmpty ? searchKeyword : currentLocation,
       );
+
       if (response.code == -1) {
         emit(MapError(
           error: Error(),
@@ -120,6 +109,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(MapStoreLoaded(
         keyword: searchKeyword,
         stores: [...currentStores],
+        focusedIndex: focusedIndex,
       ));
     } catch (e) {
       emit(MapError(
@@ -133,9 +123,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapStoreHeartRequested event,
     Emitter<MapState> emit,
   ) async {
+    emit(const MapLoading());
     try {
       focusedIndex = event.index;
-      final cur = isSearchResult ? searchResultStoreList : currentStores;
+      final cur = currentStores;
 
       if (event.isLike) {
         await heartRepository.createHeart(
@@ -151,18 +142,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         isHeart: event.isLike,
       );
 
-      if (isSearchResult) {
-        searchResultStoreList = [...cur];
-      } else {
-        currentStores = [...cur];
-      }
+      currentStores = [...cur];
 
       emit(MapStoreLoaded(
         keyword: searchKeyword,
         focusedIndex: focusedIndex,
-        stores: [
-          ...(isSearchResult ? searchResultStoreList : currentStores),
-        ],
+        stores: [...currentStores],
       ));
     } catch (e) {
       emit(MapError(
@@ -177,7 +162,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) {
     emit(const MapLoading());
-    final cur = isSearchResult ? searchResultStoreList : currentStores;
+    final cur = currentStores;
     switch (event.searchKeyword) {
       case MapFilterKeyword.business:
         cur.sort((a, b) {
@@ -218,11 +203,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         break;
     }
 
-    if (isSearchResult) {
-      searchResultStoreList = [...cur];
-    } else {
-      currentStores = [...cur];
-    }
+    currentStores = [...cur];
 
     emit(
       MapFilterKeywordChecked(
@@ -234,7 +215,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       MapStoreLoaded(
         keyword: searchKeyword,
         stores: [
-          ...(isSearchResult ? searchResultStoreList : currentStores),
+          ...currentStores,
         ],
         isGoingToFirst: true,
       ),
@@ -245,24 +226,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapSearchResultChanged event,
     Emitter<MapState> emit,
   ) {
-    searchResultStoreList = event.storeList;
+    currentStores = [...event.storeList];
     searchKeyword = event.keyword;
-    isSearchResult = true;
-
-    emit(
-      MapStoreLoaded(
-        stores: [...searchResultStoreList],
-        keyword: searchKeyword,
-      ),
-    );
-  }
-
-  FutureOr<void> _onMapSearchKeywordDeleteRequested(
-    MapSearchKeywordDeleteRequested event,
-    Emitter<MapState> emit,
-  ) {
-    searchKeyword = '';
-    isSearchResult = false;
 
     emit(
       MapStoreLoaded(
@@ -272,10 +237,46 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     );
   }
 
+  FutureOr<void> _onMapSearchKeywordDeleteRequested(
+    MapSearchKeywordDeleteRequested event,
+    Emitter<MapState> emit,
+  ) async {
+    searchKeyword = '';
+    emit(const MapStoreLoading());
+
+    try {
+      final response = await storeRepository.getStores(
+        currentLocation,
+      );
+
+      if (response.code == -1) {
+        emit(MapError(
+          error: Error(),
+          event: () => add(event),
+        ));
+
+        return;
+      }
+
+      currentStores = [...response.data];
+
+      emit(MapStoreLoaded(
+        keyword: searchKeyword,
+        stores: [...currentStores],
+      ));
+    } catch (e) {
+      emit(MapError(
+        error: e,
+        event: () => add(event),
+      ));
+    }
+  }
+
   FutureOr<void> _onMapCameraPositionChanged(
     MapCameraPositionChanged event,
     Emitter<MapState> emit,
   ) async {
+    emit(const MapLoading());
     try {
       final responseLocation = await userRepository.getCurrentLocation(
         longitude: event.longitude,
@@ -302,6 +303,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapCurrentLocationRequested event,
     Emitter<MapState> emit,
   ) async {
+    emit(const MapLoading());
     try {
       final result = await Geolocator.getCurrentPosition();
 
@@ -338,12 +340,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ) {
     emit(const MapLoading());
 
+    focusedIndex = event.focusedIndex;
+
     emit(
       MapStoreLoaded(
-        stores:
-            isSearchResult ? [...searchResultStoreList] : [...currentStores],
+        stores: [...currentStores],
         keyword: searchKeyword,
-        focusedIndex: event.focusedIndex,
+        focusedIndex: focusedIndex,
+        isMoveCamera: true,
       ),
     );
   }

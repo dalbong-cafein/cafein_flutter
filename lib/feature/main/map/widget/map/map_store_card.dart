@@ -42,10 +42,16 @@ class SearchStoreCard extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(
-        StoreDetailPage.routeName,
-        arguments: store.storeId,
-      ),
+      onTap: () async {
+        final bloc = context.read<MapBloc>();
+
+        await Navigator.of(context).pushNamed(
+          StoreDetailPage.routeName,
+          arguments: store.storeId,
+        );
+
+        bloc.add(MapStoreRequested(location: bloc.currentLocation));
+      },
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.symmetric(
