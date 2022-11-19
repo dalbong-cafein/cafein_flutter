@@ -129,11 +129,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
             textColor: _headerColor.value,
             child: InkWell(
               onTap: _handleTap,
-              child: SizedBox(
-                child: Row(
-                  children: [widget.title],
-                ),
-              ),
+              child: widget.title,
             ),
 
             // ListTile(
