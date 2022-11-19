@@ -70,3 +70,7 @@ class StoreDetailTabChanged extends StoreDetailEvent {
         isTaped,
       ];
 }
+
+class StoreDetailReviewRequested extends StoreDetailEvent {
+  const StoreDetailReviewRequested();
+}

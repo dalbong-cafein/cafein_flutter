@@ -15,6 +15,7 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
   }) : super(const StoreReviewInitial()) {
     on<StoreReviewRequested>(_onStoreReviewRequested);
     on<StoreReviewTypeChanged>(_onStoreReviewTypeChanged);
+    on<StoreReviewResetRequested>(_onStoreReviewResetRequested);
   }
 
   final int storeId;
@@ -98,5 +99,16 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
       isPhotoReview: isPhotoReview,
       nextPage: hasNext ? nextPage : null,
     ));
+  }
+
+  FutureOr<void> _onStoreReviewResetRequested(
+    StoreReviewResetRequested event,
+    Emitter<StoreReviewState> emit,
+  ) {
+    totalCount = 0;
+    nextPage = 1;
+    hasNext = true;
+    isPhotoReview = false;
+    add(const StoreReviewRequested());
   }
 }

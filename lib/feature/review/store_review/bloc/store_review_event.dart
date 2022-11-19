@@ -23,3 +23,7 @@ class StoreReviewTypeChanged extends StoreReviewEvent {
         isPhotoReviews,
       ];
 }
+
+class StoreReviewResetRequested extends StoreReviewEvent {
+  const StoreReviewResetRequested();
+}

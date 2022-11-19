@@ -77,18 +77,10 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                     onPressed: () async {
                       final bloc = context.read<RegisteredReviewBloc>();
 
-                      final result = await Navigator.of(context).pushNamed(
+                      await Navigator.of(context).pushNamed(
                         UpdatedReviewPage.routeName,
                         arguments: widget.review,
                       );
-
-                      if (result is! bool) {
-                        return;
-                      }
-
-                      if (!result) {
-                        return;
-                      }
 
                       bloc.add(const RegisteredReviewRequested());
                     },

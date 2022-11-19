@@ -252,15 +252,16 @@ abstract class CafeinRoute {
         page = const ApplyCouponFinishedPage();
         break;
       case CreatedReviewPage.routeName:
-        final storeDetail = settings.arguments as StoreDetail;
+        final arg = settings.arguments as CreateReviewPageArguments;
         page = BlocProvider(
           create: (context) => CreatedReviewBloc(
-            storeId: storeDetail.storeId,
+            storeId: arg.storeDetail.storeId,
             reviewRepository: context.read<ReviewRepository>(),
             stickerRepository: context.read<StickerRepository>(),
           ),
           child: CreatedReviewPage(
-            storeDetail: storeDetail,
+            storeDetail: arg.storeDetail,
+            recommendation: arg.recommendation,
           ),
         );
         break;

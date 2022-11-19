@@ -32,6 +32,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     on<StoreDetailNearStoreHeartRequested>(
         _onStoreDetailNearStoreHeartRequested);
     on<StoreDetailScrollChanged>(_onStoreDetailScrollChanged);
+    on<StoreDetailReviewRequested>(_onStoreDetailReviewRequested);
   }
 
   final StoreRepository storeRepository;
@@ -47,6 +48,9 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
 
   List<Store> nearStoreList = [];
 
+  StoreDetail? storeDetail;
+  Event? lastEvent;
+
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
     Emitter<StoreDetailState> emit,
@@ -57,7 +61,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       final storeDetailResponse = storeRepository.getStoreDetail(
         storeId,
       );
-
       final reviewScoreResponse = reviewRepository.getStoreReviewScoreDetail(
         storeId,
       );
@@ -90,12 +93,15 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         }
       }
 
+      storeDetail = responseList[0].data;
+      lastEvent = responseList[3].data;
+
       emit(
         StoreDetailLoaded(
-          storeDetail: responseList[0].data,
+          storeDetail: storeDetail!,
           reviewDetailScore: responseList[1].data,
           reviewResponse: responseList[2].data,
-          latestEvent: responseList[3].data,
+          latestEvent: lastEvent!,
         ),
       );
 
@@ -234,5 +240,56 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     Emitter<StoreDetailState> emit,
   ) {
     emit(StoreDetailScrollChecked(offset: event.offset));
+  }
+
+  FutureOr<void> _onStoreDetailReviewRequested(
+    StoreDetailReviewRequested event,
+    Emitter<StoreDetailState> emit,
+  ) async {
+    try {
+      final reviewScoreResponse = reviewRepository.getStoreReviewScoreDetail(
+        storeId,
+      );
+
+      final reviewResponse = reviewRepository.getStoreReviews(
+        storeId: storeId,
+        page: 1,
+        size: 3,
+      );
+
+      final responseList = await Future.wait<BaseResponse<dynamic>>([
+        reviewScoreResponse,
+        reviewResponse,
+      ]);
+
+      for (final response in responseList) {
+        if (response.code == -1) {
+          emit(
+            StoreDetailError(
+              error: Error(),
+              event: () => add(event),
+            ),
+          );
+
+          return;
+        }
+      }
+
+      emit(
+        StoreDetailLoaded(
+          storeDetail: storeDetail!,
+          reviewDetailScore: responseList[0].data,
+          reviewResponse: responseList[1].data,
+          latestEvent: lastEvent!,
+        ),
+      );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
   }
 }
