@@ -89,10 +89,18 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
                 right: 16,
               ),
               child: InkWell(
-                onTap: () => Navigator.of(context).pushNamed(
-                  CreatedReviewPage.routeName,
-                  arguments: widget.storeDetail,
-                ),
+                onTap: () async {
+                  final bloc = context.read<StoreReviewBloc>();
+
+                  await Navigator.of(context).pushNamed(
+                    CreatedReviewPage.routeName,
+                    arguments: CreateReviewPageArguments(
+                      storeDetail: widget.storeDetail,
+                    ),
+                  );
+
+                  bloc.add(const StoreReviewResetRequested());
+                },
                 child: Text(
                   '리뷰쓰기',
                   style: AppStyle.subTitle14Medium.copyWith(

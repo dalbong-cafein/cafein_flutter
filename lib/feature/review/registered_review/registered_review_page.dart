@@ -60,9 +60,11 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
                     buildWhen: (pre, next) => next is RegisteredReviewLoaded,
                     builder: (context, state) {
                       int count = 0;
+
                       if (state is RegisteredReviewLoaded) {
                         count = state.reviewCount;
                       }
+
                       return Text(
                         '총 $count개',
                         style: AppStyle.subTitle14Medium.copyWith(
@@ -82,7 +84,9 @@ class _RegisteredReviewPageState extends State<RegisteredReviewPage> {
             ),
             Expanded(
               child: BlocBuilder<RegisteredReviewBloc, RegisteredReviewState>(
-                buildWhen: (pre, next) => next is RegisteredReviewLoaded,
+                buildWhen: (pre, next) =>
+                    pre is RegisteredReviewLoading ||
+                    next is RegisteredReviewLoading,
                 builder: (context, state) {
                   if (state is! RegisteredReviewLoaded) {
                     return const CustomCircleLoadingIndicator();

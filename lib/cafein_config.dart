@@ -2,13 +2,19 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
+import 'package:cafein_flutter/firebase_options.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+final analytics = FirebaseAnalytics.instance;
 
 abstract class CafeinConfig {
   static const baseUrl = 'https://api.cafeinofficial.com';
@@ -34,6 +40,12 @@ abstract class CafeinConfig {
   static late PackageInfo packageInfo;
 
   static Future<void> initializeApp() async {
+    //  Firebase 세팅
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await analytics.setAnalyticsCollectionEnabled(!kDebugMode);
+
     await initializeDateFormatting();
     Intl.defaultLocale = 'ko_KR';
     KakaoSdk.init(

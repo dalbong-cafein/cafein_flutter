@@ -1,10 +1,9 @@
-import 'package:cafein_flutter/data/model/enum/search_keyword.dart';
+import 'package:cafein_flutter/data/model/enum/map_filter_keyword.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class SearchKeywordTab extends StatelessWidget {
   const SearchKeywordTab({super.key});
@@ -22,42 +21,60 @@ class SearchKeywordTab extends StatelessWidget {
         itemBuilder: (context, index) => InkWell(
           onTap: () {
             if (index == 2) {
-              final state = context.read<LocationPermissionBloc>().state;
-              if (state is! LocationPermissionChecked) {
-                return;
-              }
-              if (!state.permissionStatus.isGranted) {
-                return;
-              }
+              context
+                  .read<LocationPermissionBloc>()
+                  .add(const LocationPermissionRequest(
+                    processType: ProcessType.mapFilter,
+                  ));
+
+              return;
             }
 
             context.read<MapBloc>().add(
                   MapKeywordTaped(
-                    searchKeyword: SearchKeyword.values[index],
+                    searchKeyword: MapFilterKeyword.values[index],
                   ),
                 );
           },
-          child: Container(
-            height: 30,
-            width: 25 + 12.0 * SearchKeyword.values[index].title.length,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: AppColor.grey200,
-              ),
-            ),
-            child: Center(
-              child: Text(
-                SearchKeyword.values[index].title,
-                style: AppStyle.body14Regular,
-              ),
-            ),
+          child: BlocBuilder<MapBloc, MapState>(
+            buildWhen: (pre, next) => next is MapFilterKeywordChecked,
+            builder: (context, state) {
+              String? checkedKeyword;
+              if (state is MapFilterKeywordChecked) {
+                checkedKeyword = state.filterKeyword.title;
+              }
+
+              return Container(
+                height: 30,
+                width: 25 + 12.0 * MapFilterKeyword.values[index].title.length,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color:
+                        checkedKeyword == MapFilterKeyword.values[index].title
+                            ? AppColor.orange500
+                            : AppColor.grey200,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    MapFilterKeyword.values[index].title,
+                    style: AppStyle.body14Regular.copyWith(
+                      color:
+                          checkedKeyword == MapFilterKeyword.values[index].title
+                              ? AppColor.orange500
+                              : null,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         separatorBuilder: (context, index) => const SizedBox(
           width: 8,
         ),
-        itemCount: SearchKeyword.values.length,
+        itemCount: MapFilterKeyword.values.length,
       ),
     );
   }

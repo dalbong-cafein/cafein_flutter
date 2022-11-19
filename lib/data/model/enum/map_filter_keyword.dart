@@ -1,4 +1,4 @@
-enum SearchKeyword {
+enum MapFilterKeyword {
   business('영업중'),
   confuse('혼잡도낮은순'),
   close('가까운순'),
@@ -6,5 +6,5 @@ enum SearchKeyword {
 
   final String title;
 
-  const SearchKeyword(this.title);
+  const MapFilterKeyword(this.title);
 }

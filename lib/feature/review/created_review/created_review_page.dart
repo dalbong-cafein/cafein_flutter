@@ -28,21 +28,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+class CreateReviewPageArguments {
+  final StoreDetail storeDetail;
+  final ReviewRecommendation? recommendation;
+
+  CreateReviewPageArguments({
+    required this.storeDetail,
+    this.recommendation,
+  });
+}
+
 class CreatedReviewPage extends StatefulWidget {
   const CreatedReviewPage({
     Key? key,
     required this.storeDetail,
+    this.recommendation,
   }) : super(key: key);
 
   static const routeName = 'CreatedReviewPage';
 
   final StoreDetail storeDetail;
+  final ReviewRecommendation? recommendation;
 
   @override
   State<CreatedReviewPage> createState() => _CreatedReviewPageState();
 }
 
 class _CreatedReviewPageState extends State<CreatedReviewPage> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.recommendation != null) {
+      Future.microtask(
+        () => context.read<CreatedReviewBloc>().add(
+              CreatedReviewScoreChanged(
+                recommendation: widget.recommendation!,
+              ),
+            ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(

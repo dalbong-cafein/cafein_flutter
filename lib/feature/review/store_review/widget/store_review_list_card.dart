@@ -112,8 +112,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                           onPressed: () async {
                             final bloc = context.read<StoreReviewBloc>();
 
-                            final result =
-                                await Navigator.of(context).pushNamed(
+                            await Navigator.of(context).pushNamed(
                               UpdatedReviewPage.routeName,
                               arguments: UpdateReviewPageArgument(
                                 storeId: widget.storeId,
@@ -123,15 +122,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                               ),
                             );
 
-                            if (result is! bool) {
-                              return;
-                            }
-
-                            if (!result) {
-                              return;
-                            }
-
-                            bloc.add(const StoreReviewRequested());
+                            bloc.add(const StoreReviewResetRequested());
                           },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: AppColor.grey800,

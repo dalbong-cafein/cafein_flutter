@@ -9,6 +9,7 @@ import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
+import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -63,10 +64,16 @@ class StoreReviewListCard extends StatelessWidget {
       itemBuilder: (context, index) {
         if (reviewCount > 3 && index == 3) {
           return InkWell(
-            onTap: () => Navigator.of(context).pushNamed(
-              StoreReviewListPage.routeName,
-              arguments: storeDetail,
-            ),
+            onTap: () async {
+              final bloc = context.read<StoreDetailBloc>();
+
+              await Navigator.of(context).pushNamed(
+                StoreReviewListPage.routeName,
+                arguments: storeDetail,
+              );
+
+              bloc.add(const StoreDetailReviewRequested());
+            },
             child: Container(
               height: 60,
               decoration: const BoxDecoration(
@@ -186,15 +193,21 @@ class _ReviewCardState extends State<_ReviewCard> {
                         height: 32,
                         width: 52,
                         child: ElevatedButton(
-                          onPressed: () => Navigator.of(context).pushNamed(
-                            UpdatedReviewPage.routeName,
-                            arguments: UpdateReviewPageArgument(
-                              storeId: widget.storeId,
-                              storeName: widget.storeName,
-                              review: widget.review,
-                              storeImageIdPair: widget.storeImageIdPair,
-                            ),
-                          ),
+                          onPressed: () async {
+                            final bloc = context.read<StoreDetailBloc>();
+
+                            await Navigator.of(context).pushNamed(
+                              UpdatedReviewPage.routeName,
+                              arguments: UpdateReviewPageArgument(
+                                storeId: widget.storeId,
+                                storeName: widget.storeName,
+                                review: widget.review,
+                                storeImageIdPair: widget.storeImageIdPair,
+                              ),
+                            );
+
+                            bloc.add(const StoreDetailReviewRequested());
+                          },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: AppColor.grey800,
                             backgroundColor: AppColor.white,

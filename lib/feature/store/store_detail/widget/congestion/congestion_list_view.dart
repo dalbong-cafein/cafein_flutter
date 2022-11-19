@@ -189,18 +189,25 @@ class _CongestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRecent = DateTime.now()
+            .difference(DateTime.parse(congestion.registeredDateTime))
+            .inHours <
+        2;
+
     return SizedBox(
       height: 56,
       child: Row(
         children: [
           CircleAvatar(
-            radius: 24,
-            backgroundColor: AppColor.green50,
-            foregroundColor: AppColor.green500,
+            radius: isRecent ? 24 : 20,
+            backgroundColor: isRecent ? AppColor.green50 : AppColor.grey50,
+            foregroundColor: isRecent ? AppColor.green500 : AppColor.grey500,
             child: Center(
               child: Text(
                 getCongestionTitle(congestion.congestionScore),
-                style: AppStyle.subTitle15Medium,
+                style: isRecent
+                    ? AppStyle.subTitle15Medium
+                    : AppStyle.caption13Medium,
               ),
             ),
           ),

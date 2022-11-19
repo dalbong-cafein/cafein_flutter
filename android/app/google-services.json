@@ -29,6 +29,13 @@
             {
               "client_id": "594450001835-b2se388c6jfhhu3h9eq9ua6u3rbrgvnk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "594450001835-4k34qgqcji4atvvi5kk9khqska64323i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dalbong.cafein"
+              }
             }
           ]
         }

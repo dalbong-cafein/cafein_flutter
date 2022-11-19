@@ -53,24 +53,6 @@ class SearchBodyHeader extends StatelessWidget {
               ),
             ),
           ),
-          // if (!isEmpty)
-          //   InkWell(
-          //     onTap: () {},
-          //     child: Container(
-          //       height: 34,
-          //       width: isCardView ? 88 : 101,
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(20),
-          //         color: AppColor.white,
-          //       ),
-          //       child: Center(
-          //         child: Text(
-          //           isCardView ? '목록 보기' : '카드뷰 보기',
-          //           style: AppStyle.body15Regular,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
         ],
       ),
     );

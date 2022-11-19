@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cafein_flutter/cafein_const.dart';
+import 'package:cafein_flutter/data/model/enum/map_filter_keyword.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
@@ -149,7 +150,9 @@ class _MapPageState extends State<MapPage> {
                 isTapped = true;
 
                 // 카드 페이지 이동
-                await moveToCurrentStoreCard(state.focusedIndex!);
+                if (state.isMoveCamera) {
+                  await moveToCurrentStoreCard(state.focusedIndex!);
+                }
 
                 isTapped = false;
               }
@@ -186,7 +189,8 @@ class _MapPageState extends State<MapPage> {
             }
 
             if ((state.processType == ProcessType.currentLocation ||
-                    state.processType == ProcessType.searchRequest) &&
+                    state.processType == ProcessType.searchRequest ||
+                    state.processType == ProcessType.mapFilter) &&
                 !state.permissionStatus.isGranted) {
               final result = await PermissionDialog.show(context);
 
@@ -207,6 +211,15 @@ class _MapPageState extends State<MapPage> {
                 break;
               case ProcessType.currentLocation:
                 bloc.add(const MapCurrentLocationRequested());
+
+                break;
+
+              case ProcessType.mapFilter:
+                bloc.add(
+                  const MapKeywordTaped(
+                    searchKeyword: MapFilterKeyword.close,
+                  ),
+                );
 
                 break;
               default:
@@ -331,7 +344,10 @@ class _MapPageState extends State<MapPage> {
               },
             ),
             BlocBuilder<MapBloc, MapState>(
-              buildWhen: (pre, next) => next is MapStoreLoaded,
+              buildWhen: (pre, next) =>
+                  pre is MapStoreLoading ||
+                  next is MapStoreLoading ||
+                  next is MapStoreLoaded,
               builder: (context, state) {
                 if (state is MapStoreLoaded) {
                   if (state.stores.isEmpty) {
@@ -401,9 +417,7 @@ class _MapPageState extends State<MapPage> {
                     alignment: Alignment.topCenter,
                     child: InkWell(
                       onTap: () => context.read<MapBloc>().add(
-                            MapStoreRequested(
-                              location: state.location,
-                            ),
+                            MapStoreRequested(location: state.location),
                           ),
                       child: Container(
                         width: 144,
