@@ -8,7 +8,6 @@ import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
-import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
@@ -32,9 +31,10 @@ class HomePage extends StatelessWidget {
           );
         }
       },
-      buildWhen: (pre, next) => next is HomeLoaded || next is HomeRecommendStoreLoaded,
-      builder: (context, state){
-        if (state is HomeLoaded || state is HomeRecommendStoreLoaded){
+      buildWhen: (pre, next) =>
+          next is HomeLoaded || next is HomeRecommendStoreLoaded,
+      builder: (context, state) {
+        if (state is HomeLoaded || state is HomeRecommendStoreLoaded) {
           memberData = context.watch<UserRepository>().getMemberData;
         }
         return Scaffold(
@@ -61,28 +61,27 @@ class HomePage extends StatelessWidget {
                       height: 32,
                       child: memberData?.imageIdPair?.imageUrl == null
                           ? CircleAvatar(
-                        child: loadAsset(
-                          CafeinConst
-                              .defaultProfiles[Random().nextInt(2)],
-                          width: 32,
-                          height: 32,
-                        ),
-                      )
+                              child: loadAsset(
+                                CafeinConst
+                                    .defaultProfiles[Random().nextInt(2)],
+                                width: 32,
+                                height: 32,
+                              ),
+                            )
                           : CircleAvatar(
-                        radius: 44,
-                        backgroundImage: NetworkImage(
-                            memberData?.imageIdPair?.imageUrl ?? 'url'),
-                      ),
-                    )
-                ),
+                              radius: 44,
+                              backgroundImage: NetworkImage(
+                                  memberData?.imageIdPair?.imageUrl ?? 'url'),
+                            ),
+                    )),
               ),
             ],
           ),
           bottomNavigationBar: const MainBottomNavigationBar(),
           body: RefreshIndicator(
             onRefresh: () async => context.read<HomeBloc>().add(
-              const HomeRequested(),
-            ),
+                  const HomeRequested(),
+                ),
             child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -116,7 +115,6 @@ class HomePage extends StatelessWidget {
           ),
         );
       },
-
     );
   }
 }
