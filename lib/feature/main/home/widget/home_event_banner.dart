@@ -35,7 +35,7 @@ class HomeEventBanner extends StatelessWidget {
               width: width - 32,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(state.homeEventImageUrl, fit: BoxFit.fitWidth,),
+                child: Image.network(state.homeEventImageUrl, fit: BoxFit.fill,),
               ),
             ),
           );
