@@ -31,6 +31,7 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/more_view/edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
@@ -122,6 +123,7 @@ class CafeinApp extends StatelessWidget {
           BlocProvider(
             create: (context) => PhotoPermissionBloc(),
           ),
+          BlocProvider(create: (context) => EditProfileBloc(userRepository: context.read<UserRepository>(), authRepository: context.read<AuthRepository>()))
         ],
         child: MaterialApp(
           builder: (context, child) => MediaQuery(
