@@ -39,13 +39,10 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 26),
                           child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: loadAsset(
-                              AppIcon.clear24S
-                            )
-                          ),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: loadAsset(AppIcon.clear24S)),
                         ),
                       ],
                     ),
@@ -75,14 +72,6 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
                       "카페 상세페이지에서 추천도 버튼을 눌러 카페의 솔직한 리뷰를 남기면 스티커를 받을 수 있어요.",
                       false,
                       AppImage.getStickerStep2),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  getStickerSteps(
-                      "3. 카공 카페를 등록해 주세요",
-                      "카공 카페로 등록되어 있지 않은 카페의 상세 정보를 채워 카페인에 등록하면 스티커를 받을 수 있어요.",
-                      false,
-                      AppImage.getStickerStep3),
                   const SizedBox(
                     height: 24,
                   ),
@@ -122,7 +111,8 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
     );
   }
 
-  Widget getStickerSteps(String title, String content, bool isComment, String imageUrl) {
+  Widget getStickerSteps(
+      String title, String content, bool isComment, String imageUrl) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -130,7 +120,8 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppStyle.subTitle17SemiBold.copyWith(color: AppColor.grey900),
+            style:
+                AppStyle.subTitle17SemiBold.copyWith(color: AppColor.grey900),
           ),
           const SizedBox(
             height: 8,
@@ -147,7 +138,8 @@ class GetStickerWayBottomDrawer extends StatelessWidget {
                     ),
                     Text(
                       "*카페 알림 전송을 위해 위치접근 권한을 허용해 주세요.",
-                      style: AppStyle.caption12Regular.copyWith(color: AppColor.grey600),
+                      style: AppStyle.caption12Regular
+                          .copyWith(color: AppColor.grey600),
                     )
                   ],
                 )
