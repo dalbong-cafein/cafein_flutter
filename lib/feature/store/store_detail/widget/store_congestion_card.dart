@@ -44,14 +44,9 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => context.read<CongestionBloc>().add(
-            CongestionRequested(
-              day: '${DateFormat.E('ko_KR').format(
-                DateTime.now(),
-              )}요일',
-            ),
-          ),
-    );
+        () => context.read<CongestionBloc>().add(CongestionRequested(
+              day: '${DateFormat.E('ko_KR').format(DateTime.now())}요일',
+            )));
   }
 
   @override
@@ -185,9 +180,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
             await CreatedSucceedWithoutStickerDialog.show(context);
 
             bloc.add(CongestionRequested(
-              day: '${DateFormat.E('ko_KR').format(
-                DateTime.now(),
-              )}요일',
+              day: '${DateFormat.E('ko_KR').format(DateTime.now())}요일',
             ));
           } else if (state is CongestionStickerCreatedSucceed) {
             await CreatedSucceedDialog.show(
@@ -196,9 +189,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
             );
 
             bloc.add(CongestionRequested(
-              day: '${DateFormat.E('ko_KR').format(
-                DateTime.now(),
-              )}요일',
+              day: '${DateFormat.E('ko_KR').format(DateTime.now())}요일',
             ));
           } else if (state is CongestionStickerError) {
             CreatedSucceedWithoutStickerDialog.show(context);
@@ -209,145 +200,7 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
           if (state is CongestionLoaded) {
             if (state.congestionResponse.congestionList.isEmpty) {
               if (!state.isInitialLoaded) {
-                return SizedBox(
-                  height: 280,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 20,
-                    ),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: InkWell(
-                            onTap: () => CongestionPossibleDialog.show(context),
-                            child: const Text(
-                              '혼잡도',
-                              style: AppStyle.subTitle17SemiBold,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 36,
-                              width: 88,
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  final bloc = context.read<CongestionBloc>();
-                                  final result =
-                                      await StoreCongestionBottomSheet.show(
-                                    context,
-                                    selectedDay: state.day,
-                                  );
-
-                                  if (result.isEmpty) {
-                                    return;
-                                  }
-
-                                  if (result == state.day) {
-                                    return;
-                                  }
-
-                                  bloc.add(
-                                    CongestionRequested(day: result),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: AppColor.grey800,
-                                  backgroundColor: AppColor.white,
-                                  textStyle: AppStyle.subTitle14Medium,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    side: BorderSide(
-                                      color: AppColor.grey300,
-                                    ),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      state.day,
-                                      style: AppStyle.subTitle14Medium,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    loadAsset(AppIcon.downXS),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 36,
-                              width: 116,
-                              child:
-                                  BlocBuilder<CongestionBloc, CongestionState>(
-                                buildWhen: (pre, next) =>
-                                    pre is CongestionLoading ||
-                                    next is CongestionLoading,
-                                builder: (context, state) {
-                                  bool isLoading = false;
-
-                                  if (state is CongestionLoading) {
-                                    isLoading = true;
-                                  }
-                                  return ElevatedButton(
-                                    onPressed: isLoading
-                                        ? null
-                                        : () => context
-                                            .read<LocationPermissionBloc>()
-                                            .add(
-                                              const LocationPermissionRequest(
-                                                processType:
-                                                    ProcessType.congestion,
-                                              ),
-                                            ),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.zero,
-                                      textStyle: AppStyle.subTitle14Medium,
-                                    ),
-                                    child: isLoading
-                                        ? const DotsLoadingIndicator()
-                                        : const Text('혼잡도 알려주기'),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        loadAsset(
-                          AppImage.characterQuestionS,
-                          width: 40,
-                          height: 40,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          '제보된 혼잡도 정보가 없어요\n혼잡도 눌려주기를 눌러 카페의 혼잡도를 알려주세요',
-                          style: AppStyle.caption13Regular.copyWith(
-                            color: AppColor.grey600,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
-                );
-              }
-              return SizedBox(
-                height: 280,
-                child: Padding(
+                return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 20,
@@ -364,62 +217,196 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 24),
-                      loadAsset(
-                        AppImage.characterQuestionS,
-                        width: 40,
-                        height: 40,
-                      ),
                       const SizedBox(height: 16),
-                      Text(
-                        '제보된 혼잡도 정보가 없어요\n혼잡도 알려주기를 눌러 카페의 혼잡도를 알려주세요',
-                        style: AppStyle.caption13Regular.copyWith(
-                          color: AppColor.grey600,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        height: 36,
-                        width: 116,
-                        child: BlocBuilder<CongestionBloc, CongestionState>(
-                          buildWhen: (pre, next) =>
-                              pre is CongestionLoading ||
-                              next is CongestionLoading,
-                          builder: (context, state) {
-                            bool isLoading = false;
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            height: 34,
+                            width: 88,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                final bloc = context.read<CongestionBloc>();
+                                final result =
+                                    await StoreCongestionBottomSheet.show(
+                                  context,
+                                  selectedDay: state.day,
+                                );
 
-                            if (state is CongestionLoading) {
-                              isLoading = true;
-                            }
-                            return ElevatedButton(
-                              onPressed: isLoading
-                                  ? null
-                                  : () => context
-                                      .read<LocationPermissionBloc>()
-                                      .add(
-                                        const LocationPermissionRequest(
-                                          processType: ProcessType.congestion,
-                                        ),
-                                      ),
+                                if (result.isEmpty) {
+                                  return;
+                                }
+
+                                if (result == state.day) {
+                                  return;
+                                }
+
+                                bloc.add(
+                                  CongestionRequested(day: result),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
+                                foregroundColor: AppColor.grey800,
+                                backgroundColor: AppColor.white,
+                                textStyle: AppStyle.subTitle14Medium,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
                                   ),
+                                  side: BorderSide(
+                                    color: AppColor.grey300,
+                                  ),
                                 ),
-                                padding: EdgeInsets.zero,
-                                textStyle: AppStyle.subTitle14Medium,
                               ),
-                              child: isLoading
-                                  ? const DotsLoadingIndicator()
-                                  : const Text('혼잡도 알려주기'),
-                            );
-                          },
-                        ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    state.day,
+                                    style: AppStyle.subTitle14Medium,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  loadAsset(AppIcon.downXS),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 34,
+                            width: 114,
+                            child: BlocBuilder<CongestionBloc, CongestionState>(
+                              buildWhen: (pre, next) =>
+                                  pre is CongestionLoading ||
+                                  next is CongestionLoading,
+                              builder: (context, state) {
+                                bool isLoading = false;
+
+                                if (state is CongestionLoading) {
+                                  isLoading = true;
+                                }
+                                return ElevatedButton(
+                                  onPressed: isLoading
+                                      ? null
+                                      : () => context
+                                          .read<LocationPermissionBloc>()
+                                          .add(
+                                            const LocationPermissionRequest(
+                                              processType:
+                                                  ProcessType.congestion,
+                                            ),
+                                          ),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    padding: EdgeInsets.zero,
+                                    textStyle: AppStyle.subTitle14Medium,
+                                  ),
+                                  child: isLoading
+                                      ? const DotsLoadingIndicator()
+                                      : const Text('혼잡도 알려주기'),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 30),
+                      loadAsset(
+                        AppImage.characterQuestionS,
+                        width: 38,
+                        height: 42,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        '제보된 혼잡도 정보가 없어요\n혼잡도 알려주기를 눌러 카페의 혼잡도를 알려주세요',
+                        style: AppStyle.caption13Regular.copyWith(
+                          color: AppColor.grey600,
+                          height: 20 / 13,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
                     ],
                   ),
+                );
+              }
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 20,
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: InkWell(
+                        onTap: () => CongestionPossibleDialog.show(context),
+                        child: const Text(
+                          '혼잡도',
+                          style: AppStyle.subTitle17SemiBold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    loadAsset(
+                      AppImage.characterQuestionS,
+                      width: 38,
+                      height: 42,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '제보된 혼잡도 정보가 없어요\n혼잡도 알려주기를 눌러 카페의 혼잡도를 알려주세요',
+                      style: AppStyle.caption13Regular.copyWith(
+                        color: AppColor.grey600,
+                        height: 20 / 13,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 34,
+                      width: 114,
+                      child: BlocBuilder<CongestionBloc, CongestionState>(
+                        buildWhen: (pre, next) =>
+                            pre is CongestionLoading ||
+                            next is CongestionLoading,
+                        builder: (context, state) {
+                          bool isLoading = false;
+
+                          if (state is CongestionLoading) {
+                            isLoading = true;
+                          }
+                          return ElevatedButton(
+                            onPressed: isLoading
+                                ? null
+                                : () =>
+                                    context.read<LocationPermissionBloc>().add(
+                                          const LocationPermissionRequest(
+                                            processType: ProcessType.congestion,
+                                          ),
+                                        ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              padding: EdgeInsets.zero,
+                              textStyle: AppStyle.subTitle14Medium,
+                            ),
+                            child: isLoading
+                                ? const DotsLoadingIndicator()
+                                : const Text('혼잡도 알려주기'),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
               );
             }

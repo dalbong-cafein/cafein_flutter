@@ -10,8 +10,17 @@ class SearchKeywordTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 30,
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 0.5,
+            color: Color(0xffefefef),
+          ),
+        ),
+      ),
+      padding: const EdgeInsets.only(bottom: 12),
+      height: 42,
       width: MediaQuery.of(context).size.width,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(
@@ -72,7 +81,7 @@ class SearchKeywordTab extends StatelessWidget {
           ),
         ),
         separatorBuilder: (context, index) => const SizedBox(
-          width: 8,
+          width: 6,
         ),
         itemCount: MapFilterKeyword.values.length,
       ),

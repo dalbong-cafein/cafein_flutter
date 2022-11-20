@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC4DPm3D94ehWF8t3oWTPE9yiJX9wfwhME',
-    appId: '1:594450001835:web:9af0140e017097332decee',
-    messagingSenderId: '594450001835',
-    projectId: 'dalbong-cafein',
-    authDomain: 'dalbong-cafein.firebaseapp.com',
-    storageBucket: 'dalbong-cafein.appspot.com',
-    measurementId: 'G-QXEMFFH3TJ',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB47_wPcIANi6Xd1diJ6TWbMePUg6atUoU',
     appId: '1:594450001835:android:4e71aa594fe566fd2decee',
@@ -69,15 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'dalbong-cafein.appspot.com',
     iosClientId: '594450001835-4k34qgqcji4atvvi5kk9khqska64323i.apps.googleusercontent.com',
     iosBundleId: 'com.dalbong.cafein',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBabk5vCU-_FHx4p4KD0BLK1yMOiV6uu8c',
-    appId: '1:594450001835:ios:d930bd7a1721b92c2decee',
-    messagingSenderId: '594450001835',
-    projectId: 'dalbong-cafein',
-    storageBucket: 'dalbong-cafein.appspot.com',
-    iosClientId: '594450001835-std2qrsghv6v7cokp0h5f2ogd2asq7ih.apps.googleusercontent.com',
-    iosBundleId: 'com.cafein.cafeinFlutter',
   );
 }

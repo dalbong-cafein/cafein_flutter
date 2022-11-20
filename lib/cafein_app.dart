@@ -1,4 +1,3 @@
-import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/cafein_route.dart';
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/remote/dio_util.dart';
@@ -33,6 +32,7 @@ import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
+import 'package:cafein_flutter/firebase_config.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/logger/custom_navigator_logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';

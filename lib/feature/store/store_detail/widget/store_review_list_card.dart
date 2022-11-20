@@ -35,23 +35,22 @@ class StoreReviewListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (reviewCount == 0) {
-      return SizedBox(
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 56),
         height: 186,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              loadAsset(AppIcon.textBlank),
-              const SizedBox(height: 16),
-              Text(
-                '작성된 리뷰가 없어요',
-                style: AppStyle.caption13Regular.copyWith(
-                  color: AppColor.grey600,
-                ),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            loadAsset(AppIcon.textBlank),
+            Text(
+              '작성된 리뷰가 없어요',
+              style: AppStyle.caption13Regular.copyWith(
+                color: AppColor.grey600,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }

@@ -143,9 +143,7 @@ class _ReviewDetailRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SizedBox(
         height: 40,
         child: Row(
@@ -157,24 +155,27 @@ class _ReviewDetailRow extends StatelessWidget {
               child: loadAsset(icon),
             ),
             const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  reviewCategory.name,
-                  style: AppStyle.caption12Medium.copyWith(
-                    color: AppColor.grey600,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    reviewCategory.name,
+                    style: AppStyle.caption12Medium.copyWith(
+                      color: AppColor.grey600,
+                    ),
                   ),
-                ),
-                Text(
-                  getReviewString(
-                    reviewCategory: reviewCategory,
-                    reviewScore: reviewScore,
+                  Text(
+                    getReviewString(
+                      reviewCategory: reviewCategory,
+                      reviewScore: reviewScore,
+                    ),
+                    style: AppStyle.subTitle15Medium,
                   ),
-                  style: AppStyle.subTitle15Medium,
-                ),
-              ],
+                ],
+              ),
             ),
             const Spacer(),
             Container(

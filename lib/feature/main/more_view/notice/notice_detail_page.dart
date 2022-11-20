@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/feature/main/more_view/notice/bloc/notice_detail_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
+import 'package:cafein_flutter/util/link_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,24 +63,31 @@ class NoticeDetailPage extends StatelessWidget {
                           vertical: 8,
                           horizontal: 16,
                         ),
-                        child: Image.network(
-                          e.imageUrl,
-                          fit: BoxFit.contain,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          child: Image.network(
+                            e.imageUrl,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                     ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                     ),
-                    child: Text(
+                    child: LinkText(
                       state.notice.content,
-                      style: AppStyle.body14Regular,
+                      linkStyle: AppStyle.body14Regular.copyWith(
+                        color: AppColor.orange500,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             );
