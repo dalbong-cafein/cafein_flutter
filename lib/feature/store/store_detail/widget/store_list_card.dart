@@ -38,10 +38,11 @@ class _StoreListCardState extends State<StoreListCard> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: SizedBox(
+      child: Container(
+        color: AppColor.white,
         height: 256,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.only(top: 20),
           child: BlocBuilder<StoreDetailBloc, StoreDetailState>(
             buildWhen: (pre, next) => next is StoreDetailNearStoreLoaded,
             builder: (context, state) {
@@ -61,7 +62,6 @@ class _StoreListCardState extends State<StoreListCard> {
                       style: AppStyle.subTitle17SemiBold,
                     ),
                   ),
-                  const SizedBox(height: 16),
                   Expanded(
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(
@@ -94,6 +94,7 @@ class _StoreListCardState extends State<StoreListCard> {
                           ),
                           child: Container(
                             height: 172,
+                            margin: const EdgeInsets.only(top: 16, bottom: 20),
                             width: 256,
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
@@ -102,13 +103,8 @@ class _StoreListCardState extends State<StoreListCard> {
                               boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 16,
-                                  offset: Offset(2, 2),
-                                  color: Color.fromRGBO(
-                                    0,
-                                    0,
-                                    0,
-                                    0.1,
-                                  ),
+                                  spreadRadius: 1,
+                                  color: Color.fromRGBO(0, 0, 0, 0.1),
                                 ),
                               ],
                             ),
