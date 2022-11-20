@@ -285,7 +285,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      height: 12,
+                      height: 10,
                       color: AppColor.grey50,
                     ),
                   ),
@@ -298,7 +298,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      height: 12,
+                      height: 10,
                       color: AppColor.grey50,
                     ),
                   ),
@@ -339,7 +339,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   ),
                   SliverToBoxAdapter(
                     child: Container(
-                      height: 12,
+                      height: 10,
                       color: AppColor.grey50,
                     ),
                   ),

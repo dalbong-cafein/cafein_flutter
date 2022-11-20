@@ -114,24 +114,28 @@ abstract class AppStyle {
     fontSize: 13,
     fontWeight: FontWeight.w700,
     fontFamily: 'Pretendard',
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const caption13Medium = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w500,
     fontFamily: 'Pretendard',
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const caption13Regular = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w400,
     fontFamily: 'Pretendard',
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const caption12Medium = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     fontFamily: 'Pretendard',
+    leadingDistribution: TextLeadingDistribution.even,
   );
 
   static const caption12Regular = TextStyle(

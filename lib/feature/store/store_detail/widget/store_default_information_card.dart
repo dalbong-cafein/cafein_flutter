@@ -77,67 +77,55 @@ class StoreDefaultInformationCard extends StatelessWidget {
             businessInfo: storeDetail.businessInfo,
             totalBusinessInfo: storeDetail.totalBusinessInfo,
           ),
-          const SizedBox(height: 10),
-          InkWell(
-            onTap: () {
-              if (storeDetail.phone == null) {
-                return;
-              }
-
-              launchUrl(
-                Uri.parse(
-                  'tel:${storeDetail.phone!.replaceAll('-', '')}',
+          if (storeDetail.phone != null && storeDetail.phone!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: InkWell(
+                onTap: () => launchUrl(
+                  Uri.parse('tel:${storeDetail.phone!.replaceAll('-', '')}'),
                 ),
-              );
-            },
-            child: Row(
-              children: [
-                loadAsset(
-                  AppIcon.call,
-                  color: AppColor.grey400,
+                child: Row(
+                  children: [
+                    loadAsset(
+                      AppIcon.call,
+                      color: AppColor.grey400,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      storeDetail.phone ?? '',
+                      style: AppStyle.body14Regular.copyWith(
+                        color: AppColor.blue,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Text(
-                  storeDetail.phone ?? '',
-                  style: AppStyle.body14Regular.copyWith(
-                    color: AppColor.blue,
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          InkWell(
-            onTap: () {
-              if (storeDetail.website == null) {
-                return;
-              }
-
-              launchUrl(
-                Uri.parse(
-                  storeDetail.website!,
+          if (storeDetail.website != null && storeDetail.website!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: InkWell(
+                onTap: () => launchUrl(Uri.parse(storeDetail.website!)),
+                child: Row(
+                  children: [
+                    loadAsset(
+                      AppIcon.world,
+                      color: AppColor.grey400,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      storeDetail.website ?? '',
+                      style: AppStyle.body14Regular,
+                    ),
+                  ],
                 ),
-              );
-            },
-            child: Row(
-              children: [
-                loadAsset(
-                  AppIcon.world,
-                  color: AppColor.grey400,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  storeDetail.website ?? '',
-                  style: AppStyle.body14Regular,
-                ),
-              ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
+            margin: const EdgeInsets.only(top: 16),
             height: 1,
             color: AppColor.grey50,
           ),
@@ -216,37 +204,30 @@ class _BusinessHoursCardState extends State<_BusinessHoursCard> {
       ),
       children: widget.totalBusinessInfo != null
           ? [
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onMonday,
                 dayTitle: CafeinConst.krDays[0],
               ),
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onTuesday,
                 dayTitle: CafeinConst.krDays[1],
               ),
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onWednesday,
                 dayTitle: CafeinConst.krDays[2],
               ),
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onThursday,
                 dayTitle: CafeinConst.krDays[3],
               ),
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onFriday,
                 dayTitle: CafeinConst.krDays[4],
               ),
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onSaturday,
                 dayTitle: CafeinConst.krDays[5],
               ),
-              const SizedBox(height: 6),
               _BusinessHourRow(
                 businessInfo: widget.totalBusinessInfo?.onSunday,
                 dayTitle: CafeinConst.krDays[6],
@@ -277,23 +258,27 @@ class _BusinessHourRow extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Row(
-      children: [
-        Text(
-          dayTitle,
-          style: AppStyle.body14Regular.copyWith(
-            color:
-                todayTitle == dayTitle ? AppColor.orange500 : AppColor.grey500,
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Row(
+        children: [
+          Text(
+            dayTitle,
+            style: AppStyle.body14Regular.copyWith(
+              color: todayTitle == dayTitle
+                  ? AppColor.orange500
+                  : AppColor.grey500,
+            ),
           ),
-        ),
-        const SizedBox(width: 4),
-        Text(
-          '${businessInfo!.tmrOpen} ~ ${businessInfo!.closed}',
-          style: AppStyle.body14Regular.copyWith(
-            color: todayTitle == dayTitle ? AppColor.orange500 : null,
+          const SizedBox(width: 4),
+          Text(
+            '${businessInfo!.tmrOpen} ~ ${businessInfo!.closed}',
+            style: AppStyle.body14Regular.copyWith(
+              color: todayTitle == dayTitle ? AppColor.orange500 : null,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
