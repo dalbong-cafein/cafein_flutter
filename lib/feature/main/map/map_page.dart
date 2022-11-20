@@ -243,204 +243,208 @@ class _MapPageState extends State<MapPage> {
         bottomNavigationBar: const MainBottomNavigationBar(),
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 112,
+          toolbarHeight: 56,
           titleSpacing: 0,
-          title: Column(
-            children: [
-              InkWell(
-                onTap: () async {
-                  final bloc = context.read<MapBloc>();
+          title: InkWell(
+            onTap: () async {
+              final bloc = context.read<MapBloc>();
 
-                  final result = await Navigator.of(context).pushNamed(
-                    SearchPage.routeName,
-                  );
+              final result = await Navigator.of(context).pushNamed(
+                SearchPage.routeName,
+              );
 
-                  if (result == null) {
-                    return;
-                  }
+              if (result == null) {
+                return;
+              }
 
-                  final searchResultData = result as SearchPageResult;
+              final searchResultData = result as SearchPageResult;
 
-                  bloc.add(MapSearchResultChanged(
-                    storeList: searchResultData.storeList,
-                    keyword: searchResultData.keyword,
-                  ));
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  height: 44,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: AppColor.grey50,
-                  ),
-                  child: BlocBuilder<MapBloc, MapState>(
-                    buildWhen: (pre, next) => next is MapStoreLoaded,
-                    builder: (context, state) {
-                      if (state is MapStoreLoaded && state.keyword.isNotEmpty) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            loadAsset(AppIcon.search, color: AppColor.grey700),
-                            const SizedBox(width: 8),
-                            Text(
-                              state.keyword,
-                              style: AppStyle.body15Regular,
-                            ),
-                            const Spacer(),
-                            InkWell(
-                              onTap: () => context.read<MapBloc>().add(
-                                    const MapSearchKeywordDeleteRequested(),
-                                  ),
-                              child: loadAsset(
-                                AppIcon.circleDeleteGrey,
+              bloc.add(MapSearchResultChanged(
+                storeList: searchResultData.storeList,
+                keyword: searchResultData.keyword,
+              ));
+            },
+            child: Container(
+              margin: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: 12,
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              height: 44,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: AppColor.grey50,
+              ),
+              child: BlocBuilder<MapBloc, MapState>(
+                buildWhen: (pre, next) => next is MapStoreLoaded,
+                builder: (context, state) {
+                  if (state is MapStoreLoaded && state.keyword.isNotEmpty) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        loadAsset(AppIcon.search, color: AppColor.grey700),
+                        const SizedBox(width: 8),
+                        Text(
+                          state.keyword,
+                          style: AppStyle.body15Regular,
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: () => context.read<MapBloc>().add(
+                                const MapSearchKeywordDeleteRequested(),
                               ),
+                          child: loadAsset(
+                            AppIcon.circleDeleteGrey,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      loadAsset(AppIcon.search, color: AppColor.grey700),
+                      const SizedBox(width: 8),
+                      Text(
+                        '카페 이름, 지하철, 지역 등으로 검색',
+                        style: AppStyle.body15Regular.copyWith(
+                          color: AppColor.grey500,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+        body: Column(
+          children: [
+            const SearchKeywordTab(),
+            Expanded(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  NaverMap(
+                    onMapCreated: onMapCreated,
+                    initialCameraPosition: const CameraPosition(
+                      target: CafeinConst.defaultLating,
+                    ),
+                    markers: markers,
+                    onCameraChange: (latLng, reason, isAnimated) {
+                      if (isAnimated == true && latLng != null) {
+                        context.read<MapBloc>().add(
+                              MapCameraPositionChanged(
+                                longitude: latLng.longitude,
+                                latitude: latLng.latitude,
+                              ),
+                            );
+                      }
+                    },
+                  ),
+                  BlocBuilder<MapBloc, MapState>(
+                    buildWhen: (pre, next) =>
+                        pre is MapStoreLoading ||
+                        next is MapStoreLoading ||
+                        next is MapStoreLoaded,
+                    builder: (context, state) {
+                      if (state is MapStoreLoaded) {
+                        if (state.stores.isEmpty) {
+                          return const Padding(
+                            padding: EdgeInsets.only(bottom: 12),
+                            child: SearchBodyHeader(
+                              isCardView: true,
+                              isEmpty: true,
                             ),
-                          ],
+                          );
+                        }
+
+                        return SizedBox(
+                          height: columnHeight,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SearchBodyHeader(
+                                isCardView: true,
+                                isEmpty: false,
+                              ),
+                              const SizedBox(height: 16),
+                              Expanded(
+                                child: PageView.builder(
+                                  controller: pageController,
+                                  itemBuilder: (context, index) =>
+                                      SearchStoreCard(
+                                    store: state.stores[index],
+                                    index: index,
+                                    imageWidth: imageWidth,
+                                  ),
+                                  onPageChanged: (index) {
+                                    if (isTapped) {
+                                      return;
+                                    }
+
+                                    context.read<MapBloc>().add(
+                                        MapFocusChanged(focusedIndex: index));
+                                  },
+                                  itemCount: state.stores.length,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                            ],
+                          ),
                         );
                       }
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          loadAsset(AppIcon.search, color: AppColor.grey700),
-                          const SizedBox(width: 8),
-                          Text(
-                            '카페 이름, 지하철, 지역 등으로 검색',
-                            style: AppStyle.body15Regular.copyWith(
-                              color: AppColor.grey500,
+                      return const CustomCircleLoadingIndicator();
+                    },
+                  ),
+                  BlocBuilder<MapBloc, MapState>(
+                    buildWhen: (pre, next) =>
+                        next is MapCameraPositionChecked ||
+                        next is MapStoreLoaded,
+                    builder: (context, state) {
+                      if (state is! MapCameraPositionChecked) {
+                        return const SizedBox.shrink();
+                      }
+
+                      if (!state.isDifferentLocation) {
+                        return const SizedBox.shrink();
+                      }
+
+                      return Positioned(
+                        top: 12,
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: InkWell(
+                            onTap: () => context.read<MapBloc>().add(
+                                  MapStoreRequested(location: state.location),
+                                ),
+                            child: Container(
+                              width: 144,
+                              height: 36,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                                color: AppColor.orange500,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '이 지역에서 재검색',
+                                  style: AppStyle.subTitle15Medium.copyWith(
+                                    color: AppColor.white,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ],
+                        ),
                       );
                     },
                   ),
-                ),
+                ],
               ),
-              const SearchKeywordTab(),
-            ],
-          ),
-        ),
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            NaverMap(
-              onMapCreated: onMapCreated,
-              initialCameraPosition: const CameraPosition(
-                target: CafeinConst.defaultLating,
-              ),
-              markers: markers,
-              onCameraChange: (latLng, reason, isAnimated) {
-                if (isAnimated == true && latLng != null) {
-                  context.read<MapBloc>().add(
-                        MapCameraPositionChanged(
-                          longitude: latLng.longitude,
-                          latitude: latLng.latitude,
-                        ),
-                      );
-                }
-              },
-            ),
-            BlocBuilder<MapBloc, MapState>(
-              buildWhen: (pre, next) =>
-                  pre is MapStoreLoading ||
-                  next is MapStoreLoading ||
-                  next is MapStoreLoaded,
-              builder: (context, state) {
-                if (state is MapStoreLoaded) {
-                  if (state.stores.isEmpty) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 12),
-                      child: SearchBodyHeader(
-                        isCardView: true,
-                        isEmpty: true,
-                      ),
-                    );
-                  }
-
-                  return SizedBox(
-                    height: columnHeight,
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SearchBodyHeader(
-                          isCardView: true,
-                          isEmpty: false,
-                        ),
-                        const SizedBox(height: 16),
-                        Expanded(
-                          child: PageView.builder(
-                            controller: pageController,
-                            itemBuilder: (context, index) => SearchStoreCard(
-                              store: state.stores[index],
-                              index: index,
-                              imageWidth: imageWidth,
-                            ),
-                            onPageChanged: (index) {
-                              if (isTapped) {
-                                return;
-                              }
-
-                              context
-                                  .read<MapBloc>()
-                                  .add(MapFocusChanged(focusedIndex: index));
-                            },
-                            itemCount: state.stores.length,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                      ],
-                    ),
-                  );
-                }
-                return const CustomCircleLoadingIndicator();
-              },
-            ),
-            BlocBuilder<MapBloc, MapState>(
-              buildWhen: (pre, next) =>
-                  next is MapCameraPositionChecked || next is MapStoreLoaded,
-              builder: (context, state) {
-                if (state is! MapCameraPositionChecked) {
-                  return const SizedBox.shrink();
-                }
-
-                if (!state.isDifferentLocation) {
-                  return const SizedBox.shrink();
-                }
-
-                return Positioned(
-                  top: 12,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: InkWell(
-                      onTap: () => context.read<MapBloc>().add(
-                            MapStoreRequested(location: state.location),
-                          ),
-                      child: Container(
-                        width: 144,
-                        height: 36,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: AppColor.orange500,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '이 지역에서 재검색',
-                            style: AppStyle.subTitle15Medium.copyWith(
-                              color: AppColor.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
             ),
           ],
         ),
