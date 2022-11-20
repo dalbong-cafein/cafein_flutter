@@ -124,30 +124,25 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     emit(const MapLoading());
+
     try {
       focusedIndex = event.index;
       final cur = currentStores;
 
       if (event.isLike) {
-        await heartRepository.createHeart(
-          cur[event.index].storeId,
-        );
+        await heartRepository.createHeart(cur[event.index].storeId);
       } else {
-        await heartRepository.deleteHeart(
-          cur[event.index].storeId,
-        );
+        await heartRepository.deleteHeart(cur[event.index].storeId);
       }
 
-      cur[event.index] = cur[event.index].copyWith(
-        isHeart: event.isLike,
-      );
+      cur[event.index] = cur[event.index].copyWith(isHeart: event.isLike);
 
       currentStores = [...cur];
 
       emit(MapStoreLoaded(
         keyword: searchKeyword,
-        focusedIndex: focusedIndex,
         stores: [...currentStores],
+        focusedIndex: focusedIndex,
       ));
     } catch (e) {
       emit(MapError(
@@ -162,7 +157,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) {
     emit(const MapLoading());
+
     final cur = currentStores;
+
     switch (event.searchKeyword) {
       case MapFilterKeyword.business:
         cur.sort((a, b) {
@@ -205,21 +202,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     currentStores = [...cur];
 
-    emit(
-      MapFilterKeywordChecked(
-        filterKeyword: event.searchKeyword,
-      ),
-    );
+    emit(MapFilterKeywordChecked(
+      filterKeyword: event.searchKeyword,
+    ));
 
-    emit(
-      MapStoreLoaded(
-        keyword: searchKeyword,
-        stores: [
-          ...currentStores,
-        ],
-        isGoingToFirst: true,
-      ),
-    );
+    emit(MapStoreLoaded(
+      keyword: searchKeyword,
+      stores: [...currentStores],
+      isGoingToFirst: true,
+    ));
   }
 
   FutureOr<void> _onMapSearchResultChanged(

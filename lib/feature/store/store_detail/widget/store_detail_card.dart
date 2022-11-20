@@ -18,6 +18,11 @@ class StoreDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageList = [
+      ...storeDetail.storeImageList.map((e) => e.imageUrl),
+      ...storeDetail.reviewImageList.map((e) => e.imageUrl),
+    ];
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -107,7 +112,7 @@ class StoreDetailCard extends StatelessWidget {
                     vertical: 20,
                   ),
                   scrollDirection: Axis.horizontal,
-                  itemCount: storeDetail.storeImageList.length,
+                  itemCount: imageList.length,
                   itemBuilder: (context, index) {
                     if (index % 3 == 0) {
                       return InkWell(
@@ -115,9 +120,7 @@ class StoreDetailCard extends StatelessWidget {
                           ImageDetailPage.routeName,
                           arguments: ImageDetailPageArguments(
                             initialPage: index,
-                            imageUrls: storeDetail.storeImageList
-                                .map((e) => e.imageUrl)
-                                .toList(),
+                            imageUrls: imageList,
                           ),
                         ),
                         child: ClipRRect(
@@ -125,8 +128,7 @@ class StoreDetailCard extends StatelessWidget {
                             Radius.circular(10),
                           ),
                           child: CustomCachedNetworkImage(
-                            imageUrl:
-                                storeDetail.storeImageList[index].imageUrl,
+                            imageUrl: imageList[index],
                             height: 200,
                             width: 160,
                             fit: BoxFit.cover,
@@ -143,9 +145,7 @@ class StoreDetailCard extends StatelessWidget {
                               ImageDetailPage.routeName,
                               arguments: ImageDetailPageArguments(
                                 initialPage: index,
-                                imageUrls: storeDetail.storeImageList
-                                    .map((e) => e.imageUrl)
-                                    .toList(),
+                                imageUrls: imageList,
                               ),
                             ),
                             child: ClipRRect(
@@ -153,23 +153,20 @@ class StoreDetailCard extends StatelessWidget {
                                 Radius.circular(10),
                               ),
                               child: CustomCachedNetworkImage(
-                                imageUrl: storeDetail
-                                    .storeImageList[currentIndex].imageUrl,
+                                imageUrl: imageList[currentIndex],
                                 height: 96,
                                 width: 96,
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          if (index + 1 < storeDetail.storeImageList.length)
+                          if (index + 1 < imageList.length)
                             InkWell(
                               onTap: () => Navigator.of(context).pushNamed(
                                 ImageDetailPage.routeName,
                                 arguments: ImageDetailPageArguments(
                                   initialPage: index + 1,
-                                  imageUrls: storeDetail.storeImageList
-                                      .map((e) => e.imageUrl)
-                                      .toList(),
+                                  imageUrls: imageList,
                                 ),
                               ),
                               child: ClipRRect(
@@ -177,9 +174,7 @@ class StoreDetailCard extends StatelessWidget {
                                   Radius.circular(10),
                                 ),
                                 child: CustomCachedNetworkImage(
-                                  imageUrl: storeDetail
-                                      .storeImageList[currentIndex + 1]
-                                      .imageUrl,
+                                  imageUrl: imageList[currentIndex + 1],
                                   height: 96,
                                   width: 96,
                                   fit: BoxFit.cover,

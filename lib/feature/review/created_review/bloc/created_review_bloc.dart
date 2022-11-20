@@ -112,6 +112,7 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
     try {
       final dir = await getApplicationDocumentsDirectory();
       final imagePathList = <String>[];
+
       for (int i = 0; i < photos.length; i++) {
         final fileName = photos[i].split('/').last.split('.').first;
         final filePath = '${dir.path}/$fileName.jpg';

@@ -47,25 +47,22 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     final locationBloc = context.read<LocationPermissionBloc>();
+    final mapBloc = context.read<MapBloc>();
 
     if (locationBloc.state == const LocationPermissionInitial()) {
       Future.microtask(
-        () => context
-            .read<LocationPermissionBloc>()
-            .add(const LocationPermissionRequest(
-              processType: ProcessType.searchRequest,
-            )),
+        () => locationBloc.add(const LocationPermissionRequest(
+          processType: ProcessType.searchRequest,
+        )),
       );
     } else {
       final state = locationBloc.state as LocationPermissionChecked;
-      final mapBloc = context.read<MapBloc>();
 
       if (state.permissionStatus.isGranted) {
         mapBloc.add(const MapLocationRequested());
       } else {
-        mapBloc.add(const MapStoreRequested(
-          location: CafeinConst.defaultLocation,
-        ));
+        mapBloc.add(
+            const MapStoreRequested(location: CafeinConst.defaultLocation));
       }
     }
   }
@@ -133,9 +130,7 @@ class _MapPageState extends State<MapPage> {
                         (store) => '${store.storeId}' == marker!.markerId,
                       );
 
-                      context
-                          .read<MapBloc>()
-                          .add(MapFocusChanged(focusedIndex: focusIndex));
+                      bloc.add(MapFocusChanged(focusedIndex: focusIndex));
                     },
                   ),
                 ),
@@ -198,6 +193,7 @@ class _MapPageState extends State<MapPage> {
                 bloc.add(const MapStoreRequested(
                   location: CafeinConst.defaultLocation,
                 ));
+
                 return;
               }
 
@@ -215,11 +211,9 @@ class _MapPageState extends State<MapPage> {
                 break;
 
               case ProcessType.mapFilter:
-                bloc.add(
-                  const MapKeywordTaped(
-                    searchKeyword: MapFilterKeyword.close,
-                  ),
-                );
+                bloc.add(const MapKeywordTaped(
+                  searchKeyword: MapFilterKeyword.close,
+                ));
 
                 break;
               default:
@@ -265,11 +259,7 @@ class _MapPageState extends State<MapPage> {
               ));
             },
             child: Container(
-              margin: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                bottom: 12,
-              ),
+              margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               height: 44,
               decoration: BoxDecoration(
@@ -294,13 +284,12 @@ class _MapPageState extends State<MapPage> {
                           onTap: () => context.read<MapBloc>().add(
                                 const MapSearchKeywordDeleteRequested(),
                               ),
-                          child: loadAsset(
-                            AppIcon.circleDeleteGrey,
-                          ),
+                          child: loadAsset(AppIcon.circleDeleteGrey),
                         ),
                       ],
                     );
                   }
+
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -349,54 +338,55 @@ class _MapPageState extends State<MapPage> {
                         next is MapStoreLoading ||
                         next is MapStoreLoaded,
                     builder: (context, state) {
-                      if (state is MapStoreLoaded) {
-                        if (state.stores.isEmpty) {
-                          return const Padding(
-                            padding: EdgeInsets.only(bottom: 12),
-                            child: SearchBodyHeader(
-                              isCardView: true,
-                              isEmpty: true,
-                            ),
-                          );
-                        }
+                      if (state is! MapStoreLoaded) {
+                        return const CustomCircleLoadingIndicator();
+                      }
 
-                        return SizedBox(
-                          height: columnHeight,
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SearchBodyHeader(
-                                isCardView: true,
-                                isEmpty: false,
-                              ),
-                              const SizedBox(height: 16),
-                              Expanded(
-                                child: PageView.builder(
-                                  controller: pageController,
-                                  itemBuilder: (context, index) =>
-                                      SearchStoreCard(
-                                    store: state.stores[index],
-                                    index: index,
-                                    imageWidth: imageWidth,
-                                  ),
-                                  onPageChanged: (index) {
-                                    if (isTapped) {
-                                      return;
-                                    }
-
-                                    context.read<MapBloc>().add(
-                                        MapFocusChanged(focusedIndex: index));
-                                  },
-                                  itemCount: state.stores.length,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                            ],
+                      if (state.stores.isEmpty) {
+                        return const Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: SearchBodyHeader(
+                            isCardView: true,
+                            isEmpty: true,
                           ),
                         );
                       }
-                      return const CustomCircleLoadingIndicator();
+
+                      return SizedBox(
+                        height: columnHeight,
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SearchBodyHeader(
+                              isCardView: true,
+                              isEmpty: false,
+                            ),
+                            const SizedBox(height: 16),
+                            Expanded(
+                              child: PageView.builder(
+                                controller: pageController,
+                                itemBuilder: (context, index) =>
+                                    SearchStoreCard(
+                                  store: state.stores[index],
+                                  index: index,
+                                  imageWidth: imageWidth,
+                                ),
+                                onPageChanged: (index) {
+                                  if (isTapped) {
+                                    return;
+                                  }
+
+                                  context.read<MapBloc>().add(
+                                      MapFocusChanged(focusedIndex: index));
+                                },
+                                itemCount: state.stores.length,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                        ),
+                      );
                     },
                   ),
                   BlocBuilder<MapBloc, MapState>(
@@ -461,12 +451,11 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> moveCurrentCamera(LatLng latLng) async {
     final controller = await naverMapController.future;
+
     if (Platform.isAndroid) {
       await controller.moveCamera(
         CameraUpdate.toCameraPosition(
-          CameraPosition(
-            target: latLng,
-          ),
+          CameraPosition(target: latLng),
         ),
       );
     } else if (Platform.isIOS) {
@@ -478,10 +467,11 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> updateCurrentLocation(LatLng latLng) async {
     final controller = await naverMapController.future;
+
     controller.locationOverlay = LocationOverlay(
       controller,
     );
-    controller.locationOverlay!.setPosition(latLng);
+    await controller.locationOverlay!.setPosition(latLng);
   }
 
   Future<void> moveToCurrentStoreCard(int moveIndex) async =>
