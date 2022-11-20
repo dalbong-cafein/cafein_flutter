@@ -190,80 +190,76 @@ class MyStoresCard extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 12),
-                                      child: SizedBox(
-                                        width: ((width - 64) * 0.8 - 12) * 0.8,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              state.memberStores[index]
-                                                  .storeName,
-                                              style: AppStyle.subTitle15Medium,
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              children: [
-                                                OpenCloseChip(
-                                                  isOpen: state
-                                                          .memberStores[index]
-                                                          .businessInfo
-                                                          ?.isOpen ??
-                                                      false,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 6.0),
-                                                  child: Text(
-                                                    state
-                                                                .memberStores[
-                                                                    index]
-                                                                .businessInfo
-                                                                ?.isOpen ??
-                                                            false
-                                                        ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
-                                                        : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
-                                                    style: AppStyle
-                                                        .caption12Regular
-                                                        .copyWith(
-                                                            color: AppColor
-                                                                .grey600),
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                    const Spacer(
+                                      flex: 1,
                                     ),
                                     SizedBox(
-                                      width: ((width - 64) * 0.8 - 12) * 0.28,
-                                      child: Row(
+                                      width: 178,
+                                      child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          ConfuseChip(
-                                            confuseScore: state
-                                                    .memberStores[index]
-                                                    .congestionScoreAvg ??
-                                                1,
-                                            height: 24,
-                                            textStyle:
-                                                AppStyle.subTitle15Medium,
-                                            width: 42,
-                                            borderRadius: 8.0,
+                                          Text(
+                                            state.memberStores[index]
+                                                .storeName,
+                                            style: AppStyle.subTitle15Medium,
                                           ),
-                                          const SizedBox(width: 4)
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            children: [
+                                              OpenCloseChip(
+                                                isOpen: state
+                                                        .memberStores[index]
+                                                        .businessInfo
+                                                        ?.isOpen ??
+                                                    false,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 6.0),
+                                                child: Text(
+                                                  state
+                                                              .memberStores[
+                                                                  index]
+                                                              .businessInfo
+                                                              ?.isOpen ??
+                                                          false
+                                                      ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
+                                                      : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
+                                                  style: AppStyle
+                                                      .caption12Regular
+                                                      .copyWith(
+                                                          color: AppColor
+                                                              .grey600),
+                                                ),
+                                              )
+                                            ],
+                                          )
                                         ],
                                       ),
                                     ),
+                                    const Spacer(
+                                      flex: 5,
+                                    ),
+                                    ConfuseChip(
+                                      confuseScore: state
+                                              .memberStores[index]
+                                              .congestionScoreAvg ??
+                                          1,
+                                      height: 24,
+                                      textStyle:
+                                          AppStyle.subTitle15Medium,
+                                      width: 42,
+                                      borderRadius: 8.0,
+                                    ),
+                                    const Spacer(
+                                      flex: 1,
+                                    )
                                   ],
                                 ),
                               ),
