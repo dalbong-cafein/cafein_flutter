@@ -1,7 +1,6 @@
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,36 +99,36 @@ class _ImageDetailPageState extends State<ImageDetailPage> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).viewPadding.top + 12,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleProfileImage(
-                    imageUrl: userData?.imageIdPair?.imageUrl,
-                    radius: 10,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    userData?.nickname ?? '',
-                    style: AppStyle.caption13Medium.copyWith(
-                      color: AppColor.grey200,
-                    ),
-                  ),
-                  Text(
-                    '의 제보',
-                    style: AppStyle.caption13Regular.copyWith(
-                      color: AppColor.grey300,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.topCenter,
+          //   child: Padding(
+          //     padding: EdgeInsets.only(
+          //       top: MediaQuery.of(context).viewPadding.top + 12,
+          //     ),
+          //     child: Row(
+          //       mainAxisSize: MainAxisSize.min,
+          //       children: [
+          //         CircleProfileImage(
+          //           imageUrl: userData?.imageIdPair?.imageUrl,
+          //           radius: 10,
+          //         ),
+          //         const SizedBox(width: 6),
+          //         Text(
+          //           userData?.nickname ?? '',
+          //           style: AppStyle.caption13Medium.copyWith(
+          //             color: AppColor.grey200,
+          //           ),
+          //         ),
+          //         Text(
+          //           '의 제보',
+          //           style: AppStyle.caption13Regular.copyWith(
+          //             color: AppColor.grey300,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Align(
             alignment: Alignment.topLeft,
             child: Padding(

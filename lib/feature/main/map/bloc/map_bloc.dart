@@ -124,30 +124,28 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     emit(const MapLoading());
+
     try {
       focusedIndex = event.index;
       final cur = currentStores;
 
       if (event.isLike) {
-        await heartRepository.createHeart(
-          cur[event.index].storeId,
-        );
+        await heartRepository.createHeart(cur[event.index].storeId);
       } else {
-        await heartRepository.deleteHeart(
-          cur[event.index].storeId,
-        );
+        await heartRepository.deleteHeart(cur[event.index].storeId);
       }
 
       cur[event.index] = cur[event.index].copyWith(
         isHeart: event.isLike,
+        heartCnt: cur[event.index].heartCnt + (event.isLike ? 1 : -1),
       );
 
       currentStores = [...cur];
 
       emit(MapStoreLoaded(
         keyword: searchKeyword,
-        focusedIndex: focusedIndex,
         stores: [...currentStores],
+        focusedIndex: focusedIndex,
       ));
     } catch (e) {
       emit(MapError(
@@ -160,24 +158,28 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   FutureOr<void> _onSearchKeywordTaped(
     MapKeywordTaped event,
     Emitter<MapState> emit,
-  ) {
+  ) async {
     emit(const MapLoading());
+
     final cur = currentStores;
+
     switch (event.searchKeyword) {
       case MapFilterKeyword.business:
         cur.sort((a, b) {
-          final isOpenA = a.businessInfo?.isOpen ?? false;
+          final isOpenB = b.businessInfo?.isOpen ?? false;
 
-          return isOpenA ? -1 : 1;
+          return isOpenB ? 1 : -1;
         });
+
         break;
       case MapFilterKeyword.confuse:
         cur.sort((a, b) {
           final confuseScoreA = a.congestionScoreAvg ?? 0;
           final confuseScoreB = b.congestionScoreAvg ?? 0;
 
-          return confuseScoreA < confuseScoreB ? -1 : 1;
+          return confuseScoreB.compareTo(confuseScoreA);
         });
+
         break;
       case MapFilterKeyword.close:
         cur.sort((a, b) {
@@ -190,36 +192,40 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             targetLatLng: LatLng(b.latY, b.lngX),
           );
 
-          return distanceA < distanceB ? -1 : 1;
+          return distanceB.compareTo(distanceA);
         });
+
         break;
       case MapFilterKeyword.recommended:
         cur.sort((a, b) {
           final recommendedScoreA = a.recommendPercent ?? 0;
           final recommendedScoreB = b.recommendPercent ?? 0;
 
-          return recommendedScoreA < recommendedScoreB ? -1 : 1;
+          return recommendedScoreB.compareTo(recommendedScoreA);
         });
+
         break;
+      case MapFilterKeyword.none:
+        add(MapStoreRequested(location: currentLocation));
+
+        emit(MapFilterKeywordChecked(
+          filterKeyword: event.searchKeyword,
+        ));
+
+        return;
     }
 
     currentStores = [...cur];
 
-    emit(
-      MapFilterKeywordChecked(
-        filterKeyword: event.searchKeyword,
-      ),
-    );
+    emit(MapFilterKeywordChecked(
+      filterKeyword: event.searchKeyword,
+    ));
 
-    emit(
-      MapStoreLoaded(
-        keyword: searchKeyword,
-        stores: [
-          ...currentStores,
-        ],
-        isGoingToFirst: true,
-      ),
-    );
+    emit(MapStoreLoaded(
+      keyword: searchKeyword,
+      stores: [...currentStores],
+      isGoingToFirst: true,
+    ));
   }
 
   FutureOr<void> _onMapSearchResultChanged(

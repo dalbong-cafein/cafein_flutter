@@ -224,6 +224,7 @@ class UpdatedReviewBloc extends Bloc<UpdatedReviewEvent, UpdatedReviewState> {
       for (int i = 0; i < state.updateImageUrls.length; i++) {
         final fileName =
             state.updateImageUrls[i].split('/').last.split('.').first;
+
         final filePath = '${dir.path}/$fileName.jpg';
 
         await FlutterImageCompress.compressAndGetFile(
