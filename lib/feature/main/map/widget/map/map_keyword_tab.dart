@@ -27,33 +27,41 @@ class SearchKeywordTab extends StatelessWidget {
           horizontal: 16,
         ),
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => InkWell(
-          onTap: () {
-            if (index == 2) {
-              context
-                  .read<LocationPermissionBloc>()
-                  .add(const LocationPermissionRequest(
-                    processType: ProcessType.mapFilter,
-                  ));
+        itemBuilder: (context, index) => BlocBuilder<MapBloc, MapState>(
+          buildWhen: (pre, next) => next is MapFilterKeywordChecked,
+          builder: (context, state) {
+            String? checkedKeyword;
 
-              return;
+            if (state is MapFilterKeywordChecked) {
+              checkedKeyword = state.filterKeyword.title;
             }
 
-            context.read<MapBloc>().add(
-                  MapKeywordTaped(
-                    searchKeyword: MapFilterKeyword.values[index],
-                  ),
-                );
-          },
-          child: BlocBuilder<MapBloc, MapState>(
-            buildWhen: (pre, next) => next is MapFilterKeywordChecked,
-            builder: (context, state) {
-              String? checkedKeyword;
-              if (state is MapFilterKeywordChecked) {
-                checkedKeyword = state.filterKeyword.title;
-              }
+            return InkWell(
+              onTap: () {
+                final bloc = context.read<MapBloc>();
+                if (checkedKeyword == MapFilterKeyword.values[index].title) {
+                  bloc.add(const MapKeywordTaped(
+                    searchKeyword: MapFilterKeyword.none,
+                  ));
 
-              return Container(
+                  return;
+                }
+
+                if (index == 2) {
+                  context
+                      .read<LocationPermissionBloc>()
+                      .add(const LocationPermissionRequest(
+                        processType: ProcessType.mapFilter,
+                      ));
+
+                  return;
+                }
+
+                bloc.add(MapKeywordTaped(
+                  searchKeyword: MapFilterKeyword.values[index],
+                ));
+              },
+              child: Container(
                 height: 30,
                 width: 25 + 12.0 * MapFilterKeyword.values[index].title.length,
                 decoration: BoxDecoration(
@@ -76,14 +84,14 @@ class SearchKeywordTab extends StatelessWidget {
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
         separatorBuilder: (context, index) => const SizedBox(
           width: 6,
         ),
-        itemCount: MapFilterKeyword.values.length,
+        itemCount: MapFilterKeyword.values.length - 1,
       ),
     );
   }

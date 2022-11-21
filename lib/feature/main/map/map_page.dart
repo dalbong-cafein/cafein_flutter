@@ -61,8 +61,9 @@ class _MapPageState extends State<MapPage> {
       if (state.permissionStatus.isGranted) {
         mapBloc.add(const MapLocationRequested());
       } else {
-        mapBloc.add(
-            const MapStoreRequested(location: CafeinConst.defaultLocation));
+        mapBloc.add(const MapStoreRequested(
+          location: CafeinConst.defaultLocation,
+        ));
       }
     }
   }
@@ -100,41 +101,37 @@ class _MapPageState extends State<MapPage> {
                 return;
               }
 
-              bloc.add(
-                MapStoreRequested(location: state.location),
-              );
+              bloc.add(MapStoreRequested(location: state.location));
             } else if (state is MapStoreLoaded) {
               markers.clear();
-              markers.addAll(
-                List.generate(
-                  state.stores.length,
-                  (index) => Marker(
-                    markerId: '${state.stores[index].storeId}',
-                    position: LatLng(
-                      state.stores[index].latY,
-                      state.stores[index].lngX,
-                    ),
-                    icon: getMarkerIcon(
-                      confuseScore: state.stores[index].congestionScoreAvg,
-                      isLike: state.stores[index].isHeart,
-                      isSingle: state.focusedIndex == null
-                          ? state.stores.length == 1
-                          : (index == state.focusedIndex ? true : false),
-                    ),
-                    onMarkerTab: (marker, iconSize) async {
-                      if (marker?.position == null) {
-                        return;
-                      }
-
-                      final focusIndex = state.stores.indexWhere(
-                        (store) => '${store.storeId}' == marker!.markerId,
-                      );
-
-                      bloc.add(MapFocusChanged(focusedIndex: focusIndex));
-                    },
+              markers.addAll(List.generate(
+                state.stores.length,
+                (index) => Marker(
+                  markerId: '${state.stores[index].storeId}',
+                  position: LatLng(
+                    state.stores[index].latY,
+                    state.stores[index].lngX,
                   ),
+                  icon: getMarkerIcon(
+                    confuseScore: state.stores[index].congestionScoreAvg,
+                    isLike: state.stores[index].isHeart,
+                    isSingle: state.focusedIndex == null
+                        ? state.stores.length == 1
+                        : (index == state.focusedIndex ? true : false),
+                  ),
+                  onMarkerTab: (marker, iconSize) async {
+                    if (marker?.position == null) {
+                      return;
+                    }
+
+                    final focusIndex = state.stores.indexWhere(
+                      (store) => '${store.storeId}' == marker!.markerId,
+                    );
+
+                    bloc.add(MapFocusChanged(focusedIndex: focusIndex));
+                  },
                 ),
-              );
+              ));
 
               if (state.focusedIndex != null) {
                 final marker = markers[state.focusedIndex!];
@@ -225,9 +222,10 @@ class _MapPageState extends State<MapPage> {
           listenWhen: (pre, next) => next is MainNavigationSelected,
           listener: (context, state) {
             final bloc = context.read<MapBloc>();
+
             if (state is MainNavigationSelected && state.index == 1) {
-              bloc.add(MapStoreRequested(
-                location: bloc.currentLocation,
+              bloc.add(const MapKeywordTaped(
+                searchKeyword: MapFilterKeyword.none,
               ));
             }
           },
@@ -323,12 +321,10 @@ class _MapPageState extends State<MapPage> {
                     markers: markers,
                     onCameraChange: (latLng, reason, isAnimated) {
                       if (isAnimated == true && latLng != null) {
-                        context.read<MapBloc>().add(
-                              MapCameraPositionChanged(
-                                longitude: latLng.longitude,
-                                latitude: latLng.latitude,
-                              ),
-                            );
+                        context.read<MapBloc>().add(MapCameraPositionChanged(
+                              longitude: latLng.longitude,
+                              latitude: latLng.latitude,
+                            ));
                       }
                     },
                   ),

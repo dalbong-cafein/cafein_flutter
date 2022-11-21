@@ -17,8 +17,7 @@ class CustomBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    log('onChange: ${bloc.runtimeType}');
-    log('onChange: ${change.currentState.runtimeType} --> ${change.nextState.runtimeType}');
+    log('onChange: ${bloc.runtimeType} ${change.currentState.runtimeType} --> ${change.nextState.runtimeType}');
   }
 
   @override
