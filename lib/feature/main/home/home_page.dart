@@ -62,8 +62,7 @@ class HomePage extends StatelessWidget {
                       child: memberData?.imageIdPair?.imageUrl == null
                           ? CircleAvatar(
                               child: loadAsset(
-                                CafeinConst
-                                    .defaultProfiles[Random().nextInt(2)],
+                                AppImage.profile2,
                                 width: 32,
                                 height: 32,
                               ),
