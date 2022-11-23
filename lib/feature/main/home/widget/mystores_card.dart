@@ -249,8 +249,7 @@ class MyStoresCard extends StatelessWidget {
                                     ConfuseChip(
                                       confuseScore: state
                                               .memberStores[index]
-                                              .congestionScoreAvg ??
-                                          1,
+                                              .congestionScoreAvg ,
                                       height: 24,
                                       textStyle:
                                           AppStyle.subTitle15Medium,

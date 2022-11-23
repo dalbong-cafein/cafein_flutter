@@ -26,7 +26,7 @@ class ReceivedCouponsBloc extends Bloc<ReceivedCouponsEvent, ReceivedCouponsStat
       final couponResponse = await couponRepository.getCoupons();
       final coupons = couponResponse.data;
       coupons.sort((a,b) => DateTime.parse(a.registeredDateTime).compareTo(DateTime.parse(b.registeredDateTime)));
-      coupons.reversed;
+
       emit(ReceivedCouponsLoaded(coupons: [...coupons]));
     } catch (e) {
       emit(ReceivedCouponsError(
