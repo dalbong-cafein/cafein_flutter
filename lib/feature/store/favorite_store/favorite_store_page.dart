@@ -117,7 +117,7 @@ class FavoriteStorePage extends StatelessWidget {
                                   "00:00",
                               state.stores[index].businessInfo?.closed ??
                                   "00:00",
-                              state.stores[index].congestionScoreAvg ?? 0,
+                              state.stores[index].congestionScoreAvg ,
                               state.stores[index].storeId,
                               context,
                               index,
@@ -141,7 +141,7 @@ class FavoriteStorePage extends StatelessWidget {
       bool isOpen,
       String openTime,
       String closeTime,
-      double storeConfuse,
+      double? storeConfuse,
       int storeId,
       BuildContext context,
       int index,

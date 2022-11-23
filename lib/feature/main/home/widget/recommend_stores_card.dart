@@ -199,15 +199,9 @@ class RecommendStoresCard extends StatelessWidget {
                                                         ),
                                                         child: ConfuseChip(
                                                           confuseScore: state
-                                                                      .recommendStores[
-                                                                          index]
-                                                                      .congestionScoreAvg ==
-                                                                  null
-                                                              ? 1
-                                                              : state
-                                                                  .recommendStores[
-                                                                      index]
-                                                                  .congestionScoreAvg!,
+                                                              .recommendStores[
+                                                          index]
+                                                              .congestionScoreAvg,
                                                           height: 18,
                                                           textStyle: AppStyle
                                                               .caption12Medium
