@@ -111,6 +111,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       emit(
         StoreDetailHeartChecked(
           isHeart: isHeart,
+          isInitial: true,
         ),
       );
     } catch (e) {
@@ -183,6 +184,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       emit(
         StoreDetailNearStoreLoaded(
           storeList: nearStoreList,
+          isHeart: null,
         ),
       );
     } catch (e) {
@@ -223,6 +225,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       emit(
         StoreDetailNearStoreLoaded(
           storeList: nearStoreList,
+          isHeart: event.isHeart,
         ),
       );
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/splash/bloc/splash_bloc.dart';
@@ -48,8 +49,10 @@ class _SplashPageState extends State<SplashPage> {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         final navigator = Navigator.of(context);
+        final authCubit = context.read<AuthCubit>();
 
         if (state is SplashTermsChecked) {
+          authCubit.authConfirmRequested();
           navigator.pushNamedAndRemoveUntil(
             TermsPage.routeName,
             (route) => false,
@@ -70,11 +73,13 @@ class _SplashPageState extends State<SplashPage> {
             (route) => false,
           );
         } else if (state is SplashOnboardChecked) {
+          authCubit.authConfirmRequested();
           navigator.pushNamedAndRemoveUntil(
             OnboardPage.routeName,
             (route) => false,
           );
         } else if (state is SplashMainChecked) {
+          authCubit.authConfirmRequested();
           navigator.pushNamedAndRemoveUntil(
             MainPage.routeName,
             (route) => false,

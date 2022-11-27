@@ -51,13 +51,16 @@ class StoreDetailLoaded extends StoreDetailState {
 class StoreDetailNearStoreLoaded extends StoreDetailState {
   const StoreDetailNearStoreLoaded({
     required this.storeList,
+    required this.isHeart,
   });
 
   final List<Store> storeList;
+  final bool? isHeart;
 
   @override
   List<Object?> get props => [
         storeList,
+        isHeart,
       ];
 }
 
@@ -77,12 +80,14 @@ class StoreDetailError extends StoreDetailState {
 class StoreDetailHeartChecked extends StoreDetailState {
   const StoreDetailHeartChecked({
     required this.isHeart,
+    this.isInitial = false,
   });
 
   final bool isHeart;
+  final bool isInitial;
 
   @override
-  List<Object?> get props => [isHeart];
+  List<Object?> get props => [isHeart, isInitial];
 }
 
 class StoreDetailTabChecked extends StoreDetailState {
