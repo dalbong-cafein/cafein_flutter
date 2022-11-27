@@ -23,10 +23,18 @@ abstract class AppIcon {
       'asset/icon/marker/marker_single_normal.png';
   static const markerSingleGood = 'asset/icon/marker/marker_single_good.png';
 
+  static const markerLikeSingleNone =
+      'asset/icon/marker/marker_like_single_none.png';
+  static const markerLikeSingleBad =
+      'asset/icon/marker/marker_like_single_bad.png';
+  static const markerLikeSingleNormal =
+      'asset/icon/marker/marker_like_single_normal.png';
+  static const markerLikeSingleGood =
+      'asset/icon/marker/marker_like_single_good.png';
+
   static const heartCrowded = "asset/icon/heart_crowded_icon.svg";
   static const heartGood = "asset/icon/heart_good_icon.svg";
   static const heartNormal = "asset/icon/heart_normal_icon.svg";
-
 
   static const placeCircle = 'asset/icon/ic_place_circle.svg';
   static const socket = "asset/icon/socket_icon.svg";

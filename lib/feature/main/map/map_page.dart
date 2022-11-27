@@ -176,9 +176,8 @@ class _MapPageState extends State<MapPage> {
 
               // ignore: use_build_context_synchronously
               BottomToastDialog.show(context, isHeart: state.isHeart!);
-
-              setState(() {});
             }
+            setState(() {});
           },
         ),
         BlocListener<LocationPermissionBloc, LocationPermissionState>(

@@ -67,7 +67,7 @@ class StoreDefaultInformationCard extends StatelessWidget {
                     storeDetail.latY,
                     storeDetail.lngX,
                   ),
-                  icon: CafeinConfig.orangeMarker,
+                  icon: AppMarkers.orangeMarker,
                 ),
               ],
             ),
