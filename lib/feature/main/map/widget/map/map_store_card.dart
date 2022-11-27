@@ -45,6 +45,7 @@ class SearchStoreCard extends StatelessWidget {
 
     return InkWell(
       onTap: () async {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
         final bloc = context.read<MapBloc>();
 
         await Navigator.of(context).pushNamed(
@@ -52,7 +53,10 @@ class SearchStoreCard extends StatelessWidget {
           arguments: store.storeId,
         );
 
-        bloc.add(MapStoreRequested(location: bloc.currentLocation));
+        bloc.add(MapStoreRequested(
+          location: bloc.currentLocation,
+          storeId: store.storeId,
+        ));
       },
       child: Container(
         width: double.infinity,

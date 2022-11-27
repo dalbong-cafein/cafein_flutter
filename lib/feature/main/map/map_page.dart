@@ -166,13 +166,25 @@ class _MapPageState extends State<MapPage> {
                 pageController.jumpToPage(0);
               }
 
+              setState(() {});
+
               if (state.isHeart != null) {
                 // ignore: use_build_context_synchronously
                 BottomToastDialog.show(context, isHeart: state.isHeart!);
               }
-            }
 
-            setState(() {});
+              if (state.storeId != null) {
+                final index = markers.indexWhere(
+                    (element) => element.markerId == '${state.storeId}');
+
+                bloc.add(MapStoreDetailCallbackRequested(index: index));
+              }
+            } else if (state is MapStoreDetailCallbackChecked) {
+              Future.delayed(
+                const Duration(milliseconds: 200),
+                () => pageController.jumpToPage(state.index),
+              );
+            }
           },
         ),
         BlocListener<LocationPermissionBloc, LocationPermissionState>(

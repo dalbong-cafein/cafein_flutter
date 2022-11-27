@@ -10,12 +10,17 @@ abstract class MapEvent extends Equatable {
 class MapStoreRequested extends MapEvent {
   const MapStoreRequested({
     required this.location,
+    this.storeId,
   });
 
   final String location;
+  final int? storeId;
 
   @override
-  List<Object?> get props => [location];
+  List<Object?> get props => [
+        location,
+        storeId,
+      ];
 }
 
 class MapLocationRequested extends MapEvent {
@@ -92,4 +97,15 @@ class MapCameraPositionChanged extends MapEvent {
 
   @override
   List<Object?> get props => [latitude, longitude];
+}
+
+class MapStoreDetailCallbackRequested extends MapEvent {
+  const MapStoreDetailCallbackRequested({
+    required this.index,
+  });
+
+  final int index;
+
+  @override
+  List<Object?> get props => [index];
 }
