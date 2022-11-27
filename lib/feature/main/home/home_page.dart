@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/home_event_banner.dart';
@@ -41,6 +38,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: AppColor.grey50,
           appBar: AppBar(
             backgroundColor: AppColor.grey50,
+            automaticallyImplyLeading: false,
             title: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: loadAsset(

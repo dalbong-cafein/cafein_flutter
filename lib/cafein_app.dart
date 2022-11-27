@@ -31,6 +31,7 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/firebase_config.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -115,15 +116,10 @@ class CafeinApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => LocationPermissionBloc(),
-          ),
-          BlocProvider(
-            create: (context) => CameraPermissionBloc(),
-          ),
-          BlocProvider(
-            create: (context) => PhotoPermissionBloc(),
-          ),
+          BlocProvider(create: (context) => LocationPermissionBloc()),
+          BlocProvider(create: (context) => CameraPermissionBloc()),
+          BlocProvider(create: (context) => PhotoPermissionBloc()),
+          BlocProvider(create: (context) => AuthCubit()),
         ],
         child: MaterialApp(
           builder: (context, child) => MediaQuery(

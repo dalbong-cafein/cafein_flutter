@@ -110,6 +110,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         keyword: searchKeyword,
         stores: [...currentStores],
         focusedIndex: focusedIndex,
+        isHeart: null,
       ));
     } catch (e) {
       emit(MapError(
@@ -146,6 +147,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         keyword: searchKeyword,
         stores: [...currentStores],
         focusedIndex: focusedIndex,
+        isHeart: event.isLike,
       ));
     } catch (e) {
       emit(MapError(
@@ -225,6 +227,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       keyword: searchKeyword,
       stores: [...currentStores],
       isGoingToFirst: true,
+      isHeart: null,
     ));
   }
 
@@ -239,6 +242,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       MapStoreLoaded(
         stores: [...currentStores],
         keyword: searchKeyword,
+        isHeart: null,
       ),
     );
   }
@@ -269,6 +273,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(MapStoreLoaded(
         keyword: searchKeyword,
         stores: [...currentStores],
+        isHeart: null,
       ));
     } catch (e) {
       emit(MapError(
@@ -354,6 +359,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         keyword: searchKeyword,
         focusedIndex: focusedIndex,
         isMoveCamera: true,
+        isHeart: null,
       ),
     );
   }

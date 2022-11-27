@@ -86,26 +86,59 @@ class _CongestionListViewState extends State<CongestionListView> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 36,
-                width: 116,
-                child: ElevatedButton(
-                  onPressed: () => context.read<LocationPermissionBloc>().add(
-                        const LocationPermissionRequest(
-                          processType: ProcessType.congestion,
+              BlocBuilder<CongestionBloc, CongestionState>(
+                buildWhen: (pre, next) =>
+                    pre is CongestionLoading || next is CongestionLoading,
+                builder: (context, state) {
+                  bool isLoading = false;
+
+                  if (state is CongestionLoading) {
+                    isLoading = true;
+                  }
+                  return SizedBox(
+                    height: 36,
+                    width: 116,
+                    child: ElevatedButton(
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              final bloc =
+                                  context.read<LocationPermissionBloc>();
+                              final navigator = Navigator.of(context);
+                              final isPreview =
+                                  context.read<AuthCubit>().state ==
+                                      const AuthPreviewed();
+
+                              if (isPreview) {
+                                final result = await LoginDialog.show(context);
+
+                                if (!result) {
+                                  return;
+                                }
+
+                                return navigator.popUntil(
+                                    ModalRoute.withName(LoginPage.routeName));
+                              }
+
+                              bloc.add(const LocationPermissionRequest(
+                                processType: ProcessType.congestion,
+                              ));
+                            },
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
+                        padding: EdgeInsets.zero,
+                        textStyle: AppStyle.subTitle14Medium,
                       ),
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
+                      child: isLoading
+                          ? const DotsLoadingIndicator()
+                          : const Text('혼잡도 알려주기'),
                     ),
-                    padding: EdgeInsets.zero,
-                    textStyle: AppStyle.subTitle14Medium,
-                  ),
-                  child: const Text('혼잡도 알려주기'),
-                ),
+                  );
+                },
               ),
             ],
           ),

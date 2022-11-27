@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
@@ -15,6 +16,7 @@ import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/card/circle_profile_image.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -170,10 +172,25 @@ class _ReviewCardState extends State<_ReviewCard> {
                 InkWell(
                   onTap: () async {
                     final navigator = Navigator.of(context);
+
+                    final isPreview = context.read<AuthCubit>().state ==
+                        const AuthPreviewed();
+
                     final result = await ReportBottomSheet.show(context);
 
                     if (!result) {
                       return;
+                    }
+
+                    if (isPreview) {
+                      // ignore: use_build_context_synchronously
+                      final result = await LoginDialog.show(context);
+
+                      if (!result) {
+                        return;
+                      }
+
+                      return navigator.popUntil((route) => false);
                     }
 
                     navigator.pushNamed(
@@ -193,7 +210,21 @@ class _ReviewCardState extends State<_ReviewCard> {
                         width: 52,
                         child: ElevatedButton(
                           onPressed: () async {
+                            final navigator = Navigator.of(context);
                             final bloc = context.read<StoreDetailBloc>();
+
+                            final isPreview = context.read<AuthCubit>().state ==
+                                const AuthPreviewed();
+
+                            if (isPreview) {
+                              final result = await LoginDialog.show(context);
+
+                              if (!result) {
+                                return;
+                              }
+
+                              return navigator.popUntil((route) => false);
+                            }
 
                             await Navigator.of(context).pushNamed(
                               UpdatedReviewPage.routeName,

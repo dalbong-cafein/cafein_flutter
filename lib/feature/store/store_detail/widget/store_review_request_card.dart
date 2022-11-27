@@ -1,9 +1,11 @@
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -113,9 +115,21 @@ class _ReviewIconCoulmn extends StatelessWidget {
     return InkWell(
       onTap: () async {
         final bloc = context.read<StoreDetailBloc>();
+        final navigator = Navigator.of(context);
+        final isPreview =
+            context.read<AuthCubit>().state == const AuthPreviewed();
 
-        await Navigator.pushNamed(
-          context,
+        if (isPreview) {
+          final result = await LoginDialog.show(context);
+
+          if (!result) {
+            return;
+          }
+
+          return navigator.popUntil((route) => false);
+        }
+
+        await navigator.pushNamed(
           CreatedReviewPage.routeName,
           arguments: CreateReviewPageArguments(
             storeDetail: storeDetail,

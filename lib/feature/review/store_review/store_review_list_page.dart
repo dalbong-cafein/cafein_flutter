@@ -1,11 +1,14 @@
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/store_review/widget/store_review_list_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +95,23 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
                 onTap: () async {
                   final bloc = context.read<StoreReviewBloc>();
 
-                  await Navigator.of(context).pushNamed(
+                  final navigator = Navigator.of(context);
+
+                  final isPreview =
+                      context.read<AuthCubit>().state == const AuthPreviewed();
+
+                  if (isPreview) {
+                    final result = await LoginDialog.show(context);
+
+                    if (!result) {
+                      return;
+                    }
+
+                    return navigator
+                        .popUntil(ModalRoute.withName(LoginPage.routeName));
+                  }
+
+                  await navigator.pushNamed(
                     CreatedReviewPage.routeName,
                     arguments: CreateReviewPageArguments(
                       storeDetail: widget.storeDetail,

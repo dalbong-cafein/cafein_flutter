@@ -1,8 +1,11 @@
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +33,23 @@ class StickerCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).pushNamed(StickerPage.routeName, arguments: false);
+          onTap: () async {
+            final navigator = Navigator.of(context);
+            final isPreview =
+                context.read<AuthCubit>().state == const AuthPreviewed();
+
+            if (isPreview) {
+              final result = await LoginDialog.show(context);
+
+              if (!result) {
+                return;
+              }
+
+              return navigator
+                  .popUntil(ModalRoute.withName(LoginPage.routeName));
+            }
+
+            navigator.pushNamed(StickerPage.routeName, arguments: false);
           },
           child: Container(
             decoration: const BoxDecoration(

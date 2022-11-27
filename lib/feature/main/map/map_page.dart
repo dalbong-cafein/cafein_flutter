@@ -14,6 +14,7 @@ import 'package:cafein_flutter/feature/main/map/widget/map/map_store_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/get_marker_icon.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/bottom_toast_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
@@ -168,8 +169,16 @@ class _MapPageState extends State<MapPage> {
                   curve: Curves.linear,
                 );
               }
+
+              if (state.isHeart == null) {
+                return;
+              }
+
+              // ignore: use_build_context_synchronously
+              BottomToastDialog.show(context, isHeart: state.isHeart!);
+
+              setState(() {});
             }
-            setState(() {});
           },
         ),
         BlocListener<LocationPermissionBloc, LocationPermissionState>(
@@ -237,6 +246,7 @@ class _MapPageState extends State<MapPage> {
         appBar: AppBar(
           toolbarHeight: 56,
           titleSpacing: 0,
+          automaticallyImplyLeading: false,
           title: InkWell(
             onTap: () async {
               final bloc = context.read<MapBloc>();

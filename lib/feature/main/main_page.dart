@@ -6,6 +6,7 @@ import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/home_page.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
@@ -27,6 +28,7 @@ class MainPage extends StatelessWidget {
     final pages = [
       BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(
+          isPreview: context.read<AuthCubit>().state == const AuthPreviewed(),
           stickerRepository: context.read<StickerRepository>(),
           heartRepository: context.read<HeartRepository>(),
           userRepository: context.read<UserRepository>(),

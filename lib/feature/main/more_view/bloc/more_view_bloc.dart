@@ -45,6 +45,18 @@ class MoreViewBloc extends Bloc<MoreViewEvent, MoreViewState> {
     Emitter<MoreViewState> emit,
   ) async {
     emit(const MoreViewLoading());
+
+    if (event.isPreview) {
+      emit(
+        const MoreViewStoreCntAndReviewCntLoaded(
+          storeCount: 0,
+          reviewCount: 0,
+        ),
+      );
+
+      return;
+    }
+
     try {
       final response = await userRepository.getStoreCntAndReviewCnt();
 

@@ -50,6 +50,7 @@ class MapStoreLoaded extends MapState {
     this.isGoingToFirst = false,
     this.focusedIndex,
     this.isMoveCamera = false,
+    required this.isHeart,
   });
 
   final List<Store> stores;
@@ -57,15 +58,11 @@ class MapStoreLoaded extends MapState {
   final bool isGoingToFirst;
   final int? focusedIndex;
   final bool isMoveCamera;
+  final bool? isHeart;
 
   @override
-  List<Object?> get props => [
-        stores,
-        keyword,
-        isGoingToFirst,
-        focusedIndex,
-        isMoveCamera,
-      ];
+  List<Object?> get props =>
+      [stores, keyword, isGoingToFirst, focusedIndex, isMoveCamera, isHeart];
 }
 
 class MapLocationChecked extends MapState {

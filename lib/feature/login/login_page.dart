@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cafein_flutter/data/model/enum/auth_provider.dart';
 import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/login/bloc/login_bloc.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
@@ -31,6 +32,8 @@ class LoginPage extends StatelessWidget {
                 LoginRequested(socialLoginRequest: state.socialLoginRequest),
               );
         } else if (state is LoginSucceed) {
+          context.read<AuthCubit>().authConfirmRequested();
+
           if (!state.isTermsChecked) {
             Navigator.of(context).pushNamed(
               TermsPage.routeName,
@@ -123,6 +126,18 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                  const SizedBox(height: 28),
+                  InkWell(
+                    onTap: () => Navigator.of(context).pushNamed(
+                      MainPage.routeName,
+                    ),
+                    child: Text(
+                      '회원가입 없이 둘러보기',
+                      style: AppStyle.subTitle15Medium.copyWith(
+                        color: AppColor.white,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

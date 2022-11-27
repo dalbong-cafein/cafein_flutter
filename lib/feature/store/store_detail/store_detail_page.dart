@@ -1,3 +1,5 @@
+import 'package:cafein_flutter/feature/login/login_page.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
@@ -10,7 +12,9 @@ import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_re
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_study_information_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/bottom_toast_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -144,6 +148,18 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           }
 
           animateScroll(state.index);
+        } else if (state is StoreDetailHeartChecked) {
+          if (state.isInitial) {
+            return;
+          }
+
+          BottomToastDialog.show(context, isHeart: state.isHeart);
+        } else if (state is StoreDetailNearStoreLoaded) {
+          if (state.isHeart == null) {
+            return;
+          }
+
+          BottomToastDialog.show(context, isHeart: state.isHeart!);
         }
       },
       child: Scaffold(
@@ -174,9 +190,27 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
               builder: (context, state) {
                 if (state is StoreDetailHeartChecked) {
                   return IconButton(
-                    onPressed: () => context.read<StoreDetailBloc>().add(
-                          StoreDetailHeartRequested(isHeart: !state.isHeart),
-                        ),
+                    onPressed: () async {
+                      final bloc = context.read<StoreDetailBloc>();
+                      final navigator = Navigator.of(context);
+                      final isPreview = context.read<AuthCubit>().state ==
+                          const AuthPreviewed();
+
+                      if (isPreview) {
+                        final result = await LoginDialog.show(context);
+
+                        if (!result) {
+                          return;
+                        }
+
+                        return navigator
+                            .popUntil(ModalRoute.withName(LoginPage.routeName));
+                      }
+
+                      bloc.add(
+                        StoreDetailHeartRequested(isHeart: !state.isHeart),
+                      );
+                    },
                     icon: state.isHeart
                         ? loadAsset(
                             AppIcon.heartFill,
