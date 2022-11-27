@@ -23,92 +23,115 @@ abstract class AppMarkers {
   static late final OverlayImage orangeMarker;
 
   static Future<void> initMarkers() async {
-    final devicePixelRatio = Platform.isAndroid
-        ? window.devicePixelRatio * 2
-        : window.devicePixelRatio;
+    final devicePixelRatio = window.devicePixelRatio;
 
     markerBadIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerBad,
+      assetName: Platform.isAndroid ? AppIcon.markerBadX4 : AppIcon.markerBad,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerGoodIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerGood,
+      assetName: Platform.isAndroid ? AppIcon.markerGoodX4 : AppIcon.markerGood,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerNormalIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerNormal,
+      assetName:
+          Platform.isAndroid ? AppIcon.markerNormalX4 : AppIcon.markerNormal,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeBadIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeBad,
+      assetName:
+          Platform.isAndroid ? AppIcon.markerLikeBadX4 : AppIcon.markerLikeBad,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeNormalIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeNormal,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeNormalX4
+          : AppIcon.markerLikeNormal,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeGoodIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeGood,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeGoodX4
+          : AppIcon.markerLikeGood,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerNoneIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerNone,
+      assetName: Platform.isAndroid ? AppIcon.markerNoneX4 : AppIcon.markerNone,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeNoneIcon = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeNone,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeNoneX4
+          : AppIcon.markerLikeNone,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleNone = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerSingleNone,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerSingleNoneX4
+          : AppIcon.markerSingleNone,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleBad = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerSingleBad,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerSingleBadX4
+          : AppIcon.markerSingleBad,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleNormal = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerSingleNormal,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerSingleNormalX4
+          : AppIcon.markerSingleNormal,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerSingleGood = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerSingleGood,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerSingleGoodX4
+          : AppIcon.markerSingleGood,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeSingleNone = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeSingleNone,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeSingleNoneX4
+          : AppIcon.markerLikeSingleNone,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeSingleBad = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeSingleBad,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeSingleBadX4
+          : AppIcon.markerLikeSingleBad,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeSingleNormal = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeSingleNormal,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeSingleNormalX4
+          : AppIcon.markerLikeSingleNormal,
       devicePixelRatio: devicePixelRatio,
     );
 
     markerLikeSingleGood = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerLikeSingleGood,
+      assetName: Platform.isAndroid
+          ? AppIcon.markerLikeSingleGoodX4
+          : AppIcon.markerLikeSingleGood,
       devicePixelRatio: devicePixelRatio,
     );
 
     orangeMarker = await OverlayImage.fromAssetImage(
-      assetName: AppIcon.markerOrange,
+      assetName:
+          Platform.isAndroid ? AppIcon.markerOrangeX4 : AppIcon.markerOrange,
       devicePixelRatio: devicePixelRatio,
     );
   }

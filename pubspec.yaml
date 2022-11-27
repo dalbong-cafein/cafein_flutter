@@ -79,6 +79,7 @@ flutter:
     - asset/icon/
     - asset/lottie/
     - asset/icon/marker/
+    - asset/icon/marker_x4/
     - asset/icon/sticker/
     - asset/icon/bottom/
     - asset/icon/size16/
