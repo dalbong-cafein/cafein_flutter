@@ -8,7 +8,11 @@ abstract class NotificationEvent extends Equatable {
 }
 
 class NotificationRequested extends NotificationEvent {
-  const NotificationRequested();
+  const NotificationRequested({
+    required this.isPreview,
+  });
+
+  final bool isPreview;
 }
 
 class NotificationReadRequested extends NotificationEvent {

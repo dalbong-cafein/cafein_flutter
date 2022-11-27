@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/enum/notification_type.dart';
 import 'package:cafein_flutter/feature/main/bloc/main_bloc.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
@@ -54,9 +55,12 @@ class NotificationPage extends StatelessWidget {
         BlocListener<MainBloc, MainState>(
           listenWhen: (pre, next) => next is MainNavigationSelected,
           listener: (context, state) {
+            final isPreview =
+                context.read<AuthCubit>().state == const AuthPreviewed();
+
             if (state is MainNavigationSelected && state.index == 2) {
               context.read<NotificationBloc>().add(
-                    const NotificationRequested(),
+                    NotificationRequested(isPreview: isPreview),
                   );
             }
           },
@@ -144,9 +148,14 @@ class NotificationPage extends StatelessWidget {
                 );
               }
               return RefreshIndicator(
-                onRefresh: () async => context.read<NotificationBloc>().add(
-                      const NotificationRequested(),
-                    ),
+                onRefresh: () async {
+                  final isPreview =
+                      context.read<AuthCubit>().state == const AuthPreviewed();
+
+                  context
+                      .read<NotificationBloc>()
+                      .add(NotificationRequested(isPreview: isPreview));
+                },
                 child: ListView.builder(
                   itemCount: state.notifications.length,
                   itemBuilder: (context, index) {
@@ -159,8 +168,9 @@ class NotificationPage extends StatelessWidget {
                         if (state.notifications[index].notificationType ==
                             "스티커")
                           {
-                            Navigator.of(context)
-                                .pushNamed(StickerPage.routeName, arguments: true)
+                            Navigator.of(context).pushNamed(
+                                StickerPage.routeName,
+                                arguments: true)
                           },
                         if (state.notifications[index].notificationType ==
                             "공지사항")

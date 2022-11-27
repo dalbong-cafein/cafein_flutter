@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/map_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -10,6 +11,7 @@ import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -79,12 +81,29 @@ class SearchStoreCard extends StatelessWidget {
                   style: AppStyle.subTitle16SemiBold,
                 ),
                 InkWell(
-                  onTap: () => context.read<MapBloc>().add(
-                        MapStoreHeartRequested(
-                          isLike: !store.isHeart,
-                          index: index,
-                        ),
-                      ),
+                  onTap: () async {
+                    final isPreview = context.read<AuthCubit>().state ==
+                        const AuthPreviewed();
+
+                    final navigator = Navigator.of(context);
+
+                    final bloc = context.read<MapBloc>();
+
+                    if (isPreview) {
+                      final result = await LoginDialog.show(context);
+
+                      if (!result) {
+                        return;
+                      }
+
+                      return navigator.pop();
+                    }
+
+                    bloc.add(MapStoreHeartRequested(
+                      isLike: !store.isHeart,
+                      index: index,
+                    ));
+                  },
                   child: store.isHeart
                       ? loadAsset(
                           AppIcon.heartOn,

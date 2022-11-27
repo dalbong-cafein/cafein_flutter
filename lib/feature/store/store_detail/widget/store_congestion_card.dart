@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/congestion/congestion.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
@@ -8,6 +9,7 @@ import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/permission_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/toast_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
@@ -287,14 +289,32 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                                 return ElevatedButton(
                                   onPressed: isLoading
                                       ? null
-                                      : () => context
-                                          .read<LocationPermissionBloc>()
-                                          .add(
-                                            const LocationPermissionRequest(
-                                              processType:
-                                                  ProcessType.congestion,
-                                            ),
-                                          ),
+                                      : () async {
+                                          final bloc = context
+                                              .read<LocationPermissionBloc>();
+                                          final navigator =
+                                              Navigator.of(context);
+                                          final isPreview =
+                                              context.read<AuthCubit>().state ==
+                                                  const AuthPreviewed();
+
+                                          if (isPreview) {
+                                            final result =
+                                                await LoginDialog.show(context);
+
+                                            if (!result) {
+                                              return;
+                                            }
+
+                                            return navigator
+                                                .popUntil((route) => false);
+                                          }
+
+                                          bloc.add(
+                                              const LocationPermissionRequest(
+                                            processType: ProcessType.congestion,
+                                          ));
+                                        },
                                   style: ElevatedButton.styleFrom(
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
@@ -383,12 +403,30 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                           return ElevatedButton(
                             onPressed: isLoading
                                 ? null
-                                : () =>
-                                    context.read<LocationPermissionBloc>().add(
-                                          const LocationPermissionRequest(
-                                            processType: ProcessType.congestion,
-                                          ),
-                                        ),
+                                : () async {
+                                    final bloc =
+                                        context.read<LocationPermissionBloc>();
+                                    final navigator = Navigator.of(context);
+                                    final isPreview =
+                                        context.read<AuthCubit>().state ==
+                                            const AuthPreviewed();
+
+                                    if (isPreview) {
+                                      final result =
+                                          await LoginDialog.show(context);
+
+                                      if (!result) {
+                                        return;
+                                      }
+
+                                      return navigator
+                                          .popUntil((route) => false);
+                                    }
+
+                                    bloc.add(const LocationPermissionRequest(
+                                      processType: ProcessType.congestion,
+                                    ));
+                                  },
                             style: ElevatedButton.styleFrom(
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(

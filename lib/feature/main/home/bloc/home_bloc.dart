@@ -53,11 +53,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final homeEventBoardId = boardResponse.data.boardId;
 
       emit(HomeLoaded(
-        stickerCnt: stickerCnt,
-        memberStores: [...memberStoreList],
-        homeEventImageUrl: homeEventImageUrl,
-        homeEventBoardId: homeEventBoardId
-      ));
+          stickerCnt: stickerCnt,
+          memberStores: [...memberStoreList],
+          homeEventImageUrl: homeEventImageUrl,
+          homeEventBoardId: homeEventBoardId));
     } catch (e) {
       emit(HomeError(
         error: e,

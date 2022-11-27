@@ -237,6 +237,7 @@ class _MapPageState extends State<MapPage> {
         appBar: AppBar(
           toolbarHeight: 56,
           titleSpacing: 0,
+          automaticallyImplyLeading: false,
           title: InkWell(
             onTap: () async {
               final bloc = context.read<MapBloc>();

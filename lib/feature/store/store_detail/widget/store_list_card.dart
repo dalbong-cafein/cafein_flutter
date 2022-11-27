@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
+import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
@@ -10,6 +11,7 @@ import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
 import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart';
+import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -197,14 +199,35 @@ class _StoreListCardState extends State<StoreListCard> {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () =>
-                                            context.read<StoreDetailBloc>().add(
-                                                  StoreDetailNearStoreHeartRequested(
-                                                    index: index,
-                                                    isHeart: !storeList[index]
-                                                        .isHeart,
-                                                  ),
-                                                ),
+                                        onTap: () async {
+                                          final bloc =
+                                              context.read<StoreDetailBloc>();
+                                          final navigator =
+                                              Navigator.of(context);
+                                          final isPreview =
+                                              context.read<AuthCubit>().state ==
+                                                  const AuthPreviewed();
+
+                                          if (isPreview) {
+                                            final result =
+                                                await LoginDialog.show(context);
+
+                                            if (!result) {
+                                              return;
+                                            }
+
+                                            return navigator
+                                                .popUntil((route) => false);
+                                          }
+
+                                          bloc.add(
+                                            StoreDetailNearStoreHeartRequested(
+                                              index: index,
+                                              isHeart:
+                                                  !storeList[index].isHeart,
+                                            ),
+                                          );
+                                        },
                                         child: storeList[index].isHeart
                                             ? loadAsset(
                                                 AppIcon.heartFill,

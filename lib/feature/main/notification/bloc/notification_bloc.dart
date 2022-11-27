@@ -24,6 +24,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     Emitter<NotificationState> emit,
   ) async {
     emit(const NotificationLoading());
+    if (event.isPreview) {
+      emit(const NotificationLoaded(notifications: []));
+
+      return;
+    }
+
     try {
       final response = await notificationRepository.getNotices();
       final noticeList = response.data;
@@ -67,11 +73,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         _noticeList[event.notificationIndex].notificationId,
       );
       final cur = _noticeList;
-      cur[event.notificationIndex] = _noticeList[event.notificationIndex].copyWith(
+      cur[event.notificationIndex] =
+          _noticeList[event.notificationIndex].copyWith(
         isRead: true,
       );
       _noticeList = [...cur];
-
     } catch (e) {
       emit(NotificationError(
         error: e,
