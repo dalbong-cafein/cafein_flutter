@@ -163,20 +163,15 @@ class _MapPageState extends State<MapPage> {
               }
 
               if (state.isGoingToFirst) {
-                pageController.animateToPage(
-                  0,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.linear,
-                );
+                pageController.jumpToPage(0);
               }
 
-              if (state.isHeart == null) {
-                return;
+              if (state.isHeart != null) {
+                // ignore: use_build_context_synchronously
+                BottomToastDialog.show(context, isHeart: state.isHeart!);
               }
-
-              // ignore: use_build_context_synchronously
-              BottomToastDialog.show(context, isHeart: state.isHeart!);
             }
+
             setState(() {});
           },
         ),
@@ -480,9 +475,5 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> moveToCurrentStoreCard(int moveIndex) async =>
-      await pageController.animateToPage(
-        moveIndex,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linear,
-      );
+      pageController.jumpToPage(moveIndex);
 }

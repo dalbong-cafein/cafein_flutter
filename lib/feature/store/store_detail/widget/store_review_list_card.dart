@@ -131,6 +131,8 @@ class _ReviewCardState extends State<_ReviewCard> {
             .inDays <
         3;
 
+    final isPreview = context.watch<AuthCubit>().state == const AuthPreviewed();
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -203,56 +205,60 @@ class _ReviewCardState extends State<_ReviewCard> {
                   ),
                 )
               else
-                !isAvailableEdit
+                isPreview
                     ? const SizedBox.shrink()
-                    : SizedBox(
-                        height: 32,
-                        width: 52,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            final navigator = Navigator.of(context);
-                            final bloc = context.read<StoreDetailBloc>();
+                    : (!isAvailableEdit
+                        ? const SizedBox.shrink()
+                        : SizedBox(
+                            height: 32,
+                            width: 52,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                final navigator = Navigator.of(context);
+                                final bloc = context.read<StoreDetailBloc>();
 
-                            final isPreview = context.read<AuthCubit>().state ==
-                                const AuthPreviewed();
+                                final isPreview =
+                                    context.read<AuthCubit>().state ==
+                                        const AuthPreviewed();
 
-                            if (isPreview) {
-                              final result = await LoginDialog.show(context);
+                                if (isPreview) {
+                                  final result =
+                                      await LoginDialog.show(context);
 
-                              if (!result) {
-                                return;
-                              }
+                                  if (!result) {
+                                    return;
+                                  }
 
-                              return navigator.popUntil((route) => false);
-                            }
+                                  return navigator.popUntil((route) => false);
+                                }
 
-                            await Navigator.of(context).pushNamed(
-                              UpdatedReviewPage.routeName,
-                              arguments: UpdateReviewPageArgument(
-                                storeId: widget.storeId,
-                                storeName: widget.storeName,
-                                review: widget.review,
-                                storeImageIdPair: widget.storeImageIdPair,
+                                await Navigator.of(context).pushNamed(
+                                  UpdatedReviewPage.routeName,
+                                  arguments: UpdateReviewPageArgument(
+                                    storeId: widget.storeId,
+                                    storeName: widget.storeName,
+                                    review: widget.review,
+                                    storeImageIdPair: widget.storeImageIdPair,
+                                  ),
+                                );
+
+                                bloc.add(const StoreDetailReviewRequested());
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: AppColor.grey800,
+                                backgroundColor: AppColor.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                textStyle: AppStyle.subTitle15Medium,
+                                side: const BorderSide(
+                                  color: AppColor.grey400,
+                                  width: 1,
+                                ),
                               ),
-                            );
-
-                            bloc.add(const StoreDetailReviewRequested());
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: AppColor.grey800,
-                            backgroundColor: AppColor.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              child: const Text('수정'),
                             ),
-                            textStyle: AppStyle.subTitle15Medium,
-                            side: const BorderSide(
-                              color: AppColor.grey400,
-                              width: 1,
-                            ),
-                          ),
-                          child: const Text('수정'),
-                        ),
-                      ),
+                          )),
             ],
           ),
           const SizedBox(height: 12),
