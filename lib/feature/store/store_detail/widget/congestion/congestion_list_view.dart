@@ -116,7 +116,8 @@ class _CongestionListViewState extends State<CongestionListView> {
                                   return;
                                 }
 
-                                return navigator.popUntil((route) => false);
+                                return navigator.popUntil(
+                                    ModalRoute.withName(LoginPage.routeName));
                               }
 
                               bloc.add(const LocationPermissionRequest(

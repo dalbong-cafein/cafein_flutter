@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
@@ -106,7 +107,8 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                         return;
                       }
 
-                      return navigator.popUntil((route) => false);
+                      return navigator
+                          .popUntil(ModalRoute.withName(LoginPage.routeName));
                     }
 
                     navigator.pushNamed(

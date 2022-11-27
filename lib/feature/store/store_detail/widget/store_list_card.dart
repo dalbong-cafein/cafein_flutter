@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/main_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
@@ -216,8 +217,9 @@ class _StoreListCardState extends State<StoreListCard> {
                                               return;
                                             }
 
-                                            return navigator
-                                                .popUntil((route) => false);
+                                            return navigator.popUntil(
+                                                ModalRoute.withName(
+                                                    LoginPage.routeName));
                                           }
 
                                           bloc.add(

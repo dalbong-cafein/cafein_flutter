@@ -38,6 +38,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: AppColor.grey50,
           appBar: AppBar(
             backgroundColor: AppColor.grey50,
+            automaticallyImplyLeading: false,
             title: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: loadAsset(

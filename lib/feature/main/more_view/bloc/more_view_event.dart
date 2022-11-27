@@ -12,7 +12,14 @@ class MoreViewSignOutRequested extends MoreViewEvent {
 }
 
 class MoreViewCountRequested extends MoreViewEvent {
-  const MoreViewCountRequested();
+  const MoreViewCountRequested({
+    required this.isPreview,
+  });
+
+  final bool isPreview;
+
+  @override
+  List<Object?> get props => [isPreview];
 }
 
 class MoreViewProfileChanged extends MoreViewEvent {

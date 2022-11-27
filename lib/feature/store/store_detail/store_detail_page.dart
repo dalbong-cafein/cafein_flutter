@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
@@ -189,7 +190,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           return;
                         }
 
-                        return navigator.popUntil((route) => false);
+                        return navigator
+                            .popUntil(ModalRoute.withName(LoginPage.routeName));
                       }
 
                       bloc.add(

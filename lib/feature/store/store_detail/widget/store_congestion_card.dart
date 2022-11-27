@@ -1,4 +1,5 @@
 import 'package:cafein_flutter/data/model/congestion/congestion.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
@@ -306,8 +307,9 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                                               return;
                                             }
 
-                                            return navigator
-                                                .popUntil((route) => false);
+                                            return navigator.popUntil(
+                                                ModalRoute.withName(
+                                                    LoginPage.routeName));
                                           }
 
                                           bloc.add(
@@ -418,9 +420,9 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
                                       if (!result) {
                                         return;
                                       }
-
-                                      return navigator
-                                          .popUntil((route) => false);
+                                      return navigator.popUntil(
+                                          ModalRoute.withName(
+                                              LoginPage.routeName));
                                     }
 
                                     bloc.add(const LocationPermissionRequest(

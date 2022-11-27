@@ -21,11 +21,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.userRepository,
     required this.storeRepository,
     required this.boardRepository,
+    required this.isPreview,
   }) : super(const HomeInitial()) {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
     on<HomeStoreHeartRequested>(_onHomeStoreHeartRequested);
   }
+
+  final bool isPreview;
 
   final HeartRepository heartRepository;
   final StickerRepository stickerRepository;
@@ -42,26 +45,47 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(const HomeLoading());
-    try {
-      final stickerResponse = await stickerRepository.getStickerCount();
-      final heartResponse = await heartRepository.getMyStores();
-      final boardResponse = await boardRepository.getLatestEvent();
+    if (isPreview) {
+      try {
+        final boardResponse = await boardRepository.getLatestEvent();
 
-      final stickerCnt = stickerResponse.data;
-      final memberStoreList = heartResponse.data.storeData;
-      final homeEventImageUrl = boardResponse.data.imageIdPair.imageUrl;
-      final homeEventBoardId = boardResponse.data.boardId;
+        final homeEventImageUrl = boardResponse.data.imageIdPair.imageUrl;
+        final homeEventBoardId = boardResponse.data.boardId;
 
-      emit(HomeLoaded(
-          stickerCnt: stickerCnt,
-          memberStores: [...memberStoreList],
+        emit(HomeLoaded(
+          stickerCnt: 0,
+          memberStores: const [],
           homeEventImageUrl: homeEventImageUrl,
-          homeEventBoardId: homeEventBoardId));
-    } catch (e) {
-      emit(HomeError(
-        error: e,
-        event: () => add(event),
-      ));
+          homeEventBoardId: homeEventBoardId,
+        ));
+      } catch (e) {
+        emit(HomeError(
+          error: e,
+          event: () => add(event),
+        ));
+      }
+    } else {
+      try {
+        final stickerResponse = await stickerRepository.getStickerCount();
+        final heartResponse = await heartRepository.getMyStores();
+        final boardResponse = await boardRepository.getLatestEvent();
+
+        final stickerCnt = stickerResponse.data;
+        final memberStoreList = heartResponse.data.storeData;
+        final homeEventImageUrl = boardResponse.data.imageIdPair.imageUrl;
+        final homeEventBoardId = boardResponse.data.boardId;
+
+        emit(HomeLoaded(
+            stickerCnt: stickerCnt,
+            memberStores: [...memberStoreList],
+            homeEventImageUrl: homeEventImageUrl,
+            homeEventBoardId: homeEventBoardId));
+      } catch (e) {
+        emit(HomeError(
+          error: e,
+          event: () => add(event),
+        ));
+      }
     }
   }
 

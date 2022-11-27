@@ -70,6 +70,7 @@ class NotificationPage extends StatelessWidget {
         bottomNavigationBar: const MainBottomNavigationBar(),
         appBar: AppBar(
           centerTitle: false,
+          automaticallyImplyLeading: false,
           title: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Row(

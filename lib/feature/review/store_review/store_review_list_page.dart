@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
+import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_bloc.dart';
@@ -106,7 +107,8 @@ class _StoreReviewListPageState extends State<StoreReviewListPage> {
                       return;
                     }
 
-                    return navigator.popUntil((route) => false);
+                    return navigator
+                        .popUntil(ModalRoute.withName(LoginPage.routeName));
                   }
 
                   await navigator.pushNamed(
