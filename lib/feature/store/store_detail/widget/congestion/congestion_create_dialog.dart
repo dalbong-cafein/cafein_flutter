@@ -58,7 +58,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                   InkWell(
                     onTap: () => setState(() => score = 3),
                     child: _CongestionScoreColumn(
-                      isChecked: score == 3,
+                      isChecked: score == 1,
                       title: '널널해요',
                       offIcon: AppImage.confGoodGrey,
                       onIcon: AppImage.confGood,
@@ -76,7 +76,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                   InkWell(
                     onTap: () => setState(() => score = 1),
                     child: _CongestionScoreColumn(
-                      isChecked: score == 1,
+                      isChecked: score == 3,
                       title: '북적거려요',
                       offIcon: AppImage.confBadGrey,
                       onIcon: AppImage.confBad,
