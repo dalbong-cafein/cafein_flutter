@@ -1,7 +1,7 @@
 enum ReviewRecommendation {
   normal(
     'NORMAL',
-    '그냥그래요',
+    '무난해요',
   ),
   good(
     'GOOD',
@@ -9,7 +9,7 @@ enum ReviewRecommendation {
   ),
   bad(
     'BAD',
-    '별로에요',
+    '아쉬워요',
   );
 
   final String jsonValue;
