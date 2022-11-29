@@ -270,9 +270,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                       element.jsonValue == widget.review.recommendation,
                 )
                 .first,
-            onPressed: () => setState(
-              () => isExpanded = !isExpanded,
-            ),
+            onPressed: () => setState(() => isExpanded = !isExpanded),
           ),
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),

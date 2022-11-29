@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/report/report_category.dart';
 import 'package:cafein_flutter/data/model/report/report_request.dart';
