@@ -182,9 +182,14 @@ class _BusinessHoursCardState extends State<_BusinessHoursCard> {
                   ),
           ),
           const SizedBox(width: 4),
-          if (widget.businessInfo.closed != null)
+          if (widget.businessInfo.isOpen && widget.businessInfo.closed != null)
             Text(
               '${amPmFormat(widget.businessInfo.closed!)}에 영업 종료',
+              style: AppStyle.body14Regular,
+            )
+          else
+            Text(
+              '${amPmFormat(widget.businessInfo.nextOpen)}에 영업 시작',
               style: AppStyle.body14Regular,
             ),
           AnimatedRotation(
@@ -272,7 +277,7 @@ class _BusinessHourRow extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            '${businessInfo!.nextOpen} ~ ${businessInfo!.closed}',
+            '${businessInfo!.open} ~ ${businessInfo!.closed}',
             style: AppStyle.body14Regular.copyWith(
               color: todayTitle == dayTitle ? AppColor.orange500 : null,
             ),
