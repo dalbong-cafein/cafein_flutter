@@ -202,8 +202,7 @@ class MyStoresCard extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            state.memberStores[index]
-                                                .storeName,
+                                            state.memberStores[index].storeName,
                                             style: AppStyle.subTitle15Medium,
                                           ),
                                           const SizedBox(
@@ -219,9 +218,8 @@ class MyStoresCard extends StatelessWidget {
                                                     false,
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 6.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 6.0),
                                                 child: Text(
                                                   state
                                                               .memberStores[
@@ -230,12 +228,12 @@ class MyStoresCard extends StatelessWidget {
                                                               ?.isOpen ??
                                                           false
                                                       ? "${_parseTime(state.memberStores[index].businessInfo?.closed ?? "null")}에 영업 종료"
-                                                      : "${_parseTime(state.memberStores[index].businessInfo?.tmrOpen ?? "null")}에 영업 시작",
+                                                      : "${_parseTime(state.memberStores[index].businessInfo?.nextOpen ?? "null")}에 영업 시작",
                                                   style: AppStyle
                                                       .caption12Regular
                                                       .copyWith(
-                                                          color: AppColor
-                                                              .grey600),
+                                                          color:
+                                                              AppColor.grey600),
                                                 ),
                                               )
                                             ],
@@ -247,12 +245,10 @@ class MyStoresCard extends StatelessWidget {
                                       flex: 5,
                                     ),
                                     ConfuseChip(
-                                      confuseScore: state
-                                              .memberStores[index]
-                                              .congestionScoreAvg ,
+                                      confuseScore: state.memberStores[index]
+                                          .congestionScoreAvg,
                                       height: 24,
-                                      textStyle:
-                                          AppStyle.subTitle15Medium,
+                                      textStyle: AppStyle.subTitle15Medium,
                                       width: 42,
                                       borderRadius: 8.0,
                                     ),

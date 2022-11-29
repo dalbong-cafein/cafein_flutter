@@ -30,6 +30,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<MapCurrentLocationRequested>(_onMapCurrentLocationRequested);
     on<MapCameraPositionChanged>(_onMapCameraPositionChanged);
     on<MapFocusChanged>(_onMapFocusChanged);
+    on<MapStoreDetailCallbackRequested>(_onMapStoreDetailCallbackRequested);
   }
 
   final UserRepository userRepository;
@@ -111,6 +112,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         stores: [...currentStores],
         focusedIndex: focusedIndex,
         isHeart: null,
+        storeId: event.storeId,
       ));
     } catch (e) {
       emit(MapError(
@@ -362,5 +364,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         isHeart: null,
       ),
     );
+  }
+
+  FutureOr<void> _onMapStoreDetailCallbackRequested(
+    MapStoreDetailCallbackRequested event,
+    Emitter<MapState> emit,
+  ) {
+    emit(MapStoreDetailCallbackChecked(index: event.index));
   }
 }

@@ -50,6 +50,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
             .difference(DateTime.parse(widget.review.registeredDateTime))
             .inDays <
         3;
+    final isPreview = context.watch<AuthCubit>().state == const AuthPreviewed();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -113,6 +114,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
 
                     navigator.pushNamed(
                       ReportPage.routeName,
+                      arguments: widget.review.reviewId,
                     );
                   },
                   child: loadAsset(
@@ -121,56 +123,60 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                   ),
                 )
               else
-                !isAvailableEdit
+                isPreview
                     ? const SizedBox.shrink()
-                    : SizedBox(
-                        height: 32,
-                        width: 52,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            final navigator = Navigator.of(context);
-                            final bloc = context.read<StoreReviewBloc>();
-                            final isPreview = context.read<AuthCubit>().state ==
-                                const AuthPreviewed();
+                    : (!isAvailableEdit
+                        ? const SizedBox.shrink()
+                        : SizedBox(
+                            height: 32,
+                            width: 52,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                final navigator = Navigator.of(context);
+                                final bloc = context.read<StoreReviewBloc>();
+                                final isPreview =
+                                    context.read<AuthCubit>().state ==
+                                        const AuthPreviewed();
 
-                            if (isPreview) {
-                              // ignore: use_build_context_synchronously
-                              final result = await LoginDialog.show(context);
+                                if (isPreview) {
+                                  // ignore: use_build_context_synchronously
+                                  final result =
+                                      await LoginDialog.show(context);
 
-                              if (!result) {
-                                return;
-                              }
+                                  if (!result) {
+                                    return;
+                                  }
 
-                              return navigator.popUntil((route) => false);
-                            }
+                                  return navigator.popUntil((route) => false);
+                                }
 
-                            await navigator.pushNamed(
-                              UpdatedReviewPage.routeName,
-                              arguments: UpdateReviewPageArgument(
-                                storeId: widget.storeId,
-                                storeName: widget.storeName,
-                                review: widget.review,
-                                storeImageIdPair: widget.storeImageIdPair,
+                                await navigator.pushNamed(
+                                  UpdatedReviewPage.routeName,
+                                  arguments: UpdateReviewPageArgument(
+                                    storeId: widget.storeId,
+                                    storeName: widget.storeName,
+                                    review: widget.review,
+                                    storeImageIdPair: widget.storeImageIdPair,
+                                  ),
+                                );
+
+                                bloc.add(const StoreReviewResetRequested());
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: AppColor.grey800,
+                                backgroundColor: AppColor.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                textStyle: AppStyle.subTitle15Medium,
+                                side: const BorderSide(
+                                  color: AppColor.grey400,
+                                  width: 1,
+                                ),
                               ),
-                            );
-
-                            bloc.add(const StoreReviewResetRequested());
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: AppColor.grey800,
-                            backgroundColor: AppColor.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              child: const Text('수정'),
                             ),
-                            textStyle: AppStyle.subTitle15Medium,
-                            side: const BorderSide(
-                              color: AppColor.grey400,
-                              width: 1,
-                            ),
-                          ),
-                          child: const Text('수정'),
-                        ),
-                      ),
+                          )),
             ],
           ),
           const SizedBox(height: 12),

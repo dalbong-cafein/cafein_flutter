@@ -51,6 +51,7 @@ class MapStoreLoaded extends MapState {
     this.focusedIndex,
     this.isMoveCamera = false,
     required this.isHeart,
+    this.storeId,
   });
 
   final List<Store> stores;
@@ -59,10 +60,18 @@ class MapStoreLoaded extends MapState {
   final int? focusedIndex;
   final bool isMoveCamera;
   final bool? isHeart;
+  final int? storeId;
 
   @override
-  List<Object?> get props =>
-      [stores, keyword, isGoingToFirst, focusedIndex, isMoveCamera, isHeart];
+  List<Object?> get props => [
+        stores,
+        keyword,
+        isGoingToFirst,
+        focusedIndex,
+        isMoveCamera,
+        isHeart,
+        storeId,
+      ];
 }
 
 class MapLocationChecked extends MapState {
@@ -101,4 +110,14 @@ class MapCameraPositionChecked extends MapState {
         isDifferentLocation,
         location,
       ];
+}
+
+class MapStoreDetailCallbackChecked extends MapState {
+  const MapStoreDetailCallbackChecked({
+    required this.index,
+  });
+
+  final int index;
+  @override
+  List<Object?> get props => [index];
 }

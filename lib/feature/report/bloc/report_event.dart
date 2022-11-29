@@ -11,14 +11,23 @@ class ReportCategoryRequested extends ReportEvent {
 
 class ReportRequested extends ReportEvent {
   final int clickedIndex;
-  const ReportRequested({required this.clickedIndex});
+  final String? content;
+
+  const ReportRequested({
+    required this.clickedIndex,
+    this.content,
+  });
+
   @override
-  List<Object?> get props => [clickedIndex];
+  List<Object?> get props => [
+        clickedIndex,
+        content,
+      ];
 }
 
 class ReportCategoryClicked extends ReportEvent {
   final int clickedIndex;
   const ReportCategoryClicked({required this.clickedIndex});
   @override
-  List<Object?> get props =>[clickedIndex];
+  List<Object?> get props => [clickedIndex];
 }

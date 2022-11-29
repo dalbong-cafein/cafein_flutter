@@ -165,7 +165,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              Navigator.of(context).pop();
+            },
             icon: loadAsset(AppIcon.left),
           ),
           title: BlocBuilder<StoreDetailBloc, StoreDetailState>(
