@@ -11,7 +11,7 @@ _$_BusinessInfo _$$_BusinessInfoFromJson(Map<String, dynamic> json) =>
       isOpen: json['isOpen'] as bool? ?? false,
       closed: json['closed'] as String?,
       open: json['open'] as String?,
-      tmrOpen: json['tmrOpen'] as String? ?? '10:00',
+      nextOpen: json['nextOpen'] as String? ?? '10:00',
     );
 
 Map<String, dynamic> _$$_BusinessInfoToJson(_$_BusinessInfo instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$$_BusinessInfoToJson(_$_BusinessInfo instance) =>
       'isOpen': instance.isOpen,
       'closed': instance.closed,
       'open': instance.open,
-      'tmrOpen': instance.tmrOpen,
+      'nextOpen': instance.nextOpen,
     };

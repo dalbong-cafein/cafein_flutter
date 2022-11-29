@@ -114,6 +114,7 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
 
                     navigator.pushNamed(
                       ReportPage.routeName,
+                      arguments: widget.review.reviewId,
                     );
                   },
                   child: loadAsset(

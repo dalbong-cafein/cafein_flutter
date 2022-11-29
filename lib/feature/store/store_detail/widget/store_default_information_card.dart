@@ -272,7 +272,7 @@ class _BusinessHourRow extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            '${businessInfo!.tmrOpen} ~ ${businessInfo!.closed}',
+            '${businessInfo!.nextOpen} ~ ${businessInfo!.closed}',
             style: AppStyle.body14Regular.copyWith(
               color: todayTitle == dayTitle ? AppColor.orange500 : null,
             ),

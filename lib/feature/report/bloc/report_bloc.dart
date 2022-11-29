@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cafein_flutter/data/model/report/report_category.dart';
 import 'package:cafein_flutter/data/model/report/report_request.dart';
@@ -11,25 +12,35 @@ part 'report_event.dart';
 part 'report_state.dart';
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  ReportBloc({required this.reviewRepository}) : super(ReportInitial()) {
+  ReportBloc({
+    required this.reviewId,
+    required this.reviewRepository,
+  }) : super(ReportInitial()) {
     on<ReportCategoryRequested>(_onReportCategoryRequested);
     on<ReportCategoryClicked>(_onReportCategoryClicked);
     on<ReportRequested>(_onReportRequested);
   }
 
+  final int reviewId;
+
   final ReviewRepository reviewRepository;
 
-
   FutureOr<void> _onReportCategoryClicked(
-      ReportCategoryClicked event,
-      Emitter<ReportState> emit,
-      ) async {
+    ReportCategoryClicked event,
+    Emitter<ReportState> emit,
+  ) async {
     emit(const ReportLoading());
     try {
       final categoryResponse = await reviewRepository.getReportCategories();
+
       final categories = categoryResponse.data;
-      emit(ReportCategoryLoaded(
-          categories: [...categories], clickedCategory: event.clickedIndex));
+
+      emit(
+        ReportCategoryLoaded(
+          categories: [...categories],
+          clickedCategory: event.clickedIndex,
+        ),
+      );
     } catch (e) {
       emit(ReportError(
         error: e,
@@ -37,18 +48,19 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       ));
     }
   }
+
   FutureOr<void> _onReportRequested(
-      ReportRequested event,
-      Emitter<ReportState> emit,
-      ) async {
+    ReportRequested event,
+    Emitter<ReportState> emit,
+  ) async {
     emit(const ReportLoading());
     try {
       await reviewRepository.createReportReview(
-        reviewId: 9,
+        reviewId: reviewId,
         reportRequest: ReportRequest(
-          reviewId: 9,
-          reportCategoryId:event.clickedIndex,
-          content: '',
+          reviewId: reviewId,
+          reportCategoryId: event.clickedIndex,
+          content: event.content ?? '',
         ),
       );
       emit(const ReportLoaded());
@@ -70,7 +82,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       final categories = categoryResponse.data;
 
       emit(ReportCategoryLoaded(
-          categories: [...categories], clickedCategory: categories.length -1));
+          categories: [...categories], clickedCategory: categories.length - 1));
     } catch (e) {
       emit(ReportError(
         error: e,
@@ -78,6 +90,4 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       ));
     }
   }
-
-
 }
