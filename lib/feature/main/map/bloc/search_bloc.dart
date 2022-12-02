@@ -179,7 +179,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       );
 
       final response = await storeRepository.getStores(
-        keyword,
+        keyword: keyword,
       );
 
       emit(SearchStoreLoaded(

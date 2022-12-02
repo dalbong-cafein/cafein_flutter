@@ -12,9 +12,10 @@ import 'package:cafein_flutter/data/model/store/store_response.dart';
 import 'package:cafein_flutter/data/model/store/update_store_request.dart';
 
 abstract class StoreRepository {
-  Future<BaseResponse<List<Store>>> getStores(
-    String keyword,
-  );
+  Future<BaseResponse<List<Store>>> getStores({
+    String? keyword,
+    String? rect,
+  });
 
   Future<BaseResponse<List<RecommendedStore>>> getRecommendedStores(
     String keyword,
@@ -77,8 +78,14 @@ class StoreRepositoryImpl extends StoreRepository {
       storeClient.getStoreDetail(storeId);
 
   @override
-  Future<BaseResponse<List<Store>>> getStores(String keyword) =>
-      storeClient.getStores(keyword);
+  Future<BaseResponse<List<Store>>> getStores({
+    String? keyword,
+    String? rect,
+  }) =>
+      storeClient.getStores(
+        keyword,
+        rect,
+      );
 
   @override
   Future<BaseResponse> updateStore(

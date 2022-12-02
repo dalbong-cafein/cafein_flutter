@@ -21,9 +21,16 @@ class _StoreClient implements StoreClient {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<List<Store>>> getStores(keyword) async {
+  Future<BaseResponse<List<Store>>> getStores(
+    keyword,
+    rect,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'keyword': keyword};
+    final queryParameters = <String, dynamic>{
+      r'keyword': keyword,
+      r'rect': rect,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
