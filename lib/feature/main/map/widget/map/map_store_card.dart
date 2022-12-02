@@ -142,7 +142,7 @@ class SearchStoreCard extends StatelessWidget {
                 currentLatLng: context.watch<MapBloc>().currentLatLng,
                 targetLatLng: LatLng(store.latY, store.lngX),
               ),
-              recommendScore: store.recommendPercent?.toInt() ?? 0,
+              recommendScore: store.recommendPercent?.round() ?? 0,
               likeCount: store.heartCnt,
               iconSize: 16,
             ),
@@ -158,6 +158,7 @@ class SearchStoreCard extends StatelessWidget {
                         Radius.circular(8),
                       ),
                       child: CustomCachedNetworkImage(
+                        key: ValueKey(imageList[index].imageUrl),
                         imageUrl: imageList[index].imageUrl,
                         width: imageWidth,
                         height: imageWidth,
@@ -176,6 +177,7 @@ class SearchStoreCard extends StatelessWidget {
                             Radius.circular(8),
                           ),
                           child: CustomCachedNetworkImage(
+                            key: ValueKey(imageList[3].imageUrl),
                             imageUrl: imageList[3].imageUrl,
                             width: imageWidth,
                             height: imageWidth,

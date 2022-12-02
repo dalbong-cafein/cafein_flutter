@@ -249,6 +249,8 @@ class _StoreReviewListCardState extends State<StoreReviewListCard> {
                       Radius.circular(8),
                     ),
                     child: CustomCachedNetworkImage(
+                      key: ValueKey(
+                          widget.review.imageIdPairs![imageIndex].imageUrl),
                       imageUrl:
                           widget.review.imageIdPairs![imageIndex].imageUrl,
                       height: 72,

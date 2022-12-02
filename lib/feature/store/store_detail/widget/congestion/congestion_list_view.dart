@@ -175,6 +175,7 @@ class _CongestionListViewState extends State<CongestionListView> {
                   }
                   return _CongestionCard(
                     congestion: widget.congestionList[index],
+                    index: index,
                   );
                 } else {
                   if (widget.congestionList.length >= 2 && index == 2) {
@@ -199,8 +200,10 @@ class _CongestionListViewState extends State<CongestionListView> {
                       ),
                     );
                   }
+
                   return _CongestionCard(
                     congestion: widget.congestionList[index],
+                    index: index,
                   );
                 }
               },
@@ -216,8 +219,10 @@ class _CongestionCard extends StatelessWidget {
   const _CongestionCard({
     Key? key,
     required this.congestion,
+    required this.index,
   }) : super(key: key);
 
+  final int index;
   final Congestion congestion;
 
   Color getBackgroundColor() {
@@ -277,11 +282,22 @@ class _CongestionCard extends StatelessWidget {
                   style: AppStyle.subTitle15Medium,
                 ),
                 const Spacer(),
-                Text(
-                  congestion.registeredDateTime.textTime,
-                  style: AppStyle.caption12Regular.copyWith(
-                    color: AppColor.grey600,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      congestion.registeredDateTime.textTime,
+                      style: AppStyle.caption12Regular.copyWith(
+                        color: AppColor.grey600,
+                      ),
+                    ),
+                    if (index == 0)
+                      Text(
+                        ' · 가장 최근에 공유했어요',
+                        style: AppStyle.caption12Regular.copyWith(
+                          color: AppColor.orange500,
+                        ),
+                      ),
+                  ],
                 ),
               ],
             ),
