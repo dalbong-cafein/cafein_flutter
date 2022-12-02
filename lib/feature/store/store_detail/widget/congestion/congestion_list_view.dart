@@ -278,7 +278,7 @@ class _CongestionCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  ymdDotFormatShort(congestion.registeredDateTime),
+                  congestion.registeredDateTime.textTime,
                   style: AppStyle.caption12Regular.copyWith(
                     color: AppColor.grey600,
                   ),

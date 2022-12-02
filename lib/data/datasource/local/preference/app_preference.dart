@@ -15,18 +15,11 @@ class AppPreference {
       List.from(box.get(searchKeywordKey) ?? []);
 
   Future<void> putSearchKeyword(
-    List<String> searchKeywords,
+    List<SearchData> searchKeywords,
   ) =>
       box.put(
         searchKeywordKey,
-        searchKeywords
-            .map(
-              (e) => SearchData(
-                keyword: e,
-                dateTime: DateTime.now().toString(),
-              ),
-            )
-            .toList(),
+        searchKeywords,
       );
 
   bool isOnboardSkip() => box.get(onboardKey) ?? false;

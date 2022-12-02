@@ -1,7 +1,7 @@
 import 'package:cafein_flutter/data/model/common/search_data.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/search_bloc.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/util/datetime/md_dot_format.dart';
+import 'package:cafein_flutter/util/datetime/text_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +47,7 @@ class SearchRecentKeywordCard extends StatelessWidget {
           child: ListView.separated(
             padding: EdgeInsets.zero,
             itemCount: searchDataList.length,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
                 onTap(searchDataList[index].keyword);
@@ -71,7 +72,7 @@ class SearchRecentKeywordCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      mdDotFormatShort(searchDataList[index].dateTime),
+                      searchDataList[index].dateTime.textTimeMD,
                       style: AppStyle.caption12Regular.copyWith(
                         color: AppColor.grey300,
                       ),

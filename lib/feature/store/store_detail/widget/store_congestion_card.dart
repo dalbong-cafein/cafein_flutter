@@ -7,7 +7,7 @@ import 'package:cafein_flutter/feature/store/store_detail/bloc/congestion_bloc.d
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_bottom_sheet.dart';
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
+import 'package:cafein_flutter/util/datetime/text_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
