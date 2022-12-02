@@ -335,12 +335,19 @@ class _MapPageState extends State<MapPage> {
                       target: CafeinConst.defaultLating,
                     ),
                     markers: markers,
-                    onCameraChange: (latLng, reason, isAnimated) {
+                    onCameraChange: (latLng, reason, isAnimated) async {
+                      final bloc = context.read<MapBloc>();
+
                       if (isAnimated == true && latLng != null) {
-                        context.read<MapBloc>().add(MapCameraPositionChanged(
-                              longitude: latLng.longitude,
-                              latitude: latLng.latitude,
-                            ));
+                        final controller = await naverMapController.future;
+                        final visibleRegion =
+                            await controller.getVisibleRegion();
+
+                        bloc.add(
+                          MapCameraPositionChanged(
+                            latLngBounds: visibleRegion,
+                          ),
+                        );
                       }
                     },
                   ),
@@ -410,17 +417,15 @@ class _MapPageState extends State<MapPage> {
                         return const SizedBox.shrink();
                       }
 
-                      if (!state.isDifferentLocation) {
-                        return const SizedBox.shrink();
-                      }
-
                       return Positioned(
                         top: 12,
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: InkWell(
                             onTap: () => context.read<MapBloc>().add(
-                                  MapStoreRequested(location: state.location),
+                                  MapStoreRequested(
+                                    latLngBounds: state.latLngBounds,
+                                  ),
                                 ),
                             child: Container(
                               width: 144,
@@ -458,6 +463,7 @@ class _MapPageState extends State<MapPage> {
     if (naverMapController.isCompleted) {
       naverMapController = Completer<NaverMapController>();
     }
+
     naverMapController.complete(controller);
   }
 
@@ -466,14 +472,10 @@ class _MapPageState extends State<MapPage> {
 
     if (Platform.isAndroid) {
       await controller.moveCamera(
-        CameraUpdate.toCameraPosition(
-          CameraPosition(target: latLng),
-        ),
+        CameraUpdate.toCameraPosition(CameraPosition(target: latLng)),
       );
     } else if (Platform.isIOS) {
-      await controller.moveCamera(
-        CameraUpdate.scrollTo(latLng),
-      );
+      await controller.moveCamera(CameraUpdate.scrollTo(latLng));
     }
   }
 

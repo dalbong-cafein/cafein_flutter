@@ -98,17 +98,14 @@ class MapLocationChecked extends MapState {
 
 class MapCameraPositionChecked extends MapState {
   const MapCameraPositionChecked({
-    required this.isDifferentLocation,
-    required this.location,
+    required this.latLngBounds,
   });
 
-  final bool isDifferentLocation;
-  final String location;
+  final LatLngBounds latLngBounds;
 
   @override
   List<Object?> get props => [
-        isDifferentLocation,
-        location,
+        latLngBounds,
       ];
 }
 

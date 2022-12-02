@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/map_filter_keyword.dart';
@@ -46,6 +47,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   LatLng currentLatLng = CafeinConst.defaultLating;
 
+  LatLngBounds currentLatLngBounds = CafeinConst.defaultLatLngBounds;
+
   FutureOr<void> _onSearchLocationRequested(
     MapLocationRequested event,
     Emitter<MapState> emit,
@@ -89,11 +92,17 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     emit(const MapStoreLoading());
-    currentLocation = event.location;
+
+    if (event.latLngBounds != null) {
+      currentLatLngBounds = event.latLngBounds!;
+    }
 
     try {
       final response = await storeRepository.getStores(
-        searchKeyword.isNotEmpty ? searchKeyword : currentLocation,
+        keyword: searchKeyword.isNotEmpty ? searchKeyword : null,
+        rect: searchKeyword.isNotEmpty
+            ? null
+            : '${currentLatLngBounds.northeast.latitude},${currentLatLngBounds.southwest.latitude},${currentLatLngBounds.southwest.longitude},${currentLatLngBounds.northeast.longitude}',
       );
 
       if (response.code == -1) {
@@ -114,7 +123,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         isHeart: null,
         storeId: event.storeId,
       ));
-    } catch (e) {
+    } catch (e, st) {
+      log(e.toString());
+      log(st.toString());
       emit(MapError(
         error: e,
         event: () => add(event),
@@ -196,7 +207,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             targetLatLng: LatLng(b.latY, b.lngX),
           );
 
-          return distanceB.compareTo(distanceA);
+          return distanceA.compareTo(distanceB);
         });
 
         break;
@@ -258,7 +269,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     try {
       final response = await storeRepository.getStores(
-        currentLocation,
+        rect:
+            '${currentLatLngBounds.northeast.latitude},${currentLatLngBounds.southwest.latitude},${currentLatLngBounds.southwest.longitude},${currentLatLngBounds.northeast.longitude}',
       );
 
       if (response.code == -1) {
@@ -290,26 +302,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     emit(const MapLoading());
-    try {
-      final responseLocation = await userRepository.getCurrentLocation(
-        longitude: event.longitude,
-        latitude: event.latitude,
-      );
 
-      emit(
-        MapCameraPositionChecked(
-          isDifferentLocation: currentLocation != responseLocation,
-          location: responseLocation,
-        ),
-      );
-    } catch (e) {
-      emit(
-        MapCameraPositionChecked(
-          isDifferentLocation: false,
-          location: currentLocation,
-        ),
-      );
-    }
+    emit(
+      MapCameraPositionChecked(
+        latLngBounds: event.latLngBounds,
+      ),
+    );
   }
 
   FutureOr<void> _onMapCurrentLocationRequested(

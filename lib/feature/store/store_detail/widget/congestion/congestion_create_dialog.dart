@@ -56,7 +56,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
-                    onTap: () => setState(() => score = 3),
+                    onTap: () => setState(() => score = 1),
                     child: _CongestionScoreColumn(
                       isChecked: score == 1,
                       title: '널널해요',
@@ -74,7 +74,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => setState(() => score = 1),
+                    onTap: () => setState(() => score = 3),
                     child: _CongestionScoreColumn(
                       isChecked: score == 3,
                       title: '북적거려요',
