@@ -141,9 +141,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   Positioned(
                                     right: 0,
                                     bottom: 0,
-                                    child: loadAsset(
-                                      AppIcon.camera,
-                                    ),
+                                    child: loadAsset(AppIcon.cameraCircle),
                                   ),
                                 ],
                               ),

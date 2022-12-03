@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -15,10 +16,12 @@ class PhoneCertificationDonePage extends StatefulWidget {
   final String returnPage;
 
   @override
-  State<PhoneCertificationDonePage> createState() => _PhoneCertificationDonePageState();
+  State<PhoneCertificationDonePage> createState() =>
+      _PhoneCertificationDonePageState();
 }
 
-class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage> {
+class _PhoneCertificationDonePageState
+    extends State<PhoneCertificationDonePage> {
   @override
   void initState() {
     super.initState();
@@ -29,7 +32,7 @@ class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage>
         if (widget.returnPage == LoginPage.routeName) {
           Navigator.of(context).pushNamedAndRemoveUntil(
             ProfilePage.routeName,
-            ModalRoute.withName(widget.returnPage),
+            ModalRoute.withName(InputPhoneNumberPage.routeName),
           );
         } else {
           Navigator.of(context).popUntil(

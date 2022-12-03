@@ -180,7 +180,10 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
               );
             }
           } else if (state is CongestionCreatedSucceed) {
-            await CreatedSucceedWithoutStickerDialog.show(context);
+            await CreatedSucceedDialog.show(
+              context,
+              isCreatedSticker: false,
+            );
 
             bloc.add(CongestionRequested(
               day: '${DateFormat.E('ko_KR').format(DateTime.now())}요일',
