@@ -171,6 +171,8 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                       Radius.circular(8),
                     ),
                     child: CustomCachedNetworkImage(
+                      key: ValueKey(widget
+                          .review.reviewImageIdPairs![imageIndex].imageUrl),
                       imageUrl: widget
                           .review.reviewImageIdPairs![imageIndex].imageUrl,
                       height: 72,

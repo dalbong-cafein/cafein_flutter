@@ -9,7 +9,7 @@ abstract class AppRepository {
   List<SearchData> getSearchKeyword();
 
   Future<void> putSearchKeyword(
-    List<String> searchKeywords,
+    List<SearchData> searchKeywords,
   );
 
   String? getAuthProvider();
@@ -34,7 +34,7 @@ class AppRepositoryImpl implements AppRepository {
   List<SearchData> getSearchKeyword() => appPreference.getSearchKeyword();
 
   @override
-  Future<void> putSearchKeyword(List<String> searchKeywords) =>
+  Future<void> putSearchKeyword(List<SearchData> searchKeywords) =>
       appPreference.putSearchKeyword(
         searchKeywords,
       );

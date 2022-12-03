@@ -79,10 +79,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) {
     emit(const SearchLoading());
+
     recentSearchKeywords.removeAt(event.index);
-    appRepository.putSearchKeyword(
-      recentSearchKeywords.map((e) => e.keyword).toList(),
-    );
+
+    appRepository.putSearchKeyword(recentSearchKeywords);
 
     emit(
       SearchRecentKeywordLoaded(
@@ -157,6 +157,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(const SearchStoreLoading());
 
     keyword = event.keyword;
+
     try {
       recentSearchKeywords.removeWhere(
         (element) => element.keyword == keyword,
@@ -175,7 +176,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       ];
 
       appRepository.putSearchKeyword(
-        recentSearchKeywords.map((e) => e.keyword).toList(),
+        recentSearchKeywords,
       );
 
       final response = await storeRepository.getStores(
