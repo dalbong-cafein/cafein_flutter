@@ -28,6 +28,7 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
@@ -133,7 +134,6 @@ class CafeinApp extends StatelessWidget {
           ),
           useInheritedMediaQuery: true,
           debugShowCheckedModeBanner: false,
-          initialRoute: SplashPage.routeName,
           theme: AppTheme.light.copyWith(
             textTheme: Theme.of(context).textTheme.apply(
                   bodyColor: AppColor.grey800,
@@ -146,6 +146,7 @@ class CafeinApp extends StatelessWidget {
                   displayColor: AppColor.grey800,
                 ),
           ),
+          initialRoute: SplashPage.routeName,
           onGenerateRoute: CafeinRoute.onGenerateRoute,
           navigatorObservers: [
             CustomNavigatorLogger(),

@@ -27,7 +27,7 @@ class _PhoneCertificationDonePageState
     super.initState();
 
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 3),
       () {
         if (widget.returnPage == LoginPage.routeName) {
           Navigator.of(context).pushNamedAndRemoveUntil(
@@ -47,26 +47,34 @@ class _PhoneCertificationDonePageState
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width / 360;
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '본인 인증이\n완료되었습니다.',
-              style: AppStyle.title25Bold,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 72),
-            loadAsset(
-              AppImage.phoneSuccess,
-              width: 140 * width,
-              height: 140 * width,
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 140 + 140 * width,
+                  ),
+                  child: const Text(
+                    '본인 인증이\n완료되었습니다',
+                    style: AppStyle.title25Bold,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Center(
+                child: loadAsset(
+                  AppLottie.certificationDone,
+                  width: 140 * width,
+                  height: 140 * width,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
