@@ -236,13 +236,13 @@ class NotificationPage extends StatelessWidget {
 
   Widget _getNotificationIcon(String notificationType) {
     if (notificationType == NotificationType.notice.title) {
-      return loadAsset(AppIcon.notificationNotice);
+      return loadAsset(AppIcon.notificationNotice, height: 18, width: 18);
     } else if (notificationType == NotificationType.sticker.title) {
-      return loadAsset(AppIcon.notificationSticker);
+      return loadAsset(AppIcon.notificationSticker, height: 18, width: 18);
     } else if (notificationType == NotificationType.coupon.title) {
-      return loadAsset(AppIcon.notificationEvent);
+      return loadAsset(AppIcon.notificationEvent, height: 18, width: 18);
     } else if (notificationType == NotificationType.report.title) {
-      return loadAsset(AppIcon.notificationReport);
+      return loadAsset(AppIcon.notificationReport, height: 18, width: 18);
     } else {
       return const Icon(
         CupertinoIcons.xmark,
