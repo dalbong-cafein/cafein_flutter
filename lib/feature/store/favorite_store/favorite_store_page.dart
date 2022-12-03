@@ -239,6 +239,7 @@ class FavoriteStorePage extends StatelessWidget {
   }
 
   String _parseTime(String time) {
+
     int hour = int.parse(time.substring(0, 2));
     String minute = time.substring(3, 5);
     if (time == "null") {
