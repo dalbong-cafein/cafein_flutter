@@ -22,6 +22,7 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return MultiBlocListener(
       listeners: [
         BlocListener<NotificationBloc, NotificationState>(
@@ -192,10 +193,8 @@ class NotificationPage extends StatelessWidget {
                             ? Colors.white
                             : AppColor.grey50,
                         height: 92,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 16, top: 12),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -216,6 +215,12 @@ class NotificationPage extends StatelessWidget {
                                   state.notifications[index].content,
                                   style: AppStyle.body14Regular,
                                   overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  _getPeriod(state.notifications[index].registeredDateTime),
+                                  style: AppStyle.caption13Regular
+                                      .copyWith(color: AppColor.grey400),
                                 )
                               ],
                             )
@@ -236,17 +241,40 @@ class NotificationPage extends StatelessWidget {
 
   Widget _getNotificationIcon(String notificationType) {
     if (notificationType == NotificationType.notice.title) {
-      return loadAsset(AppIcon.notificationNotice);
+      return loadAsset(AppIcon.notificationNotice, height: 18, width: 18);
     } else if (notificationType == NotificationType.sticker.title) {
-      return loadAsset(AppIcon.notificationSticker);
+      return loadAsset(AppIcon.notificationSticker, height: 18, width: 18);
     } else if (notificationType == NotificationType.coupon.title) {
-      return loadAsset(AppIcon.notificationEvent);
+      return loadAsset(AppIcon.notificationEvent, height: 18, width: 18);
     } else if (notificationType == NotificationType.report.title) {
-      return loadAsset(AppIcon.notificationReport);
+      return loadAsset(AppIcon.notificationReport, height: 18, width: 18);
     } else {
       return const Icon(
         CupertinoIcons.xmark,
       );
     }
+  }
+
+  String _getPeriod(String timeStamp) {
+    DateTime now = DateTime.now();
+    int stampYear = int.parse(timeStamp.substring(0, 4));
+    int stampMonth = int.parse(timeStamp.substring(5, 7));
+    int stampDay = int.parse(timeStamp.substring(8, 10));
+    int stampHour = int.parse(timeStamp.substring(11, 13));
+    int stampMinute = int.parse(timeStamp.substring(14, 16));
+    DateTime stampTime =
+        DateTime(stampYear, stampMonth, stampDay, stampHour, stampMinute);
+    Duration duration = now.difference(stampTime);
+
+    if (duration.inDays >= 1) {
+      return "$stampYear.$stampMonth.$stampDay";
+    }
+    if (duration.inHours == 24) {
+      return "1일 전";
+    }
+    if (duration.inHours <= 23 && duration.inHours >= 1) {
+      return "${duration.inHours}시간 전";
+    }
+    return "${duration.inMinutes}분 전";
   }
 }
