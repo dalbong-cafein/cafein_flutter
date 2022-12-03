@@ -192,9 +192,11 @@ class NotificationPage extends StatelessWidget {
                             ? Colors.white
                             : AppColor.grey50,
                         height: 92,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
+                        padding: const EdgeInsets.only(
+                          left : 16,
+                          right : 16,
+                          bottom: 16,
+                          top: 12
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
