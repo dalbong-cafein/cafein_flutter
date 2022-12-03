@@ -23,10 +23,49 @@ abstract class AppIcon {
       'asset/icon/marker/marker_single_normal.png';
   static const markerSingleGood = 'asset/icon/marker/marker_single_good.png';
 
+  static const markerLikeSingleNone =
+      'asset/icon/marker/marker_like_single_none.png';
+  static const markerLikeSingleBad =
+      'asset/icon/marker/marker_like_single_bad.png';
+  static const markerLikeSingleNormal =
+      'asset/icon/marker/marker_like_single_normal.png';
+  static const markerLikeSingleGood =
+      'asset/icon/marker/marker_like_single_good.png';
+
+  static const markerBadX4 = "asset/icon/marker_x4/marker_bad_x4.png";
+  static const markerGoodX4 = "asset/icon/marker_x4/marker_good_x4.png";
+  static const markerNormalX4 = "asset/icon/marker_x4/marker_normal_x4.png";
+  static const markerLikeBadX4 = "asset/icon/marker_x4/marker_like_bad_x4.png";
+  static const markerLikeGoodX4 =
+      "asset/icon/marker_x4/marker_like_good_x4.png";
+  static const markerLikeNormalX4 =
+      "asset/icon/marker_x4/marker_like_normal_x4.png";
+  static const markerNoneX4 = 'asset/icon/marker_x4/marker_none_x4.png';
+  static const markerLikeNoneX4 =
+      'asset/icon/marker_x4/marker_like_none_x4.png';
+  static const markerOrangeX4 = 'asset/icon/marker_x4/orange_marker_x4.png';
+
+  static const markerSingleNoneX4 =
+      'asset/icon/marker_x4/marker_single_none_x4.png';
+  static const markerSingleBadX4 =
+      'asset/icon/marker_x4/marker_single_bad_x4.png';
+  static const markerSingleNormalX4 =
+      'asset/icon/marker_x4/marker_single_normal_x4.png';
+  static const markerSingleGoodX4 =
+      'asset/icon/marker_x4/marker_single_good_x4.png';
+
+  static const markerLikeSingleNoneX4 =
+      'asset/icon/marker_x4/marker_like_single_none_x4.png';
+  static const markerLikeSingleBadX4 =
+      'asset/icon/marker_x4/marker_like_single_bad_x4.png';
+  static const markerLikeSingleNormalX4 =
+      'asset/icon/marker_x4/marker_like_single_normal_x4.png';
+  static const markerLikeSingleGoodX4 =
+      'asset/icon/marker_x4/marker_like_single_good_x4.png';
+
   static const heartCrowded = "asset/icon/heart_crowded_icon.svg";
   static const heartGood = "asset/icon/heart_good_icon.svg";
   static const heartNormal = "asset/icon/heart_normal_icon.svg";
-
 
   static const placeCircle = 'asset/icon/ic_place_circle.svg';
   static const socket = "asset/icon/socket_icon.svg";

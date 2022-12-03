@@ -10,28 +10,28 @@ OverlayImage getMarkerIcon({
 
   if (confuseScore == null) {
     icon = isSingle
-        ? CafeinConfig.markerSingleNone
-        : (isLike
-            ? CafeinConfig.markerLikeNoneIcon
-            : CafeinConfig.markerNoneIcon);
+        ? (isLike
+            ? AppMarkers.markerLikeSingleNone
+            : AppMarkers.markerSingleNone)
+        : (isLike ? AppMarkers.markerLikeNoneIcon : AppMarkers.markerNoneIcon);
   } else if (confuseScore <= 1.5) {
     icon = isSingle
-        ? CafeinConfig.markerSingleBad
-        : (isLike
-            ? CafeinConfig.markerLikeGoodIcon
-            : CafeinConfig.markerGoodIcon);
+        ? (isLike
+            ? AppMarkers.markerLikeSingleGood
+            : AppMarkers.markerSingleGood)
+        : (isLike ? AppMarkers.markerLikeGoodIcon : AppMarkers.markerGoodIcon);
   } else if (confuseScore <= 2.5) {
     icon = isSingle
-        ? CafeinConfig.markerSingleNormal
+        ? (isLike
+            ? AppMarkers.markerLikeSingleNormal
+            : AppMarkers.markerSingleNormal)
         : (isLike
-            ? CafeinConfig.markerLikeNormalIcon
-            : CafeinConfig.markerNormalIcon);
+            ? AppMarkers.markerLikeNormalIcon
+            : AppMarkers.markerNormalIcon);
   } else {
     icon = isSingle
-        ? CafeinConfig.markerSingleGood
-        : (isLike
-            ? CafeinConfig.markerLikeBadIcon
-            : CafeinConfig.markerBadIcon);
+        ? (isLike ? AppMarkers.markerLikeSingleBad : AppMarkers.markerSingleBad)
+        : (isLike ? AppMarkers.markerLikeBadIcon : AppMarkers.markerBadIcon);
   }
 
   return icon;

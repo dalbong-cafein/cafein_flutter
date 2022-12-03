@@ -121,7 +121,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         currentLocation = CafeinConst.defaultLocation;
       }
 
-      final response = await storeRepository.getStores(currentLocation);
+      final response = await storeRepository.getStores(
+        keyword: currentLocation,
+      );
+
       currentRecommendedStores = response.data;
 
       emit(HomeRecommendStoreLoaded(

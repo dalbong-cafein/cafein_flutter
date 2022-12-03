@@ -36,6 +36,17 @@ abstract class CafeinConst {
     126.97962084516,
   );
 
+  static final defaultLatLngBounds = LatLngBounds(
+    northeast: const LatLng(
+      37.57520092751555,
+      126.98377648145288,
+    ),
+    southwest: const LatLng(
+      37.56484333622498,
+      126.9754079892881,
+    ),
+  );
+
   static const defaultStoreImage =
       'https://raw.githubusercontent.com/dalbong-cafein/cafein_flutter/develop/default_store_image.png';
 
@@ -77,5 +88,6 @@ abstract class CafeinConst {
 
   static final sortModeText = ["등록순", "가까운순", "혼잡도낮은순"];
 
-  static const defaultStoreImageUrl = 'https://raw.githubusercontent.com/dalbong-cafein/cafein_flutter/develop/default_store_image.png';
+  static const defaultStoreImageUrl =
+      'https://raw.githubusercontent.com/dalbong-cafein/cafein_flutter/develop/default_store_image.png';
 }

@@ -218,21 +218,23 @@ class MoreViewPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    height: 1,
-                    color: AppColor.grey100,
-                  ),
-                  const SizedBox(height: 12),
-                  MoreViewMenuCard(
-                    title: '연결된 계정',
-                    isAuthProvider: true,
-                    trailingWidget: Text(
-                      '${context.watch<AppRepository>().getAuthProvider()}',
-                      style: AppStyle.body14Regular.copyWith(
-                        color: AppColor.grey400,
+                  if (!isPreview) ...[
+                    Container(
+                      height: 1,
+                      color: AppColor.grey100,
+                    ),
+                    const SizedBox(height: 12),
+                    MoreViewMenuCard(
+                      title: '연결된 계정',
+                      isAuthProvider: true,
+                      trailingWidget: Text(
+                        '${context.watch<AppRepository>().getAuthProvider()}',
+                        style: AppStyle.body14Regular.copyWith(
+                          color: AppColor.grey400,
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                   const SizedBox(height: 12),
                   Container(
                     height: 1,

@@ -163,21 +163,27 @@ class _MapPageState extends State<MapPage> {
               }
 
               if (state.isGoingToFirst) {
-                pageController.animateToPage(
-                  0,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.linear,
-                );
+                pageController.jumpToPage(0);
               }
-
-              if (state.isHeart == null) {
-                return;
-              }
-
-              // ignore: use_build_context_synchronously
-              BottomToastDialog.show(context, isHeart: state.isHeart!);
 
               setState(() {});
+
+              if (state.isHeart != null) {
+                // ignore: use_build_context_synchronously
+                BottomToastDialog.show(context, isHeart: state.isHeart!);
+              }
+
+              if (state.storeId != null) {
+                final index = markers.indexWhere(
+                    (element) => element.markerId == '${state.storeId}');
+
+                bloc.add(MapStoreDetailCallbackRequested(index: index));
+              }
+            } else if (state is MapStoreDetailCallbackChecked) {
+              Future.delayed(
+                const Duration(milliseconds: 200),
+                () => pageController.jumpToPage(state.index),
+              );
             }
           },
         ),
@@ -329,12 +335,19 @@ class _MapPageState extends State<MapPage> {
                       target: CafeinConst.defaultLating,
                     ),
                     markers: markers,
-                    onCameraChange: (latLng, reason, isAnimated) {
+                    onCameraChange: (latLng, reason, isAnimated) async {
+                      final bloc = context.read<MapBloc>();
+
                       if (isAnimated == true && latLng != null) {
-                        context.read<MapBloc>().add(MapCameraPositionChanged(
-                              longitude: latLng.longitude,
-                              latitude: latLng.latitude,
-                            ));
+                        final controller = await naverMapController.future;
+                        final visibleRegion =
+                            await controller.getVisibleRegion();
+
+                        bloc.add(
+                          MapCameraPositionChanged(
+                            latLngBounds: visibleRegion,
+                          ),
+                        );
                       }
                     },
                   ),
@@ -404,17 +417,15 @@ class _MapPageState extends State<MapPage> {
                         return const SizedBox.shrink();
                       }
 
-                      if (!state.isDifferentLocation) {
-                        return const SizedBox.shrink();
-                      }
-
                       return Positioned(
                         top: 12,
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: InkWell(
                             onTap: () => context.read<MapBloc>().add(
-                                  MapStoreRequested(location: state.location),
+                                  MapStoreRequested(
+                                    latLngBounds: state.latLngBounds,
+                                  ),
                                 ),
                             child: Container(
                               width: 144,
@@ -452,6 +463,7 @@ class _MapPageState extends State<MapPage> {
     if (naverMapController.isCompleted) {
       naverMapController = Completer<NaverMapController>();
     }
+
     naverMapController.complete(controller);
   }
 
@@ -460,14 +472,10 @@ class _MapPageState extends State<MapPage> {
 
     if (Platform.isAndroid) {
       await controller.moveCamera(
-        CameraUpdate.toCameraPosition(
-          CameraPosition(target: latLng),
-        ),
+        CameraUpdate.toCameraPosition(CameraPosition(target: latLng)),
       );
     } else if (Platform.isIOS) {
-      await controller.moveCamera(
-        CameraUpdate.scrollTo(latLng),
-      );
+      await controller.moveCamera(CameraUpdate.scrollTo(latLng));
     }
   }
 
@@ -481,9 +489,5 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> moveToCurrentStoreCard(int moveIndex) async =>
-      await pageController.animateToPage(
-        moveIndex,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linear,
-      );
+      pageController.jumpToPage(moveIndex);
 }

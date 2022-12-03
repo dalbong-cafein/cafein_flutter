@@ -113,11 +113,11 @@ class FavoriteStorePage extends StatelessWidget {
                                   CafeinConst.defaultStoreImage,
                               state.stores[index].storeName,
                               state.stores[index].businessInfo?.isOpen ?? false,
-                              state.stores[index].businessInfo?.tmrOpen ??
+                              state.stores[index].businessInfo?.nextOpen ??
                                   "00:00",
                               state.stores[index].businessInfo?.closed ??
                                   "00:00",
-                              state.stores[index].congestionScoreAvg ,
+                              state.stores[index].congestionScoreAvg,
                               state.stores[index].storeId,
                               context,
                               index,

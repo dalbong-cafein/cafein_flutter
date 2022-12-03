@@ -293,11 +293,13 @@ abstract class CafeinRoute {
         );
         break;
       case ReportPage.routeName:
+        final reviewId = settings.arguments as int;
         page = BlocProvider(
           create: (context) => ReportBloc(
+            reviewId: reviewId,
             reviewRepository: context.read<ReviewRepository>(),
           ),
-          child: const ReportPage(),
+          child: ReportPage(reviewId: reviewId),
         );
         break;
       case GalleryPage.routeName:

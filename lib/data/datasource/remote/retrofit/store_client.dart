@@ -19,7 +19,8 @@ abstract class StoreClient {
 
   @GET('/stores')
   Future<BaseResponse<List<Store>>> getStores(
-    @Query('keyword') String keyword,
+    @Query('keyword') String? keyword,
+    @Query('rect') String? rect,
   );
 
   @GET('/stores/recommend-search')

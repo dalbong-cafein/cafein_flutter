@@ -220,6 +220,26 @@ class _CongestionCard extends StatelessWidget {
 
   final Congestion congestion;
 
+  Color getBackgroundColor() {
+    if (congestion.congestionScore <= 1.5) {
+      return AppColor.green50;
+    } else if (congestion.congestionScore <= 2.5) {
+      return AppColor.amber50;
+    } else {
+      return AppColor.scarlet50;
+    }
+  }
+
+  Color getForegroundColor() {
+    if (congestion.congestionScore <= 1.5) {
+      return AppColor.green500;
+    } else if (congestion.congestionScore <= 2.5) {
+      return AppColor.amber500;
+    } else {
+      return AppColor.scarlet500;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isRecent = DateTime.now()
@@ -233,8 +253,8 @@ class _CongestionCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: isRecent ? 24 : 20,
-            backgroundColor: isRecent ? AppColor.green50 : AppColor.grey50,
-            foregroundColor: isRecent ? AppColor.green500 : AppColor.grey500,
+            backgroundColor: isRecent ? getBackgroundColor() : AppColor.grey50,
+            foregroundColor: isRecent ? getForegroundColor() : AppColor.grey500,
             child: Center(
               child: Text(
                 getCongestionTitle(congestion.congestionScore),

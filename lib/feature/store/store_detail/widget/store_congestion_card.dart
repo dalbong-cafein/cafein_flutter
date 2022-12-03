@@ -502,10 +502,10 @@ class _CongestionScoreColumn extends StatelessWidget {
 
 String getCongestionTitle(int score) {
   if (score == 1) {
-    return '혼잡';
+    return '여유';
   } else if (score == 2) {
     return '보통';
   } else {
-    return '여유';
+    return '혼잡';
   }
 }

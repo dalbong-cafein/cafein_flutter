@@ -23,7 +23,7 @@ mixin _$BusinessInfo {
   bool get isOpen => throw _privateConstructorUsedError;
   String? get closed => throw _privateConstructorUsedError;
   String? get open => throw _privateConstructorUsedError;
-  String get tmrOpen => throw _privateConstructorUsedError;
+  String get nextOpen => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $BusinessInfoCopyWith<$Res> {
           BusinessInfo value, $Res Function(BusinessInfo) then) =
       _$BusinessInfoCopyWithImpl<$Res, BusinessInfo>;
   @useResult
-  $Res call({bool isOpen, String? closed, String? open, String tmrOpen});
+  $Res call({bool isOpen, String? closed, String? open, String nextOpen});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$BusinessInfoCopyWithImpl<$Res, $Val extends BusinessInfo>
     Object? isOpen = null,
     Object? closed = freezed,
     Object? open = freezed,
-    Object? tmrOpen = null,
+    Object? nextOpen = null,
   }) {
     return _then(_value.copyWith(
       isOpen: null == isOpen
@@ -71,9 +71,9 @@ class _$BusinessInfoCopyWithImpl<$Res, $Val extends BusinessInfo>
           ? _value.open
           : open // ignore: cast_nullable_to_non_nullable
               as String?,
-      tmrOpen: null == tmrOpen
-          ? _value.tmrOpen
-          : tmrOpen // ignore: cast_nullable_to_non_nullable
+      nextOpen: null == nextOpen
+          ? _value.nextOpen
+          : nextOpen // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -87,7 +87,7 @@ abstract class _$$_BusinessInfoCopyWith<$Res>
       __$$_BusinessInfoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isOpen, String? closed, String? open, String tmrOpen});
+  $Res call({bool isOpen, String? closed, String? open, String nextOpen});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
     Object? isOpen = null,
     Object? closed = freezed,
     Object? open = freezed,
-    Object? tmrOpen = null,
+    Object? nextOpen = null,
   }) {
     return _then(_$_BusinessInfo(
       isOpen: null == isOpen
@@ -119,9 +119,9 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
           ? _value.open
           : open // ignore: cast_nullable_to_non_nullable
               as String?,
-      tmrOpen: null == tmrOpen
-          ? _value.tmrOpen
-          : tmrOpen // ignore: cast_nullable_to_non_nullable
+      nextOpen: null == nextOpen
+          ? _value.nextOpen
+          : nextOpen // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -131,7 +131,7 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BusinessInfo implements _BusinessInfo {
   _$_BusinessInfo(
-      {this.isOpen = false, this.closed, this.open, this.tmrOpen = '10:00'});
+      {this.isOpen = false, this.closed, this.open, this.nextOpen = '10:00'});
 
   factory _$_BusinessInfo.fromJson(Map<String, dynamic> json) =>
       _$$_BusinessInfoFromJson(json);
@@ -145,11 +145,11 @@ class _$_BusinessInfo implements _BusinessInfo {
   final String? open;
   @override
   @JsonKey()
-  final String tmrOpen;
+  final String nextOpen;
 
   @override
   String toString() {
-    return 'BusinessInfo(isOpen: $isOpen, closed: $closed, open: $open, tmrOpen: $tmrOpen)';
+    return 'BusinessInfo(isOpen: $isOpen, closed: $closed, open: $open, nextOpen: $nextOpen)';
   }
 
   @override
@@ -160,12 +160,13 @@ class _$_BusinessInfo implements _BusinessInfo {
             (identical(other.isOpen, isOpen) || other.isOpen == isOpen) &&
             (identical(other.closed, closed) || other.closed == closed) &&
             (identical(other.open, open) || other.open == open) &&
-            (identical(other.tmrOpen, tmrOpen) || other.tmrOpen == tmrOpen));
+            (identical(other.nextOpen, nextOpen) ||
+                other.nextOpen == nextOpen));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, isOpen, closed, open, tmrOpen);
+  int get hashCode => Object.hash(runtimeType, isOpen, closed, open, nextOpen);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +187,7 @@ abstract class _BusinessInfo implements BusinessInfo {
       {final bool isOpen,
       final String? closed,
       final String? open,
-      final String tmrOpen}) = _$_BusinessInfo;
+      final String nextOpen}) = _$_BusinessInfo;
 
   factory _BusinessInfo.fromJson(Map<String, dynamic> json) =
       _$_BusinessInfo.fromJson;
@@ -198,7 +199,7 @@ abstract class _BusinessInfo implements BusinessInfo {
   @override
   String? get open;
   @override
-  String get tmrOpen;
+  String get nextOpen;
   @override
   @JsonKey(ignore: true)
   _$$_BusinessInfoCopyWith<_$_BusinessInfo> get copyWith =>

@@ -64,9 +64,12 @@ class MainPage extends StatelessWidget {
     return BlocBuilder<MainBloc, MainState>(
       builder: (context, state) {
         if (state is MainNavigationSelected) {
-          return IndexedStack(
-            index: state.index,
-            children: pages,
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: IndexedStack(
+              index: state.index,
+              children: pages,
+            ),
           );
         }
         return const SizedBox.shrink();
