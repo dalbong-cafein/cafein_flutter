@@ -47,7 +47,7 @@ class SearchBodyHeader extends StatelessWidget {
                   ],
                 ),
                 child: loadAsset(
-                  AppIcon.locationArrow,
+                  AppIcon.nearMe,
                   fit: BoxFit.scaleDown,
                 ),
               ),

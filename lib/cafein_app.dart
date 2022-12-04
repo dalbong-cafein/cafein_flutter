@@ -28,7 +28,6 @@ import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
-import 'package:cafein_flutter/feature/certify_phone/phone_certificaion_done_page.dart';
 import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
