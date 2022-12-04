@@ -175,7 +175,7 @@ class _ReportPageState extends State<ReportPage> {
                     if (state.clickedCategory != state.categories.length) {
                       context.read<ReportBloc>().add(
                             ReportRequested(
-                              clickedIndex: state.clickedCategory,
+                              clickedIndex: state.clickedCategory + 1,
                               content: state.clickedCategory ==
                                       state.categories.length - 1
                                   ? textEditingController.text
