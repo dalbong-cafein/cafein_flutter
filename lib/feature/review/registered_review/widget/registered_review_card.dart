@@ -2,6 +2,7 @@ import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/user_review.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/feature/review/registered_review/bloc/registered_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
@@ -38,6 +39,10 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
             .difference(DateTime.parse(widget.review.registeredDateTime))
             .inDays <
         3;
+
+    final imageList = (widget.review.reviewImageIdPairs ?? [])
+        .map((e) => e.imageUrl)
+        .toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -166,18 +171,29 @@ class _RegisteredReviewCardState extends State<RegisteredReviewCard> {
                 height: 72,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, imageIndex) => ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                    child: CustomCachedNetworkImage(
-                      key: ValueKey(widget
-                          .review.reviewImageIdPairs![imageIndex].imageUrl),
-                      imageUrl: widget
-                          .review.reviewImageIdPairs![imageIndex].imageUrl,
-                      height: 72,
-                      width: 72,
-                      fit: BoxFit.cover,
+                  itemBuilder: (context, imageIndex) => InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        ImageDetailPage.routeName,
+                        arguments: ImageDetailPageArguments(
+                          initialPage: imageIndex,
+                          imageUrls: imageList,
+                        ),
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      child: CustomCachedNetworkImage(
+                        key: ValueKey(widget
+                            .review.reviewImageIdPairs![imageIndex].imageUrl),
+                        imageUrl: widget
+                            .review.reviewImageIdPairs![imageIndex].imageUrl,
+                        height: 72,
+                        width: 72,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   separatorBuilder: (context, index) => const SizedBox(

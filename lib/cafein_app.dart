@@ -133,7 +133,6 @@ class CafeinApp extends StatelessWidget {
           ),
           useInheritedMediaQuery: true,
           debugShowCheckedModeBanner: false,
-          initialRoute: SplashPage.routeName,
           theme: AppTheme.light.copyWith(
             textTheme: Theme.of(context).textTheme.apply(
                   bodyColor: AppColor.grey800,
@@ -146,6 +145,7 @@ class CafeinApp extends StatelessWidget {
                   displayColor: AppColor.grey800,
                 ),
           ),
+          initialRoute: SplashPage.routeName,
           onGenerateRoute: CafeinRoute.onGenerateRoute,
           navigatorObservers: [
             CustomNavigatorLogger(),

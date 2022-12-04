@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/feature/certify_phone/input_phone_number_page.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/profile/profile_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -15,21 +16,23 @@ class PhoneCertificationDonePage extends StatefulWidget {
   final String returnPage;
 
   @override
-  State<PhoneCertificationDonePage> createState() => _PhoneCertificationDonePageState();
+  State<PhoneCertificationDonePage> createState() =>
+      _PhoneCertificationDonePageState();
 }
 
-class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage> {
+class _PhoneCertificationDonePageState
+    extends State<PhoneCertificationDonePage> {
   @override
   void initState() {
     super.initState();
 
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 3),
       () {
         if (widget.returnPage == LoginPage.routeName) {
           Navigator.of(context).pushNamedAndRemoveUntil(
             ProfilePage.routeName,
-            ModalRoute.withName(widget.returnPage),
+            ModalRoute.withName(InputPhoneNumberPage.routeName),
           );
         } else {
           Navigator.of(context).popUntil(
@@ -44,26 +47,34 @@ class _PhoneCertificationDonePageState extends State<PhoneCertificationDonePage>
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width / 360;
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '본인 인증이\n완료되었습니다.',
-              style: AppStyle.title25Bold,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 72),
-            loadAsset(
-              AppImage.phoneSuccess,
-              width: 140 * width,
-              height: 140 * width,
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: 140 + 140 * width,
+                  ),
+                  child: const Text(
+                    '본인 인증이\n완료되었습니다',
+                    style: AppStyle.title25Bold,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Center(
+                child: loadAsset(
+                  AppLottie.certificationDone,
+                  width: 140 * width,
+                  height: 140 * width,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

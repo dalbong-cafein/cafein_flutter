@@ -6,4 +6,6 @@ abstract class AppLottie {
   static const circleLoading = 'asset/lottie/circle_loading.json';
 
   static const currentLocation = 'asset/lottie/current_location.json';
+
+  static const certificationDone = 'asset/lottie/certification_done.json';
 }

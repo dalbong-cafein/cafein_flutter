@@ -23,6 +23,8 @@ class InputPhoneNumberPage extends StatefulWidget {
 class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
   final controller = TextEditingController();
 
+  final focus = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,7 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
 
   @override
   void dispose() {
+    focus.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -90,6 +93,7 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
                     child: TextField(
                       controller: controller,
                       maxLength: 11,
+                      focusNode: focus,
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       autofocus: true,
@@ -111,7 +115,8 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
             ),
             const Spacer(),
             BlocBuilder<InputPhoneNumberBloc, InputPhoneNumberState>(
-              buildWhen: (pre, next) => next is PhoneCertificationPhoneNumberValidationChecked,
+              buildWhen: (pre, next) =>
+                  next is PhoneCertificationPhoneNumberValidationChecked,
               builder: (context, state) {
                 bool isValid = false;
                 if (state is PhoneCertificationPhoneNumberValidationChecked) {
@@ -122,13 +127,17 @@ class _InputPhoneNumberPageState extends State<InputPhoneNumberPage> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: isValid
-                        ? () => Navigator.of(context).pushNamed(
+                        ? () async {
+                            await Navigator.of(context).pushNamed(
                               InputCertificationCodePage.routeName,
                               arguments: InputCertificationCodePageArguments(
                                 phoneNumber: controller.text,
                                 returnPage: widget.returnPage,
                               ),
-                            )
+                            );
+
+                            focus.requestFocus();
+                          }
                         : null,
                     child: const Text('인증번호 받기'),
                   ),

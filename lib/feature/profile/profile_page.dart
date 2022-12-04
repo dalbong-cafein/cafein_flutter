@@ -145,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         }
                       },
-                      child: loadAsset(AppIcon.camera),
+                      child: loadAsset(AppIcon.cameraCircle),
                     ),
                   ),
                 ],

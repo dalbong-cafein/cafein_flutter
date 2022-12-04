@@ -4,6 +4,7 @@ import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/review/store_review.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
+import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
@@ -132,6 +133,9 @@ class _ReviewCardState extends State<_ReviewCard> {
         3;
 
     final isPreview = context.watch<AuthCubit>().state == const AuthPreviewed();
+
+    final imageList =
+        (widget.review.imageIdPairs ?? []).map((e) => e.imageUrl).toList();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -313,21 +317,43 @@ class _ReviewCardState extends State<_ReviewCard> {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              widget.review.content ?? '',
+              style: AppStyle.body14Regular,
+            ),
+          ),
           const SizedBox(height: 12),
           if ((widget.review.imageIdPairs ?? []).isNotEmpty)
             SizedBox(
               height: 72,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, imageIndex) => ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  child: CustomCachedNetworkImage(
-                    imageUrl: widget.review.imageIdPairs![imageIndex].imageUrl,
-                    height: 72,
-                    width: 72,
-                    fit: BoxFit.cover,
+                itemBuilder: (context, imageIndex) => InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      ImageDetailPage.routeName,
+                      arguments: ImageDetailPageArguments(
+                        initialPage: imageIndex,
+                        imageUrls: imageList,
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                    child: CustomCachedNetworkImage(
+                      key: ValueKey(
+                        widget.review.imageIdPairs![imageIndex].imageUrl,
+                      ),
+                      imageUrl:
+                          widget.review.imageIdPairs![imageIndex].imageUrl,
+                      height: 72,
+                      width: 72,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 separatorBuilder: (context, index) => const SizedBox(
