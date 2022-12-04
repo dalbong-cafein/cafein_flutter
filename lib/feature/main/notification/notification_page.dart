@@ -208,12 +208,16 @@ class NotificationPage extends StatelessWidget {
                               children: [
                                 Text(
                                   state.notifications[index].notificationType,
-                                  style: AppStyle.subTitle14Medium,
+                                  style: AppStyle.caption13Medium.copyWith(
+                                    color: AppColor.grey600
+                                  ),
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
                                   state.notifications[index].content,
-                                  style: AppStyle.body14Regular,
+                                  style: AppStyle.subTitle14Medium.copyWith(
+                                    height: 1.4
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 6),

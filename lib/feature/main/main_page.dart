@@ -37,14 +37,14 @@ class MainPage extends StatelessWidget {
         ),
         child: const HomePage(),
       ),
-      BlocProvider<MapBloc>(
-        create: (context) => MapBloc(
-          userRepository: context.read<UserRepository>(),
-          storeRepository: context.read<StoreRepository>(),
-          heartRepository: context.read<HeartRepository>(),
-        ),
-        child: const MapPage(),
-      ),
+      // BlocProvider<MapBloc>(
+      //   create: (context) => MapBloc(
+      //     userRepository: context.read<UserRepository>(),
+      //     storeRepository: context.read<StoreRepository>(),
+      //     heartRepository: context.read<HeartRepository>(),
+      //   ),
+      //   child: const MapPage(),
+      // ),
       BlocProvider<NotificationBloc>(
         create: (context) => NotificationBloc(
           notificationRepository: context.read<NotificationRepository>(),
