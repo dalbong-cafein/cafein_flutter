@@ -193,45 +193,46 @@ class NotificationPage extends StatelessWidget {
                         color: state.notifications[index].isRead
                             ? Colors.white
                             : AppColor.grey50,
-                        height: 92,
-                        padding: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 16, top: 12),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            _getNotificationIcon(
-                                state.notifications[index].notificationType),
-                            const SizedBox(width: 8),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.notifications[index].notificationType,
-                                  style: AppStyle.caption13Medium.copyWith(
-                                    color: AppColor.grey600
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                SizedBox(
-                                  width: width - 58,
-                                  child: Text(
-                                    state.notifications[index].content,
-                                    style: AppStyle.subTitle14Medium.copyWith(
-                                        height: 1.4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, bottom: 16, top: 12),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              _getNotificationIcon(
+                                  state.notifications[index].notificationType),
+                              const SizedBox(width: 8),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    state.notifications[index].notificationType,
+                                    style: AppStyle.caption13Medium.copyWith(
+                                      color: AppColor.grey600
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  _getPeriod(state.notifications[index].registeredDateTime),
-                                  style: AppStyle.caption13Regular
-                                      .copyWith(color: AppColor.grey400),
-                                )
-                              ],
-                            )
-                          ],
+                                  const SizedBox(height: 5),
+                                  SizedBox(
+                                    width: width - 58,
+                                    child: Text(
+                                      state.notifications[index].content,
+                                      style: AppStyle.subTitle14Medium.copyWith(
+                                          height: 1.4,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    _getPeriod(state.notifications[index].registeredDateTime),
+                                    style: AppStyle.caption13Regular
+                                        .copyWith(color: AppColor.grey400),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
