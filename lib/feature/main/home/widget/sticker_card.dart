@@ -70,7 +70,7 @@ class StickerCard extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 16),
                           child: Center(
                             child: loadAsset(
-                              AppImage.profile1,
+                              AppIcon.redDrinkSticker,
                               width: 44 * widthPercent,
                               height: 44 * heightPercent,
                             ),

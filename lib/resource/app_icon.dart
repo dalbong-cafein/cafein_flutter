@@ -100,6 +100,8 @@ abstract class AppIcon {
   static const pinkDrinkSticker =
       "asset/icon/sticker/pink_drink_sticker_icon.svg";
   static const sandwichSticker = "asset/icon/sticker/sandwich_sticker_icon.svg";
+  static const redDrinkSticker =
+      "asset/icon/sticker/red_drink_sticker_icon.svg";
 
   static const homeOn = 'asset/icon/bottom/ic_home_on.svg';
   static const homeOff = 'asset/icon/bottom/ic_home_off.svg';
