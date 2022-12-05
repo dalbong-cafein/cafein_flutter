@@ -43,6 +43,7 @@ class _MapPageState extends State<MapPage> {
   late final columnHeight = imageWidth + 100 + 50 + 28;
 
   bool isTapped = false;
+  bool isInitialRequested = false;
 
   @override
   void initState() {
@@ -134,7 +135,7 @@ class _MapPageState extends State<MapPage> {
                 ),
               ));
 
-              if (state.focusedIndex != null) {
+              if (state.stores.isNotEmpty && state.focusedIndex != null) {
                 final marker = markers[state.focusedIndex!];
 
                 // 마커 눌렀을 때 맵 이동
@@ -337,6 +338,18 @@ class _MapPageState extends State<MapPage> {
                     markers: markers,
                     onCameraChange: (latLng, reason, isAnimated) async {
                       final bloc = context.read<MapBloc>();
+
+                      if (reason == CameraChangeReason.developer) {
+                        final controller = await naverMapController.future;
+                        final visibleRegion =
+                            await controller.getVisibleRegion();
+
+                        bloc.add(
+                          MapStoreRequested(latLngBounds: visibleRegion),
+                        );
+
+                        return;
+                      }
 
                       if (isAnimated == true && latLng != null) {
                         final controller = await naverMapController.future;

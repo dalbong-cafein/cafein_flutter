@@ -2,7 +2,6 @@ import 'package:cafein_flutter/data/repository/auth_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/notification_repository.dart';
-import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
@@ -16,10 +15,6 @@ import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/notification_page.dart';
-import 'package:cafein_flutter/feature/report/bloc/report_bloc.dart';
-import 'package:cafein_flutter/feature/report/report_page.dart';
-import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
-import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
