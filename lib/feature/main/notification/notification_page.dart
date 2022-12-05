@@ -22,7 +22,7 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    final width = MediaQuery.of(context).size.width;
     return MultiBlocListener(
       listeners: [
         BlocListener<NotificationBloc, NotificationState>(
@@ -189,6 +189,7 @@ class NotificationPage extends StatelessWidget {
                           }
                       },
                       child: Container(
+                        width: width,
                         color: state.notifications[index].isRead
                             ? Colors.white
                             : AppColor.grey50,
@@ -208,13 +209,19 @@ class NotificationPage extends StatelessWidget {
                               children: [
                                 Text(
                                   state.notifications[index].notificationType,
-                                  style: AppStyle.subTitle14Medium,
+                                  style: AppStyle.caption13Medium.copyWith(
+                                    color: AppColor.grey600
+                                  ),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(
-                                  state.notifications[index].content,
-                                  style: AppStyle.body14Regular,
-                                  overflow: TextOverflow.ellipsis,
+                                SizedBox(
+                                  width: width - 58,
+                                  child: Text(
+                                    state.notifications[index].content,
+                                    style: AppStyle.subTitle14Medium.copyWith(
+                                        height: 1.4,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(height: 6),
                                 Text(

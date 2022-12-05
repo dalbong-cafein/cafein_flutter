@@ -24,8 +24,9 @@ class ReceivedCouponsBloc extends Bloc<ReceivedCouponsEvent, ReceivedCouponsStat
     emit(const ReceivedCouponsLoading());
     try {
       final couponResponse = await couponRepository.getCoupons();
-      final coupons = couponResponse.data;
-      coupons.sort((a,b) => DateTime.parse(a.registeredDateTime).compareTo(DateTime.parse(b.registeredDateTime)));
+
+      List coupons = couponResponse.data;
+
 
       emit(ReceivedCouponsLoaded(coupons: [...coupons]));
     } catch (e) {
