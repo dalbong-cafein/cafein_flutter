@@ -104,7 +104,7 @@ class StoreDetailCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (storeDetail.storeImageList.isNotEmpty)
+            if (imageList.isNotEmpty)
               SizedBox(
                 height: 240,
                 child: ListView.separated(

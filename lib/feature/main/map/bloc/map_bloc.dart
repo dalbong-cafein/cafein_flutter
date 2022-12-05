@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/model/enum/map_filter_keyword.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
@@ -23,7 +24,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     required this.heartRepository,
   }) : super(const MapInitial()) {
     on<MapLocationRequested>(_onSearchLocationRequested);
-    on<MapStoreRequested>(_onSearchStoreRequested);
+    on<MapStoreRequested>(
+      _onSearchStoreRequested,
+      transformer: restartable(),
+    );
     on<MapStoreHeartRequested>(_onSearchStoreHeartRequested);
     on<MapKeywordTaped>(_onSearchKeywordTaped);
     on<MapSearchResultChanged>(_onMapSearchResultChanged);
