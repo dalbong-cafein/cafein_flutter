@@ -43,7 +43,6 @@ class _MapPageState extends State<MapPage> {
   late final columnHeight = imageWidth + 100 + 50 + 28;
 
   bool isTapped = false;
-  bool isInitialRequested = false;
 
   @override
   void initState() {
@@ -91,19 +90,14 @@ class _MapPageState extends State<MapPage> {
                 refresh: state.event,
               );
             } else if (state is MapLocationChecked) {
-              final currentLatLng = LatLng(
-                state.latitude,
-                state.longitude,
-              );
+              final currentLatLng = LatLng(state.latitude, state.longitude);
 
-              moveCurrentCamera(currentLatLng);
-              updateCurrentLocation(currentLatLng);
+              await moveCurrentCamera(currentLatLng, bloc: bloc);
+              await updateCurrentLocation(currentLatLng);
 
               if (!state.isInitialChecked) {
                 return;
               }
-
-              bloc.add(MapStoreRequested(location: state.location));
             } else if (state is MapStoreLoaded) {
               markers.clear();
               markers.addAll(List.generate(
@@ -339,18 +333,6 @@ class _MapPageState extends State<MapPage> {
                     onCameraChange: (latLng, reason, isAnimated) async {
                       final bloc = context.read<MapBloc>();
 
-                      if (reason == CameraChangeReason.developer) {
-                        final controller = await naverMapController.future;
-                        final visibleRegion =
-                            await controller.getVisibleRegion();
-
-                        bloc.add(
-                          MapStoreRequested(latLngBounds: visibleRegion),
-                        );
-
-                        return;
-                      }
-
                       if (isAnimated == true && latLng != null) {
                         final controller = await naverMapController.future;
                         final visibleRegion =
@@ -480,7 +462,10 @@ class _MapPageState extends State<MapPage> {
     naverMapController.complete(controller);
   }
 
-  Future<void> moveCurrentCamera(LatLng latLng) async {
+  Future<void> moveCurrentCamera(
+    LatLng latLng, {
+    MapBloc? bloc,
+  }) async {
     final controller = await naverMapController.future;
 
     if (Platform.isAndroid) {
@@ -489,6 +474,12 @@ class _MapPageState extends State<MapPage> {
       );
     } else if (Platform.isIOS) {
       await controller.moveCamera(CameraUpdate.scrollTo(latLng));
+    }
+
+    final visibleRegion = await controller.getVisibleRegion();
+
+    if (bloc != null) {
+      bloc.add(MapStoreRequested(latLngBounds: visibleRegion));
     }
   }
 
