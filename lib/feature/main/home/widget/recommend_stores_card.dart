@@ -221,7 +221,7 @@ class RecommendStoresCard extends StatelessWidget {
                                                     textStyle: AppStyle
                                                         .caption12Regular
                                                         .copyWith(height: 1),
-                                                    distance: 150,
+                                                    distance: (state.recommendStores[index].distance ?? 0).toInt() ,
                                                     recommendScore: state
                                                             .recommendStores[
                                                                 index]

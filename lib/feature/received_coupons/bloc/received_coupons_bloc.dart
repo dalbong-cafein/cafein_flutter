@@ -26,9 +26,9 @@ class ReceivedCouponsBloc extends Bloc<ReceivedCouponsEvent, ReceivedCouponsStat
       final couponResponse = await couponRepository.getCoupons();
 
       List coupons = couponResponse.data;
+      List reversedCoupons = List.from(coupons.reversed);
 
-
-      emit(ReceivedCouponsLoaded(coupons: [...coupons]));
+      emit(ReceivedCouponsLoaded(coupons: [...reversedCoupons]));
     } catch (e) {
       emit(ReceivedCouponsError(
         error: e,

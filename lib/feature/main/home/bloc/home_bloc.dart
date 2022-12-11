@@ -94,6 +94,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     isGranted = event.isGranted;
+
     emit(const HomeLoading());
 
     if (!event.isGranted) {
