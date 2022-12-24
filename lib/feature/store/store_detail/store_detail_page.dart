@@ -387,8 +387,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         NoticeDetailPage.routeName,
                         arguments: state.latestEvent.boardId,
                       ),
-                      child: StoreDetailEventBanner(
-                        imageUrl: state.latestEvent.imageIdPair.imageUrl,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: StoreDetailEventBanner(
+                          imageUrl: state.latestEvent.imageIdPair.imageUrl,
+                        ),
                       ),
                     ),
                   ),
