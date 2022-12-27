@@ -37,12 +37,12 @@ class _ReportPageState extends State<ReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          onTap: (){
-            Navigator.of(context).pop();
-          },
-            child: loadAsset(AppIcon.left)
-        ),
+          leading: IconButton(
+            icon: loadAsset(AppIcon.leftS, height: 24, width: 24),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
       ),
       body: BlocConsumer<ReportBloc, ReportState>(
         listener: (context, state) async {
