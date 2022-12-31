@@ -78,7 +78,7 @@ class SignOffPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     const Text(
-                      '안내사항을 확인하고 회원탈퇴에 동의',
+                      '안내사항을 확인하고 회원탈퇴에 동의합니다',
                       style: AppStyle.subTitle15SemiBold,
                     ),
                   ],
@@ -130,13 +130,13 @@ class _InfoRow extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(4),
           child: loadAsset(
-            AppIcon.doneOn,
+            AppIcon.doneS,
           ),
         ),
         const SizedBox(width: 12),
         Text(
           text,
-          style: AppStyle.body14Regular,
+          style: AppStyle.body14Regular.copyWith(color : AppColor.grey600)
         ),
       ],
     );
