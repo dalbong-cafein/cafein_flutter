@@ -268,7 +268,7 @@ class _MapPageState extends State<MapPage> {
               ));
             },
             child: Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+              margin: const EdgeInsets.only(left: 16, right: 16, bottom: 6, top :6),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               height: 44,
               decoration: BoxDecoration(

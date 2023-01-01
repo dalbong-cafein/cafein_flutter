@@ -71,6 +71,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool clicked = false;
     return MultiBlocListener(
       listeners: [
         BlocListener<CreatedReviewBloc, CreatedReviewState>(
@@ -227,7 +228,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                 navigator.pop();
               },
               icon: loadAsset(AppIcon.left),
-            ),
+            )
           ),
           body: Column(
             children: [
@@ -362,6 +363,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                         buildWhen: (pre, next) =>
                             next is CreatedReviewScoreChecked,
                         builder: (context, state) {
+
                           String wifiScore = '';
                           String socketScore = '';
                           String tableScore = '';
