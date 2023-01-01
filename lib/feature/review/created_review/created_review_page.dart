@@ -71,6 +71,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool clicked = false;
     return MultiBlocListener(
       listeners: [
         BlocListener<CreatedReviewBloc, CreatedReviewState>(
@@ -214,6 +215,10 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
             title: const Text("리뷰 작성"),
             leading: IconButton(
               onPressed: () async {
+                if (!clicked){
+                  Navigator.of(context).pop();
+                  return;
+                }
                 final navigator = Navigator.of(context);
                 final result = await ReviewBackDialog.show(
                   context,
@@ -227,7 +232,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                 navigator.pop();
               },
               icon: loadAsset(AppIcon.left),
-            ),
+            )
           ),
           body: Column(
             children: [
@@ -362,10 +367,12 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                         buildWhen: (pre, next) =>
                             next is CreatedReviewScoreChecked,
                         builder: (context, state) {
+
                           String wifiScore = '';
                           String socketScore = '';
                           String tableScore = '';
                           String restroomScore = '';
+
                           final bloc = context.read<CreatedReviewBloc>();
 
                           if (state is CreatedReviewScoreChecked) {
@@ -373,6 +380,10 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                             socketScore = state.socketScore;
                             tableScore = state.tableScore;
                             restroomScore = state.restroomScore;
+                          }
+
+                          if (wifiScore != '' || socketScore != '' || tableScore != '' || restroomScore != ''){
+                            clicked = true;
                           }
 
                           return ReviewDetailScoreCard(

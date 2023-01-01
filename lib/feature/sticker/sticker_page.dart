@@ -39,10 +39,16 @@ class StickerPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "스티커",
-          style: AppStyle.subTitle16Medium,
-        ),
+          title: const Text(
+            "스티커",
+            style: AppStyle.subTitle16Medium,
+          ),
+          leading: IconButton(
+            icon: loadAsset(AppIcon.leftS, height: 24, width: 24),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
       ),
       body: SingleChildScrollView(
         child: Column(

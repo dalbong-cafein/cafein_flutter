@@ -55,6 +55,7 @@ class ToastDialog extends StatelessWidget {
                 title,
                 style: AppStyle.body15Regular.copyWith(
                   color: AppColor.white,
+                  height: 1.45
                 ),
                 textAlign: TextAlign.center,
               ),

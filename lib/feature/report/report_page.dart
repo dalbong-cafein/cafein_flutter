@@ -36,7 +36,14 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+          leading: IconButton(
+            icon: loadAsset(AppIcon.leftS, height: 24, width: 24),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
+      ),
       body: BlocConsumer<ReportBloc, ReportState>(
         listener: (context, state) async {
           final navigator = Navigator.of(context);

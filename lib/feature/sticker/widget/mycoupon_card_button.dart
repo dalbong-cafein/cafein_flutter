@@ -23,7 +23,7 @@ class MyCouponCardButton extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Text(
-                    "받은 쿠폰을 확인해보세요",
+                    "받은 쿠폰 내역",
                     style: AppStyle.subTitle16Medium.copyWith(
                       height: 1
                     ),
