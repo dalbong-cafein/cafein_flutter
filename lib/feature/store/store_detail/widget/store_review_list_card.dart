@@ -136,7 +136,6 @@ class _ReviewCardState extends State<_ReviewCard> {
 
     final imageList =
         (widget.review.imageIdPairs ?? []).map((e) => e.imageUrl).toList();
-
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -198,7 +197,6 @@ class _ReviewCardState extends State<_ReviewCard> {
 
                       return navigator.popUntil((route) => false);
                     }
-
                     navigator.pushNamed(
                       ReportPage.routeName,
                       arguments: widget.review.reviewId,
