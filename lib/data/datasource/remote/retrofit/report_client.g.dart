@@ -13,7 +13,7 @@ class _ReportClient implements ReportClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.cafeinofficial.com';
+    baseUrl ??= 'https://test.cafeinofficial.com';
   }
 
   final Dio _dio;
@@ -80,7 +80,7 @@ class _ReportClient implements ReportClient {
   }
 
   @override
-  Future<BaseResponse<ReportPossible>> getReportPossible(storeId) async {
+  Future<BaseResponse<ReportPossible>> getReportPossible(reviewId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -93,7 +93,7 @@ class _ReportClient implements ReportClient {
     )
             .compose(
               _dio.options,
-              'reviews/${storeId}/reports/check-possible-report',
+              '/reviews/${reviewId}/reports/check-possible-report',
               queryParameters: queryParameters,
               data: _data,
             )

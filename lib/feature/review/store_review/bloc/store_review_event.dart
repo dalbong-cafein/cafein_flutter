@@ -28,9 +28,4 @@ class StoreReviewResetRequested extends StoreReviewEvent {
   const StoreReviewResetRequested();
 }
 
-class StoreReviewReportClicked extends StoreReviewEvent {
-  const StoreReviewReportClicked({
-    required this.reviewId,
-  });
-  final int reviewId;
-}
+

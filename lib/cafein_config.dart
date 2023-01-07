@@ -13,7 +13,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 part './app_markers.dart';
 
 abstract class CafeinConfig {
-  static const baseUrl = 'https://api.cafeinofficial.com';
+  //TODO 배포때 test -> api로 바꾸기
+  static const baseUrl = 'https://test.cafeinofficial.com';
 
   static const kakaoRestApiKey = '8898a6b3df99b2f5e57b1c3ac85e6777';
 

@@ -112,13 +112,5 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
     add(const StoreReviewRequested());
   }
 
-  Future<FutureOr<void>> _onStoreReviewReportClicked(
-      StoreReviewReportClicked event,
-      Emitter<StoreReviewState> emit
-      ) async {
-    emit(const StoreReviewLoading());
-    final response = await reviewRepository.getReportPossible(storeId: event.reviewId);
-    bool isPossibleRegistration = response.data.isPossibleRegistration;
-    print("결과" + event.reviewId.toString() + isPossibleRegistration.toString());
-  }
+
 }

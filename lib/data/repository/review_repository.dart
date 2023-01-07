@@ -52,7 +52,7 @@ abstract class ReviewRepository {
   });
 
   Future<BaseResponse<ReportPossible>> getReportPossible(
-      {required int storeId});
+      {required int reviewId});
 
   Future<BaseResponse<List<ReportCategory>>> getReportCategories();
 
@@ -137,5 +137,5 @@ class ReviewRepositoryImpl implements ReviewRepository {
 
   @override
   Future<BaseResponse<ReportPossible>> getReportPossible(
-      {required int storeId}) => reportClient.getReportPossible(storeId);
+      {required int reviewId}) => reportClient.getReportPossible(reviewId);
 }

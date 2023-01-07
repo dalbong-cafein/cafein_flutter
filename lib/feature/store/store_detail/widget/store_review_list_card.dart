@@ -8,6 +8,7 @@ import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
+import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
@@ -127,6 +128,7 @@ class _ReviewCardState extends State<_ReviewCard> {
 
   @override
   Widget build(BuildContext context) {
+
     final isAvailableEdit = DateTime.now()
             .difference(DateTime.parse(widget.review.registeredDateTime))
             .inDays <
@@ -176,6 +178,8 @@ class _ReviewCardState extends State<_ReviewCard> {
               if (widget.review.writerId != userData?.memberId)
                 InkWell(
                   onTap: () async {
+                    context.read<StoreDetailBloc>().add(StoreDetailReviewReportClicked(reviewId: widget.review.reviewId));
+
                     final navigator = Navigator.of(context);
 
                     final isPreview = context.read<AuthCubit>().state ==
@@ -197,6 +201,7 @@ class _ReviewCardState extends State<_ReviewCard> {
 
                       return navigator.popUntil((route) => false);
                     }
+
                     navigator.pushNamed(
                       ReportPage.routeName,
                       arguments: widget.review.reviewId,

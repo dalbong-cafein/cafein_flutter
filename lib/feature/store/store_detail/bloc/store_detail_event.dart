@@ -74,3 +74,10 @@ class StoreDetailTabChanged extends StoreDetailEvent {
 class StoreDetailReviewRequested extends StoreDetailEvent {
   const StoreDetailReviewRequested();
 }
+
+class StoreDetailReviewReportClicked extends StoreDetailEvent {
+  const StoreDetailReviewReportClicked({
+    required this.reviewId,
+  });
+  final int reviewId;
+}
