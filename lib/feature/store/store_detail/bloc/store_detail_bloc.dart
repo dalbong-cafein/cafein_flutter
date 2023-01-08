@@ -33,6 +33,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         _onStoreDetailNearStoreHeartRequested);
     on<StoreDetailScrollChanged>(_onStoreDetailScrollChanged);
     on<StoreDetailReviewRequested>(_onStoreDetailReviewRequested);
+    on<StoreDetailReviewReportClicked>(_onStoreDetailReviewReportClicked);
   }
 
   final StoreRepository storeRepository;
@@ -293,6 +294,16 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           event: () => add(event),
         ),
       );
+    }
+  }
+  Future<FutureOr<void>> _onStoreDetailReviewReportClicked(
+      StoreDetailReviewReportClicked event,
+      Emitter<StoreDetailState> emit
+      ) async {
+    final response = await reviewRepository.getReportPossible(reviewId: event.reviewId);
+    bool isPossibleRegistration = response.data.isPossibleRegistration;
+    if(isPossibleRegistration){
+
     }
   }
 }

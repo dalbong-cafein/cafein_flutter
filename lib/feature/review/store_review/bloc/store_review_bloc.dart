@@ -111,4 +111,6 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
     isPhotoReview = false;
     add(const StoreReviewRequested());
   }
+
+
 }

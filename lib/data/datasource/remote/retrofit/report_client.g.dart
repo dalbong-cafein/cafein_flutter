@@ -13,7 +13,7 @@ class _ReportClient implements ReportClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.cafeinofficial.com';
+    baseUrl ??= 'https://test.cafeinofficial.com';
   }
 
   final Dio _dio;
@@ -75,6 +75,32 @@ class _ReportClient implements ReportClient {
           .map<ReportCategory>(
               (i) => ReportCategory.fromJson(i as Map<String, dynamic>))
           .toList(),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<ReportPossible>> getReportPossible(reviewId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<ReportPossible>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/reviews/${reviewId}/reports/check-possible-report',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<ReportPossible>.fromJson(
+      _result.data!,
+      (json) => ReportPossible.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

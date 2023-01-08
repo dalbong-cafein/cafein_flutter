@@ -74,7 +74,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final memberStoreList = heartResponse.data.storeData;
         final homeEventImageUrl = boardResponse.data.imageIdPair.imageUrl;
         final homeEventBoardId = boardResponse.data.boardId;
-
         emit(HomeLoaded(
             stickerCnt: stickerCnt,
             memberStores: [...memberStoreList],

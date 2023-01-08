@@ -1,3 +1,5 @@
+import 'package:cafein_flutter/cafein_config.dart';
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/home_event_banner.dart';
@@ -57,7 +59,9 @@ class HomePage extends StatelessWidget {
                     child: SizedBox(
                       width: 32,
                       height: 32,
-                      child: memberData?.imageIdPair?.imageUrl == null
+                      child: memberData?.imageIdPair?.imageUrl == null ||
+                              CafeinConfig.baseUrl ==
+                                  'https://test.cafeinofficial.com'
                           ? CircleAvatar(
                               child: loadAsset(
                                 AppImage.profile2,

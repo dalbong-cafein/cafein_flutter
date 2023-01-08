@@ -13,7 +13,7 @@ class _ReviewClient implements ReviewClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://api.cafeinofficial.com';
+    baseUrl ??= 'https://test.cafeinofficial.com';
   }
 
   final Dio _dio;

@@ -25,10 +25,12 @@ class HomeEventBanner extends StatelessWidget {
         if (state is HomeLoaded) {
           return InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                NoticeDetailPage.routeName,
-                arguments: state.homeEventBoardId,
-              );
+              if (state.homeEventBoardId != null){
+                Navigator.of(context).pushNamed(
+                  NoticeDetailPage.routeName,
+                  arguments: state.homeEventBoardId,
+                );
+              }
             },
             child: SizedBox(
               height: (width - 32) /5,

@@ -8,7 +8,7 @@ part 'event.freezed.dart';
 class Event with _$Event {
   factory Event({
     required int eventId,
-    required int boardId,
+    required int? boardId,
     @JsonKey(name: 'eventImageDto') required ImageIdPair imageIdPair,
   }) = _Event;
 

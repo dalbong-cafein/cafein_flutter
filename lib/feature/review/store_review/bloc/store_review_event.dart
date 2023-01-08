@@ -27,3 +27,5 @@ class StoreReviewTypeChanged extends StoreReviewEvent {
 class StoreReviewResetRequested extends StoreReviewEvent {
   const StoreReviewResetRequested();
 }
+
+
