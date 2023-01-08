@@ -203,7 +203,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     final response = await boardRepository.getLatestEvent();
     if (response.code != -1) {
-      boardId = response.data.boardId;
+      boardId = response.data.boardId!;
       eventImageUrl = response.data.imageIdPair.imageUrl;
     }
   }

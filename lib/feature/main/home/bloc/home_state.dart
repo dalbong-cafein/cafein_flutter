@@ -22,7 +22,7 @@ class HomeLoaded extends HomeState {
   final int stickerCnt;
   final List<MemberStore> memberStores;
   final String homeEventImageUrl;
-  final int homeEventBoardId;
+  final int? homeEventBoardId;
 
   const HomeLoaded({
     required this.stickerCnt,
