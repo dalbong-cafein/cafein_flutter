@@ -8,7 +8,6 @@ import 'package:cafein_flutter/feature/image_detail/image_detail_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/report/report_page.dart';
 import 'package:cafein_flutter/feature/report/widget/report_bottom_sheet.dart';
-import 'package:cafein_flutter/feature/review/store_review/bloc/store_review_bloc.dart';
 import 'package:cafein_flutter/feature/review/store_review/store_review_list_page.dart';
 import 'package:cafein_flutter/feature/review/updated_review/updated_review_page.dart';
 import 'package:cafein_flutter/feature/review/widget/review_recommendation_button.dart';
@@ -223,7 +222,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                           StoreDetailReviewReportOverlapDialog.show(context);
 
                           context.read<StoreDetailBloc>().add(
-                              StoreDetailRequested());
+                              const StoreDetailRequested());
                         }
                       },
                       child: loadAsset(

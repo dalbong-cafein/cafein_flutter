@@ -4,7 +4,6 @@ import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
-import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
@@ -53,8 +52,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   StoreDetail? storeDetail;
   Event? lastEvent;
 
-  ReviewResponse? reviewResponse;
-  ReviewDetailScore? reviewDetailScore;
+
 
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
@@ -282,8 +280,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           return;
         }
       }
-      reviewResponse = responseList[1].data;
-      reviewDetailScore = responseList[0].data;
+
       emit(
         StoreDetailLoaded(
           storeDetail: storeDetail!,

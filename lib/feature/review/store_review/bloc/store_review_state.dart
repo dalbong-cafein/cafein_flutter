@@ -49,3 +49,13 @@ class StoreReviewError extends StoreReviewState {
   @override
   List<Object?> get props => [error];
 }
+class StoreReviewReportOverlap extends StoreReviewState {
+  const StoreReviewReportOverlap({required this.isPossibleRegistration});
+
+  final bool isPossibleRegistration;
+
+  @override
+  List<Object?> get props => [
+    isPossibleRegistration
+  ];
+}
