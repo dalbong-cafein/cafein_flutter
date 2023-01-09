@@ -30,7 +30,7 @@ class StoreDetailReviewReportOverlapDialog extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            '이미 신고된 리뷰입니다.',
+            '이미 신고한 게시물입니다.',
             style: AppStyle.body15Regular.copyWith(
               color: AppColor.white,
             ),

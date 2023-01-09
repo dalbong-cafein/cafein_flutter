@@ -186,9 +186,12 @@ class _ReviewCardState extends State<_ReviewCard> {
                   if (widget.review.writerId != userData?.memberId)
                     InkWell(
                       onTap: () async {
+                        isReportPossible = true;
+
                         context.read<StoreDetailBloc>().add(
                             StoreDetailReviewReportClicked(
                                 reviewId: widget.review.reviewId));
+
                         final navigator = Navigator.of(context);
 
                         final isPreview = context.read<AuthCubit>().state ==
@@ -218,6 +221,9 @@ class _ReviewCardState extends State<_ReviewCard> {
                           );
                         } else {
                           StoreDetailReviewReportOverlapDialog.show(context);
+
+                          context.read<StoreDetailBloc>().add(
+                              StoreDetailRequested());
                         }
                       },
                       child: loadAsset(
