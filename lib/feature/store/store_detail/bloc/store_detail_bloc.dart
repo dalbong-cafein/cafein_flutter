@@ -52,6 +52,9 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   StoreDetail? storeDetail;
   Event? lastEvent;
 
+  ReviewResponse? reviewResponse;
+  ReviewDetailScore? reviewDetailScore;
+
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
     Emitter<StoreDetailState> emit,
@@ -255,7 +258,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviews(
+      var reviewResponse = reviewRepository.getStoreReviews(
         storeId: storeId,
         page: 1,
         size: 3,
@@ -278,7 +281,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           return;
         }
       }
-
+      reviewResponse = responseList[1].data;
+      reviewDetailScore = responseList[0].data;
       emit(
         StoreDetailLoaded(
           storeDetail: storeDetail!,
@@ -302,8 +306,11 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       ) async {
     final response = await reviewRepository.getReportPossible(reviewId: event.reviewId);
     bool isPossibleRegistration = response.data.isPossibleRegistration;
-    if(isPossibleRegistration){
-
+    if(!isPossibleRegistration){
+      emit(StoreDetailReviewReportOverlap(isPossibleRegistration: isPossibleRegistration));
+      //emit(StoreDetailLoaded(storeDetail: storeDetail!, reviewDetailScore: reviewDetailScore!, reviewResponse: reviewResponse!, latestEvent: lastEvent!));
+    }else{
+      //emit(StoreDetailLoaded(storeDetail: storeDetail!, reviewDetailScore: reviewDetailScore!, reviewResponse: reviewResponse!, latestEvent: lastEvent!));
     }
   }
 }
