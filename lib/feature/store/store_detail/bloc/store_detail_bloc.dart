@@ -15,6 +15,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'store_detail_event.dart';
+
 part 'store_detail_state.dart';
 
 class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
@@ -300,17 +301,25 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       );
     }
   }
+
   Future<FutureOr<void>> _onStoreDetailReviewReportClicked(
       StoreDetailReviewReportClicked event,
-      Emitter<StoreDetailState> emit
-      ) async {
-    final response = await reviewRepository.getReportPossible(reviewId: event.reviewId);
-    bool isPossibleRegistration = response.data.isPossibleRegistration;
-    if(!isPossibleRegistration){
-      emit(StoreDetailReviewReportOverlap(isPossibleRegistration: isPossibleRegistration));
-      //emit(StoreDetailLoaded(storeDetail: storeDetail!, reviewDetailScore: reviewDetailScore!, reviewResponse: reviewResponse!, latestEvent: lastEvent!));
-    }else{
-      //emit(StoreDetailLoaded(storeDetail: storeDetail!, reviewDetailScore: reviewDetailScore!, reviewResponse: reviewResponse!, latestEvent: lastEvent!));
+      Emitter<StoreDetailState> emit) async {
+    try {
+      final response =
+          await reviewRepository.getReportPossible(reviewId: event.reviewId);
+      bool isPossibleRegistration = response.data.isPossibleRegistration;
+      if (!isPossibleRegistration) {
+        emit(StoreDetailReviewReportOverlap(
+            isPossibleRegistration: isPossibleRegistration));
+      } else {}
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
     }
   }
 }
