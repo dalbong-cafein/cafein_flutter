@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class ReportDetailPage extends StatelessWidget {
-  const ReportDetailPage({Key? key}) : super(key: key);
+class ReportDetailCard extends StatelessWidget {
+  const ReportDetailCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
