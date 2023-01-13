@@ -13,7 +13,6 @@ class PostStopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    bool isToggleClicked = false;
     return Scaffold(
       appBar: AppBar(
         leading: SizedBox(
@@ -82,42 +81,11 @@ class PostStopPage extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: InkWell(
-                onTap: (){
-                  isToggleClicked = !isToggleClicked;
-                },
-                child: Column(
-                  children: [
-                    Container( height:1.0,
-                      width: width - 40,
-                      color:AppColor.grey100,),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text("신고 정책 확인하기" ,style: AppStyle.subTitle15Medium.copyWith(color : AppColor.grey800),),
-                        const Spacer(),
-                        loadAsset(AppIcon.downXS, height: 16, width: 16)
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+            const Padding(
+              padding: EdgeInsets.only(top : 20),
+              child: ReportPolicyCard(),
+            ),
 
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left : 20),
-              child: Container( height:1.0,
-                width: width - 40,
-                color:AppColor.grey100,),
-            ),
-            isToggleClicked? const ReportPolicyCard() : const SizedBox.shrink(),
 
 
           ],
