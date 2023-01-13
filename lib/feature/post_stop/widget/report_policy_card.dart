@@ -83,16 +83,13 @@ class _ReportPolicyCardState extends State<ReportPolicyCard> {
                 ),
               )
             : const SizedBox.shrink(),
-        const SizedBox(
+        isToggleClicked ? const SizedBox(
           height: 16,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Container(
-            height: 1.0,
-            width: width - 40,
-            color: AppColor.grey100,
-          ),
+        ) : const SizedBox.shrink(),
+        Container(
+          height: 1.0,
+          width: width - 40,
+          color: AppColor.grey100,
         ),
       ],
     );
