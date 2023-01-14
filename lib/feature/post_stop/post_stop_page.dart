@@ -1,9 +1,7 @@
+import 'package:cafein_flutter/feature/post_stop/widget/reported_review_detail_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'widget/report_detail_card.dart';
 import 'widget/report_policy_card.dart';
 
 class PostStopPage extends StatelessWidget {
@@ -80,7 +78,7 @@ class PostStopPage extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            const ReportDetailCard(),
+            const ReportedReviewDetailCard(noticeId: 0,),
             const SizedBox(
               height: 24,
             ),
