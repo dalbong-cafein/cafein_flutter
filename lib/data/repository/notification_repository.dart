@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/notification_client.dart';
 import 'package:cafein_flutter/data/model/notification/notification.dart';
+import 'package:cafein_flutter/data/model/notification/report_notification.dart';
 
 abstract class NotificationRepository {
   Future<BaseResponse<List<Notification>>> getNotices();
@@ -15,7 +16,7 @@ abstract class NotificationRepository {
 
   Future<BaseResponse<dynamic>> deleteAllNotice();
 
-  Future<BaseResponse<dynamic>> getReportNoticeInform(int noticeId);
+  Future<BaseResponse<ReportNotification>> getReportNotification(int noticeId);
 }
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -46,6 +47,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
       notificationClient.deleteAllNotice();
 
   @override
-  Future<BaseResponse> getReportNoticeInform(int noticeId) =>
-      notificationClient.getReportNoticeInform(noticeId);
+  Future<BaseResponse<ReportNotification>> getReportNotification(
+          int noticeId) =>
+      notificationClient.getReportNotification(noticeId);
 }

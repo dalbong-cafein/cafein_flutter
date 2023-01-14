@@ -25,9 +25,9 @@ class PostStopLoaded extends PostStopState{
     required this.reportDateTime,
     required this.reportExpiredDateTime
 });
-  final ReportedReview reportedReview;
+  final ReportedReview? reportedReview;
   final String reportCategoryName;
-  final String reportDateTime;
+  final String? reportDateTime;
   final String reportExpiredDateTime;
   @override
   List<Object?> get props => [reportedReview, reportCategoryName, reportDateTime, reportExpiredDateTime];
