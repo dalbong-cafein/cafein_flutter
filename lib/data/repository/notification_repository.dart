@@ -14,6 +14,8 @@ abstract class NotificationRepository {
   );
 
   Future<BaseResponse<dynamic>> deleteAllNotice();
+
+  Future<BaseResponse<dynamic>> getReportNoticeInform(int noticeId);
 }
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -24,18 +26,26 @@ class NotificationRepositoryImpl implements NotificationRepository {
   });
 
   @override
-  Future<BaseResponse> deleteNotice(int noticeId) => notificationClient.deleteNotice(
+  Future<BaseResponse> deleteNotice(int noticeId) =>
+      notificationClient.deleteNotice(
         noticeId,
       );
 
   @override
-  Future<BaseResponse<List<Notification>>> getNotices() => notificationClient.getNotices();
+  Future<BaseResponse<List<Notification>>> getNotices() =>
+      notificationClient.getNotices();
 
   @override
-  Future<BaseResponse> readNotice(int noticeId) => notificationClient.readNotice(
+  Future<BaseResponse> readNotice(int noticeId) =>
+      notificationClient.readNotice(
         noticeId,
       );
 
   @override
-  Future<BaseResponse> deleteAllNotice() => notificationClient.deleteAllNotice();
+  Future<BaseResponse> deleteAllNotice() =>
+      notificationClient.deleteAllNotice();
+
+  @override
+  Future<BaseResponse> getReportNoticeInform(int noticeId) =>
+      notificationClient.getReportNoticeInform(noticeId);
 }
