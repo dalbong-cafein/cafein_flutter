@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'widget/report_policy_card.dart';
 
 class PostStopPage extends StatelessWidget {
-  const PostStopPage({Key? key}) : super(key: key);
-
+  const PostStopPage({required this.noticeId, Key? key}) : super(key: key);
+  final int noticeId;
+  static const routeName = 'PostStopPage';
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

@@ -70,6 +70,10 @@ import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'data/repository/notification_repository.dart';
+import 'feature/post_stop/bloc/post_stop_bloc.dart';
+import 'feature/post_stop/post_stop_page.dart';
+
 abstract class CafeinRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     late Widget page;
@@ -385,6 +389,17 @@ abstract class CafeinRoute {
           imageUrls: arg.imageUrls,
           initialPage: arg.initialPage,
         );
+        break;
+
+      case PostStopPage.routeName :
+        final noticeId = settings.arguments as int;
+        page = BlocProvider(
+          create: (context) => PostStopBloc(
+            notificationRepository: context.read<NotificationRepository>(),
+          ),
+          child: PostStopPage(noticeId: noticeId),
+        );
+        break;
     }
 
     return MaterialPageRoute(

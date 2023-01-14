@@ -47,7 +47,6 @@ class MainPage extends StatelessWidget {
       //   ),
       //   child: const MapPage(),
       // ),
-      const PostStopPage(),
       BlocProvider<NotificationBloc>(
         create: (context) => NotificationBloc(
           notificationRepository: context.read<NotificationRepository>(),
