@@ -34,7 +34,7 @@ class ReviewFormDataClient {
           .toList(),
     );
     final response = await dio.post(
-      '${CafeinConfig.baseUrl}/reviews',
+      '${appConfig.baseUrl}/reviews',
       data: formData,
     );
 
@@ -70,7 +70,7 @@ class ReviewFormDataClient {
           .toList(),
     );
     final response = await dio.put(
-      '${CafeinConfig.baseUrl}/reviews/${updateReviewRequest.reviewId}',
+      '${appConfig.baseUrl}/reviews/${updateReviewRequest.reviewId}',
       data: formData,
     );
 

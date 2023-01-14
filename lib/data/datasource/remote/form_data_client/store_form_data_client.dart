@@ -9,7 +9,8 @@ class StoreFormDataClient {
 
   const StoreFormDataClient({required this.dio});
 
-  Future<BaseResponse<int>> createStore(RegisteredStoreRequest registeredStoreRequest) async {
+  Future<BaseResponse<int>> createStore(
+      RegisteredStoreRequest registeredStoreRequest) async {
     final formData = FormData.fromMap(
       {
         'storeName': registeredStoreRequest.storeName,
@@ -28,13 +29,16 @@ class StoreFormDataClient {
         'tueOpen': registeredStoreRequest.totalBusinessInfo.onTuesday?.isOpen,
         'tueClosed': registeredStoreRequest.totalBusinessInfo.onTuesday?.closed,
         'wedOpen': registeredStoreRequest.totalBusinessInfo.onWednesday?.isOpen,
-        'wedClosed': registeredStoreRequest.totalBusinessInfo.onWednesday?.closed,
+        'wedClosed':
+            registeredStoreRequest.totalBusinessInfo.onWednesday?.closed,
         'thuOpen': registeredStoreRequest.totalBusinessInfo.onThursday?.isOpen,
-        'thuClosed': registeredStoreRequest.totalBusinessInfo.onThursday?.closed,
+        'thuClosed':
+            registeredStoreRequest.totalBusinessInfo.onThursday?.closed,
         'friOpen': registeredStoreRequest.totalBusinessInfo.onFriday?.isOpen,
         'friClosed': registeredStoreRequest.totalBusinessInfo.onFriday?.closed,
         'satOpen': registeredStoreRequest.totalBusinessInfo.onSaturday?.isOpen,
-        'satClosed': registeredStoreRequest.totalBusinessInfo.onSaturday?.closed,
+        'satClosed':
+            registeredStoreRequest.totalBusinessInfo.onSaturday?.closed,
         'sunOpen': registeredStoreRequest.totalBusinessInfo.onSunday?.isOpen,
         'sunClosed': registeredStoreRequest.totalBusinessInfo.onSunday?.closed,
         'etcTime': registeredStoreRequest.totalBusinessInfo.etcTime,
@@ -58,7 +62,7 @@ class StoreFormDataClient {
     );
 
     final response = await dio.post(
-      '${CafeinConfig.baseUrl}/stores',
+      '${appConfig.baseUrl}/stores',
       data: formData,
     );
 
@@ -68,7 +72,8 @@ class StoreFormDataClient {
     );
   }
 
-  Future<BaseResponse<dynamic>> updateStore(UpdateStoreRequest updateStoreRequest) async {
+  Future<BaseResponse<dynamic>> updateStore(
+      UpdateStoreRequest updateStoreRequest) async {
     final formData = FormData.fromMap(
       {
         'storeId': updateStoreRequest.storeId,
@@ -106,7 +111,7 @@ class StoreFormDataClient {
     );
 
     final response = await dio.put(
-      '${CafeinConfig.baseUrl}/stores',
+      '${appConfig.baseUrl}/stores',
       data: formData,
     );
 

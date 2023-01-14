@@ -1,3 +1,4 @@
+import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/cafein_route.dart';
 import 'package:cafein_flutter/data/datasource/local/app_database.dart';
 import 'package:cafein_flutter/data/datasource/remote/dio_util.dart';
@@ -51,14 +52,22 @@ class CafeinApp extends StatelessWidget {
       providers: [
         RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepositoryImpl(
-            authClient: AuthClient(DioUtil().authDio),
+            authClient: AuthClient(
+              DioUtil().authDio,
+              baseUrl: appConfig.baseUrl,
+            ),
             authPreference: AppDatabase().authPreference,
           ),
         ),
         RepositoryProvider<UserRepository>(
           create: (context) => UserRepositoryImpl(
-            memberClient: MemberClient(DioUtil().dio),
-            memberFormDataClient: MemberFormDataClient(dio: DioUtil().dio),
+            memberClient: MemberClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
+            memberFormDataClient: MemberFormDataClient(
+              dio: DioUtil().dio,
+            ),
             kakaoApiClient: KakaoApiClient(dio: DioUtil().kakaoDio),
             authPreference: AppDatabase().authPreference,
           ),
@@ -66,46 +75,76 @@ class CafeinApp extends StatelessWidget {
         RepositoryProvider<StoreRepository>(
           create: (context) => StoreRepositoryImpl(
             storeFormDataClient: StoreFormDataClient(dio: DioUtil().dio),
-            storeClient: StoreClient(DioUtil().dio),
+            storeClient: StoreClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
             kakaoApiClient: KakaoApiClient(dio: DioUtil().kakaoDio),
           ),
         ),
         RepositoryProvider<ReviewRepository>(
           create: (context) => ReviewRepositoryImpl(
-            reportClient: ReportClient(DioUtil().dio),
-            reviewClient: ReviewClient(DioUtil().dio),
+            reportClient: ReportClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
+            reviewClient: ReviewClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
             reviewFormDataClient: ReviewFormDataClient(dio: DioUtil().dio),
           ),
         ),
         RepositoryProvider<StickerRepository>(
           create: (context) => StickerRepositoryImpl(
-            stickerClient: StickerClient(DioUtil().dio),
+            stickerClient: StickerClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
           ),
         ),
         RepositoryProvider<HeartRepository>(
           create: (context) => HeartRepositoryImpl(
-            heartClient: HeartClient(DioUtil().dio),
+            heartClient: HeartClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
           ),
         ),
         RepositoryProvider<NotificationRepository>(
           create: (context) => NotificationRepositoryImpl(
-            notificationClient: NotificationClient(DioUtil().dio),
+            notificationClient: NotificationClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
           ),
         ),
         RepositoryProvider<BoardRepository>(
           create: (context) => BoardRepositoryImpl(
-            boardClient: BoardClient(DioUtil().dio),
-            eventClient: EventClient(DioUtil().dio),
+            boardClient: BoardClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
+            eventClient: EventClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
           ),
         ),
         RepositoryProvider<CongestionRepository>(
           create: (context) => CongestionRepositoryImpl(
-            congestionClient: CongestionClient(DioUtil().dio),
+            congestionClient: CongestionClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
           ),
         ),
         RepositoryProvider<CouponRepository>(
           create: (context) => CouponRepositoryImpl(
-            couponClient: CouponClient(DioUtil().dio),
+            couponClient: CouponClient(
+              DioUtil().dio,
+              baseUrl: appConfig.baseUrl,
+            ),
           ),
         ),
         RepositoryProvider<AppRepository>(
