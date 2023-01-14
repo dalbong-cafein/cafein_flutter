@@ -25,7 +25,5 @@ abstract class ReportClient {
   Future<BaseResponse<List<ReportCategory>>> getReportCategories();
 
   @GET('/reviews/{reviewId}/reports/check-possible-report')
-  Future<BaseResponse<ReportPossible>>getReportPossible(
-      @Path() int reviewId
-      );
+  Future<BaseResponse<ReportPossible>> getReportPossible(@Path() int reviewId);
 }
