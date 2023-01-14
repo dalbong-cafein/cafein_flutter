@@ -21,7 +21,7 @@ Event _$EventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Event {
   int get eventId => throw _privateConstructorUsedError;
-  int get boardId => throw _privateConstructorUsedError;
+  int? get boardId => throw _privateConstructorUsedError;
   @JsonKey(name: 'eventImageDto')
   ImageIdPair get imageIdPair => throw _privateConstructorUsedError;
 
@@ -37,7 +37,7 @@ abstract class $EventCopyWith<$Res> {
   @useResult
   $Res call(
       {int eventId,
-      int boardId,
+      int? boardId,
       @JsonKey(name: 'eventImageDto') ImageIdPair imageIdPair});
 
   $ImageIdPairCopyWith<$Res> get imageIdPair;
@@ -57,7 +57,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
   @override
   $Res call({
     Object? eventId = null,
-    Object? boardId = null,
+    Object? boardId = freezed,
     Object? imageIdPair = null,
   }) {
     return _then(_value.copyWith(
@@ -65,10 +65,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as int,
-      boardId: null == boardId
+      boardId: freezed == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       imageIdPair: null == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
@@ -93,7 +93,7 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   @useResult
   $Res call(
       {int eventId,
-      int boardId,
+      int? boardId,
       @JsonKey(name: 'eventImageDto') ImageIdPair imageIdPair});
 
   @override
@@ -110,7 +110,7 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
   @override
   $Res call({
     Object? eventId = null,
-    Object? boardId = null,
+    Object? boardId = freezed,
     Object? imageIdPair = null,
   }) {
     return _then(_$_Event(
@@ -118,10 +118,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
               as int,
-      boardId: null == boardId
+      boardId: freezed == boardId
           ? _value.boardId
           : boardId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       imageIdPair: null == imageIdPair
           ? _value.imageIdPair
           : imageIdPair // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ class _$_Event implements _Event {
   @override
   final int eventId;
   @override
-  final int boardId;
+  final int? boardId;
   @override
   @JsonKey(name: 'eventImageDto')
   final ImageIdPair imageIdPair;
@@ -186,7 +186,7 @@ class _$_Event implements _Event {
 abstract class _Event implements Event {
   factory _Event(
       {required final int eventId,
-      required final int boardId,
+      required final int? boardId,
       @JsonKey(name: 'eventImageDto')
           required final ImageIdPair imageIdPair}) = _$_Event;
 
@@ -195,7 +195,7 @@ abstract class _Event implements Event {
   @override
   int get eventId;
   @override
-  int get boardId;
+  int? get boardId;
   @override
   @JsonKey(name: 'eventImageDto')
   ImageIdPair get imageIdPair;

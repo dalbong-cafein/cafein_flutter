@@ -16,6 +16,7 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
     on<StoreReviewRequested>(_onStoreReviewRequested);
     on<StoreReviewTypeChanged>(_onStoreReviewTypeChanged);
     on<StoreReviewResetRequested>(_onStoreReviewResetRequested);
+    on<StoreReviewReportClicked>(_onStoreReviewReportClicked);
   }
 
   final int storeId;
@@ -111,4 +112,40 @@ class StoreReviewBloc extends Bloc<StoreReviewEvent, StoreReviewState> {
     isPhotoReview = false;
     add(const StoreReviewRequested());
   }
+
+  Future<FutureOr<void>> _onStoreReviewReportClicked(
+      StoreReviewReportClicked event,
+      Emitter<StoreReviewState> emit) async {
+    try {
+      final response =
+      await reviewRepository.getReportPossible(reviewId: event.reviewId);
+      bool isPossibleRegistration = response.data.isPossibleRegistration;
+      if (!isPossibleRegistration) {
+        emit(StoreReviewReportOverlap(
+            isPossibleRegistration: isPossibleRegistration));
+        emit(StoreReviewLoaded(
+          storeReviewList: !isPhotoReview ? [...totalReviews] : [...photoReviews],
+          totalCount: totalCount,
+          isPhotoReview: isPhotoReview,
+          nextPage: hasNext ? nextPage : null,
+        ));
+      } else {
+        emit(StoreReviewLoaded(
+          storeReviewList: !isPhotoReview ? [...totalReviews] : [...photoReviews],
+          totalCount: totalCount,
+          isPhotoReview: isPhotoReview,
+          nextPage: hasNext ? nextPage : null,
+        ));
+      }
+    } catch (e) {
+      emit(
+        StoreReviewError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+
 }

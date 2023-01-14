@@ -36,7 +36,7 @@ class StoreDetailLoaded extends StoreDetailState {
 
   final StoreDetail storeDetail;
   final ReviewDetailScore reviewDetailScore;
-  final ReviewResponse<StoreReviewListResponse> reviewResponse;
+  final ReviewResponse<dynamic> reviewResponse;
   final Event latestEvent;
 
   @override
@@ -104,4 +104,15 @@ class StoreDetailTabChecked extends StoreDetailState {
         index,
         isTaped,
       ];
+}
+
+class StoreDetailReviewReportOverlap extends StoreDetailState {
+  const StoreDetailReviewReportOverlap({required this.isPossibleRegistration});
+
+  final bool isPossibleRegistration;
+
+  @override
+  List<Object?> get props => [
+    isPossibleRegistration
+  ];
 }

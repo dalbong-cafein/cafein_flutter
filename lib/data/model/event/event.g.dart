@@ -8,7 +8,7 @@ part of 'event.dart';
 
 _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       eventId: json['eventId'] as int,
-      boardId: json['boardId'] as int,
+      boardId: json['boardId'] as int?,
       imageIdPair:
           ImageIdPair.fromJson(json['eventImageDto'] as Map<String, dynamic>),
     );

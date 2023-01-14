@@ -4,7 +4,6 @@ import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
-import 'package:cafein_flutter/data/model/review/store_review_list_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
@@ -15,6 +14,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'store_detail_event.dart';
+
 part 'store_detail_state.dart';
 
 class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
@@ -33,6 +33,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         _onStoreDetailNearStoreHeartRequested);
     on<StoreDetailScrollChanged>(_onStoreDetailScrollChanged);
     on<StoreDetailReviewRequested>(_onStoreDetailReviewRequested);
+    on<StoreDetailReviewReportClicked>(_onStoreDetailReviewReportClicked);
   }
 
   final StoreRepository storeRepository;
@@ -50,6 +51,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
 
   StoreDetail? storeDetail;
   Event? lastEvent;
+
+
 
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
@@ -254,7 +257,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         storeId,
       );
 
-      final reviewResponse = reviewRepository.getStoreReviews(
+      var reviewResponse = reviewRepository.getStoreReviews(
         storeId: storeId,
         page: 1,
         size: 3,
@@ -286,6 +289,27 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
           latestEvent: lastEvent!,
         ),
       );
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  Future<FutureOr<void>> _onStoreDetailReviewReportClicked(
+      StoreDetailReviewReportClicked event,
+      Emitter<StoreDetailState> emit) async {
+    try {
+      final response =
+          await reviewRepository.getReportPossible(reviewId: event.reviewId);
+      bool isPossibleRegistration = response.data.isPossibleRegistration;
+      if (!isPossibleRegistration) {
+        emit(StoreDetailReviewReportOverlap(
+            isPossibleRegistration: isPossibleRegistration));
+      } else {}
     } catch (e) {
       emit(
         StoreDetailError(
