@@ -46,9 +46,40 @@ class ReportedReviewDetailCard extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              width: 16,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: SizedBox.fromSize(
+                  size: const Size.fromRadius(20),
+                  child: CustomCachedNetworkImage(
+                    imageUrl: "https://avatars.githubusercontent.com/u/73538957?v=4",
+                    height: 32,
+                    width: 32,
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("스타벅스 홍대립구점", style: AppStyle.subTitle14Medium,),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text("22.03.05 작성 리뷰", style: AppStyle.caption12Regular.copyWith(color : AppColor.grey400),)
+              ],
+            )
+          ],
+        ),
         Padding(
-          padding: const EdgeInsets.only(left : 16),
+          padding: const EdgeInsets.only(left : 16, top : 12),
           child: const ReportedReviewDetailScoreCard(),
         ),
         const SizedBox(

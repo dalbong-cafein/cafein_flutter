@@ -12,11 +12,12 @@ class PostStopPage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(
-            height: 24,
-            width: 24,
-            child: loadAsset(AppIcon.clearXS, height: 24, width: 24)),
-      ),
+        leading: IconButton(
+          icon: loadAsset(AppIcon.clearXS, height: 24, width: 24),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
