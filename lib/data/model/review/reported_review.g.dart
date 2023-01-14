@@ -22,8 +22,9 @@ _$_ReportedReview _$$_ReportedReviewFromJson(Map<String, dynamic> json) =>
       stopPostDateTime: json['stopPostDateTime'] as String,
       storeId: json['storeId'] as int,
       storeName: json['storeName'] as String,
-      storeImageDto:
-          ImageIdPair.fromJson(json['storeImageDto'] as Map<String, dynamic>),
+      storeImageDto: json['storeImageDto'] == null
+          ? null
+          : ImageIdPair.fromJson(json['storeImageDto'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ReportedReviewToJson(_$_ReportedReview instance) =>

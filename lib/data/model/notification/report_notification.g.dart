@@ -9,13 +9,11 @@ part of 'report_notification.dart';
 _$_ReportNotification _$$_ReportNotificationFromJson(
         Map<String, dynamic> json) =>
     _$_ReportNotification(
-      detailReportNoticeId: json['detailReportNoticeId'] as int,
+      detailReportNoticeId: json['detailReportNoticeId'] as int?,
       reportExpiredDateTime: json['reportExpiredDateTime'] as String,
       reportCategoryName: json['reportCategoryName'] as String,
-      reportedReviewResDto: json['reportedReviewResDto'] == null
-          ? null
-          : ReportedReview.fromJson(
-              json['reportedReviewResDto'] as Map<String, dynamic>),
+      reportedReviewResDto: ReportedReview.fromJson(
+          json['reportedReviewResDto'] as Map<String, dynamic>),
       isPossibleObjection: json['isPossibleObjection'] as bool,
     );
 

@@ -1,7 +1,9 @@
+import 'package:cafein_flutter/feature/post_stop/bloc/post_stop_bloc.dart';
 import 'package:cafein_flutter/feature/post_stop/widget/reported_review_detail_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'widget/report_policy_card.dart';
 
 class PostStopPage extends StatelessWidget {
@@ -10,8 +12,11 @@ class PostStopPage extends StatelessWidget {
   static const routeName = 'PostStopPage';
   @override
   Widget build(BuildContext context) {
-    print(noticeId.toString() + "알림 아이디 ");
     final width = MediaQuery.of(context).size.width;
+    context.read<PostStopBloc>().add(
+      PostStopInformRequested(
+          noticeId: noticeId),
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

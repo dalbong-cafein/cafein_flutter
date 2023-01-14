@@ -20,12 +20,10 @@ ReportNotification _$ReportNotificationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ReportNotification {
-  int get detailReportNoticeId => throw _privateConstructorUsedError;
+  int? get detailReportNoticeId => throw _privateConstructorUsedError;
   String get reportExpiredDateTime => throw _privateConstructorUsedError;
   String get reportCategoryName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'reportedReviewResDto')
-  ReportedReview? get reportedReviewResDto =>
-      throw _privateConstructorUsedError;
+  ReportedReview get reportedReviewResDto => throw _privateConstructorUsedError;
   bool get isPossibleObjection => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,14 +39,13 @@ abstract class $ReportNotificationCopyWith<$Res> {
       _$ReportNotificationCopyWithImpl<$Res, ReportNotification>;
   @useResult
   $Res call(
-      {int detailReportNoticeId,
+      {int? detailReportNoticeId,
       String reportExpiredDateTime,
       String reportCategoryName,
-      @JsonKey(name: 'reportedReviewResDto')
-          ReportedReview? reportedReviewResDto,
+      ReportedReview reportedReviewResDto,
       bool isPossibleObjection});
 
-  $ReportedReviewCopyWith<$Res>? get reportedReviewResDto;
+  $ReportedReviewCopyWith<$Res> get reportedReviewResDto;
 }
 
 /// @nodoc
@@ -64,17 +61,17 @@ class _$ReportNotificationCopyWithImpl<$Res, $Val extends ReportNotification>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? detailReportNoticeId = null,
+    Object? detailReportNoticeId = freezed,
     Object? reportExpiredDateTime = null,
     Object? reportCategoryName = null,
-    Object? reportedReviewResDto = freezed,
+    Object? reportedReviewResDto = null,
     Object? isPossibleObjection = null,
   }) {
     return _then(_value.copyWith(
-      detailReportNoticeId: null == detailReportNoticeId
+      detailReportNoticeId: freezed == detailReportNoticeId
           ? _value.detailReportNoticeId
           : detailReportNoticeId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       reportExpiredDateTime: null == reportExpiredDateTime
           ? _value.reportExpiredDateTime
           : reportExpiredDateTime // ignore: cast_nullable_to_non_nullable
@@ -83,10 +80,10 @@ class _$ReportNotificationCopyWithImpl<$Res, $Val extends ReportNotification>
           ? _value.reportCategoryName
           : reportCategoryName // ignore: cast_nullable_to_non_nullable
               as String,
-      reportedReviewResDto: freezed == reportedReviewResDto
+      reportedReviewResDto: null == reportedReviewResDto
           ? _value.reportedReviewResDto
           : reportedReviewResDto // ignore: cast_nullable_to_non_nullable
-              as ReportedReview?,
+              as ReportedReview,
       isPossibleObjection: null == isPossibleObjection
           ? _value.isPossibleObjection
           : isPossibleObjection // ignore: cast_nullable_to_non_nullable
@@ -96,12 +93,8 @@ class _$ReportNotificationCopyWithImpl<$Res, $Val extends ReportNotification>
 
   @override
   @pragma('vm:prefer-inline')
-  $ReportedReviewCopyWith<$Res>? get reportedReviewResDto {
-    if (_value.reportedReviewResDto == null) {
-      return null;
-    }
-
-    return $ReportedReviewCopyWith<$Res>(_value.reportedReviewResDto!, (value) {
+  $ReportedReviewCopyWith<$Res> get reportedReviewResDto {
+    return $ReportedReviewCopyWith<$Res>(_value.reportedReviewResDto, (value) {
       return _then(_value.copyWith(reportedReviewResDto: value) as $Val);
     });
   }
@@ -116,15 +109,14 @@ abstract class _$$_ReportNotificationCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int detailReportNoticeId,
+      {int? detailReportNoticeId,
       String reportExpiredDateTime,
       String reportCategoryName,
-      @JsonKey(name: 'reportedReviewResDto')
-          ReportedReview? reportedReviewResDto,
+      ReportedReview reportedReviewResDto,
       bool isPossibleObjection});
 
   @override
-  $ReportedReviewCopyWith<$Res>? get reportedReviewResDto;
+  $ReportedReviewCopyWith<$Res> get reportedReviewResDto;
 }
 
 /// @nodoc
@@ -138,17 +130,17 @@ class __$$_ReportNotificationCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? detailReportNoticeId = null,
+    Object? detailReportNoticeId = freezed,
     Object? reportExpiredDateTime = null,
     Object? reportCategoryName = null,
-    Object? reportedReviewResDto = freezed,
+    Object? reportedReviewResDto = null,
     Object? isPossibleObjection = null,
   }) {
     return _then(_$_ReportNotification(
-      detailReportNoticeId: null == detailReportNoticeId
+      detailReportNoticeId: freezed == detailReportNoticeId
           ? _value.detailReportNoticeId
           : detailReportNoticeId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       reportExpiredDateTime: null == reportExpiredDateTime
           ? _value.reportExpiredDateTime
           : reportExpiredDateTime // ignore: cast_nullable_to_non_nullable
@@ -157,10 +149,10 @@ class __$$_ReportNotificationCopyWithImpl<$Res>
           ? _value.reportCategoryName
           : reportCategoryName // ignore: cast_nullable_to_non_nullable
               as String,
-      reportedReviewResDto: freezed == reportedReviewResDto
+      reportedReviewResDto: null == reportedReviewResDto
           ? _value.reportedReviewResDto
           : reportedReviewResDto // ignore: cast_nullable_to_non_nullable
-              as ReportedReview?,
+              as ReportedReview,
       isPossibleObjection: null == isPossibleObjection
           ? _value.isPossibleObjection
           : isPossibleObjection // ignore: cast_nullable_to_non_nullable
@@ -176,21 +168,20 @@ class _$_ReportNotification implements _ReportNotification {
       {required this.detailReportNoticeId,
       required this.reportExpiredDateTime,
       required this.reportCategoryName,
-      @JsonKey(name: 'reportedReviewResDto') this.reportedReviewResDto,
+      required this.reportedReviewResDto,
       required this.isPossibleObjection});
 
   factory _$_ReportNotification.fromJson(Map<String, dynamic> json) =>
       _$$_ReportNotificationFromJson(json);
 
   @override
-  final int detailReportNoticeId;
+  final int? detailReportNoticeId;
   @override
   final String reportExpiredDateTime;
   @override
   final String reportCategoryName;
   @override
-  @JsonKey(name: 'reportedReviewResDto')
-  final ReportedReview? reportedReviewResDto;
+  final ReportedReview reportedReviewResDto;
   @override
   final bool isPossibleObjection;
 
@@ -243,25 +234,23 @@ class _$_ReportNotification implements _ReportNotification {
 
 abstract class _ReportNotification implements ReportNotification {
   factory _ReportNotification(
-      {required final int detailReportNoticeId,
+      {required final int? detailReportNoticeId,
       required final String reportExpiredDateTime,
       required final String reportCategoryName,
-      @JsonKey(name: 'reportedReviewResDto')
-          final ReportedReview? reportedReviewResDto,
+      required final ReportedReview reportedReviewResDto,
       required final bool isPossibleObjection}) = _$_ReportNotification;
 
   factory _ReportNotification.fromJson(Map<String, dynamic> json) =
       _$_ReportNotification.fromJson;
 
   @override
-  int get detailReportNoticeId;
+  int? get detailReportNoticeId;
   @override
   String get reportExpiredDateTime;
   @override
   String get reportCategoryName;
   @override
-  @JsonKey(name: 'reportedReviewResDto')
-  ReportedReview? get reportedReviewResDto;
+  ReportedReview get reportedReviewResDto;
   @override
   bool get isPossibleObjection;
   @override

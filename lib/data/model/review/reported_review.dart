@@ -17,7 +17,7 @@ class ReportedReview with _$ReportedReview{
     required String stopPostDateTime,
     required int storeId,
     required String storeName,
-    required ImageIdPair storeImageDto
+    required ImageIdPair? storeImageDto
   }) = _ReportedReview;
 
   factory ReportedReview.fromJson(Map<String, dynamic> json) => _$ReportedReviewFromJson(json);

@@ -31,7 +31,7 @@ mixin _$ReportedReview {
   String get stopPostDateTime => throw _privateConstructorUsedError;
   int get storeId => throw _privateConstructorUsedError;
   String get storeName => throw _privateConstructorUsedError;
-  ImageIdPair get storeImageDto => throw _privateConstructorUsedError;
+  ImageIdPair? get storeImageDto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,10 +56,10 @@ abstract class $ReportedReviewCopyWith<$Res> {
       String stopPostDateTime,
       int storeId,
       String storeName,
-      ImageIdPair storeImageDto});
+      ImageIdPair? storeImageDto});
 
   $DetailEvaluationCopyWith<$Res>? get detailEvaluation;
-  $ImageIdPairCopyWith<$Res> get storeImageDto;
+  $ImageIdPairCopyWith<$Res>? get storeImageDto;
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class _$ReportedReviewCopyWithImpl<$Res, $Val extends ReportedReview>
     Object? stopPostDateTime = null,
     Object? storeId = null,
     Object? storeName = null,
-    Object? storeImageDto = null,
+    Object? storeImageDto = freezed,
   }) {
     return _then(_value.copyWith(
       reviewId: null == reviewId
@@ -123,10 +123,10 @@ class _$ReportedReviewCopyWithImpl<$Res, $Val extends ReportedReview>
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageDto: null == storeImageDto
+      storeImageDto: freezed == storeImageDto
           ? _value.storeImageDto
           : storeImageDto // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
     ) as $Val);
   }
 
@@ -144,8 +144,12 @@ class _$ReportedReviewCopyWithImpl<$Res, $Val extends ReportedReview>
 
   @override
   @pragma('vm:prefer-inline')
-  $ImageIdPairCopyWith<$Res> get storeImageDto {
-    return $ImageIdPairCopyWith<$Res>(_value.storeImageDto, (value) {
+  $ImageIdPairCopyWith<$Res>? get storeImageDto {
+    if (_value.storeImageDto == null) {
+      return null;
+    }
+
+    return $ImageIdPairCopyWith<$Res>(_value.storeImageDto!, (value) {
       return _then(_value.copyWith(storeImageDto: value) as $Val);
     });
   }
@@ -170,12 +174,12 @@ abstract class _$$_ReportedReviewCopyWith<$Res>
       String stopPostDateTime,
       int storeId,
       String storeName,
-      ImageIdPair storeImageDto});
+      ImageIdPair? storeImageDto});
 
   @override
   $DetailEvaluationCopyWith<$Res>? get detailEvaluation;
   @override
-  $ImageIdPairCopyWith<$Res> get storeImageDto;
+  $ImageIdPairCopyWith<$Res>? get storeImageDto;
 }
 
 /// @nodoc
@@ -198,7 +202,7 @@ class __$$_ReportedReviewCopyWithImpl<$Res>
     Object? stopPostDateTime = null,
     Object? storeId = null,
     Object? storeName = null,
-    Object? storeImageDto = null,
+    Object? storeImageDto = freezed,
   }) {
     return _then(_$_ReportedReview(
       reviewId: null == reviewId
@@ -237,10 +241,10 @@ class __$$_ReportedReviewCopyWithImpl<$Res>
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageDto: null == storeImageDto
+      storeImageDto: freezed == storeImageDto
           ? _value.storeImageDto
           : storeImageDto // ignore: cast_nullable_to_non_nullable
-              as ImageIdPair,
+              as ImageIdPair?,
     ));
   }
 }
@@ -292,7 +296,7 @@ class _$_ReportedReview implements _ReportedReview {
   @override
   final String storeName;
   @override
-  final ImageIdPair storeImageDto;
+  final ImageIdPair? storeImageDto;
 
   @override
   String toString() {
@@ -365,7 +369,7 @@ abstract class _ReportedReview implements ReportedReview {
       required final String stopPostDateTime,
       required final int storeId,
       required final String storeName,
-      required final ImageIdPair storeImageDto}) = _$_ReportedReview;
+      required final ImageIdPair? storeImageDto}) = _$_ReportedReview;
 
   factory _ReportedReview.fromJson(Map<String, dynamic> json) =
       _$_ReportedReview.fromJson;
@@ -390,7 +394,7 @@ abstract class _ReportedReview implements ReportedReview {
   @override
   String get storeName;
   @override
-  ImageIdPair get storeImageDto;
+  ImageIdPair? get storeImageDto;
   @override
   @JsonKey(ignore: true)
   _$$_ReportedReviewCopyWith<_$_ReportedReview> get copyWith =>
