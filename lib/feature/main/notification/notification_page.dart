@@ -52,7 +52,7 @@ class NotificationPage extends StatelessWidget {
                 );
               } else if (state.notification.notificationType ==
                   NotificationType.report.title) {
-                Navigator.of(context).pushNamed(PostStopPage.routeName);
+                Navigator.of(context).pushNamed(PostStopPage.routeName, arguments: state.notification.notificationId);
               }
             }
           },
@@ -190,7 +190,11 @@ class NotificationPage extends StatelessWidget {
                           {
                             Navigator.of(context)
                                 .pushNamed(ReceivedCouponsPage.routeName)
-                          }
+                          },
+                        if (state.notifications[index].notificationType == "신고"){
+                          Navigator.of(context)
+                                .pushNamed(PostStopPage.routeName, arguments: state.notifications[index].notificationId)
+                        }
                       },
                       child: Container(
                         width: width,

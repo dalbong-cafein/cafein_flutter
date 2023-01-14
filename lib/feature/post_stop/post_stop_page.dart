@@ -10,6 +10,7 @@ class PostStopPage extends StatelessWidget {
   static const routeName = 'PostStopPage';
   @override
   Widget build(BuildContext context) {
+    print(noticeId.toString() + "알림 아이디 ");
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
