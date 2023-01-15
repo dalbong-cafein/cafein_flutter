@@ -8,6 +8,7 @@ import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -17,6 +18,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     required this.storeRepository,
     required this.appRepository,
     required this.boardRepository,
+    required this.centerLatLng,
   }) : super(const SearchInitial()) {
     on<SearchKeywordChanged>(_onSearchKeywordChanged);
     on<SearchKakaoStoreRequested>(_onSearchKakaoStoreRequested);
@@ -33,6 +35,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final StoreRepository storeRepository;
   final AppRepository appRepository;
   final BoardRepository boardRepository;
+  final LatLng centerLatLng;
 
   int boardId = 0;
   String eventImageUrl = '';
@@ -181,6 +184,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       final response = await storeRepository.getStores(
         keyword: keyword,
+        ceterCoordinates: '${centerLatLng.latitude},${centerLatLng.longitude}',
       );
 
       emit(SearchStoreLoaded(

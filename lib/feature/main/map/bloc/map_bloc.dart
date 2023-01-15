@@ -107,6 +107,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         rect: searchKeyword.isNotEmpty
             ? null
             : '${currentLatLngBounds.northeast.latitude},${currentLatLngBounds.southwest.latitude},${currentLatLngBounds.southwest.longitude},${currentLatLngBounds.northeast.longitude}',
+        ceterCoordinates: searchKeyword.isNotEmpty
+            ? null
+            : '${event.centerLatLng?.latitude},${event.centerLatLng?.latitude}',
+        userCoordinates: event.userCoordinates != null
+            ? '${event.userCoordinates?.latitude},${event.userCoordinates?.latitude}'
+            : null,
       );
 
       if (response.code == -1) {
@@ -310,6 +316,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     emit(
       MapCameraPositionChecked(
         latLngBounds: event.latLngBounds,
+        centerLatLng: event.centerLatLng,
       ),
     );
   }
@@ -339,6 +346,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           location: currentLocation,
           latitude: result.latitude,
           longitude: result.longitude,
+        ),
+      );
+
+      add(
+        MapStoreRequested(
+          centerLatLng: currentLatLng,
+          userCoordinates: currentLatLng,
         ),
       );
     } catch (e) {

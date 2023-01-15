@@ -69,6 +69,7 @@ import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
 import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 abstract class CafeinRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -147,13 +148,18 @@ abstract class CafeinRoute {
         );
         break;
       case SearchPage.routeName:
+        final centerLatLng = settings.arguments as LatLng;
+
         page = BlocProvider(
           create: (context) => SearchBloc(
             storeRepository: context.read<StoreRepository>(),
             appRepository: context.read<AppRepository>(),
             boardRepository: context.read<BoardRepository>(),
+            centerLatLng: centerLatLng,
           ),
-          child: const SearchPage(),
+          child: SearchPage(
+            centerLatLng: centerLatLng,
+          ),
         );
         break;
       case StickerPage.routeName:
