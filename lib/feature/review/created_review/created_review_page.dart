@@ -89,23 +89,19 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
               await CreatedSucceedWithoutStickerDialog.show(context);
               navigator.pop();
             } else if (state is CreatedReviewSucceed) {
-              if (state.isAvailable) {
-                bloc.add(const CreatedReviewStickerRequested());
-              } else {
-                final result = await CreatedSucceedDialog.show(
-                  context,
-                  isCreatedSticker: false,
-                );
+              final result = await CreatedSucceedDialog.show(
+                context,
+                isCreatedSticker: false,
+              );
 
-                if (!result) {
-                  navigator.pop();
-                  return;
-                }
-
-                navigator.pushReplacementNamed(
-                  RegisteredReviewPage.routeName,
-                );
+              if (!result) {
+                navigator.pop();
+                return;
               }
+
+              navigator.pushReplacementNamed(
+                RegisteredReviewPage.routeName,
+              );
             } else if (state is CreatedReviewPossibleChecked) {
               if (state.isAvailable) {
                 bloc.add(const CreatedReviewStickerPossibleRequested());
@@ -212,28 +208,27 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("리뷰 작성"),
-            leading: IconButton(
-              onPressed: () async {
-                if (!clicked){
-                  Navigator.of(context).pop();
-                  return;
-                }
-                final navigator = Navigator.of(context);
-                final result = await ReviewBackDialog.show(
-                  context,
-                  title: '작성',
-                );
+              title: const Text("리뷰 작성"),
+              leading: IconButton(
+                onPressed: () async {
+                  if (!clicked) {
+                    Navigator.of(context).pop();
+                    return;
+                  }
+                  final navigator = Navigator.of(context);
+                  final result = await ReviewBackDialog.show(
+                    context,
+                    title: '작성',
+                  );
 
-                if (!result) {
-                  return;
-                }
+                  if (!result) {
+                    return;
+                  }
 
-                navigator.pop();
-              },
-              icon: loadAsset(AppIcon.left),
-            )
-          ),
+                  navigator.pop();
+                },
+                icon: loadAsset(AppIcon.left),
+              )),
           body: Column(
             children: [
               Expanded(
@@ -367,7 +362,6 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                         buildWhen: (pre, next) =>
                             next is CreatedReviewScoreChecked,
                         builder: (context, state) {
-
                           String wifiScore = '';
                           String socketScore = '';
                           String tableScore = '';
@@ -382,7 +376,10 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
                             restroomScore = state.restroomScore;
                           }
 
-                          if (wifiScore != '' || socketScore != '' || tableScore != '' || restroomScore != ''){
+                          if (wifiScore != '' ||
+                              socketScore != '' ||
+                              tableScore != '' ||
+                              restroomScore != '') {
                             clicked = true;
                           }
 
