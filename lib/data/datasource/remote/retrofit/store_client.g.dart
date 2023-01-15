@@ -31,7 +31,7 @@ class _StoreClient implements StoreClient {
     final queryParameters = <String, dynamic>{
       r'keyword': keyword,
       r'rect': rect,
-      r'ceterCoordinates': ceterCoordinates,
+      r'centerCoordinates': ceterCoordinates,
       r'userCoordinates': userCoordinates,
     };
     queryParameters.removeWhere((k, v) => v == null);

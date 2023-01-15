@@ -21,7 +21,7 @@ abstract class StoreClient {
   Future<BaseResponse<List<Store>>> getStores(
     @Query('keyword') String? keyword,
     @Query('rect') String? rect,
-    @Query('ceterCoordinates') String? ceterCoordinates,
+    @Query('centerCoordinates') String? ceterCoordinates,
     @Query('userCoordinates') String? userCoordinates,
   );
 

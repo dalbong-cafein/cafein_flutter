@@ -107,11 +107,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         rect: searchKeyword.isNotEmpty
             ? null
             : '${currentLatLngBounds.northeast.latitude},${currentLatLngBounds.southwest.latitude},${currentLatLngBounds.southwest.longitude},${currentLatLngBounds.northeast.longitude}',
-        ceterCoordinates: searchKeyword.isNotEmpty
+        ceterCoordinates: searchKeyword.isNotEmpty || event.centerLatLng == null
             ? null
-            : '${event.centerLatLng?.latitude},${event.centerLatLng?.latitude}',
+            : '${event.centerLatLng?.latitude},${event.centerLatLng?.longitude}',
         userCoordinates: event.userCoordinates != null
-            ? '${event.userCoordinates?.latitude},${event.userCoordinates?.latitude}'
+            ? '${event.userCoordinates?.latitude},${event.userCoordinates?.longitude}'
             : null,
       );
 
