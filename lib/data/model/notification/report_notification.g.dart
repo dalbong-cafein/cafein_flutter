@@ -10,7 +10,7 @@ _$_ReportNotification _$$_ReportNotificationFromJson(
         Map<String, dynamic> json) =>
     _$_ReportNotification(
       detailReportNoticeId: json['detailReportNoticeId'] as int?,
-      reportExpiredDateTime: json['reportExpiredDateTime'] as String,
+      reportExpiredDateTime: json['reportExpiredDateTime'] as String?,
       reportCategoryName: json['reportCategoryName'] as String,
       reportedReviewResDto: ReportedReview.fromJson(
           json['reportedReviewResDto'] as Map<String, dynamic>),

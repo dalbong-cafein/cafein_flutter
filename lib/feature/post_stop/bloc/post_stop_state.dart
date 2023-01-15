@@ -29,7 +29,7 @@ class PostStopLoaded extends PostStopState{
   final ReportedReview reportedReview;
   final String reportCategoryName;
   final String? reportDateTime;
-  final String reportExpiredDateTime;
+  final String? reportExpiredDateTime;
   final bool isPossibleObjection;
   @override
   List<Object?> get props => [reportedReview, reportCategoryName, reportDateTime, reportExpiredDateTime, isPossibleObjection];

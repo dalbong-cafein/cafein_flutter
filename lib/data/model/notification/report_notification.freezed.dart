@@ -21,7 +21,7 @@ ReportNotification _$ReportNotificationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ReportNotification {
   int? get detailReportNoticeId => throw _privateConstructorUsedError;
-  String get reportExpiredDateTime => throw _privateConstructorUsedError;
+  String? get reportExpiredDateTime => throw _privateConstructorUsedError;
   String get reportCategoryName => throw _privateConstructorUsedError;
   ReportedReview get reportedReviewResDto => throw _privateConstructorUsedError;
   bool get isPossibleObjection => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $ReportNotificationCopyWith<$Res> {
   @useResult
   $Res call(
       {int? detailReportNoticeId,
-      String reportExpiredDateTime,
+      String? reportExpiredDateTime,
       String reportCategoryName,
       ReportedReview reportedReviewResDto,
       bool isPossibleObjection});
@@ -62,7 +62,7 @@ class _$ReportNotificationCopyWithImpl<$Res, $Val extends ReportNotification>
   @override
   $Res call({
     Object? detailReportNoticeId = freezed,
-    Object? reportExpiredDateTime = null,
+    Object? reportExpiredDateTime = freezed,
     Object? reportCategoryName = null,
     Object? reportedReviewResDto = null,
     Object? isPossibleObjection = null,
@@ -72,10 +72,10 @@ class _$ReportNotificationCopyWithImpl<$Res, $Val extends ReportNotification>
           ? _value.detailReportNoticeId
           : detailReportNoticeId // ignore: cast_nullable_to_non_nullable
               as int?,
-      reportExpiredDateTime: null == reportExpiredDateTime
+      reportExpiredDateTime: freezed == reportExpiredDateTime
           ? _value.reportExpiredDateTime
           : reportExpiredDateTime // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       reportCategoryName: null == reportCategoryName
           ? _value.reportCategoryName
           : reportCategoryName // ignore: cast_nullable_to_non_nullable
@@ -110,7 +110,7 @@ abstract class _$$_ReportNotificationCopyWith<$Res>
   @useResult
   $Res call(
       {int? detailReportNoticeId,
-      String reportExpiredDateTime,
+      String? reportExpiredDateTime,
       String reportCategoryName,
       ReportedReview reportedReviewResDto,
       bool isPossibleObjection});
@@ -131,7 +131,7 @@ class __$$_ReportNotificationCopyWithImpl<$Res>
   @override
   $Res call({
     Object? detailReportNoticeId = freezed,
-    Object? reportExpiredDateTime = null,
+    Object? reportExpiredDateTime = freezed,
     Object? reportCategoryName = null,
     Object? reportedReviewResDto = null,
     Object? isPossibleObjection = null,
@@ -141,10 +141,10 @@ class __$$_ReportNotificationCopyWithImpl<$Res>
           ? _value.detailReportNoticeId
           : detailReportNoticeId // ignore: cast_nullable_to_non_nullable
               as int?,
-      reportExpiredDateTime: null == reportExpiredDateTime
+      reportExpiredDateTime: freezed == reportExpiredDateTime
           ? _value.reportExpiredDateTime
           : reportExpiredDateTime // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       reportCategoryName: null == reportCategoryName
           ? _value.reportCategoryName
           : reportCategoryName // ignore: cast_nullable_to_non_nullable
@@ -177,7 +177,7 @@ class _$_ReportNotification implements _ReportNotification {
   @override
   final int? detailReportNoticeId;
   @override
-  final String reportExpiredDateTime;
+  final String? reportExpiredDateTime;
   @override
   final String reportCategoryName;
   @override
@@ -235,7 +235,7 @@ class _$_ReportNotification implements _ReportNotification {
 abstract class _ReportNotification implements ReportNotification {
   factory _ReportNotification(
       {required final int? detailReportNoticeId,
-      required final String reportExpiredDateTime,
+      required final String? reportExpiredDateTime,
       required final String reportCategoryName,
       required final ReportedReview reportedReviewResDto,
       required final bool isPossibleObjection}) = _$_ReportNotification;
@@ -246,7 +246,7 @@ abstract class _ReportNotification implements ReportNotification {
   @override
   int? get detailReportNoticeId;
   @override
-  String get reportExpiredDateTime;
+  String? get reportExpiredDateTime;
   @override
   String get reportCategoryName;
   @override

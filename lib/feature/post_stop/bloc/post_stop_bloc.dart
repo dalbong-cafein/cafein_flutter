@@ -28,7 +28,7 @@ class PostStopBloc extends Bloc<PostStopEvent, PostStopState> {
       final data = response.data;
       final reportedReview = data.reportedReviewResDto;
       final reportCategoryName = data.reportCategoryName;
-      final reportDateTime = data.reportedReviewResDto?.regDateTime;
+      final reportDateTime = data.reportedReviewResDto.regDateTime;
       final reportExpiredDateTime = data.reportExpiredDateTime;
       final isPossibleObjection = data.isPossibleObjection;
       emit(PostStopLoaded(reportedReview: reportedReview,

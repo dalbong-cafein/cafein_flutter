@@ -10,7 +10,7 @@ part 'report_notification.g.dart';
 class ReportNotification with _$ReportNotification{
   factory ReportNotification({
     required int? detailReportNoticeId,
-    required String reportExpiredDateTime,
+    required String? reportExpiredDateTime,
     required String reportCategoryName,
     required ReportedReview reportedReviewResDto,
     required bool isPossibleObjection
