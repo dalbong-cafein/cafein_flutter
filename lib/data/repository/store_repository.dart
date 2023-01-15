@@ -15,6 +15,8 @@ abstract class StoreRepository {
   Future<BaseResponse<List<Store>>> getStores({
     String? keyword,
     String? rect,
+    String? ceterCoordinates,
+    String? userCoordinates,
   });
 
   Future<BaseResponse<List<RecommendedStore>>> getRecommendedStores(
@@ -81,10 +83,14 @@ class StoreRepositoryImpl extends StoreRepository {
   Future<BaseResponse<List<Store>>> getStores({
     String? keyword,
     String? rect,
+    String? ceterCoordinates,
+    String? userCoordinates,
   }) =>
       storeClient.getStores(
         keyword,
         rect,
+        ceterCoordinates,
+        userCoordinates,
       );
 
   @override

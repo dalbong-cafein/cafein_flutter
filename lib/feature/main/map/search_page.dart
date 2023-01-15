@@ -13,6 +13,7 @@ import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class SearchPageResult {
   final List<Store> storeList;
@@ -25,7 +26,12 @@ class SearchPageResult {
 }
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({
+    Key? key,
+    required this.centerLatLng,
+  }) : super(key: key);
+
+  final LatLng centerLatLng;
 
   static const routeName = 'SearchPage';
 

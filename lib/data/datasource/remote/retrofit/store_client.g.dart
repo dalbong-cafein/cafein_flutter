@@ -24,11 +24,15 @@ class _StoreClient implements StoreClient {
   Future<BaseResponse<List<Store>>> getStores(
     keyword,
     rect,
+    ceterCoordinates,
+    userCoordinates,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'keyword': keyword,
       r'rect': rect,
+      r'ceterCoordinates': ceterCoordinates,
+      r'userCoordinates': userCoordinates,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

@@ -12,17 +12,23 @@ class MapStoreRequested extends MapEvent {
     this.location,
     this.storeId,
     this.latLngBounds,
+    this.centerLatLng,
+    this.userCoordinates,
   });
 
   final String? location;
   final int? storeId;
   final LatLngBounds? latLngBounds;
+  final LatLng? centerLatLng;
+  final LatLng? userCoordinates;
 
   @override
   List<Object?> get props => [
         location,
         storeId,
         latLngBounds,
+        centerLatLng,
+        userCoordinates,
       ];
 }
 
@@ -92,13 +98,16 @@ class MapFocusChanged extends MapEvent {
 class MapCameraPositionChanged extends MapEvent {
   const MapCameraPositionChanged({
     required this.latLngBounds,
+    required this.centerLatLng,
   });
 
   final LatLngBounds latLngBounds;
+  final LatLng centerLatLng;
 
   @override
   List<Object?> get props => [
         latLngBounds,
+        centerLatLng,
       ];
 }
 

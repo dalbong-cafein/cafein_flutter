@@ -251,9 +251,13 @@ class _MapPageState extends State<MapPage> {
           title: InkWell(
             onTap: () async {
               final bloc = context.read<MapBloc>();
+              final controller = await naverMapController.future;
+              final cameraPosition = await controller.getCameraPosition();
+              final centerLatLng = cameraPosition.target;
 
               final result = await Navigator.of(context).pushNamed(
                 SearchPage.routeName,
+                arguments: centerLatLng,
               );
 
               if (result == null) {
@@ -268,7 +272,8 @@ class _MapPageState extends State<MapPage> {
               ));
             },
             child: Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, bottom: 6, top :6),
+              margin:
+                  const EdgeInsets.only(left: 16, right: 16, bottom: 6, top: 6),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               height: 44,
               decoration: BoxDecoration(
@@ -335,12 +340,18 @@ class _MapPageState extends State<MapPage> {
 
                       if (isAnimated == true && latLng != null) {
                         final controller = await naverMapController.future;
+                        final cameraPosition =
+                            await controller.getCameraPosition();
+
+                        final centerLatLng = cameraPosition.target;
+
                         final visibleRegion =
                             await controller.getVisibleRegion();
 
                         bloc.add(
                           MapCameraPositionChanged(
                             latLngBounds: visibleRegion,
+                            centerLatLng: centerLatLng,
                           ),
                         );
                       }
@@ -420,6 +431,7 @@ class _MapPageState extends State<MapPage> {
                             onTap: () => context.read<MapBloc>().add(
                                   MapStoreRequested(
                                     latLngBounds: state.latLngBounds,
+                                    centerLatLng: state.centerLatLng,
                                   ),
                                 ),
                             child: Container(

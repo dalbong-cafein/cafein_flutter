@@ -99,13 +99,16 @@ class MapLocationChecked extends MapState {
 class MapCameraPositionChecked extends MapState {
   const MapCameraPositionChecked({
     required this.latLngBounds,
+    required this.centerLatLng,
   });
 
   final LatLngBounds latLngBounds;
+  final LatLng centerLatLng;
 
   @override
   List<Object?> get props => [
         latLngBounds,
+        centerLatLng,
       ];
 }
 

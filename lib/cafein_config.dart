@@ -12,6 +12,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 part './app_markers.dart';
 
+AppConfig appConfig = AppConfig.live();
+
 abstract class CafeinConfig {
   static const baseUrl = 'https://test.cafeinofficial.com';
 
@@ -19,7 +21,15 @@ abstract class CafeinConfig {
 
   static late PackageInfo packageInfo;
 
-  static Future<void> initializeApp() async {
+  static Future<void> initializeApp({
+    Flavor flavor = Flavor.live,
+  }) async {
+    if (flavor == Flavor.dev) {
+      appConfig = AppConfig.dev();
+    } else {
+      appConfig = AppConfig.live();
+    }
+
     await initializeDateFormatting();
 
     await AppMarkers.initMarkers();
@@ -37,4 +47,19 @@ abstract class CafeinConfig {
 
     packageInfo = await PackageInfo.fromPlatform();
   }
+}
+
+enum Flavor { dev, live }
+
+class AppConfig {
+  final Flavor flavor;
+  final String baseUrl;
+
+  AppConfig.dev()
+      : flavor = Flavor.dev,
+        baseUrl = 'https://test.cafeinofficial.com';
+
+  AppConfig.live()
+      : flavor = Flavor.live,
+        baseUrl = 'https://api.cafeinofficial.com';
 }

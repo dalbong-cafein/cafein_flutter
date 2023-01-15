@@ -147,6 +147,7 @@ class CreatedReviewBloc extends Bloc<CreatedReviewEvent, CreatedReviewState> {
       }
 
       createdReviewId = response.data;
+
       emit(CreatedReviewSucceed(
         isAvailable: event.isAvailable,
       ));

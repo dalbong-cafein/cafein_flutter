@@ -13,7 +13,7 @@ class MemberFormDataClient {
     UpdateMemberRequest updateMemberRequest,
   ) async {
     final response = await dio.patch(
-      '${CafeinConfig.baseUrl}/members/${updateMemberRequest.memberId}/ImageAndNickname',
+      '${appConfig.baseUrl}/members/${updateMemberRequest.memberId}/ImageAndNickname',
       data: FormData.fromMap({
         'nickname': updateMemberRequest.nickName,
         'imageFile': updateMemberRequest.imageFile != null
@@ -27,7 +27,9 @@ class MemberFormDataClient {
 
     return BaseResponse.fromJson(
       response.data,
-      (json) => response.data['data'] != null ? ImageIdPair.fromJson(response.data['data']) : null,
+      (json) => response.data['data'] != null
+          ? ImageIdPair.fromJson(response.data['data'])
+          : null,
     );
   }
 }
