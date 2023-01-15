@@ -15,7 +15,7 @@ part './app_markers.dart';
 AppConfig appConfig = AppConfig.live();
 
 abstract class CafeinConfig {
-  static const baseUrl = 'https://test.cafeinofficial.com';
+  static const baseUrl = 'https://api.cafeinofficial.com';
 
   static const kakaoRestApiKey = '8898a6b3df99b2f5e57b1c3ac85e6777';
 
