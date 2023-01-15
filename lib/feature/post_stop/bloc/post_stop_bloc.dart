@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cafein_flutter/data/model/enum/board_category.dart';
 import 'package:cafein_flutter/data/model/review/reported_review.dart';
 import 'package:cafein_flutter/data/repository/notification_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'post_stop_event.dart';
 
