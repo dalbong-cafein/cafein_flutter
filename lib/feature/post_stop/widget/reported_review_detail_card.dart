@@ -4,6 +4,7 @@ import 'package:cafein_flutter/feature/post_stop/bloc/post_stop_bloc.dart';
 import 'package:cafein_flutter/feature/post_stop/widget/reported_review_detail_score_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/widget/card/custom_cached_network_image.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,13 @@ class ReportedReviewDetailCard extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return BlocConsumer<PostStopBloc, PostStopState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is PostStopError) {
+          ErrorDialog.show(
+            context,
+            error: state.error,
+            refresh: state.event,
+          );
+        }
       },
       builder: (context, state) {
         if (state is PostStopLoaded) {

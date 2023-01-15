@@ -1,10 +1,13 @@
 import 'package:cafein_flutter/feature/post_stop/bloc/post_stop_bloc.dart';
+import 'package:cafein_flutter/feature/post_stop/widget/objection_over_dialog.dart';
 import 'package:cafein_flutter/feature/post_stop/widget/reported_review_detail_card.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
+import 'package:cafein_flutter/widget/dialog/error_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'widget/report_policy_card.dart';
 
 class PostStopPage extends StatelessWidget {
@@ -30,6 +33,13 @@ class PostStopPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocConsumer<PostStopBloc, PostStopState>(
           listener: (context, state) {
+            if (state is PostStopError) {
+              ErrorDialog.show(
+                context,
+                error: state.error,
+                refresh: state.event,
+              );
+            }
 
           },
           builder: (context, state) {
@@ -137,8 +147,12 @@ class PostStopPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 16),
                     child: InkWell(
-                      onTap: () {
-                        //1:1 문의하기
+                      onTap: () async {
+                        if(state.isPossibleObjection ){
+                          launchUrl(Uri.parse('mailto:dalbong.cafein@gmail.com'));
+                        }else {
+                          await ObjectionOverDialog.show(context);
+                        }
                       },
                       child: Container(
                         width: width - 32,
@@ -153,7 +167,7 @@ class PostStopPage extends StatelessWidget {
                               child: Text(
                                 "이의 신청하기",
                                 style: AppStyle.subTitle15Medium
-                                    .copyWith(color: AppColor.grey800),
+                                    .copyWith(color: state.isPossibleObjection ? AppColor.grey800 : AppColor.grey400),
                               )),
                         ),
                       ),
@@ -163,7 +177,7 @@ class PostStopPage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16, top: 12),
                     child: InkWell(
                       onTap: () {
-                        //확인
+                        Navigator.of(context).pop();
                       },
                       child: Container(
                         width: width - 32,
@@ -183,6 +197,9 @@ class PostStopPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 14,
+                  )
                 ],
               );
             }else{
