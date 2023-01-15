@@ -1,6 +1,7 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/notification/notification.dart';
+import 'package:cafein_flutter/data/model/notification/report_notification.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -28,4 +29,9 @@ abstract class NotificationClient {
 
   @DELETE('/notices')
   Future<BaseResponse<dynamic>> deleteAllNotice();
+
+  @GET('/notices/reportType/{noticeId}')
+  Future<BaseResponse<ReportNotification>> getReportNotification(
+    @Path() int noticeId,
+  );
 }

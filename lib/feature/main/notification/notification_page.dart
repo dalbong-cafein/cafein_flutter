@@ -6,6 +6,7 @@ import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/widget/notification_dialog.dart';
+import 'package:cafein_flutter/feature/post_stop/post_stop_page.dart';
 import 'package:cafein_flutter/feature/received_coupons/received_coupons_page.dart';
 import 'package:cafein_flutter/feature/sticker/sticker_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -49,6 +50,9 @@ class NotificationPage extends StatelessWidget {
                 Navigator.of(context).pushNamed(
                   NoticePage.routeName,
                 );
+              } else if (state.notification.notificationType ==
+                  NotificationType.report.title) {
+                Navigator.of(context).pushNamed(PostStopPage.routeName, arguments: state.notification.notificationId);
               }
             }
           },
@@ -186,7 +190,11 @@ class NotificationPage extends StatelessWidget {
                           {
                             Navigator.of(context)
                                 .pushNamed(ReceivedCouponsPage.routeName)
-                          }
+                          },
+                        if (state.notifications[index].notificationType == "신고"){
+                          Navigator.of(context)
+                                .pushNamed(PostStopPage.routeName, arguments: state.notifications[index].notificationId)
+                        }
                       },
                       child: Container(
                         width: width,
@@ -209,9 +217,8 @@ class NotificationPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     state.notifications[index].notificationType,
-                                    style: AppStyle.caption13Medium.copyWith(
-                                      color: AppColor.grey600
-                                    ),
+                                    style: AppStyle.caption13Medium
+                                        .copyWith(color: AppColor.grey600),
                                   ),
                                   const SizedBox(height: 5),
                                   SizedBox(
@@ -219,13 +226,14 @@ class NotificationPage extends StatelessWidget {
                                     child: Text(
                                       state.notifications[index].content,
                                       style: AppStyle.subTitle14Medium.copyWith(
-                                          height: 1.4,
+                                        height: 1.4,
                                       ),
                                     ),
                                   ),
                                   const SizedBox(height: 6),
                                   Text(
-                                    _getPeriod(state.notifications[index].registeredDateTime),
+                                    _getPeriod(state.notifications[index]
+                                        .registeredDateTime),
                                     style: AppStyle.caption13Regular
                                         .copyWith(color: AppColor.grey400),
                                   )

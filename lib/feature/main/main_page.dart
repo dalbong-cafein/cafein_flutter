@@ -15,6 +15,8 @@ import 'package:cafein_flutter/feature/main/more_view/bloc/more_view_bloc.dart';
 import 'package:cafein_flutter/feature/main/more_view/more_view_page.dart';
 import 'package:cafein_flutter/feature/main/notification/bloc/notification_bloc.dart';
 import 'package:cafein_flutter/feature/main/notification/notification_page.dart';
+import 'package:cafein_flutter/feature/post_stop/post_stop_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
