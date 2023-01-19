@@ -109,7 +109,11 @@ class CongestionBloc extends Bloc<CongestionEvent, CongestionState> {
 
       congestionId = response.data;
 
-      emit(const CongestionCreatedSucceed());
+      if (event.isAvailable) {
+        add(const CongestionStickerRequested());
+      } else {
+        emit(const CongestionCreatedSucceed());
+      }
     } catch (e) {
       emit(
         CongestionError(

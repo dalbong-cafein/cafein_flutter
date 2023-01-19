@@ -89,19 +89,23 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
               await CreatedSucceedWithoutStickerDialog.show(context);
               navigator.pop();
             } else if (state is CreatedReviewSucceed) {
-              final result = await CreatedSucceedDialog.show(
-                context,
-                isCreatedSticker: false,
-              );
+              if (state.isAvailable) {
+                bloc.add(const CreatedReviewStickerRequested());
+              } else {
+                final result = await CreatedSucceedDialog.show(
+                  context,
+                  isCreatedSticker: false,
+                );
 
-              if (!result) {
-                navigator.pop();
-                return;
+                if (!result) {
+                  navigator.pop();
+                  return;
+                }
+
+                navigator.pushReplacementNamed(
+                  RegisteredReviewPage.routeName,
+                );
               }
-
-              navigator.pushReplacementNamed(
-                RegisteredReviewPage.routeName,
-              );
             } else if (state is CreatedReviewPossibleChecked) {
               if (state.isAvailable) {
                 bloc.add(const CreatedReviewStickerPossibleRequested());
