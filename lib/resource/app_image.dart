@@ -63,6 +63,11 @@ abstract class AppImage {
   static const onboardC = 'asset/image/onboard/img_onboard_c.png';
   static const onboardD = 'asset/image/onboard/img_onboard_d.png';
 
+  static const onboardAIOS = 'asset/image/onboard/img_onboard_a_ios.png';
+  static const onboardBIOS = 'asset/image/onboard/img_onboard_b_ios.png';
+  static const onboardCIOS = 'asset/image/onboard/img_onboard_c_ios.png';
+  static const onboardDIOS = 'asset/image/onboard/img_onboard_d_ios.png';
+
   static const characterQuestionS =
       'asset/image/character/character_question_s.png';
 

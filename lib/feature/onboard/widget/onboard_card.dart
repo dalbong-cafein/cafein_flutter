@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +20,20 @@ class OnboardCard extends StatelessWidget {
 
     if (index == 0) {
       title = '카공할 카페 찾기';
-      subTitle = '지도에서 검색을 통해\n원하는 지역의 카페를 찾아보세요.';
-      imagePath = AppImage.onboardA;
+      subTitle = '지도에서 원하는 지역에 있는\n카공 카페를 찾아요.';
+      imagePath = Platform.isIOS ? AppImage.onboardAIOS : AppImage.onboardA;
     } else if (index == 1) {
       title = '카공 정보 확인하기';
-      subTitle = '카페 상세페이지에서\n콘셉트 / 와이파이 / 테이블 등\n필요한 정보를 확인해 보세요.';
-      imagePath = AppImage.onboardB;
+      subTitle = '콘셉트, 와이파이, 테이블 등\n필요한 정보를 확인해요.';
+      imagePath = Platform.isIOS ? AppImage.onboardBIOS : AppImage.onboardB;
     } else if (index == 2) {
       title = '자주 가는 나의 카페';
-      subTitle = "단골 카공 카페는 하트를 눌러\n'나의 카페'에서 혼잡도와 영업시간을\n쉽게 확인해 보세요.";
-      imagePath = AppImage.onboardC;
+      subTitle = "자주 가는 카페는 ‘나의 카페’로 저장해\n혼잡도와 영업시간을 빠르게 확인해요";
+      imagePath = Platform.isIOS ? AppImage.onboardCIOS : AppImage.onboardC;
     } else if (index == 3) {
       title = '더 넓어지는 카공 지도';
-      subTitle = '새로운 카페와 정보와 후기를 공휴하고\n스티커를 모아 아메리카노 쿠폰을 받아보세요.';
-      imagePath = AppImage.onboardD;
+      subTitle = '새로운 카페의 정보와 후기를 공유하고\n스티커를 모아 커피 쿠폰을 받아요';
+      imagePath = Platform.isIOS ? AppImage.onboardDIOS : AppImage.onboardD;
     }
 
     return Container(
