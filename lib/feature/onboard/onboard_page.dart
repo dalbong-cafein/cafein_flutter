@@ -34,7 +34,7 @@ class _OnboardPageState extends State<OnboardPage> {
               itemBuilder: (context, index) => OnboardCard(
                 index: index,
               ),
-              itemCount: 4,
+              itemCount: 3,
             ),
           ),
           SizedBox(
@@ -52,14 +52,15 @@ class _OnboardPageState extends State<OnboardPage> {
                     index: pageIndex,
                   ),
                   const Spacer(),
-                  pageIndex != 3
+                  pageIndex != 2
                       ? Row(
                           children: [
                             Expanded(
                               child: SizedBox(
                                 height: 44,
                                 child: ElevatedButton(
-                                  onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                                  onPressed: () => Navigator.of(context)
+                                      .pushNamedAndRemoveUntil(
                                     MainPage.routeName,
                                     (route) => false,
                                   ),
@@ -112,7 +113,8 @@ class _OnboardPageState extends State<OnboardPage> {
                           height: 44,
                           width: MediaQuery.of(context).size.width,
                           child: ElevatedButton(
-                            onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                            onPressed: () =>
+                                Navigator.of(context).pushNamedAndRemoveUntil(
                               MainPage.routeName,
                               (route) => false,
                             ),

@@ -40,15 +40,6 @@ class CircleStepIndicator extends StatelessWidget {
             color: index == 2 ? AppColor.orange400 : AppColor.grey300,
           ),
         ),
-        const SizedBox(width: 8),
-        Container(
-          width: 4,
-          height: 4,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: index == 3 ? AppColor.orange400 : AppColor.grey300,
-          ),
-        ),
       ],
     );
   }
