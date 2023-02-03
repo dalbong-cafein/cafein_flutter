@@ -251,11 +251,12 @@ class _MapPageState extends State<MapPage> {
           title: InkWell(
             onTap: () async {
               final bloc = context.read<MapBloc>();
+              final navigator = Navigator.of(context);
               final controller = await naverMapController.future;
               final cameraPosition = await controller.getCameraPosition();
               final centerLatLng = cameraPosition.target;
 
-              final result = await Navigator.of(context).pushNamed(
+              final result = await navigator.pushNamed(
                 SearchPage.routeName,
                 arguments: centerLatLng,
               );

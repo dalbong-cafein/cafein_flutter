@@ -59,9 +59,9 @@ class _LinkTextState extends State<LinkText> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final textStyle = widget.textStyle ?? themeData.textTheme.bodyText2;
+    final textStyle = widget.textStyle ?? themeData.textTheme.bodyMedium;
     final linkStyle = widget.linkStyle ??
-        themeData.textTheme.bodyText2?.copyWith(
+        themeData.textTheme.bodyMedium?.copyWith(
           color: themeData.colorScheme.secondary,
           decoration: TextDecoration.underline,
         );

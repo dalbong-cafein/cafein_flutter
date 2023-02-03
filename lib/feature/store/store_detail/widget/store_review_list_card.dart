@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_category.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
@@ -133,14 +135,13 @@ class _ReviewCardState extends State<_ReviewCard> {
             .inDays <
         3;
 
-
     final isPreview = context.watch<AuthCubit>().state == const AuthPreviewed();
 
     final imageList =
         (widget.review.imageIdPairs ?? []).map((e) => e.imageUrl).toList();
     return BlocConsumer<StoreDetailBloc, StoreDetailState>(
       listener: (context, state) {
-        if(state is StoreDetailReviewReportOverlap){
+        if (state is StoreDetailReviewReportOverlap) {
           isReportPossible = false;
         }
       },
@@ -203,7 +204,6 @@ class _ReviewCardState extends State<_ReviewCard> {
                         }
 
                         if (isPreview) {
-                          // ignore: use_build_context_synchronously
                           final result = await LoginDialog.show(context);
 
                           if (!result) {
@@ -221,8 +221,9 @@ class _ReviewCardState extends State<_ReviewCard> {
                         } else {
                           StoreDetailReviewReportOverlapDialog.show(context);
 
-                          context.read<StoreDetailBloc>().add(
-                              const StoreDetailRequested());
+                          context
+                              .read<StoreDetailBloc>()
+                              .add(const StoreDetailRequested());
                         }
                       },
                       child: loadAsset(
