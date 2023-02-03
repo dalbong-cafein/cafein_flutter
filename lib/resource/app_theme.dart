@@ -18,7 +18,7 @@ abstract class AppTheme {
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     textTheme: const TextTheme(
-      subtitle1: AppStyle.body16Regular,
+      titleMedium: AppStyle.body16Regular,
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: InputBorder.none,

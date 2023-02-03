@@ -28,8 +28,9 @@ class ReportedReviewDetailCard extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is PostStopLoaded) {
-          final imageList =
-          (state.reportedReview.reviewImageIdPairs ?? []).map((e) => e.imageUrl).toList();
+          final imageList = (state.reportedReview.reviewImageIdPairs ?? [])
+              .map((e) => e.imageUrl)
+              .toList();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -115,9 +116,9 @@ class ReportedReviewDetailCard extends StatelessWidget {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 12),
-                child: const ReportedReviewDetailScoreCard(),
+              const Padding(
+                padding: EdgeInsets.only(left: 16, top: 12),
+                child: ReportedReviewDetailScoreCard(),
               ),
               const SizedBox(
                 height: 12,
@@ -144,11 +145,10 @@ class ReportedReviewDetailCard extends StatelessWidget {
                                 Radius.circular(8),
                               ),
                               child: CustomCachedNetworkImage(
-                                key: ValueKey(
-                                    state.reportedReview.reviewImageIdPairs![imageIndex].imageUrl
-                                ),
-                                imageUrl:
-                                    state.reportedReview.reviewImageIdPairs![imageIndex].imageUrl,
+                                key: ValueKey(state.reportedReview
+                                    .reviewImageIdPairs![imageIndex].imageUrl),
+                                imageUrl: state.reportedReview
+                                    .reviewImageIdPairs![imageIndex].imageUrl,
                                 height: 74,
                                 width: 74,
                                 fit: BoxFit.cover,
@@ -163,9 +163,11 @@ class ReportedReviewDetailCard extends StatelessWidget {
                       ),
                     )
                   : const SizedBox.shrink(),
-              state.reportedReview.reviewImageIdPairs!.isNotEmpty ? const SizedBox(
-                height: 24,
-              ) : const SizedBox.shrink(),
+              state.reportedReview.reviewImageIdPairs!.isNotEmpty
+                  ? const SizedBox(
+                      height: 24,
+                    )
+                  : const SizedBox.shrink(),
               Center(
                 child: Container(
                   height: 1.0,
@@ -189,8 +191,8 @@ class ReportedReviewDetailCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  "${state.reportedReview.stopPostDateTime.substring(2, 4)}.${state.reportedReview.stopPostDateTime.substring(5, 7)}.${state.reportedReview.stopPostDateTime.substring(8, 10)}"
-                  ,style:
+                  "${state.reportedReview.stopPostDateTime.substring(2, 4)}.${state.reportedReview.stopPostDateTime.substring(5, 7)}.${state.reportedReview.stopPostDateTime.substring(8, 10)}",
+                  style:
                       AppStyle.body15Regular.copyWith(color: AppColor.grey900),
                 ),
               ),

@@ -6,7 +6,7 @@ class ReportPolicyCard extends StatefulWidget {
   const ReportPolicyCard({Key? key}) : super(key: key);
 
   @override
-  _ReportPolicyCardState createState() => _ReportPolicyCardState();
+  State<ReportPolicyCard> createState() => _ReportPolicyCardState();
 }
 
 class _ReportPolicyCardState extends State<ReportPolicyCard> {
@@ -18,7 +18,7 @@ class _ReportPolicyCardState extends State<ReportPolicyCard> {
     return Column(
       children: [
         InkWell(
-          onTap: (){
+          onTap: () {
             setState(() {
               isToggleClicked = !isToggleClicked;
             });
@@ -40,8 +40,8 @@ class _ReportPolicyCardState extends State<ReportPolicyCard> {
                   ),
                   Text(
                     "신고 정책 확인하기",
-                    style:
-                    AppStyle.subTitle15Medium.copyWith(color: AppColor.grey800),
+                    style: AppStyle.subTitle15Medium
+                        .copyWith(color: AppColor.grey800),
                   ),
                   const Spacer(),
                   loadAsset(isToggleClicked ? AppIcon.upXS : AppIcon.downXS,
@@ -72,19 +72,23 @@ class _ReportPolicyCardState extends State<ReportPolicyCard> {
                       const SizedBox(
                         height: 20,
                       ),
-                      _reportPolicyText("아래와 같은 행동은 신고 사유에 포함되고 있으니 리뷰 작성에 주의해 주세요.\n1. 카페와 관련 없는 내용\n2. 음란성, 욕설 등 부적절한 내용\n3. 부적절한 홍보 또는 광고\n4. 개인정보 유출 위험\n5. 리뷰 작성 취지에 맞지 않는 내용 (복사 글 등)\n6. 저작권 도용 의심")
-                      ,const SizedBox(
+                      _reportPolicyText(
+                          "아래와 같은 행동은 신고 사유에 포함되고 있으니 리뷰 작성에 주의해 주세요.\n1. 카페와 관련 없는 내용\n2. 음란성, 욕설 등 부적절한 내용\n3. 부적절한 홍보 또는 광고\n4. 개인정보 유출 위험\n5. 리뷰 작성 취지에 맞지 않는 내용 (복사 글 등)\n6. 저작권 도용 의심"),
+                      const SizedBox(
                         height: 20,
                       ),
-                      _reportPolicyText("*항목에 따라 사전 안내 없이 이용이 영구 제한될 수 있어요.\n내가 받은 신고가 적절하지 않다고 생각되는 경우,\n[더보기 > 자주 묻는 질문 > 1:1 문의하기]로 접수해 주세요.")
+                      _reportPolicyText(
+                          "*항목에 따라 사전 안내 없이 이용이 영구 제한될 수 있어요.\n내가 받은 신고가 적절하지 않다고 생각되는 경우,\n[더보기 > 자주 묻는 질문 > 1:1 문의하기]로 접수해 주세요.")
                     ],
                   ),
                 ),
               )
             : const SizedBox.shrink(),
-        isToggleClicked ? const SizedBox(
-          height: 16,
-        ) : const SizedBox.shrink(),
+        isToggleClicked
+            ? const SizedBox(
+                height: 16,
+              )
+            : const SizedBox.shrink(),
         Container(
           height: 1.0,
           width: width - 40,
