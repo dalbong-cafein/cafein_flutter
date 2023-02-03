@@ -4,7 +4,6 @@ import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/home_event_banner.dart';
 import 'package:cafein_flutter/feature/main/home/widget/mystores_card.dart';
 import 'package:cafein_flutter/feature/main/home/widget/recommend_stores_card.dart';
-import 'package:cafein_flutter/feature/main/home/widget/sticker_card.dart';
 import 'package:cafein_flutter/feature/main/main_bottom_navigation_bar.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
@@ -95,13 +94,7 @@ class HomePage extends StatelessWidget {
                         ),
                         child: HomeEventBanner(),
                       ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      StickerCard(),
-                      SizedBox(
-                        height: 16,
-                      ),
+                      SizedBox(height: 16),
                       MyStoresCard(),
                       SizedBox(
                         height: 16,
