@@ -116,3 +116,11 @@ class StoreDetailReviewReportOverlap extends StoreDetailState {
     isPossibleRegistration
   ];
 }
+
+class StoreDetailRegisterReviewDenied extends StoreDetailState{
+  const StoreDetailRegisterReviewDenied();
+  @override
+  List<Object?> get props => [
+
+  ];
+}
