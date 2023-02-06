@@ -34,7 +34,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     on<StoreDetailScrollChanged>(_onStoreDetailScrollChanged);
     on<StoreDetailReviewRequested>(_onStoreDetailReviewRequested);
     on<StoreDetailReviewReportClicked>(_onStoreDetailReviewReportClicked);
-    on<StoreDetailReviewRegisterClicked>(_onStoreDetailReviewRegisterClicked);
+    on<StoreDetailReviewCreateClicked>(_onStoreDetailReviewCreateClicked);
   }
 
   final StoreRepository storeRepository;
@@ -321,8 +321,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     }
   }
 
-  Future<FutureOr<void>> _onStoreDetailReviewRegisterClicked(
-      StoreDetailReviewRegisterClicked event,
+  Future<FutureOr<void>> _onStoreDetailReviewCreateClicked(
+      StoreDetailReviewCreateClicked event,
       Emitter<StoreDetailState> emit) async {
     try {
       //TODO Review 등록 가능 여부 api , 스티커 등록 가능 여부 api 호출
