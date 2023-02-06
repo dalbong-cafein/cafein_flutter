@@ -160,8 +160,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           }
 
           BottomToastDialog.show(context, isHeart: state.isHeart!);
-        }else if (state is StoreDetailReviewRegisterPossible){
-          if (state.isPossibleRegistration){
+        }else if (state is StoreDetailReviewCreatePossible){
+          if (state.isPossibleCreate){
             //TODO : 리뷰 작성 화면으로 넘기기
           }else{
             //TODO : 리뷰 작성 불가능 dialog 띄우기

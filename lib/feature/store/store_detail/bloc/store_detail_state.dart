@@ -117,11 +117,11 @@ class StoreDetailReviewReportOverlap extends StoreDetailState {
   ];
 }
 
-class StoreDetailReviewRegisterPossible extends StoreDetailState{
-  const StoreDetailReviewRegisterPossible({required this.isPossibleRegistration});
-  final bool isPossibleRegistration;
+class StoreDetailReviewCreatePossible extends StoreDetailState{
+  const StoreDetailReviewCreatePossible({required this.isPossibleCreate});
+  final bool isPossibleCreate;
   @override
   List<Object?> get props => [
-    isPossibleRegistration
+    isPossibleCreate
   ];
 }
