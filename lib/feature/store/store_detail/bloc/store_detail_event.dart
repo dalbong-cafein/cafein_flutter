@@ -81,3 +81,7 @@ class StoreDetailReviewReportClicked extends StoreDetailEvent {
   });
   final int reviewId;
 }
+
+class StoreDetailReviewRegisterClicked extends StoreDetailEvent{
+  const StoreDetailReviewRegisterClicked();
+}

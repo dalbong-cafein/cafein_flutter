@@ -34,6 +34,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     on<StoreDetailScrollChanged>(_onStoreDetailScrollChanged);
     on<StoreDetailReviewRequested>(_onStoreDetailReviewRequested);
     on<StoreDetailReviewReportClicked>(_onStoreDetailReviewReportClicked);
+    on<StoreDetailReviewRegisterClicked>(_onStoreDetailReviewRegisterClicked);
   }
 
   final StoreRepository storeRepository;
@@ -310,6 +311,21 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
         emit(StoreDetailReviewReportOverlap(
             isPossibleRegistration: isPossibleRegistration));
       } else {}
+    } catch (e) {
+      emit(
+        StoreDetailError(
+          error: e,
+          event: () => add(event),
+        ),
+      );
+    }
+  }
+
+  Future<FutureOr<void>> _onStoreDetailReviewRegisterClicked(
+      StoreDetailReviewRegisterClicked event,
+      Emitter<StoreDetailState> emit) async {
+    try {
+      //TODO Review 등록 가능 여부 api , 스티커 등록 가능 여부 api 호출
     } catch (e) {
       emit(
         StoreDetailError(
