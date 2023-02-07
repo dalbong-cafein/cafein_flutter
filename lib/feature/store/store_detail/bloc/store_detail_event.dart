@@ -84,7 +84,7 @@ class StoreDetailReviewReportClicked extends StoreDetailEvent {
 }
 
 class StoreDetailReviewCreateClicked extends StoreDetailEvent {
-  const StoreDetailReviewCreateClicked({required this.storeId});
-
+  const StoreDetailReviewCreateClicked({required this.storeId, required this.recommendation});
+  final ReviewRecommendation recommendation;
   final int storeId;
 }

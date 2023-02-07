@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
 import 'package:cafein_flutter/data/model/review/review_score_detail.dart';
@@ -9,6 +10,7 @@ import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
 import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
+import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +26,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     required this.heartRepository,
     required this.boardRepository,
     required this.storeId,
+    required this.stickerRepository
   }) : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
@@ -41,6 +44,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   final ReviewRepository reviewRepository;
   final HeartRepository heartRepository;
   final BoardRepository boardRepository;
+  final StickerRepository stickerRepository;
 
   final int storeId;
 
@@ -325,7 +329,13 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       StoreDetailReviewCreateClicked event,
       Emitter<StoreDetailState> emit) async {
     try {
-      //TODO Review 등록 가능 여부 api , 스티커 등록 가능 여부 api 호출
+      final response = await reviewRepository.isPossible(event.storeId);
+      final isPossible = response.data.isPossibleRegistration;
+
+      final stickerResponse = await stickerRepository.isPossibleSticker();
+      final isStickerPossible = stickerResponse.data.isPossibleIssue;
+      emit(StoreDetailReviewCreatePossible(isCreatePossible: isPossible, isStickerPossible: isStickerPossible, recommendation: event.recommendation ));
+
     } catch (e) {
       emit(
         StoreDetailError(

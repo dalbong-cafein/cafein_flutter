@@ -289,6 +289,7 @@ abstract class CafeinRoute {
                 heartRepository: context.read<HeartRepository>(),
                 boardRepository: context.read<BoardRepository>(),
                 storeId: storeId,
+                stickerRepository:  context.read<StickerRepository>()
               ),
             ),
             BlocProvider(

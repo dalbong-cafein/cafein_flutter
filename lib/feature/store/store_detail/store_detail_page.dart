@@ -1,7 +1,10 @@
+import 'package:cafein_flutter/data/model/store/store_detail.dart';
 import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
+import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
@@ -134,8 +137,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    late StoreDetail storeDetail;
+
     return BlocListener<StoreDetailBloc, StoreDetailState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is StoreDetailError) {
           ErrorDialog.show(
             context,
@@ -158,11 +163,53 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           if (state.isHeart == null) {
             return;
           }
-
           BottomToastDialog.show(context, isHeart: state.isHeart!);
+
         }else if (state is StoreDetailReviewCreatePossible){
-          if (state.isPossibleCreate){
-            //TODO : 리뷰 작성 화면으로 넘기기
+          final bloc = context.read<StoreDetailBloc>();
+          final navigator = Navigator.of(context);
+          final isPreview =
+              context.read<AuthCubit>().state == const AuthPreviewed();
+          if (state.isCreatePossible){
+            if(state.isStickerPossible){
+              if (isPreview) {
+                final result = await LoginDialog.show(context);
+                if (!result) {
+                  return;
+                }
+                return navigator.popUntil((route) => false);
+              }
+              await navigator.pushNamed(
+                CreatedReviewPage.routeName,
+                arguments: CreateReviewPageArguments(
+                  storeDetail: storeDetail,
+                  recommendation: state.recommendation,
+                ),
+              );
+              bloc.add(const StoreDetailReviewRequested());
+            }else{
+              final result = await CongestionStickerMaxDialog.show(context);
+              if (!result) {
+                return;
+              }else{
+                if (isPreview) {
+                  final result = await LoginDialog.show(context);
+                  if (!result) {
+                    return;
+                  }
+                  return navigator.popUntil((route) => false);
+                }
+                await navigator.pushNamed(
+                  CreatedReviewPage.routeName,
+                  arguments: CreateReviewPageArguments(
+                    storeDetail: storeDetail,
+                    recommendation: state.recommendation,
+                  ),
+                );
+                bloc.add(const StoreDetailReviewRequested());
+              }
+            }
+
           }else{
             //TODO : 리뷰 작성 불가능 dialog 띄우기
           }
@@ -241,6 +288,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           buildWhen: (pre, next) => next is StoreDetailLoaded,
           builder: (context, state) {
             if (state is StoreDetailLoaded) {
+              storeDetail = state.storeDetail;
               return CustomScrollView(
                 controller: scrollController,
                 slivers: [
@@ -320,12 +368,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       ),
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: StoreDefaultInformationCard(
-                      key: storeDetailKey,
-                      storeDetail: state.storeDetail,
-                    ),
-                  ),
+                  // SliverToBoxAdapter(
+                  //   child: StoreDefaultInformationCard(
+                  //     key: storeDetailKey,
+                  //     storeDetail: state.storeDetail,
+                  //   ),
+                  // ),
                   SliverToBoxAdapter(
                     child: Container(
                       height: 10,
