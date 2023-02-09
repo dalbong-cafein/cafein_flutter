@@ -3,6 +3,7 @@ import 'package:cafein_flutter/feature/login/login_page.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
 import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
+import 'package:cafein_flutter/feature/review/created_review/widget/created_review_impossible_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
@@ -10,6 +11,7 @@ import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_i
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_event_banner.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_list_card.dart';
+import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_denied_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_list_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_review_request_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_study_information_card.dart';
@@ -164,14 +166,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             return;
           }
           BottomToastDialog.show(context, isHeart: state.isHeart!);
-
-        }else if (state is StoreDetailReviewCreatePossible){
+        } else if (state is StoreDetailReviewCreatePossible) {
           final bloc = context.read<StoreDetailBloc>();
           final navigator = Navigator.of(context);
           final isPreview =
               context.read<AuthCubit>().state == const AuthPreviewed();
-          if (state.isCreatePossible){
-            if(state.isStickerPossible){
+          if (state.isCreatePossible) {
+            if (state.isStickerPossible) {
               if (isPreview) {
                 final result = await LoginDialog.show(context);
                 if (!result) {
@@ -187,11 +188,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 ),
               );
               bloc.add(const StoreDetailReviewRequested());
-            }else{
+            } else {
               final result = await CongestionStickerMaxDialog.show(context);
               if (!result) {
                 return;
-              }else{
+              } else {
                 if (isPreview) {
                   final result = await LoginDialog.show(context);
                   if (!result) {
@@ -209,9 +210,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 bloc.add(const StoreDetailReviewRequested());
               }
             }
-
-          }else{
-            //TODO : 리뷰 작성 불가능 dialog 띄우기
+          } else {
+            if (state.reviewDeniedReason == "하루당 한 카페에 리뷰 등록은 한번만 가능합니다.") {
+              CreatedReviewImpossibleDialog.show(context);
+            } else {
+              await StoreReviewDeniedDialog.show(context);
+            }
           }
         }
       },
