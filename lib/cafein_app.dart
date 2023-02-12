@@ -33,7 +33,6 @@ import 'package:cafein_flutter/feature/main/bloc/camera_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/location_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/bloc/photo_permission_bloc.dart';
 import 'package:cafein_flutter/feature/main/cubit/auth_cubit.dart';
-import 'package:cafein_flutter/feature/onboard/onboard_page.dart';
 import 'package:cafein_flutter/feature/splash/splash_page.dart';
 import 'package:cafein_flutter/firebase_config.dart';
 import 'package:cafein_flutter/resource/resource.dart';
@@ -185,8 +184,7 @@ class CafeinApp extends StatelessWidget {
                   displayColor: AppColor.grey800,
                 ),
           ),
-          // initialRoute: SplashPage.routeName,
-          initialRoute: OnboardPage.routeName,
+          initialRoute: SplashPage.routeName,
           onGenerateRoute: CafeinRoute.onGenerateRoute,
           navigatorObservers: [
             CustomNavigatorLogger(),

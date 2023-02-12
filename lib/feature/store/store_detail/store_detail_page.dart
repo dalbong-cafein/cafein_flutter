@@ -190,16 +190,19 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
               bloc.add(const StoreDetailReviewRequested());
             } else {
               final result = await CongestionStickerMaxDialog.show(context);
+
               if (!result) {
                 return;
               } else {
                 if (isPreview) {
                   final result = await LoginDialog.show(context);
+
                   if (!result) {
                     return;
                   }
                   return navigator.popUntil((route) => false);
                 }
+
                 await navigator.pushNamed(
                   CreatedReviewPage.routeName,
                   arguments: CreateReviewPageArguments(
@@ -207,6 +210,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     recommendation: state.recommendation,
                   ),
                 );
+
                 bloc.add(const StoreDetailReviewRequested());
               }
             }
