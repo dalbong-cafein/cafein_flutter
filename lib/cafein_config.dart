@@ -61,5 +61,5 @@ class AppConfig {
 
   AppConfig.live()
       : flavor = Flavor.live,
-        baseUrl = 'https://api.cafeinofficial.com';
+        baseUrl = 'https://test.cafeinofficial.com';
 }

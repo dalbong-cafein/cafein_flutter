@@ -19,7 +19,7 @@ class Store with _$Store {
     double? distance,
     @JsonKey(name: 'storeImageDtoList') List<ImageIdPair>? imageIdPair,
     @JsonKey(name: 'businessHoursInfoDto') BusinessInfo? businessInfo,
-    required ImageIdPair representImage
+    required ImageIdPair? representImage
   }) = _Store;
 
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
