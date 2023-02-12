@@ -27,7 +27,6 @@ class StoreDetailCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 8,
-          right: 24,
           left: 16,
           bottom: 24,
         ),
@@ -92,6 +91,9 @@ class StoreDetailCard extends StatelessWidget {
                             ),
                           )
                       ],
+                    ),
+                    const SizedBox(
+                      height: 8,
                     )
                   ],
                 ),
