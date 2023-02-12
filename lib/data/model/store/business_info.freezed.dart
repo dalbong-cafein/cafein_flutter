@@ -24,6 +24,7 @@ mixin _$BusinessInfo {
   String? get closed => throw _privateConstructorUsedError;
   String? get open => throw _privateConstructorUsedError;
   String get nextOpen => throw _privateConstructorUsedError;
+  String? get holidayType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $BusinessInfoCopyWith<$Res> {
           BusinessInfo value, $Res Function(BusinessInfo) then) =
       _$BusinessInfoCopyWithImpl<$Res, BusinessInfo>;
   @useResult
-  $Res call({bool isOpen, String? closed, String? open, String nextOpen});
+  $Res call(
+      {bool isOpen,
+      String? closed,
+      String? open,
+      String nextOpen,
+      String? holidayType});
 }
 
 /// @nodoc
@@ -57,6 +63,7 @@ class _$BusinessInfoCopyWithImpl<$Res, $Val extends BusinessInfo>
     Object? closed = freezed,
     Object? open = freezed,
     Object? nextOpen = null,
+    Object? holidayType = freezed,
   }) {
     return _then(_value.copyWith(
       isOpen: null == isOpen
@@ -75,6 +82,10 @@ class _$BusinessInfoCopyWithImpl<$Res, $Val extends BusinessInfo>
           ? _value.nextOpen
           : nextOpen // ignore: cast_nullable_to_non_nullable
               as String,
+      holidayType: freezed == holidayType
+          ? _value.holidayType
+          : holidayType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +98,12 @@ abstract class _$$_BusinessInfoCopyWith<$Res>
       __$$_BusinessInfoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isOpen, String? closed, String? open, String nextOpen});
+  $Res call(
+      {bool isOpen,
+      String? closed,
+      String? open,
+      String nextOpen,
+      String? holidayType});
 }
 
 /// @nodoc
@@ -105,6 +121,7 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
     Object? closed = freezed,
     Object? open = freezed,
     Object? nextOpen = null,
+    Object? holidayType = freezed,
   }) {
     return _then(_$_BusinessInfo(
       isOpen: null == isOpen
@@ -123,6 +140,10 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
           ? _value.nextOpen
           : nextOpen // ignore: cast_nullable_to_non_nullable
               as String,
+      holidayType: freezed == holidayType
+          ? _value.holidayType
+          : holidayType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -131,7 +152,11 @@ class __$$_BusinessInfoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BusinessInfo implements _BusinessInfo {
   _$_BusinessInfo(
-      {this.isOpen = false, this.closed, this.open, this.nextOpen = '10:00'});
+      {this.isOpen = false,
+      this.closed,
+      this.open,
+      this.nextOpen = '10:00',
+      this.holidayType});
 
   factory _$_BusinessInfo.fromJson(Map<String, dynamic> json) =>
       _$$_BusinessInfoFromJson(json);
@@ -146,10 +171,12 @@ class _$_BusinessInfo implements _BusinessInfo {
   @override
   @JsonKey()
   final String nextOpen;
+  @override
+  final String? holidayType;
 
   @override
   String toString() {
-    return 'BusinessInfo(isOpen: $isOpen, closed: $closed, open: $open, nextOpen: $nextOpen)';
+    return 'BusinessInfo(isOpen: $isOpen, closed: $closed, open: $open, nextOpen: $nextOpen, holidayType: $holidayType)';
   }
 
   @override
@@ -161,12 +188,15 @@ class _$_BusinessInfo implements _BusinessInfo {
             (identical(other.closed, closed) || other.closed == closed) &&
             (identical(other.open, open) || other.open == open) &&
             (identical(other.nextOpen, nextOpen) ||
-                other.nextOpen == nextOpen));
+                other.nextOpen == nextOpen) &&
+            (identical(other.holidayType, holidayType) ||
+                other.holidayType == holidayType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, isOpen, closed, open, nextOpen);
+  int get hashCode =>
+      Object.hash(runtimeType, isOpen, closed, open, nextOpen, holidayType);
 
   @JsonKey(ignore: true)
   @override
@@ -187,7 +217,8 @@ abstract class _BusinessInfo implements BusinessInfo {
       {final bool isOpen,
       final String? closed,
       final String? open,
-      final String nextOpen}) = _$_BusinessInfo;
+      final String nextOpen,
+      final String? holidayType}) = _$_BusinessInfo;
 
   factory _BusinessInfo.fromJson(Map<String, dynamic> json) =
       _$_BusinessInfo.fromJson;
@@ -200,6 +231,8 @@ abstract class _BusinessInfo implements BusinessInfo {
   String? get open;
   @override
   String get nextOpen;
+  @override
+  String? get holidayType;
   @override
   @JsonKey(ignore: true)
   _$$_BusinessInfoCopyWith<_$_BusinessInfo> get copyWith =>

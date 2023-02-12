@@ -12,6 +12,7 @@ _$_BusinessInfo _$$_BusinessInfoFromJson(Map<String, dynamic> json) =>
       closed: json['closed'] as String?,
       open: json['open'] as String?,
       nextOpen: json['nextOpen'] as String? ?? '10:00',
+      holidayType: json['holidayType'] as String?,
     );
 
 Map<String, dynamic> _$$_BusinessInfoToJson(_$_BusinessInfo instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_BusinessInfoToJson(_$_BusinessInfo instance) =>
       'closed': instance.closed,
       'open': instance.open,
       'nextOpen': instance.nextOpen,
+      'holidayType': instance.holidayType,
     };

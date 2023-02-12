@@ -41,7 +41,7 @@ class ReviewRecommendationButton extends StatelessWidget {
           foregroundColor: foregroundColor,
           backgroundColor: backgroundColor,
           textStyle: AppStyle.caption13Regular,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.only(left : 10 , right: 8),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(12),
