@@ -10,6 +10,7 @@ class BusinessInfo with _$BusinessInfo {
     String? closed,
     String? open,
     @Default('10:00') String nextOpen,
+    String? holidayType
   }) = _BusinessInfo;
 
   factory BusinessInfo.fromJson(Map<String, dynamic> json) =>

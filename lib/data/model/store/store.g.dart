@@ -23,6 +23,10 @@ _$_Store _$$_StoreFromJson(Map<String, dynamic> json) => _$_Store(
           ? null
           : BusinessInfo.fromJson(
               json['businessHoursInfoDto'] as Map<String, dynamic>),
+      representImage: json['representImage'] == null
+          ? null
+          : ImageIdPair.fromJson(
+              json['representImage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_StoreToJson(_$_Store instance) => <String, dynamic>{
@@ -37,4 +41,5 @@ Map<String, dynamic> _$$_StoreToJson(_$_Store instance) => <String, dynamic>{
       'distance': instance.distance,
       'storeImageDtoList': instance.imageIdPair,
       'businessHoursInfoDto': instance.businessInfo,
+      'representImage': instance.representImage,
     };

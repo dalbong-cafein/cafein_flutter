@@ -27,9 +27,7 @@ class StoreDetailCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 8,
-          right: 24,
           left: 16,
-          bottom: 24,
         ),
         child: Column(
           children: [
@@ -92,7 +90,7 @@ class StoreDetailCard extends StatelessWidget {
                             ),
                           )
                       ],
-                    )
+                    ),
                   ],
                 ),
                 ConfuseChip(
@@ -109,7 +107,7 @@ class StoreDetailCard extends StatelessWidget {
                 height: 240,
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 20,
+                    vertical: 16,
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: imageList.length,

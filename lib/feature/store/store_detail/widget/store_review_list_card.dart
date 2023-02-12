@@ -305,7 +305,8 @@ class _ReviewCardState extends State<_ReviewCard> {
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 margin: const EdgeInsets.only(
-                  top: 8,
+                  top: 10,
+                  left : 8
                 ),
                 width: 224,
                 height: isExpanded ? 40 : 0,
@@ -344,7 +345,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   widget.review.content ?? '',
                   style: AppStyle.body14Regular,
@@ -383,7 +384,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                       ),
                     ),
                     separatorBuilder: (context, index) => const SizedBox(
-                      width: 8,
+                      width: 6,
                     ),
                     itemCount: (widget.review.imageIdPairs ?? []).length,
                   ),
