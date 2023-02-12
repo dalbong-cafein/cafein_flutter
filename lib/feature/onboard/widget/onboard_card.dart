@@ -17,23 +17,22 @@ class OnboardCard extends StatelessWidget {
     String title = '';
     String subTitle = '';
     String imagePath = '';
+    double padding = 0;
 
     if (index == 0) {
       title = '카공할 카페 찾기';
       subTitle = '지도에서 원하는 지역에 있는\n카공 카페를 찾아요.';
       imagePath = Platform.isIOS ? AppImage.onboardAIOS : AppImage.onboardA;
+      padding = Platform.isIOS ? 100 : 0;
     } else if (index == 1) {
       title = '카공 정보 확인하기';
       subTitle = '콘셉트, 와이파이, 테이블 등\n필요한 정보를 확인해요.';
       imagePath = Platform.isIOS ? AppImage.onboardBIOS : AppImage.onboardB;
+      padding = Platform.isIOS ? 64 : 0;
     } else if (index == 2) {
       title = '자주 가는 나의 카페';
       subTitle = "자주 가는 카페는 ‘나의 카페’로 저장해\n혼잡도와 영업시간을 빠르게 확인해요";
       imagePath = Platform.isIOS ? AppImage.onboardCIOS : AppImage.onboardC;
-    } else if (index == 3) {
-      title = '더 넓어지는 카공 지도';
-      subTitle = '새로운 카페의 정보와 후기를 공유하고\n스티커를 모아 커피 쿠폰을 받아요';
-      imagePath = Platform.isIOS ? AppImage.onboardDIOS : AppImage.onboardD;
     }
 
     return Container(
@@ -42,6 +41,7 @@ class OnboardCard extends StatelessWidget {
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 44),
             Text(
@@ -59,7 +59,7 @@ class OnboardCard extends StatelessWidget {
             ),
             loadAsset(
               imagePath,
-              width: MediaQuery.of(context).size.width - 32,
+              width: MediaQuery.of(context).size.width - 32 - padding,
             ),
           ],
         ),
