@@ -376,12 +376,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       ),
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: StoreDefaultInformationCard(
-                      key: storeDetailKey,
-                      storeDetail: state.storeDetail,
-                    ),
-                  ),
+                  // SliverToBoxAdapter(
+                  //   child: StoreDefaultInformationCard(
+                  //     key: storeDetailKey,
+                  //     storeDetail: state.storeDetail,
+                  //   ),
+                  // ),
                   SliverToBoxAdapter(
                     child: Container(
                       height: 10,

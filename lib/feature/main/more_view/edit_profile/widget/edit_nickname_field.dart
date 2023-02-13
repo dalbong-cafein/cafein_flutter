@@ -85,7 +85,7 @@ class _EditNicknameFieldState extends State<EditNicknameField> {
                 textInputAction: TextInputAction.next,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
-                    RegExp(r'[ㄱ-ㅎ가-힣0-9a-zA-Z]'),
+                    RegExp(r'[ㄱ-ㅎ가-힣0-9a-zA-Zㆍ|ᆢ]'),
                   ),
                 ],
                 decoration: const InputDecoration(
