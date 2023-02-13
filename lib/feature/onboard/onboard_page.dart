@@ -23,7 +23,7 @@ class _OnboardPageState extends State<OnboardPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColor.grey50,
+        backgroundColor: AppColor.grey100,
       ),
       body: Column(
         children: [

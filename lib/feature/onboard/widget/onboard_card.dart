@@ -36,7 +36,7 @@ class OnboardCard extends StatelessWidget {
     }
 
     return Container(
-      color: AppColor.grey50,
+      color: AppColor.grey100,
       height: 300,
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
