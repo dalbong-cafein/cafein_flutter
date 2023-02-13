@@ -172,48 +172,21 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
           final isPreview =
               context.read<AuthCubit>().state == const AuthPreviewed();
           if (state.isCreatePossible) {
-            if (state.isStickerPossible) {
-              if (isPreview) {
-                final result = await LoginDialog.show(context);
-                if (!result) {
-                  return;
-                }
-                return navigator.popUntil((route) => false);
-              }
-              await navigator.pushNamed(
-                CreatedReviewPage.routeName,
-                arguments: CreateReviewPageArguments(
-                  storeDetail: storeDetail,
-                  recommendation: state.recommendation,
-                ),
-              );
-              bloc.add(const StoreDetailReviewRequested());
-            } else {
-              final result = await CongestionStickerMaxDialog.show(context);
-
+            if (isPreview) {
+              final result = await LoginDialog.show(context);
               if (!result) {
                 return;
-              } else {
-                if (isPreview) {
-                  final result = await LoginDialog.show(context);
-
-                  if (!result) {
-                    return;
-                  }
-                  return navigator.popUntil((route) => false);
-                }
-
-                await navigator.pushNamed(
-                  CreatedReviewPage.routeName,
-                  arguments: CreateReviewPageArguments(
-                    storeDetail: storeDetail,
-                    recommendation: state.recommendation,
-                  ),
-                );
-
-                bloc.add(const StoreDetailReviewRequested());
               }
+              return navigator.popUntil((route) => false);
             }
+            await navigator.pushNamed(
+              CreatedReviewPage.routeName,
+              arguments: CreateReviewPageArguments(
+                storeDetail: storeDetail,
+                recommendation: state.recommendation,
+              ),
+            );
+            bloc.add(const StoreDetailReviewRequested());
           } else {
             if (state.reviewDeniedReason == "하루당 한 카페에 리뷰 등록은 한번만 가능합니다.") {
               CreatedReviewImpossibleDialog.show(context);

@@ -332,9 +332,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       final response = await reviewRepository.isPossible(event.storeId);
       final isPossible = response.data.isPossibleRegistration;
       final deniedReason = response.data.reason;
-      final stickerResponse = await stickerRepository.isPossibleSticker();
-      final isStickerPossible = stickerResponse.data.isPossibleIssue;
-      emit(StoreDetailReviewCreatePossible(isCreatePossible: isPossible, isStickerPossible: isStickerPossible, recommendation: event.recommendation , reviewDeniedReason: deniedReason));
+      emit(StoreDetailReviewCreatePossible(isCreatePossible: isPossible,  recommendation: event.recommendation , reviewDeniedReason: deniedReason));
 
     } catch (e) {
       emit(
