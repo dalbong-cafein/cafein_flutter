@@ -26,6 +26,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeRequested>(_onHomeRequested);
     on<HomeRecommendStoreRequested>(_onHomeRecommendStoreRequested);
     on<HomeStoreHeartRequested>(_onHomeStoreHeartRequested);
+
+    add(const HomeRequested());
   }
 
   final bool isPreview;
