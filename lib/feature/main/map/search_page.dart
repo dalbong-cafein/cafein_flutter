@@ -144,7 +144,7 @@ class _SearchPageState extends State<SearchPage> {
                       autofocus: true,
                       decoration: const InputDecoration(
                         counterText: '',
-                        hintText: '카페 이름, 지하철, 지역 등으로 검색',
+                        hintText: '대학교, 지하철, 지역, 카페 이름 등으로 검색',
                       ),
                       onEditingComplete: () {
                         isEditCompleted = true;
