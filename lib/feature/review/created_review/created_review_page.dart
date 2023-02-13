@@ -96,6 +96,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
 
               if (!result) {
                 navigator.pop();
+
                 return;
               }
 
@@ -104,7 +105,7 @@ class _CreatedReviewPageState extends State<CreatedReviewPage> {
               );
             } else if (state is CreatedReviewPossibleChecked) {
               if (state.isAvailable) {
-                bloc.add(const CreatedReviewStickerPossibleRequested());
+                bloc.add(const CreatedReviewRequested(isAvailable: true));
 
                 return;
               }

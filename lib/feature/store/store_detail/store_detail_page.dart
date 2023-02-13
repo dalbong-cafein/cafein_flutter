@@ -5,7 +5,6 @@ import 'package:cafein_flutter/feature/main/more_view/notice/notice_detail_page.
 import 'package:cafein_flutter/feature/review/created_review/created_review_page.dart';
 import 'package:cafein_flutter/feature/review/created_review/widget/created_review_impossible_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/bloc/store_detail_bloc.dart';
-import 'package:cafein_flutter/feature/store/store_detail/widget/congestion/congestion_sticker_max_dialog.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_congestion_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_default_information_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/widget/store_detail_card.dart';

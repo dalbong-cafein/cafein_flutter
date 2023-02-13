@@ -100,7 +100,18 @@ class _StoreCongestionCardState extends State<StoreCongestionCard> {
             );
           } else if (state is CongestionPossibleChecked) {
             if (state.isPossible) {
-              bloc.add(const CongestionStickerPossibleRequested());
+              final result = await CongestionCreateDialog.show(context);
+
+              if (result == -1) {
+                return;
+              }
+
+              bloc.add(
+                CongestionCreateRequested(
+                  isAvailable: true,
+                  score: result,
+                ),
+              );
 
               return;
             }

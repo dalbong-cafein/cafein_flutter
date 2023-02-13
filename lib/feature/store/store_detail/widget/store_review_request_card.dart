@@ -109,31 +109,28 @@ class _ReviewIconCoulmn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO : 테스트용
-    return BlocListener<StoreDetailBloc, StoreDetailState>(
-      listener: (context, state) async {
-      },
-      child: InkWell(
-        onTap: () async {
-          context.read<StoreDetailBloc>().add(
-              StoreDetailReviewCreateClicked(storeId: storeDetail.storeId, recommendation: recommendation));
-        },
-        child: Column(
-          children: [
-            loadAsset(
-              icon,
-              width: 56,
-              height: 56,
+    return InkWell(
+      onTap: () => context.read<StoreDetailBloc>().add(
+            StoreDetailReviewCreateClicked(
+              storeId: storeDetail.storeId,
+              recommendation: recommendation,
             ),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              style: AppStyle.caption13Medium.copyWith(
-                color: AppColor.grey400,
-              ),
+          ),
+      child: Column(
+        children: [
+          loadAsset(
+            icon,
+            width: 56,
+            height: 56,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            title,
+            style: AppStyle.caption13Medium.copyWith(
+              color: AppColor.grey400,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
