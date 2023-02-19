@@ -14,7 +14,7 @@ import 'package:cafein_flutter/widget/chip/store_additional_information_row.dart
 import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class SearchStoreCard extends StatelessWidget {
   const SearchStoreCard({

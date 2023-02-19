@@ -11,8 +11,8 @@ import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:cafein_flutter/util/calculate_distance.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';

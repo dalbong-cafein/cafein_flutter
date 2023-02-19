@@ -69,7 +69,7 @@ import 'package:cafein_flutter/feature/terms/terms_detail_page.dart';
 import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 import 'data/repository/notification_repository.dart';
 import 'feature/post_stop/bloc/post_stop_bloc.dart';
@@ -284,13 +284,12 @@ abstract class CafeinRoute {
           providers: [
             BlocProvider(
               create: (context) => StoreDetailBloc(
-                storeRepository: context.read<StoreRepository>(),
-                reviewRepository: context.read<ReviewRepository>(),
-                heartRepository: context.read<HeartRepository>(),
-                boardRepository: context.read<BoardRepository>(),
-                storeId: storeId,
-                stickerRepository:  context.read<StickerRepository>()
-              ),
+                  storeRepository: context.read<StoreRepository>(),
+                  reviewRepository: context.read<ReviewRepository>(),
+                  heartRepository: context.read<HeartRepository>(),
+                  boardRepository: context.read<BoardRepository>(),
+                  storeId: storeId,
+                  stickerRepository: context.read<StickerRepository>()),
             ),
             BlocProvider(
               create: (context) => CongestionBloc(
@@ -398,7 +397,7 @@ abstract class CafeinRoute {
         );
         break;
 
-      case PostStopPage.routeName :
+      case PostStopPage.routeName:
         final noticeId = settings.arguments as int;
         page = BlocProvider(
           create: (context) => PostStopBloc(

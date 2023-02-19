@@ -1,4 +1,4 @@
-import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 extension MarkerCopyWith on Marker {
   Marker copyWith({

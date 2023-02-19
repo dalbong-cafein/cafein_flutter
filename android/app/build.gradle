@@ -53,8 +53,6 @@ android {
 
     defaultConfig {
         applicationId "com.dalbong.cafein"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 26
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
@@ -74,6 +72,7 @@ android {
            signingConfig signingConfigs.release
        }
    }
+    namespace 'com.dalbong.cafein'
 }
 
 flutter {
@@ -83,4 +82,6 @@ flutter {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+    implementation "androidx.appcompat:appcompat:1.6.1"
 }

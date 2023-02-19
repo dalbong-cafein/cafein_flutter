@@ -1,5 +1,5 @@
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:latlong2/latlong.dart' as lat_lng;
-import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 int calculateDistance({
   required LatLng currentLatLng,

@@ -1,5 +1,5 @@
 import 'package:cafein_flutter/cafein_config.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 OverlayImage getMarkerIcon({
   required double? confuseScore,

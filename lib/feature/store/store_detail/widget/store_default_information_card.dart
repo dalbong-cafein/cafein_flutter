@@ -9,8 +9,8 @@ import 'package:cafein_flutter/util/datetime/am_pm_format.dart';
 import 'package:cafein_flutter/util/datetime/ymd_dot_format.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:intl/intl.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoreDefaultInformationCard extends StatelessWidget {

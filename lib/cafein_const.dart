@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:cafein_flutter/resource/resource.dart';
-import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 abstract class CafeinConst {
   static const defaultProfiles = [
