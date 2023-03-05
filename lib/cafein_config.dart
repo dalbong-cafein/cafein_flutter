@@ -61,6 +61,5 @@ class AppConfig {
 
   AppConfig.live()
       : flavor = Flavor.live,
-  //TODO 자동완성
-        baseUrl = 'https://test.cafeinofficial.com';
+        baseUrl = 'https://api.cafeinofficial.com';
 }
