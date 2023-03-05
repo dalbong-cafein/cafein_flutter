@@ -43,9 +43,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final textController = TextEditingController();
   //final pagingController =
-    //PagingController<int, AutoCompletedStore>(firstPageKey: 1);
-  //TODO : 자동완성
-      //PagingController<int, KakaoStoreResponse>(firstPageKey: 1);
+  // PagingController<int, KakaoStoreResponse>(firstPageKey: 1);
   final debouncer = Debouncer(
     milliseconds: 100,
   );
@@ -91,8 +89,7 @@ class _SearchPageState extends State<SearchPage> {
             error: state.error,
             refresh: state.event,
           );
-        } else if (state is SearchKakaoLoaded) {
-          //TODO : 자동완성
+        } else if (state is SearchAutoCompletedStoreLoaded) {
           // pagingController.value = PagingState(
           //   itemList: state.storeList,
           //   nextPageKey: state.nextPage,
@@ -188,7 +185,7 @@ class _SearchPageState extends State<SearchPage> {
           body: BlocBuilder<SearchBloc, SearchState>(
             buildWhen: (pre, next) =>
                 next is SearchRecentKeywordLoaded ||
-                next is SearchKakaoLoaded ||
+                next is SearchAutoCompletedStoreLoaded ||
                 next is SearchStoreLoading ||
                 next is SearchStoreLoaded,
             builder: (context, state) {
@@ -219,7 +216,7 @@ class _SearchPageState extends State<SearchPage> {
                 return SearchEmptyStoreCard(
                   keyword: state.keyword,
                 );
-              } else if (state is SearchKakaoLoaded) {
+              } else if (state is SearchAutoCompletedStoreLoaded) {
                 if (state.storeList.isEmpty) {
                   return const SizedBox.shrink();
                 }
@@ -231,8 +228,6 @@ class _SearchPageState extends State<SearchPage> {
                           isEditCompleted = true;
                           textController.text =
                               state.storeList[index].storeName;
-                          //TODO : 자동완성
-                          //state.storeList[index].placeName;
                           context.read<SearchBloc>().add(
                             SearchStoreRequested(
                               keyword: textController.text,
@@ -258,7 +253,6 @@ class _SearchPageState extends State<SearchPage> {
                 //           isEditCompleted = true;
                 //           textController.text =
                 //               state.storeList[index].storeName;
-                //               //TODO : 자동완성
                 //               //state.storeList[index].placeName;
                 //           context.read<SearchBloc>().add(
                 //                 SearchStoreRequested(

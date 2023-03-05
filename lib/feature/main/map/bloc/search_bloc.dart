@@ -161,7 +161,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(const SearchLoading());
 
     if (keyword.length < 2) {
-      emit(SearchKakaoLoaded(
+      emit(SearchStoreLoaded(
         storeList: const [],
         keyword: keyword,
       ));
@@ -175,7 +175,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final autoCompletedStoreList = response.data;
 
       emit(
-        SearchKakaoLoaded(
+        SearchAutoCompletedStoreLoaded(
           storeList: [...autoCompletedStoreList],
           keyword: keyword,
           nextPage: autoCompletedStoreList.length == 15 ? 1 : null,

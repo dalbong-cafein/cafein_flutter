@@ -12,8 +12,6 @@ class SearchStoreResultCard extends StatelessWidget {
   }) : super(key: key);
 
   final String keyword;
-  //TODO : 자동완성
-  //final KakaoStoreResponse store;
   final AutoCompletedStore store;
   @override
   Widget build(BuildContext context) {
@@ -32,8 +30,6 @@ class SearchStoreResultCard extends StatelessWidget {
               text: TextSpan(
                 children: highlightOccurrences(
                   store.storeName,
-                  //TODO : 자동완성
-                  //store.placeName,
                   keyword,
                 ),
                 style: AppStyle.subTitle16Medium.copyWith(
@@ -42,8 +38,6 @@ class SearchStoreResultCard extends StatelessWidget {
               ),
             ),
             Text(
-              //TODO : 자동완성
-              //store.roadAddressName,
               store.storeName,
               style: AppStyle.caption13Regular.copyWith(
                 color: AppColor.grey600,
