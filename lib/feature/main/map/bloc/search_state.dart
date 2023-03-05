@@ -39,14 +39,13 @@ class SearchKeywordValidationChecked extends SearchState {
   List<Object?> get props => [isEmpty];
 }
 
-class SearchKakaoLoaded extends SearchState {
-  const SearchKakaoLoaded({
+class SearchAutoCompletedStoreLoaded extends SearchState {
+  const SearchAutoCompletedStoreLoaded({
     required this.storeList,
     required this.keyword,
     this.nextPage,
   });
-
-  final List<KakaoStoreResponse> storeList;
+  final List<AutoCompletedStore> storeList;
   final int? nextPage;
   final String keyword;
 

@@ -1,4 +1,3 @@
-import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/widget/search/search_empty_result_card.dart';
@@ -13,7 +12,6 @@ import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class SearchPageResult {
   final List<Store> storeList;
@@ -41,8 +39,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final textController = TextEditingController();
-  final pagingController =
-      PagingController<int, KakaoStoreResponse>(firstPageKey: 1);
+  //final pagingController =
+  // PagingController<int, KakaoStoreResponse>(firstPageKey: 1);
   final debouncer = Debouncer(
     milliseconds: 100,
   );
@@ -54,23 +52,23 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     final bloc = context.read<SearchBloc>();
     textController.addListener(() {
-      if (textController.text.isNotEmpty && !isEditCompleted) {
+      if (textController.text.isNotEmpty && !isEditCompleted ) {
         bloc.add(SearchKeywordChanged(text: textController.text));
         debouncer.run(() => bloc.add(const SearchKakaoStoreRequested()));
       }
     });
-    pagingController.addPageRequestListener(
-      (_) => context.read<SearchBloc>().add(
-            const SearchKakaoStoreRequested(
-              isMoreRequested: true,
-            ),
-          ),
-    );
+    // pagingController.addPageRequestListener(
+    //   (_) => context.read<SearchBloc>().add(
+    //         const SearchKakaoStoreRequested(
+    //           isMoreRequested: true,
+    //         ),
+    //       ),
+    // );
   }
 
   @override
   void dispose() {
-    pagingController.dispose();
+    //pagingController.dispose();
     textController.dispose();
     super.dispose();
   }
@@ -88,16 +86,16 @@ class _SearchPageState extends State<SearchPage> {
             error: state.error,
             refresh: state.event,
           );
-        } else if (state is SearchKakaoLoaded) {
-          pagingController.value = PagingState(
-            itemList: state.storeList,
-            nextPageKey: state.nextPage,
-            error: null,
-          );
+        } else if (state is SearchAutoCompletedStoreLoaded) {
+          // pagingController.value = PagingState(
+          //   itemList: state.storeList,
+          //   nextPageKey: state.nextPage,
+          //   error: null,
+          // );
         } else if (state is SearchStoreLoaded) {
           isEditCompleted = false;
           if (state.storeList.isEmpty) {
-            return;
+            return ;
           }
 
           navigator.pop(
@@ -184,7 +182,7 @@ class _SearchPageState extends State<SearchPage> {
           body: BlocBuilder<SearchBloc, SearchState>(
             buildWhen: (pre, next) =>
                 next is SearchRecentKeywordLoaded ||
-                next is SearchKakaoLoaded ||
+                next is SearchAutoCompletedStoreLoaded ||
                 next is SearchStoreLoading ||
                 next is SearchStoreLoaded,
             builder: (context, state) {
@@ -208,66 +206,86 @@ class _SearchPageState extends State<SearchPage> {
               } else if (state is SearchStoreLoading) {
                 return const CustomCircleLoadingIndicator();
               } else if (state is SearchStoreLoaded) {
-                if (state.storeList.isNotEmpty) {
+                if (state.storeList.isNotEmpty || state.keyword.length < 2) {
                   return const SizedBox.shrink();
                 }
-
                 return SearchEmptyStoreCard(
                   keyword: state.keyword,
                 );
-              } else if (state is SearchKakaoLoaded) {
+              } else if (state is SearchAutoCompletedStoreLoaded) {
                 if (state.storeList.isEmpty) {
                   return const SizedBox.shrink();
                 }
-
                 return SafeArea(
-                  child: PagedListView.separated(
-                    padding: EdgeInsets.zero,
-                    pagingController: pagingController,
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      itemBuilder: (context, item, index) => InkWell(
+                    child: ListView.builder(
+                      itemCount: state.storeList.length,
+                      itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           isEditCompleted = true;
                           textController.text =
-                              state.storeList[index].placeName;
+                              state.storeList[index].storeName;
                           context.read<SearchBloc>().add(
-                                SearchStoreRequested(
-                                  keyword: textController.text,
-                                ),
-                              );
+                            SearchStoreRequested(
+                              keyword: textController.text,
+                            ),
+                          );
                         },
                         child: SearchStoreResultCard(
                           keyword: state.keyword,
                           store: state.storeList[index],
                         ),
-                      ),
-                      firstPageProgressIndicatorBuilder: (_) =>
-                          const SizedBox.shrink(),
-                      newPageProgressIndicatorBuilder: (_) => const SizedBox(
-                        height: 64,
-                        child: Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
-                      ),
-                      firstPageErrorIndicatorBuilder: (_) =>
-                          const SizedBox.shrink(),
-                      newPageErrorIndicatorBuilder: (_) =>
-                          const SizedBox.shrink(),
-                      noMoreItemsIndicatorBuilder: (_) =>
-                          const SizedBox.shrink(),
-                      noItemsFoundIndicatorBuilder: (_) => SearchEmptyStoreCard(
-                        keyword: state.keyword,
-                      ),
-                    ),
-                    itemExtent: 64,
-                    separatorBuilder: (context, index) => Container(
-                      height: 1,
-                      color: AppColor.grey300,
-                    ),
-                  ),
+                      )
+                    )
                 );
+                // return SafeArea(
+                //   child: PagedListView.separated(
+                //     padding: EdgeInsets.zero,
+                //     pagingController: pagingController,
+                //     keyboardDismissBehavior:
+                //         ScrollViewKeyboardDismissBehavior.onDrag,
+                //     builderDelegate: PagedChildBuilderDelegate(
+                //       itemBuilder: (context, item, index) => InkWell(
+                //         onTap: () {
+                //           isEditCompleted = true;
+                //           textController.text =
+                //               state.storeList[index].storeName;
+                //               //state.storeList[index].placeName;
+                //           context.read<SearchBloc>().add(
+                //                 SearchStoreRequested(
+                //                   keyword: textController.text,
+                //                 ),
+                //               );
+                //         },
+                //         child: SearchStoreResultCard(
+                //           keyword: state.keyword,
+                //           store: state.storeList[index],
+                //         ),
+                //       ),
+                //       firstPageProgressIndicatorBuilder: (_) =>
+                //           const SizedBox.shrink(),
+                //       newPageProgressIndicatorBuilder: (_) => const SizedBox(
+                //         height: 64,
+                //         child: Center(
+                //           child: CircularProgressIndicator.adaptive(),
+                //         ),
+                //       ),
+                //       firstPageErrorIndicatorBuilder: (_) =>
+                //           const SizedBox.shrink(),
+                //       newPageErrorIndicatorBuilder: (_) =>
+                //           const SizedBox.shrink(),
+                //       noMoreItemsIndicatorBuilder: (_) =>
+                //           const SizedBox.shrink(),
+                //       noItemsFoundIndicatorBuilder: (_) => SearchEmptyStoreCard(
+                //         keyword: state.keyword,
+                //       ),
+                //     ),
+                //     itemExtent: 64,
+                //     separatorBuilder: (context, index) => Container(
+                //       height: 1,
+                //       color: AppColor.grey300,
+                //     ),
+                //   ),
+                // );
               }
               return const SearchEmptyResultCard();
             },

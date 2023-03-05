@@ -1,5 +1,6 @@
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/store/auto_completed_store.dart';
 import 'package:cafein_flutter/data/model/store/recommended_store.dart';
 import 'package:cafein_flutter/data/model/store/registered_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
@@ -43,4 +44,9 @@ abstract class StoreClient {
   Future<BaseResponse<List<Store>>> getNearStoreList(
     @Path() int storeId,
   );
+
+  @GET('/stores/autocomplete-search?keyword={keyword}')
+  Future<BaseResponse<List<AutoCompletedStore>>> getAutoCompletedStoreList(
+      @Path() String keyword,
+      );
 }

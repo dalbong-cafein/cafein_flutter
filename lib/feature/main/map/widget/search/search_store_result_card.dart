@@ -1,4 +1,4 @@
-import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
+import 'package:cafein_flutter/data/model/store/auto_completed_store.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,7 @@ class SearchStoreResultCard extends StatelessWidget {
   }) : super(key: key);
 
   final String keyword;
-  final KakaoStoreResponse store;
-
+  final AutoCompletedStore store;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,7 +28,7 @@ class SearchStoreResultCard extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: highlightOccurrences(
-                  store.placeName,
+                  store.storeName,
                   keyword,
                 ),
                 style: AppStyle.subTitle16Medium.copyWith(
@@ -38,7 +37,7 @@ class SearchStoreResultCard extends StatelessWidget {
               ),
             ),
             Text(
-              store.roadAddressName,
+              store.storeName,
               style: AppStyle.caption13Regular.copyWith(
                 color: AppColor.grey600,
               ),

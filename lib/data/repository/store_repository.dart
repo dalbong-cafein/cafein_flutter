@@ -3,6 +3,7 @@ import 'package:cafein_flutter/data/datasource/remote/form_data_client/store_for
 import 'package:cafein_flutter/data/datasource/remote/kakao/kakao_api_client.dart';
 import 'package:cafein_flutter/data/datasource/remote/retrofit/store_client.dart';
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
+import 'package:cafein_flutter/data/model/store/auto_completed_store.dart';
 import 'package:cafein_flutter/data/model/store/recommended_store.dart';
 import 'package:cafein_flutter/data/model/store/registered_store.dart';
 import 'package:cafein_flutter/data/model/store/registered_store_request.dart';
@@ -40,6 +41,10 @@ abstract class StoreRepository {
 
   Future<BaseResponse<List<Store>>> getNearStoreList(
     int storeId,
+  );
+
+  Future<BaseResponse<List<AutoCompletedStore>>> getAutoCompletedStoreList(
+    String keyword,
   );
 
   Future<List<KakaoStoreResponse>> getKakaoStores({
@@ -116,4 +121,9 @@ class StoreRepositoryImpl extends StoreRepository {
         page: page,
         size: size,
       );
+
+  @override
+  Future<BaseResponse<List<AutoCompletedStore>>> getAutoCompletedStoreList(
+          String keyword) =>
+      storeClient.getAutoCompletedStoreList(keyword);
 }

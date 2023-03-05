@@ -13,7 +13,7 @@ class _ReportClient implements ReportClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://test.cafeinofficial.com';
+    baseUrl ??= 'https://api.cafeinofficial.com';
   }
 
   final Dio _dio;
