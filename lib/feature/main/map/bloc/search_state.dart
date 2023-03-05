@@ -45,8 +45,9 @@ class SearchKakaoLoaded extends SearchState {
     required this.keyword,
     this.nextPage,
   });
-
-  final List<KakaoStoreResponse> storeList;
+  //TODO : 자동완성 검색어 업데이트
+  //final List<KakaoStoreResponse> storeList;
+  final List<AutoCompletedStore> storeList;
   final int? nextPage;
   final String keyword;
 

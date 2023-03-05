@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cafein_flutter/data/model/common/search_data.dart';
 import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
+import 'package:cafein_flutter/data/model/store/auto_completed_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/data/repository/app_repository.dart';
 import 'package:cafein_flutter/data/repository/board_repository.dart';
@@ -109,10 +110,54 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
+  // FutureOr<void> _onSearchKakaoStoreRequested(
+  //   SearchKakaoStoreRequested event,
+  //   Emitter<SearchState> emit,
+  // ) async {
+  //   emit(const SearchLoading());
+  //
+  //   if (keyword.length < 2) {
+  //     emit(SearchKakaoLoaded(
+  //       storeList: const [],
+  //       keyword: keyword,
+  //     ));
+  //
+  //     return;
+  //   }
+  //
+  //   try {
+  //     final response = await storeRepository.getKakaoStores(
+  //       query: keyword,
+  //       page: page++,
+  //       size: 15,
+  //     );
+  //
+  //     kakaoStoreList = [
+  //       ...(event.isMoreRequested ? kakaoStoreList : []),
+  //       ...response,
+  //     ];
+  //
+  //     emit(
+  //       SearchKakaoLoaded(
+  //         storeList: [...kakaoStoreList],
+  //         keyword: keyword,
+  //         nextPage: response.length == 15 ? 1 : null,
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     emit(
+  //       SearchError(
+  //         error: e,
+  //         event: () => add(event),
+  //       ),
+  //     );
+  //   }
+  // }
+
   FutureOr<void> _onSearchKakaoStoreRequested(
-    SearchKakaoStoreRequested event,
-    Emitter<SearchState> emit,
-  ) async {
+      SearchKakaoStoreRequested event,
+      Emitter<SearchState> emit,
+      ) async {
     emit(const SearchLoading());
 
     if (keyword.length < 2) {
@@ -125,22 +170,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     try {
-      final response = await storeRepository.getKakaoStores(
-        query: keyword,
-        page: page++,
-        size: 15,
-      );
+      final response = await storeRepository.getAutoCompletedStoreList(keyword);
 
-      kakaoStoreList = [
-        ...(event.isMoreRequested ? kakaoStoreList : []),
-        ...response,
-      ];
+      final autoCompletedStoreList = response.data;
 
       emit(
         SearchKakaoLoaded(
-          storeList: [...kakaoStoreList],
+          storeList: [...autoCompletedStoreList],
           keyword: keyword,
-          nextPage: response.length == 15 ? 1 : null,
+          nextPage: autoCompletedStoreList.length == 15 ? 1 : null,
         ),
       );
     } catch (e) {
