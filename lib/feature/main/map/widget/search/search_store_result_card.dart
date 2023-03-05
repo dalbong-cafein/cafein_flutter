@@ -1,4 +1,3 @@
-import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
 import 'package:cafein_flutter/data/model/store/auto_completed_store.dart';
 import 'package:cafein_flutter/resource/resource.dart';
 import 'package:flutter/cupertino.dart';

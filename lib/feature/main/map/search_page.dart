@@ -1,5 +1,3 @@
-import 'package:cafein_flutter/data/model/kakao/kakao_store_response.dart';
-import 'package:cafein_flutter/data/model/store/auto_completed_store.dart';
 import 'package:cafein_flutter/data/model/store/store.dart';
 import 'package:cafein_flutter/feature/main/map/bloc/search_bloc.dart';
 import 'package:cafein_flutter/feature/main/map/widget/search/search_empty_result_card.dart';
@@ -14,7 +12,6 @@ import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class SearchPageResult {
   final List<Store> storeList;
@@ -55,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     final bloc = context.read<SearchBloc>();
     textController.addListener(() {
-      if (textController.text.isNotEmpty && !isEditCompleted) {
+      if (textController.text.isNotEmpty && !isEditCompleted ) {
         bloc.add(SearchKeywordChanged(text: textController.text));
         debouncer.run(() => bloc.add(const SearchKakaoStoreRequested()));
       }
@@ -98,7 +95,7 @@ class _SearchPageState extends State<SearchPage> {
         } else if (state is SearchStoreLoaded) {
           isEditCompleted = false;
           if (state.storeList.isEmpty) {
-            return;
+            return ;
           }
 
           navigator.pop(
@@ -209,10 +206,9 @@ class _SearchPageState extends State<SearchPage> {
               } else if (state is SearchStoreLoading) {
                 return const CustomCircleLoadingIndicator();
               } else if (state is SearchStoreLoaded) {
-                if (state.storeList.isNotEmpty) {
+                if (state.storeList.isNotEmpty || state.keyword.length < 2) {
                   return const SizedBox.shrink();
                 }
-
                 return SearchEmptyStoreCard(
                   keyword: state.keyword,
                 );
