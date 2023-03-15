@@ -37,7 +37,7 @@ class SearchStoreResultCard extends StatelessWidget {
               ),
             ),
             Text(
-              store.storeName,
+              store.fullAddress,
               style: AppStyle.caption13Regular.copyWith(
                 color: AppColor.grey600,
               ),
