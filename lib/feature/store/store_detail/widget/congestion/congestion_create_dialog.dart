@@ -23,7 +23,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        height: 300,
+        height: 280,
         width: 300,
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -39,6 +39,7 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                 ),
               ),
               const SizedBox(height: 8),
+
               const Text(
                 '지금 카페의 혼잡도는 어떤가요?',
                 style: AppStyle.subTitle17Bold,
