@@ -43,14 +43,6 @@ class _CongestionCreateDialogState extends State<CongestionCreateDialog> {
                 '지금 카페의 혼잡도는 어떤가요?',
                 style: AppStyle.subTitle17Bold,
               ),
-              const SizedBox(height: 12),
-              Text(
-                '혼잡도를 알려주시면 스티커를 드려요.',
-                style: AppStyle.body14Regular.copyWith(
-                  color: AppColor.grey600,
-                ),
-                textAlign: TextAlign.center,
-              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
