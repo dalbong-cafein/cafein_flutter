@@ -38,7 +38,7 @@ abstract class AppImage {
 
   static const phoneSuccess = "asset/image/phone_success_image.png";
 
-  static const confGood = "asset/image/conf_normal_image.svg";
+  static const confGood = "asset/image/conf_good_image.svg";
   static const confNormal = "asset/image/conf_normal_image.svg";
   static const confBad = "asset/image/conf_bad_image.svg";
   static const confGoodGrey = "asset/image/character/conf_good_off.png";
