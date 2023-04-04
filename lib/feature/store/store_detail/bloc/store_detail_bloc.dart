@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';

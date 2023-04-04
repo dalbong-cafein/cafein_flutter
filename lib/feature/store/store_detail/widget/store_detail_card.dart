@@ -18,10 +18,15 @@ class StoreDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageList = [
+    var imageList = [
       ...storeDetail.storeImageList.map((e) => e.imageUrl),
       ...storeDetail.reviewImageList.map((e) => e.imageUrl),
     ];
+
+    final representImage = storeDetail.representImage;
+    if(representImage != null){
+      imageList = [representImage.imageUrl ,...imageList];
+    }
 
     return SliverToBoxAdapter(
       child: Padding(
