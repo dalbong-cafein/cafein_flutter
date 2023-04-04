@@ -9,6 +9,7 @@ import 'package:cafein_flutter/data/repository/store_repository.dart';
 import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
 
 part 'home_event.dart';
@@ -40,6 +41,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   List<Store> currentRecommendedStores = [];
 
+  LatLng currentLatLng = CafeinConst.defaultLating;
+
   bool isGranted = false;
 
   FutureOr<void> _onHomeRequested(
@@ -49,6 +52,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(const HomeLoading());
     if (isPreview) {
       try {
+
         final boardResponse = await boardRepository.getLatestEvent();
 
         final homeEventImageUrl = boardResponse.data.imageIdPair.imageUrl;
@@ -110,11 +114,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
 
     try {
-      final result = await Geolocator.getCurrentPosition();
-
       late final String currentLocation;
 
       try {
+
+        final result = await Geolocator.getCurrentPosition();
+
+        currentLatLng = LatLng(
+          result.latitude,
+          result.longitude,
+        );
+
         currentLocation = await userRepository.getCurrentLocation(
           longitude: result.longitude,
           latitude: result.latitude,

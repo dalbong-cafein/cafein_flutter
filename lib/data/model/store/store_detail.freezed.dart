@@ -36,6 +36,7 @@ mixin _$StoreDetail {
   double get latY => throw _privateConstructorUsedError;
   List<ImageIdPair> get reviewImageList => throw _privateConstructorUsedError;
   List<ImageIdPair> get storeImageList => throw _privateConstructorUsedError;
+  ImageIdPair? get representImage => throw _privateConstructorUsedError;
   double? get congestionScoreAvg => throw _privateConstructorUsedError;
   @JsonKey(name: 'totalBusinessHoursResDto')
   TotalBusinessInfo? get totalBusinessInfo =>
@@ -74,6 +75,7 @@ abstract class $StoreDetailCopyWith<$Res> {
       double latY,
       List<ImageIdPair> reviewImageList,
       List<ImageIdPair> storeImageList,
+      ImageIdPair? representImage,
       double? congestionScoreAvg,
       @JsonKey(name: 'totalBusinessHoursResDto')
           TotalBusinessInfo? totalBusinessInfo,
@@ -85,6 +87,7 @@ abstract class $StoreDetailCopyWith<$Res> {
   $ImageIdPairCopyWith<$Res>? get imageIdPair;
   $AddressInfoCopyWith<$Res> get addressInfo;
   $BusinessInfoCopyWith<$Res> get businessInfo;
+  $ImageIdPairCopyWith<$Res>? get representImage;
   $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo;
 }
 
@@ -114,6 +117,7 @@ class _$StoreDetailCopyWithImpl<$Res, $Val extends StoreDetail>
     Object? latY = null,
     Object? reviewImageList = null,
     Object? storeImageList = null,
+    Object? representImage = freezed,
     Object? congestionScoreAvg = freezed,
     Object? totalBusinessInfo = freezed,
     Object? regDateTime = null,
@@ -174,6 +178,10 @@ class _$StoreDetailCopyWithImpl<$Res, $Val extends StoreDetail>
           ? _value.storeImageList
           : storeImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
+      representImage: freezed == representImage
+          ? _value.representImage
+          : representImage // ignore: cast_nullable_to_non_nullable
+              as ImageIdPair?,
       congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
@@ -231,6 +239,18 @@ class _$StoreDetailCopyWithImpl<$Res, $Val extends StoreDetail>
 
   @override
   @pragma('vm:prefer-inline')
+  $ImageIdPairCopyWith<$Res>? get representImage {
+    if (_value.representImage == null) {
+      return null;
+    }
+
+    return $ImageIdPairCopyWith<$Res>(_value.representImage!, (value) {
+      return _then(_value.copyWith(representImage: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo {
     if (_value.totalBusinessInfo == null) {
       return null;
@@ -267,6 +287,7 @@ abstract class _$$_StoreDetailCopyWith<$Res>
       double latY,
       List<ImageIdPair> reviewImageList,
       List<ImageIdPair> storeImageList,
+      ImageIdPair? representImage,
       double? congestionScoreAvg,
       @JsonKey(name: 'totalBusinessHoursResDto')
           TotalBusinessInfo? totalBusinessInfo,
@@ -281,6 +302,8 @@ abstract class _$$_StoreDetailCopyWith<$Res>
   $AddressInfoCopyWith<$Res> get addressInfo;
   @override
   $BusinessInfoCopyWith<$Res> get businessInfo;
+  @override
+  $ImageIdPairCopyWith<$Res>? get representImage;
   @override
   $TotalBusinessInfoCopyWith<$Res>? get totalBusinessInfo;
 }
@@ -309,6 +332,7 @@ class __$$_StoreDetailCopyWithImpl<$Res>
     Object? latY = null,
     Object? reviewImageList = null,
     Object? storeImageList = null,
+    Object? representImage = freezed,
     Object? congestionScoreAvg = freezed,
     Object? totalBusinessInfo = freezed,
     Object? regDateTime = null,
@@ -369,6 +393,10 @@ class __$$_StoreDetailCopyWithImpl<$Res>
           ? _value._storeImageList
           : storeImageList // ignore: cast_nullable_to_non_nullable
               as List<ImageIdPair>,
+      representImage: freezed == representImage
+          ? _value.representImage
+          : representImage // ignore: cast_nullable_to_non_nullable
+              as ImageIdPair?,
       congestionScoreAvg: freezed == congestionScoreAvg
           ? _value.congestionScoreAvg
           : congestionScoreAvg // ignore: cast_nullable_to_non_nullable
@@ -414,6 +442,7 @@ class _$_StoreDetail implements _StoreDetail {
       required this.latY,
       required final List<ImageIdPair> reviewImageList,
       required final List<ImageIdPair> storeImageList,
+      this.representImage,
       this.congestionScoreAvg,
       @JsonKey(name: 'totalBusinessHoursResDto') this.totalBusinessInfo,
       required this.regDateTime,
@@ -466,6 +495,8 @@ class _$_StoreDetail implements _StoreDetail {
   }
 
   @override
+  final ImageIdPair? representImage;
+  @override
   final double? congestionScoreAvg;
   @override
   @JsonKey(name: 'totalBusinessHoursResDto')
@@ -481,7 +512,7 @@ class _$_StoreDetail implements _StoreDetail {
 
   @override
   String toString() {
-    return 'StoreDetail(storeId: $storeId, storeName: $storeName, nicknameOfModMember: $nicknameOfModMember, imageIdPair: $imageIdPair, addressInfo: $addressInfo, wifiPassword: $wifiPassword, heartCnt: $heartCnt, isHeart: $isHeart, businessInfo: $businessInfo, lngX: $lngX, latY: $latY, reviewImageList: $reviewImageList, storeImageList: $storeImageList, congestionScoreAvg: $congestionScoreAvg, totalBusinessInfo: $totalBusinessInfo, regDateTime: $regDateTime, modDateTime: $modDateTime, phone: $phone, website: $website)';
+    return 'StoreDetail(storeId: $storeId, storeName: $storeName, nicknameOfModMember: $nicknameOfModMember, imageIdPair: $imageIdPair, addressInfo: $addressInfo, wifiPassword: $wifiPassword, heartCnt: $heartCnt, isHeart: $isHeart, businessInfo: $businessInfo, lngX: $lngX, latY: $latY, reviewImageList: $reviewImageList, storeImageList: $storeImageList, representImage: $representImage, congestionScoreAvg: $congestionScoreAvg, totalBusinessInfo: $totalBusinessInfo, regDateTime: $regDateTime, modDateTime: $modDateTime, phone: $phone, website: $website)';
   }
 
   @override
@@ -511,6 +542,8 @@ class _$_StoreDetail implements _StoreDetail {
                 .equals(other._reviewImageList, _reviewImageList) &&
             const DeepCollectionEquality()
                 .equals(other._storeImageList, _storeImageList) &&
+            (identical(other.representImage, representImage) ||
+                other.representImage == representImage) &&
             (identical(other.congestionScoreAvg, congestionScoreAvg) ||
                 other.congestionScoreAvg == congestionScoreAvg) &&
             (identical(other.totalBusinessInfo, totalBusinessInfo) ||
@@ -540,6 +573,7 @@ class _$_StoreDetail implements _StoreDetail {
         latY,
         const DeepCollectionEquality().hash(_reviewImageList),
         const DeepCollectionEquality().hash(_storeImageList),
+        representImage,
         congestionScoreAvg,
         totalBusinessInfo,
         regDateTime,
@@ -580,6 +614,7 @@ abstract class _StoreDetail implements StoreDetail {
       required final double latY,
       required final List<ImageIdPair> reviewImageList,
       required final List<ImageIdPair> storeImageList,
+      final ImageIdPair? representImage,
       final double? congestionScoreAvg,
       @JsonKey(name: 'totalBusinessHoursResDto')
           final TotalBusinessInfo? totalBusinessInfo,
@@ -620,6 +655,8 @@ abstract class _StoreDetail implements StoreDetail {
   List<ImageIdPair> get reviewImageList;
   @override
   List<ImageIdPair> get storeImageList;
+  @override
+  ImageIdPair? get representImage;
   @override
   double? get congestionScoreAvg;
   @override

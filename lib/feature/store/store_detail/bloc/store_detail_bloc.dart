@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
+import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -12,8 +14,11 @@ import 'package:cafein_flutter/data/repository/heart_repository.dart';
 import 'package:cafein_flutter/data/repository/review_repository.dart';
 import 'package:cafein_flutter/data/repository/sticker_repository.dart';
 import 'package:cafein_flutter/data/repository/store_repository.dart';
+import 'package:cafein_flutter/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:geolocator/geolocator.dart';
 
 part 'store_detail_event.dart';
 
@@ -26,7 +31,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     required this.heartRepository,
     required this.boardRepository,
     required this.storeId,
-    required this.stickerRepository
+    required this.stickerRepository,
+    required this.userRepository
   }) : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
@@ -45,6 +51,7 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   final HeartRepository heartRepository;
   final BoardRepository boardRepository;
   final StickerRepository stickerRepository;
+  final UserRepository userRepository;
 
   final int storeId;
 
@@ -53,6 +60,8 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   String storeName = '';
 
   List<Store> nearStoreList = [];
+
+  LatLng currentLatLng = CafeinConst.defaultLating;
 
   StoreDetail? storeDetail;
   Event? lastEvent;
@@ -66,6 +75,14 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     emit(const StoreDetailLoading());
 
     try {
+
+      final result = await Geolocator.getCurrentPosition();
+
+      currentLatLng = LatLng(
+        result.latitude,
+        result.longitude,
+      );
+
       final storeDetailResponse = storeRepository.getStoreDetail(
         storeId,
       );

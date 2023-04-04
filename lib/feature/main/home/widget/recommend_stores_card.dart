@@ -6,6 +6,7 @@ import 'package:cafein_flutter/feature/main/home/bloc/home_bloc.dart';
 import 'package:cafein_flutter/feature/main/home/widget/request_location_card.dart';
 import 'package:cafein_flutter/feature/store/store_detail/store_detail_page.dart';
 import 'package:cafein_flutter/resource/resource.dart';
+import 'package:cafein_flutter/util/calculate_distance.dart';
 import 'package:cafein_flutter/util/load_asset.dart';
 import 'package:cafein_flutter/widget/chip/confuse_chip.dart';
 import 'package:cafein_flutter/widget/chip/open_close_chip.dart';
@@ -15,6 +16,7 @@ import 'package:cafein_flutter/widget/dialog/login_dialog.dart';
 import 'package:cafein_flutter/widget/indicator/custom_circle_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class RecommendStoresCard extends StatelessWidget {
@@ -221,7 +223,10 @@ class RecommendStoresCard extends StatelessWidget {
                                                     textStyle: AppStyle
                                                         .caption12Regular
                                                         .copyWith(height: 1),
-                                                    distance: (state.recommendStores[index].distance ?? 0).toInt() ,
+                                                    distance: calculateDistance(
+                                                      currentLatLng: context.watch<HomeBloc>().currentLatLng,
+                                                      targetLatLng: LatLng(state.recommendStores[index].latY, state.recommendStores[index].lngX),
+                                                    ),
                                                     recommendScore: state
                                                             .recommendStores[
                                                                 index]

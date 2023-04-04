@@ -70,6 +70,7 @@ import 'package:cafein_flutter/feature/terms/terms_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 import 'data/repository/notification_repository.dart';
 import 'feature/post_stop/bloc/post_stop_bloc.dart';
@@ -289,7 +290,9 @@ abstract class CafeinRoute {
                   heartRepository: context.read<HeartRepository>(),
                   boardRepository: context.read<BoardRepository>(),
                   storeId: storeId,
-                  stickerRepository: context.read<StickerRepository>()),
+                  stickerRepository: context.read<StickerRepository>(),
+                userRepository: context.read<UserRepository>()
+              ),
             ),
             BlocProvider(
               create: (context) => CongestionBloc(

@@ -30,6 +30,10 @@ _$_StoreDetail _$$_StoreDetailFromJson(Map<String, dynamic> json) =>
       storeImageList: (json['storeImageList'] as List<dynamic>)
           .map((e) => ImageIdPair.fromJson(e as Map<String, dynamic>))
           .toList(),
+      representImage: json['representImage'] == null
+          ? null
+          : ImageIdPair.fromJson(
+              json['representImage'] as Map<String, dynamic>),
       congestionScoreAvg: (json['congestionScoreAvg'] as num?)?.toDouble(),
       totalBusinessInfo: json['totalBusinessHoursResDto'] == null
           ? null
@@ -56,6 +60,7 @@ Map<String, dynamic> _$$_StoreDetailToJson(_$_StoreDetail instance) =>
       'latY': instance.latY,
       'reviewImageList': instance.reviewImageList,
       'storeImageList': instance.storeImageList,
+      'representImage': instance.representImage,
       'congestionScoreAvg': instance.congestionScoreAvg,
       'totalBusinessHoursResDto': instance.totalBusinessInfo,
       'regDateTime': instance.regDateTime,

@@ -179,10 +179,7 @@ class _StoreListCardState extends State<StoreListCard> {
                                               textStyle:
                                                   AppStyle.caption12Regular,
                                               distance: calculateDistance(
-                                                currentLatLng: LatLng(
-                                                  storeList[index].latY,
-                                                  storeList[index].lngX,
-                                                ),
+                                                currentLatLng: context.watch<StoreDetailBloc>().currentLatLng,
                                                 targetLatLng: LatLng(
                                                   storeList[index].latY,
                                                   storeList[index].lngX,
