@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cafein_flutter/cafein_const.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
-import 'package:cafein_flutter/data/model/common/image_id_pair.dart';
 import 'package:cafein_flutter/data/model/enum/review_recommendation.dart';
 import 'package:cafein_flutter/data/model/event/event.dart';
 import 'package:cafein_flutter/data/model/review/review_response.dart';
@@ -25,15 +24,15 @@ part 'store_detail_event.dart';
 part 'store_detail_state.dart';
 
 class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
-  StoreDetailBloc({
-    required this.storeRepository,
-    required this.reviewRepository,
-    required this.heartRepository,
-    required this.boardRepository,
-    required this.storeId,
-    required this.stickerRepository,
-    required this.userRepository
-  }) : super(const StoreDetailInitial()) {
+  StoreDetailBloc(
+      {required this.storeRepository,
+      required this.reviewRepository,
+      required this.heartRepository,
+      required this.boardRepository,
+      required this.storeId,
+      required this.stickerRepository,
+      required this.userRepository})
+      : super(const StoreDetailInitial()) {
     on<StoreDetailRequested>(_onStoreDetailRequested);
     on<StoreDetailHeartRequested>(_onStoreDetailHeartRequested);
     on<StoreDetailTabChanged>(_onStoreDetailTabChanged);
@@ -66,8 +65,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
   StoreDetail? storeDetail;
   Event? lastEvent;
 
-
-
   FutureOr<void> _onStoreDetailRequested(
     StoreDetailRequested event,
     Emitter<StoreDetailState> emit,
@@ -75,7 +72,6 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
     emit(const StoreDetailLoading());
 
     try {
-
       final result = await Geolocator.getCurrentPosition();
 
       currentLatLng = LatLng(
@@ -349,8 +345,10 @@ class StoreDetailBloc extends Bloc<StoreDetailEvent, StoreDetailState> {
       final response = await reviewRepository.isPossible(event.storeId);
       final isPossible = response.data.isPossibleRegistration;
       final deniedReason = response.data.reason;
-      emit(StoreDetailReviewCreatePossible(isCreatePossible: isPossible,  recommendation: event.recommendation , reviewDeniedReason: deniedReason));
-
+      emit(StoreDetailReviewCreatePossible(
+          isCreatePossible: isPossible,
+          recommendation: event.recommendation,
+          reviewDeniedReason: deniedReason));
     } catch (e) {
       emit(
         StoreDetailError(
