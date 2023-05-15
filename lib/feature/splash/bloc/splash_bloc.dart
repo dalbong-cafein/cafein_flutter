@@ -27,6 +27,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     Emitter<SplashState> emit,
   ) async {
     final tokenData = authRepository.getTokenData();
+    print("@@@@@@@" + _stringToDatTime(tokenData!.refreshTokenExpires).toString());
 
     if (tokenData == null) {
       emit(const SplashLoginChecked());
@@ -67,5 +68,42 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     } catch (e) {
       emit(const SplashError());
     }
+  }
+
+  DateTime _stringToDatTime(String str){
+
+    String month = str.substring(3,6);
+
+    if(month == 'Jan'){
+      month = '01';
+    }if(month == 'Feb') {
+      month = '02';
+    }if(month == 'Mar'){
+      month = '03';
+    }if(month == 'Apr'){
+      month = '04';
+    }if(month == 'May'){
+      month = '05';
+    }if(month == 'Jun'){
+      month = '06';
+    }if(month == 'Jul'){
+      month = '07';
+    }if(month == 'Aug'){
+      month = '08';
+    }if(month == 'Sep'){
+      month = '09';
+    }if(month == 'Oct'){
+      month = '10';
+    }if(month == 'Nov'){
+      month = '11';
+    }if(month == 'Dec'){
+      month = '12';
+    }
+
+    print("@@@@@@ expires : " + str);
+    String newDate = '2023-03-12 11:10:11Z';
+    //String newDate = "${str.substring(0,2)}$month${str.substring(8, 20)}Z";
+    DateTime result = DateTime.parse(newDate);
+    return result;
   }
 }
