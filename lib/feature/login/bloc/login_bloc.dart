@@ -43,6 +43,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ? await UserApi.instance.loginWithKakaoTalk()
             : await UserApi.instance.loginWithKakaoAccount();
         oAuthAccessToken = oAuthToken.accessToken;
+        // print("AcccessToken : "+ oAuthAccessToken);
+        // print("RefreshToken : " + oAuthToken.refreshToken.toString());
+        // print("AccessToken Expire : " + oAuthToken.expiresAt.toString());
+        // print("RefreshToken Expire : " + oAuthToken.refreshTokenExpiresAt.toString());
         appRepository.setAuthProvider(AuthProvider.kakao.name);
       } catch (e) {
         emit(LoginError(

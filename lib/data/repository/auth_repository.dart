@@ -62,7 +62,13 @@ class AuthRepositoryImpl implements AuthRepository {
           if (tokenDatas.isNotEmpty) {
             final accessToken = tokenDatas.first.substring(12).split(';').first;
             final refreshToken = tokenDatas.last.substring(13).split(';').first;
-
+            final accessTokenExpires = tokenDatas.first.split("Expires=").last.split(" GMT;").first.split(", ").last;
+            final refreshTokenExpires = tokenDatas.last.split("Expires=").last.split(" GMT;").first.split(", ").last;
+            print("@@@@TokenDatas :$tokenDatas");
+            print("@@@@AccessToken Expire : " + accessTokenExpires);
+            print("@@@@RefreshToken Expire :" + refreshTokenExpires);
+            print("@@@@AccessToken :" + accessToken);
+            print("@@@@RefreshToken :" + refreshToken);
             authPreference.setTokenData(
               TokenData(
                 accessToken: accessToken,
