@@ -27,21 +27,27 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     Emitter<SplashState> emit,
   ) async {
     final tokenData = authRepository.getTokenData();
-    print("@@@@@@@" + _stringToDatTime(tokenData!.refreshTokenExpires).toString());
-    print("@@@@@@@ access : " + _stringToDatTime(tokenData!.accessTokenExpires).toString());
-    DateTime accessTokenExpireDate = _stringToDatTime(tokenData.accessTokenExpires);
-
-    //accessToken이 만료되었을 경우청
-
-      //refresh Token이 만료 안되었을 경우
-        //access Token 재발급
-      //refresh Token이 만료  되었을 경우
-        //로그인 재 요청
-
     if (tokenData == null) {
       emit(const SplashLoginChecked());
 
       return;
+    }else{
+      // print("@@@@@@@" + _stringToDatTime(tokenData!.refreshTokenExpires).toString());
+      // print("@@@@@@@ access : " + _stringToDatTime(tokenData!.accessTokenExpires).toString());
+      DateTime accessTokenExpireDate = _stringToDatTime(tokenData!.accessTokenExpires);
+
+      //accessToken이 만료되었을 경우
+      if(int.parse(DateTime.now().difference(accessTokenExpireDate).inSeconds.toString() ) < 0){
+        DateTime refreshTokenExpireDate = _stringToDatTime(tokenData!.refreshTokenExpires);
+        //refresh Token이 만료 안되었을 경우
+        if(int.parse(DateTime.now().difference(refreshTokenExpireDate).inSeconds.toString() ) > 0){
+
+        }else{ //둘다 만료 -> 로그인 재요청
+          emit(const SplashLoginChecked());
+          return;
+        }
+
+      }
     }
 
     try {
