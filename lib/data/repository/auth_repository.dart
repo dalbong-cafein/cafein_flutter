@@ -64,6 +64,7 @@ class AuthRepositoryImpl implements AuthRepository {
             final refreshToken = tokenDatas.last.substring(13).split(';').first;
             final accessTokenExpires = tokenDatas.first.split("Expires=").last.split(" GMT;").first.split(", ").last;
             final refreshTokenExpires = tokenDatas.last.split("Expires=").last.split(" GMT;").first.split(", ").last;
+            print("@@@@ refreshTokenExpires :" + refreshTokenExpires);
             authPreference.setTokenData(
               TokenData(
                 accessToken: accessToken,

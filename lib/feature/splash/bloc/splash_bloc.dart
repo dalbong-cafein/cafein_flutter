@@ -28,6 +28,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   ) async {
     final tokenData = authRepository.getTokenData();
     print("@@@@@@@" + _stringToDatTime(tokenData!.refreshTokenExpires).toString());
+    print("@@@@@@@ access : " + _stringToDatTime(tokenData!.accessTokenExpires).toString());
+    DateTime accessTokenExpireDate = _stringToDatTime(tokenData.accessTokenExpires);
+
+    //accessToken이 만료되었을 경우청
+
+      //refresh Token이 만료 안되었을 경우
+        //access Token 재발급
+      //refresh Token이 만료  되었을 경우
+        //로그인 재 요청
 
     if (tokenData == null) {
       emit(const SplashLoginChecked());
@@ -73,6 +82,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   DateTime _stringToDatTime(String str){
 
     String month = str.substring(3,6);
+    String year = str.substring(7, 11);
+    String date = str.substring(0 , 2);
+    String time = str.substring(12, str.length);
 
     if(month == 'Jan'){
       month = '01';
@@ -99,10 +111,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     }if(month == 'Dec'){
       month = '12';
     }
+    String newDate = "$year-$month-$date $time";
 
-    print("@@@@@@ expires : " + str);
-    String newDate = '2023-03-12 11:10:11Z';
-    //String newDate = "${str.substring(0,2)}$month${str.substring(8, 20)}Z";
     DateTime result = DateTime.parse(newDate);
     return result;
   }
