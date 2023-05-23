@@ -7,7 +7,7 @@ import 'package:cafein_flutter/data/model/auth/token_data.dart';
 import 'package:cafein_flutter/data/model/member/member.dart';
 
 abstract class AuthRepository {
-  Future<BaseResponse<dynamic>> refreshAccessToken();
+  Future<BaseResponse<dynamic>> refreshAccessToken(String refreshToken);
 
   Future<BaseResponse<String>> getSmsNumber(
     String phoneNumber,
@@ -78,8 +78,8 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
   @override
-  Future<BaseResponse> refreshAccessToken() =>
-      authClient.refreshAccessToken().then(
+  Future<BaseResponse> refreshAccessToken(String refreshToken) =>
+      authClient.refreshAccessToken(refreshToken).then(
         (value) {
           return value.data;
         },

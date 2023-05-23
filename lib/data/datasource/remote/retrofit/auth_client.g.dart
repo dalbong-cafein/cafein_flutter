@@ -21,10 +21,12 @@ class _AuthClient implements AuthClient {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<BaseResponse<dynamic>>> refreshAccessToken() async {
+  Future<HttpResponse<BaseResponse<dynamic>>> refreshAccessToken(
+      refreshToken) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'cookie': refreshToken};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<BaseResponse<dynamic>>>(Options(

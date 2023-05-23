@@ -106,8 +106,8 @@ class DioUtil {
                 ..interceptors.add(
                   CustomDioLogger('refreshDio'),
                 ))
-              .refreshAccessToken()
-              .then(
+              .refreshAccessToken("eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODQ4NTAxNTEsImV4cCI6MTcyMTEzODE1MSwibWVtYmVySWQiOjh9.7ATBvxUWvziILISqqBi-k5x7CnutdQ0uG4MIT4x8sHA")
+              .then( //todo dio-util 수정
             (value) async {
               final List<String> tokenDatas =
                   value.response.headers['set-cookie'] ?? [];
