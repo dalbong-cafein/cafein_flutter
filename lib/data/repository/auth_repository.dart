@@ -81,6 +81,19 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<BaseResponse> refreshAccessToken(String refreshToken) =>
       authClient.refreshAccessToken(refreshToken).then(
         (value) {
+          final preTokenData = authPreference.getTokenData();
+          final List<String> tokenDatas =
+              value.response.headers['set-cookie'] ?? [];
+          final accessToken = tokenDatas.first.substring(12).split(';').first;
+          final accessTokenExpires = tokenDatas.first.split("Expires=").last.split(" GMT;").first.split(", ").last;
+          authPreference.setTokenData(
+            TokenData(
+                accessToken: accessToken,
+                refreshToken: preTokenData!.refreshToken,
+                accessTokenExpires: accessTokenExpires,
+                refreshTokenExpires: preTokenData!.refreshTokenExpires
+            )
+          );
           return value.data;
         },
       );
