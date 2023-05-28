@@ -1,3 +1,5 @@
+
+
 import 'package:cafein_flutter/cafein_config.dart';
 import 'package:cafein_flutter/data/datasource/remote/base_response.dart';
 import 'package:cafein_flutter/data/model/auth/account_unite_request.dart';
@@ -16,7 +18,9 @@ abstract class AuthClient {
   }) = _AuthClient;
 
   @GET('/auth/refreshToken')
-  Future<HttpResponse<BaseResponse<dynamic>>> refreshAccessToken();
+  Future<HttpResponse<BaseResponse<dynamic>>> refreshAccessToken(
+      @Header('cookie') String refreshToken
+    );
 
   @GET('/auth/send-sms')
   Future<BaseResponse<String>> getSmsNumber(

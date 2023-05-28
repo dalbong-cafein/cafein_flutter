@@ -94,7 +94,7 @@ class DioUtil {
           RequestOptions options = error.response!.requestOptions;
 
           final authorizationData = 'accessToken=${tokenData.accessToken}';
-
+          final refreshTokenData = 'refreshToken=${tokenData.refreshToken}';
           if (options.headers['cookie'] != authorizationData) {
             options.headers['cookie'] = authorizationData;
             return dio.fetch(options).then(
@@ -106,8 +106,8 @@ class DioUtil {
                 ..interceptors.add(
                   CustomDioLogger('refreshDio'),
                 ))
-              .refreshAccessToken()
-              .then(
+              .refreshAccessToken(refreshTokenData)
+              .then( //todo dio-util 수정
             (value) async {
               final List<String> tokenDatas =
                   value.response.headers['set-cookie'] ?? [];

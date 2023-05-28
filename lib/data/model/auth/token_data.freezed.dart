@@ -22,6 +22,10 @@ mixin _$TokenData {
   String get refreshToken => throw _privateConstructorUsedError;
   @HiveField(2)
   String get accessTokenType => throw _privateConstructorUsedError;
+  @HiveField(3)
+  String get accessTokenExpires => throw _privateConstructorUsedError;
+  @HiveField(4)
+  String get refreshTokenExpires => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TokenDataCopyWith<TokenData> get copyWith =>
@@ -36,7 +40,9 @@ abstract class $TokenDataCopyWith<$Res> {
   $Res call(
       {@HiveField(0) String accessToken,
       @HiveField(1) String refreshToken,
-      @HiveField(2) String accessTokenType});
+      @HiveField(2) String accessTokenType,
+      @HiveField(3) String accessTokenExpires,
+      @HiveField(4) String refreshTokenExpires});
 }
 
 /// @nodoc
@@ -55,6 +61,8 @@ class _$TokenDataCopyWithImpl<$Res, $Val extends TokenData>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? accessTokenType = null,
+    Object? accessTokenExpires = null,
+    Object? refreshTokenExpires = null,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
@@ -68,6 +76,14 @@ class _$TokenDataCopyWithImpl<$Res, $Val extends TokenData>
       accessTokenType: null == accessTokenType
           ? _value.accessTokenType
           : accessTokenType // ignore: cast_nullable_to_non_nullable
+              as String,
+      accessTokenExpires: null == accessTokenExpires
+          ? _value.accessTokenExpires
+          : accessTokenExpires // ignore: cast_nullable_to_non_nullable
+              as String,
+      refreshTokenExpires: null == refreshTokenExpires
+          ? _value.refreshTokenExpires
+          : refreshTokenExpires // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -83,7 +99,9 @@ abstract class _$$_TokenDataCopyWith<$Res> implements $TokenDataCopyWith<$Res> {
   $Res call(
       {@HiveField(0) String accessToken,
       @HiveField(1) String refreshToken,
-      @HiveField(2) String accessTokenType});
+      @HiveField(2) String accessTokenType,
+      @HiveField(3) String accessTokenExpires,
+      @HiveField(4) String refreshTokenExpires});
 }
 
 /// @nodoc
@@ -100,6 +118,8 @@ class __$$_TokenDataCopyWithImpl<$Res>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? accessTokenType = null,
+    Object? accessTokenExpires = null,
+    Object? refreshTokenExpires = null,
   }) {
     return _then(_$_TokenData(
       accessToken: null == accessToken
@@ -114,6 +134,14 @@ class __$$_TokenDataCopyWithImpl<$Res>
           ? _value.accessTokenType
           : accessTokenType // ignore: cast_nullable_to_non_nullable
               as String,
+      accessTokenExpires: null == accessTokenExpires
+          ? _value.accessTokenExpires
+          : accessTokenExpires // ignore: cast_nullable_to_non_nullable
+              as String,
+      refreshTokenExpires: null == refreshTokenExpires
+          ? _value.refreshTokenExpires
+          : refreshTokenExpires // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -125,7 +153,9 @@ class _$_TokenData implements _TokenData {
   _$_TokenData(
       {@HiveField(0) required this.accessToken,
       @HiveField(1) required this.refreshToken,
-      @HiveField(2) this.accessTokenType = 'Bearer'});
+      @HiveField(2) this.accessTokenType = 'Bearer',
+      @HiveField(3) this.accessTokenExpires = 'accessTokenExpires',
+      @HiveField(4) this.refreshTokenExpires = 'refreshTokenExpires'});
 
   @override
   @HiveField(0)
@@ -137,10 +167,18 @@ class _$_TokenData implements _TokenData {
   @JsonKey()
   @HiveField(2)
   final String accessTokenType;
+  @override
+  @JsonKey()
+  @HiveField(3)
+  final String accessTokenExpires;
+  @override
+  @JsonKey()
+  @HiveField(4)
+  final String refreshTokenExpires;
 
   @override
   String toString() {
-    return 'TokenData(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenType: $accessTokenType)';
+    return 'TokenData(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenType: $accessTokenType, accessTokenExpires: $accessTokenExpires, refreshTokenExpires: $refreshTokenExpires)';
   }
 
   @override
@@ -153,12 +191,16 @@ class _$_TokenData implements _TokenData {
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
             (identical(other.accessTokenType, accessTokenType) ||
-                other.accessTokenType == accessTokenType));
+                other.accessTokenType == accessTokenType) &&
+            (identical(other.accessTokenExpires, accessTokenExpires) ||
+                other.accessTokenExpires == accessTokenExpires) &&
+            (identical(other.refreshTokenExpires, refreshTokenExpires) ||
+                other.refreshTokenExpires == refreshTokenExpires));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, accessToken, refreshToken, accessTokenType);
+  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken,
+      accessTokenType, accessTokenExpires, refreshTokenExpires);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +213,9 @@ abstract class _TokenData implements TokenData {
   factory _TokenData(
       {@HiveField(0) required final String accessToken,
       @HiveField(1) required final String refreshToken,
-      @HiveField(2) final String accessTokenType}) = _$_TokenData;
+      @HiveField(2) final String accessTokenType,
+      @HiveField(3) final String accessTokenExpires,
+      @HiveField(4) final String refreshTokenExpires}) = _$_TokenData;
 
   @override
   @HiveField(0)
@@ -182,6 +226,12 @@ abstract class _TokenData implements TokenData {
   @override
   @HiveField(2)
   String get accessTokenType;
+  @override
+  @HiveField(3)
+  String get accessTokenExpires;
+  @override
+  @HiveField(4)
+  String get refreshTokenExpires;
   @override
   @JsonKey(ignore: true)
   _$$_TokenDataCopyWith<_$_TokenData> get copyWith =>

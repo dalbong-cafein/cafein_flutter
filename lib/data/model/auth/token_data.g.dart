@@ -20,19 +20,25 @@ class TokenDataAdapter extends TypeAdapter<_$_TokenData> {
       accessToken: fields[0] as String,
       refreshToken: fields[1] as String,
       accessTokenType: fields[2] as String,
+      accessTokenExpires: fields[3] as String,
+      refreshTokenExpires: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_TokenData obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.accessToken)
       ..writeByte(1)
       ..write(obj.refreshToken)
       ..writeByte(2)
-      ..write(obj.accessTokenType);
+      ..write(obj.accessTokenType)
+      ..writeByte(3)
+      ..write(obj.accessTokenExpires)
+      ..writeByte(4)
+      ..write(obj.refreshTokenExpires);
   }
 
   @override

@@ -14,5 +14,7 @@ class TokenData with _$TokenData {
     @HiveField(0) required String accessToken,
     @HiveField(1) required String refreshToken,
     @HiveField(2) @Default('Bearer') String accessTokenType,
+    @HiveField(3) @Default('accessTokenExpires') String accessTokenExpires,
+    @HiveField(4) @Default('refreshTokenExpires') String refreshTokenExpires,
   }) = _TokenData;
 }
