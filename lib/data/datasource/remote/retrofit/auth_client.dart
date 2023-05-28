@@ -19,7 +19,8 @@ abstract class AuthClient {
 
   @GET('/auth/refreshToken')
   Future<HttpResponse<BaseResponse<dynamic>>> refreshAccessToken(
-      @Header('cookie') String refreshToken);
+      @Header('cookie') String refreshToken
+    );
 
   @GET('/auth/send-sms')
   Future<BaseResponse<String>> getSmsNumber(
